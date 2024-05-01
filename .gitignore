@@ -6,6 +6,7 @@
 /**/*.tmp
 /**/*.log
 /**/*.logs
+/**/*.bak
 
 # ignore everything except for core.
 /alias/
