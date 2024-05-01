@@ -1,0 +1,29 @@
+# Jetbrains
+/*.iml
+/.idea
+
+# Bearsampp
+/**/*.tmp
+/**/*.log
+/**/*.logs
+
+# ignore everything except for core.
+/alias/
+/apps/
+/bin/
+/cgi-bin/
+/logs/*
+/ssl/
+/tmp/*
+core/tmp/*
+/tools/
+/vhosts/
+/www/.htaccess
+/**/post-install/
+bearsampp.ini
+bearsampp.conf
+
+# Visual Studio
+.vscode/
+.vs/
+.vsc/
