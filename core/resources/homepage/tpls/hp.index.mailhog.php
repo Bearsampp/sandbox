@@ -1,14 +1,14 @@
 <a class="anchor" name="mailhog"></a>
 <div class="row-fluid">
   <div class="col-lg-12">
-    <h1><img src="<?php echo RESOURCES_PATH. '/img/mailhog.png'; ?>" /> <?php echo $bearsamppLang->getValue(Lang::MAILHOG); ?> <small></small></h1>
+    <h1><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/mailhog.png'; ?>" /> <?php echo $bearsamppLang->getValue(Lang::MAILHOG); ?> <small></small></h1>
   </div>
 </div>
 <div class="row-fluid">
   <div class="col-lg-6">
     <div class="list-group">
       <span class="list-group-item mailhog-checkport">
-        <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+        <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
         <i class="fa fa-bar-chart-o"></i> <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
       </span>
       <span class="list-group-item mailhog-versions">
@@ -17,7 +17,7 @@
               </span>
               <span class="mailhog-version-list float-right col-11">
                 <span class="loader" style="float:right">
-                  <img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>"/>
+                  <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>"/>
                 </span>
               </span>
       </span>

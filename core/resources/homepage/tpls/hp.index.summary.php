@@ -36,39 +36,39 @@
       <div class="card-body card-summary">
         <div class="list-group" style="margin-bottom:0;">
           <span class="list-group-item summary-binapache">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#apache"><?php echo $bearsamppLang->getValue(Lang::APACHE); ?></a>
           </span>
           <span class="list-group-item summary-binphp">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#php"><?php echo $bearsamppLang->getValue(Lang::PHP); ?></a>
           </span>
           <span class="list-group-item summary-binmysql">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#mysql"><?php echo $bearsamppLang->getValue(Lang::MYSQL); ?></a>
           </span>
           <span class="list-group-item summary-binmariadb">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#mariadb"><?php echo $bearsamppLang->getValue(Lang::MARIADB); ?></a>
           </span>
           <span class="list-group-item summary-binpostgresql">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#postgresql"><?php echo $bearsamppLang->getValue(Lang::POSTGRESQL); ?></a>
           </span>
           <span class="list-group-item summary-binnodejs">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#nodejs"><?php echo $bearsamppLang->getValue(Lang::NODEJS); ?></a>
           </span>
           <span class="list-group-item summary-binmailhog">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#mailhog"><?php echo $bearsamppLang->getValue(Lang::MAILHOG); ?></a>
           </span>
           <span class="list-group-item summary-binmemcached">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#memcached"><?php echo $bearsamppLang->getValue(Lang::MEMCACHED); ?></a>
           </span>
           <span class="list-group-item summary-binfilezilla">
-            <span class="loader" style="float:right"><img src="<?php echo RESOURCES_PATH. '/img/loader.gif'; ?>" /></span>
+            <span class="loader" style="float:right"><img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" /></span>
             <a href="#filezilla"><?php echo $bearsamppLang->getValue(Lang::FILEZILLA); ?></a>
           </span>
         </div>

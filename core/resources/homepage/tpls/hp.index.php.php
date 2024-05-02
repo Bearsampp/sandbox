@@ -31,7 +31,7 @@ Here is an improved version of the php code snippet:
 <div class="row-fluid">
     <div class="col-lg-12">
         <h1>
-            <img src="<?php echo RESOURCES_PATH . '/img/php.png'; ?>" alt="PHP Logo">
+            <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/php.png'; ?>" alt="PHP Logo">
             <?php echo $bearsamppLang->getValue(Lang::PHP); ?>
             <small></small>
         </h1>
@@ -42,7 +42,7 @@ Here is an improved version of the php code snippet:
         <div class="list-group">
             <span class="list-group-item php-status">
                 <span class="loader float-end">
-                    <img src="<?php echo RESOURCES_PATH . '/img/loader.gif'; ?>" alt="Loader">
+                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
                 <i class="fa fa-bar-chart-o"></i> <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
             </span>
@@ -53,20 +53,20 @@ Here is an improved version of the php code snippet:
                 </span>
                 <span class="php-version-list float-right col-11">
                     <span class="loader float-end">
-                        <img src="<?php echo RESOURCES_PATH . '/img/loader.gif'; ?>" alt="Loader">
+                        <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                     </span>
                 </span>
             </span>
             <span class="list-group-item php-extscount">
                 <span class="loader float-end">
-                    <img src="<?php echo RESOURCES_PATH . '/img/loader.gif'; ?>" alt="Loader">
+                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
                 <i class="fa fa-gear"></i>
                 <?php echo $bearsamppLang->getValue(Lang::EXTENSIONS); ?>
             </span>
             <span class="list-group-item php-pearversion">
                 <span class="loader float-end">
-                    <img src="<?php echo RESOURCES_PATH . '/img/loader.gif'; ?>" alt="Loader">
+                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
                 <i class="fa fa-puzzle-piece"></i>
                 <?php echo $bearsamppLang->getValue(Lang::PEAR); ?>
@@ -100,7 +100,7 @@ Here is an improved version of the php code snippet:
     <div class="row-fluid">
         <div class="col-lg-12 php-extslist d-flex flex-wrap mb-2">
             <span class="loader">
-                <img src="<?php echo RESOURCES_PATH . '/img/loader.gif'; ?>" alt="Loader">
+                <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
             </span>
         </div>
     </div>
