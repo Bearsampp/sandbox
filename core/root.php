@@ -33,6 +33,7 @@ $bearsamppRoot->register();
 // Process action
 $bearsamppAction = new Action();
 $bearsamppAction->process();
+
 // Stop loading
 if ($bearsamppRoot->isRoot()) {
     Util::stopLoading();

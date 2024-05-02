@@ -1,32 +1,3 @@
-<!-- //// Begin Code Explanation ////
-## Summary
-The code snippet is a part of a PHP file that generates HTML code for a webpage. It displays information about PHP, such as its version, extensions, and PEAR version. It also includes links to additional information about PHP and the APC extension if it is installed.
-
-## Code Analysis
-### Inputs
-None
-___
-### Flow
-1. The code snippet starts by creating a heading with the PHP logo and the text "PHP" in it.
-2. It then creates a list group with several items, each displaying different information about PHP.
-3. The first item displays the status of PHP and includes a loader image.
-4. The second item displays a list of PHP versions and includes a loader image.
-5. The third item displays the number of PHP extensions installed and includes a loader image.
-6. The fourth item displays the PEAR version of PHP and includes a loader image.
-7. The fifth item is a link to additional information about PHP.
-8. If the APC extension is installed, an additional item is displayed with a link to the APC page.
-9. Finally, a section header is created for the list of PHP extensions.
-___
-### Outputs
-The code snippet generates HTML code that displays information about PHP, including its version, extensions, and PEAR version. It also includes links to additional information about PHP and the APC extension if it is installed.
-___
-//// End Code Explanation ////
-
-
-Here is an improved version of the php code snippet:
-
-//// Begin Code Snippet ////
--->
 <a class="anchor" name="php"></a>
 <div class="row-fluid">
     <div class="col-lg-12">
