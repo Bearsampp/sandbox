@@ -23,6 +23,7 @@ class Lang
     const CONSOLE = 'console';
     const DEBUG = 'debug';
     const DISABLED = 'disabled';
+    const DISCORD  = 'disccord';
     const DONATE = 'donate';
     const DONATE_VIA = 'donateVia';
     const DOWNLOAD = 'download';
@@ -31,6 +32,7 @@ class Lang
     const ERROR = 'error';
     const EXECUTABLE = 'executable';
     const EXTENSIONS = 'extensions';
+    const FACEBOOK = 'facebook';
     const GIT_CONSOLE = 'gitConsole';
     const GITGUI = 'gitGui';
     const GITHUB = 'github';
@@ -375,6 +377,7 @@ class Lang
             self::CONSOLE,
             self::DEBUG,
             self::DISABLED,
+            self::DISCORD,
             self::DONATE,
             self::DONATE_VIA,
             self::DOWNLOAD,
@@ -384,6 +387,7 @@ class Lang
             self::EXECUTABLE,
             self::EXTENSIONS,
             self::GIT_CONSOLE,
+            self::FACEBOOK,
             self::GITHUB,
             self::HELP,
             self::HOSTSEDITOR,
