@@ -887,16 +887,28 @@ class Util
         return $result;
     }
 
-    public static function getLatestVersion()
+    public static function getLatestVersion($url, $token, $header)
     {
-        $result = self::getGitLatest(APP_GITHUB_LATEST_URL, APP_GITHUB_TOKEN);
+        $result = self::getApiJson($url, $token, $header);
         if (empty($result)) {
             self::logError('Cannot retrieve latest version');
             return null;
         }
-        self::logDebug("Latest version found: " . $result);
-        return $result;
+
+        $resultArray = json_decode($result, true);
+        if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
+            $tagName = $resultArray['tag_name'];
+            $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
+            self::logDebug("Latest version tag name: " . $tagName);
+            self::logDebug("Download URL: " . $downloadUrl);
+            return ['version' => $tagName, 'url' => $downloadUrl];
+        } else {
+            self::logError('Tag name or download URL not found in the response' . ' ' . $result);
+            return null;
+        }
     }
+
+
 
     public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
     {
@@ -919,11 +931,6 @@ class Util
         }
 
         return $url;
-    }
-
-    public static function getVersionUrl($version)
-    {
-        return LANG::VERSION_URL . $version;
     }
 
     public static function getChangelogUrl($utmSource = true)
@@ -1074,18 +1081,14 @@ class Util
         return $result;
     }
 
-    public static function getGitLatest($url, $token)
+    public static function getApiJson($url, $token, $header)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Accept: application/vnd.github+json',
-            'Authorization: Bearer ' . $token,
-            'X-GitHub-Api-Version: 2022-11-28'
-        ));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         $data = curl_exec($ch);
         curl_close($ch);
         return trim($data);
