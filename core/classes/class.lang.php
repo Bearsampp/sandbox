@@ -23,7 +23,7 @@ class Lang
     const CONSOLE = 'console';
     const DEBUG = 'debug';
     const DISABLED = 'disabled';
-    const DISCORD  = 'disccord';
+    const DISCORD  = 'discord';
     const DONATE = 'donate';
     const DONATE_VIA = 'donateVia';
     const DOWNLOAD = 'download';

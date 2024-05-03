@@ -5,7 +5,8 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
 
 ?>
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="<?php echo $bearsamppLang->getCurrentLang(); ?>">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +80,7 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
                    href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><img
-                        src = "<?php echo $resourcesPath . '/img/github-mark-white'; ?>"  alt=""/></a>
+                        src = "<?php echo $resourcesPath . '/img/github-mark-white.png'; ?>"  alt=""/></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
