@@ -59,7 +59,7 @@ class Splash
         global $bearsamppCore, $bearsamppWinbinder;
 
         for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/icons/app.ico', 4, 4, 32, 32);
+            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/icons/bearsampp.bmp', 4, 4, 32, 32);
             $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
         }
 

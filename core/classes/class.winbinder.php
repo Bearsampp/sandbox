@@ -89,7 +89,7 @@ class WinBinder
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
         $window = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
-        // Set window icon
+        // Set tiny window icon
         $this->setImage($window, $bearsamppCore->getResourcesPath() . '/icons/app.ico');
 
         return $window;
@@ -410,7 +410,7 @@ class WinBinder
             $title == null ? $this->defaultTitle : $this->defaultTitle . ' - ' . $title, $type
         ));
 
-        // Set window icon
+        // Set tiny window icon
         $this->setImage($messageBox, $bearsamppCore->getResourcesPath() . '/icons/app.ico');
 
         return $messageBox;
