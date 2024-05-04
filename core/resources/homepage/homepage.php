@@ -1,10 +1,13 @@
 <?php
+
 include __DIR__ . '/../../root.php';
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage;
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $bearsamppConfig->getLang();?>">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +51,7 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
     }
     ?>
 
-    <link href="<?php echo Util::imgToBase64($bearsamppCore->getResourcesPath() . '/bearsampp.ico'); ?>" rel="icon" />
+    <link href="<?php echo Util::imgToBase64($bearsamppCore->getResourcesPath() . '/icons/app.ico'); ?>" rel="icon" />
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
 </head>
 
@@ -65,17 +68,25 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
             </button>
         </div>
     </div>
-    <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
-        <ul class = "d-flex flex-row justify-content-end flex-fill mb-0">
+    <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
+        <ul class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
+            <li>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
+                   href = "https://discord.gg/AgwVNAzV" alt="Discord Icon"><i class= "fa-brands fa-discord"></i></a>
+            </li>
+            <li>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
+                   href = "https://www.facebook.com/groups/bearsampp" alt="Facebook icon"><i class= "fa-brands fa-facebook"></i></a>
+            </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
-                   href = "<?php echo Util::getGithubUrl(); ?>"><img
-                        src = "<?php echo $resourcesPath . '/img/github.png'; ?>" /></a>
+                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><img
+                        src = "<?php echo $resourcesPath . '/img/github-mark-white.png'; ?>"  alt="Github Icon"/></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
                    href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img
-                        src = "<?php echo $resourcesPath . '/img/heart.png'; ?>" /></a>
+                        src = "<?php echo $resourcesPath . '/img/heart.png'; ?>"  alt="Donation Icon"/></a>
             </li>
         </ul>
     </div>

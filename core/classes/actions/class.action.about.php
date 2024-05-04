@@ -39,7 +39,7 @@ class ActionAbout
 
         $this->wbBtnOk = $bearsamppWinbinder->createButton($this->wbWindow, $bearsamppLang->getValue(Lang::BUTTON_OK), 340, 180);
 
-        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/about.bmp');
+        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/icons/about.bmp');
 
         $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processWindow');
         $bearsamppWinbinder->mainLoop();
