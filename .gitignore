@@ -13,6 +13,7 @@
 /apps/
 /bin/
 /cgi-bin/
+/img/
 /logs/*
 /ssl/
 /tmp/*

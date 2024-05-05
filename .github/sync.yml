@@ -1,0 +1,25 @@
+group:
+
+  # individual files
+  - files:
+        - License
+        - bar.dat
+        - nssmEnvPaths.dat
+        - README.md
+        - sprites.dat
+        - www/apc.php
+        - www/index.php
+    repos: |
+        Bearsampp/Bearsampp
+
+  # folders
+  - files:
+      - source: core
+        dest: core
+        exclude: |
+          resources/icons/about.bmp
+          resources/icons/app.ico
+          resources/icons/bearsampp.bmp
+          resources/version.dat
+    repos: |
+      Bearsampp/Bearsampp
