@@ -1083,6 +1083,8 @@ class Util
 
     public static function getApiJson($url, $token, $header)
     {
+        $header = Util::setupCurlHeaderWithToken($decryptedToken);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
@@ -1304,5 +1306,66 @@ class Util
         file_put_contents($filepath, $content);
 
         $bearsamppWinbinder->exec($bearsamppConfig->getNotepad(), '"' . $filepath . '"');
+    }
+
+    /**
+     * Decrypts an OpenSSH encrypted file and returns the content.
+     * @param string $filePath Path to the encrypted file.
+     * @param string $privateKeyPath Path to the private key used for decryption.
+     * @param string $password decryption password
+     * @return string|false Decrypted content or false on failure.
+     */
+    function decryptFile($encryptedFile, $password, $method) {
+        // Log the input parameters
+        Util::logDebug("decryptFile called with resourcePath: {$encryptedFile}, password: {$password}, method: {$method}");
+
+        // Read the encrypted data from the file
+        $encryptedData = file_get_contents($encryptedFile);
+        if ($encryptedData === false) {
+            Util::logDebug("Failed to read the file at path: {$encryptedFile}");
+            return false;
+        }
+
+        // Decode the base64 encoded data
+        $data = base64_decode($encryptedData);
+        if ($data === false) {
+            Util::logDebug("Failed to decode the data from path: {$encryptedFile}");
+            return false;
+        }
+
+        // Extract the IV which was prepended to the encrypted data
+        $ivLength = openssl_cipher_iv_length($method);
+        $iv = substr($data, 0, $ivLength);
+        $encrypted = substr($data, $ivLength);
+
+        // Decrypt the data
+        $decrypted = openssl_decrypt($encrypted, $method, $password, 0, $iv);
+        if ($decrypted === false) {
+            Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
+            return false;
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Uses the decrypted token to set up a cURL header.
+     * @param string $decryptedToken The decrypted GitHub PAT.
+     * @return array The header array for cURL.
+     */
+    public static function setupCurlHeaderWithToken($decryptedToken) {
+
+        // Usage
+        $encryptedFile = $bearsamppCore . 'resources/encrypted_pat.txt';
+        $password = $bearsamppConfig->getPassword(); // The same password used for encryption
+        $method = 'AES-256-CBC'; // The same encryption method used
+        $decryptedToken = decryptFile($encryptedFile, $password, $method);
+
+        return [
+            'Accept: application/vnd.github+json',
+            'Authorization: Token ' . $decryptedToken,
+            'User-Agent: ' . APP_GITHUB_USERAGENT,
+            'X-GitHub-Api-Version: 2022-11-28'
+        ];
     }
 }

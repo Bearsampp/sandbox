@@ -20,6 +20,7 @@ class Config
     const CFG_BROWSER = 'browser';
     const CFG_ONLINE = 'online';
     const CFG_LAUNCH_STARTUP = 'launchStartup';
+    const CFG_PASSWORD = 'password';
 
     const ENABLED = 1;
     const DISABLED = 0;
@@ -121,5 +122,10 @@ class Config
     public function getMaxLogsArchives()
     {
         return intval($this->raw[self::CFG_MAX_LOGS_ARCHIVES]);
+    }
+
+    public function getPassword()
+    {
+        return $this->raw[self::CFG_PASSWORD];
     }
 }
