@@ -5,7 +5,6 @@ group:
         - License
         - bar.dat
         - nssmEnvPaths.dat
-        - README.md
         - sprites.dat
         - www/apc.php
         - www/index.php
