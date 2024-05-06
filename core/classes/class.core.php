@@ -200,4 +200,8 @@ class Core
     {
         return $this->getLnPath($aetrayPath) . '/' . self::LN_EXE;
     }
+
+    public function __toString() {
+        return 'core object';
+    }
 }

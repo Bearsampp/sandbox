@@ -1315,9 +1315,11 @@ class Util
      * @param string $method Encryption method used (e.g., AES-256-CBC).
      * @return string|false Decrypted content or false on failure.
      */
-    public static function decryptFile($encryptedFile, $password, $method) {
-        // Log the input parameters
-        Util::logDebug("decryptFile called with resourcePath: {$encryptedFile}, password: {$password}, method: {$method}");
+    public static function decryptFile() {
+
+        global $bearsamppCore;
+        $encryptedFile = $bearsamppCore . 'resources/encrypted_pat.dat';
+        $method         = 'AES-256-CBC'; // The same encryption method used
 
         // Read the encrypted data from the file
         $encryptedData = file_get_contents($encryptedFile);
@@ -1325,6 +1327,9 @@ class Util
             Util::logDebug("Failed to read the file at path: {$encryptedFile}");
             return false;
         }
+
+        // Log the input parameters
+        Util::logDebug("decryptFile called with resourcePath: Encrypted password: {$encryptedData}, method: {$method}");
 
         // Decode the base64 encoded data
         $data = base64_decode($encryptedData);
@@ -1356,13 +1361,7 @@ class Util
 
         // Usage
         global $bearsamppCore, $bearsamppConfig;
-        $encryptedFile  = $bearsamppCore . 'resources/encrypted_pat.dat';
-
-        /* set $config so it matches valid php 5.6 syntax */
-        $config = $bearsamppConfig->config;
-        $password       = config::getPassword(); // The same password used for encryption
-        $method         = 'AES-256-CBC'; // The same encryption method used
-        $decryptedToken = self::decryptFile($encryptedFile, $password, $method);
+        $decryptedToken = self::decryptFile();
 
         return [
             'Accept: application/vnd.github+json',
