@@ -1356,7 +1356,7 @@ class Util
 
         // Usage
         global $bearsamppCore, $bearsamppConfig;
-        $encryptedFile  = $bearsamppCore . 'resources/encrypted_pat.txt';
+        $encryptedFile  = $bearsamppCore . 'resources/encrypted_pat.dat';
 
         /* set $config so it matches valid php 5.6 syntax */
         $config = $bearsamppConfig->config;
