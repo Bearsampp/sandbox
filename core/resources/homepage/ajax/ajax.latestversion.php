@@ -5,7 +5,7 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-global $appGithubHeader, $bearsamppLang, $bearsamppCore;
+global $bearsamppLang, $bearsamppCore;
 
 $result = array(
     'display'  => false,
@@ -16,7 +16,7 @@ $result = array(
 $bearsamppCurrentVersion = $bearsamppCore->getAppVersion();
 
 // Assuming getLatestVersion now returns an array with version and URL
-$latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL, APP_GITHUB_TOKEN, $appGithubHeader );
+$latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL);
 
 $bearsamppLatestVersion = $latestVersionData['version'];
 $latestVersionUrl       = $latestVersionData['url']; // URL of the latest version

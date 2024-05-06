@@ -887,9 +887,9 @@ class Util
         return $result;
     }
 
-    public static function getLatestVersion($url, $token, $header)
+    public static function getLatestVersion($url)
     {
-        $result = self::getApiJson($url, $token, $header);
+        $result = self::getApiJson($url);
         if (empty($result)) {
             self::logError('Cannot retrieve latest version');
             return null;
@@ -1081,9 +1081,9 @@ class Util
         return $result;
     }
 
-    public static function getApiJson($url, $token, $header)
+    public static function getApiJson($url)
     {
-        $header = Util::setupCurlHeaderWithToken($decryptedToken);
+        $header = self::setupCurlHeaderWithToken();
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -1309,13 +1309,13 @@ class Util
     }
 
     /**
-     * Decrypts an OpenSSH encrypted file and returns the content.
-     * @param string $filePath Path to the encrypted file.
-     * @param string $privateKeyPath Path to the private key used for decryption.
-     * @param string $password decryption password
+     * Decrypts a file encrypted with a specified method and returns the content.
+     * @param string $encryptedFile Path to the encrypted file.
+     * @param string $password Password used for decryption.
+     * @param string $method Encryption method used (e.g., AES-256-CBC).
      * @return string|false Decrypted content or false on failure.
      */
-    function decryptFile($encryptedFile, $password, $method) {
+    public static function decryptFile($encryptedFile, $password, $method) {
         // Log the input parameters
         Util::logDebug("decryptFile called with resourcePath: {$encryptedFile}, password: {$password}, method: {$method}");
 
@@ -1348,18 +1348,21 @@ class Util
         return $decrypted;
     }
 
-    /**
-     * Uses the decrypted token to set up a cURL header.
-     * @param string $decryptedToken The decrypted GitHub PAT.
-     * @return array The header array for cURL.
-     */
-    public static function setupCurlHeaderWithToken($decryptedToken) {
+/**
+ * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
+ * @return array The header array for cURL with authorization and other necessary details.
+ */
+    public static function setupCurlHeaderWithToken() {
 
         // Usage
-        $encryptedFile = $bearsamppCore . 'resources/encrypted_pat.txt';
-        $password = $bearsamppConfig->getPassword(); // The same password used for encryption
-        $method = 'AES-256-CBC'; // The same encryption method used
-        $decryptedToken = decryptFile($encryptedFile, $password, $method);
+        global $bearsamppCore, $bearsamppConfig;
+        $encryptedFile  = $bearsamppCore . 'resources/encrypted_pat.txt';
+
+        /* set $config so it matches valid php 5.6 syntax */
+        $config = $bearsamppConfig->config;
+        $password       = config::getPassword(); // The same password used for encryption
+        $method         = 'AES-256-CBC'; // The same encryption method used
+        $decryptedToken = self::decryptFile($encryptedFile, $password, $method);
 
         return [
             'Accept: application/vnd.github+json',
