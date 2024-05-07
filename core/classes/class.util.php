@@ -891,7 +891,7 @@ class Util
     {
         $result = self::getApiJson($url);
         if (empty($result)) {
-            self::logError('Cannot retrieve latest version');
+            self::logError('Cannot retrieve latest github info');
             return null;
         }
 
@@ -899,8 +899,8 @@ class Util
         if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
             $tagName = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            self::logDebug("Latest version tag name: " . $tagName);
-            self::logDebug("Download URL: " . $downloadUrl);
+            // self::logDebug("Latest version tag name: " . $tagName);
+            // self::logDebug("Download URL: " . $downloadUrl);
             return ['version' => $tagName, 'url' => $downloadUrl];
         } else {
             self::logError('Tag name or download URL not found in the response' . ' ' . $result);
@@ -1318,6 +1318,9 @@ class Util
     public static function decryptFile() {
 
         global $bearsamppCore;
+
+        $bearsamppCore->unzipFile($bearsamppCore->getResourcesPath() . '/github.zip',$bearsamppCore->getResourcesPath());
+
         $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
         $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
         $method         = 'AES-256-CBC'; // The same encryption method used
@@ -1338,9 +1341,6 @@ class Util
             return false;
         }
 
-        // Log the input parameters
-        Util::logDebug("decryptFile called with resourcePath: Encrypted password: {$encryptedData}, method: {$method}");
-
         // Decode the base64 encoded data
         $data = base64_decode($encryptedData);
         if ($data === false) {
@@ -1359,7 +1359,11 @@ class Util
             Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
             return false;
         }
-        Util::logDebug("Raw code in file is: {$encryptedFile}");
+
+        // Remove extracted key files now.
+        unlink($stringfile);
+        unlink($encryptedFile);
+
         return $decrypted;
     }
 
