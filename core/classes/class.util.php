@@ -1318,8 +1318,18 @@ class Util
     public static function decryptFile() {
 
         global $bearsamppCore;
-        $encryptedFile = $bearsamppCore . 'resources/encrypted_pat.dat';
+        $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
+        $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
         $method         = 'AES-256-CBC'; // The same encryption method used
+
+        // Get key string
+        $stringPhrase = file_get_contents($stringfile);
+        if ($stringPhrase === false) {
+            Util::logDebug("Failed to read the file at path: {$stringfile}");
+            return false;
+        }
+
+        $stringKey = convert_uudecode($stringPhrase);
 
         // Read the encrypted data from the file
         $encryptedData = file_get_contents($encryptedFile);
@@ -1344,12 +1354,12 @@ class Util
         $encrypted = substr($data, $ivLength);
 
         // Decrypt the data
-        $decrypted = openssl_decrypt($encrypted, $method, $password, 0, $iv);
+        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
         if ($decrypted === false) {
             Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
             return false;
         }
-
+        Util::logDebug("Raw code in file is: {$encryptedFile}");
         return $decrypted;
     }
 
