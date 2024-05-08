@@ -32,5 +32,6 @@ if ($bearsamppRoot->isRoot()) {
     Util::stopLoading();
 }
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Get language locale for the webpage
+$langProc = new LangProc();
+$locale = $langProc->getValue('locale');

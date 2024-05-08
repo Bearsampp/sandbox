@@ -5,6 +5,7 @@
 allRunningHint = "Все службы работают"
 someRunningHint = "%n из %t служб работают"
 noneRunningHint = "Ни одна из %t служб не работает"
+locale = "ru"
 
 ; Single
 about = "О программе"

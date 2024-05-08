@@ -1,12 +1,12 @@
 <?php
 
 include __DIR__ . '/../../root.php';
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig;
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale;
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
-
 ?>
+
 <!DOCTYPE html>
-<html lang="<?php echo $bearsamppConfig->getLang();?>">
+<html lang="<?php echo $locale?>">
 
 <head>
     <meta charset="utf-8">
