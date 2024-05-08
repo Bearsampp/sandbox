@@ -1,7 +1,7 @@
 <?php
 
 include __DIR__ . '/../../root.php';
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage;
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig;
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
 
 ?>

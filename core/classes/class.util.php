@@ -6,14 +6,47 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Utility class providing a wide range of static methods for various purposes including:
+ * - Cleaning and retrieving command line, GET, and POST variables based on type specifications.
+ * - String manipulation methods to check if strings contain, start with, or end with specified substrings.
+ * - File and directory management functions for deleting, clearing, or finding files and directories.
+ * - Logging functionalities tailored for different levels of verbosity (ERROR, WARNING, INFO, DEBUG, TRACE).
+ * - System utilities for handling registry operations, managing environment variables, and executing system commands.
+ * - Network utilities to validate IPs, domains, and manage HTTP requests.
+ * - Helper functions for encoding, decoding, and file operations.
+ *
+ * This class is designed to be used as a helper or utility class where methods are accessed statically.
+ * This means you do not need to instantiate it to use the methods, but can simply call them using the Util::methodName() syntax.
+ *
+ * Usage Example:
+ * ```
+ * $cleanedData = Util::cleanGetVar('data', 'text');
+ * Util::logError('An error occurred');
+ * $isAvailable = Util::isValidIp('192.168.1.1');
+ * ```
+ *
+ * Each method is self-contained and provides specific functionality, making this class a central point for
+ * common utility operations needed across a PHP application, especially in environments like web servers or command-line interfaces.
+ */
 class Util
 {
+    /**
+     * This code snippet defines constants for logging levels.
+     */
     const LOG_ERROR = 'ERROR';
     const LOG_WARNING = 'WARNING';
     const LOG_INFO = 'INFO';
     const LOG_DEBUG = 'DEBUG';
     const LOG_TRACE = 'TRACE';
 
+    /**
+     * Cleans and returns a specific command line argument based on the type specified.
+     *
+     * @param string $name The index of the argument in the $_SERVER['argv'] array.
+     * @param string $type The type of the argument to return: 'text', 'numeric', 'boolean', or 'array'.
+     * @return mixed Returns the cleaned argument based on the type or false if the argument is not set.
+     */
     public static function cleanArgv($name, $type = 'text')
     {
         if (isset($_SERVER['argv'])) {
@@ -31,6 +64,13 @@ class Util
         return false;
     }
 
+    /**
+     * Cleans and returns a specific $_GET variable based on the type specified.
+     *
+     * @param string $name The name of the $_GET variable.
+     * @param string $type The type of the variable to return: 'text', 'numeric', 'boolean', or 'array'.
+     * @return mixed Returns the cleaned $_GET variable based on the type or false if the variable is not set.
+     */
     public static function cleanGetVar($name, $type = 'text')
     {
         if (is_string($name)) {
@@ -48,6 +88,13 @@ class Util
         return false;
     }
 
+    /**
+     * Cleans and returns a specific $_POST variable based on the type specified.
+     *
+     * @param string $name The name of the $_POST variable.
+     * @param string $type The type of the variable to return: 'text', 'number', 'float', 'boolean', 'array', or 'content'.
+     * @return mixed Returns the cleaned $_POST variable based on the type or false if the variable is not set.
+     */
     public static function cleanPostVar($name, $type = 'text')
     {
         if (is_string($name)) {
@@ -69,6 +116,13 @@ class Util
         return false;
     }
 
+    /**
+     * Checks if a string contains a specified substring.
+     *
+     * @param string $string The string to search in.
+     * @param string $search The substring to search for.
+     * @return bool Returns true if the substring is found in the string, otherwise false.
+     */
     public static function contains($string, $search)
     {
         if (!empty($string) && !empty($search)) {
@@ -83,19 +137,44 @@ class Util
         }
     }
 
+    /**
+     * Checks if a string starts with a specified substring.
+     *
+     * @param string $string The string to check.
+     * @param string $search The substring to look for at the start of the string.
+     * @return bool Returns true if the string starts with the search substring, otherwise false.
+     */
     public static function startWith($string, $search)
     {
         $length = strlen($search);
         return (substr($string, 0, $length) === $search);
     }
 
+    /**
+     * Checks if a string ends with a specified substring.
+     *
+     * This method trims the right side whitespace of the input string before checking
+     * if it ends with the specified search substring.
+     *
+     * @param string $string The string to check.
+     * @param string $search The substring to look for at the end of the string.
+     * @return bool Returns true if the string ends with the search substring, otherwise false.
+     */
     public static function endWith($string, $search)
     {
+        $trimmedString = rtrim($string); // Trim right side whitespace
         $length = strlen($search);
-        $start  = $length * -1;
-        return (substr($string, $start) === $search);
+        $start  = $length * -1; // Negative start for substr
+        return (substr($trimmedString, $start) === $search);
     }
 
+    /**
+     * Generates a random string of specified length and character set.
+     *
+     * @param int $length The length of the random string to generate.
+     * @param bool $withNumeric Whether to include numeric characters in the random string.
+     * @return string Returns the generated random string.
+     */
     public static function random($length = 32, $withNumeric = true)
     {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -111,6 +190,13 @@ class Util
         return $randomString;
     }
 
+    /**
+     * Recursively deletes files from a specified directory while excluding certain files.
+     *
+     * @param string $path The path to the directory to clear.
+     * @param array $exclude An array of filenames to exclude from deletion.
+     * @return array Returns an array with the status of the operation and the number of files deleted.
+     */
     public static function clearFolders($paths, $exclude = array())
     {
         $result = array();
@@ -121,6 +207,13 @@ class Util
         return $result;
     }
 
+    /**
+     * Recursively clears all files and directories within a specified directory, excluding specified items.
+     *
+     * @param string $path The path of the directory to clear.
+     * @param array $exclude An array of filenames to exclude from deletion.
+     * @return array|null Returns an array with the operation status and count of files deleted, or null if the directory cannot be opened.
+     */
     public static function clearFolder($path, $exclude = array())
     {
         $result = array();
@@ -157,6 +250,11 @@ class Util
         return $result;
     }
 
+    /**
+     * Recursively deletes a directory and all its contents.
+     *
+     * @param string $path The path of the directory to delete.
+     */
     public static function deleteFolder($path)
     {
         if (is_dir($path)) {
@@ -175,6 +273,13 @@ class Util
         }
     }
 
+    /**
+     * Recursively searches for a file starting from a specified directory.
+     *
+     * @param string $startPath The directory path to start the search.
+     * @param string $findFile The filename to search for.
+     * @return string|false Returns the path to the file if found, or false if not found.
+     */
     private static function findFile($startPath, $findFile)
     {
         $result = false;
@@ -203,17 +308,36 @@ class Util
         return $result;
     }
 
+    /**
+     * Validates an IP address.
+     *
+     * @param string $ip The IP address to validate.
+     * @return bool Returns true if the IP address is valid, otherwise false.
+     */
     public static function isValidIp($ip)
     {
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
             || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 
+    /**
+     * Validates a port number.
+     *
+     * @param int $port The port number to validate.
+     * @return bool Returns true if the port number is valid and within the range of 1 to 65535, otherwise false.
+     */
     public static function isValidPort($port)
     {
         return is_numeric($port) && ($port > 0 || $port <= 65535);
     }
 
+    /**
+     * Replaces a defined constant in a file with a new value.
+     *
+     * @param string $path The file path where the constant is defined.
+     * @param string $var The name of the constant.
+     * @param mixed $value The new value for the constant.
+     */
     public static function replaceDefine($path, $var, $value)
     {
         self::replaceInFile($path, array(
@@ -221,6 +345,12 @@ class Util
         ));
     }
 
+    /**
+     * Performs replacements in a file based on a list of regular expression patterns.
+     *
+     * @param string $path The path to the file where replacements are to be made.
+     * @param array $replaceList An associative array where keys are regex patterns and values are replacement strings.
+     */
     public static function replaceInFile($path, $replaceList)
     {
         if (file_exists($path)) {
@@ -254,6 +384,12 @@ class Util
         }
     }
 
+    /**
+     * Retrieves a list of version directories within a specified path.
+     *
+     * @param string $path The path to search for version directories.
+     * @return array|false Returns a sorted array of version names, or false if the directory cannot be opened.
+     */
     public static function getVersionList($path)
     {
         $result = array();
@@ -275,6 +411,11 @@ class Util
         return $result;
     }
 
+    /**
+     * Gets the current Unix timestamp with microseconds.
+     *
+     * @return float Returns the current Unix timestamp combined with microseconds.
+     */
     public static function getMicrotime()
     {
         list($usec, $sec) = explode(" ", microtime());
@@ -342,6 +483,12 @@ class Util
         return $value;
     }
 
+    /**
+     * Retrieves or generates the application binaries registry key.
+     *
+     * @param bool $fromRegistry Determines whether to retrieve the key from the registry or generate it.
+     * @return string Returns the application binaries registry key.
+     */
     public static function setAppBinsRegKey($value)
     {
         global $bearsamppRegistry;
@@ -352,7 +499,11 @@ class Util
             $value
         );
     }
-
+    /**
+     * Retrieves the application path from the registry.
+     *
+     * @return mixed The value of the application path registry key or false on error.
+     */
     public static function getAppPathRegKey()
     {
         global $bearsamppRegistry;
@@ -363,6 +514,12 @@ class Util
         );
     }
 
+    /**
+     * Sets the application path in the registry.
+     *
+     * @param string $value The new value for the application path.
+     * @return bool True on success, false on failure.
+     */
     public static function setAppPathRegKey($value)
     {
         global $bearsamppRegistry;
@@ -374,6 +531,11 @@ class Util
         );
     }
 
+    /**
+     * Retrieves the system path from the registry.
+     *
+     * @return mixed The value of the system path registry key or false on error.
+     */
     public static function getSysPathRegKey()
     {
         global $bearsamppRegistry;
@@ -384,6 +546,12 @@ class Util
         );
     }
 
+    /**
+     * Sets the system path in the registry.
+     *
+     * @param string $value The new value for the system path.
+     * @return bool True on success, false on failure.
+     */
     public static function setSysPathRegKey($value)
     {
         global $bearsamppRegistry;
@@ -395,6 +563,11 @@ class Util
         );
     }
 
+    /**
+     * Retrieves the processor identifier from the registry.
+     *
+     * @return mixed The value of the processor identifier registry key or false on error.
+     */
     public static function getProcessorRegKey()
     {
         global $bearsamppRegistry;
@@ -405,26 +578,53 @@ class Util
         );
     }
 
+    /**
+     * Retrieves the path for the startup link file.
+     *
+     * @return string The full path to the startup link file.
+     */
     public static function getStartupLnkPath()
     {
         return Vbs::getStartupPath(APP_TITLE . '.lnk');
     }
 
+    /**
+     * Checks if the application is set to launch at startup.
+     *
+     * @return bool True if the startup link exists, false otherwise.
+     */
     public static function isLaunchStartup()
     {
         return file_exists(self::getStartupLnkPath());
     }
 
+    /**
+     * Enables launching the application at startup by creating a shortcut in the startup folder.
+     *
+     * @return bool True on success, false on failure.
+     */
     public static function enableLaunchStartup()
     {
         return Vbs::createShortcut(self::getStartupLnkPath());
     }
 
+    /**
+     * Disables launching the application at startup by removing the shortcut from the startup folder.
+     *
+     * @return bool True on success, false on failure.
+     */
     public static function disableLaunchStartup()
     {
         return @unlink(self::getStartupLnkPath());
     }
 
+    /**
+     * Logs a message to a specified file or default log file based on the log type.
+     *
+     * @param string $data The message to log.
+     * @param string $type The type of log message: 'ERROR', 'WARNING', 'INFO', 'DEBUG', or 'TRACE'.
+     * @param string|null $file The file path to write the log message to. If null, uses default log file based on type.
+     */
     private static function log($data, $type, $file = null)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppConfig;
@@ -459,6 +659,12 @@ class Util
         }
     }
 
+    /**
+     * Appends a separator line to multiple log files if they do not already end with it.
+     * This function ensures that each log file ends with a clear separator for better readability.
+     *
+     * @global object $bearsamppRoot An object that provides paths to various log files.
+     */
     public static function logSeparator()
     {
         global $bearsamppRoot;
@@ -476,48 +682,98 @@ class Util
 
         $separator = '========================================================================================' . PHP_EOL;
         foreach ($logs as $log) {
-            $logContent = @file_get_contents($log);
+            $logContent = file_get_contents($log);
             if ($logContent !== false && !self::endWith($logContent, $separator)) {
                 file_put_contents($log, $separator, FILE_APPEND);
             }
         }
     }
 
+    /**
+     * Logs trace information.
+     * This function is a wrapper around the generic log function for trace-level messages.
+     *
+     * @param mixed $data The data to log.
+     * @param string|null $file Optional. The file path to log to. If not provided, a default path is used.
+     */
     public static function logTrace($data, $file = null)
     {
         self::log($data, self::LOG_TRACE, $file);
     }
 
+    /**
+     * Logs debug information.
+     * This function is a wrapper around the generic log function for debug-level messages.
+     *
+     * @param mixed $data The data to log.
+     * @param string|null $file Optional. The file path to log to. If not provided, a default path is used.
+     */
     public static function logDebug($data, $file = null)
     {
         self::log($data, self::LOG_DEBUG, $file);
     }
 
+    /**
+     * Logs informational messages.
+     * This function is a wrapper around the generic log function for informational messages.
+     *
+     * @param mixed $data The data to log.
+     * @param string|null $file Optional. The file path to log to. If not provided, a default path is used.
+     */
     public static function logInfo($data, $file = null)
     {
         self::log($data, self::LOG_INFO, $file);
     }
 
+    /**
+     * Logs warning messages.
+     * This function is a wrapper around the generic log function for warning-level messages.
+     *
+     * @param mixed $data The data to log.
+     * @param string|null $file Optional. The file path to log to. If not provided, a default path is used.
+     */
     public static function logWarning($data, $file = null)
     {
         self::log($data, self::LOG_WARNING, $file);
     }
 
+    /**
+     * Logs error messages.
+     * This function is a wrapper around the generic log function for error-level messages.
+     *
+     * @param mixed $data The data to log.
+     * @param string|null $file Optional. The file path to log to. If not provided, a default path is used.
+     */
     public static function logError($data, $file = null)
     {
         self::log($data, self::LOG_ERROR, $file);
     }
 
+    /**
+     * Logs the initialization of a class instance.
+     *
+     * @param object $classInstance The instance of the class to log.
+     */
     public static function logInitClass($classInstance)
     {
         self::logTrace('Init ' . get_class($classInstance));
     }
 
+    /**
+     * Logs the reloading of a class instance.
+     *
+     * @param object $classInstance The instance of the class to log.
+     */
     public static function logReloadClass($classInstance)
     {
         self::logTrace('Reload ' . get_class($classInstance));
     }
 
+    /**
+     * Finds the path to the PowerShell executable in the Windows System32 directory.
+     *
+     * @return string|false Returns the path to powershell.exe if found, otherwise false.
+     */
     public static function getPowerShellPath()
     {
         if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
@@ -526,6 +782,15 @@ class Util
         return false;
     }
 
+    /**
+     * Recursively searches for repositories starting from a given path up to a specified depth.
+     *
+     * @param string $initPath The initial path from where the search begins.
+     * @param string $startPath The current path from where to search.
+     * @param string $checkFile The file name to check for in the directory to consider it a repository.
+     * @param int $maxDepth The maximum depth of directories to search into.
+     * @return array Returns an array of paths that contain the specified file.
+     */
     public static function findRepos($initPath, $startPath, $checkFile, $maxDepth = 1)
     {
         $depth = substr_count(str_replace($initPath, '', $startPath), '/');
@@ -554,16 +819,34 @@ class Util
         return $result;
     }
 
+    /**
+     * Converts a Unix-style path to a Windows-style path.
+     *
+     * @param string $path The Unix-style path to convert.
+     * @return string Returns the converted Windows-style path.
+     */
     public static function formatWindowsPath($path)
     {
         return str_replace('/', '\\', $path);
     }
 
+    /**
+     * Converts a Windows-style path to a Unix-style path.
+     *
+     * @param string $path The Windows-style path to convert.
+     * @return string Returns the converted Unix-style path.
+     */
     public static function formatUnixPath($path)
     {
         return str_replace('\\', '/', $path);
     }
 
+    /**
+     * Converts an image file to a base64 encoded string.
+     *
+     * @param string $path The path to the image file.
+     * @return string Returns the base64 encoded string of the image.
+     */
     public static function imgToBase64($path)
     {
         $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -571,22 +854,40 @@ class Util
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
     }
 
+    /**
+     * Converts UTF-8 encoded data to Windows-1252 encoding.
+     *
+     * @param string $data The UTF-8 encoded data.
+     * @return string Returns the data encoded in Windows-1252.
+     */
     public static function utf8ToCp1252($data)
     {
         return iconv("UTF-8", "WINDOWS-1252//IGNORE", $data);
     }
 
+    /**
+     * Converts Windows-1252 encoded data to UTF-8 encoding.
+     *
+     * @param string $data The Windows-1252 encoded data.
+     * @return string Returns the data encoded in UTF-8.
+     */
     public static function cp1252ToUtf8($data)
     {
         return iconv("WINDOWS-1252", "UTF-8//IGNORE", $data);
     }
 
+    /**
+     * Initiates a loading process using external components.
+     */
     public static function startLoading()
     {
         global $bearsamppCore, $bearsamppWinbinder;
         $bearsamppWinbinder->exec($bearsamppCore->getPhpExe(), Core::isRoot_FILE . ' ' . Action::LOADING);
     }
 
+    /**
+     * Stops a previously started loading process and cleans up related resources.
+     */
     public static function stopLoading()
     {
         global $bearsamppCore;
@@ -599,6 +900,12 @@ class Util
         }
     }
 
+    /**
+     * Retrieves a list of files to scan from specified paths or default paths.
+     *
+     * @param string|null $path Optional. The path to start scanning from. If null, uses default paths.
+     * @return array Returns an array of files found during the scan.
+     */
     public static function getFilesToScan($path = null)
     {
         $result = array();
@@ -614,6 +921,30 @@ class Util
         return $result;
     }
 
+    /**
+     * Retrieves a list of directories and file types to scan within the BEARSAMPP environment.
+     *
+     * This method compiles an array of paths from various components of the BEARSAMPP stack,
+     * including Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js, Filezilla, Composer, ConsoleZ,
+     * Python, Ruby, and Yarn. Each path entry includes the directory path, file types to include
+     * in the scan, and whether the scan should be recursive.
+     *
+     * The method uses global variables to access the root paths of each component. It then
+     * dynamically fetches specific subdirectories using the `getFolderList` method (which is
+     * assumed to be defined elsewhere in this class or in the global scope) and constructs
+     * an array of path specifications.
+     *
+     * Each path specification is an associative array with the following keys:
+     * - 'path': The full directory path to scan.
+     * - 'includes': An array of file extensions or filenames to include in the scan.
+     * - 'recursive': A boolean indicating whether the scan should include subdirectories.
+     *
+     * The method is designed to be used for setting up scans of configuration files and other
+     * important files within the BEARSAMPP environment, possibly for purposes like configuration
+     * management, backup, or security auditing.
+     *
+     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
+     */
     private static function getPathsToScan()
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
@@ -795,6 +1126,14 @@ class Util
         return $paths;
     }
 
+    /**
+     * Recursively finds files in a directory that match a set of inclusion patterns.
+     *
+     * @param string $startPath The directory path to start the search from.
+     * @param array $includes An array of file patterns to include in the search. Patterns starting with '!' are excluded.
+     * @param bool $recursive Determines whether the search should be recursive.
+     * @return array An array of files that match the inclusion patterns.
+     */
     private static function findFiles($startPath, $includes = array(''), $recursive = true)
     {
         $result = array();
@@ -833,6 +1172,13 @@ class Util
         return $result;
     }
 
+    /**
+     * Replaces old path references with new path references in the specified files.
+     *
+     * @param array $filesToScan Array of file paths to scan and modify.
+     * @param string|null $rootPath The new root path to replace the old one. If null, uses a default root path.
+     * @return array Returns an array with the count of occurrences changed and the count of files changed.
+     */
     public static function changePath($filesToScan, $rootPath = null)
     {
         global $bearsamppRoot, $bearsamppCore;
@@ -887,6 +1233,12 @@ class Util
         return $result;
     }
 
+    /**
+     * Fetches the latest version information from a given URL.
+     *
+     * @param string $url The URL to fetch version information from.
+     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise.
+     */
     public static function getLatestVersion($url)
     {
         $result = self::getApiJson($url);
@@ -908,13 +1260,26 @@ class Util
         }
     }
 
-
-
+    /**
+     * Constructs a website URL without UTM parameters.
+     *
+     * @param string $path Optional path to append to the base URL.
+     * @param string $fragment Optional fragment to append to the URL.
+     * @return string The constructed URL without UTM parameters.
+     */
     public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
     {
         return self::getWebsiteUrl($path, $fragment, false);
     }
 
+    /**
+     * Constructs a complete website URL with optional path, fragment, and UTM source parameters.
+     *
+     * @param string $path Optional path to append to the base URL.
+     * @param string $fragment Optional fragment to append to the URL.
+     * @param bool $utmSource Whether to include UTM source parameters.
+     * @return string The constructed URL.
+     */
     public static function getWebsiteUrl($path = '', $fragment = '', $utmSource = true)
     {
         global $bearsamppCore;
@@ -933,11 +1298,24 @@ class Util
         return $url;
     }
 
+    /**
+     * Constructs the URL to the changelog page, optionally including UTM parameters.
+     *
+     * @param bool $utmSource Whether to include UTM source parameters.
+     * @return string The URL to the changelog page.
+     */
     public static function getChangelogUrl($utmSource = true)
     {
         return self::getWebsiteUrl('doc/changelog', null, $utmSource);
     }
 
+    /**
+     * Retrieves the file size of a remote file.
+     *
+     * @param string $url The URL of the remote file.
+     * @param bool $humanFileSize Whether to return the size in a human-readable format.
+     * @return mixed The file size, either in bytes or as a formatted string.
+     */
     public static function getRemoteFilesize($url, $humanFileSize = true)
     {
         $size = 0;
@@ -950,6 +1328,13 @@ class Util
         return $humanFileSize ? self::humanFileSize($size) : $size;
     }
 
+    /**
+     * Converts a file size in bytes to a human-readable format.
+     *
+     * @param int $size The file size in bytes.
+     * @param string $unit The unit to convert to ('GB', 'MB', 'KB', or ''). If empty, auto-selects the unit.
+     * @return string The formatted file size.
+     */
     public static function humanFileSize($size, $unit = '')
     {
         if ((!$unit && $size >= 1 << 30) || $unit == 'GB') {
@@ -964,12 +1349,23 @@ class Util
         return number_format($size) . ' bytes';
     }
 
+    /**
+     * Checks if the operating system is 32-bit.
+     *
+     * @return bool True if the OS is 32-bit, false otherwise.
+     */
     public static function is32BitsOs()
     {
         $processor = self::getProcessorRegKey();
         return self::contains($processor, 'x86');
     }
 
+    /**
+     * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
+     *
+     * @param string $pingUrl The URL to ping for headers.
+     * @return array An array of HTTP headers.
+     */
     public static function getHttpHeaders($pingUrl)
     {
         if (function_exists('curl_version')) {
@@ -997,6 +1393,16 @@ class Util
         return $result;
     }
 
+    /**
+     * Retrieves HTTP headers from a given URL using the fopen function.
+     *
+     * This method creates a stream context to disable SSL peer and peer name verification,
+     * which allows self-signed certificates. It attempts to open the URL and read the HTTP
+     * response headers.
+     *
+     * @param string $url The URL from which to fetch the headers.
+     * @return array An array of headers if successful, otherwise an empty array.
+     */
     public static function getFopenHttpHeaders($url)
     {
         $result = array();
@@ -1019,6 +1425,16 @@ class Util
         return $result;
     }
 
+    /**
+     * Retrieves HTTP headers from a given URL using cURL.
+     *
+     * This method initializes a cURL session, sets various options to fetch headers
+     * including disabling SSL peer verification, and executes the request. It logs
+     * the raw response for debugging purposes and parses the headers from the response.
+     *
+     * @param string $url The URL from which to fetch the headers.
+     * @return array An array of headers if successful, otherwise an empty array.
+     */
     public static function getCurlHttpHeaders($url)
     {
         $result = array();
@@ -1044,6 +1460,18 @@ class Util
         return explode("\n", $responseHeaders[0]);
     }
 
+    /**
+     * Retrieves the initial response line from a specified host and port using a socket connection.
+     *
+     * This method optionally uses SSL and creates a stream context similar to `getFopenHttpHeaders`.
+     * It attempts to connect to the host and port, reads the first line of the response, and parses it.
+     * Detailed debug information is logged for each header line received.
+     *
+     * @param string $host The host name or IP address to connect to.
+     * @param int $port The port number to connect to.
+     * @param bool $ssl Whether to use SSL (defaults to false).
+     * @return array An array containing the first line of the response, split into parts, or an empty array if unsuccessful.
+     */
     public static function getHeaders($host, $port, $ssl = false)
     {
         $result = array();
@@ -1081,6 +1509,12 @@ class Util
         return $result;
     }
 
+    /**
+     * Sends a GET request to the specified URL and returns the response.
+     *
+     * @param string $url The URL to send the GET request to.
+     * @return string The trimmed response data from the URL.
+     */
     public static function getApiJson($url)
     {
         $header = self::setupCurlHeaderWithToken();
@@ -1096,6 +1530,12 @@ class Util
         return trim($data);
     }
 
+    /**
+     * Checks if a specific port on localhost is in use and returns the process using it if available.
+     *
+     * @param int $port The port number to check.
+     * @return mixed Returns the process using the port if in use, 'N/A' if the port is open but no specific process can be identified, or false if the port is not in use.
+     */
     public static function isPortInUse($port)
     {
         $connection = @fsockopen('127.0.0.1', $port);
@@ -1107,6 +1547,12 @@ class Util
         return false;
     }
 
+    /**
+     * Validates a domain name based on specific criteria.
+     *
+     * @param string $domainName The domain name to validate.
+     * @return bool Returns true if the domain name is valid, false otherwise.
+     */
     public static function isValidDomainName($domainName)
     {
         return preg_match('/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i', $domainName)
@@ -1114,11 +1560,26 @@ class Util
             && preg_match('/^[^\.]{1,63}(\.[^\.]{1,63})*$/', $domainName);
     }
 
+    /**
+     * Checks if a string is alphanumeric.
+     *
+     * @param string $string The string to check.
+     * @return bool Returns true if the string is alphanumeric, false otherwise.
+     */
     public static function isAlphanumeric($string)
     {
         return ctype_alnum($string);
     }
 
+    /**
+     * Attempts to install and start a service on a specific port, with optional syntax checking and user notifications.
+     *
+     * @param object $bin An object containing the binary information and methods related to the service.
+     * @param int $port The port number on which the service should run.
+     * @param string $syntaxCheckCmd The command to execute for syntax checking of the service configuration.
+     * @param bool $showWindow Optional. Whether to show message boxes for information, warnings, and errors. Defaults to false.
+     * @return bool Returns true if the service is successfully installed and started, false otherwise.
+     */
     public static function installService($bin, $port, $syntaxCheckCmd, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -1186,6 +1647,13 @@ class Util
         return false;
     }
 
+    /**
+     * Removes a service if it is installed.
+     *
+     * @param Win32Service $service The service object to be removed.
+     * @param string $name The name of the service.
+     * @return bool Returns true if the service is successfully removed, false otherwise.
+     */
     public static function removeService($service, $name)
     {
         if (!($service instanceof Win32Service)) {
@@ -1208,6 +1676,14 @@ class Util
         return true;
     }
 
+    /**
+     * Attempts to start a service and performs a syntax check if required.
+     *
+     * @param object $bin An object containing service details.
+     * @param string $syntaxCheckCmd Command to check syntax errors.
+     * @param bool $showWindow Whether to show error messages in a window.
+     * @return bool Returns true if the service starts successfully, false otherwise.
+     */
     public static function startService($bin, $syntaxCheckCmd, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -1235,21 +1711,45 @@ class Util
         return true;
     }
 
+    /**
+     * Constructs a GitHub user URL with an optional path.
+     *
+     * @param string|null $part Optional path to append to the URL.
+     * @return string The full GitHub user URL.
+     */
     public static function getGithubUserUrl($part = null) {
         $part = !empty($part) ? '/' . $part : null;
         return 'https://github.com/' . APP_GITHUB_USER . $part;
     }
 
+    /**
+     * Constructs a GitHub repository URL with an optional path.
+     *
+     * @param string|null $part Optional path to append to the URL.
+     * @return string The full GitHub repository URL.
+     */
     public static function getGithubUrl($part = null) {
         $part = !empty($part) ? '/' . $part : null;
         return self::getGithubUserUrl(APP_GITHUB_REPO . $part);
     }
 
+    /**
+     * Constructs a URL for raw content from a GitHub repository.
+     *
+     * @param string $file The file path to append to the base URL.
+     * @return string The full URL to the raw content on GitHub.
+     */
     public static function getGithubRawUrl($file) {
         $file = !empty($file) ? '/' . $file : null;
         return 'https://raw.githubusercontent.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . '/main' . $file;
     }
 
+    /**
+     * Retrieves a list of folders from a specified directory, excluding certain directories.
+     *
+     * @param string $path The directory path from which to list folders.
+     * @return array|bool An array of folder names, or false if the directory cannot be opened.
+     */
     public static function getFolderList($path)
     {
         $result = array();
@@ -1270,6 +1770,14 @@ class Util
         return $result;
     }
 
+    /**
+     * Retrieves and formats environment paths from a data file.
+     * Paths are verified to be directories and formatted to Unix style.
+     * Warnings are logged for paths that do not exist.
+     *
+     * @global object $bearsamppRoot Global object containing root path methods.
+     * @return string A semicolon-separated string of formatted environment paths.
+     */
     public static function getNssmEnvPaths() {
         global $bearsamppRoot;
 
@@ -1294,6 +1802,16 @@ class Util
         return $result;
     }
 
+    /**
+     * Opens a file with a given caption and content in the default text editor.
+     * The file is created in a temporary directory with a unique name.
+     *
+     * @param string $caption The filename to use when saving the content.
+     * @param string $content The content to write to the file.
+     * @global object $bearsamppRoot Global object to access temporary path.
+     * @global object $bearsamppConfig Global configuration object.
+     * @global object $bearsamppWinbinder Global object to execute external programs.
+     */
     public static function openFileContent($caption, $content) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppWinbinder;
 
