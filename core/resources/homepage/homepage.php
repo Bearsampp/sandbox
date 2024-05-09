@@ -77,7 +77,7 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
         <ul class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
-                   href = "https://discord.gg/AgwVNAzV" alt="Discord Icon"><i class= "fa-brands fa-discord"></i></a>
+                   href = "https://discord.gg/AgwVNAzV"><img class="discord" src = "<?php echo $resourcesPath . '/img/discord.png'; ?>" alt = 'Discord Icon'/></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
@@ -89,8 +89,7 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
-                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img
-                        src = "<?php echo $resourcesPath . '/img/heart.png'; ?>"  alt="Donation Icon"/></a>
+                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class="donate" src = "<?php echo $resourcesPath . '/img/donate.png'; ?>" alt = 'Donation Icon' /></a>
             </li>
         </ul>
     </div>
