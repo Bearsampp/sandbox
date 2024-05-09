@@ -5,6 +5,7 @@
 allRunningHint = "Tous les services sont lancés"
 someRunningHint = "%n service(s) sur %t sont lancés"
 noneRunningHint = "Les %t services sont éteints"
+locale = "fr"
 
 ; Single
 about = "À propos..."
