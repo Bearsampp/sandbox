@@ -162,10 +162,9 @@ class Util
      */
     public static function endWith($string, $search)
     {
-        $trimmedString = rtrim($string); // Trim right side whitespace
         $length = strlen($search);
-        $start  = $length * -1; // Negative start for substr
-        return (substr($trimmedString, $start) === $search);
+        $start  = $length * -1;
+        return (substr($string, $start) === $search);
     }
 
     /**
@@ -682,7 +681,7 @@ class Util
 
         $separator = '========================================================================================' . PHP_EOL;
         foreach ($logs as $log) {
-            $logContent = file_get_contents($log);
+            $logContent = @file_get_contents($log);
             if ($logContent !== false && !self::endWith($logContent, $separator)) {
                 file_put_contents($log, $separator, FILE_APPEND);
             }
