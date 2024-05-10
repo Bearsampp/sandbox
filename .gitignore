@@ -27,7 +27,6 @@ bearsampp.conf
 /core/resources/version.dat
 /core/resources/homepage/alias.conf
 /core/resources/homepage/js/_commons.js
-/core/resources/lastPath.dat
 
 # Visual Studio
 .vscode/
