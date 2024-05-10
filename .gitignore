@@ -24,9 +24,6 @@ core/tmp/*
 /**/post-install/
 bearsampp.ini
 bearsampp.conf
-/core/resources/version.dat
-/core/resources/homepage/alias.conf
-/core/resources/homepage/js/_commons.js
 
 # Visual Studio
 .vscode/
