@@ -210,37 +210,25 @@ table.tablesorter thead tr th:hover {
     gap: 5px;
     }
 
-
-/*
- *  NAVBAR ICON FIXES
- */
 /* FA icons for navbar resizing */
 nav.navbar .svg-inline--fa.fa-facebook,
-nav.navbar .svg-inline--fa.fa-github,
-nav.navbar .svg-inline--fa.fa-circle-dollar-to-slot {
+nav.navbar .svg-inline--fa.fa-discord,
+nav.navbar .svg-inline--fa.fa-github {
     width: var(--icon-width);
     height: var(--icon-height);
     vertical-align: middle;
     text-align: left;
     flex: auto;
-    justify-content: space-around;
-    padding: 0 8px;
-    margin: 0;
+    margin: 0 15px 0 15px;
+    width: 30px;
+    height: 30px;
+    }
+
+nav.navbar .svg-inline--fa.fa-discord {
+    color: #5865f2;
+    margin-right: 0px;
     }
 
 .svg-inline--fa.fa-github {
     color: white;
-    }
-
-nav.navbar .svg-inline--fa.fa-circle-dollar-to-slot {
-    color: white;
-    }
-
-nav.navbar .discord {
-    padding: 0 8px;
-    margin: 0;
-    }
-
-.navbar-expand-md .navbar-collapse {
-    padding-right: 30px;
     }
