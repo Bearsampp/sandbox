@@ -1,4 +1,5 @@
 group:
+
   # individual files
   - files:
         - License
@@ -19,5 +20,6 @@ group:
           resources/icons/app.ico
           resources/icons/bearsampp.bmp
           resources/version.dat
+
     repos: |
       Bearsampp/Bearsampp
