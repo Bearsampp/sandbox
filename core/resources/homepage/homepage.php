@@ -1,12 +1,12 @@
 <?php
 
 include __DIR__ . '/../../root.php';
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale;
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage;
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
-?>
 
+?>
 <!DOCTYPE html>
-<html lang="<?php echo $locale?>">
+<html lang="<?php echo $bearsamppConfig->getLang();?>">
 
 <head>
     <meta charset="utf-8">
@@ -80,7 +80,8 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
-                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><i class = "fa-brands fa-github"></i></a>
+                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><img
+                        src = "<?php echo $resourcesPath . '/img/github-mark-white.png'; ?>"  alt="Github Icon"/></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"

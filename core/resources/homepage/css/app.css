@@ -212,23 +212,16 @@ table.tablesorter thead tr th:hover {
 
 /* FA icons for navbar resizing */
 nav.navbar .svg-inline--fa.fa-facebook,
-nav.navbar .svg-inline--fa.fa-discord,
-nav.navbar .svg-inline--fa.fa-github {
+nav.navbar .svg-inline--fa.fa-discord {
     width: var(--icon-width);
     height: var(--icon-height);
     vertical-align: middle;
     text-align: left;
     flex: auto;
     margin: 0 15px 0 15px;
-    width: 30px;
-    height: 30px;
     }
 
 nav.navbar .svg-inline--fa.fa-discord {
     color: #5865f2;
     margin-right: 0px;
-    }
-
-.svg-inline--fa.fa-github {
-    color: white;
     }

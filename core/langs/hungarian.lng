@@ -5,7 +5,6 @@
 allRunningHint = "Szervizek futnak"
 someRunningHint = "%n szervíz fut a %t-bol"
 noneRunningHint = "Nem fut szervíz a %t-bol"
-locale = "hu"
 
 ; Single
 about = "Névjegy"
