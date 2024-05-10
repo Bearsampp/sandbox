@@ -43,10 +43,6 @@ if ( $latestVersionData === null )
     return;
 }
 
- $bearsamppLatestVersion = $latestVersionData['version'];
- $latestVersionUrl       = $latestVersionData['url'];
-
-
 /* Strip array into individual relevant strings */
 $bearsamppLatestVersion = $latestVersionData['version'];
 $latestVersionUrl       = $latestVersionData['url']; // URL of the latest version
