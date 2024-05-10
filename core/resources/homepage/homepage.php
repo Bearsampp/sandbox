@@ -56,46 +56,46 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
     }
     ?>
 
-    <link href="<?php echo Util::imgToBase64($bearsamppCore->getResourcesPath() . '/icons/app.ico'); ?>" rel="icon"/>
+    <link href="<?php echo Util::imgToBase64($bearsamppCore->getResourcesPath() . '/icons/app.ico'); ?>" rel="icon" />
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="d-inline-block">
-            <a class="navbar-brand" href="<?php echo Util::getWebsiteUrl(); ?>">
-                <img class="p-1" alt="<?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?>"
-                     src="<?php echo $resourcesPath . '/img/header-logo.png'; ?>"/></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<nav class = "navbar navbar-expand-md navbar-light bg-dark fixed-top" role = "navigation">
+    <div class = "container-fluid">
+        <div class = "d-inline-block">
+            <a class = "navbar-brand" href = "<?php echo Util::getWebsiteUrl(); ?>">
+                <img class = "p-1" alt = "<?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?>"
+                     src = "<?php echo $resourcesPath . '/img/header-logo.png'; ?>" /></a>
+            <button class = "navbar-toggler" type = "button" data-bs-toggle = "collapse" data-bs-target = "#navbarSupportedContent" aria-controls = "navbarSupportedContent"
+                    aria-expanded = "false" aria-label = "Toggle navigation">
+                <span class = "navbar-toggler-icon"></span>
             </button>
         </div>
     </div>
-    <div class="collapse navbar-collapse icons" id="navbarSupportedContent">
-        <ul class="d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
+    <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
+        <ul class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::DISCORD); ?>" target="_blank"
-                   href="https://discord.gg/AgwVNAzV"><img class="discord" src="<?php echo $resourcesPath . '/img/discord.png'; ?>" alt='Discord Icon'/></a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
+                   href = "https://discord.gg/AgwVNAzV"><img class="discord" src = "<?php echo $resourcesPath . '/img/discord.png'; ?>" alt = 'Discord Icon'/></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::FACEBOOK); ?>" target="_blank"
-                   href="https://www.facebook.com/groups/bearsampp" alt="Facebook icon"><i class="fa-brands fa-facebook"></i></a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
+                   href = "https://www.facebook.com/groups/bearsampp" alt="Facebook icon"><i class= "fa-brands fa-facebook"></i></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::GITHUB); ?>" target="_blank"
-                   href="<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><i class="fa-brands fa-github"></i></a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
+                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><i class = "fa-brands fa-github"></i></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::DONATE); ?>" target="_blank"
-                   href="<?php echo Util::getWebsiteUrl('donate'); ?>"><img class="donate" src="<?php echo $resourcesPath . '/img/donate.png'; ?>" alt='Donation Icon'/></a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
+                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class="donate" src = "<?php echo $resourcesPath . '/img/donate.png'; ?>" alt = 'Donation Icon' /></a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div id="page-wrapper">
+<div id = "page-wrapper">
     <?php include 'tpls/hp.latestversion.php'; ?>
     <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.php'; ?>
 </div>
