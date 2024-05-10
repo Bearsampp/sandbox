@@ -410,8 +410,9 @@ class WinBinder
             $title == null ? $this->defaultTitle : $this->defaultTitle . ' - ' . $title, $type
         ));
 
+        // TODO why does this create an error?
         // Set tiny window icon
-        $this->setImage($messageBox, $bearsamppCore->getResourcesPath() . '/icons/app.ico');
+        //$this->setImage($messageBox, $bearsamppCore->getResourcesPath() . '/icons/app.ico');
 
         return $messageBox;
     }
