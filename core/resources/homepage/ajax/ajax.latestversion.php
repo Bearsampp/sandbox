@@ -16,8 +16,19 @@ $result = array(
 $bearsamppCurrentVersion = $bearsamppCore->getAppVersion();
 
 // Assuming getLatestVersion now returns an array with version and URL
-$latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL, APP_GITHUB_TOKEN, $appGithubHeader );
 
+$latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL );
+$latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL );
+
+/* check to see if everything went sideways */
+if ( $latestVersionData === null )
+{
+    Util::logError( 'Failed to retrieve version data from GitHub URL: ' . APP_GITHUB_LATEST_URL );
+
+    return;
+}
+
+/* Strip array into individual relevant strings */
 $bearsamppLatestVersion = $latestVersionData['version'];
 $latestVersionUrl       = $latestVersionData['url']; // URL of the latest version
 
