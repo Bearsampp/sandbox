@@ -19,8 +19,7 @@ body {
     }
 
 #page-wrapper {
-    width: 100%;
-    padding: 6rem 1.6rem;
+    padding: 0 1vw;
     }
 
 .no-display {
@@ -182,10 +181,6 @@ table.tablesorter thead tr th:hover {
     margin-top: 1rem;
     }
 
-.float-right {
-    float: right;
-    }
-
 /* listing of extensions and modules */
 .grid-list {
     padding: 0 .75em 0 .75em;
@@ -210,18 +205,46 @@ table.tablesorter thead tr th:hover {
     gap: 5px;
     }
 
+
+/*
+ *  NAVBAR ICON FIXES
+ */
+
 /* FA icons for navbar resizing */
 nav.navbar .svg-inline--fa.fa-facebook,
-nav.navbar .svg-inline--fa.fa-discord {
+nav.navbar .svg-inline--fa.fa-discord,
+nav.navbar .svg-inline--fa.fa-github{
     width: var(--icon-width);
     height: var(--icon-height);
     vertical-align: middle;
     text-align: left;
-    flex: auto;
-    margin: 0 15px 0 15px;
+    flex: 1 1 auto;
     }
 
 nav.navbar .svg-inline--fa.fa-discord {
     color: #5865f2;
-    margin-right: 0px;
+    }
+
+.svg-inline--fa.fa-github {
+    color: white;
+    }
+
+.svg-inline--fa.fa-facebook {
+    color: #1E5CFB;
+    }
+
+
+/*
+ *  localhost system icons
+ */
+
+/* icon symbolizing and update is available */
+svg.svg-inline--fa.fa-circle-info.text-primary {
+    font-size: 32px;
+    }
+
+/* download inside the update available box */
+.latestversion-download svg.svg-inline--fa.fa-cloud-arrow-down {
+    color: lime;
+    font-size: 24px;
     }
