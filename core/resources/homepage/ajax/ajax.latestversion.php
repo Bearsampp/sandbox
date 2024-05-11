@@ -5,23 +5,7 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
-/**
- * Constructs the download link for a new version if available.
- *
- * This function compares the current application version with the latest available version.
- * If the latest version is greater, it sets the display flag to true and constructs an HTML link
- * for downloading the new version, appending it to the 'download' key in the result array.
- *
- * @param   array  $result                  Holds the display flag and download link HTML.
- *
- * @return void Modifies the $result array by reference.
- * @global string  $latestVersionUrl        The URL to download the latest version.
- * @global object  $bearsamppLang           Language management object, used for retrieving language-specific values.
- * @global string  $bearsamppCurrentVersion The current version of the application.
- * @global string  $bearsamppLatestVersion  The latest available version of the application.
- */
-global $bearsamppLang, $bearsamppCore;
+global $appGithubHeader, $bearsamppLang, $bearsamppCore;
 
 $result = array(
     'display'  => false,
@@ -32,6 +16,7 @@ $result = array(
 $bearsamppCurrentVersion = $bearsamppCore->getAppVersion();
 
 // Assuming getLatestVersion now returns an array with version and URL
+
 $latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL );
 $latestVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL );
 
@@ -47,12 +32,10 @@ if ( $latestVersionData === null )
 $bearsamppLatestVersion = $latestVersionData['version'];
 $latestVersionUrl       = $latestVersionData['url']; // URL of the latest version
 
-/* These lines are used to create DateTime objects from version strings formatted as 'Year.Month.Day'. */
 $currentVersionDate = DateTime::createFromFormat( 'Y.n.j', $bearsamppCurrentVersion );
 $latestVersionDate  = DateTime::createFromFormat( 'Y.n.j', $bearsamppLatestVersion );
 
-// Directly compare version strings
-if ( version_compare( $bearsamppCurrentVersion, $bearsamppLatestVersion, '<' ) )
+if ( $latestVersionData != null && version_compare( $bearsamppCurrentVersion, $bearsamppLatestVersion, '<' ) )
 {
     $result['display']  = true;
     $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $latestVersionUrl . '" target="_blank"><i class="fa fa-download"></i> ';

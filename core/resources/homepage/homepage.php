@@ -1,17 +1,12 @@
 <?php
-/*
- * Copyright (c) 2022 - 2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-include __DIR__ . '/../../root.php';
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale;
-$resourcesPath = $bearsamppHomepage->getResourcesPath();
-?>
 
+include __DIR__ . '/../../root.php';
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage;
+$resourcesPath = $bearsamppHomepage->getResourcesPath();
+
+?>
 <!DOCTYPE html>
-<html lang="<?php echo $locale?>">
+<html lang="<?php echo $bearsamppConfig->getLang();?>">
 
 <head>
     <meta charset="utf-8">
@@ -77,7 +72,7 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
         <ul class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
-                   href = "https://discord.gg/AgwVNAzV"><img class="discord" src = "<?php echo $resourcesPath . '/img/discord.png'; ?>" alt = 'Discord Icon'/></a>
+                   href = "https://discord.gg/AgwVNAzV" alt="Discord Icon"><i class= "fa-brands fa-discord"></i></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
@@ -85,11 +80,13 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
-                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><i class = "fa-brands fa-github"></i></a>
+                   href = "<?php echo Util::getGithubUrl(); ?>" alt="Github icon"><img
+                        src = "<?php echo $resourcesPath . '/img/github-mark-white.png'; ?>"  alt="Github Icon"/></a>
             </li>
             <li>
                 <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
-                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class="donate" src = "<?php echo $resourcesPath . '/img/donate.png'; ?>" alt = 'Donation Icon' /></a>
+                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img
+                        src = "<?php echo $resourcesPath . '/img/heart.png'; ?>"  alt="Donation Icon"/></a>
             </li>
         </ul>
     </div>

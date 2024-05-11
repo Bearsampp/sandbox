@@ -5,7 +5,6 @@
 allRunningHint = "Alla tjänster körs"
 someRunningHint = "%n av %t tjänster körs"
 noneRunningHint = "Ingen av %t tjänster körs"
-locale = "sv"
 
 ; Single
 about = "Om"
