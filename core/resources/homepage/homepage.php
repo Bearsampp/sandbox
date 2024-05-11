@@ -13,10 +13,10 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
 <html lang = "<?php echo $locale ?>">
 
 <head>
-    <meta charset = 'utf-8'>
-    <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>
-    <meta name = 'description' content = 'Localhost Dashboard'>
-    <meta name = 'author' content = 'Bearsampp'>
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <meta name = "description" content = "Localhost Dashboard">
+    <meta name = "author" content = "Bearsampp">
     <?php
     $cssFiles = [
         '/css/app.css',
@@ -43,12 +43,14 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
         '/js/postgresql.js'
     ];
 
-    foreach ( $cssFiles as $file ) {
-        echo '<link href="' . $resourcesPath . $file . '" rel="stylesheet">' . PHP_EOL;
-    }
-
-    foreach ( $jsFiles as $file ) {
-        echo '<script src="' . $resourcesPath . $file . '"></script>' . PHP_EOL;
+    foreach ( array_merge( $cssFiles, $jsFiles ) as $file ) {
+        $fileType = pathinfo( $file, PATHINFO_EXTENSION );
+        if ( $fileType == 'css' ) {
+            echo '<link href="' . $resourcesPath . $file . '" rel="stylesheet">' . PHP_EOL;
+        }
+        else if ( $fileType == 'js' ) {
+            echo '<script src="' . $resourcesPath . $file . '"></script>' . PHP_EOL;
+        }
     }
     ?>
     <link href = "<?php echo Util::imgToBase64( $bearsamppCore->getResourcesPath() . '/icons/app.ico' ); ?>" rel = "icon" />

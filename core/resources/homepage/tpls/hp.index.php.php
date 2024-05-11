@@ -15,11 +15,11 @@
                 <span class="loader float-end">
                     <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
-                <i class="fa fa-bar-chart-o"></i> <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
+                <i class="fa-solid fa-traffic-light"></i> <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
             </span>
             <span class="list-group-item php-versions col-12">
                 <span class="label-left col-1">
-                    <i class="fa fa-puzzle-piece"></i>
+                    <i class="fa-solid fa-bug-slash"></i>
                     <?php echo $bearsamppLang->getValue(Lang::VERSIONS); ?>
                 </span>
                 <span class="php-version-list float-right col-11">
@@ -32,14 +32,14 @@
                 <span class="loader float-end">
                     <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
-                <i class="fa fa-gear"></i>
+                <i class="fa-solid fa-gear"></i>
                 <?php echo $bearsamppLang->getValue(Lang::EXTENSIONS); ?>
             </span>
             <span class="list-group-item php-pearversion">
                 <span class="loader float-end">
                     <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/loader.gif'; ?>" alt="Loader">
                 </span>
-                <i class="fa fa-puzzle-piece"></i>
+                <i class="fa-solid fa-bug-slash"></i>
                 <?php echo $bearsamppLang->getValue(Lang::PEAR); ?>
             </span>
             <span class="list-group-item">
@@ -63,7 +63,7 @@
     <div class="row-fluid mt-2">
         <div class="col-lg-12 section-header">
             <h3>
-                <i class="fa fa-gear"></i>
+                <i class="fa-solid fa-gear"></i>
                 <?php echo $bearsamppLang->getValue(Lang::EXTENSIONS); ?>
             </h3>
         </div>

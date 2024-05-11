@@ -211,9 +211,9 @@ table.tablesorter thead tr th:hover {
  */
 
 /* FA icons for navbar resizing */
-.svg-inline--fa.fa-facebook,
-.svg-inline--fa.fa-discord,
-.svg-inline--fa.fa-github{
+nav.navbar .svg-inline--fa.fa-facebook,
+nav.navbar .svg-inline--fa.fa-discord,
+nav.navbar .svg-inline--fa.fa-github{
     width: var(--icon-width);
     height: var(--icon-height);
     vertical-align: middle;
@@ -231,4 +231,20 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 .svg-inline--fa.fa-facebook {
     color: #1E5CFB;
+    }
+
+
+/*
+ *  localhost system icons
+ */
+
+/* icon symbolizing and update is available */
+svg.svg-inline--fa.fa-circle-info.text-primary {
+    font-size: 32px;
+    }
+
+/* download inside the update available box */
+.latestversion-download svg.svg-inline--fa.fa-cloud-arrow-down {
+    color: lime;
+    font-size: 24px;
     }
