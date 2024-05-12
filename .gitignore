@@ -17,7 +17,7 @@
 /logs/*
 /ssl/
 /tmp/*
-core/tmp/*
+/core/tmp/*
 /tools/
 /vhosts/
 /www/.htaccess
