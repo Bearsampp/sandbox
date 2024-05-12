@@ -14,10 +14,10 @@
 /bin/
 /cgi-bin/
 /img/
-/logs/*
+/logs/
 /ssl/
-/tmp/*
-/core/tmp/*
+/tmp/
+/core/tmp/
 /tools/
 /vhosts/
 /www/.htaccess
@@ -33,3 +33,8 @@ bearsampp.conf
 .vscode/
 .vs/
 .vsc/
+
+# api
+/www/doxy/
+/www/api/
+/www/.phpdoc/
