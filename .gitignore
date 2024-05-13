@@ -38,3 +38,8 @@ bearsampp.conf
 /www/doxy/
 /www/api/
 /www/.phpdoc/
+
+# exclude gitignores
+!/tmp/.gitignore
+!/logs/.gitignore
+!/core/tmp/.gitignore
