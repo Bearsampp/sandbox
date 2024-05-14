@@ -9,7 +9,7 @@
 /**
  * Defines constants used throughout the Bearsampp application.
  */
-define('APP_AUTHOR_NAME', '/N6REJ');
+define('APP_AUTHOR_NAME', 'N6REJ');
 define('APP_TITLE', 'Bearsampp');
 define('APP_WEBSITE', 'https://bearsampp.com');
 define('APP_LICENSE', 'GPL3 License');

@@ -23,7 +23,7 @@ class ActionStartup
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
-        $this->writeLog('Starting ' . APP_TITLE . '...');
+        $this->writeLog('Starting ' . APP_TITLE . '');
 
         // Init
         $this->splash = new Splash();

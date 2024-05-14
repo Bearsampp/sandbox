@@ -94,7 +94,7 @@ function db_list_database_tables()
   if ($prefixlen > 0) {
     foreach($tables as $table) {
       if (!(stristr(substr($table, 0, $prefixlen), APPPREFIX) === false)) {
-        $tmp_tabs[] = substr($table, strlen(APPPREFIX));
+        $tmp_tabs .= substr( $table, strlen( APPPREFIX ) );
       }
     }
     if ($tmp_tabs == "") {
@@ -136,7 +136,7 @@ function db_table_exists($tablename)
 * @param  $fieldnames ( beside "id" )
 * @param  $fieldattrib
 * @param string $idfield ( set to "id" )
-* @param array $valarray ( $valarray[0] = 1.record, $valarray[1] = 2.record, ... )
+* @param array $valarray ( $valarray[0] = 1.record, $valarray[1] = 2.record,  )
 * @return bool "TRUE" or "FALSE" if Table already exists, could not create Table, could not create Records
 */
 function db_create_table($tablename, $fieldnames, $fieldattrib, $idfield = "id", $valarray = null)
@@ -584,10 +584,10 @@ function db_get_data($tablename, $id = null, $col = null, $where = "", $result_t
     case 1:
 
       $test = $array; // Copy array
-      $elem = array_shift($test); // 1st element of array...
-      if (is_null($elem)) // ...is it null?
+      $elem = array_shift($test); // 1st element of array
+      if (is_null($elem)) // is it null?
         return false; // Yes: return null
-      if (is_scalar($elem)) // ...is it a scalar?
+      if (is_scalar($elem)) // is it a scalar?
         return $elem; // Yes: return the element alone
       else
         return $array; // No: return the whole array
