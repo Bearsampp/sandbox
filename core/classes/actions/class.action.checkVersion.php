@@ -1,8 +1,8 @@
 <?php
 /*
- * Copyright (c) 2-2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
+ * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -31,6 +31,12 @@ class ActionCheckVersion
 
     private $latestVersionUrl;
 
+    /**
+     * Constructor for the ActionCheckVersion class.
+     * Initializes the class, checks for the latest version of the application, and displays update information if necessary.
+     *
+     * @param array $args Arguments that may affect the display behavior, such as forcing an "OK" message box.
+     */
     public function __construct($args)
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder, $appGithubHeader;
@@ -54,18 +60,27 @@ class ActionCheckVersion
         }
     }
 
+    /**
+     * Displays a window with information about the available application update.
+     * This window includes links to download the new version and an OK button.
+     *
+     * @param Lang $lang Language processing object for retrieving language-specific values.
+     * @param WinBinder $winbinder WinBinder object for creating GUI elements.
+     * @param Core $core Core application object for accessing application-specific paths and settings.
+     * @param string $bearsamppLatestVersion The latest version string of the application.
+     */
     private function showVersionUpdateWindow($lang, $winbinder, $core, $bearsamppLatestVersion)
     {
         $labelFullLink = $lang->getValue(Lang::DOWNLOAD) . ' ' . APP_TITLE . ' ' . $bearsamppLatestVersion;
 
         $winbinder->reset();
-        $this->wbWindow = $winbinder->createAppWindow($lang->getValue(Lang::CHECK_VERSION_TITLE), 380, 170, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
+        $this->wbWindow = $winbinder->createAppWindow($lang->getValue(Lang::CHECK_VERSION_TITLE), 480, 170, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
 
-        $winbinder->createLabel($this->wbWindow, $lang->getValue(Lang::CHECK_VERSION_AVAILABLE_TEXT), 80, 35, 370, 120);
+        $winbinder->createLabel($this->wbWindow, $lang->getValue(Lang::CHECK_VERSION_AVAILABLE_TEXT), 80, 35, 470, 120);
 
-        $this->wbLinkFull = $winbinder->createHyperLink($this->wbWindow, $labelFullLink, 80, 87, 200, 20, WBC_LINES | WBC_RIGHT);
+        $this->wbLinkFull = $winbinder->createHyperLink($this->wbWindow, $labelFullLink, 80, 87, 300, 20, WBC_LINES | WBC_RIGHT);
 
-        $this->wbBtnOk = $winbinder->createButton($this->wbWindow, $lang->getValue(Lang::BUTTON_OK), 280, 103);
+        $this->wbBtnOk = $winbinder->createButton($this->wbWindow, $lang->getValue(Lang::BUTTON_OK), 380, 103);
         $this->wbImage = $winbinder->drawImage($this->wbWindow, $core->getResourcesPath() . '/icons/about.bmp');
 
         Util::stopLoading();
@@ -74,6 +89,13 @@ class ActionCheckVersion
         $winbinder->reset();
     }
 
+    /**
+     * Displays a message box indicating that the current version is the latest.
+     * This is typically called when there are no updates available.
+     *
+     * @param Lang $lang Language processing object for retrieving language-specific values.
+     * @param WinBinder $winbinder WinBinder object for creating GUI elements.
+     */
     private function showVersionOkMessageBox($lang, $winbinder)
     {
         Util::stopLoading();
@@ -83,6 +105,16 @@ class ActionCheckVersion
         );
     }
 
+    /**
+     * Handles user interactions within the version update window.
+     * Processes events like clicking on links or buttons.
+     *
+     * @param resource $window The handle to the window.
+     * @param int $id The control ID of the event source.
+     * @param mixed $ctrl The control object of the event source.
+     * @param mixed $param1 Additional parameter providing event-specific information.
+     * @param mixed $param2 Additional parameter providing event-specific information.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;

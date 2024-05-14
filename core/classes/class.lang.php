@@ -1,8 +1,8 @@
 <?php
 /*
- * Copyright (c) 2-2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
+ * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -312,7 +312,7 @@ class Lang
     // Action Debug PostgreSQL
     const DEBUG_POSTGRESQL_VERSION = 'debugPostgresqlVersion';
 
-    // Action others...
+    // Action others
     const REGISTRY_SET_ERROR_TEXT = 'registrySetErrorText';
 
     // Action check version
@@ -663,7 +663,7 @@ class Lang
             // Action Debug PostgreSQL
             self::DEBUG_POSTGRESQL_VERSION,
 
-            // Action others...
+            // Action others
             self::REGISTRY_SET_ERROR_TEXT,
 
             // Action check version

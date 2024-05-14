@@ -1,15 +1,15 @@
 <?php
 /*
- * Copyright (c) 2-2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
+ * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
 /**
  * Defines constants used throughout the Bearsampp application.
  */
-define('APP_AUTHOR_NAME', '/N6REJ');
+define('APP_AUTHOR_NAME', 'N6REJ');
 define('APP_TITLE', 'Bearsampp');
 define('APP_WEBSITE', 'https://bearsampp.com');
 define('APP_LICENSE', 'GPL3 License');
