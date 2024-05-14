@@ -1,5 +1,10 @@
 <?php
 /*
+ * Initializes and checks the status of MariaDB service and its versions.
+ *
+ * This script checks if the MariaDB service is enabled, verifies the port it's running on,
+ * and lists all available versions of MariaDB, highlighting the current version.
+ *
  * Copyright (c) 2-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
  * Author: @author@

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2-2024 Bearsampp
+ * Copyright (c) 2021 12-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
  * Author: @author@
  * Website: https://bearsampp.com

@@ -7,6 +7,17 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Prepare and output JSON-encoded PHP configuration and status data.
+ *
+ * This script gathers various pieces of information about the PHP configuration
+ * and its extensions, formats them with HTML for display purposes, and outputs
+ * them in a JSON-encoded format. This includes the PHP version, status (enabled/disabled),
+ * count of extensions, PEAR version, and a list of extensions with their respective statuses.
+ *
+ * @global object $bearsamppBins Instance of a class that provides methods to get PHP-related configurations.
+ * @global object $bearsamppLang Instance of a class that provides methods to retrieve language-specific values.
+ */
 $result = array(
     'status' => '',
     'versions' => '',
