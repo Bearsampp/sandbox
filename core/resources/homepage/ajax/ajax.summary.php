@@ -1,8 +1,8 @@
 <?php
 /*
- * Copyright (c) 2-2024 Bearsampp
+ * Copyright (c) 2021-2022-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
+ * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -56,6 +56,9 @@ if ($bearsamppBins->getApache()->isEnable()) {
         }
     }
 }
+
+
+
 $result['binapache'] = sprintf($dlMoreTpl, 'apache');
 $result['binapache'] .= '<span class = " float-end badge ' . $apacheLabel . '">' . $bearsamppBins->getApache()->getVersion() . '</span>';
 
