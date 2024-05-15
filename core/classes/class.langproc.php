@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class LangProc
 {
@@ -27,7 +20,7 @@ class LangProc
             $this->current = $bearsamppConfig->getLang();
         }
 
-        $this->raw = parse_ini_file($bearsamppCore->getLangsPath() . '/' . $this->current . '.lang');
+        $this->raw = parse_ini_file($bearsamppCore->getLangsPath() . '/' . $this->current . '.lng');
     }
 
     public function getCurrent()
@@ -46,8 +39,8 @@ class LangProc
         }
 
         while (false !== ($file = readdir($handle))) {
-            if ($file != "." && $file != ".." && Util::endWith($file, '.lang')) {
-                $result[] = str_replace('.lang', '', $file);
+            if ($file != "." && $file != ".." && Util::endWith($file, '.lng')) {
+                $result[] = str_replace('.lng', '', $file);
             }
         }
 

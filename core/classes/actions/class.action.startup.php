@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class ActionStartup
 {
@@ -23,7 +16,7 @@ class ActionStartup
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
-        $this->writeLog('Starting ' . APP_TITLE . '');
+        $this->writeLog('Starting ' . APP_TITLE . '...');
 
         // Init
         $this->splash = new Splash();

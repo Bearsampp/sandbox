@@ -1,20 +1,5 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
-/**
- * Initializes and checks the status of Memcached service, including port availability and version display.
- *
- * @global object $bearsamppBins Instance of a class managing various service binaries including Memcached.
- * @global object $bearsamppLang Language management object to retrieve localized text.
- *
- * @return void Outputs JSON encoded array containing port check results and Memcached versions.
- */
 $result = array(
     'checkport' => '',
     'versions' => '',
