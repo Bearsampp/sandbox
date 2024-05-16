@@ -1094,7 +1094,7 @@ class Util
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path' => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
-                'includes' => array('!.dll', '!.exe'),
+                'includes' => array('!.dll','!.exe'),
                 'recursive' => false
             );
         }
@@ -1718,8 +1718,7 @@ class Util
      * @param string|null $part Optional path to append to the URL.
      * @return string The full GitHub user URL.
      */
-    public static function getGithubUserUrl($part = null)
-    {
+    public static function getGithubUserUrl($part = null) {
         $part = !empty($part) ? '/' . $part : null;
         return 'https://github.com/' . APP_GITHUB_USER . $part;
     }
@@ -1730,8 +1729,7 @@ class Util
      * @param string|null $part Optional path to append to the URL.
      * @return string The full GitHub repository URL.
      */
-    public static function getGithubUrl($part = null)
-    {
+    public static function getGithubUrl($part = null) {
         $part = !empty($part) ? '/' . $part : null;
         return self::getGithubUserUrl(APP_GITHUB_REPO . $part);
     }
@@ -1742,8 +1740,7 @@ class Util
      * @param string $file The file path to append to the base URL.
      * @return string The full URL to the raw content on GitHub.
      */
-    public static function getGithubRawUrl($file)
-    {
+    public static function getGithubRawUrl($file) {
         $file = !empty($file) ? '/' . $file : null;
         return 'https://raw.githubusercontent.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . '/main' . $file;
     }
@@ -1779,11 +1776,10 @@ class Util
      * Paths are verified to be directories and formatted to Unix style.
      * Warnings are logged for paths that do not exist.
      *
-     * @return string A semicolon-separated string of formatted environment paths.
      * @global object $bearsamppRoot Global object containing root path methods.
+     * @return string A semicolon-separated string of formatted environment paths.
      */
-    public static function getNssmEnvPaths()
-    {
+    public static function getNssmEnvPaths() {
         global $bearsamppRoot;
 
         $result = '';
@@ -1817,8 +1813,7 @@ class Util
      * @global object $bearsamppConfig Global configuration object.
      * @global object $bearsamppWinbinder Global object to execute external programs.
      */
-    public static function openFileContent($caption, $content)
-    {
+    public static function openFileContent($caption, $content) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppWinbinder;
 
         $folderPath = $bearsamppRoot->getTmpPath() . '/openFileContent-' . self::random();
@@ -1839,8 +1834,7 @@ class Util
      * @param string $method Encryption method used (e.g., AES-256-CBC).
      * @return string|false Decrypted content or false on failure.
      */
-    public static function decryptFile()
-    {
+    public static function decryptFile() {
 
         global $bearsamppCore;
 
@@ -1892,12 +1886,11 @@ class Util
         return $decrypted;
     }
 
-    /**
-     * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
-     * @return array The header array for cURL with authorization and other necessary details.
-     */
-    public static function setupCurlHeaderWithToken()
-    {
+/**
+ * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
+ * @return array The header array for cURL with authorization and other necessary details.
+ */
+    public static function setupCurlHeaderWithToken() {
 
         // Usage
         global $bearsamppCore, $bearsamppConfig;
