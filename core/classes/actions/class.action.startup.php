@@ -227,7 +227,7 @@ class ActionStartup
 
         // Purge logs
         Util::clearFolders($bearsamppBins->getLogsPath());
-        Util::clearFolder($bearsamppRoot->getLogsPath(), array('archives'));
+        Util::clearFolder($bearsamppRoot->getLogsPath(), array('archives', '.gitignore'));
     }
 
     private function cleanTmpFolders()
@@ -238,8 +238,8 @@ class ActionStartup
         $this->splash->incrProgressBar();
 
         $this->writeLog('Clear tmp folders');
-        Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn'));
-        Util::clearFolder($bearsamppCore->getTmpPath());
+        Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn', '.gitignore'));
+        Util::clearFolder($bearsamppCore->getTmpPath(), array(".gitignore"));
     }
 
     private function cleanOldBehaviors()
