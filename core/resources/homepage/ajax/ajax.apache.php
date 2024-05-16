@@ -64,28 +64,28 @@ $result['vhostscount'] .= '<span class="ms-1 float-end badge text-bg-primary">' 
 // Modules list
 foreach ($bearsamppBins->getApache()->getModulesFromConf() as $moduleName => $moduleStatus) {
     if ($moduleStatus == ActionSwitchApacheModule::SWITCH_ON) {
-        $result['moduleslist'] .= '<span class="span-grid col-xs-12 col-md-2"><i class="fa fa-check-square-o"></i> <strong>' . $moduleName . '</strong></span>';
+        $result['moduleslist'] .= '<span class="span-grid col-xs-12 col-md-2"><i class="fa-regular fa-circle-check"></i> <strong>' . $moduleName . '</strong></span>';
     } else {
-        $result['moduleslist'] .= '<span class="span-grid col-xs-12 col-md-2"><i class="fa fa-square-o"></i> ' . $moduleName . '</span>';
+        $result['moduleslist'] .= '<span class="span-grid col-xs-12 col-md-2"><i class="fa-regular fa-circle"></i> ' . $moduleName . '</span>';
     }
 }
 
 // Aliases list
 foreach ($bearsamppBins->getApache()->getAlias() as $alias) {
-    $result['aliaseslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($alias) . '"><span class="fa fa-link"></span> ' . $alias . '</a></div>';
+    $result['aliaseslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($alias) . '"><span class="fa-solid fa-link"></span> ' . $alias . '</a></div>';
 }
 
 // Www directory
 foreach ($bearsamppBins->getApache()->getWwwDirectories() as $wwwDirectory) {
-    $result['wwwdirectory'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($wwwDirectory) . '"><span class="fa fa-link"></span> ' . $wwwDirectory . '</a></div>';
+    $result['wwwdirectory'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($wwwDirectory) . '"><span class="fa-solid fa-link"></span> ' . $wwwDirectory . '</a></div>';
 }
 
 // Vhosts list
 foreach ($bearsamppBins->getApache()->getVhostsUrl() as $vhost => $enabled) {
     if ($enabled) {
-        $result['vhostslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="http://' . $vhost . '"><span class="fa fa-check-square-o"></span> ' . $vhost . '</a></div>';
+        $result['vhostslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="http://' . $vhost . '"><span class="fa-regular fa-circle-check"></span> ' . $vhost . '</a></div>';
     } else {
-        $result['vhostslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="http://' . $vhost . '"><span class="fa fa-square-o"></span> ' . $vhost . '</a></div>';
+        $result['vhostslist'] .= '<div style="float:left;padding:3px;"><a class="btn btn-outline-dark" target="_blank" href="http://' . $vhost . '"><span class="fa-regular fa-circle"></span> ' . $vhost . '</a></div>';
     }
 }
 

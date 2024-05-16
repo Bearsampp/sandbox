@@ -49,7 +49,7 @@ $latestVersionUrl = $latestVersionData['url']; // URL of the latest version
 // Directly compare version strings
 if (version_compare($bearsamppCurrentVersion, $bearsamppLatestVersion, '<')) {
     $result['display'] = true;
-    $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $latestVersionUrl . '" target="_blank"><i class="fa fa-download"></i> ';
+    $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $latestVersionUrl . '" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> ';
     $result['download'] .= $bearsamppLang->getValue(Lang::DOWNLOAD) . ' <strong>' . APP_TITLE . ' ' . $bearsamppLatestVersion . '</strong><br />';
 }
 echo json_encode($result);
