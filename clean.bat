@@ -1,6 +1,6 @@
 @echo off
 setlocal
-
+echo Cleaning up temp files...
 :: Set the root directory for the search
 set "ROOT_DIR=%CD%"
 
