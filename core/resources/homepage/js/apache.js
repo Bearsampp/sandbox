@@ -5,6 +5,7 @@
         proc: 'apache'
       },
       success: function(data) {
+        console.log(data);
         $('.apache-checkport').append(data.checkport);
         $('.apache-checkport').find('.loader').remove();
 
@@ -37,20 +38,25 @@
 }); */
 
 async function getApacheStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
-  let proc = 'apache';
-  let data = new URLSearchParams();
-  data.append(`proc`, proc);
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const proc = 'apache';
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
     let q = document.querySelector('.apache-checkport');
     let ql = q.querySelector('.loader');
     ql.remove();
@@ -99,7 +105,7 @@ async function getApacheStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.querySelector('a[name=apache]').name = 'apache') {
+  if (document.querySelector('a[name=apache]').name === 'apache') {
     getApacheStatus();
   }
 })

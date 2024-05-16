@@ -16,34 +16,40 @@
 });*/
 
 async function getMySQLStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
-  let data = new URLSearchParams();
-  let proc='mysql';
-  data.append(`proc`, proc);
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const proc = 'mysql';
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
 
     let q = document.querySelector('.mysql-checkport');
     let ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.checkport);
+    q.insertAdjacentHTML('beforeend', data.checkport);
 
     q = document.querySelector('.mysql-version-list');
     ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.versions);
+    q.insertAdjacentHTML('beforeend', data.versions);
   }
 }
-document.addEventListener("DOMContentLoaded", function() {
-  if (document.querySelector('a[name=mysql]').name = 'mysql') {
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.querySelector('a[name=mysql]').name === 'mysql') {
     getMySQLStatus();
   }
 })

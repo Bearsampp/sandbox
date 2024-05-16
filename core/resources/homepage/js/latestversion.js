@@ -16,9 +16,9 @@
 });*/
 
 async function getLatestVersionStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
   let data = new URLSearchParams();
-  let proc = 'latestversion';
+  const proc = 'latestversion';
   data.append(`proc`, proc);
   const options = {
     method: 'POST',
@@ -29,7 +29,12 @@ async function getLatestVersionStatus() {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+try {
+  data = JSON.parse(myajaxresponse);
+} catch (error) {
+  console.error('Failed to parse response:', error);
+}
     if (data.display) {
       let q = document.querySelector('.latestversion-download');
       q.insertAdjacentHTML('beforeend',data.download);
@@ -40,10 +45,11 @@ async function getLatestVersionStatus() {
       q = document.querySelector('.latestversion');
       q.style.display = 'block';
     }
+
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
-  if (document.querySelector('.latestversion').name = 'latestversion') {
+  if (document.querySelector('.latestversion').name === 'latestversion') {
     getLatestVersionStatus();
   }
 })

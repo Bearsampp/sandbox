@@ -16,9 +16,9 @@
 });*/
 
 async function getMailHogStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
   let data = new URLSearchParams();
-  let proc = 'mailhog';
+  const proc = 'mailhog';
   data.append(`proc`, proc);
   const options = {
     method: 'POST',
@@ -29,7 +29,12 @@ async function getMailHogStatus() {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+try {
+  data = JSON.parse(myajaxresponse);
+} catch (error) {
+  console.error('Failed to parse response:', error);
+}
 
     let q = document.querySelector('.mailhog-checkport');
     let ql = q.querySelector('.loader');
@@ -43,7 +48,7 @@ async function getMailHogStatus() {
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
-  if (document.querySelector('a[name=mailhog]').name = 'mailhog') {
+  if (document.querySelector('a[name=mailhog]').name === 'mailhog') {
     getMailHogStatus();
   }
 })

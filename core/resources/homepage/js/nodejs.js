@@ -16,34 +16,40 @@
 });*/
 
 async function getNodeJSStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
-  let data = new URLSearchParams();
-  let proc='nodejs';
-  data.append(`proc`, proc);
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const proc = 'nodejs';
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
 
     let q = document.querySelector('.nodejs-status');
     let ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.status);
+    q.insertAdjacentHTML('beforeend', data.status);
 
     q = document.querySelector('.nodejs-version-list');
     ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.versions);
+    q.insertAdjacentHTML('beforeend', data.versions);
   }
 }
-document.addEventListener("DOMContentLoaded", function() {
-  if (document.querySelector('a[name=nodejs]').name = 'nodejs') {
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.querySelector('a[name=nodejs]').name === 'nodejs') {
     getNodeJSStatus();
   }
 })

@@ -16,20 +16,25 @@
 });*/
 
 async function getMemCachedStatus() {
-  let url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
-  let data = new URLSearchParams();
-  let proc = 'memcached';
-  data.append(`proc`, proc);
+  const url = '/b30a9b2155cf4012e52675f2d0559415/ajax.php';
+  const proc = 'memcached';
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
     console.log('Error receiving from ajax.php');
   } else {
     let myajaxresponse = await response.text();
-    let data = JSON.parse(myajaxresponse);
+    let data;
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
 
     let q = document.querySelector('.memcached-checkport');
     let ql = q.querySelector('.loader');
@@ -44,7 +49,7 @@ async function getMemCachedStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.querySelector('a[name=memcached]').name = 'memcached') {
+  if (document.querySelector('a[name=memcached]').name === 'memcached') {
     getMemCachedStatus();
   }
 })
