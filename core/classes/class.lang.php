@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class Lang
 {
@@ -24,7 +17,7 @@ class Lang
     const CONSOLE = 'console';
     const DEBUG = 'debug';
     const DISABLED = 'disabled';
-    const DISCORD  = 'discord';
+    const DISCORD = 'Discord';
     const DONATE = 'donate';
     const DONATE_VIA = 'donateVia';
     const DOWNLOAD = 'download';
@@ -33,7 +26,7 @@ class Lang
     const ERROR = 'error';
     const EXECUTABLE = 'executable';
     const EXTENSIONS = 'extensions';
-    const FACEBOOK = 'facebook';
+    const FACEBOOK = 'Facebook';
     const GIT_CONSOLE = 'gitConsole';
     const GITGUI = 'gitGui';
     const GITHUB = 'github';
@@ -67,6 +60,7 @@ class Lang
     const VERBOSE_TRACE = 'verboseTrace';
     const VERSION = 'version';
     const VERSIONS = 'versions';
+    const VERSION_URL = 'https://github.com/Bearsampp/Bearsampp/releases/tag/';
     const VIRTUAL_HOSTS = 'virtualHosts';
     const WEBSITE = 'website';
 
@@ -213,7 +207,7 @@ class Lang
     const EDIT_ALIAS_TITLE = 'editAliasTitle';
 
     // Action Delete vhost
-    const DELETE_VHOST_TITLE =  'deleteVhostTitle';
+    const DELETE_VHOST_TITLE = 'deleteVhostTitle';
     const DELETE_VHOST = 'deleteVhost';
     const VHOST_REMOVED = 'vhostRemoved';
     const VHOST_REMOVE_ERROR = 'vhostRemoveError';
@@ -312,7 +306,7 @@ class Lang
     // Action Debug PostgreSQL
     const DEBUG_POSTGRESQL_VERSION = 'debugPostgresqlVersion';
 
-    // Action others
+    // Action others...
     const REGISTRY_SET_ERROR_TEXT = 'registrySetErrorText';
 
     // Action check version
@@ -378,7 +372,6 @@ class Lang
             self::CONSOLE,
             self::DEBUG,
             self::DISABLED,
-            self::DISCORD,
             self::DONATE,
             self::DONATE_VIA,
             self::DOWNLOAD,
@@ -388,7 +381,6 @@ class Lang
             self::EXECUTABLE,
             self::EXTENSIONS,
             self::GIT_CONSOLE,
-            self::FACEBOOK,
             self::GITHUB,
             self::HELP,
             self::HOSTSEDITOR,
@@ -663,7 +655,7 @@ class Lang
             // Action Debug PostgreSQL
             self::DEBUG_POSTGRESQL_VERSION,
 
-            // Action others
+            // Action others...
             self::REGISTRY_SET_ERROR_TEXT,
 
             // Action check version

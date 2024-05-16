@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class BinPostgresql extends Module
 {
@@ -328,7 +321,7 @@ class BinPostgresql extends Module
         }
 
         $version = $version == null ? $this->version : $version;
-        Util::logDebug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'Update ' . $this->name . ' ' . $version . ' config');
+        Util::logDebug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'Update ' . $this->name . ' ' . $version . ' config...');
 
         $boxTitle = sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_TITLE), $this->getName(), $version);
 
