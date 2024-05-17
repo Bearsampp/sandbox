@@ -19,6 +19,9 @@ class ActionQuit
             sprintf($bearsamppLang->getValue(Lang::EXIT_LEAVING_TEXT), APP_TITLE . ' ' . $bearsamppCore->getAppVersion())
         );
 
+        // clear current symlinks
+        Util::clearCurrentSymlinks();
+
         $bearsamppWinbinder->setHandler($this->splash->getWbWindow(), $this, 'processWindow', 2000);
         $bearsamppWinbinder->mainLoop();
         $bearsamppWinbinder->reset();
