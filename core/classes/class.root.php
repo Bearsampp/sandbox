@@ -581,6 +581,7 @@ class Root
         $trace = preg_replace_callback('/^#(\d+)/m', 'debugStringPregReplace', $trace);
         return $trace;
     }
+}
 
     /**
      * Adjusts the trace number in debug backtrace.
@@ -592,4 +593,3 @@ class Root
     {
         return '  #' . ($match[1] - 1);
     }
-}
