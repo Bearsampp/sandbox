@@ -239,7 +239,7 @@ class ActionStartup
 
         $this->writeLog('Clear tmp folders');
         Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn', '.gitignore'));
-        Util::clearFolder($bearsamppCore->getTmpPath(), array(".gitignore"));
+        Util::clearFolder($bearsamppCore->getTmpPath(), array('.gitignore'));
     }
 
     private function cleanOldBehaviors()
@@ -512,9 +512,10 @@ class ActionStartup
 
     private function installServices()
     {
-        global $bearsamppLang, $bearsamppBins;
+        global $bearsamppLang, $bearsamppBins, $bearsamppRoot;
 
         if (!$this->restart) {
+
             foreach ($bearsamppBins->getServices() as $sName => $service) {
                 $serviceError = '';
                 $serviceRestart = false;
@@ -648,4 +649,5 @@ class ActionStartup
         global $bearsamppRoot;
         Util::logDebug($log, $bearsamppRoot->getStartupLogFilePath());
     }
+
 }
