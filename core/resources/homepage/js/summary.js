@@ -83,6 +83,8 @@ async function getSummaryStatus() {
 
     q = document.querySelector('.summary-binpostgresql');
     q.insertAdjacentHTML('beforeend', data.binpostgresql);
+    ql = q.querySelector('.loader');
+    ql.remove();
 
     q = document.querySelector('.summary-binmemcached');
     ql = q.querySelector('.loader');
@@ -102,7 +104,7 @@ async function getSummaryStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.querySelector('.summary').name === 'summary') {
+  if (document.querySelector('.summary').className === 'row summary') {
     getSummaryStatus();
   }
 })
