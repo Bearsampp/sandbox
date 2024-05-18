@@ -504,10 +504,13 @@ class Util
         );
 
         $separator = '========================================================================================' . PHP_EOL;
-        foreach ( $logs as $log ) {
-            $logContent = @file_get_contents( $log );
-            if ( $logContent !== false && !self::endWith( $logContent, $separator ) ) {
-                file_put_contents( $log, $separator, FILE_APPEND );
+        foreach ($logs as $log) {
+            if (!file_exists($log)) {
+                continue; // Skip to the next iteration if the file does not exist
+            }
+            $logContent = @file_get_contents($log);
+            if ($logContent !== false && !self::endWith($logContent, $separator)) {
+                file_put_contents($log, $separator, FILE_APPEND);
             }
         }
     }
