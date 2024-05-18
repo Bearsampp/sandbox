@@ -20,7 +20,7 @@ class LangProc
             $this->current = $bearsamppConfig->getLang();
         }
 
-        $this->raw = parse_ini_file($bearsamppCore->getLangsPath() . '/' . $this->current . '.lang');
+        $this->raw = parse_ini_file($bearsamppCore->getLangsPath() . '/' . $this->current . '.lng');
     }
 
     public function getCurrent()
@@ -39,8 +39,8 @@ class LangProc
         }
 
         while (false !== ($file = readdir($handle))) {
-            if ($file != "." && $file != ".." && Util::endWith($file, '.lang')) {
-                $result[] = str_replace('.lang', '', $file);
+            if ($file != "." && $file != ".." && Util::endWith($file, '.lng')) {
+                $result[] = str_replace('.lng', '', $file);
             }
         }
 

@@ -17,7 +17,6 @@ class Lang
     const CONSOLE = 'console';
     const DEBUG = 'debug';
     const DISABLED = 'disabled';
-    const DISCORD = 'Discord';
     const DONATE = 'donate';
     const DONATE_VIA = 'donateVia';
     const DOWNLOAD = 'download';
@@ -26,7 +25,6 @@ class Lang
     const ERROR = 'error';
     const EXECUTABLE = 'executable';
     const EXTENSIONS = 'extensions';
-    const FACEBOOK = 'Facebook';
     const GIT_CONSOLE = 'gitConsole';
     const GITGUI = 'gitGui';
     const GITHUB = 'github';
@@ -207,7 +205,7 @@ class Lang
     const EDIT_ALIAS_TITLE = 'editAliasTitle';
 
     // Action Delete vhost
-    const DELETE_VHOST_TITLE = 'deleteVhostTitle';
+    const DELETE_VHOST_TITLE =  'deleteVhostTitle';
     const DELETE_VHOST = 'deleteVhost';
     const VHOST_REMOVED = 'vhostRemoved';
     const VHOST_REMOVE_ERROR = 'vhostRemoveError';
