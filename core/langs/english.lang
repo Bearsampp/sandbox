@@ -5,6 +5,7 @@
 allRunningHint = "All services running"
 someRunningHint = "%n of %t services running"
 noneRunningHint = "None of %t services running"
+locale = "en-US"
 
 ; Single
 about = "About"
