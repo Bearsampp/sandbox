@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class Lang
 {
@@ -24,7 +17,6 @@ class Lang
     const CONSOLE = 'console';
     const DEBUG = 'debug';
     const DISABLED = 'disabled';
-    const DISCORD  = 'discord';
     const DONATE = 'donate';
     const DONATE_VIA = 'donateVia';
     const DOWNLOAD = 'download';
@@ -33,7 +25,6 @@ class Lang
     const ERROR = 'error';
     const EXECUTABLE = 'executable';
     const EXTENSIONS = 'extensions';
-    const FACEBOOK = 'facebook';
     const GIT_CONSOLE = 'gitConsole';
     const GITGUI = 'gitGui';
     const GITHUB = 'github';
@@ -67,6 +58,7 @@ class Lang
     const VERBOSE_TRACE = 'verboseTrace';
     const VERSION = 'version';
     const VERSIONS = 'versions';
+    const VERSION_URL = 'https://github.com/Bearsampp/Bearsampp/releases/tag/';
     const VIRTUAL_HOSTS = 'virtualHosts';
     const WEBSITE = 'website';
 
@@ -378,7 +370,6 @@ class Lang
             self::CONSOLE,
             self::DEBUG,
             self::DISABLED,
-            self::DISCORD,
             self::DONATE,
             self::DONATE_VIA,
             self::DOWNLOAD,
@@ -388,7 +379,6 @@ class Lang
             self::EXECUTABLE,
             self::EXTENSIONS,
             self::GIT_CONSOLE,
-            self::FACEBOOK,
             self::GITHUB,
             self::HELP,
             self::HOSTSEDITOR,

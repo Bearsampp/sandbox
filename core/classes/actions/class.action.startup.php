@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class ActionStartup
 {
@@ -234,7 +227,7 @@ class ActionStartup
 
         // Purge logs
         Util::clearFolders($bearsamppBins->getLogsPath());
-        Util::clearFolder($bearsamppRoot->getLogsPath(), array('archives'));
+        Util::clearFolder($bearsamppRoot->getLogsPath(), array('archives', '.gitignore'));
     }
 
     private function cleanTmpFolders()
@@ -245,8 +238,8 @@ class ActionStartup
         $this->splash->incrProgressBar();
 
         $this->writeLog('Clear tmp folders');
-        Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn'));
-        Util::clearFolder($bearsamppCore->getTmpPath());
+        Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn', '.gitignore'));
+        Util::clearFolder($bearsamppCore->getTmpPath(), array('.gitignore'));
     }
 
     private function cleanOldBehaviors()
@@ -519,9 +512,10 @@ class ActionStartup
 
     private function installServices()
     {
-        global $bearsamppLang, $bearsamppBins;
+        global $bearsamppLang, $bearsamppBins, $bearsamppRoot;
 
         if (!$this->restart) {
+
             foreach ($bearsamppBins->getServices() as $sName => $service) {
                 $serviceError = '';
                 $serviceRestart = false;
@@ -655,4 +649,5 @@ class ActionStartup
         global $bearsamppRoot;
         Util::logDebug($log, $bearsamppRoot->getStartupLogFilePath());
     }
+
 }

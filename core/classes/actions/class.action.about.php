@@ -1,29 +1,23 @@
 <?php
-/*
- * Copyright (c) 2-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: @author@
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class ActionAbout
 {
     private $wbWindow;
-
+    
     private $wbImage;
     private $wbLinkHomepage;
     private $wbLinkDonate;
     private $wbLinkGithub;
     private $wbBtnOk;
-
+    
     const GAUGE_SAVE = 2;
-
+    
     public function __construct($args)
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
-
+        
         $bearsamppWinbinder->reset();
+
         $this->wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::ABOUT_TITLE), 500, 250, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
 
         $aboutText = sprintf($bearsamppLang->getValue(Lang::ABOUT_TEXT), APP_TITLE . ' ' . $bearsamppCore->getAppVersion(), date('Y'), APP_AUTHOR_NAME);
@@ -46,11 +40,11 @@ class ActionAbout
         $bearsamppWinbinder->mainLoop();
         $bearsamppWinbinder->reset();
     }
-
+    
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;
-
+        
         switch ($id) {
             case $this->wbLinkHomepage[WinBinder::CTRL_ID]:
                 $bearsamppWinbinder->exec($bearsamppConfig->getBrowser(), Util::getWebsiteUrl());

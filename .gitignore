@@ -14,10 +14,10 @@
 /bin/
 /cgi-bin/
 /img/
-/logs/
+/logs/*
 /ssl/
-/tmp/
-/core/tmp/
+/tmp/*
+/core/tmp/*
 /tools/
 /vhosts/
 /www/.htaccess
@@ -25,9 +25,12 @@
 bearsampp.ini
 bearsampp.conf
 /core/resources/homepage/alias.conf
-/core/resources/homepage/js/_commons.js
+#/core/resources/homepage/js/_commons.js
 /core/resources/loading.pid
 /core/libs/openssl/openssl.cfg
+/core/resources/lastPath.dat
+/core/libs/openssl/openssl.cfg
+
 
 # Visual Studio
 .vscode/
