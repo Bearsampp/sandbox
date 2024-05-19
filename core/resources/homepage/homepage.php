@@ -7,6 +7,7 @@
  */
 include __DIR__ . '/../../root.php';
 global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale;
+$resourcesPath = $bearsamppHomepage->getResourcesPath();
 
 /**
  * Generates HTML for a loading spinner.
@@ -16,14 +17,10 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
  *
  * @return string HTML string containing a span element with the loader image.
  */
-function getLoaderHtml() {
-    global $bearsamppHomepage;
-
-    return '<span class = "loader float-end"><img src = "' . $bearsamppHomepage->getResourcesPath() . '/img/loader.gif' . '" alt="spinner" /></span>';
-}
-
-$resourcesPath = $bearsamppHomepage->getResourcesPath();
-?>
+function getLoaderHtml($resourcesPath): string
+{
+    return '<span class = "loader float-end"><img src = "' . $resourcesPath . '/img/loader.gif' . '" alt="spinner" /></span>';
+}?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $locale ?>">
@@ -39,7 +36,6 @@ $resourcesPath = $bearsamppHomepage->getResourcesPath();
         "/css/app.css",
         "/libs/bootstrap/bootstrap.min.css",
         "/libs/fontawesome/css/all.css",
-        "/libs/fontawesome/css/v4-shims.css"
     ];
     $jsFiles = [
         "/libs/jquery/jquery-3.7.1.min.js",

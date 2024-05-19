@@ -61,7 +61,7 @@ class Homepage
     public function getResourcesPath()
     {
         global $bearsamppCore;
-        return md5(APP_TITLE . $bearsamppCore->getAppVersion());
+        return md5(APP_TITLE);
     }
 
     public function getResourcesUrl()
