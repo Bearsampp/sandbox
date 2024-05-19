@@ -2,7 +2,7 @@ $.ajaxSetup({
   type: "POST",
   cache: false,
   dataType: "json",
-  url: "dummy/ajax.php"
+  url: "a2e080b036374da9c34c3329c11a6d39/ajax.php"
 });
 
-const ajax_url = "dummmy/ajax.php"
+const ajax_url = "a2e080b036374da9c34c3329c11a6d39/ajax.php"
