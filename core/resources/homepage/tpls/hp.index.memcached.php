@@ -8,7 +8,7 @@
   <div class="col-lg-6">
     <div class="list-group">
       <span class="list-group-item memcached-checkport">
-        <?php echo getLoaderHtml(); ?>
+        <?php echo $getLoader; ?>
         <i class="fa-solid fa-server"></i> <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
       </span>
       <span class="list-group-item memcached-versions">
@@ -16,7 +16,7 @@
                 <i class="fa-solid fa-code-merge"></i> <?php echo $bearsamppLang->getValue(Lang::VERSIONS); ?>
               </span>
               <span class="memcached-version-list float-right col-11">
-                <?php echo getLoaderHtml(); ?>
+                <?php echo $getLoader; ?>
               </span>
       </span>
     </div>

@@ -45,7 +45,7 @@ class ActionLoading
 
         for ($i = 0; $i < $nb; $i++) {
             $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
-            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/img/icons/bearsampp.bmp', 4, 2, 32, 32);
+            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp', 4, 2, 32, 32);
         }
 
         $bearsamppWinbinder->wait();

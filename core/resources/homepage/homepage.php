@@ -6,21 +6,18 @@
  * Github: https://github.com/Bearsampp
  */
 include __DIR__ . '/../../root.php';
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale;
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale, $bearsamppRoot;
+
+/* Set the resource path homepage dir */
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
 
-/**
- * Generates HTML for a loading spinner.
- *
- * This function returns an HTML span element with a class that includes a floating image to the right.
- * The image source is dynamically set to the loader GIF located in the resources path of the Bearsampp homepage object.
- *
- * @return string HTML string containing a span element with the loader image.
- */
-function getLoaderHtml($resourcesPath): string
-{
-    return '<span class = "loader float-end"><img src = "' . $resourcesPath . '/img/loader.gif' . '" alt="spinner" /></span>';
-}?>
+/* Set reusable variable for the loader.gif */
+$getLoader = '<span class = "loader float-end"><img src = "' . $resourcesPath . '/img/loader.gif' . '" alt="spinner" /></span>';
+$iconsPath = $resourcesPath . '/img/icons/';
+$imagesPath = $resourcesPath . '/img/';
+$downloadTitle = $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);
+
+?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $locale ?>">
@@ -66,7 +63,7 @@ function getLoaderHtml($resourcesPath): string
     }
     ?>
 
-    <link href="<?php echo Util::imgToBase64($resourcesPath . '/img/icons/app.ico'); ?>" rel="icon"/>
+    <link href="<?php echo $bearsamppRoot . '/favicon.ico'; ?>" rel="icon"/>
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
 </head>
 
@@ -76,7 +73,7 @@ function getLoaderHtml($resourcesPath): string
         <div class="d-inline-block">
             <a class="navbar-brand" href="<?php echo Util::getWebsiteUrl(); ?>">
                 <img class="p-1" alt="<?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?>"
-                     src="<?php echo $resourcesPath . '/img/header-logo.png'; ?>"/></a>
+                     src="<?php echo $imagesPath . 'header-logo.png'; ?>"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -87,7 +84,7 @@ function getLoaderHtml($resourcesPath): string
         <ul class="d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::DISCORD); ?>" target="_blank"
-                   href="https://discord.gg/AgwVNAzV"><img class="discord" src="<?php echo $resourcesPath . '/img/discord.png'; ?>" alt='Discord Icon'/></a>
+                   href="https://discord.gg/AgwVNAzV"><img class="discord" src="<?php echo $imagesPath . 'discord.png'; ?>" alt='Discord Icon'/></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::FACEBOOK); ?>" target="_blank"
@@ -99,7 +96,7 @@ function getLoaderHtml($resourcesPath): string
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::DONATE); ?>" target="_blank"
-                   href="<?php echo Util::getWebsiteUrl('donate'); ?>"><img class="donate" src="<?php echo $resourcesPath . '/img/donate.png'; ?>" alt='Donation Icon'/></a>
+                   href="<?php echo Util::getWebsiteUrl('donate'); ?>"><img class="donate" src="<?php echo $imagesPath . 'donate.png'; ?>" alt='Donation Icon'/></a>
             </li>
         </ul>
     </div>

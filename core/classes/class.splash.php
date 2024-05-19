@@ -39,7 +39,7 @@ class Splash
         $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
 
         $this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, null);
-        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/img/icons/app.ico');
+        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp');
         $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, $gauge + 1, 42, 24, 390, 15);
 
         $this->setTextLoading($text);
@@ -59,7 +59,7 @@ class Splash
         global $bearsamppCore, $bearsamppWinbinder;
 
         for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/img/icons/bearsampp.bmp', 4, 4, 32, 32);
+            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp', 4, 4, 32, 32);
             $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
         }
 
