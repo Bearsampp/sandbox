@@ -10,13 +10,12 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
 
 /* Set the resource path homepage dir */
 $resourcesPath = $bearsamppHomepage->getResourcesPath();
-
-/* Set reusable variable for the loader.gif */
-$getLoader = '<span class = "loader float-end"><img src = "' . $resourcesPath . '/img/loader.gif' . '" alt="spinner" /></span>';
-$iconsPath = $resourcesPath . '/img/icons/';
-$imagesPath = $resourcesPath . '/img/';
+/* $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; */
+/* Set reusable variables */
+$iconsPath = $bearsamppHomepage->getIconsPath();
+$imagesPath = $bearsamppHomepage->getImagesPath();
 $downloadTitle = $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);
-
+$getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'loader.gif' . '" alt="spinner" /></span>';
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +62,7 @@ $downloadTitle = $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);
     }
     ?>
 
-    <link href="<?php echo $bearsamppRoot . '/favicon.ico'; ?>" rel="icon"/>
+    <link href="<?php echo $bearsamppRoot->getRootPath() . '/favicon.ico'; ?>" rel="icon"/>
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
 </head>
 
