@@ -83,7 +83,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         <ul class="d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::DISCORD); ?>" target="_blank"
-                   href="https://discord.gg/AgwVNAzV"><img class="discord" src="<?php echo $imagesPath . 'discord.png'; ?>" alt='Discord Icon'/></a>
+                   href="https://discord.gg/AgwVNAzV" alt='Discord Icon'><i class = 'fa-brands fa-discord'></i></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $bearsamppLang->getValue(Lang::FACEBOOK); ?>" target="_blank"
