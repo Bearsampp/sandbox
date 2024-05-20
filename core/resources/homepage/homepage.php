@@ -9,7 +9,7 @@ include __DIR__ . '/../../root.php';
 global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale, $bearsamppRoot;
 
 /* Set the resource path homepage dir */
-$resourcesPath = $bearsamppHomepage->getResourcesPath();
+$resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
 /* $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; */
 /* Set reusable variables */
 $iconsPath = $bearsamppHomepage->getIconsPath();
@@ -102,8 +102,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
 </nav>
 
 <div id="page-wrapper">
-    <?php include 'tpls/hp.latestversion.php'; ?>
-    <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.php'; ?>
+    <?php include 'tpls/hp.latestversion.html'; ?>
+    <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.html'; ?>
 </div>
 
 </body>

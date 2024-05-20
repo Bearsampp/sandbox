@@ -5,7 +5,7 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
+global $downloadTitle, $bearsamppBins;
 $result = array(
     'binapache' => '',
     'binfilezilla' => '',
