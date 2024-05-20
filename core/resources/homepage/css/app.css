@@ -216,7 +216,7 @@ table.tablesorter thead tr th:hover {
 /* FA icons for navbar resizing */
 nav.navbar .svg-inline--fa.fa-facebook,
 nav.navbar .svg-inline--fa.fa-github,
-nav.navbar .discord {
+nav.navbar .svg-inline--fa.fa-discord {
     width: var(--icon-width);
     height: var(--icon-height);
     vertical-align: middle;
@@ -233,8 +233,8 @@ nav.navbar .svg-inline--fa.fa-github {
     }
 
 /* discord needs to be tweaked a bit to stay looking right */
-nav.navbar .discord {
-    height: 30px;
+nav.navbar .svg-inline--fa.fa-discord {
+    color: #5865F2;
     width: auto;
     }
 
@@ -250,17 +250,7 @@ nav.navbar .discord {
 
 /* increase size of small icons slightly */
 .svg-inline--fa {
-    height: 1.25em;
-    }
-/* ---- END ICONOGRAPHY ---- */
-
-.svg-inline--fa.fa-cloud-arrow-down {
-    height: 20px;
-    color: var(--bs-info);
+    height: 1.125em;
     }
 
-/* increase size of small icons slightly */
-.svg-inline--fa {
-    height: 1.25em;
-    }
 /* ---- END ICONOGRAPHY ---- */
