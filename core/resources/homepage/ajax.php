@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '\..\..\root.php';
+include_once __DIR__ . '/../../root.php';
 
 $procs = array(
     'summary',
