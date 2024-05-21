@@ -17,7 +17,7 @@ class TplAppNodejs
 
     public static function getMenuNodejs()
     {
-        global $bearsamppBins, $bearsamppLang, $bearsamppTools;
+        global $bearsamppBins, $bearsamppLang, $bearsamppTools, $downloadTitle;
         $resultItems = $resultActions = '';
 
         $isEnabled = $bearsamppBins->getNodejs()->isEnable();

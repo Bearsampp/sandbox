@@ -1244,25 +1244,29 @@ class Util
      */
     public static function getLatestVersion($url)
     {
-        $result = self::getApiJson($url);
-        if (empty($result)) {
-            self::logError('Cannot retrieve latest github info for: ' . $result . ' RESULT');
+        $result = self::getApiJson( $url );
+        if ( empty( $result ) ) {
+            self::logError( 'Cannot retrieve latest github info for: ' . $result . ' RESULT' );
+
             return null;
         }
 
-        $resultArray = json_decode($result, true);
-        if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
-            $tagName = $resultArray['tag_name'];
+        $resultArray = json_decode( $result, true );
+        if ( isset( $resultArray['tag_name'] ) && isset( $resultArray['assets'][0]['browser_download_url'] ) ) {
+            $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            self::logDebug("Latest version tag name: " . $tagName);
-            self::logDebug("Download URL: " . $downloadUrl);
-            return ['version' => $tagName, 'url' => $downloadUrl];
-        } else {
-            self::logError('Tag name or download URL not found in the response' . ' ' . $result);
+            $name        = $resultArray['name'] ?? 'Unknown'; // Check and retrieve the name
+            self::logDebug( 'Latest version tag name: ' . $tagName );
+            self::logDebug( 'Download URL: ' . $downloadUrl );
+            self::logDebug( 'Name: ' . $name );
+
+            return ['version' => $tagName, 'url' => $downloadUrl, 'name' => $name];
+        }
+        else {
+            self::logError( 'Tag name, download URL, or name not found in the response: ' . $result );
+
             return null;
         }
-        self::logError( 'Latest version tag name: ' . $tagName);
-        self::logError( 'Download URL: ' . $downloadUrl);
     }
 
     /**

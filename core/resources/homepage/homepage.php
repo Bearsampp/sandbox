@@ -10,7 +10,7 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
 
 /* Set the resource path homepage dir */
 $resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
-/* $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; */
+
 /* Set reusable variables */
 $iconsPath = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
