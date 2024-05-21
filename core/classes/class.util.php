@@ -1523,8 +1523,6 @@ class Util
     public static function getApiJson($url)
     {
         $header = self::setupCurlHeaderWithToken();
-        $headerString = print_r( $header, true );
-        Util::logError( 'HEADER IS: ' . $headerString . ' HEADEREND' );
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
@@ -1538,8 +1536,6 @@ class Util
             Util::logError('CURL Error: ' . curl_error($ch));
         }
         curl_close($ch);
-        Util::logError('CURL DATA IS: ' . $data);
-
         return trim($data);
 
     }

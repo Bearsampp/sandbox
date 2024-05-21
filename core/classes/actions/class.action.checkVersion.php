@@ -21,7 +21,7 @@ class ActionCheckVersion
         if (!file_exists($bearsamppCore->getExec())) {
             Util::startLoading();
             $this->currentVersion = $bearsamppCore->getAppVersion();
-            $this->latestVersion =  Util::getLatestVersion(APP_GITHUB_LATEST_URL);
+            $this->latestVersion =  Util::getLatestVersion(APP_GITHUB_LATEST_URL)['version'];
 
             if ($this->latestVersion != null && version_compare($this->currentVersion, $this->latestVersion, '<')) {
                 $labelFullLink = $bearsamppLang->getValue(Lang::DOWNLOAD) . ' ' . APP_TITLE . ' ' . $this->latestVersion;
