@@ -1,9 +1,16 @@
 <?php
+/*
+ * Copyright (c) 2022 - 2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class Splash
 {
-    const WINDOW_WIDTH = 440;
-    const WINDOW_HEIGHT = 70;
+    /* Set progress bar "loading" modal size. */
+    const WINDOW_WIDTH = 460;
+    const WINDOW_HEIGHT = 90;
 
     private $wbWindow;
     private $wbImage;
@@ -32,8 +39,9 @@ class Splash
         $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
 
         $this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, null);
-        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/icons/app.ico');
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, $gauge + 1, 42, 24, 380, 15);
+        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp');
+        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, $gauge + 1, 42, 24, 390, 15);
+
         $this->setTextLoading($text);
         $this->incrProgressBar();
     }
@@ -43,7 +51,7 @@ class Splash
         global $bearsamppWinbinder;
 
         $bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);
-        $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);
+        $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption . ' ...', 42, 0, self::WINDOW_WIDTH - 44, 25);
     }
 
     public function incrProgressBar($nb = 1)
@@ -51,7 +59,7 @@ class Splash
         global $bearsamppCore, $bearsamppWinbinder;
 
         for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/bearsampp.bmp', 4, 4, 32, 32);
+            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp', 4, 4, 32, 32);
             $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
         }
 
