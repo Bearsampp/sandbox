@@ -29,7 +29,7 @@ $result = array(
 );
 
 // Assuming getAppVersion() returns the current version number
-$currentVersion = $bearsamppCore->getAppVersion();
+$bearsamppCurrentVersion = $bearsamppCore->getAppVersion();
 
 // Assuming getLatestVersion now returns an array with version and URL
 $latestVersionData = Util::getLatestVersion(APP_GITHUB_LATEST_URL);
@@ -37,17 +37,19 @@ $latestVersionData = Util::getLatestVersion(APP_GITHUB_LATEST_URL);
 /* check to see if everything went sideways */
 if ($latestVersionData === null) {
     Util::logError('Failed to retrieve version data from GitHub URL: ' . APP_GITHUB_LATEST_URL);
+
     return;
 }
 
 /* Strip array into individual relevant strings */
-$githubVersion = $latestVersionData['version'];
+$bearsamppLatestVersion = $latestVersionData['version'];
 $latestVersionUrl = $latestVersionData['url']; // URL of the latest version
 
 // Directly compare version strings
-if (version_compare($currentVersion, $githubVersion, '<')) {
+if (version_compare($bearsamppCurrentVersion, $bearsamppLatestVersion, '<')) {
     $result['display'] = true;
-    $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $latestVersionUrl . '" target="_blank"><i class="fa fa-download"></i> ';
+    $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $latestVersionUrl . '" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> ';
     $result['download'] .= $bearsamppLang->getValue(Lang::DOWNLOAD) . ' <strong>' . APP_TITLE . ' ' . $bearsamppLatestVersion . '</strong><br />';
+    $result['download'] .= '<small>bearsampp-' . $bearsamppLatestVersion . '.7z</small></a>';
 }
 echo json_encode($result);
