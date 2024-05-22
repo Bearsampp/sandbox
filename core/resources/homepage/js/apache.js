@@ -38,7 +38,7 @@
 }); */
 
 async function getApacheStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'apache';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

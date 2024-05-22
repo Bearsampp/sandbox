@@ -234,8 +234,8 @@ class Core
             $zip->extractTo($destinationPath);
             $zip->close();
 
-            //  Util::logDebug("source: {$zipFilePath}");
-            //   util::logDebug("destination: {$destinationPath}");
+              Util::logError("source: {$zipFilePath}");
+              util::logError("destination: {$destinationPath}");
 
             return true;
         } else {

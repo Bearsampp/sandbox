@@ -16,7 +16,7 @@
 });*/
 
 async function getMariaDBStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'mariadb';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

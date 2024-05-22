@@ -16,7 +16,7 @@
 });*/
 
 async function getNodeJSStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'nodejs';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

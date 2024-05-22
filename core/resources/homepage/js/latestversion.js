@@ -16,41 +16,32 @@
 });*/
 
 async function getLatestVersionStatus() {
-  const url = ajax_url;
-  let data = new URLSearchParams();
-  const proc = 'latestversion';
-  data.append(`proc`, proc);
-  const options = {
-    method: 'POST',
-    body: data
-  }
-  let response = await fetch(url, options);
-  if (!response.ok) {
-    console.log('Error receiving from ajax.php');
-  } else {
-    let myajaxresponse = await response.text();
-    let data;
-try {
-  data = JSON.parse(myajaxresponse);
-} catch (error) {
-  console.error('Failed to parse response:', error);
-}
-    if (data.display) {
-      let q = document.querySelector('.latestversion-download');
-      q.insertAdjacentHTML('beforeend',data.download);
+    const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
+    let data = new URLSearchParams();
+    data.append('proc', 'latestversion'); // Setting 'proc' to 'latestversion'
 
-      q = document.querySelector('.latestversion-changelog');
-      q.insertAdjacentHTML('beforeend',data.changelog);
+    const options = {
+        method: 'POST',
+        body: data
+    };
 
-      q = document.querySelector('.latestversion');
-      q.style.display = 'block';
+    try {
+        let response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        let responseData = await response.json(); // Assuming the server responds with JSON data
+
+        if (responseData.display) {
+            document.querySelector('.latestversion-download').insertAdjacentHTML('beforeend', responseData.download);
+            document.querySelector('.latestversion-changelog').insertAdjacentHTML('beforeend', responseData.changelog);
+            document.querySelector('.latestversion').style.display = 'block';
+        }
+    } catch (error) {
+        console.error('Failed to fetch latest version status:', error);
     }
-
-  }
 }
-document.addEventListener("DOMContentLoaded", function() {
-  if (document.querySelector('.latestversion').name === 'latestversion') {
-    getLatestVersionStatus();
-  }
-})
 
+document.addEventListener("DOMContentLoaded", function() {
+    getLatestVersionStatus();
+});

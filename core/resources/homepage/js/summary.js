@@ -37,7 +37,7 @@
 });*/
 
 async function getSummaryStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'summary';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

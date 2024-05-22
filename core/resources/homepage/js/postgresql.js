@@ -16,7 +16,7 @@
 });*/
 
 async function getPostgresStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'postgresql';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

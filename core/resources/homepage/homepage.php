@@ -36,8 +36,6 @@ $version = $bearsamppCore->getAppVersion();
     ];
     $jsFiles = [
         "libs/jquery/jquery-3.7.1.min.js",
-        "libs/jquery/jquery-migrate-3.4.0.min.js",
-        "libs/bootstrap/popper.min.js",
         "libs/bootstrap/bootstrap.min.js",
         "libs/fontawesome/js/all.js",
         "js/_commons.js",

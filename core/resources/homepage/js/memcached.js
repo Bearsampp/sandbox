@@ -16,7 +16,7 @@
 });*/
 
 async function getMemCachedStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'memcached';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

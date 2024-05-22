@@ -95,7 +95,7 @@ class Homepage
     {
         Util::replaceInFile($this->getHomepagePath() . '/js/_commons.js', array(
             '/^\s\surl:.*/' => '  url: "' . $this->getResourcesPath() . '/ajax.php"',
-            '/ajax_url.*=.*/' => 'const ajax_url = "' . $this->getResourcesPath() . '/ajax.php"',
+            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . $this->getResourcesPath() . '/ajax.php"',
         ));
     }
 }

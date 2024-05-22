@@ -16,7 +16,7 @@
 });*/
 
 async function getMySQLStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'mysql';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);

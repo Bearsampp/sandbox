@@ -16,7 +16,7 @@
 });*/
 
 async function getMailHogStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   let data = new URLSearchParams();
   const proc = 'mailhog';
   data.append(`proc`, proc);
@@ -52,4 +52,3 @@ document.addEventListener("DOMContentLoaded", function() {
     getMailHogStatus();
   }
 })
-

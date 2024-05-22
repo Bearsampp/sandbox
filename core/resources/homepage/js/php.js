@@ -25,7 +25,7 @@
 });*/
 
 async function getPHPStatus() {
-  const url = ajax_url;
+  const url = AJAX_URL;
   const proc = 'php';
   const senddata = new URLSearchParams();
   senddata.append(`proc`, proc);
