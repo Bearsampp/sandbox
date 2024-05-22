@@ -2,7 +2,7 @@
 <div class="row-fluid">
     <div class="col-lg-12">
         <h1>
-            <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '/img/php.png'; ?>" alt="PHP Logo">
+            <img src="<?php echo $resourcesPath . 'img/php.png'; ?>" alt="PHP Logo">
             <?php echo $bearsamppLang->getValue(Lang::PHP); ?>
         </h1>
     </div>
@@ -12,7 +12,7 @@
         <div class="list-group">
             <span class="list-group-item php-status">
                 <span class="loader float-end">
-                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '<?php echo $getLoader; ?>'; ?>" alt="Loader">
+                    <?php echo $getLoader; ?>
                 </span>
                 <i class="fa-solid fa-server"></i>  <?php echo $bearsamppLang->getValue(Lang::STATUS); ?>
             </span>
@@ -22,21 +22,21 @@
                 </span>
                 <span class="php-version-list float-end col-11">
                     <span class="loader float-end">
-                        <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '<?php echo $getLoader; ?>'; ?>" alt="Loader">
+                        <?php echo $getLoader; ?>
                     </span>
                 </span>
             </span>
             <span class="list-group-item php-extscount">
                 <span class="loader float-end">
-                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '<?php echo $getLoader; ?>'; ?>" alt="Loader">
+                    <?php echo $getLoader; ?>
                 </span>
                 <i class="fa-regular fa-file-code"></i>  <?php echo $bearsamppLang->getValue(Lang::EXTENSIONS); ?>
             </span>
             <span class="list-group-item php-pearversion">
                 <span class="loader float-end">
-                    <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '<?php echo $getLoader; ?>'; ?>" alt="Loader">
+                    <?php echo $getLoader; ?>
                 </span>
-                <img style="height: 1.125em;" src = "<?php echo $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; ?>" alt="Pear">  <?php echo $bearsamppLang->getValue(Lang::PEAR); ?>
+                <img style="height: 1.125em;" src = "<?php echo $resourcesPath . 'img/icons/pear-icon.gif'; ?>" alt="Pear">  <?php echo $bearsamppLang->getValue(Lang::PEAR); ?>
             </span>
             <span class="list-group-item">
                 <i class = 'fa-solid fa-circle-info'></i>
@@ -64,7 +64,7 @@
     <div class="row-fluid">
         <div class="col-lg-12 php-extslist d-flex flex-wrap mb-2">
             <span class="loader">
-                <img src="<?php echo $bearsamppHomepage->getResourcesPath() . '<?php echo $getLoader; ?>'; ?>" alt="Loader">
+                <?php echo $getLoader; ?>
             </span>
         </div>
     </div>

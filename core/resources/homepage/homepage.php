@@ -12,8 +12,8 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
 $resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
 
 /* Set reusable variables */
-$iconsPath = $bearsamppHomepage->getIconsPath();
-$imagesPath = $bearsamppHomepage->getImagesPath();
+$iconsPath = rtrim($bearsamppHomepage->getIconsPath(), '/') . '/';
+$imagesPath = rtrim($bearsamppHomepage->getImagesPath(), '/') . '/';
 $downloadTitle = $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);
 $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'loader.gif' . '" alt="spinner" /></span>';
 $version = $bearsamppCore->getAppVersion();
@@ -30,28 +30,28 @@ $version = $bearsamppCore->getAppVersion();
 
     <?php
     $cssFiles = [
-        "/css/app.css",
-        "/libs/bootstrap/bootstrap.min.css",
-        "/libs/fontawesome/css/all.css",
+        "css/app.css",
+        "libs/bootstrap/bootstrap.min.css",
+        "libs/fontawesome/css/all.css",
     ];
     $jsFiles = [
-        "/libs/jquery/jquery-3.7.1.min.js",
-        "/libs/jquery/jquery-migrate-3.4.0.min.js",
-        "/libs/bootstrap/popper.min.js",
-        "/libs/bootstrap/bootstrap.min.js",
-        "/libs/fontawesome/js/all.js",
-        "/js/_commons.js",
-        "/js/latestversion.js",
-        "/js/summary.js",
-        "/js/apache.js",
-        "/js/filezilla.js",
-        "/js/mailhog.js",
-        "/js/mariadb.js",
-        "/js/memcached.js",
-        "/js/mysql.js",
-        "/js/nodejs.js",
-        "/js/php.js",
-        "/js/postgresql.js"
+        "libs/jquery/jquery-3.7.1.min.js",
+        "libs/jquery/jquery-migrate-3.4.0.min.js",
+        "libs/bootstrap/popper.min.js",
+        "libs/bootstrap/bootstrap.min.js",
+        "libs/fontawesome/js/all.js",
+        "js/_commons.js",
+        "js/latestversion.js",
+        "js/summary.js",
+        "js/apache.js",
+        "js/filezilla.js",
+        "js/mailhog.js",
+        "js/mariadb.js",
+        "js/memcached.js",
+        "js/mysql.js",
+        "js/nodejs.js",
+        "js/php.js",
+        "js/postgresql.js"
     ];
 
     foreach ($cssFiles as $file) {
