@@ -1,0 +1,1411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Bearsampp: Core Class Reference</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="../../toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Bearsampp
+   &#160;<span id="projectnumber">2024.5.22</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Search');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('db/d73/class_core.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">Core Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a095c5d389db211932136b53f25f39685" id="r_a095c5d389db211932136b53f25f39685"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
+<tr class="separator:a095c5d389db211932136b53f25f39685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46caae00a0dae48a5cf982318212e0b1" id="r_a46caae00a0dae48a5cf982318212e0b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46caae00a0dae48a5cf982318212e0b1">addLoadingPid</a> ($pid)</td></tr>
+<tr class="separator:a46caae00a0dae48a5cf982318212e0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46b2a181821624688223185256dc74ed" id="r_a46b2a181821624688223185256dc74ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46b2a181821624688223185256dc74ed">getAppVersion</a> ()</td></tr>
+<tr class="separator:a46b2a181821624688223185256dc74ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a737af4695268748fef82f6e17d373e14" id="r_a737af4695268748fef82f6e17d373e14"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a737af4695268748fef82f6e17d373e14">getExec</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a737af4695268748fef82f6e17d373e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6274096b2bb27e2a6cac5aaa4743753" id="r_ad6274096b2bb27e2a6cac5aaa4743753"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6274096b2bb27e2a6cac5aaa4743753">getHostsEditorExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ad6274096b2bb27e2a6cac5aaa4743753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae041a818cce69a19801e983c9585d591" id="r_ae041a818cce69a19801e983c9585d591"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae041a818cce69a19801e983c9585d591">getHostsEditorPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ae041a818cce69a19801e983c9585d591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76d9b57bb33927cd98e113356f5c121e" id="r_a76d9b57bb33927cd98e113356f5c121e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76d9b57bb33927cd98e113356f5c121e">getIconsPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a76d9b57bb33927cd98e113356f5c121e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784a5cb005b936193e0b200878ef1c41" id="r_a784a5cb005b936193e0b200878ef1c41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a784a5cb005b936193e0b200878ef1c41">getisRootFilePath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a784a5cb005b936193e0b200878ef1c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abf9183f7616ea24b1e7cd808b3d989" id="r_a8abf9183f7616ea24b1e7cd808b3d989"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8abf9183f7616ea24b1e7cd808b3d989">getLangsPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a8abf9183f7616ea24b1e7cd808b3d989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22d8eed1b4239f93b2a3e2c8cdd2d88e" id="r_a22d8eed1b4239f93b2a3e2c8cdd2d88e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22d8eed1b4239f93b2a3e2c8cdd2d88e">getLastPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a22d8eed1b4239f93b2a3e2c8cdd2d88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c23ca97fcc6f74e9eb4cf1cdf8c38f" id="r_a73c23ca97fcc6f74e9eb4cf1cdf8c38f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73c23ca97fcc6f74e9eb4cf1cdf8c38f">getLastPathContent</a> ()</td></tr>
+<tr class="separator:a73c23ca97fcc6f74e9eb4cf1cdf8c38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fd05b6e8d8eaefae2b3844f28cae4c" id="r_a12fd05b6e8d8eaefae2b3844f28cae4c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a12fd05b6e8d8eaefae2b3844f28cae4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b40aa7c380d22d7c4d3c0d88e3d8984" id="r_a3b40aa7c380d22d7c4d3c0d88e3d8984"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b40aa7c380d22d7c4d3c0d88e3d8984">getLnExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a3b40aa7c380d22d7c4d3c0d88e3d8984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21200fb53d8e9c5ab419357f9219a710" id="r_a21200fb53d8e9c5ab419357f9219a710"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21200fb53d8e9c5ab419357f9219a710">getLnPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a21200fb53d8e9c5ab419357f9219a710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7e82c08093d4b147371bd93d9b4de79" id="r_aa7e82c08093d4b147371bd93d9b4de79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7e82c08093d4b147371bd93d9b4de79">getLoadingPid</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:aa7e82c08093d4b147371bd93d9b4de79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4286d09ba16e00ef574cea01cb26712" id="r_aa4286d09ba16e00ef574cea01cb26712"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4286d09ba16e00ef574cea01cb26712">getNssmExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:aa4286d09ba16e00ef574cea01cb26712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a311a6085d43e2b46dfa87af28b438b10" id="r_a311a6085d43e2b46dfa87af28b438b10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a311a6085d43e2b46dfa87af28b438b10">getNssmPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a311a6085d43e2b46dfa87af28b438b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a4829b198f37b3cb5b12c8629c8de2" id="r_ab0a4829b198f37b3cb5b12c8629c8de2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0a4829b198f37b3cb5b12c8629c8de2">getOpenSslConf</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ab0a4829b198f37b3cb5b12c8629c8de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad157d0362ff25f57d6ac9d28ce406c84" id="r_ad157d0362ff25f57d6ac9d28ce406c84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad157d0362ff25f57d6ac9d28ce406c84">getOpenSslExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ad157d0362ff25f57d6ac9d28ce406c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fee07c22b8a7146de21d541294a58c0" id="r_a4fee07c22b8a7146de21d541294a58c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fee07c22b8a7146de21d541294a58c0">getOpenSslPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a4fee07c22b8a7146de21d541294a58c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e9b4c0e8d292c44fd0aa92573a2db2" id="r_a91e9b4c0e8d292c44fd0aa92573a2db2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91e9b4c0e8d292c44fd0aa92573a2db2">getPhpExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a91e9b4c0e8d292c44fd0aa92573a2db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8142e357864110d753cd709df5ec81" id="r_a5f8142e357864110d753cd709df5ec81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f8142e357864110d753cd709df5ec81">getPhpPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a5f8142e357864110d753cd709df5ec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bdf4278af65d743219a590d405e83c6" id="r_a6bdf4278af65d743219a590d405e83c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bdf4278af65d743219a590d405e83c6">getResourcesPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a6bdf4278af65d743219a590d405e83c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e055f977e472dfc4b74b4c98f30e7b" id="r_a36e055f977e472dfc4b74b4c98f30e7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36e055f977e472dfc4b74b4c98f30e7b">getScript</a> ($type)</td></tr>
+<tr class="separator:a36e055f977e472dfc4b74b4c98f30e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0fedd076089c677cb07f212940726b7" id="r_ad0fedd076089c677cb07f212940726b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0fedd076089c677cb07f212940726b7">getScriptsPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ad0fedd076089c677cb07f212940726b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373febff21d8fcc81988195354e5605a" id="r_a373febff21d8fcc81988195354e5605a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a373febff21d8fcc81988195354e5605a">getSetEnvExe</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a373febff21d8fcc81988195354e5605a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ff18117a38255b62f6be39b8ba76b30" id="r_a6ff18117a38255b62f6be39b8ba76b30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ff18117a38255b62f6be39b8ba76b30">getSetEnvPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:a6ff18117a38255b62f6be39b8ba76b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1d36ff05b754729ab58f7639e4cf4bd" id="r_ab1d36ff05b754729ab58f7639e4cf4bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1d36ff05b754729ab58f7639e4cf4bd">getTmpPath</a> ($aetrayPath=false)</td></tr>
+<tr class="separator:ab1d36ff05b754729ab58f7639e4cf4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad77d8b9aac89825071178f99d0258632" id="r_ad77d8b9aac89825071178f99d0258632"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad77d8b9aac89825071178f99d0258632">setExec</a> ($action)</td></tr>
+<tr class="separator:ad77d8b9aac89825071178f99d0258632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:aea07c3cbf1fe49903abb5eb62e42d1f2" id="r_aea07c3cbf1fe49903abb5eb62e42d1f2"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea07c3cbf1fe49903abb5eb62e42d1f2">APP_VERSION</a> = 'version.dat'</td></tr>
+<tr class="separator:aea07c3cbf1fe49903abb5eb62e42d1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f4b08f023dda747b77fdf0234fd57c" id="r_a89f4b08f023dda747b77fdf0234fd57c"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89f4b08f023dda747b77fdf0234fd57c">EXEC</a> = 'exec.dat'</td></tr>
+<tr class="separator:a89f4b08f023dda747b77fdf0234fd57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf945e4a7dc65287618f94b5e1031522" id="r_adf945e4a7dc65287618f94b5e1031522"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf945e4a7dc65287618f94b5e1031522">HOSTSEDITOR_EXE</a> = 'hEdit_x64.exe'</td></tr>
+<tr class="separator:adf945e4a7dc65287618f94b5e1031522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27372a1ec19332b2657ddc0e9c5fae59" id="r_a27372a1ec19332b2657ddc0e9c5fae59"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27372a1ec19332b2657ddc0e9c5fae59">HOSTSEDITOR_VERSION</a> = '1.3'</td></tr>
+<tr class="separator:a27372a1ec19332b2657ddc0e9c5fae59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bdb564a53fd3a213e9fae78643e67bd" id="r_a3bdb564a53fd3a213e9fae78643e67bd"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bdb564a53fd3a213e9fae78643e67bd">isRoot_FILE</a> = 'root.php'</td></tr>
+<tr class="separator:a3bdb564a53fd3a213e9fae78643e67bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d92db7299bea7ec282e64f9e9b961d" id="r_af6d92db7299bea7ec282e64f9e9b961d"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6d92db7299bea7ec282e64f9e9b961d">LAST_PATH</a> = 'lastPath.dat'</td></tr>
+<tr class="separator:af6d92db7299bea7ec282e64f9e9b961d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac712118f8e9dd708660a6866ff8452d5" id="r_ac712118f8e9dd708660a6866ff8452d5"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac712118f8e9dd708660a6866ff8452d5">LN_EXE</a> = 'ln.exe'</td></tr>
+<tr class="separator:ac712118f8e9dd708660a6866ff8452d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74e0f30b81fe2c36c5c68dc6116e2606" id="r_a74e0f30b81fe2c36c5c68dc6116e2606"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74e0f30b81fe2c36c5c68dc6116e2606">LN_VERSION</a> = '2.928'</td></tr>
+<tr class="separator:a74e0f30b81fe2c36c5c68dc6116e2606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad24fab9738dae6b0a0eba488deedf2bc" id="r_ad24fab9738dae6b0a0eba488deedf2bc"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad24fab9738dae6b0a0eba488deedf2bc">LOADING_PID</a> = 'loading.pid'</td></tr>
+<tr class="separator:ad24fab9738dae6b0a0eba488deedf2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaad313d4effcd856c83acdd602d9ffd8" id="r_aaad313d4effcd856c83acdd602d9ffd8"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaad313d4effcd856c83acdd602d9ffd8">NSSM_EXE</a> = 'nssm.exe'</td></tr>
+<tr class="separator:aaad313d4effcd856c83acdd602d9ffd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d47782caaacf6c496db3bdd9eda1c86" id="r_a8d47782caaacf6c496db3bdd9eda1c86"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d47782caaacf6c496db3bdd9eda1c86">NSSM_VERSION</a> = '2.24'</td></tr>
+<tr class="separator:a8d47782caaacf6c496db3bdd9eda1c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08310e1e9752107df8152362d2f7caaf" id="r_a08310e1e9752107df8152362d2f7caaf"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08310e1e9752107df8152362d2f7caaf">OPENSSL_CONF</a> = 'openssl.cfg'</td></tr>
+<tr class="separator:a08310e1e9752107df8152362d2f7caaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3f95d4d6a79ac1baefa2728c36445a" id="r_aeb3f95d4d6a79ac1baefa2728c36445a"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb3f95d4d6a79ac1baefa2728c36445a">OPENSSL_EXE</a> = 'openssl.exe'</td></tr>
+<tr class="separator:aeb3f95d4d6a79ac1baefa2728c36445a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae433b5e03e3501b7483d73cbada79ea8" id="r_ae433b5e03e3501b7483d73cbada79ea8"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae433b5e03e3501b7483d73cbada79ea8">OPENSSL_VERSION</a> = '1.1.0c'</td></tr>
+<tr class="separator:ae433b5e03e3501b7483d73cbada79ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86d933ab960eea0d6df0041bb25b82fb" id="r_a86d933ab960eea0d6df0041bb25b82fb"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86d933ab960eea0d6df0041bb25b82fb">PATH_LIN_PLACEHOLDER</a> = '~BEARSAMPP_LIN_PATH~'</td></tr>
+<tr class="separator:a86d933ab960eea0d6df0041bb25b82fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceda99eddb21663e66568354a7bfe9e0" id="r_aceda99eddb21663e66568354a7bfe9e0"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aceda99eddb21663e66568354a7bfe9e0">PATH_WIN_PLACEHOLDER</a> = '~BEARSAMPP_WIN_PATH~'</td></tr>
+<tr class="separator:aceda99eddb21663e66568354a7bfe9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5ac2080788cf2bd1b4b3fe4ce226e7a" id="r_ad5ac2080788cf2bd1b4b3fe4ce226e7a"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5ac2080788cf2bd1b4b3fe4ce226e7a">PHP_CONF</a> = 'php.ini'</td></tr>
+<tr class="separator:ad5ac2080788cf2bd1b4b3fe4ce226e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30af377f95e18e9a747b37dd84d95d03" id="r_a30af377f95e18e9a747b37dd84d95d03"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30af377f95e18e9a747b37dd84d95d03">PHP_EXE</a> = 'php-win.exe'</td></tr>
+<tr class="separator:a30af377f95e18e9a747b37dd84d95d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048046640f0cd433c382c1be10c1c57e" id="r_a048046640f0cd433c382c1be10c1c57e"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a048046640f0cd433c382c1be10c1c57e">PHP_VERSION</a> = '5.4.23'</td></tr>
+<tr class="separator:a048046640f0cd433c382c1be10c1c57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ae46a45c1cdb9f6b4a27c10e28cbab9" id="r_a2ae46a45c1cdb9f6b4a27c10e28cbab9"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ae46a45c1cdb9f6b4a27c10e28cbab9">SCRIPT_EXEC_SILENT</a> = 'execSilent.vbs'</td></tr>
+<tr class="separator:a2ae46a45c1cdb9f6b4a27c10e28cbab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0adf5a4424ccc4d6b8e91c40adcd9a8" id="r_ab0adf5a4424ccc4d6b8e91c40adcd9a8"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0adf5a4424ccc4d6b8e91c40adcd9a8">SETENV_EXE</a> = 'SetEnv.exe'</td></tr>
+<tr class="separator:ab0adf5a4424ccc4d6b8e91c40adcd9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5288a2cb7fa789b7fb6e1f5900363bb" id="r_ae5288a2cb7fa789b7fb6e1f5900363bb"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5288a2cb7fa789b7fb6e1f5900363bb">SETENV_VERSION</a> = '1.09'</td></tr>
+<tr class="separator:ae5288a2cb7fa789b7fb6e1f5900363bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00010">10</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a095c5d389db211932136b53f25f39685" name="a095c5d389db211932136b53f25f39685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095c5d389db211932136b53f25f39685">&#9670;&#160;</a></span>__construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00043">43</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>    {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">if</span> (extension_loaded(<span class="stringliteral">&#39;winbinder&#39;</span>)) {</div>
+<div class="line"><span class="lineno">   46</span>            require_once $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>() . <span class="stringliteral">&#39;/winbinder/winbinder.php&#39;</span>;</div>
+<div class="line"><span class="lineno">   47</span>        }</div>
+<div class="line"><span class="lineno">   48</span>    }</div>
+<div class="ttc" id="aclass_core_html_a12fd05b6e8d8eaefae2b3844f28cae4c"><div class="ttname"><a href="#a12fd05b6e8d8eaefae2b3844f28cae4c">Core\getLibsPath</a></div><div class="ttdeci">getLibsPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00056">class.core.php:56</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a46caae00a0dae48a5cf982318212e0b1" name="a46caae00a0dae48a5cf982318212e0b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46caae00a0dae48a5cf982318212e0b1">&#9670;&#160;</a></span>addLoadingPid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">addLoadingPid </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$pid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00135">135</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  136</span>    {</div>
+<div class="line"><span class="lineno">  137</span>        file_put_contents($this-&gt;<a class="code hl_function" href="#aa7e82c08093d4b147371bd93d9b4de79">getLoadingPid</a>(), $pid . PHP_EOL, FILE_APPEND);</div>
+<div class="line"><span class="lineno">  138</span>    }</div>
+<div class="ttc" id="aclass_core_html_aa7e82c08093d4b147371bd93d9b4de79"><div class="ttname"><a href="#aa7e82c08093d4b147371bd93d9b4de79">Core\getLoadingPid</a></div><div class="ttdeci">getLoadingPid($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00130">class.core.php:130</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00130">getLoadingPid()</a>.</p>
+
+</div>
+</div>
+<a id="a46b2a181821624688223185256dc74ed" name="a46b2a181821624688223185256dc74ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46b2a181821624688223185256dc74ed">&#9670;&#160;</a></span>getAppVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAppVersion </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00097">97</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   98</span>    {</div>
+<div class="line"><span class="lineno">   99</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>        $filePath = $this-&gt;<a class="code hl_function" href="#a6bdf4278af65d743219a590d405e83c6">getResourcesPath</a>() . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#aea07c3cbf1fe49903abb5eb62e42d1f2">self::APP_VERSION</a>;</div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">if</span> (!is_file($filePath)) {</div>
+<div class="line"><span class="lineno">  103</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a5192b5af158de6a1a49a97b3a11ce81b">Lang::ERROR_CONF_NOT_FOUND</a>), <a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a>, $filePath));</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">  105</span>        }</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">return</span> trim(file_get_contents($filePath));</div>
+<div class="line"><span class="lineno">  108</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00010">ajax.apache.php:10</a></div></div>
+<div class="ttc" id="aclass_core_html_a6bdf4278af65d743219a590d405e83c6"><div class="ttname"><a href="#a6bdf4278af65d743219a590d405e83c6">Core\getResourcesPath</a></div><div class="ttdeci">getResourcesPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00062">class.core.php:62</a></div></div>
+<div class="ttc" id="aclass_core_html_aea07c3cbf1fe49903abb5eb62e42d1f2"><div class="ttname"><a href="#aea07c3cbf1fe49903abb5eb62e42d1f2">Core\APP_VERSION</a></div><div class="ttdeci">const APP_VERSION</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00036">class.core.php:36</a></div></div>
+<div class="ttc" id="aclass_lang_html_a5192b5af158de6a1a49a97b3a11ce81b"><div class="ttname"><a href="../../db/dfb/class_lang.html#a5192b5af158de6a1a49a97b3a11ce81b">Lang\ERROR_CONF_NOT_FOUND</a></div><div class="ttdeci">const ERROR_CONF_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00143">class.lang.php:143</a></div></div>
+<div class="ttc" id="aclass_util_html_a05d384b2e8414a0c833d6ce561007e62"><div class="ttname"><a href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util\logError</a></div><div class="ttdeci">static logError($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00545">class.util.php:545</a></div></div>
+<div class="ttc" id="aroot_8php_html_af76956a6aeffa052e53bbcc9b2afb3df"><div class="ttname"><a href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a></div><div class="ttdeci">const APP_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de1/root_8php_source.html#l00010">root.php:10</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppLang</a>, <a class="el" href="../../d7/de1/root_8php_source.html#l00010">APP_TITLE</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00036">APP_VERSION</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00143">Lang\ERROR_CONF_NOT_FOUND</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00062">getResourcesPath()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00545">Util\logError()</a>.</p>
+
+</div>
+</div>
+<a id="a737af4695268748fef82f6e17d373e14" name="a737af4695268748fef82f6e17d373e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a737af4695268748fef82f6e17d373e14">&#9670;&#160;</a></span>getExec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getExec </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00120">120</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  121</span>    {</div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab1d36ff05b754729ab58f7639e4cf4bd">getTmpPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#a89f4b08f023dda747b77fdf0234fd57c">self::EXEC</a>;</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
+<div class="ttc" id="aclass_core_html_a89f4b08f023dda747b77fdf0234fd57c"><div class="ttname"><a href="#a89f4b08f023dda747b77fdf0234fd57c">Core\EXEC</a></div><div class="ttdeci">const EXEC</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00038">class.core.php:38</a></div></div>
+<div class="ttc" id="aclass_core_html_ab1d36ff05b754729ab58f7639e4cf4bd"><div class="ttname"><a href="#ab1d36ff05b754729ab58f7639e4cf4bd">Core\getTmpPath</a></div><div class="ttdeci">getTmpPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00085">class.core.php:85</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00038">EXEC</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00085">getTmpPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00125">setExec()</a>.</p>
+
+</div>
+</div>
+<a id="ad6274096b2bb27e2a6cac5aaa4743753" name="ad6274096b2bb27e2a6cac5aaa4743753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6274096b2bb27e2a6cac5aaa4743753">&#9670;&#160;</a></span>getHostsEditorExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getHostsEditorExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00190">190</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>    {</div>
+<div class="line"><span class="lineno">  192</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ae041a818cce69a19801e983c9585d591">getHostsEditorPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#adf945e4a7dc65287618f94b5e1031522">self::HOSTSEDITOR_EXE</a>;</div>
+<div class="line"><span class="lineno">  193</span>    }</div>
+<div class="ttc" id="aclass_core_html_adf945e4a7dc65287618f94b5e1031522"><div class="ttname"><a href="#adf945e4a7dc65287618f94b5e1031522">Core\HOSTSEDITOR_EXE</a></div><div class="ttdeci">const HOSTSEDITOR_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00031">class.core.php:31</a></div></div>
+<div class="ttc" id="aclass_core_html_ae041a818cce69a19801e983c9585d591"><div class="ttname"><a href="#ae041a818cce69a19801e983c9585d591">Core\getHostsEditorPath</a></div><div class="ttdeci">getHostsEditorPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00185">class.core.php:185</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00185">getHostsEditorPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00031">HOSTSEDITOR_EXE</a>.</p>
+
+</div>
+</div>
+<a id="ae041a818cce69a19801e983c9585d591" name="ae041a818cce69a19801e983c9585d591"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae041a818cce69a19801e983c9585d591">&#9670;&#160;</a></span>getHostsEditorPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getHostsEditorPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00185">185</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  186</span>    {</div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/hostseditor&#39;</span>;</div>
+<div class="line"><span class="lineno">  188</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00190">getHostsEditorExe()</a>.</p>
+
+</div>
+</div>
+<a id="a76d9b57bb33927cd98e113356f5c121e" name="a76d9b57bb33927cd98e113356f5c121e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76d9b57bb33927cd98e113356f5c121e">&#9670;&#160;</a></span>getIconsPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getIconsPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00068">68</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
+<div class="line"><span class="lineno">   70</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath($aetrayPath) . <span class="stringliteral">&#39;/icons&#39;</span>;</div>
+<div class="line"><span class="lineno">   72</span>    }</div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>.</p>
+
+</div>
+</div>
+<a id="a784a5cb005b936193e0b200878ef1c41" name="a784a5cb005b936193e0b200878ef1c41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a784a5cb005b936193e0b200878ef1c41">&#9670;&#160;</a></span>getisRootFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getisRootFilePath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00091">91</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>    {</div>
+<div class="line"><span class="lineno">   93</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#a3bdb564a53fd3a213e9fae78643e67bd">self::isRoot_FILE</a>;</div>
+<div class="line"><span class="lineno">   95</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00010">ajax.apache.php:10</a></div></div>
+<div class="ttc" id="aclass_core_html_a3bdb564a53fd3a213e9fae78643e67bd"><div class="ttname"><a href="#a3bdb564a53fd3a213e9fae78643e67bd">Core\isRoot_FILE</a></div><div class="ttdeci">const isRoot_FILE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00012">class.core.php:12</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00012">isRoot_FILE</a>.</p>
+
+</div>
+</div>
+<a id="a8abf9183f7616ea24b1e7cd808b3d989" name="a8abf9183f7616ea24b1e7cd808b3d989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abf9183f7616ea24b1e7cd808b3d989">&#9670;&#160;</a></span>getLangsPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLangsPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00050">50</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
+<div class="line"><span class="lineno">   52</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="stringliteral">&#39;/langs&#39;</span>;</div>
+<div class="line"><span class="lineno">   54</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>.</p>
+
+</div>
+</div>
+<a id="a22d8eed1b4239f93b2a3e2c8cdd2d88e" name="a22d8eed1b4239f93b2a3e2c8cdd2d88e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22d8eed1b4239f93b2a3e2c8cdd2d88e">&#9670;&#160;</a></span>getLastPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLastPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00110">110</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>    {</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a6bdf4278af65d743219a590d405e83c6">getResourcesPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#af6d92db7299bea7ec282e64f9e9b961d">self::LAST_PATH</a>;</div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="ttc" id="aclass_core_html_af6d92db7299bea7ec282e64f9e9b961d"><div class="ttname"><a href="#af6d92db7299bea7ec282e64f9e9b961d">Core\LAST_PATH</a></div><div class="ttdeci">const LAST_PATH</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00037">class.core.php:37</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00062">getResourcesPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00037">LAST_PATH</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00115">getLastPathContent()</a>.</p>
+
+</div>
+</div>
+<a id="a73c23ca97fcc6f74e9eb4cf1cdf8c38f" name="a73c23ca97fcc6f74e9eb4cf1cdf8c38f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c23ca97fcc6f74e9eb4cf1cdf8c38f">&#9670;&#160;</a></span>getLastPathContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLastPathContent </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00115">115</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  116</span>    {</div>
+<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">return</span> @file_get_contents($this-&gt;<a class="code hl_function" href="#a22d8eed1b4239f93b2a3e2c8cdd2d88e">getLastPath</a>());</div>
+<div class="line"><span class="lineno">  118</span>    }</div>
+<div class="ttc" id="aclass_core_html_a22d8eed1b4239f93b2a3e2c8cdd2d88e"><div class="ttname"><a href="#a22d8eed1b4239f93b2a3e2c8cdd2d88e">Core\getLastPath</a></div><div class="ttdeci">getLastPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00110">class.core.php:110</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00110">getLastPath()</a>.</p>
+
+</div>
+</div>
+<a id="a12fd05b6e8d8eaefae2b3844f28cae4c" name="a12fd05b6e8d8eaefae2b3844f28cae4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fd05b6e8d8eaefae2b3844f28cae4c">&#9670;&#160;</a></span>getLibsPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLibsPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">56</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
+<div class="line"><span class="lineno">   58</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="stringliteral">&#39;/libs&#39;</span>;</div>
+<div class="line"><span class="lineno">   60</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00043">__construct()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00185">getHostsEditorPath()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00195">getLnPath()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00160">getNssmPath()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00170">getOpenSslPath()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00140">getPhpPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00150">getSetEnvPath()</a>.</p>
+
+</div>
+</div>
+<a id="a3b40aa7c380d22d7c4d3c0d88e3d8984" name="a3b40aa7c380d22d7c4d3c0d88e3d8984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b40aa7c380d22d7c4d3c0d88e3d8984">&#9670;&#160;</a></span>getLnExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLnExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00200">200</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  201</span>    {</div>
+<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a21200fb53d8e9c5ab419357f9219a710">getLnPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#ac712118f8e9dd708660a6866ff8452d5">self::LN_EXE</a>;</div>
+<div class="line"><span class="lineno">  203</span>    }</div>
+<div class="ttc" id="aclass_core_html_a21200fb53d8e9c5ab419357f9219a710"><div class="ttname"><a href="#a21200fb53d8e9c5ab419357f9219a710">Core\getLnPath</a></div><div class="ttdeci">getLnPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00195">class.core.php:195</a></div></div>
+<div class="ttc" id="aclass_core_html_ac712118f8e9dd708660a6866ff8452d5"><div class="ttname"><a href="#ac712118f8e9dd708660a6866ff8452d5">Core\LN_EXE</a></div><div class="ttdeci">const LN_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00034">class.core.php:34</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00195">getLnPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00034">LN_EXE</a>.</p>
+
+</div>
+</div>
+<a id="a21200fb53d8e9c5ab419357f9219a710" name="a21200fb53d8e9c5ab419357f9219a710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21200fb53d8e9c5ab419357f9219a710">&#9670;&#160;</a></span>getLnPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLnPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00195">195</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  196</span>    {</div>
+<div class="line"><span class="lineno">  197</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/ln&#39;</span>;</div>
+<div class="line"><span class="lineno">  198</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00200">getLnExe()</a>.</p>
+
+</div>
+</div>
+<a id="aa7e82c08093d4b147371bd93d9b4de79" name="aa7e82c08093d4b147371bd93d9b4de79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7e82c08093d4b147371bd93d9b4de79">&#9670;&#160;</a></span>getLoadingPid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLoadingPid </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00130">130</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>    {</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a6bdf4278af65d743219a590d405e83c6">getResourcesPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#ad24fab9738dae6b0a0eba488deedf2bc">self::LOADING_PID</a>;</div>
+<div class="line"><span class="lineno">  133</span>    }</div>
+<div class="ttc" id="aclass_core_html_ad24fab9738dae6b0a0eba488deedf2bc"><div class="ttname"><a href="#ad24fab9738dae6b0a0eba488deedf2bc">Core\LOADING_PID</a></div><div class="ttdeci">const LOADING_PID</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00039">class.core.php:39</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00062">getResourcesPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00039">LOADING_PID</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00135">addLoadingPid()</a>.</p>
+
+</div>
+</div>
+<a id="aa4286d09ba16e00ef574cea01cb26712" name="aa4286d09ba16e00ef574cea01cb26712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4286d09ba16e00ef574cea01cb26712">&#9670;&#160;</a></span>getNssmExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getNssmExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00165">165</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>    {</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a311a6085d43e2b46dfa87af28b438b10">getNssmPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#aaad313d4effcd856c83acdd602d9ffd8">self::NSSM_EXE</a>;</div>
+<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="ttc" id="aclass_core_html_a311a6085d43e2b46dfa87af28b438b10"><div class="ttname"><a href="#a311a6085d43e2b46dfa87af28b438b10">Core\getNssmPath</a></div><div class="ttdeci">getNssmPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00160">class.core.php:160</a></div></div>
+<div class="ttc" id="aclass_core_html_aaad313d4effcd856c83acdd602d9ffd8"><div class="ttname"><a href="#aaad313d4effcd856c83acdd602d9ffd8">Core\NSSM_EXE</a></div><div class="ttdeci">const NSSM_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00024">class.core.php:24</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00160">getNssmPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00024">NSSM_EXE</a>.</p>
+
+</div>
+</div>
+<a id="a311a6085d43e2b46dfa87af28b438b10" name="a311a6085d43e2b46dfa87af28b438b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311a6085d43e2b46dfa87af28b438b10">&#9670;&#160;</a></span>getNssmPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getNssmPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00160">160</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
+<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/nssm&#39;</span>;</div>
+<div class="line"><span class="lineno">  163</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00165">getNssmExe()</a>.</p>
+
+</div>
+</div>
+<a id="ab0a4829b198f37b3cb5b12c8629c8de2" name="ab0a4829b198f37b3cb5b12c8629c8de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a4829b198f37b3cb5b12c8629c8de2">&#9670;&#160;</a></span>getOpenSslConf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getOpenSslConf </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00180">180</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  181</span>    {</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a4fee07c22b8a7146de21d541294a58c0">getOpenSslPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#a08310e1e9752107df8152362d2f7caaf">self::OPENSSL_CONF</a>;</div>
+<div class="line"><span class="lineno">  183</span>    }</div>
+<div class="ttc" id="aclass_core_html_a08310e1e9752107df8152362d2f7caaf"><div class="ttname"><a href="#a08310e1e9752107df8152362d2f7caaf">Core\OPENSSL_CONF</a></div><div class="ttdeci">const OPENSSL_CONF</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00028">class.core.php:28</a></div></div>
+<div class="ttc" id="aclass_core_html_a4fee07c22b8a7146de21d541294a58c0"><div class="ttname"><a href="#a4fee07c22b8a7146de21d541294a58c0">Core\getOpenSslPath</a></div><div class="ttdeci">getOpenSslPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00170">class.core.php:170</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00170">getOpenSslPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00028">OPENSSL_CONF</a>.</p>
+
+</div>
+</div>
+<a id="ad157d0362ff25f57d6ac9d28ce406c84" name="ad157d0362ff25f57d6ac9d28ce406c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad157d0362ff25f57d6ac9d28ce406c84">&#9670;&#160;</a></span>getOpenSslExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getOpenSslExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00175">175</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>    {</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a4fee07c22b8a7146de21d541294a58c0">getOpenSslPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#aeb3f95d4d6a79ac1baefa2728c36445a">self::OPENSSL_EXE</a>;</div>
+<div class="line"><span class="lineno">  178</span>    }</div>
+<div class="ttc" id="aclass_core_html_aeb3f95d4d6a79ac1baefa2728c36445a"><div class="ttname"><a href="#aeb3f95d4d6a79ac1baefa2728c36445a">Core\OPENSSL_EXE</a></div><div class="ttdeci">const OPENSSL_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00027">class.core.php:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00170">getOpenSslPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00027">OPENSSL_EXE</a>.</p>
+
+</div>
+</div>
+<a id="a4fee07c22b8a7146de21d541294a58c0" name="a4fee07c22b8a7146de21d541294a58c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fee07c22b8a7146de21d541294a58c0">&#9670;&#160;</a></span>getOpenSslPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getOpenSslPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00170">170</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  171</span>    {</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/openssl&#39;</span>;</div>
+<div class="line"><span class="lineno">  173</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00180">getOpenSslConf()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00175">getOpenSslExe()</a>.</p>
+
+</div>
+</div>
+<a id="a91e9b4c0e8d292c44fd0aa92573a2db2" name="a91e9b4c0e8d292c44fd0aa92573a2db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e9b4c0e8d292c44fd0aa92573a2db2">&#9670;&#160;</a></span>getPhpExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPhpExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00145">145</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  146</span>    {</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a5f8142e357864110d753cd709df5ec81">getPhpPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#a30af377f95e18e9a747b37dd84d95d03">self::PHP_EXE</a>;</div>
+<div class="line"><span class="lineno">  148</span>    }</div>
+<div class="ttc" id="aclass_core_html_a30af377f95e18e9a747b37dd84d95d03"><div class="ttname"><a href="#a30af377f95e18e9a747b37dd84d95d03">Core\PHP_EXE</a></div><div class="ttdeci">const PHP_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00017">class.core.php:17</a></div></div>
+<div class="ttc" id="aclass_core_html_a5f8142e357864110d753cd709df5ec81"><div class="ttname"><a href="#a5f8142e357864110d753cd709df5ec81">Core\getPhpPath</a></div><div class="ttdeci">getPhpPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00140">class.core.php:140</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00140">getPhpPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00017">PHP_EXE</a>.</p>
+
+</div>
+</div>
+<a id="a5f8142e357864110d753cd709df5ec81" name="a5f8142e357864110d753cd709df5ec81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f8142e357864110d753cd709df5ec81">&#9670;&#160;</a></span>getPhpPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPhpPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00140">140</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  141</span>    {</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/php&#39;</span>;</div>
+<div class="line"><span class="lineno">  143</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00145">getPhpExe()</a>.</p>
+
+</div>
+</div>
+<a id="a6bdf4278af65d743219a590d405e83c6" name="a6bdf4278af65d743219a590d405e83c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bdf4278af65d743219a590d405e83c6">&#9670;&#160;</a></span>getResourcesPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getResourcesPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00062">62</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
+<div class="line"><span class="lineno">   64</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="stringliteral">&#39;/resources&#39;</span>;</div>
+<div class="line"><span class="lineno">   66</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00097">getAppVersion()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00110">getLastPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00130">getLoadingPid()</a>.</p>
+
+</div>
+</div>
+<a id="a36e055f977e472dfc4b74b4c98f30e7b" name="a36e055f977e472dfc4b74b4c98f30e7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36e055f977e472dfc4b74b4c98f30e7b">&#9670;&#160;</a></span>getScript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getScript </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00080">80</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad0fedd076089c677cb07f212940726b7">getScriptsPath</a>() . <span class="charliteral">&#39;/&#39;</span> . $type;</div>
+<div class="line"><span class="lineno">   83</span>    }</div>
+<div class="ttc" id="aclass_core_html_ad0fedd076089c677cb07f212940726b7"><div class="ttname"><a href="#ad0fedd076089c677cb07f212940726b7">Core\getScriptsPath</a></div><div class="ttdeci">getScriptsPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00074">class.core.php:74</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00074">getScriptsPath()</a>.</p>
+
+</div>
+</div>
+<a id="ad0fedd076089c677cb07f212940726b7" name="ad0fedd076089c677cb07f212940726b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0fedd076089c677cb07f212940726b7">&#9670;&#160;</a></span>getScriptsPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getScriptsPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00074">74</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>    {</div>
+<div class="line"><span class="lineno">   76</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="stringliteral">&#39;/scripts&#39;</span>;</div>
+<div class="line"><span class="lineno">   78</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00080">getScript()</a>.</p>
+
+</div>
+</div>
+<a id="a373febff21d8fcc81988195354e5605a" name="a373febff21d8fcc81988195354e5605a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a373febff21d8fcc81988195354e5605a">&#9670;&#160;</a></span>getSetEnvExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getSetEnvExe </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00155">155</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>    {</div>
+<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a6ff18117a38255b62f6be39b8ba76b30">getSetEnvPath</a>($aetrayPath) . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#ab0adf5a4424ccc4d6b8e91c40adcd9a8">self::SETENV_EXE</a>;</div>
+<div class="line"><span class="lineno">  158</span>    }</div>
+<div class="ttc" id="aclass_core_html_a6ff18117a38255b62f6be39b8ba76b30"><div class="ttname"><a href="#a6ff18117a38255b62f6be39b8ba76b30">Core\getSetEnvPath</a></div><div class="ttdeci">getSetEnvPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00150">class.core.php:150</a></div></div>
+<div class="ttc" id="aclass_core_html_ab0adf5a4424ccc4d6b8e91c40adcd9a8"><div class="ttname"><a href="#ab0adf5a4424ccc4d6b8e91c40adcd9a8">Core\SETENV_EXE</a></div><div class="ttdeci">const SETENV_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00021">class.core.php:21</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00150">getSetEnvPath()</a>, and <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00021">SETENV_EXE</a>.</p>
+
+</div>
+</div>
+<a id="a6ff18117a38255b62f6be39b8ba76b30" name="a6ff18117a38255b62f6be39b8ba76b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff18117a38255b62f6be39b8ba76b30">&#9670;&#160;</a></span>getSetEnvPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getSetEnvPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00150">150</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  151</span>    {</div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a12fd05b6e8d8eaefae2b3844f28cae4c">getLibsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/setenv&#39;</span>;</div>
+<div class="line"><span class="lineno">  153</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00056">getLibsPath()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00155">getSetEnvExe()</a>.</p>
+
+</div>
+</div>
+<a id="ab1d36ff05b754729ab58f7639e4cf4bd" name="ab1d36ff05b754729ab58f7639e4cf4bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1d36ff05b754729ab58f7639e4cf4bd">&#9670;&#160;</a></span>getTmpPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getTmpPath </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$aetrayPath</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00085">85</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>    {</div>
+<div class="line"><span class="lineno">   87</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath($aetrayPath) . <span class="stringliteral">&#39;/tmp&#39;</span>;</div>
+<div class="line"><span class="lineno">   89</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00120">getExec()</a>.</p>
+
+</div>
+</div>
+<a id="ad77d8b9aac89825071178f99d0258632" name="ad77d8b9aac89825071178f99d0258632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad77d8b9aac89825071178f99d0258632">&#9670;&#160;</a></span>setExec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setExec </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00125">125</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>    {</div>
+<div class="line"><span class="lineno">  127</span>        file_put_contents($this-&gt;<a class="code hl_function" href="#a737af4695268748fef82f6e17d373e14">getExec</a>(), $action);</div>
+<div class="line"><span class="lineno">  128</span>    }</div>
+<div class="ttc" id="aclass_core_html_a737af4695268748fef82f6e17d373e14"><div class="ttname"><a href="#a737af4695268748fef82f6e17d373e14">Core\getExec</a></div><div class="ttdeci">getExec($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00120">class.core.php:120</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00120">getExec()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="aea07c3cbf1fe49903abb5eb62e42d1f2" name="aea07c3cbf1fe49903abb5eb62e42d1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea07c3cbf1fe49903abb5eb62e42d1f2">&#9670;&#160;</a></span>APP_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const APP_VERSION = 'version.dat'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00036">36</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00097">getAppVersion()</a>.</p>
+
+</div>
+</div>
+<a id="a89f4b08f023dda747b77fdf0234fd57c" name="a89f4b08f023dda747b77fdf0234fd57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f4b08f023dda747b77fdf0234fd57c">&#9670;&#160;</a></span>EXEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const EXEC = 'exec.dat'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00038">38</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00120">getExec()</a>.</p>
+
+</div>
+</div>
+<a id="adf945e4a7dc65287618f94b5e1031522" name="adf945e4a7dc65287618f94b5e1031522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf945e4a7dc65287618f94b5e1031522">&#9670;&#160;</a></span>HOSTSEDITOR_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const HOSTSEDITOR_EXE = 'hEdit_x64.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00031">31</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00190">getHostsEditorExe()</a>.</p>
+
+</div>
+</div>
+<a id="a27372a1ec19332b2657ddc0e9c5fae59" name="a27372a1ec19332b2657ddc0e9c5fae59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27372a1ec19332b2657ddc0e9c5fae59">&#9670;&#160;</a></span>HOSTSEDITOR_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const HOSTSEDITOR_VERSION = '1.3'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00030">30</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="a3bdb564a53fd3a213e9fae78643e67bd" name="a3bdb564a53fd3a213e9fae78643e67bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bdb564a53fd3a213e9fae78643e67bd">&#9670;&#160;</a></span>isRoot_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const isRoot_FILE = 'root.php'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00012">12</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00061">Batch\exitApp()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00098">TplApp\getActionRun()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00091">getisRootFilePath()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00627">Util\startLoading()</a>.</p>
+
+</div>
+</div>
+<a id="af6d92db7299bea7ec282e64f9e9b961d" name="af6d92db7299bea7ec282e64f9e9b961d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d92db7299bea7ec282e64f9e9b961d">&#9670;&#160;</a></span>LAST_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LAST_PATH = 'lastPath.dat'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00037">37</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00110">getLastPath()</a>.</p>
+
+</div>
+</div>
+<a id="ac712118f8e9dd708660a6866ff8452d5" name="ac712118f8e9dd708660a6866ff8452d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac712118f8e9dd708660a6866ff8452d5">&#9670;&#160;</a></span>LN_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LN_EXE = 'ln.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00034">34</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00200">getLnExe()</a>.</p>
+
+</div>
+</div>
+<a id="a74e0f30b81fe2c36c5c68dc6116e2606" name="a74e0f30b81fe2c36c5c68dc6116e2606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74e0f30b81fe2c36c5c68dc6116e2606">&#9670;&#160;</a></span>LN_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LN_VERSION = '2.928'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00033">33</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="ad24fab9738dae6b0a0eba488deedf2bc" name="ad24fab9738dae6b0a0eba488deedf2bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad24fab9738dae6b0a0eba488deedf2bc">&#9670;&#160;</a></span>LOADING_PID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LOADING_PID = 'loading.pid'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00039">39</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00130">getLoadingPid()</a>.</p>
+
+</div>
+</div>
+<a id="aaad313d4effcd856c83acdd602d9ffd8" name="aaad313d4effcd856c83acdd602d9ffd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad313d4effcd856c83acdd602d9ffd8">&#9670;&#160;</a></span>NSSM_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const NSSM_EXE = 'nssm.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00024">24</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00165">getNssmExe()</a>.</p>
+
+</div>
+</div>
+<a id="a8d47782caaacf6c496db3bdd9eda1c86" name="a8d47782caaacf6c496db3bdd9eda1c86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d47782caaacf6c496db3bdd9eda1c86">&#9670;&#160;</a></span>NSSM_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const NSSM_VERSION = '2.24'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00023">23</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="a08310e1e9752107df8152362d2f7caaf" name="a08310e1e9752107df8152362d2f7caaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08310e1e9752107df8152362d2f7caaf">&#9670;&#160;</a></span>OPENSSL_CONF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const OPENSSL_CONF = 'openssl.cfg'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00028">28</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00180">getOpenSslConf()</a>.</p>
+
+</div>
+</div>
+<a id="aeb3f95d4d6a79ac1baefa2728c36445a" name="aeb3f95d4d6a79ac1baefa2728c36445a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3f95d4d6a79ac1baefa2728c36445a">&#9670;&#160;</a></span>OPENSSL_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const OPENSSL_EXE = 'openssl.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00027">27</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00175">getOpenSslExe()</a>.</p>
+
+</div>
+</div>
+<a id="ae433b5e03e3501b7483d73cbada79ea8" name="ae433b5e03e3501b7483d73cbada79ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae433b5e03e3501b7483d73cbada79ea8">&#9670;&#160;</a></span>OPENSSL_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const OPENSSL_VERSION = '1.1.0c'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00026">26</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="a86d933ab960eea0d6df0041bb25b82fb" name="a86d933ab960eea0d6df0041bb25b82fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86d933ab960eea0d6df0041bb25b82fb">&#9670;&#160;</a></span>PATH_LIN_PLACEHOLDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PATH_LIN_PLACEHOLDER = '~BEARSAMPP_LIN_PATH~'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00014">14</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00884">Util\changePath()</a>.</p>
+
+</div>
+</div>
+<a id="aceda99eddb21663e66568354a7bfe9e0" name="aceda99eddb21663e66568354a7bfe9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceda99eddb21663e66568354a7bfe9e0">&#9670;&#160;</a></span>PATH_WIN_PLACEHOLDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PATH_WIN_PLACEHOLDER = '~BEARSAMPP_WIN_PATH~'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00013">13</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00884">Util\changePath()</a>.</p>
+
+</div>
+</div>
+<a id="ad5ac2080788cf2bd1b4b3fe4ce226e7a" name="ad5ac2080788cf2bd1b4b3fe4ce226e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ac2080788cf2bd1b4b3fe4ce226e7a">&#9670;&#160;</a></span>PHP_CONF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PHP_CONF = 'php.ini'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00018">18</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="a30af377f95e18e9a747b37dd84d95d03" name="a30af377f95e18e9a747b37dd84d95d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30af377f95e18e9a747b37dd84d95d03">&#9670;&#160;</a></span>PHP_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PHP_EXE = 'php-win.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00017">17</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00145">getPhpExe()</a>.</p>
+
+</div>
+</div>
+<a id="a048046640f0cd433c382c1be10c1c57e" name="a048046640f0cd433c382c1be10c1c57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048046640f0cd433c382c1be10c1c57e">&#9670;&#160;</a></span>PHP_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PHP_VERSION = '5.4.23'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00016">16</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<a id="a2ae46a45c1cdb9f6b4a27c10e28cbab9" name="a2ae46a45c1cdb9f6b4a27c10e28cbab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae46a45c1cdb9f6b4a27c10e28cbab9">&#9670;&#160;</a></span>SCRIPT_EXEC_SILENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SCRIPT_EXEC_SILENT = 'execSilent.vbs'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00041">41</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d0/d9c/class_8winbinder_8php_source.html#l00191">WinBinder\exec()</a>.</p>
+
+</div>
+</div>
+<a id="ab0adf5a4424ccc4d6b8e91c40adcd9a8" name="ab0adf5a4424ccc4d6b8e91c40adcd9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0adf5a4424ccc4d6b8e91c40adcd9a8">&#9670;&#160;</a></span>SETENV_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SETENV_EXE = 'SetEnv.exe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00021">21</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00155">getSetEnvExe()</a>.</p>
+
+</div>
+</div>
+<a id="ae5288a2cb7fa789b7fb6e1f5900363bb" name="ae5288a2cb7fa789b7fb6e1f5900363bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5288a2cb7fa789b7fb6e1f5900363bb">&#9670;&#160;</a></span>SETENV_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SETENV_VERSION = '1.09'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00020">20</a> of file <a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>E:/Bearsampp-development/sandbox/core/classes/<a class="el" href="../../da/d0e/class_8core_8php_source.html">class.core.php</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../db/d73/class_core.html">Core</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
