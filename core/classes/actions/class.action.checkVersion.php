@@ -42,7 +42,7 @@ class ActionCheckVersion
 
             if ($githubVersionData != null) {
                 $githubLatestVersion = $githubVersionData['version'];
-                $this->githubLatestVersionUrl = $githubVersionData['url']; // URL of the latest version
+                $this->githubLatestVersionUrl = $githubVersionData['html_url']; // URL of the latest version
                 if (version_compare($this->currentVersion, $githubLatestVersion, '<')) {
                     $this->showVersionUpdateWindow($bearsamppLang, $bearsamppWinbinder, $bearsamppCore, $githubLatestVersion);
                 } elseif ( !empty($args[0]) && $args[0] == self::DISPLAY_OK) {

@@ -1255,12 +1255,12 @@ class Util
         if ( isset( $resultArray['tag_name'] ) && isset( $resultArray['assets'][0]['browser_download_url'] ) ) {
             $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            $name        = $resultArray['name'] ?? 'Unknown'; // Check and retrieve the name
+            $name = $resultArray['name'];
             self::logDebug( 'Latest version tag name: ' . $tagName );
             self::logDebug( 'Download URL: ' . $downloadUrl );
             self::logDebug( 'Name: ' . $name );
 
-            return ['version' => $tagName, 'url' => $downloadUrl, 'name' => $name];
+            return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];
         }
         else {
             self::logError( 'Tag name, download URL, or name not found in the response: ' . $result );

@@ -16,6 +16,7 @@ $iconsPath = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
 $downloadTitle = $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);
 $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'loader.gif' . '" alt="spinner" /></span>';
+$version = $bearsamppCore->getAppVersion();
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +64,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     ?>
 
     <link href="<?php echo $bearsamppRoot->getRootPath() . '/favicon.ico'; ?>" rel="icon"/>
-    <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
+    <title><?php echo APP_TITLE . ' ' . $version; ?></title>
 </head>
 
 <body>
@@ -71,7 +72,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     <div class="container-fluid">
         <div class="d-inline-block">
             <a class="navbar-brand" href="<?php echo Util::getWebsiteUrl(); ?>">
-                <img class="p-1" alt="<?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?>"
+                <img class="p-1" alt="<?php echo APP_TITLE . ' ' . $version ?>"
                      src="<?php echo $imagesPath . 'header-logo.png'; ?>"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">

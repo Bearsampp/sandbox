@@ -29,8 +29,7 @@ class TplAppMysql
         $isEnabled = $bearsamppBins->getMysql()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink(
-            $downloadTitle,
+        $resultItems .= TplAestan::getItemLink( $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
             Util::getWebsiteUrl('module/mysql', '#releases'),
             false,
             TplAestan::GLYPH_BROWSER
