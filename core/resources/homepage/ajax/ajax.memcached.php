@@ -1,5 +1,19 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+global $bearsamppBins, $bearsamppLang;
+/**
+ * This code snippet creates an array with keys 'checkport' and 'versions'.
+ * It checks the status of the Memcached service, including the port check and service status.
+ * It also retrieves and displays the list of Memcached versions, highlighting the current version.
+ * The final output is encoded in JSON format.
+ */
 $result = array(
     'checkport' => '',
     'versions' => '',

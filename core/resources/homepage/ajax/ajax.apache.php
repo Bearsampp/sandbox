@@ -1,11 +1,15 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
+/**
+ * Retrieves information about Apache server status, versions, modules, aliases, vhosts, directories, and URLs.
+ * Returns a JSON-encoded array with the collected data.
+ */
 global $bearsamppRoot, $bearsamppBins, $bearsamppLang;
 $result = array(
     'checkport' => '',

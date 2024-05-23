@@ -1,16 +1,22 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ */
+/**
+ * This code snippet includes HTML markup for a webpage that serves as a localhost dashboard.
+ * It sets up the necessary meta tags, includes CSS and JS files, and displays a navigation bar with social media icons.
+ * The page content is dynamically loaded based on the current page set in the $bearsamppHomepage object.
  */
 include __DIR__ . '/../../root.php';
 global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $locale, $bearsamppRoot;
 
 /* Set the resource path homepage dir */
 $resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
-/* $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; */
+
 /* Set reusable variables */
 $iconsPath = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
