@@ -13,7 +13,7 @@ class Core
     const PATH_WIN_PLACEHOLDER = '~BEARSAMPP_WIN_PATH~';
     const PATH_LIN_PLACEHOLDER = '~BEARSAMPP_LIN_PATH~';
 
-    const PHP_VERSION = '5.4.23';
+    const PHP_VERSION = '5.6.40';
     const PHP_EXE = 'php-win.exe';
     const PHP_CONF = 'php.ini';
 
