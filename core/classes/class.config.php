@@ -1,7 +1,23 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class Config manages the application configuration settings.
+ * It handles reading, updating, and retrieving configuration values from an INI file.
+ */
 class Config
 {
+    // Constants definitions...
+
+    /**
+     * @var array Holds the configuration values after parsing the INI file.
+     */
     const CFG_MAX_LOGS_ARCHIVES = 'maxLogsArchives';
     const CFG_LOGS_VERBOSE = 'logsVerbose';
     const CFG_LANG = 'lang';
@@ -25,6 +41,10 @@ class Config
 
     private $raw;
 
+    /**
+     * Constructor for the Config class.
+     * It initializes the configuration by reading from the INI file and sets the default timezone.
+     */
     public function __construct()
     {
         global $bearsamppRoot;
@@ -37,16 +57,33 @@ class Config
         date_default_timezone_set($this->getTimezone());
     }
 
+    /**
+     * Retrieves a configuration value by key.
+     *
+     * @param string $key The configuration key to retrieve.
+     * @return mixed The value of the configuration key.
+     */
     public function getRaw($key)
     {
         return $this->raw[$key];
     }
 
+    /**
+     * Updates a single configuration value.
+     *
+     * @param string $key The configuration key to update.
+     * @param mixed $value The new value for the configuration key.
+     */
     public function replace($key, $value)
     {
         $this->replaceAll(array($key => $value));
     }
 
+    /**
+     * Updates multiple configuration values.
+     *
+     * @param array $params An associative array of configuration keys and their new values.
+     */
     public function replaceAll($params)
     {
         global $bearsamppRoot;
@@ -62,56 +99,110 @@ class Config
         file_put_contents($bearsamppRoot->getConfigFilePath(), $content);
     }
 
-    public function getLang()
+    /**
+     * Gets the configured language.
+     *
+     * @return string The configured language.
+     */ic function getLang()
     {
         return $this->raw[self::CFG_LANG];
     }
 
+    /**
+     * Gets the default language.
+     *
+     * @return string The default language.
+     */
     public function getDefaultLang()
     {
         return $this->raw[self::CFG_DEFAULT_LANG];
     }
 
+    /**
+     * Gets the configured timezone.
+     *
+     * @return string The configured timezone.
+     */
     public function getTimezone()
     {
         return $this->raw[self::CFG_TIMEZONE];
     }
 
+    /**
+     * Checks if the application is set to online mode.
+     *
+     * @return bool True if online, false otherwise.
+     */
     public function isOnline()
     {
         return $this->raw[self::CFG_ONLINE] == self::ENABLED;
     }
 
+    /**
+     * Checks if the application should launch at startup.
+     *
+     * @return bool True if it should launch at startup, false otherwise.
+     */
     public function isLaunchStartup()
     {
         return $this->raw[self::CFG_LAUNCH_STARTUP] == self::ENABLED;
     }
 
+    /**
+     * Gets the configured browser.
+     *
+     * @return string The configured browser.
+     */
     public function getBrowser()
     {
         return $this->raw[self::CFG_BROWSER];
     }
 
+    /**
+     * Gets the configured hostname.
+     *
+     * @return string The configured hostname.
+     */
     public function getHostname()
     {
         return $this->raw[self::CFG_HOSTNAME];
     }
 
+    /**
+     * Gets the configured script timeout.
+     *
+     * @return int The script timeout in seconds.
+     */
     public function getScriptsTimeout()
     {
         return intval($this->raw[self::CFG_SCRIPTS_TIMEOUT]);
     }
 
+    /**
+     * Gets the configured notepad application.
+     *
+     * @return string The configured notepad application.
+     */
     public function getNotepad()
     {
         return $this->raw[self::CFG_NOTEPAD];
     }
 
+    /**
+     * Gets the verbosity level for logs.
+     *
+     * @return int The verbosity level.
+     */
     public function getLogsVerbose()
     {
         return intval($this->raw[self::CFG_LOGS_VERBOSE]);
     }
 
+    /**
+     * Gets the maximum number of log archives.
+     *
+     * @return int The maximum number of log archives.
+     */
     public function getMaxLogsArchives()
     {
         return intval($this->raw[self::CFG_MAX_LOGS_ARCHIVES]);
