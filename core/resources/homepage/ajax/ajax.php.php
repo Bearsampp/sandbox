@@ -11,6 +11,19 @@
  * and returns it as a JSON-encoded array.
  */
 global $bearsamppBins, $bearsamppLang;
+
+/**
+ * Generates a JSON-encoded array containing the status, versions, extension count, PEAR version, and a list of PHP extensions.
+ *
+ * This script checks the status of PHP (enabled or disabled), lists all PHP versions available, counts the total and loaded PHP extensions,
+ * retrieves the PEAR version, and compiles a list of PHP extensions with their respective statuses and versions.
+ * The output is JSON-encoded, making it suitable for use in web applications where such information might be displayed to the user.
+ *
+ * @global object $bearsamppBins Provides access to system binaries and their configurations.
+ * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+ *
+ * @return void Outputs a JSON string that can be parsed by JavaScript or other languages to display PHP configuration details.
+ */
 $result = array(
     'status' => '',
     'versions' => '',
@@ -21,9 +34,9 @@ $result = array(
 
 // Status
 if ($bearsamppBins->getPhp()->isEnable()) {
-    $result['status'] = '<span class="float-right badge text-bg-primary">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
+    $result['status'] = '<span class="float-right badge text-bg-success">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
 } else {
-    $result['status'] = '<span class="float-right badge text-bg-secondary">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
+    $result['status'] = '<span class="float-right badge text-bg-danger">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
 }
 
 // Versions
