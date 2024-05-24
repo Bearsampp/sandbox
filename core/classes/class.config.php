@@ -22,6 +22,11 @@
  */
 class Config
 {
+    // Constants definitions...
+
+    /**
+     * @var array Holds the configuration values after parsing the INI file.
+     */
     const CFG_MAX_LOGS_ARCHIVES = 'maxLogsArchives';
     const CFG_LOGS_VERBOSE = 'logsVerbose';
     const CFG_LANG = 'lang';

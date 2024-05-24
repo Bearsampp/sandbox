@@ -7,6 +7,12 @@
  * Github: https://github.com/Bearsampp
  */
 
+global $bearsamppBins, $bearsamppLang;
+/**
+ * This code snippet generates information about the status of the MariaDB service and its versions.
+ * It checks if the MariaDB service is enabled, checks the port, and retrieves the list of versions.
+ * The output is encoded in JSON format and includes the port status and versions information.
+ */
 $result = array(
     'checkport' => '',
     'versions' => '',

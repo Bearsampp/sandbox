@@ -31,7 +31,12 @@
     });
   }
 });*/
-
+/**
+ * Asynchronous function to fetch PHP status data from the specified URL using POST method.
+ * If the response is successful, it parses the JSON response and updates the HTML elements with the received data.
+ * It removes loader elements before inserting the data into the respective HTML elements.
+ * This function is triggered on DOMContentLoaded event if an anchor element with name 'php' is found.
+ */
 async function getPHPStatus() {
   const url = ajax_url;
   const proc = 'php';

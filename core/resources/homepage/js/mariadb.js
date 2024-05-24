@@ -22,7 +22,11 @@
     });
   }
 });*/
-
+/**
+ * Asynchronous function to fetch MariaDB status using AJAX.
+ * It sends a POST request to the specified URL with process 'mariadb'.
+ * Handles the response and updates the DOM with the received data.
+ */
 async function getMariaDBStatus() {
   const url = ajax_url;
   const proc = 'mariadb';

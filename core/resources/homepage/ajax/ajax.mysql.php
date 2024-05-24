@@ -7,6 +7,14 @@
  * Github: https://github.com/Bearsampp
  */
 
+global $bearsamppBins, $bearsamppLang;
+/**
+ * This code snippet creates an array with keys 'checkport' and 'versions'.
+ * It checks the status of a MySQL service, displaying a success message if the service is started and the port is open,
+ * or a danger message if the service is stopped.
+ * It also lists different versions of MySQL, highlighting the current version with a primary badge.
+ * The final result is encoded in JSON format and echoed out.
+ */
 $result = array(
     'checkport' => '',
     'versions' => '',

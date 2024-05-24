@@ -6,6 +6,10 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+/**
+ * Generates a JSON output containing information about various bins such as Apache, Filezilla, MailHog, MariaDB, MySQL, PostgreSQL, Memcached, Node.js, and PHP.
+ * The output includes download links, version numbers, and status labels for each bin.
+ */
 global $downloadTitle, $bearsamppBins;
 $result = array(
     'binapache' => '',

@@ -43,7 +43,10 @@
     });
   }
 });*/
-
+/**
+ * Asynchronously fetches summary status data from the server and updates the DOM elements with the received data.
+ * If the element with class 'summary' exists, it triggers the AJAX call to retrieve the summary data and updates specific elements with the response data.
+ */
 async function getSummaryStatus() {
   const url = ajax_url;
   const proc = 'summary';

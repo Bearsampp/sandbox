@@ -22,7 +22,13 @@
     });
   }
 });*/
-
+/**
+ * Asynchronous function to get MemCached status by sending a POST request to the specified URL.
+ * If the response is successful, it parses the JSON response and updates the DOM elements with the received data.
+ * It removes loader elements after updating the content.
+ *
+ * This function is triggered on DOMContentLoaded event if an anchor element with name 'memcached' exists.
+ */
 async function getMemCachedStatus() {
   const url = ajax_url;
   const proc = 'memcached';

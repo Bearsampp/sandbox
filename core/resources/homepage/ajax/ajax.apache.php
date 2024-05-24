@@ -6,7 +6,10 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
+/**
+ * Retrieves information about Apache server status, versions, modules, aliases, vhosts, directories, and URLs.
+ * Returns a JSON-encoded array with the collected data.
+ */
 global $bearsamppRoot, $bearsamppBins, $bearsamppLang;
 $result = array(
     'checkport' => '',

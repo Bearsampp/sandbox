@@ -6,6 +6,10 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+/**
+ * Retrieves status, versions, extensions count, PEAR version, and extensions list information
+ * and returns it as a JSON-encoded array.
+ */
 global $bearsamppBins, $bearsamppLang;
 
 /**

@@ -7,6 +7,13 @@
  * Github: https://github.com/Bearsampp
  */
 
+global $bearsamppBins, $bearsamppLang;
+/**
+ * This code snippet retrieves information about the PostgreSQL service status and versions.
+ * It checks if the PostgreSQL service is enabled, checks the port, and displays a corresponding badge.
+ * It also retrieves the list of PostgreSQL versions and displays them as badges.
+ * The final result is encoded in JSON format and returned.
+ */
 $result = array(
     'checkport' => '',
     'versions' => '',

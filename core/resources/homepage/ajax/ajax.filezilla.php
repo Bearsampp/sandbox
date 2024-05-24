@@ -7,6 +7,12 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * This code snippet retrieves information about the status of FileZilla service and its versions.
+ * It checks if FileZilla service is enabled, checks the ports it is running on, and lists available versions.
+ * The output is encoded in JSON format and includes 'checkport' and 'versions' keys with corresponding information.
+ */
+global $bearsamppBins, $bearsamppLang;
 $result = array(
     'checkport' => '',
     'versions' => '',
