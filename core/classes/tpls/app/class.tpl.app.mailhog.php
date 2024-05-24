@@ -35,7 +35,7 @@ class TplAppMailhog
 
         // Download
         $resultItems .= TplAestan::getItemLink(
-        $downloadTitle,
+        $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
             Util::getWebsiteUrl('module/mailhog', '#releases'),
             false,
             TplAestan::GLYPH_BROWSER

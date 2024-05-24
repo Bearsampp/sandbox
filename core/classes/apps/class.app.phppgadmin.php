@@ -135,6 +135,6 @@ class AppPhppgadmin extends Module
      * @return string The path to the configuration file.
      */
     public function getConf() {
-        return this->conf;
+        return $this->conf;
     }
 }
