@@ -8,8 +8,17 @@
  */
 
 /**
- * Class Config manages the application configuration settings.
- * It handles reading, updating, and retrieving configuration values from an INI file.
+ * Manages configuration settings for the Bearsampp application.
+ *
+ * This class provides methods to access and manipulate configuration settings stored in an INI file.
+ * It supports fetching individual configuration values, updating them, and handling specific application
+ * settings like language, timezone, and system behaviors.
+ *
+ * Usage:
+ * - Access configuration values using get methods like getLang(), getTimezone(), etc.
+ * - Update configuration values using replace() or replaceAll() methods.
+ *
+ * @package Bearsampp\Config
  */
 class Config
 {
@@ -43,7 +52,7 @@ class Config
 
     /**
      * Constructor for the Config class.
-     * It initializes the configuration by reading from the INI file and sets the default timezone.
+     * Initializes the configuration by loading settings from an INI file.
      */
     public function __construct()
     {
@@ -60,8 +69,8 @@ class Config
     /**
      * Retrieves a configuration value by key.
      *
-     * @param string $key The configuration key to retrieve.
-     * @return mixed The value of the configuration key.
+     * @param string $key The key of the configuration item.
+     * @return mixed The value of the configuration item.
      */
     public function getRaw($key)
     {
@@ -69,9 +78,9 @@ class Config
     }
 
     /**
-     * Updates a single configuration value.
+     * Replaces a single configuration value.
      *
-     * @param string $key The configuration key to update.
+     * @param string $key The configuration key to replace.
      * @param mixed $value The new value for the configuration key.
      */
     public function replace($key, $value)
@@ -80,7 +89,7 @@ class Config
     }
 
     /**
-     * Updates multiple configuration values.
+     * Replaces multiple configuration values.
      *
      * @param array $params An associative array of configuration keys and their new values.
      */
@@ -100,16 +109,17 @@ class Config
     }
 
     /**
-     * Gets the configured language.
+     * Gets the current language setting.
      *
-     * @return string The configured language.
-     */ic function getLang()
+     * @return string The current language.
+     */
+    public function getLang()
     {
         return $this->raw[self::CFG_LANG];
     }
 
     /**
-     * Gets the default language.
+     * Gets the default language setting.
      *
      * @return string The default language.
      */
@@ -121,7 +131,7 @@ class Config
     /**
      * Gets the configured timezone.
      *
-     * @return string The configured timezone.
+     * @return string The timezone setting.
      */
     public function getTimezone()
     {
@@ -129,9 +139,9 @@ class Config
     }
 
     /**
-     * Checks if the application is set to online mode.
+     * Checks if the online mode is enabled.
      *
-     * @return bool True if online, false otherwise.
+     * @return bool True if online mode is enabled, false otherwise.
      */
     public function isOnline()
     {
@@ -139,9 +149,9 @@ class Config
     }
 
     /**
-     * Checks if the application should launch at startup.
+     * Checks if the application is set to launch at startup.
      *
-     * @return bool True if it should launch at startup, false otherwise.
+     * @return bool True if set to launch at startup, false otherwise.
      */
     public function isLaunchStartup()
     {
@@ -151,7 +161,7 @@ class Config
     /**
      * Gets the configured browser.
      *
-     * @return string The configured browser.
+     * @return string The browser setting.
      */
     public function getBrowser()
     {
@@ -161,7 +171,7 @@ class Config
     /**
      * Gets the configured hostname.
      *
-     * @return string The configured hostname.
+     * @return string The hostname setting.
      */
     public function getHostname()
     {
@@ -169,7 +179,7 @@ class Config
     }
 
     /**
-     * Gets the configured script timeout.
+     * Gets the configured script timeout value.
      *
      * @return int The script timeout in seconds.
      */
@@ -181,7 +191,7 @@ class Config
     /**
      * Gets the configured notepad application.
      *
-     * @return string The configured notepad application.
+     * @return string The notepad setting.
      */
     public function getNotepad()
     {
