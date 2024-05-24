@@ -6,6 +6,8 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+global $bearsamppBins, $bearsamppLang;
+
 /**
  * Generates a JSON-encoded array containing the status, versions, extension count, PEAR version, and a list of PHP extensions.
  *
@@ -28,9 +30,9 @@ $result = array(
 
 // Status
 if ($bearsamppBins->getPhp()->isEnable()) {
-    $result['status'] = '<span class="float-right badge text-bg-primary">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
+    $result['status'] = '<span class="float-right badge text-bg-success">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
 } else {
-    $result['status'] = '<span class="float-right badge text-bg-secondary">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
+    $result['status'] = '<span class="float-right badge text-bg-danger">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
 }
 
 // Versions
