@@ -1,12 +1,28 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
 
+
 global $bearsamppBins, $bearsamppLang;
+
+/**
+ * Generates a JSON-encoded array containing the status, versions, extension count, PEAR version, and a list of PHP extensions.
+ *
+ * This script checks the status of PHP (enabled or disabled), lists all PHP versions available, counts the total and loaded PHP extensions,
+ * retrieves the PEAR version, and compiles a list of PHP extensions with their respective statuses and versions.
+ * The output is JSON-encoded, making it suitable for use in web applications where such information might be displayed to the user.
+ *
+ * @global object $bearsamppBins Provides access to system binaries and their configurations.
+ * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+ *
+ * @return void Outputs a JSON string that can be parsed by JavaScript or other languages to display PHP configuration details.
+ */
+
 $result = array(
     'status' => '',
     'versions' => '',

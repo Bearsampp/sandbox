@@ -1,0 +1,18 @@
+group:
+  # Bearsampp repo unique things
+  - files:
+      - source: core/
+        dest: core/
+        deleteOrphaned: true
+      - source: LICENSE
+        dest: LICENSE
+      - source: bar.dat
+        dest: bar.dat
+      - source: README.md
+        dest: README.md
+      - source: nssmEnvPaths.dat
+        dest: nssmEnvPaths.dat
+      - source: sprites.dat
+        dest: sprites.dat
+    repos: |
+        Bearsampp/Bearsampp
