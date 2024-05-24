@@ -287,7 +287,7 @@ class TplAestan
      */
     public static function getItemActionServiceStart($service)
     {
-        return self::getActionService($service, self::SERVICE_STOP, true);
+        return self::getActionService($service, self::SERVICE_START, true);
     }
 
     /**
@@ -309,7 +309,7 @@ class TplAestan
      */
     public static function getItemActionServiceStop($service)
     {
-        return self::getActionService($service, self::SERVICE_START, true);
+        return self::getActionService($service, self::SERVICE_STOP, true);
     }
 
     /**
