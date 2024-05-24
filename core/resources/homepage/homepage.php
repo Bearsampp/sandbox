@@ -11,7 +11,7 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
 
 /* Set the resource path homepage dir */
 $resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
-/* $imagesPath / icons/pear-icon.gif'; */
+
 /* Set reusable variables */
 $iconsPath = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
@@ -32,14 +32,12 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     $cssFiles = [
         "/css/app.css",
         "/libs/bootstrap/bootstrap.min.css",
-        "/libs/fontawesome/css/all.css",
+        "/libs/fontawesome/css/all.min.css",
     ];
     $jsFiles = [
         "/libs/jquery/jquery-3.7.1.min.js",
-        "/libs/jquery/jquery-migrate-3.4.0.min.js",
-        "/libs/bootstrap/popper.min.js",
         "/libs/bootstrap/bootstrap.min.js",
-        "/libs/fontawesome/js/all.js",
+        "/libs/fontawesome/js/all.min.js",
         "/js/_commons.js",
         "/js/latestversion.js",
         "/js/summary.js",
