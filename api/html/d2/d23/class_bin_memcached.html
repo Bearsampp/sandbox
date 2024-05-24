@@ -1,0 +1,1290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Bearsampp: BinMemcached Class Reference</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="../../toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Bearsampp
+   &#160;<span id="projectnumber">2024.5.22</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Search');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d2/d23/class_bin_memcached.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
+  <div class="headertitle"><div class="title">BinMemcached Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Inheritance diagram for BinMemcached:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="../../d2/d23/class_bin_memcached.png" usemap="#BinMemcached_map" alt=""/>
+  <map id="BinMemcached_map" name="BinMemcached_map">
+<area href="../../dd/df9/class_module.html" alt="Module" shape="rect" coords="0,0,99,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad2d1f4e407b6f242de3af2a95dc1078e" id="r_ad2d1f4e407b6f242de3af2a95dc1078e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d1f4e407b6f242de3af2a95dc1078e">__construct</a> ($id, $type)</td></tr>
+<tr class="separator:ad2d1f4e407b6f242de3af2a95dc1078e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85f983791a52bf029fac9b6d3b3976d2" id="r_a85f983791a52bf029fac9b6d3b3976d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85f983791a52bf029fac9b6d3b3976d2">changePort</a> ($port, $checkUsed=false, $wbProgressBar=null)</td></tr>
+<tr class="separator:a85f983791a52bf029fac9b6d3b3976d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac161241c3339d3885d9ab6e53dca82" id="r_a6ac161241c3339d3885d9ab6e53dca82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ac161241c3339d3885d9ab6e53dca82">checkPort</a> ($port, $showWindow=false)</td></tr>
+<tr class="separator:a6ac161241c3339d3885d9ab6e53dca82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ffef4e15d42599735b0536614b19ba" id="r_a04ffef4e15d42599735b0536614b19ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04ffef4e15d42599735b0536614b19ba">getExe</a> ()</td></tr>
+<tr class="separator:a04ffef4e15d42599735b0536614b19ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8283af3e7c972d9c276dc634eec0bdc" id="r_af8283af3e7c972d9c276dc634eec0bdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8283af3e7c972d9c276dc634eec0bdc">getLog</a> ()</td></tr>
+<tr class="separator:af8283af3e7c972d9c276dc634eec0bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144248575cd034a40315155a9b48ff87" id="r_a144248575cd034a40315155a9b48ff87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a144248575cd034a40315155a9b48ff87">getMemory</a> ()</td></tr>
+<tr class="separator:a144248575cd034a40315155a9b48ff87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd4db46d3c12f47f0bee19cd2101be64" id="r_afd4db46d3c12f47f0bee19cd2101be64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd4db46d3c12f47f0bee19cd2101be64">getPort</a> ()</td></tr>
+<tr class="separator:afd4db46d3c12f47f0bee19cd2101be64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ec6b84e042bbd7a712d834a5d46f1f" id="r_ae2ec6b84e042bbd7a712d834a5d46f1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2ec6b84e042bbd7a712d834a5d46f1f">getService</a> ()</td></tr>
+<tr class="separator:ae2ec6b84e042bbd7a712d834a5d46f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b1926b231d22d9d2771a0c767331d0" id="r_ae9b1926b231d22d9d2771a0c767331d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9b1926b231d22d9d2771a0c767331d0">rebuildConf</a> ()</td></tr>
+<tr class="separator:ae9b1926b231d22d9d2771a0c767331d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcf741f558ed8382bf163307e1a4e71d" id="r_abcf741f558ed8382bf163307e1a4e71d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcf741f558ed8382bf163307e1a4e71d">reload</a> ($id=null, $type=null)</td></tr>
+<tr class="separator:abcf741f558ed8382bf163307e1a4e71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8793e887e0ef76afd6f91028fc480674" id="r_a8793e887e0ef76afd6f91028fc480674"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8793e887e0ef76afd6f91028fc480674">setEnable</a> ($enabled, $showWindow=false)</td></tr>
+<tr class="separator:a8793e887e0ef76afd6f91028fc480674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a165f0d8dd30c6ddee7bf5baee198f3db" id="r_a165f0d8dd30c6ddee7bf5baee198f3db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a165f0d8dd30c6ddee7bf5baee198f3db">setMemory</a> ($memory)</td></tr>
+<tr class="separator:a165f0d8dd30c6ddee7bf5baee198f3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a000ce1ff20433f6ac9297e01c31d0678" id="r_a000ce1ff20433f6ac9297e01c31d0678"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a000ce1ff20433f6ac9297e01c31d0678">setPort</a> ($port)</td></tr>
+<tr class="separator:a000ce1ff20433f6ac9297e01c31d0678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2f870d59df617e76c79a9996646832" id="r_a6a2f870d59df617e76c79a9996646832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a2f870d59df617e76c79a9996646832">setVersion</a> ($version)</td></tr>
+<tr class="separator:a6a2f870d59df617e76c79a9996646832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f33c33705dd268ad4799ceeacc8eec3" id="r_a5f33c33705dd268ad4799ceeacc8eec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f33c33705dd268ad4799ceeacc8eec3">switchVersion</a> ($version, $showWindow=false)</td></tr>
+<tr class="separator:a5f33c33705dd268ad4799ceeacc8eec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_module"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_module')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/df9/class_module.html">Module</a></td></tr>
+<tr class="memitem:a7516ca30af0db3cdbf9a7739b48ce91d inherit pub_methods_class_module" id="r_a7516ca30af0db3cdbf9a7739b48ce91d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
+<tr class="separator:a7516ca30af0db3cdbf9a7739b48ce91d inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d21d13bce5054a6d451284009f5ecbf inherit pub_methods_class_module" id="r_a4d21d13bce5054a6d451284009f5ecbf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a4d21d13bce5054a6d451284009f5ecbf">getCurrentPath</a> ()</td></tr>
+<tr class="separator:a4d21d13bce5054a6d451284009f5ecbf inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12251d0c022e9e21c137a105ff683f13 inherit pub_methods_class_module" id="r_a12251d0c022e9e21c137a105ff683f13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a12251d0c022e9e21c137a105ff683f13">getId</a> ()</td></tr>
+<tr class="separator:a12251d0c022e9e21c137a105ff683f13 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0963e68bb313b163a73f2803c64600 inherit pub_methods_class_module" id="r_a3d0963e68bb313b163a73f2803c64600"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a> ()</td></tr>
+<tr class="separator:a3d0963e68bb313b163a73f2803c64600 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d2664bd6bafd5d471c8fe5503cc3412 inherit pub_methods_class_module" id="r_a9d2664bd6bafd5d471c8fe5503cc3412"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a9d2664bd6bafd5d471c8fe5503cc3412">getRelease</a> ()</td></tr>
+<tr class="separator:a9d2664bd6bafd5d471c8fe5503cc3412 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107a7dfe205287c1e3747efd599791ff inherit pub_methods_class_module" id="r_a107a7dfe205287c1e3747efd599791ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a107a7dfe205287c1e3747efd599791ff">getRootPath</a> ()</td></tr>
+<tr class="separator:a107a7dfe205287c1e3747efd599791ff inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1717054aa5da83c44df7855a0db746 inherit pub_methods_class_module" id="r_a9b1717054aa5da83c44df7855a0db746"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a9b1717054aa5da83c44df7855a0db746">getSymlinkPath</a> ()</td></tr>
+<tr class="separator:a9b1717054aa5da83c44df7855a0db746 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830b5c75df72b32396701bc563fbe3c7 inherit pub_methods_class_module" id="r_a830b5c75df72b32396701bc563fbe3c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a830b5c75df72b32396701bc563fbe3c7">getType</a> ()</td></tr>
+<tr class="separator:a830b5c75df72b32396701bc563fbe3c7 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8e7a3a646144eab50188b7a805a389 inherit pub_methods_class_module" id="r_afa8e7a3a646144eab50188b7a805a389"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#afa8e7a3a646144eab50188b7a805a389">getVersion</a> ()</td></tr>
+<tr class="separator:afa8e7a3a646144eab50188b7a805a389 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef34815746820e4318940efbdde4bbdd inherit pub_methods_class_module" id="r_aef34815746820e4318940efbdde4bbdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#aef34815746820e4318940efbdde4bbdd">getVersionList</a> ()</td></tr>
+<tr class="separator:aef34815746820e4318940efbdde4bbdd inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31595d71457017f21b976b3cccc686ca inherit pub_methods_class_module" id="r_a31595d71457017f21b976b3cccc686ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a31595d71457017f21b976b3cccc686ca">isEnable</a> ()</td></tr>
+<tr class="separator:a31595d71457017f21b976b3cccc686ca inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3edae59e4bc3dfc2837475945e9d9f25 inherit pub_methods_class_module" id="r_a3edae59e4bc3dfc2837475945e9d9f25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a3edae59e4bc3dfc2837475945e9d9f25">update</a> ($sub=0, $showWindow=false)</td></tr>
+<tr class="separator:a3edae59e4bc3dfc2837475945e9d9f25 inherit pub_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a0a6b39bb1c8d746a09325a52c690b240" id="r_a0a6b39bb1c8d746a09325a52c690b240"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a6b39bb1c8d746a09325a52c690b240">LOCAL_CFG_EXE</a> = 'memcachedExe'</td></tr>
+<tr class="separator:a0a6b39bb1c8d746a09325a52c690b240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a575a7b20284a988d4ba3287481321840" id="r_a575a7b20284a988d4ba3287481321840"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a575a7b20284a988d4ba3287481321840">LOCAL_CFG_MEMORY</a> = 'memcachedMemory'</td></tr>
+<tr class="separator:a575a7b20284a988d4ba3287481321840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60ba9988f7edcd78183b01da8c753746" id="r_a60ba9988f7edcd78183b01da8c753746"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60ba9988f7edcd78183b01da8c753746">LOCAL_CFG_PORT</a> = 'memcachedPort'</td></tr>
+<tr class="separator:a60ba9988f7edcd78183b01da8c753746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65093e6cbd7012059bc81f5bbfe8efbb" id="r_a65093e6cbd7012059bc81f5bbfe8efbb"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65093e6cbd7012059bc81f5bbfe8efbb">ROOT_CFG_ENABLE</a> = 'memcachedEnable'</td></tr>
+<tr class="separator:a65093e6cbd7012059bc81f5bbfe8efbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3a00a909ed90236d0aa51a6ce5a34e" id="r_ace3a00a909ed90236d0aa51a6ce5a34e"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace3a00a909ed90236d0aa51a6ce5a34e">ROOT_CFG_VERSION</a> = 'memcachedVersion'</td></tr>
+<tr class="separator:ace3a00a909ed90236d0aa51a6ce5a34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0aff1ce1a09db49bfb05d38276ff94" id="r_a1b0aff1ce1a09db49bfb05d38276ff94"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b0aff1ce1a09db49bfb05d38276ff94">SERVICE_NAME</a> = 'bearsamppmemcached'</td></tr>
+<tr class="separator:a1b0aff1ce1a09db49bfb05d38276ff94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86b070844762d196c920e7ac167a18a4" id="r_a86b070844762d196c920e7ac167a18a4"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86b070844762d196c920e7ac167a18a4">SERVICE_PARAMS</a> = '-m %d -p %d -U 0 -vv'</td></tr>
+<tr class="separator:a86b070844762d196c920e7ac167a18a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_module"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_class_module')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../dd/df9/class_module.html">Module</a></td></tr>
+<tr class="memitem:a5759acb14beae020f1f9d428141561c8 inherit pub_attribs_class_module" id="r_a5759acb14beae020f1f9d428141561c8"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a5759acb14beae020f1f9d428141561c8">BUNDLE_RELEASE</a> = 'bundleRelease'</td></tr>
+<tr class="separator:a5759acb14beae020f1f9d428141561c8 inherit pub_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3614638192ed37aeb3dd9173b1c8bde8" id="r_a3614638192ed37aeb3dd9173b1c8bde8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3614638192ed37aeb3dd9173b1c8bde8">replaceAll</a> ($params)</td></tr>
+<tr class="separator:a3614638192ed37aeb3dd9173b1c8bde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca4942bd159e981d98bae05e134855d" id="r_a4ca4942bd159e981d98bae05e134855d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ca4942bd159e981d98bae05e134855d">updateConfig</a> ($version=null, $sub=0, $showWindow=false)</td></tr>
+<tr class="separator:a4ca4942bd159e981d98bae05e134855d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_module"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_module')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../dd/df9/class_module.html">Module</a></td></tr>
+<tr class="memitem:a095c5d389db211932136b53f25f39685 inherit pro_methods_class_module" id="r_a095c5d389db211932136b53f25f39685"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
+<tr class="separator:a095c5d389db211932136b53f25f39685 inherit pro_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e39cffd72d25a5fdba69558c7686fb inherit pro_methods_class_module" id="r_aa9e39cffd72d25a5fdba69558c7686fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#aa9e39cffd72d25a5fdba69558c7686fb">replace</a> ($key, $value)</td></tr>
+<tr class="separator:aa9e39cffd72d25a5fdba69558c7686fb inherit pro_methods_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad6b47af56500940987d1e72e428726ce" id="r_ad6b47af56500940987d1e72e428726ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6b47af56500940987d1e72e428726ce">$exe</a></td></tr>
+<tr class="separator:ad6b47af56500940987d1e72e428726ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a2cf15a653aee8be437f7ae474cd494" id="r_a9a2cf15a653aee8be437f7ae474cd494"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a2cf15a653aee8be437f7ae474cd494">$log</a></td></tr>
+<tr class="separator:a9a2cf15a653aee8be437f7ae474cd494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e20a9a3e12271b3b8d685805590c9e0" id="r_a5e20a9a3e12271b3b8d685805590c9e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e20a9a3e12271b3b8d685805590c9e0">$memory</a></td></tr>
+<tr class="separator:a5e20a9a3e12271b3b8d685805590c9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0787efab4b22e8a212882f3409d4c77" id="r_aa0787efab4b22e8a212882f3409d4c77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a></td></tr>
+<tr class="separator:aa0787efab4b22e8a212882f3409d4c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb8d1943d2cf9b6a3d54a4fed1ad2d9d" id="r_abb8d1943d2cf9b6a3d54a4fed1ad2d9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">$service</a></td></tr>
+<tr class="separator:abb8d1943d2cf9b6a3d54a4fed1ad2d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_class_module"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_module')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dd/df9/class_module.html">Module</a></td></tr>
+<tr class="memitem:a07b8214f43c12f643ab466d80efd770b inherit pro_attribs_class_module" id="r_a07b8214f43c12f643ab466d80efd770b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a07b8214f43c12f643ab466d80efd770b">$bearsamppConf</a></td></tr>
+<tr class="separator:a07b8214f43c12f643ab466d80efd770b inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254a9828b4a2ed2fb52811bf6acbeca3 inherit pro_attribs_class_module" id="r_a254a9828b4a2ed2fb52811bf6acbeca3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">$bearsamppConfRaw</a></td></tr>
+<tr class="separator:a254a9828b4a2ed2fb52811bf6acbeca3 inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b510566e210275a709569a631c7803a inherit pro_attribs_class_module" id="r_a7b510566e210275a709569a631c7803a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a7b510566e210275a709569a631c7803a">$currentPath</a></td></tr>
+<tr class="separator:a7b510566e210275a709569a631c7803a inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abea865f3ca62b18578d7a0ca285d216e inherit pro_attribs_class_module" id="r_abea865f3ca62b18578d7a0ca285d216e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#abea865f3ca62b18578d7a0ca285d216e">$enable</a></td></tr>
+<tr class="separator:abea865f3ca62b18578d7a0ca285d216e inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2fc40d43824ea3e1ce5d86dee0d763b inherit pro_attribs_class_module" id="r_ab2fc40d43824ea3e1ce5d86dee0d763b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a></td></tr>
+<tr class="separator:ab2fc40d43824ea3e1ce5d86dee0d763b inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c5d6a8a9f1768ea926cee666dc991b inherit pro_attribs_class_module" id="r_a63c5d6a8a9f1768ea926cee666dc991b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a63c5d6a8a9f1768ea926cee666dc991b">$release</a> = 'N/A'</td></tr>
+<tr class="separator:a63c5d6a8a9f1768ea926cee666dc991b inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a298523223201366625cb7e465ee2acce inherit pro_attribs_class_module" id="r_a298523223201366625cb7e465ee2acce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a298523223201366625cb7e465ee2acce">$rootPath</a></td></tr>
+<tr class="separator:a298523223201366625cb7e465ee2acce inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ff84bb1c4a3e7dbc3045d964cbdf2a inherit pro_attribs_class_module" id="r_a73ff84bb1c4a3e7dbc3045d964cbdf2a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a73ff84bb1c4a3e7dbc3045d964cbdf2a">$symlinkPath</a></td></tr>
+<tr class="separator:a73ff84bb1c4a3e7dbc3045d964cbdf2a inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c8948c68aa44fa9961ae169b6a8961 inherit pro_attribs_class_module" id="r_a17c8948c68aa44fa9961ae169b6a8961"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a></td></tr>
+<tr class="separator:a17c8948c68aa44fa9961ae169b6a8961 inherit pro_attribs_class_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00010">10</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad2d1f4e407b6f242de3af2a95dc1078e" name="ad2d1f4e407b6f242de3af2a95dc1078e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d1f4e407b6f242de3af2a95dc1078e">&#9670;&#160;</a></span>__construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$id</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$type</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00029">29</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>                                            {</div>
+<div class="line"><span class="lineno">   30</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a2dfc13763d0173d6e71576fb4970c77e">Util::logInitClass</a>($this);</div>
+<div class="line"><span class="lineno">   31</span>        $this-&gt;<a class="code hl_function" href="#abcf741f558ed8382bf163307e1a4e71d">reload</a>(<a class="code hl_variable" href="../../dd/df9/class_module.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code hl_variable" href="../../dd/df9/class_module.html#a9a4a6fba2208984cabb3afacadf33919">$type</a>);</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_abcf741f558ed8382bf163307e1a4e71d"><div class="ttname"><a href="#abcf741f558ed8382bf163307e1a4e71d">BinMemcached\reload</a></div><div class="ttdeci">reload($id=null, $type=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">class.bin.memcached.php:34</a></div></div>
+<div class="ttc" id="aclass_module_html_a9a4a6fba2208984cabb3afacadf33919"><div class="ttname"><a href="../../dd/df9/class_module.html#a9a4a6fba2208984cabb3afacadf33919">Module\$type</a></div><div class="ttdeci">$type</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00014">class.module.php:14</a></div></div>
+<div class="ttc" id="aclass_module_html_ae97941710d863131c700f069b109991e"><div class="ttname"><a href="../../dd/df9/class_module.html#ae97941710d863131c700f069b109991e">Module\$id</a></div><div class="ttdeci">$id</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00015">class.module.php:15</a></div></div>
+<div class="ttc" id="aclass_util_html_a2dfc13763d0173d6e71576fb4970c77e"><div class="ttname"><a href="../../d1/d0a/class_util.html#a2dfc13763d0173d6e71576fb4970c77e">Util\logInitClass</a></div><div class="ttdeci">static logInitClass($classInstance)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00550">class.util.php:550</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00015">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00014">Module\$type</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00550">Util\logInitClass()</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">reload()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a85f983791a52bf029fac9b6d3b3976d2" name="a85f983791a52bf029fac9b6d3b3976d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85f983791a52bf029fac9b6d3b3976d2">&#9670;&#160;</a></span>changePort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">changePort </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$port</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$checkUsed</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$wbProgressBar</em><span class="paramdefsep"> = </span><span class="paramdefval">null</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00131">131</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>                                                                                 {</div>
+<div class="line"><span class="lineno">  132</span>        global $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d1/d0a/class_util.html#a369758071d248f3b173d82c165a897ac">Util::isValidPort</a>(<a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>)) {</div>
+<div class="line"><span class="lineno">  135</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port not valid: &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  136</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  137</span>        }</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>        <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a> = intval(<a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  140</span>        $bearsamppWinbinder-&gt;incrProgressBar($wbProgressBar);</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        $isPortInUse = <a class="code hl_function" href="../../d1/d0a/class_util.html#a997ef76d56e91536a41ef5735682cf73">Util::isPortInUse</a>(<a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">if</span> (!$checkUsed || $isPortInUse === <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">  144</span>            <span class="comment">// bearsampp.conf</span></div>
+<div class="line"><span class="lineno">  145</span>            $this-&gt;<a class="code hl_function" href="#a000ce1ff20433f6ac9297e01c31d0678">setPort</a>(<a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  146</span>            $bearsamppWinbinder-&gt;incrProgressBar($wbProgressBar);</div>
+<div class="line"><span class="lineno">  147</span> </div>
+<div class="line"><span class="lineno">  148</span>            <span class="comment">// conf</span></div>
+<div class="line"><span class="lineno">  149</span>            $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3edae59e4bc3dfc2837475945e9d9f25">update</a>();</div>
+<div class="line"><span class="lineno">  150</span>            $bearsamppWinbinder-&gt;incrProgressBar($wbProgressBar);</div>
+<div class="line"><span class="lineno">  151</span> </div>
+<div class="line"><span class="lineno">  152</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  153</span>        }</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port in used: &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a> . <span class="stringliteral">&#39; - &#39;</span> . $isPortInUse);</div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">return</span> $isPortInUse;</div>
+<div class="line"><span class="lineno">  157</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a000ce1ff20433f6ac9297e01c31d0678"><div class="ttname"><a href="#a000ce1ff20433f6ac9297e01c31d0678">BinMemcached\setPort</a></div><div class="ttdeci">setPort($port)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00311">class.bin.memcached.php:311</a></div></div>
+<div class="ttc" id="aclass_bin_memcached_html_aa0787efab4b22e8a212882f3409d4c77"><div class="ttname"><a href="#aa0787efab4b22e8a212882f3409d4c77">BinMemcached\$port</a></div><div class="ttdeci">$port</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">class.bin.memcached.php:27</a></div></div>
+<div class="ttc" id="aclass_module_html_a3d0963e68bb313b163a73f2803c64600"><div class="ttname"><a href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">Module\getName</a></div><div class="ttdeci">getName()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00134">class.module.php:134</a></div></div>
+<div class="ttc" id="aclass_module_html_a3edae59e4bc3dfc2837475945e9d9f25"><div class="ttname"><a href="../../dd/df9/class_module.html#a3edae59e4bc3dfc2837475945e9d9f25">Module\update</a></div><div class="ttdeci">update($sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00113">class.module.php:113</a></div></div>
+<div class="ttc" id="aclass_util_html_a05d384b2e8414a0c833d6ce561007e62"><div class="ttname"><a href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util\logError</a></div><div class="ttdeci">static logError($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00545">class.util.php:545</a></div></div>
+<div class="ttc" id="aclass_util_html_a369758071d248f3b173d82c165a897ac"><div class="ttname"><a href="../../d1/d0a/class_util.html#a369758071d248f3b173d82c165a897ac">Util\isValidPort</a></div><div class="ttdeci">static isValidPort($port)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00236">class.util.php:236</a></div></div>
+<div class="ttc" id="aclass_util_html_a708479f12c93bcadef186df397bbf049"><div class="ttname"><a href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util\logDebug</a></div><div class="ttdeci">static logDebug($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00530">class.util.php:530</a></div></div>
+<div class="ttc" id="aclass_util_html_a997ef76d56e91536a41ef5735682cf73"><div class="ttname"><a href="../../d1/d0a/class_util.html#a997ef76d56e91536a41ef5735682cf73">Util\isPortInUse</a></div><div class="ttdeci">static isPortInUse($port)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l01144">class.util.php:1144</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">$port</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00134">Module\getName()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l01144">Util\isPortInUse()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00236">Util\isValidPort()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00530">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00545">Util\logError()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00311">setPort()</a>, and <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00113">Module\update()</a>.</p>
+
+</div>
+</div>
+<a id="a6ac161241c3339d3885d9ab6e53dca82" name="a6ac161241c3339d3885d9ab6e53dca82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac161241c3339d3885d9ab6e53dca82">&#9670;&#160;</a></span>checkPort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">checkPort </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$port</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$showWindow</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00159">159</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  159</span>                                                          {</div>
+<div class="line"><span class="lineno">  160</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  161</span>        $boxTitle = sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#af5430d2959448df06b247c0eb0386a3a">Lang::CHECK_PORT_TITLE</a>), $this-&gt;getName(), <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d1/d0a/class_util.html#a369758071d248f3b173d82c165a897ac">Util::isValidPort</a>(<a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>)) {</div>
+<div class="line"><span class="lineno">  164</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port not valid: &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  165</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  166</span>        }</div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">if</span> (function_exists(<span class="stringliteral">&#39;memcache_connect&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  169</span>            $memcache = @memcache_connect(<span class="stringliteral">&#39;127.0.0.1&#39;</span>, <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  170</span>            <span class="keywordflow">if</span> ($memcache) {</div>
+<div class="line"><span class="lineno">  171</span>                $memcacheVersion = memcache_get_version($memcache);</div>
+<div class="line"><span class="lineno">  172</span>                <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a> . <span class="stringliteral">&#39; is used by: &#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="charliteral">&#39; &#39;</span> . $memcacheVersion);</div>
+<div class="line"><span class="lineno">  173</span>                memcache_close($memcache);</div>
+<div class="line"><span class="lineno">  174</span>                <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  175</span>                    $bearsamppWinbinder-&gt;messageBoxInfo(</div>
+<div class="line"><span class="lineno">  176</span>                        sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#af7396b674be61851809412e77b876b8c">Lang::PORT_USED_BY</a>), <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>, $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . $memcacheVersion),</div>
+<div class="line"><span class="lineno">  177</span>                        $boxTitle</div>
+<div class="line"><span class="lineno">  178</span>                    );</div>
+<div class="line"><span class="lineno">  179</span>                }</div>
+<div class="line"><span class="lineno">  180</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  181</span>            }</div>
+<div class="line"><span class="lineno">  182</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  183</span>            $fp = @fsockopen(<span class="stringliteral">&#39;127.0.0.1&#39;</span>, <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>, $errno, $errstr, 3);</div>
+<div class="line"><span class="lineno">  184</span>            <span class="keywordflow">if</span> (!$fp) {</div>
+<div class="line"><span class="lineno">  185</span>                <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a> . <span class="stringliteral">&#39; is used by another application&#39;</span>);</div>
+<div class="line"><span class="lineno">  186</span>                <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  187</span>                    $bearsamppWinbinder-&gt;messageBoxWarning(</div>
+<div class="line"><span class="lineno">  188</span>                        sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#ad5f064f482823794d8e3e66b5cf8e8eb">Lang::PORT_NOT_USED_BY</a>), <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>),</div>
+<div class="line"><span class="lineno">  189</span>                        $boxTitle</div>
+<div class="line"><span class="lineno">  190</span>                    );</div>
+<div class="line"><span class="lineno">  191</span>                }</div>
+<div class="line"><span class="lineno">  192</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  193</span>                <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; port &#39;</span> . <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a> . <span class="stringliteral">&#39; is not used&#39;</span>);</div>
+<div class="line"><span class="lineno">  194</span>                <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  195</span>                    $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  196</span>                        sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#aaa4fd805d618490380743474ec9ff3fd">Lang::PORT_NOT_USED</a>), <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>),</div>
+<div class="line"><span class="lineno">  197</span>                        $boxTitle</div>
+<div class="line"><span class="lineno">  198</span>                    );</div>
+<div class="line"><span class="lineno">  199</span>                }</div>
+<div class="line"><span class="lineno">  200</span>                fclose($fp);</div>
+<div class="line"><span class="lineno">  201</span>            }</div>
+<div class="line"><span class="lineno">  202</span>        }</div>
+<div class="line"><span class="lineno">  203</span> </div>
+<div class="line"><span class="lineno">  204</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  205</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00010">ajax.apache.php:10</a></div></div>
+<div class="ttc" id="aclass_lang_html_aaa4fd805d618490380743474ec9ff3fd"><div class="ttname"><a href="../../db/dfb/class_lang.html#aaa4fd805d618490380743474ec9ff3fd">Lang\PORT_NOT_USED</a></div><div class="ttdeci">const PORT_NOT_USED</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00169">class.lang.php:169</a></div></div>
+<div class="ttc" id="aclass_lang_html_ad5f064f482823794d8e3e66b5cf8e8eb"><div class="ttname"><a href="../../db/dfb/class_lang.html#ad5f064f482823794d8e3e66b5cf8e8eb">Lang\PORT_NOT_USED_BY</a></div><div class="ttdeci">const PORT_NOT_USED_BY</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00170">class.lang.php:170</a></div></div>
+<div class="ttc" id="aclass_lang_html_af5430d2959448df06b247c0eb0386a3a"><div class="ttname"><a href="../../db/dfb/class_lang.html#af5430d2959448df06b247c0eb0386a3a">Lang\CHECK_PORT_TITLE</a></div><div class="ttdeci">const CHECK_PORT_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00167">class.lang.php:167</a></div></div>
+<div class="ttc" id="aclass_lang_html_af7396b674be61851809412e77b876b8c"><div class="ttname"><a href="../../db/dfb/class_lang.html#af7396b674be61851809412e77b876b8c">Lang\PORT_USED_BY</a></div><div class="ttdeci">const PORT_USED_BY</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00168">class.lang.php:168</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppLang</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">$port</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00167">Lang\CHECK_PORT_TITLE</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00134">Module\getName()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00236">Util\isValidPort()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00530">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00545">Util\logError()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00169">Lang\PORT_NOT_USED</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00170">Lang\PORT_NOT_USED_BY</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00168">Lang\PORT_USED_BY</a>.</p>
+
+</div>
+</div>
+<a id="a04ffef4e15d42599735b0536614b19ba" name="a04ffef4e15d42599735b0536614b19ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ffef4e15d42599735b0536614b19ba">&#9670;&#160;</a></span>getExe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getExe </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00295">295</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  295</span>                             {</div>
+<div class="line"><span class="lineno">  296</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ad6b47af56500940987d1e72e428726ce">$this-&gt;exe</a>;</div>
+<div class="line"><span class="lineno">  297</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_ad6b47af56500940987d1e72e428726ce"><div class="ttname"><a href="#ad6b47af56500940987d1e72e428726ce">BinMemcached\$exe</a></div><div class="ttdeci">$exe</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00025">class.bin.memcached.php:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00025">$exe</a>.</p>
+
+</div>
+</div>
+<a id="af8283af3e7c972d9c276dc634eec0bdc" name="af8283af3e7c972d9c276dc634eec0bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8283af3e7c972d9c276dc634eec0bdc">&#9670;&#160;</a></span>getLog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00291">291</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  291</span>                             {</div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9a2cf15a653aee8be437f7ae474cd494">$this-&gt;log</a>;</div>
+<div class="line"><span class="lineno">  293</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a9a2cf15a653aee8be437f7ae474cd494"><div class="ttname"><a href="#a9a2cf15a653aee8be437f7ae474cd494">BinMemcached\$log</a></div><div class="ttdeci">$log</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00023">class.bin.memcached.php:23</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00023">$log</a>.</p>
+
+</div>
+</div>
+<a id="a144248575cd034a40315155a9b48ff87" name="a144248575cd034a40315155a9b48ff87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a144248575cd034a40315155a9b48ff87">&#9670;&#160;</a></span>getMemory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getMemory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00299">299</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  299</span>                                {</div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a5e20a9a3e12271b3b8d685805590c9e0">$this-&gt;memory</a>;</div>
+<div class="line"><span class="lineno">  301</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a5e20a9a3e12271b3b8d685805590c9e0"><div class="ttname"><a href="#a5e20a9a3e12271b3b8d685805590c9e0">BinMemcached\$memory</a></div><div class="ttdeci">$memory</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00026">class.bin.memcached.php:26</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00026">$memory</a>.</p>
+
+</div>
+</div>
+<a id="afd4db46d3c12f47f0bee19cd2101be64" name="afd4db46d3c12f47f0bee19cd2101be64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd4db46d3c12f47f0bee19cd2101be64">&#9670;&#160;</a></span>getPort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPort </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00307">307</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  307</span>                              {</div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$this-&gt;port</a>;</div>
+<div class="line"><span class="lineno">  309</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">$port</a>.</p>
+
+</div>
+</div>
+<a id="ae2ec6b84e042bbd7a712d834a5d46f1f" name="ae2ec6b84e042bbd7a712d834a5d46f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ec6b84e042bbd7a712d834a5d46f1f">&#9670;&#160;</a></span>getService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getService </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00261">261</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  261</span>                                 {</div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">$this-&gt;service</a>;</div>
+<div class="line"><span class="lineno">  263</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_abb8d1943d2cf9b6a3d54a4fed1ad2d9d"><div class="ttname"><a href="#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">BinMemcached\$service</a></div><div class="ttdeci">$service</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">class.bin.memcached.php:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">$service</a>.</p>
+
+</div>
+</div>
+<a id="ae9b1926b231d22d9d2771a0c767331d0" name="ae9b1926b231d22d9d2771a0c767331d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9b1926b231d22d9d2771a0c767331d0">&#9670;&#160;</a></span>rebuildConf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rebuildConf </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00111">111</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>                                  {</div>
+<div class="line"><span class="lineno">  112</span>        global $bearsamppRegistry;</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>        $exists = $bearsamppRegistry-&gt;exists(</div>
+<div class="line"><span class="lineno">  115</span>            <a class="code hl_variable" href="../../d4/d78/class_registry.html#a4eaea720d5ae5b4894e029c3eaa2702a">Registry::HKEY_LOCAL_MACHINE</a>,</div>
+<div class="line"><span class="lineno">  116</span>            <span class="stringliteral">&#39;SYSTEM\CurrentControlSet\Services\\&#39;</span> . self::SERVICE_NAME . <span class="stringliteral">&#39;\Parameters&#39;</span>,</div>
+<div class="line"><span class="lineno">  117</span>            <a class="code hl_variable" href="../../d1/d2d/class_nssm.html#a7fe0ba434a66ce251d98761202b2e604">Nssm::INFO_APP_PARAMETERS</a></div>
+<div class="line"><span class="lineno">  118</span>        );</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> ($exists) {</div>
+<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">return</span> $bearsamppRegistry-&gt;setExpandStringValue(</div>
+<div class="line"><span class="lineno">  121</span>                <a class="code hl_variable" href="../../d4/d78/class_registry.html#a4eaea720d5ae5b4894e029c3eaa2702a">Registry::HKEY_LOCAL_MACHINE</a>,</div>
+<div class="line"><span class="lineno">  122</span>                <span class="stringliteral">&#39;SYSTEM\CurrentControlSet\Services\\&#39;</span> . self::SERVICE_NAME . <span class="stringliteral">&#39;\Parameters&#39;</span>,</div>
+<div class="line"><span class="lineno">  123</span>                <a class="code hl_variable" href="../../d1/d2d/class_nssm.html#a7fe0ba434a66ce251d98761202b2e604">Nssm::INFO_APP_PARAMETERS</a>,</div>
+<div class="line"><span class="lineno">  124</span>                sprintf(self::SERVICE_PARAMS, $this-&gt;memory, $this-&gt;port)</div>
+<div class="line"><span class="lineno">  125</span>            );</div>
+<div class="line"><span class="lineno">  126</span>        }</div>
+<div class="line"><span class="lineno">  127</span> </div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  129</span>    }</div>
+<div class="ttc" id="aclass_nssm_html_a7fe0ba434a66ce251d98761202b2e604"><div class="ttname"><a href="../../d1/d2d/class_nssm.html#a7fe0ba434a66ce251d98761202b2e604">Nssm\INFO_APP_PARAMETERS</a></div><div class="ttdeci">const INFO_APP_PARAMETERS</div><div class="ttdef"><b>Definition</b> <a href="../../db/d83/class_8nssm_8php_source.html#l00036">class.nssm.php:36</a></div></div>
+<div class="ttc" id="aclass_registry_html_a4eaea720d5ae5b4894e029c3eaa2702a"><div class="ttname"><a href="../../d4/d78/class_registry.html#a4eaea720d5ae5b4894e029c3eaa2702a">Registry\HKEY_LOCAL_MACHINE</a></div><div class="ttdeci">const HKEY_LOCAL_MACHINE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/dbf/class_8registry_8php_source.html#l00019">class.registry.php:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/dbf/class_8registry_8php_source.html#l00019">Registry\HKEY_LOCAL_MACHINE</a>, and <a class="el" href="../../db/d83/class_8nssm_8php_source.html#l00036">Nssm\INFO_APP_PARAMETERS</a>.</p>
+
+</div>
+</div>
+<a id="abcf741f558ed8382bf163307e1a4e71d" name="abcf741f558ed8382bf163307e1a4e71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcf741f558ed8382bf163307e1a4e71d">&#9670;&#160;</a></span>reload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">reload </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$id</em><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$type</em><span class="paramdefsep"> = </span><span class="paramdefval">null</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="../../dd/df9/class_module.html#abcf741f558ed8382bf163307e1a4e71d">Module</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">34</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>                                                     {</div>
+<div class="line"><span class="lineno">   35</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a75c28a942d00ee910418851c2336be59">Util::logReloadClass</a>($this);</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>        $this-&gt;name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a97122d64c4c4121118208086f6487253">Lang::MEMCACHED</a>);</div>
+<div class="line"><span class="lineno">   39</span>        $this-&gt;version = <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_VERSION);</div>
+<div class="line"><span class="lineno">   40</span>        parent::reload(<a class="code hl_variable" href="../../dd/df9/class_module.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code hl_variable" href="../../dd/df9/class_module.html#a9a4a6fba2208984cabb3afacadf33919">$type</a>);</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>        $this-&gt;enable = $this-&gt;enable &amp;&amp; <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_ENABLE);</div>
+<div class="line"><span class="lineno">   43</span>        $this-&gt;service = <span class="keyword">new</span> <a class="code hl_class" href="../../d3/d62/class_win32_service.html">Win32Service</a>(self::SERVICE_NAME);</div>
+<div class="line"><span class="lineno">   44</span>        $this-&gt;log = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getLogsPath() . <span class="stringliteral">&#39;/memcached.log&#39;</span>;</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">if</span> ($this-&gt;bearsamppConfRaw !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   47</span>            $this-&gt;exe = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a0a6b39bb1c8d746a09325a52c690b240">self::LOCAL_CFG_EXE</a>];</div>
+<div class="line"><span class="lineno">   48</span>            $this-&gt;memory = intval($this-&gt;bearsamppConfRaw[self::LOCAL_CFG_MEMORY]);</div>
+<div class="line"><span class="lineno">   49</span>            $this-&gt;port = intval($this-&gt;bearsamppConfRaw[self::LOCAL_CFG_PORT]);</div>
+<div class="line"><span class="lineno">   50</span>        }</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
+<div class="line"><span class="lineno">   53</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>($this-&gt;name . <span class="stringliteral">&#39; is not enabled!&#39;</span>);</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   55</span>        }</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;currentPath)) {</div>
+<div class="line"><span class="lineno">   57</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#afc22fcf8077058b63ab7339b151487c9">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;currentPath));</div>
+<div class="line"><span class="lineno">   58</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;symlinkPath)) {</div>
+<div class="line"><span class="lineno">   61</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#afc22fcf8077058b63ab7339b151487c9">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;symlinkPath));</div>
+<div class="line"><span class="lineno">   62</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   63</span>        }</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;bearsamppConf)) {</div>
+<div class="line"><span class="lineno">   65</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a5192b5af158de6a1a49a97b3a11ce81b">Lang::ERROR_CONF_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;bearsamppConf));</div>
+<div class="line"><span class="lineno">   66</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   67</span>        }</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;exe)) {</div>
+<div class="line"><span class="lineno">   69</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a5052354c923db99c265b575fe6e306e1">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;exe));</div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   71</span>        }</div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">if</span> (empty($this-&gt;memory)) {</div>
+<div class="line"><span class="lineno">   73</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#ac88967671757132ff47e20b3440d2e9e">Lang::ERROR_INVALID_PARAMETER</a>), self::LOCAL_CFG_MEMORY, $this-&gt;memory));</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   75</span>        }</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (empty($this-&gt;port)) {</div>
+<div class="line"><span class="lineno">   77</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#ac88967671757132ff47e20b3440d2e9e">Lang::ERROR_INVALID_PARAMETER</a>), self::LOCAL_CFG_PORT, $this-&gt;port));</div>
+<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   79</span>        }</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>        $nssm = <span class="keyword">new</span> <a class="code hl_class" href="../../d1/d2d/class_nssm.html">Nssm</a>(self::SERVICE_NAME);</div>
+<div class="line"><span class="lineno">   82</span>        $nssm-&gt;setDisplayName(<a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a> . <span class="charliteral">&#39; &#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>());</div>
+<div class="line"><span class="lineno">   83</span>        $nssm-&gt;setBinPath($this-&gt;exe);</div>
+<div class="line"><span class="lineno">   84</span>        $nssm-&gt;setParams(sprintf(self::SERVICE_PARAMS, $this-&gt;memory, $this-&gt;port));</div>
+<div class="line"><span class="lineno">   85</span>        $nssm-&gt;setStart(<a class="code hl_variable" href="../../d1/d2d/class_nssm.html#af4b1c22a9b0805029cafd92ebc1307d2">Nssm::SERVICE_DEMAND_START</a>);</div>
+<div class="line"><span class="lineno">   86</span>        $nssm-&gt;setStdout(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getLogsPath() . <span class="stringliteral">&#39;/memcached.out.log&#39;</span>);</div>
+<div class="line"><span class="lineno">   87</span>        $nssm-&gt;setStderr(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getLogsPath() . <span class="stringliteral">&#39;/memcached.err.log&#39;</span>);</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        $this-&gt;service-&gt;setNssm($nssm);</div>
+<div class="line"><span class="lineno">   90</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00010">ajax.apache.php:10</a></div></div>
+<div class="ttc" id="aclass_bin_memcached_html_a0a6b39bb1c8d746a09325a52c690b240"><div class="ttname"><a href="#a0a6b39bb1c8d746a09325a52c690b240">BinMemcached\LOCAL_CFG_EXE</a></div><div class="ttdeci">const LOCAL_CFG_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00018">class.bin.memcached.php:18</a></div></div>
+<div class="ttc" id="aclass_lang_html_a5052354c923db99c265b575fe6e306e1"><div class="ttname"><a href="../../db/dfb/class_lang.html#a5052354c923db99c265b575fe6e306e1">Lang\ERROR_EXE_NOT_FOUND</a></div><div class="ttdeci">const ERROR_EXE_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00144">class.lang.php:144</a></div></div>
+<div class="ttc" id="aclass_lang_html_a5192b5af158de6a1a49a97b3a11ce81b"><div class="ttname"><a href="../../db/dfb/class_lang.html#a5192b5af158de6a1a49a97b3a11ce81b">Lang\ERROR_CONF_NOT_FOUND</a></div><div class="ttdeci">const ERROR_CONF_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00143">class.lang.php:143</a></div></div>
+<div class="ttc" id="aclass_lang_html_a97122d64c4c4121118208086f6487253"><div class="ttname"><a href="../../db/dfb/class_lang.html#a97122d64c4c4121118208086f6487253">Lang\MEMCACHED</a></div><div class="ttdeci">const MEMCACHED</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00117">class.lang.php:117</a></div></div>
+<div class="ttc" id="aclass_lang_html_ac88967671757132ff47e20b3440d2e9e"><div class="ttname"><a href="../../db/dfb/class_lang.html#ac88967671757132ff47e20b3440d2e9e">Lang\ERROR_INVALID_PARAMETER</a></div><div class="ttdeci">const ERROR_INVALID_PARAMETER</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00146">class.lang.php:146</a></div></div>
+<div class="ttc" id="aclass_lang_html_afc22fcf8077058b63ab7339b151487c9"><div class="ttname"><a href="../../db/dfb/class_lang.html#afc22fcf8077058b63ab7339b151487c9">Lang\ERROR_FILE_NOT_FOUND</a></div><div class="ttdeci">const ERROR_FILE_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00145">class.lang.php:145</a></div></div>
+<div class="ttc" id="aclass_nssm_html"><div class="ttname"><a href="../../d1/d2d/class_nssm.html">Nssm</a></div><div class="ttdef"><b>Definition</b> <a href="../../db/d83/class_8nssm_8php_source.html#l00010">class.nssm.php:11</a></div></div>
+<div class="ttc" id="aclass_nssm_html_af4b1c22a9b0805029cafd92ebc1307d2"><div class="ttname"><a href="../../d1/d2d/class_nssm.html#af4b1c22a9b0805029cafd92ebc1307d2">Nssm\SERVICE_DEMAND_START</a></div><div class="ttdeci">const SERVICE_DEMAND_START</div><div class="ttdef"><b>Definition</b> <a href="../../db/d83/class_8nssm_8php_source.html#l00015">class.nssm.php:15</a></div></div>
+<div class="ttc" id="aclass_util_html_a3ce627b3c417b42254504e0ee528caa4"><div class="ttname"><a href="../../d1/d0a/class_util.html#a3ce627b3c417b42254504e0ee528caa4">Util\logInfo</a></div><div class="ttdeci">static logInfo($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00535">class.util.php:535</a></div></div>
+<div class="ttc" id="aclass_util_html_a75c28a942d00ee910418851c2336be59"><div class="ttname"><a href="../../d1/d0a/class_util.html#a75c28a942d00ee910418851c2336be59">Util\logReloadClass</a></div><div class="ttdeci">static logReloadClass($classInstance)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00555">class.util.php:555</a></div></div>
+<div class="ttc" id="aclass_win32_service_html"><div class="ttname"><a href="../../d3/d62/class_win32_service.html">Win32Service</a></div><div class="ttdef"><b>Definition</b> <a href="../../dc/db9/class_8win32service_8php_source.html#l00010">class.win32service.php:11</a></div></div>
+<div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00010">homepage.php:10</a></div></div>
+<div class="ttc" id="aroot_8php_html_af76956a6aeffa052e53bbcc9b2afb3df"><div class="ttname"><a href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a></div><div class="ttdeci">const APP_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de1/root_8php_source.html#l00010">root.php:10</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00010">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppLang</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppRoot</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00015">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00014">Module\$type</a>, <a class="el" href="../../d7/de1/root_8php_source.html#l00010">APP_TITLE</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00143">Lang\ERROR_CONF_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00144">Lang\ERROR_EXE_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00145">Lang\ERROR_FILE_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00146">Lang\ERROR_INVALID_PARAMETER</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00134">Module\getName()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00018">LOCAL_CFG_EXE</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00545">Util\logError()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00535">Util\logInfo()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00555">Util\logReloadClass()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00117">Lang\MEMCACHED</a>, and <a class="el" href="../../db/d83/class_8nssm_8php_source.html#l00015">Nssm\SERVICE_DEMAND_START</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00029">__construct()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00265">setEnable()</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00254">setVersion()</a>.</p>
+
+</div>
+</div>
+<a id="a3614638192ed37aeb3dd9173b1c8bde8" name="a3614638192ed37aeb3dd9173b1c8bde8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3614638192ed37aeb3dd9173b1c8bde8">&#9670;&#160;</a></span>replaceAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">replaceAll </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$params</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="../../dd/df9/class_module.html#a3614638192ed37aeb3dd9173b1c8bde8">Module</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00092">92</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>                                           {</div>
+<div class="line"><span class="lineno">   93</span>        $content = file_get_contents($this-&gt;bearsamppConf);</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">foreach</span> ($params as $key =&gt; $value) {</div>
+<div class="line"><span class="lineno">   96</span>            $content = preg_replace(<span class="charliteral">&#39;|&#39;</span> . $key . <span class="stringliteral">&#39; = .*|&#39;</span>, $key . <span class="stringliteral">&#39; = &#39;</span> . <span class="charliteral">&#39;&quot;&#39;</span> . $value.<span class="charliteral">&#39;&quot;&#39;</span>, $content);</div>
+<div class="line"><span class="lineno">   97</span>            $this-&gt;bearsamppConfRaw[$key] = $value;</div>
+<div class="line"><span class="lineno">   98</span>            <span class="keywordflow">switch</span> ($key) {</div>
+<div class="line"><span class="lineno">   99</span>                <span class="keywordflow">case</span> <a class="code hl_variable" href="#a575a7b20284a988d4ba3287481321840">self::LOCAL_CFG_MEMORY</a>:</div>
+<div class="line"><span class="lineno">  100</span>                    $this-&gt;memory = intval($value);</div>
+<div class="line"><span class="lineno">  101</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  102</span>                <span class="keywordflow">case</span> <a class="code hl_variable" href="#a60ba9988f7edcd78183b01da8c753746">self::LOCAL_CFG_PORT</a>:</div>
+<div class="line"><span class="lineno">  103</span>                    $this-&gt;port = intval($value);</div>
+<div class="line"><span class="lineno">  104</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  105</span>            }</div>
+<div class="line"><span class="lineno">  106</span>        }</div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>        file_put_contents($this-&gt;bearsamppConf, $content);</div>
+<div class="line"><span class="lineno">  109</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a575a7b20284a988d4ba3287481321840"><div class="ttname"><a href="#a575a7b20284a988d4ba3287481321840">BinMemcached\LOCAL_CFG_MEMORY</a></div><div class="ttdeci">const LOCAL_CFG_MEMORY</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00019">class.bin.memcached.php:19</a></div></div>
+<div class="ttc" id="aclass_bin_memcached_html_a60ba9988f7edcd78183b01da8c753746"><div class="ttname"><a href="#a60ba9988f7edcd78183b01da8c753746">BinMemcached\LOCAL_CFG_PORT</a></div><div class="ttdeci">const LOCAL_CFG_PORT</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00020">class.bin.memcached.php:20</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00019">LOCAL_CFG_MEMORY</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00020">LOCAL_CFG_PORT</a>.</p>
+
+</div>
+</div>
+<a id="a8793e887e0ef76afd6f91028fc480674" name="a8793e887e0ef76afd6f91028fc480674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8793e887e0ef76afd6f91028fc480674">&#9670;&#160;</a></span>setEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setEnable </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$enabled</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$showWindow</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00265">265</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  265</span>                                                             {</div>
+<div class="line"><span class="lineno">  266</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  267</span> </div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">if</span> ($enabled == <a class="code hl_variable" href="../../dd/d34/class_config.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> &amp;&amp; !is_dir($this-&gt;currentPath)) {</div>
+<div class="line"><span class="lineno">  269</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; cannot be enabled because bundle &#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#afa8e7a3a646144eab50188b7a805a389">getVersion</a>() . <span class="stringliteral">&#39; does not exist in &#39;</span> . $this-&gt;currentPath);</div>
+<div class="line"><span class="lineno">  270</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  271</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  272</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a09355bba5719970c87ba2b1a45aee70d">Lang::ENABLE_BUNDLE_NOT_EXIST</a>), $this-&gt;getName(), $this-&gt;getVersion(), $this-&gt;currentPath),</div>
+<div class="line"><span class="lineno">  273</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#ac8f7d744a2c5099f56dbaeec3ed81501">Lang::ENABLE_TITLE</a>), $this-&gt;getName())</div>
+<div class="line"><span class="lineno">  274</span>                );</div>
+<div class="line"><span class="lineno">  275</span>            }</div>
+<div class="line"><span class="lineno">  276</span>            $enabled = <a class="code hl_variable" href="../../dd/d34/class_config.html#a30966ddcb9e02419716b353279bda3ef">Config::DISABLED</a>;</div>
+<div class="line"><span class="lineno">  277</span>        }</div>
+<div class="line"><span class="lineno">  278</span> </div>
+<div class="line"><span class="lineno">  279</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>($this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="stringliteral">&#39; switched to &#39;</span> . ($enabled == <a class="code hl_variable" href="../../dd/d34/class_config.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> ? <span class="stringliteral">&#39;enabled&#39;</span> : <span class="stringliteral">&#39;disabled&#39;</span>));</div>
+<div class="line"><span class="lineno">  280</span>        $this-&gt;enable = $enabled == <a class="code hl_variable" href="../../dd/d34/class_config.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a>;</div>
+<div class="line"><span class="lineno">  281</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_ENABLE, $enabled);</div>
+<div class="line"><span class="lineno">  282</span> </div>
+<div class="line"><span class="lineno">  283</span>        $this-&gt;<a class="code hl_function" href="#abcf741f558ed8382bf163307e1a4e71d">reload</a>();</div>
+<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">if</span> ($this-&gt;enable) {</div>
+<div class="line"><span class="lineno">  285</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a174c8e15252f794d8d8c76f7d6dec486">Util::installService</a>($this, $this-&gt;port, <span class="keyword">null</span>, $showWindow);</div>
+<div class="line"><span class="lineno">  286</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  287</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a2f4b609b4e9cc6dfca32784cc5d9a574">Util::removeService</a>($this-&gt;service, $this-&gt;name);</div>
+<div class="line"><span class="lineno">  288</span>        }</div>
+<div class="line"><span class="lineno">  289</span>    }</div>
+<div class="ttc" id="aclass_config_html_a30966ddcb9e02419716b353279bda3ef"><div class="ttname"><a href="../../dd/d34/class_config.html#a30966ddcb9e02419716b353279bda3ef">Config\DISABLED</a></div><div class="ttdeci">const DISABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00026">class.config.php:26</a></div></div>
+<div class="ttc" id="aclass_config_html_abbf662c7051d76c1f949043b72ae7c84"><div class="ttname"><a href="../../dd/d34/class_config.html#abbf662c7051d76c1f949043b72ae7c84">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00025">class.config.php:25</a></div></div>
+<div class="ttc" id="aclass_lang_html_a09355bba5719970c87ba2b1a45aee70d"><div class="ttname"><a href="../../db/dfb/class_lang.html#a09355bba5719970c87ba2b1a45aee70d">Lang\ENABLE_BUNDLE_NOT_EXIST</a></div><div class="ttdeci">const ENABLE_BUNDLE_NOT_EXIST</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00337">class.lang.php:337</a></div></div>
+<div class="ttc" id="aclass_lang_html_ac8f7d744a2c5099f56dbaeec3ed81501"><div class="ttname"><a href="../../db/dfb/class_lang.html#ac8f7d744a2c5099f56dbaeec3ed81501">Lang\ENABLE_TITLE</a></div><div class="ttdeci">const ENABLE_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00336">class.lang.php:336</a></div></div>
+<div class="ttc" id="aclass_module_html_afa8e7a3a646144eab50188b7a805a389"><div class="ttname"><a href="../../dd/df9/class_module.html#afa8e7a3a646144eab50188b7a805a389">Module\getVersion</a></div><div class="ttdeci">getVersion()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00138">class.module.php:138</a></div></div>
+<div class="ttc" id="aclass_util_html_a174c8e15252f794d8d8c76f7d6dec486"><div class="ttname"><a href="../../d1/d0a/class_util.html#a174c8e15252f794d8d8c76f7d6dec486">Util\installService</a></div><div class="ttdeci">static installService($bin, $port, $syntaxCheckCmd, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l01169">class.util.php:1169</a></div></div>
+<div class="ttc" id="aclass_util_html_a2f4b609b4e9cc6dfca32784cc5d9a574"><div class="ttname"><a href="../../d1/d0a/class_util.html#a2f4b609b4e9cc6dfca32784cc5d9a574">Util\removeService</a></div><div class="ttdeci">static removeService($service, $name)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l01243">class.util.php:1243</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00010">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppLang</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00026">Config\DISABLED</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00337">Lang\ENABLE_BUNDLE_NOT_EXIST</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00336">Lang\ENABLE_TITLE</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00025">Config\ENABLED</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00134">Module\getName()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00138">Module\getVersion()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l01169">Util\installService()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00530">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00535">Util\logInfo()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">reload()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l01243">Util\removeService()</a>.</p>
+
+</div>
+</div>
+<a id="a165f0d8dd30c6ddee7bf5baee198f3db" name="a165f0d8dd30c6ddee7bf5baee198f3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a165f0d8dd30c6ddee7bf5baee198f3db">&#9670;&#160;</a></span>setMemory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setMemory </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$memory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00303">303</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  303</span>                                       {</div>
+<div class="line"><span class="lineno">  304</span>        $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#aa9e39cffd72d25a5fdba69558c7686fb">replace</a>(self::LOCAL_CFG_MEMORY, <a class="code hl_variable" href="#a5e20a9a3e12271b3b8d685805590c9e0">$memory</a>);</div>
+<div class="line"><span class="lineno">  305</span>    }</div>
+<div class="ttc" id="aclass_module_html_aa9e39cffd72d25a5fdba69558c7686fb"><div class="ttname"><a href="../../dd/df9/class_module.html#aa9e39cffd72d25a5fdba69558c7686fb">Module\replace</a></div><div class="ttdeci">replace($key, $value)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00098">class.module.php:98</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00026">$memory</a>, and <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00098">Module\replace()</a>.</p>
+
+</div>
+</div>
+<a id="a000ce1ff20433f6ac9297e01c31d0678" name="a000ce1ff20433f6ac9297e01c31d0678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000ce1ff20433f6ac9297e01c31d0678">&#9670;&#160;</a></span>setPort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setPort </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$port</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00311">311</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  311</span>                                   {</div>
+<div class="line"><span class="lineno">  312</span>        $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#aa9e39cffd72d25a5fdba69558c7686fb">replace</a>(self::LOCAL_CFG_PORT, <a class="code hl_variable" href="#aa0787efab4b22e8a212882f3409d4c77">$port</a>);</div>
+<div class="line"><span class="lineno">  313</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">$port</a>, and <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00098">Module\replace()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00131">changePort()</a>.</p>
+
+</div>
+</div>
+<a id="a6a2f870d59df617e76c79a9996646832" name="a6a2f870d59df617e76c79a9996646832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2f870d59df617e76c79a9996646832">&#9670;&#160;</a></span>setVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setVersion </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$version</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="../../dd/df9/class_module.html#a6a2f870d59df617e76c79a9996646832">Module</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00254">254</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  254</span>                                         {</div>
+<div class="line"><span class="lineno">  255</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">  256</span>        $this-&gt;version = <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>;</div>
+<div class="line"><span class="lineno">  257</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_VERSION, <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  258</span>        $this-&gt;<a class="code hl_function" href="#abcf741f558ed8382bf163307e1a4e71d">reload</a>();</div>
+<div class="line"><span class="lineno">  259</span>    }</div>
+<div class="ttc" id="aclass_module_html_a17c8948c68aa44fa9961ae169b6a8961"><div class="ttname"><a href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">Module\$version</a></div><div class="ttdeci">$version</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00018">class.module.php:18</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00010">$bearsamppConfig</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$version</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">reload()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00212">updateConfig()</a>.</p>
+
+</div>
+</div>
+<a id="a5f33c33705dd268ad4799ceeacc8eec3" name="a5f33c33705dd268ad4799ceeacc8eec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f33c33705dd268ad4799ceeacc8eec3">&#9670;&#160;</a></span>switchVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">switchVersion </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$version</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$showWindow</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00207">207</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>                                                                 {</div>
+<div class="line"><span class="lineno">  208</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Switch &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; version to &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  209</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a4ca4942bd159e981d98bae05e134855d">updateConfig</a>(<a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>, 0, $showWindow);</div>
+<div class="line"><span class="lineno">  210</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a4ca4942bd159e981d98bae05e134855d"><div class="ttname"><a href="#a4ca4942bd159e981d98bae05e134855d">BinMemcached\updateConfig</a></div><div class="ttdeci">updateConfig($version=null, $sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00212">class.bin.memcached.php:212</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$version</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00530">Util\logDebug()</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00212">updateConfig()</a>.</p>
+
+</div>
+</div>
+<a id="a4ca4942bd159e981d98bae05e134855d" name="a4ca4942bd159e981d98bae05e134855d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca4942bd159e981d98bae05e134855d">&#9670;&#160;</a></span>updateConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">updateConfig </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$version</em><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sub</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$showWindow</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="../../dd/df9/class_module.html#a4ca4942bd159e981d98bae05e134855d">Module</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00212">212</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  212</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  213</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppApps, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  214</span> </div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
+<div class="line"><span class="lineno">  216</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  217</span>        }</div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>        <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a> = <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a> == <span class="keyword">null</span> ? $this-&gt;version : <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>;</div>
+<div class="line"><span class="lineno">  220</span>        <a class="code hl_function" href="../../d1/d0a/class_util.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(($sub &gt; 0 ? str_repeat(<span class="charliteral">&#39; &#39;</span>, 2 * $sub) : <span class="stringliteral">&#39;&#39;</span>) . <span class="stringliteral">&#39;Update &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a> . <span class="stringliteral">&#39; config&#39;</span>);</div>
+<div class="line"><span class="lineno">  221</span> </div>
+<div class="line"><span class="lineno">  222</span>        $boxTitle = sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#adb71807bda209a4a040417f59404eefc">Lang::SWITCH_VERSION_TITLE</a>), $this-&gt;getName(), <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  223</span> </div>
+<div class="line"><span class="lineno">  224</span>        <a class="code hl_variable" href="../../dd/df9/class_module.html#a07b8214f43c12f643ab466d80efd770b">$bearsamppConf</a> = str_replace(<span class="stringliteral">&#39;memcached&#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#afa8e7a3a646144eab50188b7a805a389">getVersion</a>(), <span class="stringliteral">&#39;memcached&#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>, $this-&gt;bearsamppConf);</div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">if</span> (!file_exists(<a class="code hl_variable" href="../../dd/df9/class_module.html#a07b8214f43c12f643ab466d80efd770b">$bearsamppConf</a>)) {</div>
+<div class="line"><span class="lineno">  226</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config files not found for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  227</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  228</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  229</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#aa58dd7121b8dd0cdb158183cd69eca90">Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>),</div>
+<div class="line"><span class="lineno">  230</span>                    $boxTitle</div>
+<div class="line"><span class="lineno">  231</span>                );</div>
+<div class="line"><span class="lineno">  232</span>            }</div>
+<div class="line"><span class="lineno">  233</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  234</span>        }</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>        <a class="code hl_variable" href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">$bearsamppConfRaw</a> = parse_ini_file(<a class="code hl_variable" href="../../dd/df9/class_module.html#a07b8214f43c12f643ab466d80efd770b">$bearsamppConf</a>);</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">$bearsamppConfRaw</a> === <span class="keyword">false</span> || !isset(<a class="code hl_variable" href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION]) || <a class="code hl_variable" href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION] != <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>) {</div>
+<div class="line"><span class="lineno">  238</span>            <a class="code hl_function" href="../../d1/d0a/class_util.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config file malformed for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../dd/df9/class_module.html#a3d0963e68bb313b163a73f2803c64600">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  239</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  240</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  241</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../db/dfb/class_lang.html#a26956575882a3dd5dd0d2cef6c17a6f7">Lang::BEARSAMPP_CONF_MALFORMED_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>),</div>
+<div class="line"><span class="lineno">  242</span>                    $boxTitle</div>
+<div class="line"><span class="lineno">  243</span>                );</div>
+<div class="line"><span class="lineno">  244</span>            }</div>
+<div class="line"><span class="lineno">  245</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  246</span>        }</div>
+<div class="line"><span class="lineno">  247</span> </div>
+<div class="line"><span class="lineno">  248</span>        <span class="comment">// bearsampp.conf</span></div>
+<div class="line"><span class="lineno">  249</span>        $this-&gt;<a class="code hl_function" href="#a6a2f870d59df617e76c79a9996646832">setVersion</a>(<a class="code hl_variable" href="../../dd/df9/class_module.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a>);</div>
+<div class="line"><span class="lineno">  250</span> </div>
+<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  252</span>    }</div>
+<div class="ttc" id="aclass_bin_memcached_html_a6a2f870d59df617e76c79a9996646832"><div class="ttname"><a href="#a6a2f870d59df617e76c79a9996646832">BinMemcached\setVersion</a></div><div class="ttdeci">setVersion($version)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00254">class.bin.memcached.php:254</a></div></div>
+<div class="ttc" id="aclass_lang_html_a26956575882a3dd5dd0d2cef6c17a6f7"><div class="ttname"><a href="../../db/dfb/class_lang.html#a26956575882a3dd5dd0d2cef6c17a6f7">Lang\BEARSAMPP_CONF_MALFORMED_ERROR</a></div><div class="ttdeci">const BEARSAMPP_CONF_MALFORMED_ERROR</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00160">class.lang.php:160</a></div></div>
+<div class="ttc" id="aclass_lang_html_aa58dd7121b8dd0cdb158183cd69eca90"><div class="ttname"><a href="../../db/dfb/class_lang.html#aa58dd7121b8dd0cdb158183cd69eca90">Lang\BEARSAMPP_CONF_NOT_FOUND_ERROR</a></div><div class="ttdeci">const BEARSAMPP_CONF_NOT_FOUND_ERROR</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00159">class.lang.php:159</a></div></div>
+<div class="ttc" id="aclass_lang_html_adb71807bda209a4a040417f59404eefc"><div class="ttname"><a href="../../db/dfb/class_lang.html#adb71807bda209a4a040417f59404eefc">Lang\SWITCH_VERSION_TITLE</a></div><div class="ttdeci">const SWITCH_VERSION_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00149">class.lang.php:149</a></div></div>
+<div class="ttc" id="aclass_module_html_a07b8214f43c12f643ab466d80efd770b"><div class="ttname"><a href="../../dd/df9/class_module.html#a07b8214f43c12f643ab466d80efd770b">Module\$bearsamppConf</a></div><div class="ttdeci">$bearsamppConf</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00025">class.module.php:25</a></div></div>
+<div class="ttc" id="aclass_module_html_a254a9828b4a2ed2fb52811bf6acbeca3"><div class="ttname"><a href="../../dd/df9/class_module.html#a254a9828b4a2ed2fb52811bf6acbeca3">Module\$bearsamppConfRaw</a></div><div class="ttdeci">$bearsamppConfRaw</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00026">class.module.php:26</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">Module\$bearsamppConf</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00026">Module\$bearsamppConfRaw</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00010">$bearsamppLang</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$version</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00160">Lang\BEARSAMPP_CONF_MALFORMED_ERROR</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00159">Lang\BEARSAMPP_CONF_NOT_FOUND_ERROR</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00134">Module\getName()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00138">Module\getVersion()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00530">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00545">Util\logError()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00254">setVersion()</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00149">Lang\SWITCH_VERSION_TITLE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00207">switchVersion()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ad6b47af56500940987d1e72e428726ce" name="ad6b47af56500940987d1e72e428726ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b47af56500940987d1e72e428726ce">&#9670;&#160;</a></span>$exe</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$exe</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00025">25</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00295">getExe()</a>.</p>
+
+</div>
+</div>
+<a id="a9a2cf15a653aee8be437f7ae474cd494" name="a9a2cf15a653aee8be437f7ae474cd494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a2cf15a653aee8be437f7ae474cd494">&#9670;&#160;</a></span>$log</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$log</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00023">23</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00291">getLog()</a>.</p>
+
+</div>
+</div>
+<a id="a5e20a9a3e12271b3b8d685805590c9e0" name="a5e20a9a3e12271b3b8d685805590c9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e20a9a3e12271b3b8d685805590c9e0">&#9670;&#160;</a></span>$memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$memory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00026">26</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00299">getMemory()</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00303">setMemory()</a>.</p>
+
+</div>
+</div>
+<a id="aa0787efab4b22e8a212882f3409d4c77" name="aa0787efab4b22e8a212882f3409d4c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0787efab4b22e8a212882f3409d4c77">&#9670;&#160;</a></span>$port</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$port</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">27</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00131">changePort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00159">checkPort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00307">getPort()</a>, and <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00311">setPort()</a>.</p>
+
+</div>
+</div>
+<a id="abb8d1943d2cf9b6a3d54a4fed1ad2d9d" name="abb8d1943d2cf9b6a3d54a4fed1ad2d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">&#9670;&#160;</a></span>$service</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$service</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">22</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00261">getService()</a>.</p>
+
+</div>
+</div>
+<a id="a0a6b39bb1c8d746a09325a52c690b240" name="a0a6b39bb1c8d746a09325a52c690b240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6b39bb1c8d746a09325a52c690b240">&#9670;&#160;</a></span>LOCAL_CFG_EXE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LOCAL_CFG_EXE = 'memcachedExe'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00018">18</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00034">reload()</a>.</p>
+
+</div>
+</div>
+<a id="a575a7b20284a988d4ba3287481321840" name="a575a7b20284a988d4ba3287481321840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a575a7b20284a988d4ba3287481321840">&#9670;&#160;</a></span>LOCAL_CFG_MEMORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LOCAL_CFG_MEMORY = 'memcachedMemory'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00019">19</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00092">replaceAll()</a>.</p>
+
+</div>
+</div>
+<a id="a60ba9988f7edcd78183b01da8c753746" name="a60ba9988f7edcd78183b01da8c753746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60ba9988f7edcd78183b01da8c753746">&#9670;&#160;</a></span>LOCAL_CFG_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const LOCAL_CFG_PORT = 'memcachedPort'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00020">20</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00092">replaceAll()</a>.</p>
+
+</div>
+</div>
+<a id="a65093e6cbd7012059bc81f5bbfe8efbb" name="a65093e6cbd7012059bc81f5bbfe8efbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65093e6cbd7012059bc81f5bbfe8efbb">&#9670;&#160;</a></span>ROOT_CFG_ENABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const ROOT_CFG_ENABLE = 'memcachedEnable'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00015">15</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+</div>
+</div>
+<a id="ace3a00a909ed90236d0aa51a6ce5a34e" name="ace3a00a909ed90236d0aa51a6ce5a34e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace3a00a909ed90236d0aa51a6ce5a34e">&#9670;&#160;</a></span>ROOT_CFG_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const ROOT_CFG_VERSION = 'memcachedVersion'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00016">16</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+</div>
+</div>
+<a id="a1b0aff1ce1a09db49bfb05d38276ff94" name="a1b0aff1ce1a09db49bfb05d38276ff94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b0aff1ce1a09db49bfb05d38276ff94">&#9670;&#160;</a></span>SERVICE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SERVICE_NAME = 'bearsamppmemcached'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00012">12</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d7/d1f/class_8action_8service_8php_source.html#l00020">ActionService\__construct()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00170">TplAppMemcached\getActionInstallMemcachedService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00176">TplAppMemcached\getActionRemoveMemcachedService()</a>, <a class="el" href="../../dc/d48/class_8bins_8php_source.html#l00139">Bins\getServices()</a>, <a class="el" href="../../dc/d3c/class_8action_8startup_8php_source.html#l00520">ActionStartup\installServices()</a>, <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00034">ActionQuit\processWindow()</a>, and <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00229">Win32Service\start()</a>.</p>
+
+</div>
+</div>
+<a id="a86b070844762d196c920e7ac167a18a4" name="a86b070844762d196c920e7ac167a18a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b070844762d196c920e7ac167a18a4">&#9670;&#160;</a></span>SERVICE_PARAMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SERVICE_PARAMS = '-m %d -p %d -U 0 -vv'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00013">13</a> of file <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>E:/Bearsampp-development/sandbox/core/classes/bins/<a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html">class.bin.memcached.php</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d2/d23/class_bin_memcached.html">BinMemcached</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

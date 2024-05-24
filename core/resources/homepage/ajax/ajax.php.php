@@ -1,11 +1,11 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
 global $bearsamppBins, $bearsamppLang;
 
 /**
@@ -20,7 +20,6 @@ global $bearsamppBins, $bearsamppLang;
  *
  * @return void Outputs a JSON string that can be parsed by JavaScript or other languages to display PHP configuration details.
  */
-
 $result = array(
     'status' => '',
     'versions' => '',
