@@ -1,7 +1,8 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -10,7 +11,7 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $lo
 
 /* Set the resource path homepage dir */
 $resourcesPath = rtrim($bearsamppHomepage->getResourcesPath(), '/') . '/';
-/* $bearsamppHomepage->getResourcesPath() . '/img/icons/pear-icon.gif'; */
+/* $imagesPath / icons/pear-icon.gif'; */
 /* Set reusable variables */
 $iconsPath = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
