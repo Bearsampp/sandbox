@@ -1,11 +1,4 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
 class Lang
 {
@@ -41,7 +34,6 @@ class Lang
     const HOSTSEDITOR = 'hostseditor';
     const LANG = 'lang';
     const LICENSE = 'license';
-    const LOCALE = 'locale';
     const LOGS = 'logs';
     const LOGS_VERBOSE = 'logsVerbose';
     const MODULES = 'modules';

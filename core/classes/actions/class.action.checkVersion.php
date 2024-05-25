@@ -1,8 +1,7 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
+ * Copyright (c) 2022 - 2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -28,8 +27,7 @@ class ActionCheckVersion
 
     private $currentVersion;
     private $latestVersion;
-
-    private $latestVersionUrl;
+    private $githubLatestVersionUrl;
 
     public function __construct($args)
     {
@@ -40,23 +38,23 @@ class ActionCheckVersion
             $this->currentVersion = $bearsamppCore->getAppVersion();
 
             // Assuming getLatestVersion now returns an array with version and URL
-            $latestVersionData = Util::getLatestVersion(APP_GITHUB_LATEST_URL, APP_GITHUB_TOKEN, $appGithubHeader);
+            $githubVersionData = Util::getLatestVersion(APP_GITHUB_LATEST_URL);
 
-            if ($latestVersionData != null) {
-                $bearsamppLatestVersion = $latestVersionData['version'];
-                $this->latestVersionUrl = $latestVersionData['url']; // URL of the latest version
-                if (version_compare($this->currentVersion, $bearsamppLatestVersion, '<')) {
-                    $this->showVersionUpdateWindow($bearsamppLang, $bearsamppWinbinder, $bearsamppCore, $bearsamppLatestVersion);
-                } elseif (isset($args[0]) && !empty($args[0]) && $args[0] == self::DISPLAY_OK) {
+            if ($githubVersionData != null) {
+                $githubLatestVersion = $githubVersionData['version'];
+                $this->githubLatestVersionUrl = $githubVersionData['html_url']; // URL of the latest version
+                if (version_compare($this->currentVersion, $githubLatestVersion, '<')) {
+                    $this->showVersionUpdateWindow($bearsamppLang, $bearsamppWinbinder, $bearsamppCore, $githubLatestVersion);
+                } elseif ( !empty($args[0]) && $args[0] == self::DISPLAY_OK) {
                     $this->showVersionOkMessageBox($bearsamppLang, $bearsamppWinbinder);
                 }
             }
         }
     }
 
-    private function showVersionUpdateWindow($lang, $winbinder, $core, $bearsamppLatestVersion)
+    private function showVersionUpdateWindow($lang, $winbinder, $core, $githubLatestVersion)
     {
-        $labelFullLink = $lang->getValue(Lang::DOWNLOAD) . ' ' . APP_TITLE . ' ' . $bearsamppLatestVersion;
+        $labelFullLink = $lang->getValue(Lang::DOWNLOAD) . ' ' . APP_TITLE . ' ' . $githubLatestVersion;
 
         $winbinder->reset();
         $this->wbWindow = $winbinder->createAppWindow($lang->getValue(Lang::CHECK_VERSION_TITLE), 380, 170, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
@@ -89,7 +87,7 @@ class ActionCheckVersion
 
         switch ($id) {
             case $this->wbLinkFull[WinBinder::CTRL_ID]:
-                $bearsamppWinbinder->exec($bearsamppConfig->getBrowser(), $this->latestVersionUrl);
+                $bearsamppWinbinder->exec($bearsamppConfig->getBrowser(), Util::getVersionUrl($this->latestVersion));
                 break;
             case IDCLOSE:
             case $this->wbBtnOk[WinBinder::CTRL_ID]:
