@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
+var searchData=
+[
+  ['about_0',['ABOUT',['../d7/dca/class_action.html#a835fc0c3855fba0ce82a79e10330fbf1',1,'Action\ABOUT'],['../db/dfb/class_lang.html#a835fc0c3855fba0ce82a79e10330fbf1',1,'Lang\ABOUT']]],
+  ['about_5ftext_1',['ABOUT_TEXT',['../db/dfb/class_lang.html#a99ce5095cadf0545c0e0e9c1ee56776b',1,'Lang']]],
+  ['about_5ftitle_2',['ABOUT_TITLE',['../db/dfb/class_lang.html#abcb58343572d3d24cf9f55abf33d4e77',1,'Lang']]],
+  ['action_3',['ACTION',['../d3/dda/class_tpl_app_browser.html#aff329be36615a18f3dd0bc2d393dbc2f',1,'TplAppBrowser\ACTION'],['../d8/d5d/class_tpl_app_exit.html#aff329be36615a18f3dd0bc2d393dbc2f',1,'TplAppExit\ACTION'],['../d9/d64/class_tpl_app_launch_startup.html#aff329be36615a18f3dd0bc2d393dbc2f',1,'TplAppLaunchStartup\ACTION'],['../d5/dbc/class_tpl_app_online.html#aff329be36615a18f3dd0bc2d393dbc2f',1,'TplAppOnline\ACTION'],['../d0/dbe/class_tpl_app_reload.html#aff329be36615a18f3dd0bc2d393dbc2f',1,'TplAppReload\ACTION']]],
+  ['action_5fadd_5falias_4',['ACTION_ADD_ALIAS',['../d5/ddf/class_tpl_app_apache.html#af1bbfb4a3fd209ff5d8f5a198408bb8d',1,'TplAppApache']]],
+  ['action_5fadd_5fvhost_5',['ACTION_ADD_VHOST',['../d5/ddf/class_tpl_app_apache.html#a0435e880632f5a5ddc55f198d8643e89',1,'TplAppApache']]],
+  ['action_5fchange_5fport_6',['ACTION_CHANGE_PORT',['../d5/ddf/class_tpl_app_apache.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppApache\ACTION_CHANGE_PORT'],['../d0/d85/class_tpl_app_filezilla.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppFilezilla\ACTION_CHANGE_PORT'],['../d5/d6a/class_tpl_app_mailhog.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppMailhog\ACTION_CHANGE_PORT'],['../df/d62/class_tpl_app_mariadb.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppMariadb\ACTION_CHANGE_PORT'],['../db/da4/class_tpl_app_memcached.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppMemcached\ACTION_CHANGE_PORT'],['../db/d5c/class_tpl_app_mysql.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppMysql\ACTION_CHANGE_PORT'],['../d0/d74/class_tpl_app_postgresql.html#aec83d60f154253dd5e765dd0e3dd5c9e',1,'TplAppPostgresql\ACTION_CHANGE_PORT']]],
+  ['action_5fchange_5froot_5fpwd_7',['ACTION_CHANGE_ROOT_PWD',['../df/d62/class_tpl_app_mariadb.html#ac83bb52612457adf1aa4921ea36ce611',1,'TplAppMariadb\ACTION_CHANGE_ROOT_PWD'],['../db/d5c/class_tpl_app_mysql.html#ac83bb52612457adf1aa4921ea36ce611',1,'TplAppMysql\ACTION_CHANGE_ROOT_PWD'],['../d0/d74/class_tpl_app_postgresql.html#ac83bb52612457adf1aa4921ea36ce611',1,'TplAppPostgresql\ACTION_CHANGE_ROOT_PWD']]],
+  ['action_5fedit_5falias_8',['ACTION_EDIT_ALIAS',['../d5/ddf/class_tpl_app_apache.html#a8faa079e7771c56bba1b67aeef850539',1,'TplAppApache']]],
+  ['action_5fedit_5fvhost_9',['ACTION_EDIT_VHOST',['../d5/ddf/class_tpl_app_apache.html#a34473643685c66b51c4ffd0c616e6a4f',1,'TplAppApache']]],
+  ['action_5fenable_10',['ACTION_ENABLE',['../d5/ddf/class_tpl_app_apache.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppApache\ACTION_ENABLE'],['../d0/d85/class_tpl_app_filezilla.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppFilezilla\ACTION_ENABLE'],['../d5/d6a/class_tpl_app_mailhog.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppMailhog\ACTION_ENABLE'],['../df/d62/class_tpl_app_mariadb.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppMariadb\ACTION_ENABLE'],['../db/da4/class_tpl_app_memcached.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppMemcached\ACTION_ENABLE'],['../db/d5c/class_tpl_app_mysql.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppMysql\ACTION_ENABLE'],['../d6/dd0/class_tpl_app_nodejs.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppNodejs\ACTION_ENABLE'],['../d1/d72/class_tpl_app_php.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppPhp\ACTION_ENABLE'],['../d0/d74/class_tpl_app_postgresql.html#a51ff5c246a15e0f76f46c9ed8b644fad',1,'TplAppPostgresql\ACTION_ENABLE']]],
+  ['action_5fgen_5fssl_5fcertificate_11',['ACTION_GEN_SSL_CERTIFICATE',['../d9/ddc/class_tpl_app_tools.html#af1fa77ef7deb57296bcde2e8d217aee1',1,'TplAppTools']]],
+  ['action_5finstall_5fservice_12',['ACTION_INSTALL_SERVICE',['../d5/ddf/class_tpl_app_apache.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppApache\ACTION_INSTALL_SERVICE'],['../d0/d85/class_tpl_app_filezilla.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppFilezilla\ACTION_INSTALL_SERVICE'],['../d5/d6a/class_tpl_app_mailhog.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppMailhog\ACTION_INSTALL_SERVICE'],['../df/d62/class_tpl_app_mariadb.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppMariadb\ACTION_INSTALL_SERVICE'],['../db/da4/class_tpl_app_memcached.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppMemcached\ACTION_INSTALL_SERVICE'],['../db/d5c/class_tpl_app_mysql.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppMysql\ACTION_INSTALL_SERVICE'],['../d0/d74/class_tpl_app_postgresql.html#ac5100acf5105e8d0935de59b86aad45e',1,'TplAppPostgresql\ACTION_INSTALL_SERVICE']]],
+  ['action_5frefresh_5frepos_13',['ACTION_REFRESH_REPOS',['../d9/d88/class_tpl_app_git.html#a65f5e9fa222b55f8a8de6e5507307f94',1,'TplAppGit']]],
+  ['action_5frefresh_5frepos_5fstartup_14',['ACTION_REFRESH_REPOS_STARTUP',['../d9/d88/class_tpl_app_git.html#a18dd89f310154c343c5be7c99a585ca8',1,'TplAppGit']]],
+  ['action_5fremove_5fservice_15',['ACTION_REMOVE_SERVICE',['../d5/ddf/class_tpl_app_apache.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppApache\ACTION_REMOVE_SERVICE'],['../d0/d85/class_tpl_app_filezilla.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppFilezilla\ACTION_REMOVE_SERVICE'],['../d5/d6a/class_tpl_app_mailhog.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppMailhog\ACTION_REMOVE_SERVICE'],['../df/d62/class_tpl_app_mariadb.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppMariadb\ACTION_REMOVE_SERVICE'],['../db/da4/class_tpl_app_memcached.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppMemcached\ACTION_REMOVE_SERVICE'],['../db/d5c/class_tpl_app_mysql.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppMysql\ACTION_REMOVE_SERVICE'],['../d0/d74/class_tpl_app_postgresql.html#acb85b166e1a7c4af5353407981d5fa32',1,'TplAppPostgresql\ACTION_REMOVE_SERVICE']]],
+  ['action_5frestart_16',['ACTION_RESTART',['../d5/d6e/class_tpl_app_services.html#a0cdbcc38ca6602eb3c7236386d3de314',1,'TplAppServices']]],
+  ['action_5fstart_17',['ACTION_START',['../d5/d6e/class_tpl_app_services.html#a9cd97eb25f0b4062aaa91f9fad8e0c3e',1,'TplAppServices']]],
+  ['action_5fstop_18',['ACTION_STOP',['../d5/d6e/class_tpl_app_services.html#af820ce4fae582b386899d350a158c39f',1,'TplAppServices']]],
+  ['action_5fswitch_5fextension_19',['ACTION_SWITCH_EXTENSION',['../d1/d72/class_tpl_app_php.html#a0f8a2d26f9c6988376735ab848325de0',1,'TplAppPhp']]],
+  ['action_5fswitch_5fmodule_20',['ACTION_SWITCH_MODULE',['../d5/ddf/class_tpl_app_apache.html#a2186c9d19ece885e87a790ba5f202b07',1,'TplAppApache']]],
+  ['action_5fswitch_5fsetting_21',['ACTION_SWITCH_SETTING',['../d1/d72/class_tpl_app_php.html#a4910dac2aa3b0144806227748d7d5bbc',1,'TplAppPhp']]],
+  ['action_5fswitch_5fversion_22',['ACTION_SWITCH_VERSION',['../d5/ddf/class_tpl_app_apache.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppApache\ACTION_SWITCH_VERSION'],['../d0/d85/class_tpl_app_filezilla.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppFilezilla\ACTION_SWITCH_VERSION'],['../d5/d6a/class_tpl_app_mailhog.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppMailhog\ACTION_SWITCH_VERSION'],['../df/d62/class_tpl_app_mariadb.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppMariadb\ACTION_SWITCH_VERSION'],['../db/da4/class_tpl_app_memcached.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppMemcached\ACTION_SWITCH_VERSION'],['../db/d5c/class_tpl_app_mysql.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppMysql\ACTION_SWITCH_VERSION'],['../d6/dd0/class_tpl_app_nodejs.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppNodejs\ACTION_SWITCH_VERSION'],['../d1/d72/class_tpl_app_php.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppPhp\ACTION_SWITCH_VERSION'],['../d0/d74/class_tpl_app_postgresql.html#a62aa72980d0bdd9c2a7125139dbaa730',1,'TplAppPostgresql\ACTION_SWITCH_VERSION']]],
+  ['add_5falias_23',['ADD_ALIAS',['../d7/dca/class_action.html#a07c788c39cad545ccbb18e9284ec3f0c',1,'Action']]],
+  ['add_5falias_5ftitle_24',['ADD_ALIAS_TITLE',['../db/dfb/class_lang.html#a2f82ef80bb5d75680131582491e5aeed',1,'Lang']]],
+  ['add_5fvhost_25',['ADD_VHOST',['../d7/dca/class_action.html#aa4e4a1bbfba40608f22a8d9e4ca171c7',1,'Action']]],
+  ['add_5fvhost_5ftitle_26',['ADD_VHOST_TITLE',['../db/dfb/class_lang.html#a99f365890b73cf423e60f1abe627ede9',1,'Lang']]],
+  ['adminer_27',['ADMINER',['../db/dfb/class_lang.html#aebe2728e57d4111a8ee73d1090ed1c3d',1,'Lang']]],
+  ['administration_28',['ADMINISTRATION',['../db/dfb/class_lang.html#a9507702c833dd73970a2f63b2ea86844',1,'Lang']]],
+  ['alias_5falready_5fexists_29',['ALIAS_ALREADY_EXISTS',['../db/dfb/class_lang.html#a63386cb5b9277052d74e7c623433ed9b',1,'Lang']]],
+  ['alias_5fcreated_30',['ALIAS_CREATED',['../db/dfb/class_lang.html#a606f00e17253684e80e7aa3cdabee5d5',1,'Lang']]],
+  ['alias_5fcreated_5ferror_31',['ALIAS_CREATED_ERROR',['../db/dfb/class_lang.html#ac6efbf9636b5ebfb3c69e252d2e713f1',1,'Lang']]],
+  ['alias_5fdest_5flabel_32',['ALIAS_DEST_LABEL',['../db/dfb/class_lang.html#a3913b57ef6b51c4ad1ba6d3bf26560fc',1,'Lang']]],
+  ['alias_5fdest_5fpath_33',['ALIAS_DEST_PATH',['../db/dfb/class_lang.html#a4784dccd064b3490951c7f724c846ec6',1,'Lang']]],
+  ['alias_5fexp_5flabel_34',['ALIAS_EXP_LABEL',['../db/dfb/class_lang.html#a656c5162fe18bb9511034b27beee859e',1,'Lang']]],
+  ['alias_5fname_5flabel_35',['ALIAS_NAME_LABEL',['../db/dfb/class_lang.html#a4114294332b4868aab7b7e9c265efff6',1,'Lang']]],
+  ['alias_5fnot_5fvalid_5falpha_36',['ALIAS_NOT_VALID_ALPHA',['../db/dfb/class_lang.html#aaeed71904753571f9089326d1ffaf312',1,'Lang']]],
+  ['alias_5fremove_5ferror_37',['ALIAS_REMOVE_ERROR',['../db/dfb/class_lang.html#a290103164c28192d0833b441cfc420d3',1,'Lang']]],
+  ['alias_5fremoved_38',['ALIAS_REMOVED',['../db/dfb/class_lang.html#a972ccda3540f6ab17f56372e926ddb58',1,'Lang']]],
+  ['aliases_39',['ALIASES',['../db/dfb/class_lang.html#aabb8279358993271b960766e8f2a3b17',1,'Lang']]],
+  ['all_5fdesktop_5fpath_40',['ALL_DESKTOP_PATH',['../d5/dbc/class_vbs.html#a56575463227295c2eb9e96538e874207',1,'Vbs']]],
+  ['all_5frunning_5fhint_41',['ALL_RUNNING_HINT',['../db/dfb/class_lang.html#a66b67f6fd8396857862cd6791d6a54c7',1,'Lang']]],
+  ['all_5fstartup_5fpath_42',['ALL_STARTUP_PATH',['../d5/dbc/class_vbs.html#ac13ae1a5af3c69138feec1408ac983e2',1,'Vbs']]],
+  ['apache_43',['APACHE',['../db/dfb/class_lang.html#a8084d7f0e951b99524a0c632a6aef7e1',1,'Lang']]],
+  ['apache_5fincpt_44',['APACHE_INCPT',['../db/dfb/class_lang.html#a4df0ec4034e9af2a624eb351ea463124',1,'Lang']]],
+  ['app_5fauthor_5fname_45',['APP_AUTHOR_NAME',['../d7/de1/root_8php.html#a33d9fa1b85394b2bad4f3fb509aba9e1',1,'root.php']]],
+  ['app_5fbins_5freg_5fentry_46',['APP_BINS_REG_ENTRY',['../d4/d78/class_registry.html#afcefee770ffb1bdfbfb391b58e82b2ff',1,'Registry']]],
+  ['app_5fgithub_5flatest_5furl_47',['APP_GITHUB_LATEST_URL',['../d7/de1/root_8php.html#a7ca34dbcaed3e9f67272a11bc79b5d62',1,'root.php']]],
+  ['app_5fgithub_5frepo_48',['APP_GITHUB_REPO',['../d7/de1/root_8php.html#a45432d618127f6dc7d9934451a65b89e',1,'root.php']]],
+  ['app_5fgithub_5fuser_49',['APP_GITHUB_USER',['../d7/de1/root_8php.html#a3c7128345071583355d779cf366687df',1,'root.php']]],
+  ['app_5fgithub_5fuseragent_50',['APP_GITHUB_USERAGENT',['../d7/de1/root_8php.html#a0fef0f3202d6f656b99a3003f3aefaf3',1,'root.php']]],
+  ['app_5flicense_51',['APP_LICENSE',['../d7/de1/root_8php.html#a583a93f279a7b8b0ef702830cd67f6f8',1,'root.php']]],
+  ['app_5fpath_5freg_5fentry_52',['APP_PATH_REG_ENTRY',['../d4/d78/class_registry.html#aa610cc28e0fadc1ef12f0c2b24791c6c',1,'Registry']]],
+  ['app_5ftitle_53',['APP_TITLE',['../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df',1,'root.php']]],
+  ['app_5fversion_54',['APP_VERSION',['../db/d73/class_core.html#aea07c3cbf1fe49903abb5eb62e42d1f2',1,'Core']]],
+  ['app_5fwebsite_55',['APP_WEBSITE',['../d7/de1/root_8php.html#a357c5a4a1d303b76e6463d9b075ea3c9',1,'root.php']]],
+  ['apps_56',['APPS',['../db/dfb/class_lang.html#a29847a89473ba742665b91dcc5011b69',1,'Lang']]]
+];
