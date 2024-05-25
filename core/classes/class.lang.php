@@ -41,6 +41,7 @@ class Lang
     const HOSTSEDITOR = 'hostseditor';
     const LANG = 'lang';
     const LICENSE = 'license';
+    const LOCALE = 'locale';
     const LOGS = 'logs';
     const LOGS_VERBOSE = 'logsVerbose';
     const MODULES = 'modules';
