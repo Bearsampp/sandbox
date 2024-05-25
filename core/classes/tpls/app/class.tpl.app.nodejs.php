@@ -24,7 +24,7 @@ class TplAppNodejs
 
     public static function getMenuNodejs()
     {
-        global $bearsamppBins, $bearsamppLang, $bearsamppTools, $downloadTitle;
+        global $bearsamppBins, $bearsamppLang, $bearsamppTools;
         $resultItems = $resultActions = '';
 
         $isEnabled = $bearsamppBins->getNodejs()->isEnable();
@@ -36,7 +36,7 @@ class TplAppNodejs
                 false,
                 TplAestan::GLYPH_BROWSER
             ) . PHP_EOL;
-
+      
         // Enable
         $tplEnable     = TplApp::getActionMulti(
             self::ACTION_ENABLE, array($isEnabled ? Config::DISABLED : Config::ENABLED),

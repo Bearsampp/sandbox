@@ -31,11 +31,10 @@ async function getMySQLStatus() {
     let myajaxresponse = await response.text();
     let data;
     try {
+            if(myajaxresponse.includes("Uncaught mysqli_sql_exception")) {
+                console.log("Error occured accessing MySQL - ");
+            } else {
       data = JSON.parse(myajaxresponse);
-    } catch (error) {
-      console.error('Failed to parse response:', error);
-    }
-
     let q = document.querySelector('.mysql-checkport');
     let ql = q.querySelector('.loader');
     ql.remove();
@@ -46,6 +45,10 @@ async function getMySQLStatus() {
     ql.remove();
     q.insertAdjacentHTML('beforeend', data.versions);
   }
+        } catch (error) {
+            console.error('Failed to parse response:', error);
+        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
