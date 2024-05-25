@@ -1855,7 +1855,6 @@ class Util
      */
     public static function decryptFile()
     {
-
         global $bearsamppCore;
 
         $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
@@ -1896,7 +1895,6 @@ class Util
             Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
             return false;
         }
-
         return $decrypted;
     }
 

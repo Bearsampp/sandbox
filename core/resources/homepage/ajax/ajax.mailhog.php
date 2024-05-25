@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 $result = array(
     'checkport' => '',
@@ -26,8 +33,9 @@ if ($bearsamppBins->getMailhog()->checkPort($smtpPort)) {
 foreach ($bearsamppBins->getMailhog()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getMailhog()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMailhog()->getVersion() . '</span>';
     }
 }
-$result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMailhog()->getVersion() . '</span>';
 
 echo json_encode($result);
