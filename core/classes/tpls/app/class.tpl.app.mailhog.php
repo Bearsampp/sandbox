@@ -27,7 +27,8 @@ class TplAppMailhog
         $isEnabled = $bearsamppBins->getMailhog()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOWNLOAD_MORE) . ' ' . Util::getWebsiteUrl('module/mailhog', '#releases', false) . ' ' . TplAestan::GLYPH_BROWSER) . PHP_EOL;
+        $resultItems .= TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
+            Util::getWebsiteUrl('module/mailhog', '#releases'), false, TplAestan::GLYPH_BROWSER) . PHP_EOL;
 
         // Enable
         $tplEnable     = TplApp::getActionMulti(

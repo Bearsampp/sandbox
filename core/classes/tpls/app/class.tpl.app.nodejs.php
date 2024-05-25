@@ -17,13 +17,14 @@ class TplAppNodejs
 
     public static function getMenuNodejs()
     {
-        global $bearsamppBins, $bearsamppLang, $bearsamppTools, $downloadTitle;
+        global $bearsamppBins, $bearsamppLang, $bearsamppTools;
         $resultItems = $resultActions = '';
 
         $isEnabled = $bearsamppBins->getNodejs()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink( $bearsamppLang->getValue( Lang::DOWNLOAD_MORE ) . ' ' . Util::getWebsiteUrl( 'module/nodejs', '#releases', false ) . ' ' . TplAestan::GLYPH_BROWSER ) . PHP_EOL;
+        $resultItems .= TplAestan::getItemLink( $bearsamppLang->getValue( Lang::DOWNLOAD_MORE ) ,
+                Util::getWebsiteUrl( 'module/nodejs', '#releases'), false, TplAestan::GLYPH_BROWSER ) . PHP_EOL;
 
         // Enable
         $tplEnable     = TplApp::getActionMulti(

@@ -27,8 +27,7 @@ class TplAppFilezilla
         $isEnabled = $bearsamppBins->getFilezilla()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink(
-        $bearsamppLang->getValue(Lang::DOWNLOAD_MORE);,
+        $resultItems .= TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
             Util::getWebsiteUrl('module/filezilla', '#releases'),
             false,
             TplAestan::GLYPH_BROWSER

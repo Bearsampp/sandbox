@@ -99,6 +99,7 @@ class TplAestan
     {
         global $bearsamppRoot, $bearsamppConfig;
 
+        $link = '';
         if ($local) {
             $link = $bearsamppRoot->getLocalUrl($link);
         }
