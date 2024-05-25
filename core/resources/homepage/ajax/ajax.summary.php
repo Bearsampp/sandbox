@@ -139,7 +139,7 @@ $result['binmemcached'] .= '<span class = " float-end badge ' . $memcachedLabel 
 // Bin Node.js
 $nodejsLabel = 'bg-secondary';
 if ($bearsamppBins->getNodejs()->isEnable()) {
-    $nodejsLabel = 'bg-primary';
+    $nodejsLabel = 'bg-success';
 }
 
 $result['binnodejs'] = sprintf($dlMoreTpl, 'nodejs');
@@ -148,7 +148,7 @@ $result['binnodejs'] .= '<span class = " float-end badge ' . $nodejsLabel .'">' 
 // Bin PHP
 $phpLabel = 'bg-secondary';
 if ($bearsamppBins->getPhp()->isEnable()) {
-    $phpLabel = 'bg-primary';
+    $phpLabel = 'bg-success';
 }
 
 $result['binphp'] = sprintf($dlMoreTpl, 'php');
