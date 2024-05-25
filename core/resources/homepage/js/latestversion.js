@@ -35,7 +35,7 @@ async function getLatestVersionStatus() {
         if (responseData.display) {
             document.querySelector('.latestversion-download').insertAdjacentHTML('beforeend', responseData.download);
             document.querySelector('.latestversion-changelog').insertAdjacentHTML('beforeend', responseData.changelog);
-            document.querySelector('.latestversion').style.display = 'block';
+            document.getElementById("latestversionnotify").style.display = 'block';
         }
     } catch (error) {
         console.error('Failed to fetch latest version status:', error);

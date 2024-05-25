@@ -59,5 +59,6 @@ if (version_compare($bearsamppCurrentVersion, $githubLatestVersion, '<')) {
     $result['display'] = true;
     $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $githubLatestVersionUrl . '" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> ';
     $result['download'] .= $bearsamppLang->getValue(Lang::DOWNLOAD) . ' <strong>' . APP_TITLE . ' ' . $githubVersionName . '</strong><br />';
+    $result['changelog'] = '';
 }
 echo json_encode($result);
