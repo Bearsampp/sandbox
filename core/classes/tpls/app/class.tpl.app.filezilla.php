@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class TplAppFilezilla
 {
@@ -27,7 +34,8 @@ class TplAppFilezilla
         $isEnabled = $bearsamppBins->getFilezilla()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
+        $resultItems .= TplAestan::getItemLink(
+        $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
             Util::getWebsiteUrl('module/filezilla', '#releases'),
             false,
             TplAestan::GLYPH_BROWSER

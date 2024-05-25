@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class TplAppNodejs
 {
@@ -23,9 +30,13 @@ class TplAppNodejs
         $isEnabled = $bearsamppBins->getNodejs()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink( $bearsamppLang->getValue( Lang::DOWNLOAD_MORE ) ,
-                Util::getWebsiteUrl( 'module/nodejs', '#releases'), false, TplAestan::GLYPH_BROWSER ) . PHP_EOL;
-
+        $resultItems .= TplAestan::getItemLink(
+                $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
+                Util::getWebsiteUrl('module/filezilla', '#releases'),
+                false,
+                TplAestan::GLYPH_BROWSER
+            ) . PHP_EOL;
+      
         // Enable
         $tplEnable     = TplApp::getActionMulti(
             self::ACTION_ENABLE, array($isEnabled ? Config::DISABLED : Config::ENABLED),
