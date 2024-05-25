@@ -33,37 +33,38 @@ $textDisabled = $bearsamppLang->getValue(Lang::DISABLED);
 
 if ($bearsamppBins->getApache()->isEnable()) {
     if ($bearsamppBins->getApache()->checkPort($sslPort, true)) {
-        $result['checkport'] .= '<span class="ms-1 float-end badge text-bg-success">' . sprintf($textServiceStarted, $sslPort) . ' (SSL)</span>';
+        $result['checkport'] .= '<span class="m-1 float-end badge text-bg-success">' . sprintf($textServiceStarted, $sslPort) . ' (SSL)</span>';
     } else {
-        $result['checkport'] .= '<span class="ms-1 float-end badge text-bg-danger">' . $textServiceStopped . ' (SSL)</span>';
+        $result['checkport'] .= '<span class="m-1 float-end badge text-bg-danger">' . $textServiceStopped . ' (SSL)</span>';
     }
     if ($bearsamppBins->getApache()->checkPort($port)) {
-        $result['checkport'] .= '<span class="ms-1 float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
+        $result['checkport'] .= '<span class="m-1 float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
     } else {
-        $result['checkport'] .= '<span class="ms-1 float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
+        $result['checkport'] .= '<span class="m-1 float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
     }
 } else {
-    $result['checkport'] = '<span class="ms-1 float-end badge text-bg-secondary">' . $textDisabled . '</span>';
+    $result['checkport'] = '<span class="m-1 float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
 // Versions
 foreach ($bearsamppBins->getApache()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getApache()->getVersion()) {
-        $result['versions'] .= '<span class="ms-1 float-end badge text-bg-secondary">' . $version . '</span>';
+        $result['versions'] .= '<span class="m-1 badge float-end text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge float-end text-bg-primary">' . $bearsamppBins->getApache()->getVersion() . '</span>';
     }
 }
-$result['versions'] .= '<span class="ms-1 float-end badge text-bg-primary">' . $bearsamppBins->getApache()->getVersion() . '</span>';
 
 // Modules count
 $modules = count($bearsamppBins->getApache()->getModules());
 $modulesLoaded = count($bearsamppBins->getApache()->getModulesLoaded());
-$result['modulescount'] .= '<span class="ms-1 float-end badge text-bg-primary">' . $modulesLoaded . ' / ' . $modules . '</span>';
+$result['modulescount'] .= '<span class="m-1 float-end badge text-bg-primary">' . $modulesLoaded . ' / ' . $modules . '</span>';
 
 // Aliases count
-$result['aliasescount'] .= '<span class="ms-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getAlias()) . '</span>';
+$result['aliasescount'] .= '<span class="m-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getAlias()) . '</span>';
 
 // Vhosts count
-$result['vhostscount'] .= '<span class="ms-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getVhosts()) . '</span>';
+$result['vhostscount'] .= '<span class="m-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getVhosts()) . '</span>';
 
 // Modules list
 foreach ($bearsamppBins->getApache()->getModulesFromConf() as $moduleName => $moduleStatus) {
