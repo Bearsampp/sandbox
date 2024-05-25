@@ -1,7 +1,8 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -58,6 +59,5 @@ if (version_compare($bearsamppCurrentVersion, $githubLatestVersion, '<')) {
     $result['display'] = true;
     $result['download'] .= '<a role="button" class="btn btn-success fullversionurl" href="' . $githubLatestVersionUrl . '" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> ';
     $result['download'] .= $bearsamppLang->getValue(Lang::DOWNLOAD) . ' <strong>' . APP_TITLE . ' ' . $githubVersionName . '</strong><br />';
-    $result['download'] .= '<small>' .  $githubVersionName . '</small></a>';
 }
 echo json_encode($result);

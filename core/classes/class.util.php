@@ -1,7 +1,8 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -1857,8 +1858,6 @@ class Util
 
         global $bearsamppCore;
 
-        $bearsamppCore->unzipFile($bearsamppCore->getResourcesPath() . '/github.zip', $bearsamppCore->getResourcesPath());
-
         $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
         $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
         $method = 'AES-256-CBC'; // The same encryption method used
@@ -1897,10 +1896,6 @@ class Util
             Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
             return false;
         }
-
-        // Remove extracted key files now.
-        unlink($stringfile);
-        unlink($encryptedFile);
 
         return $decrypted;
     }
