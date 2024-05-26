@@ -52,7 +52,7 @@ if ($githubVersionData === null) {
 $githubLatestVersion = $githubVersionData['version'];
 $githubLatestVersionUrl = $githubVersionData['html_url']; // URL of the latest version
 $githubVersionName = $githubVersionData['name'];
-Util::logDebug($githubLatestVersion, $githubLatestVersionUrl);
+Util::logError($githubLatestVersion, $githubLatestVersionUrl);
 
 // Directly compare version strings
 if (version_compare($bearsamppCurrentVersion, $githubLatestVersion, '<')) {
