@@ -42,7 +42,7 @@ class ActionCheckVersion
             // Assuming getLatestVersion now returns an array with version and URL
             $githubVersionData = Util::getLatestVersion( APP_GITHUB_LATEST_URL );
 
-            if ( $githubVersionData != null ) {
+            if ( $githubVersionData != null && isset( $githubVersionData['version'], $githubVersionData['html_url'] ) ) {
                 $githubLatestVersion          = $githubVersionData['version'];
                 $this->githubLatestVersionUrl = $githubVersionData['html_url']; // URL of the latest version
                 if ( version_compare( $this->currentVersion, $githubLatestVersion, '<' ) ) {
@@ -105,6 +105,8 @@ class ActionCheckVersion
             case $this->wbBtnOk[WinBinder::CTRL_ID]:
                 $bearsamppWinbinder->destroyWindow( $window );
                 break;
+            default:
+                Util::logError( "Unhandled window control ID: $id" );
         }
     }
 }
