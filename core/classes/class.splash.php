@@ -1,7 +1,8 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -51,7 +52,7 @@ class Splash
         global $bearsamppWinbinder;
 
         $bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);
-        $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption . ' ...', 42, 0, self::WINDOW_WIDTH - 44, 25);
+        $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);
     }
 
     public function incrProgressBar($nb = 1)
