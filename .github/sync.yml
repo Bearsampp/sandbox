@@ -3,6 +3,12 @@ group:
   - files:
       - source: core/
         dest: core/
+        exclude: |
+            /homepage/img/about.bmp
+            /homepage/img/bearsampp.bmp
+            /homepage/img/icons/app.ico
+            /homepage/img/icons/bearsampp.ico
+            /homepage/img/icons/favicon.ico
         deleteOrphaned: true
       - source: LICENSE
         dest: LICENSE
