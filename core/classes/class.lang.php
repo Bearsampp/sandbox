@@ -6,7 +6,14 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
+/**
+ * Class Lang
+ * This class serves as a container for language constants used throughout the application.
+ * It provides a centralized way to manage language keys, which can be used for internationalization.
+ *
+ * Constants are organized into categories such as General, Single, Menu, Bins, Apps, Tools, Errors, Actions, and more.
+ * Each constant represents a unique key for a language string.
+ */
 class Lang
 {
     // General
@@ -362,6 +369,13 @@ class Lang
     const HOMEPAGE_MAILHOG_TEXT = 'homepageMailhogText';
     const HOMEPAGE_BACK_TEXT = 'homepageBackText';
 
+    /**
+     * Retrieves all language keys defined in the class.
+     * This method is useful for operations that need to access all available language keys,
+     * such as generating language files or performing validations.
+     *
+     * @return array An array of all defined language keys.
+     */
     public static function getKeys()
     {
         return array(
