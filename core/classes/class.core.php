@@ -1,7 +1,8 @@
 <?php
 /*
- * Copyright (c) 2022 - 2024 Bearsampp
+ * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -31,6 +32,9 @@ class Core
 
     const LN_VERSION = '2.928';
     const LN_EXE = 'ln.exe';
+
+    const PWGEN_VERSION = '3.5.4';
+    const PWGEN_EXE = "PWGenPortable.exe";
 
     const APP_VERSION = 'version.dat';
     const LAST_PATH = 'lastPath.dat';
@@ -207,6 +211,16 @@ class Core
     public function getLnExe($aetrayPath = false)
     {
         return $this->getLnPath($aetrayPath) . '/' . self::LN_EXE;
+    }
+
+    public function getPwgenPath($aetrayPath = false)
+    {
+        return $this->getLibsPath($aetrayPath) . '/pwgen';
+    }
+
+    public function getPwgenExe($aetrayPath = false)
+    {
+        return $this->getPwgenPath($aetrayPath) . '/' . self::PWGEN_EXE;
     }
 
     /**
