@@ -1,29 +1,50 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ToolGit
+ *
+ * This class extends the Module class and provides functionalities specific to managing Git tools within the Bearsampp application.
+ */
 class ToolGit extends Module
 {
     const ROOT_CFG_VERSION = 'gitVersion';
-
     const LOCAL_CFG_EXE = 'gitExe';
     const LOCAL_CFG_BASH = 'gitBash';
     const LOCAL_CFG_SCAN_STARTUP = 'gitScanStartup';
-
     const REPOS_FILE = 'repos.dat';
     const REPOS_CACHE_FILE = 'reposCache.dat';
 
     private $reposFile;
     private $reposCacheFile;
     private $repos;
-
     private $exe;
     private $bash;
     private $scanStartup;
 
+    /**
+     * Constructor for the ToolGit class.
+     *
+     * @param string $id The identifier for the Git tool.
+     * @param string $type The type of the Git tool.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration and settings for the Git tool.
+     *
+     * @param string|null $id The identifier for the Git tool. Defaults to null.
+     * @param string|null $type The type of the Git tool. Defaults to null.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -83,6 +104,14 @@ class ToolGit extends Module
         }
     }
 
+    /**
+     * Updates the configuration for the Git tool.
+     *
+     * @param string|null $version The version to update to. Defaults to null.
+     * @param int $sub The sub-level for logging indentation. Defaults to 0.
+     * @param bool $showWindow Whether to show a window during the update. Defaults to false.
+     * @return bool True if the update was successful, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppWinbinder;
 
@@ -103,6 +132,12 @@ class ToolGit extends Module
         return true;
     }
 
+    /**
+     * Finds repositories either from cache or by scanning directories.
+     *
+     * @param bool $cache Whether to use cached repositories. Defaults to true.
+     * @return array The list of found repositories.
+     */
     public function findRepos($cache = true) {
         $result = array();
 
@@ -131,6 +166,11 @@ class ToolGit extends Module
         return $result;
     }
 
+    /**
+     * Sets the version for the Git tool and updates the configuration.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -138,22 +178,47 @@ class ToolGit extends Module
         $this->reload();
     }
 
+    /**
+     * Retrieves the list of repositories.
+     *
+     * @return array The list of repositories.
+     */
     public function getRepos() {
         return $this->repos;
     }
 
+    /**
+     * Retrieves the path to the Git executable.
+     *
+     * @return string The path to the Git executable.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Retrieves the path to the Git Bash executable.
+     *
+     * @return string The path to the Git Bash executable.
+     */
     public function getBash() {
         return $this->bash;
     }
 
+    /**
+     * Checks if the Git tool is set to scan repositories at startup.
+     *
+     * @return bool True if scanning at startup is enabled, false otherwise.
+     */
     public function isScanStartup() {
         return $this->scanStartup == Config::ENABLED;
     }
 
+    /**
+     * Sets the scan startup configuration for the Git tool.
+     *
+     * @param bool $scanStartup Whether to enable scanning at startup.
+     */
     public function setScanStartup($scanStartup) {
         $this->scanStartup = $scanStartup;
         Util::replaceInFile($this->bearsamppConf, array(

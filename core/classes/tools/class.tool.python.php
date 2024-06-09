@@ -1,22 +1,77 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ToolPython
+ *
+ * This class represents a Python tool module in the Bearsampp application. It extends the abstract `Module` class
+ * and provides specific functionality for managing Python versions and executables.
+ */
 class ToolPython extends Module
 {
+    /**
+     * Configuration key for the root Python version.
+     */
     const ROOT_CFG_VERSION = 'pythonVersion';
 
+    /**
+     * Configuration key for the local Python executable.
+     */
     const LOCAL_CFG_EXE = 'pythonExe';
+
+    /**
+     * Configuration key for the local Python CP executable.
+     */
     const LOCAL_CFG_CP_EXE = 'pythonCpExe';
+
+    /**
+     * Configuration key for the local Python IDLE executable.
+     */
     const LOCAL_CFG_IDLE_EXE = 'pythonIdleExe';
 
+    /**
+     * @var string Path to the Python executable.
+     */
     private $exe;
+
+    /**
+     * @var string Path to the Python CP executable.
+     */
     private $cpExe;
+
+    /**
+     * @var string Path to the Python IDLE executable.
+     */
     private $idleExe;
 
+    /**
+     * ToolPython constructor.
+     *
+     * Initializes the ToolPython instance and reloads its configuration.
+     *
+     * @param string $id The module ID.
+     * @param string $type The module type.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the module configuration.
+     *
+     * This method reloads the module configuration, including paths to executables and configuration files.
+     * It also logs errors if certain files or directories are not found.
+     *
+     * @param string|null $id The module ID (optional).
+     * @param string|null $type The module type (optional).
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -56,6 +111,13 @@ class ToolPython extends Module
         }
     }
 
+    /**
+     * Sets the Python version for the module.
+     *
+     * This method updates the Python version in the configuration and reloads the module.
+     *
+     * @param string $version The new Python version.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -63,14 +125,29 @@ class ToolPython extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the Python executable.
+     *
+     * @return string The path to the Python executable.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Gets the path to the Python CP executable.
+     *
+     * @return string The path to the Python CP executable.
+     */
     public function getCpExe() {
         return $this->cpExe;
     }
 
+    /**
+     * Gets the path to the Python IDLE executable.
+     *
+     * @return string The path to the Python IDLE executable.
+     */
     public function getIdleExe() {
         return $this->idleExe;
     }

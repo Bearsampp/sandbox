@@ -1,18 +1,59 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ToolXdc
+ *
+ * This class represents the XDC tool module in the Bearsampp application. It extends the `Module` class
+ * and provides specific functionalities for managing the XDC tool, including loading configurations,
+ * setting versions, and handling executable paths.
+ */
 class ToolXdc extends Module
 {
+    /**
+     * Configuration key for the XDC version in the root configuration.
+     */
     const ROOT_CFG_VERSION = 'xdcVersion';
 
+    /**
+     * Configuration key for the XDC executable in the local configuration.
+     */
     const LOCAL_CFG_EXE = 'xdcExe';
 
+    /**
+     * @var string Path to the XDC executable.
+     */
     private $exe;
 
+    /**
+     * Constructor for the ToolXdc class.
+     *
+     * Initializes the class by logging its initialization and reloading its configuration.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration for the XDC tool.
+     *
+     * This method updates the module's properties based on the provided ID and type, and checks for
+     * the existence of necessary directories and files. It logs errors if any required files or directories
+     * are missing.
+     *
+     * @param string|null $id The ID of the module. If null, the current ID is used.
+     * @param string|null $type The type of the module. If null, the current type is used.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -44,6 +85,13 @@ class ToolXdc extends Module
         }
     }
 
+    /**
+     * Sets the version for the XDC tool.
+     *
+     * This method updates the version in the configuration and reloads the module to apply the changes.
+     *
+     * @param string $version The new version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -51,6 +99,11 @@ class ToolXdc extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the XDC executable.
+     *
+     * @return string The path to the XDC executable.
+     */
     public function getExe() {
         return $this->exe;
     }

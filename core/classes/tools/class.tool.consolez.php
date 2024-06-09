@@ -1,5 +1,19 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ToolConsoleZ
+ *
+ * This class represents the ConsoleZ tool module in the Bearsampp application. It extends the `Module` class
+ * and provides functionalities specific to ConsoleZ, such as configuration management, version handling,
+ * and generating shell commands.
+ */
 class ToolConsoleZ extends Module
 {
     const ROOT_CFG_VERSION = 'consolezVersion';
@@ -16,11 +30,23 @@ class ToolConsoleZ extends Module
     private $rows;
     private $cols;
 
+    /**
+     * Constructor for ToolConsoleZ.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration and state of the ConsoleZ module.
+     *
+     * @param string|null $id The ID of the module. If null, the current ID is used.
+     * @param string|null $type The type of the module. If null, the current type is used.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -68,6 +94,11 @@ class ToolConsoleZ extends Module
         }
     }
 
+    /**
+     * Sets the version of the ConsoleZ module.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -75,26 +106,57 @@ class ToolConsoleZ extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the executable path of ConsoleZ.
+     *
+     * @return string The executable path.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Gets the launch executable path of ConsoleZ.
+     *
+     * @return string The launch executable path.
+     */
     public function getLaunchExe() {
         return $this->launchExe;
     }
 
+    /**
+     * Gets the configuration file path of ConsoleZ.
+     *
+     * @return string The configuration file path.
+     */
     public function getConf() {
         return $this->conf;
     }
 
+    /**
+     * Gets the number of rows configured for ConsoleZ.
+     *
+     * @return int The number of rows.
+     */
     public function getRows() {
         return $this->rows;
     }
 
+    /**
+     * Gets the number of columns configured for ConsoleZ.
+     *
+     * @return int The number of columns.
+     */
     public function getCols() {
         return $this->cols;
     }
 
+    /**
+     * Generates the shell command to launch ConsoleZ.
+     *
+     * @param string|null $args Additional arguments for the shell command.
+     * @return string The shell command.
+     */
     public function getShell($args = null) {
         if (empty($args)) {
             return 'cmd /k &quot;' . Util::formatWindowsPath($this->launchExe) . '&quot;';
@@ -103,35 +165,71 @@ class ToolConsoleZ extends Module
         }
     }
 
+    /**
+     * Gets the default tab title for ConsoleZ.
+     *
+     * @return string The default tab title.
+     */
     public function getTabTitleDefault() {
         global $bearsamppLang;
         return $bearsamppLang->getValue(Lang::CONSOLE);
     }
 
+    /**
+     * Gets the tab title for PowerShell.
+     *
+     * @return string The PowerShell tab title.
+     */
     public function getTabTitlePowershell() {
         return 'PowerShell';
     }
 
+    /**
+     * Gets the tab title for PEAR.
+     *
+     * @return string The PEAR tab title.
+     */
     public function getTabTitlePear() {
         global $bearsamppLang, $bearsamppBins;
         return $bearsamppLang->getValue(Lang::PEAR) . ' ' . $bearsamppBins->getPhp()->getPearVersion(true);
     }
 
+    /**
+     * Gets the tab title for MySQL.
+     *
+     * @return string The MySQL tab title.
+     */
     public function getTabTitleMysql() {
         global $bearsamppLang, $bearsamppBins;
         return $bearsamppLang->getValue(Lang::MYSQL) . ' ' . $bearsamppBins->getMysql()->getVersion();
     }
 
+    /**
+     * Gets the tab title for MariaDB.
+     *
+     * @return string The MariaDB tab title.
+     */
     public function getTabTitleMariadb() {
         global $bearsamppLang, $bearsamppBins;
         return $bearsamppLang->getValue(Lang::MARIADB) . ' ' . $bearsamppBins->getMariadb()->getVersion();
     }
 
+    /**
+     * Gets the tab title for PostgreSQL.
+     *
+     * @return string The PostgreSQL tab title.
+     */
     public function getTabTitlePostgresql() {
         global $bearsamppLang, $bearsamppBins;
         return $bearsamppLang->getValue(Lang::POSTGRESQL) . ' ' . $bearsamppBins->getPostgresql()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Git.
+     *
+     * @param string|null $repoPath The repository path.
+     * @return string The Git tab title.
+     */
     public function getTabTitleGit($repoPath = null) {
         global $bearsamppLang, $bearsamppTools;
         $result = $bearsamppLang->getValue(Lang::GIT) . ' ' . $bearsamppTools->getGit()->getVersion();
@@ -141,41 +239,81 @@ class ToolConsoleZ extends Module
         return $result;
     }
 
+    /**
+     * Gets the tab title for Node.js.
+     *
+     * @return string The Node.js tab title.
+     */
     public function getTabTitleNodejs() {
         global $bearsamppLang, $bearsamppBins;
         return $bearsamppLang->getValue(Lang::NODEJS) . ' ' . $bearsamppBins->getNodejs()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Composer.
+     *
+     * @return string The Composer tab title.
+     */
     public function getTabTitleComposer() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::COMPOSER) . ' ' . $bearsamppTools->getComposer()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Python.
+     *
+     * @return string The Python tab title.
+     */
     public function getTabTitlePython() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::PYTHON) . ' ' . $bearsamppTools->getPython()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Ruby.
+     *
+     * @return string The Ruby tab title.
+     */
     public function getTabTitleRuby() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::RUBY) . ' ' . $bearsamppTools->getRuby()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Yarn.
+     *
+     * @return string The Yarn tab title.
+     */
     public function getTabTitleYarn() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::YARN) . ' ' . $bearsamppTools->getYarn()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Perl.
+     *
+     * @return string The Perl tab title.
+     */
     public function getTabTitlePerl() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::PERL) . ' ' . $bearsamppTools->getPerl()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Ghostscript.
+     *
+     * @return string The Ghostscript tab title.
+     */
     public function getTabTitleGhostscript() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::GHOSTSCRIPT) . ' ' . $bearsamppTools->getGhostscript()->getVersion();
     }
 
+    /**
+     * Gets the tab title for Ngrok.
+     *
+     * @return string The Ngrok tab title.
+     */
     public function getTabTitleNgrok() {
         global $bearsamppLang, $bearsamppTools;
         return $bearsamppLang->getValue(Lang::NGROK) . ' ' . $bearsamppTools->getNgrok()->getVersion();

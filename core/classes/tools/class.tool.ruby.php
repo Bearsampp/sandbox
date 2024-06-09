@@ -1,20 +1,66 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ToolRuby
+ *
+ * This class represents the Ruby tool module in the Bearsampp application. It extends the abstract `Module` class
+ * and provides specific functionality for managing Ruby installations, including configuration and executable paths.
+ */
 class ToolRuby extends Module
 {
+    /**
+     * Configuration key for the Ruby version in the root configuration.
+     */
     const ROOT_CFG_VERSION = 'rubyVersion';
 
+    /**
+     * Configuration key for the Ruby executable in the local configuration.
+     */
     const LOCAL_CFG_EXE = 'rubyExe';
+
+    /**
+     * Configuration key for the Ruby console executable in the local configuration.
+     */
     const LOCAL_CFG_CONSOLE_EXE = 'rubyConsoleExe';
 
+    /**
+     * Path to the Ruby executable.
+     *
+     * @var string
+     */
     private $exe;
+
+    /**
+     * Path to the Ruby console executable.
+     *
+     * @var string
+     */
     private $consoleExe;
 
+    /**
+     * Constructor for the ToolRuby class.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the module configuration and updates the internal state.
+     *
+     * @param string|null $id The ID of the module. If null, the current ID is used.
+     * @param string|null $type The type of the module. If null, the current type is used.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -50,6 +96,11 @@ class ToolRuby extends Module
         }
     }
 
+    /**
+     * Sets the version of the Ruby tool and updates the configuration.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -57,10 +108,20 @@ class ToolRuby extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the Ruby executable.
+     *
+     * @return string The path to the Ruby executable.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Gets the path to the Ruby console executable.
+     *
+     * @return string The path to the Ruby console executable.
+     */
     public function getConsoleExe() {
         return $this->consoleExe;
     }
