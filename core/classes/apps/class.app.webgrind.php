@@ -1,18 +1,54 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class AppWebgrind
+ *
+ * This class represents the Webgrind application module within the Bearsampp environment.
+ * It extends the Module class and provides specific functionalities for managing the Webgrind application.
+ */
 class AppWebgrind extends Module
 {
+    /**
+     * Configuration key for the Webgrind version in the root configuration.
+     */
     const ROOT_CFG_VERSION = 'webgrindVersion';
 
+    /**
+     * Configuration key for the Webgrind configuration file in the local configuration.
+     */
     const LOCAL_CFG_CONF = 'webgrindConf';
 
+    /**
+     * Path to the Webgrind configuration file.
+     *
+     * @var string
+     */
     private $conf;
 
+    /**
+     * Constructs an AppWebgrind object with the specified ID and type.
+     *
+     * @param string $id The ID of the Webgrind application.
+     * @param string $type The type of the Webgrind application.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the Webgrind application configuration.
+     *
+     * @param string|null $id The ID of the Webgrind application.
+     * @param string|null $type The type of the Webgrind application.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -44,6 +80,14 @@ class AppWebgrind extends Module
         }
     }
 
+    /**
+     * Updates the Webgrind application configuration.
+     *
+     * @param string|null $version The version of the Webgrind application.
+     * @param int $sub The sub-level for logging indentation.
+     * @param bool $showWindow Whether to show a window during the update process.
+     * @return bool True if the update was successful, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppRoot;
 
@@ -67,6 +111,11 @@ class AppWebgrind extends Module
         return true;
     }
 
+    /**
+     * Sets the version of the Webgrind application.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -74,6 +123,11 @@ class AppWebgrind extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the Webgrind configuration file.
+     *
+     * @return string The path to the Webgrind configuration file.
+     */
     public function getConf() {
         return $this->conf;
     }

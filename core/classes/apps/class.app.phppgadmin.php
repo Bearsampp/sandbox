@@ -1,18 +1,54 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class AppPhppgadmin
+ *
+ * This class represents the phpPgAdmin application module within the Bearsampp environment.
+ * It extends the Module class and provides functionality to manage and configure phpPgAdmin.
+ */
 class AppPhppgadmin extends Module
 {
+    /**
+     * Configuration key for the phpPgAdmin version in the root configuration.
+     */
     const ROOT_CFG_VERSION = 'phppgadminVersion';
 
+    /**
+     * Configuration key for the phpPgAdmin configuration file in the local configuration.
+     */
     const LOCAL_CFG_CONF = 'phppgadminConf';
 
+    /**
+     * @var string Path to the phpPgAdmin configuration file.
+     */
     private $conf;
 
+    /**
+     * AppPhppgadmin constructor.
+     *
+     * Initializes the phpPgAdmin module by logging its initialization and reloading its configuration.
+     *
+     * @param string $id The identifier of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration and settings for the phpPgAdmin module.
+     *
+     * @param string|null $id The identifier of the module. If null, the current ID is used.
+     * @param string|null $type The type of the module. If null, the current type is used.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -44,6 +80,14 @@ class AppPhppgadmin extends Module
         }
     }
 
+    /**
+     * Updates the configuration for the phpPgAdmin module.
+     *
+     * @param string|null $version The version to update to. If null, the current version is used.
+     * @param int $sub The sub-level of the update process, used for logging indentation.
+     * @param bool $showWindow Whether to show a window during the update process.
+     * @return bool True if the update was successful, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppRoot, $bearsamppBins;
 
@@ -77,6 +121,11 @@ class AppPhppgadmin extends Module
         return true;
     }
 
+    /**
+     * Sets the version for the phpPgAdmin module and updates the configuration.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -84,6 +133,11 @@ class AppPhppgadmin extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the phpPgAdmin configuration file.
+     *
+     * @return string The path to the configuration file.
+     */
     public function getConf() {
         return $this->conf;
     }

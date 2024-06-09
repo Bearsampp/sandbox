@@ -1,18 +1,52 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class AppAdminer
+ *
+ * This class represents the Adminer module in the Bearsampp application.
+ * It extends the Module class and provides functionality specific to Adminer.
+ */
 class AppAdminer extends Module
 {
+    /**
+     * Configuration key for the Adminer version.
+     */
     const ROOT_CFG_VERSION = 'adminerVersion';
 
+    /**
+     * Configuration key for the Adminer configuration file.
+     */
     const LOCAL_CFG_CONF = 'adminerConf';
 
+    /**
+     * @var string Path to the Adminer configuration file.
+     */
     private $conf;
 
+    /**
+     * AppAdminer constructor.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the module configuration and settings.
+     *
+     * @param string|null $id The ID of the module.
+     * @param string|null $type The type of the module.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -44,6 +78,14 @@ class AppAdminer extends Module
         }
     }
 
+    /**
+     * Updates the configuration for the Adminer module.
+     *
+     * @param string|null $version The version to update to.
+     * @param int $sub The sub-level for logging indentation.
+     * @param bool $showWindow Whether to show a window during the update.
+     * @return bool True if the update was successful, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppRoot, $bearsamppBins;
 
@@ -89,6 +131,11 @@ class AppAdminer extends Module
         return true;
     }
 
+    /**
+     * Sets the version for the Adminer module.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -96,6 +143,11 @@ class AppAdminer extends Module
         $this->reload();
     }
 
+    /**
+     * Gets the path to the Adminer configuration file.
+     *
+     * @return string The path to the configuration file.
+     */
     public function getConf() {
         return $this->conf;
     }
