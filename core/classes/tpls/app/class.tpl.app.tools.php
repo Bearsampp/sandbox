@@ -7,12 +7,23 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Class TplAppTools
+ *
+ * This class provides methods to generate and manage the tools menu and its actions.
+ * It includes methods to process the tools menu and generate menu items for various tools.
+ */
 class TplAppTools
 {
     const MENU = 'tools';
-
     const ACTION_GEN_SSL_CERTIFICATE = 'genSslCertificate';
 
+    /**
+     * Processes and generates the tools menu.
+     *
+     * @global object $bearsamppLang The language application object.
+     * @return array An array containing the call string and the menu content.
+     */
     public static function process()
     {
         global $bearsamppLang;
@@ -20,6 +31,14 @@ class TplAppTools
         return TplApp::getMenu($bearsamppLang->getValue(Lang::TOOLS), self::MENU, get_called_class());
     }
 
+    /**
+     * Generates the tools menu items and actions.
+     *
+     * @global object $bearsamppLang The language application object.
+     * @global object $bearsamppCore The core application object.
+     * @global object $bearsamppTools The tools application object.
+     * @return string The generated menu items and actions as a string.
+     */
     public static function getMenuTools()
     {
         global $bearsamppLang, $bearsamppCore, $bearsamppTools;
@@ -124,6 +143,11 @@ class TplAppTools
         return $resultItems . PHP_EOL . $resultActions;
     }
 
+    /**
+     * Generates the action string for generating an SSL certificate.
+     *
+     * @return string The generated action string.
+     */
     public static function getActionGenSslCertificate()
     {
         return TplApp::getActionRun(Action::GEN_SSL_CERTIFICATE);

@@ -1,5 +1,19 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class TplAppMysql
+ *
+ * This class handles the generation of menu items and actions related to MySQL within the Bearsampp application.
+ * It includes methods to process MySQL menus, enable/disable MySQL, switch MySQL versions, change MySQL port,
+ * change MySQL root password, install/remove MySQL service, and debug MySQL.
+ */
 class TplAppMysql
 {
     const MENU = 'mysql';
@@ -14,6 +28,13 @@ class TplAppMysql
     const ACTION_INSTALL_SERVICE = 'installMysqlService';
     const ACTION_REMOVE_SERVICE = 'removeMysqlService';
 
+    /**
+     * Processes the MySQL menu.
+     *
+     * @global object $bearsamppLang The language object.
+     * @global object $bearsamppBins The bins object.
+     * @return string The generated MySQL menu.
+     */
     public static function process()
     {
         global $bearsamppLang, $bearsamppBins;
@@ -21,6 +42,14 @@ class TplAppMysql
         return TplApp::getMenuEnable($bearsamppLang->getValue(Lang::MYSQL), self::MENU, get_called_class(), $bearsamppBins->getMysql()->isEnable());
     }
 
+    /**
+     * Generates the MySQL menu.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @global object $bearsamppLang The language object.
+     * @global object $bearsamppTools The tools object.
+     * @return string The generated MySQL menu items and actions.
+     */
     public static function getMenuMysql()
     {
         global $bearsamppBins, $bearsamppLang, $bearsamppTools;
@@ -29,7 +58,7 @@ class TplAppMysql
         $isEnabled = $bearsamppBins->getMysql()->isEnable();
 
         // Download
-        $resultItems .= TplAestan::getItemLink( $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
+        $resultItems .= TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
             Util::getWebsiteUrl('module/mysql', '#releases'),
             false,
             TplAestan::GLYPH_BROWSER
@@ -79,6 +108,12 @@ class TplAppMysql
         return $resultItems . PHP_EOL . $resultActions;
     }
 
+    /**
+     * Generates the MySQL versions menu.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @return string The generated MySQL versions menu items and actions.
+     */
     public static function getMenuMysqlVersions()
     {
         global $bearsamppBins;
@@ -102,6 +137,13 @@ class TplAppMysql
         return $items . $actions;
     }
 
+    /**
+     * Generates the action to enable or disable MySQL.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @param int $enable The enable flag (1 for enable, 0 for disable).
+     * @return string The generated action to enable or disable MySQL.
+     */
     public static function getActionEnableMysql($enable)
     {
         global $bearsamppBins;
@@ -110,6 +152,13 @@ class TplAppMysql
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to switch MySQL version.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @param string $version The MySQL version to switch to.
+     * @return string The generated action to switch MySQL version.
+     */
     public static function getActionSwitchMysqlVersion($version)
     {
         global $bearsamppBins;
@@ -118,6 +167,13 @@ class TplAppMysql
             TplAppReload::getActionReload() . PHP_EOL;
     }
 
+    /**
+     * Generates the MySQL service menu.
+     *
+     * @global object $bearsamppLang The language object.
+     * @global object $bearsamppBins The bins object.
+     * @return string The generated MySQL service menu items and actions.
+     */
     public static function getMenuMysqlService()
     {
         global $bearsamppLang, $bearsamppBins;
@@ -177,6 +233,12 @@ class TplAppMysql
         return $result;
     }
 
+    /**
+     * Generates the MySQL debug menu.
+     *
+     * @global object $bearsamppLang The language object.
+     * @return string The generated MySQL debug menu items.
+     */
     public static function getMenuMysqlDebug()
     {
         global $bearsamppLang;
@@ -195,6 +257,12 @@ class TplAppMysql
         ) . PHP_EOL;
     }
 
+    /**
+     * Generates the action to change MySQL port.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @return string The generated action to change MySQL port.
+     */
     public static function getActionChangeMysqlPort()
     {
         global $bearsamppBins;
@@ -203,6 +271,12 @@ class TplAppMysql
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to change MySQL root password.
+     *
+     * @global object $bearsamppBins The bins object.
+     * @return string The generated action to change MySQL root password.
+     */
     public static function getActionChangeMysqlRootPwd()
     {
         global $bearsamppBins;
@@ -211,12 +285,22 @@ class TplAppMysql
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to install MySQL service.
+     *
+     * @return string The generated action to install MySQL service.
+     */
     public static function getActionInstallMysqlService()
     {
         return TplApp::getActionRun(Action::SERVICE, array(BinMysql::SERVICE_NAME, ActionService::INSTALL)) . PHP_EOL .
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to remove MySQL service.
+     *
+     * @return string The generated action to remove MySQL service.
+     */
     public static function getActionRemoveMysqlService()
     {
         return TplApp::getActionRun(Action::SERVICE, array(BinMysql::SERVICE_NAME, ActionService::REMOVE)) . PHP_EOL .

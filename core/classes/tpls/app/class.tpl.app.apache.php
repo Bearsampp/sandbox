@@ -1,7 +1,22 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class TplAppApache
+ *
+ * This class handles the Apache-related menu and actions for the Bearsampp application.
+ * It provides methods to generate menus and actions for enabling/disabling Apache, switching versions,
+ * changing ports, managing services, debugging, and handling modules, aliases, and virtual hosts.
+ */
 class TplAppApache
 {
+    // Menu constants
     const MENU = 'apache';
     const MENU_VERSIONS = 'apacheVersions';
     const MENU_SERVICE = 'apacheService';
@@ -10,6 +25,7 @@ class TplAppApache
     const MENU_ALIAS = 'apacheAlias';
     const MENU_VHOSTS = 'apacheVhosts';
 
+    // Action constants
     const ACTION_ENABLE = 'enableApache';
     const ACTION_SWITCH_VERSION = 'switchApacheVersion';
     const ACTION_CHANGE_PORT = 'changeApachePort';
@@ -21,6 +37,13 @@ class TplAppApache
     const ACTION_ADD_VHOST = 'addVhost';
     const ACTION_EDIT_VHOST = 'editVhost';
 
+    /**
+     * Processes the Apache menu.
+     *
+     * @global object $bearsamppLang Global object for language settings.
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated menu for enabling/disabling Apache.
+     */
     public static function process()
     {
         global $bearsamppLang, $bearsamppBins;
@@ -28,6 +51,13 @@ class TplAppApache
         return TplApp::getMenuEnable($bearsamppLang->getValue(Lang::APACHE), self::MENU, get_called_class(), $bearsamppBins->getApache()->isEnable());
     }
 
+    /**
+     * Generates the Apache menu.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @global object $bearsamppLang Global object for language settings.
+     * @return string The generated Apache menu items and actions.
+     */
     public static function getMenuApache()
     {
         global $bearsamppBins, $bearsamppLang;
@@ -37,11 +67,11 @@ class TplAppApache
 
         // Download
         $resultItems .= TplAestan::getItemLink(
-            $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
-            Util::getWebsiteUrl('module/apache', '#releases'),
-            false,
-            TplAestan::GLYPH_BROWSER
-        ) . PHP_EOL;
+                $bearsamppLang->getValue(Lang::DOWNLOAD_MORE),
+                Util::getWebsiteUrl('module/apache', '#releases'),
+                false,
+                TplAestan::GLYPH_BROWSER
+            ) . PHP_EOL;
 
         // Enable
         $tplEnable = TplApp::getActionMulti(
@@ -101,6 +131,12 @@ class TplAppApache
         return $resultItems . PHP_EOL . $resultActions;
     }
 
+    /**
+     * Generates the Apache versions menu.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated Apache versions menu items and actions.
+     */
     public static function getMenuApacheVersions()
     {
         global $bearsamppBins;
@@ -132,6 +168,13 @@ class TplAppApache
         return $items . $actions;
     }
 
+    /**
+     * Generates the action to enable or disable Apache.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @param int $enable The enable/disable flag.
+     * @return string The generated action to enable or disable Apache.
+     */
     public static function getActionEnableApache($enable)
     {
         global $bearsamppBins;
@@ -140,6 +183,13 @@ class TplAppApache
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to switch the Apache version.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @param string $version The Apache version to switch to.
+     * @return string The generated action to switch the Apache version.
+     */
     public static function getActionSwitchApacheVersion($version)
     {
         global $bearsamppBins;
@@ -147,6 +197,14 @@ class TplAppApache
             TplAppReload::getActionReload() . PHP_EOL;
     }
 
+    /**
+     * Generates the Apache service menu.
+     *
+     * @global object $bearsamppRoot Global object for Bearsampp root directory.
+     * @global object $bearsamppLang Global object for language settings.
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated Apache service menu items and actions.
+     */
     public static function getMenuApacheService()
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppBins;
@@ -198,6 +256,12 @@ class TplAppApache
         return $result;
     }
 
+    /**
+     * Generates the action to change the Apache port.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated action to change the Apache port.
+     */
     public static function getActionChangeApachePort()
     {
         global $bearsamppBins;
@@ -206,52 +270,74 @@ class TplAppApache
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to install the Apache service.
+     *
+     * @return string The generated action to install the Apache service.
+     */
     public static function getActionInstallApacheService()
     {
         return TplApp::getActionRun(Action::SERVICE, array(BinApache::SERVICE_NAME, ActionService::INSTALL)) . PHP_EOL .
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the action to remove the Apache service.
+     *
+     * @return string The generated action to remove the Apache service.
+     */
     public static function getActionRemoveApacheService()
     {
         return TplApp::getActionRun(Action::SERVICE, array(BinApache::SERVICE_NAME, ActionService::REMOVE)) . PHP_EOL .
             TplAppReload::getActionReload();
     }
 
+    /**
+     * Generates the Apache debug menu.
+     *
+     * @global object $bearsamppLang Global object for language settings.
+     * @return string The generated Apache debug menu items and actions.
+     */
     public static function getMenuApacheDebug()
     {
         global $bearsamppLang;
 
         return TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_VERSION_NUMBER),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_VERSION_NUMBER), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_COMPILE_SETTINGS),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_COMPILE_SETTINGS), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_COMPILED_MODULES),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_COMPILED_MODULES), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_CONFIG_DIRECTIVES),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_CONFIG_DIRECTIVES), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_VHOSTS_SETTINGS),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_VHOSTS_SETTINGS), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_LOADED_MODULES),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_LOADED_MODULES), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL .
-        TplApp::getActionRun(
-            Action::DEBUG_APACHE, array(BinApache::CMD_SYNTAX_CHECK),
-            array($bearsamppLang->getValue(Lang::DEBUG_APACHE_SYNTAX_CHECK), TplAestan::GLYPH_DEBUG)
-        ) . PHP_EOL;
+                Action::DEBUG_APACHE, array(BinApache::CMD_VERSION_NUMBER),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_VERSION_NUMBER), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_COMPILE_SETTINGS),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_COMPILE_SETTINGS), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_COMPILED_MODULES),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_COMPILED_MODULES), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_CONFIG_DIRECTIVES),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_CONFIG_DIRECTIVES), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_VHOSTS_SETTINGS),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_VHOSTS_SETTINGS), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_LOADED_MODULES),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_LOADED_MODULES), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL .
+            TplApp::getActionRun(
+                Action::DEBUG_APACHE, array(BinApache::CMD_SYNTAX_CHECK),
+                array($bearsamppLang->getValue(Lang::DEBUG_APACHE_SYNTAX_CHECK), TplAestan::GLYPH_DEBUG)
+            ) . PHP_EOL;
     }
 
+    /**
+     * Generates the Apache modules menu.
+     *
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated Apache modules menu items and actions.
+     */
     public static function getMenuApacheModules()
     {
         global $bearsamppBins;
@@ -275,6 +361,13 @@ class TplAppApache
         return $items . $actions;
     }
 
+    /**
+     * Generates the action to switch an Apache module on or off.
+     *
+     * @param string $module The name of the module to switch.
+     * @param string $switch The current switch state of the module.
+     * @return string The generated action to switch the Apache module.
+     */
     public static function getActionSwitchApacheModule($module, $switch)
     {
         $switch = $switch == ActionSwitchApacheModule::SWITCH_OFF ? ActionSwitchApacheModule::SWITCH_ON : ActionSwitchApacheModule::SWITCH_OFF;
@@ -283,6 +376,13 @@ class TplAppApache
             TplAppReload::getActionReload() . PHP_EOL;
     }
 
+    /**
+     * Generates the Apache alias menu.
+     *
+     * @global object $bearsamppLang Global object for language settings.
+     * @global object $bearsamppBins Global object for Bearsampp binaries and configurations.
+     * @return string The generated Apache alias menu items and actions.
+     */
     public static function getMenuApacheAlias()
     {
         global $bearsamppLang, $bearsamppBins;
@@ -316,62 +416,106 @@ class TplAppApache
 
         return $items . $actions;
     }
+/**
+ * Generates the action string for adding an alias and reloading the application.
+ *
+ * This method constructs a string that represents the action of adding an alias
+ * followed by reloading the application to reflect the changes.
+ *
+ * @return string The action string for adding an alias and reloading.
+ */
+public static function getActionAddAlias()
+{
+    return TplApp::getActionRun(Action::ADD_ALIAS) . PHP_EOL .
+        TplAppReload::getActionReload();
+}
 
-    public static function getActionAddAlias()
-    {
-        return TplApp::getActionRun(Action::ADD_ALIAS) . PHP_EOL .
-            TplAppReload::getActionReload();
-    }
+/**
+ * Generates the action string for editing an alias and reloading the application.
+ *
+ * This method constructs a string that represents the action of editing an alias
+ * followed by reloading the application to reflect the changes.
+ *
+ * @param string $alias The alias to be edited.
+ * @return string The action string for editing an alias and reloading.
+ */
+public static function getActionEditAlias($alias)
+{
+    return TplApp::getActionRun(Action::EDIT_ALIAS, array($alias)) . PHP_EOL .
+        TplAppReload::getActionReload();
+}
 
-    public static function getActionEditAlias($alias)
-    {
-        return TplApp::getActionRun(Action::EDIT_ALIAS, array($alias)) . PHP_EOL .
-            TplAppReload::getActionReload();
-    }
+/**
+ * Generates the menu items and actions for managing Apache virtual hosts.
+ *
+ * This method constructs the menu items and corresponding actions for adding and editing
+ * Apache virtual hosts. It includes the option to add a new virtual host and dynamically
+ * generates menu items for each existing virtual host with the option to edit them.
+ *
+ * @global object $bearsamppLang The language object for localization.
+ * @global object $bearsamppBins The bins object containing application components.
+ * @return string The generated menu items and actions for Apache virtual hosts.
+ */
+public static function getMenuApacheVhosts()
+{
+    global $bearsamppLang, $bearsamppBins;
 
-    public static function getMenuApacheVhosts()
-    {
-        global $bearsamppLang, $bearsamppBins;
+    $tplAddVhost = TplApp::getActionMulti(
+        self::ACTION_ADD_VHOST, null,
+        array($bearsamppLang->getValue(Lang::MENU_ADD_VHOST), TplAestan::GLYPH_ADD),
+        false, get_called_class()
+    );
 
-        $tplAddVhost = TplApp::getActionMulti(
-            self::ACTION_ADD_VHOST, null,
-            array($bearsamppLang->getValue(Lang::MENU_ADD_VHOST), TplAestan::GLYPH_ADD),
+    // Items
+    $items = $tplAddVhost[TplApp::SECTION_CALL] . PHP_EOL .
+    TplAestan::getItemSeparator() . PHP_EOL;
+
+    // Actions
+    $actions = PHP_EOL . $tplAddVhost[TplApp::SECTION_CONTENT];
+
+    foreach ($bearsamppBins->getApache()->getVhosts() as $vhost) {
+        $tplEditVhost = TplApp::getActionMulti(
+            self::ACTION_EDIT_VHOST, array($vhost),
+            array(sprintf($bearsamppLang->getValue(Lang::MENU_EDIT_VHOST), $vhost), TplAestan::GLYPH_FILE),
             false, get_called_class()
         );
 
         // Items
-        $items = $tplAddVhost[TplApp::SECTION_CALL] . PHP_EOL .
-        TplAestan::getItemSeparator() . PHP_EOL;
+        $items .= $tplEditVhost[TplApp::SECTION_CALL] . PHP_EOL;
 
         // Actions
-        $actions = PHP_EOL . $tplAddVhost[TplApp::SECTION_CONTENT];
-
-        foreach ($bearsamppBins->getApache()->getVhosts() as $vhost) {
-            $tplEditVhost = TplApp::getActionMulti(
-                self::ACTION_EDIT_VHOST, array($vhost),
-                array(sprintf($bearsamppLang->getValue(Lang::MENU_EDIT_VHOST), $vhost), TplAestan::GLYPH_FILE),
-                false, get_called_class()
-            );
-
-            // Items
-            $items .= $tplEditVhost[TplApp::SECTION_CALL] . PHP_EOL;
-
-            // Actions
-            $actions .= PHP_EOL . PHP_EOL . $tplEditVhost[TplApp::SECTION_CONTENT];
-        }
-
-        return $items . $actions;
+        $actions .= PHP_EOL . PHP_EOL . $tplEditVhost[TplApp::SECTION_CONTENT];
     }
 
-    public static function getActionAddVhost()
-    {
-        return TplApp::getActionRun(Action::ADD_VHOST) . PHP_EOL .
-        TplAppReload::getActionReload();
-    }
+    return $items . $actions;
+}
 
-    public static function getActionEditVhost($vhost)
-    {
-        return TplApp::getActionRun(Action::EDIT_VHOST, array($vhost)) . PHP_EOL .
-        TplAppReload::getActionReload();
-    }
+/**
+ * Generates the action string for adding a virtual host and reloading the application.
+ *
+ * This method constructs a string that represents the action of adding a virtual host
+ * followed by reloading the application to reflect the changes.
+ *
+ * @return string The action string for adding a virtual host and reloading.
+ */
+public static function getActionAddVhost()
+{
+    return TplApp::getActionRun(Action::ADD_VHOST) . PHP_EOL .
+    TplAppReload::getActionReload();
+}
+
+/**
+ * Generates the action string for editing a virtual host and reloading the application.
+ *
+ * This method constructs a string that represents the action of editing a virtual host
+ * followed by reloading the application to reflect the changes.
+ *
+ * @param string $vhost The virtual host to be edited.
+ * @return string The action string for editing a virtual host and reloading.
+ */
+public static function getActionEditVhost($vhost)
+{
+    return TplApp::getActionRun(Action::EDIT_VHOST, array($vhost)) . PHP_EOL .
+    TplAppReload::getActionReload();
+}
 }
