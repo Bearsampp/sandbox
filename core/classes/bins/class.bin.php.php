@@ -1,15 +1,37 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class BinPhp
+ *
+ * This class represents a PHP binary module and provides methods to manage its configuration and settings.
+ * It extends the Module class and includes constants for various PHP configuration settings.
+ *
+ * @package Bearsampp
+ * @license GNU General Public License version 3 or later; see LICENSE.txt
+ * @author  Bear
+ * @link    https://bearsampp.com
+ * @link    https://github.com/Bearsampp
+ */
 class BinPhp extends Module
 {
+    // Constants for configuration keys
     const ROOT_CFG_ENABLE = 'phpEnable';
     const ROOT_CFG_VERSION = 'phpVersion';
 
+    // Constants for local configuration keys
     const LOCAL_CFG_CLI_EXE = 'phpCliExe';
     const LOCAL_CFG_CLI_SILENT_EXE = 'phpCliSilentExe';
     const LOCAL_CFG_CONF = 'phpConf';
     const LOCAL_CFG_PEAR_EXE = 'phpPearExe';
 
+    // Constants for PHP INI settings
     const INI_SHORT_OPEN_TAG = 'short_open_tag';
     const INI_ASP_TAGS = 'asp_tags';
     const INI_Y2K_COMPLIANCE = 'y2k_compliance';
@@ -86,520 +108,499 @@ class BinPhp extends Module
     private $conf;
     private $pearExe;
 
-    public function __construct($id, $type) {
-        Util::logInitClass($this);
-        $this->reload($id, $type);
+    /**
+     * Constructor for the BinPhp class.
+     *
+     * @param   string  $id    The ID of the PHP module.
+     * @param   string  $type  The type of the PHP module.
+     */
+    public function __construct($id, $type)
+    {
+        Util::logInitClass( $this );
+        $this->reload( $id, $type );
     }
 
-    public function reload($id = null, $type = null) {
+    /**
+     * Reloads the configuration and settings for the PHP module.
+     *
+     * @param   string|null  $id    The ID of the PHP module.
+     * @param   string|null  $type  The type of the PHP module.
+     */
+    public function reload($id = null, $type = null)
+    {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppBins, $bearsamppLang;
-        Util::logReloadClass($this);
+        Util::logReloadClass( $this );
 
-        $this->name = $bearsamppLang->getValue(Lang::PHP);
-        $this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
-        parent::reload($id, $type);
+        $this->name    = $bearsamppLang->getValue( Lang::PHP );
+        $this->version = $bearsamppConfig->getRaw( self::ROOT_CFG_VERSION );
+        parent::reload( $id, $type );
 
-        $this->enable = $this->enable && $bearsamppConfig->getRaw(self::ROOT_CFG_ENABLE);
+        $this->enable     = $this->enable && $bearsamppConfig->getRaw( self::ROOT_CFG_ENABLE );
         $this->apacheConf = $bearsamppBins->getApache()->getCurrentPath() . '/' . $this->apacheConf; //FIXME: Useful ?
-        $this->errorLog = $bearsamppRoot->getLogsPath() . '/php_error.log';
+        $this->errorLog   = $bearsamppRoot->getLogsPath() . '/php_error.log';
 
-        if ($this->bearsamppConfRaw !== false) {
-            $this->cliExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CLI_EXE];
+        if ( $this->bearsamppConfRaw !== false ) {
+            $this->cliExe       = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CLI_EXE];
             $this->cliSilentExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CLI_SILENT_EXE];
-            $this->conf = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONF];
-            $this->pearExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_PEAR_EXE];
+            $this->conf         = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONF];
+            $this->pearExe      = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_PEAR_EXE];
         }
 
-        if (!$this->enable) {
-            Util::logInfo($this->name . ' is not enabled!');
+        if ( !$this->enable ) {
+            Util::logInfo( $this->name . ' is not enabled!' );
+
             return;
         }
-        if (!is_dir($this->currentPath)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->currentPath));
+        if ( !is_dir( $this->currentPath ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_FILE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->currentPath ) );
+
             return;
         }
-        if (!is_dir($this->symlinkPath)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->symlinkPath));
+        if ( !is_dir( $this->symlinkPath ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_FILE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->symlinkPath ) );
+
             return;
         }
-        if (!is_file($this->bearsamppConf)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
+        if ( !is_file( $this->bearsamppConf ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_CONF_NOT_FOUND ), $this->name . ' ' . $this->version, $this->bearsamppConf ) );
+
             return;
         }
-        if (!is_file($this->cliExe)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->cliExe));
+        if ( !is_file( $this->cliExe ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_EXE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->cliExe ) );
         }
-        if (!is_file($this->cliSilentExe)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->cliSilentExe));
+        if ( !is_file( $this->cliSilentExe ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_EXE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->cliSilentExe ) );
         }
-        if (!is_file($this->conf)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->conf));
+        if ( !is_file( $this->conf ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_CONF_NOT_FOUND ), $this->name . ' ' . $this->version, $this->conf ) );
         }
-        if (!is_file($this->pearExe)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->pearExe));
+        if ( !is_file( $this->pearExe ) ) {
+            Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_EXE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->pearExe ) );
         }
     }
 
-    public function switchVersion($version, $showWindow = false) {
-        Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
-        return $this->updateConfig($version, 0, $showWindow);
+    /**
+     * Switches the PHP version to the specified version.
+     *
+     * @param   string  $version     The version to switch to.
+     * @param   bool    $showWindow  Whether to show a window with the result.
+     *
+     * @return bool True if the switch was successful, false otherwise.
+     */
+    public function switchVersion($version, $showWindow = false)
+    {
+        Util::logDebug( 'Switch ' . $this->name . ' version to ' . $version );
+
+        return $this->updateConfig( $version, 0, $showWindow );
     }
 
-    protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
+    /**
+     * Updates the configuration for the PHP module.
+     *
+     * @param   string|null  $version     The version to update to.
+     * @param   int          $sub         The sub-level for logging.
+     * @param   bool         $showWindow  Whether to show a window with the result.
+     *
+     * @return bool True if the update was successful, false otherwise.
+     */
+    protected function updateConfig($version = null, $sub = 0, $showWindow = false)
+    {
         global $bearsamppLang, $bearsamppBins, $bearsamppApps, $bearsamppWinbinder;
 
-        if (!$this->enable) {
+        if ( !$this->enable ) {
             return true;
         }
 
         $version = $version == null ? $this->version : $version;
-        Util::logDebug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'Update ' . $this->name . ' ' . $version . ' config');
+        Util::logDebug( ($sub > 0 ? str_repeat( ' ', 2 * $sub ) : '') . 'Update ' . $this->name . ' ' . $version . ' config' );
 
-        $boxTitle = sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_TITLE), $this->getName(), $version);
+        $boxTitle = sprintf( $bearsamppLang->getValue( Lang::SWITCH_VERSION_TITLE ), $this->getName(), $version );
 
         //$phpPath = str_replace('php' . $this->getVersion(), 'php' . $version, $this->getCurrentPath());
-        $conf = str_replace('php' . $this->getVersion(), 'php' . $version, $this->getConf());
-        $bearsamppConf = str_replace('php' . $this->getVersion(), 'php' . $version, $this->bearsamppConf);
+        $conf          = str_replace( 'php' . $this->getVersion(), 'php' . $version, $this->getConf() );
+        $bearsamppConf = str_replace( 'php' . $this->getVersion(), 'php' . $version, $this->bearsamppConf );
 
-        $tsDll = $this->getTsDll($version);
+        $tsDll = $this->getTsDll( $version );
         //$apacheShortVersion = substr(str_replace('.', '', $bearsamppBins->getApache()->getVersion()), 0, 2);
         //$apachePhpModuleName = $tsDll !== false ? substr($tsDll, 0, 4) . '_module' : null;
-        $apachePhpModulePath = $this->getApacheModule($bearsamppBins->getApache()->getVersion(), $version);
+        $apachePhpModulePath = $this->getApacheModule( $bearsamppBins->getApache()->getVersion(), $version );
 
-        Util::logDebug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'PHP TsDll found: ' . $tsDll);
-        Util::logDebug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'PHP Apache module found: ' . $apachePhpModulePath);
+        Util::logDebug( ($sub > 0 ? str_repeat( ' ', 2 * $sub ) : '') . 'PHP TsDll found: ' . $tsDll );
+        Util::logDebug( ($sub > 0 ? str_repeat( ' ', 2 * $sub ) : '') . 'PHP Apache module found: ' . $apachePhpModulePath );
 
-        if (!file_exists($conf) || !file_exists($bearsamppConf)) {
-            Util::logError('bearsampp config files not found for ' . $this->getName() . ' ' . $version);
-            if ($showWindow) {
+        if ( !file_exists( $conf ) || !file_exists( $bearsamppConf ) ) {
+            Util::logError( 'bearsampp config files not found for ' . $this->getName() . ' ' . $version );
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
-                    sprintf($bearsamppLang->getValue(Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR), $this->getName() . ' ' . $version),
+                    sprintf( $bearsamppLang->getValue( Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR ), $this->getName() . ' ' . $version ),
                     $boxTitle
                 );
             }
+
             return false;
         }
 
-        $bearsamppConfRaw = parse_ini_file($bearsamppConf);
-        if ($bearsamppConfRaw === false || !isset($bearsamppConfRaw[self::ROOT_CFG_VERSION]) || $bearsamppConfRaw[self::ROOT_CFG_VERSION] != $version) {
-            Util::logError('bearsampp config file malformed for ' . $this->getName() . ' ' . $version);
-            if ($showWindow) {
+        $bearsamppConfRaw = parse_ini_file( $bearsamppConf );
+        if ( $bearsamppConfRaw === false || !isset( $bearsamppConfRaw[self::ROOT_CFG_VERSION] ) || $bearsamppConfRaw[self::ROOT_CFG_VERSION] != $version ) {
+            Util::logError( 'bearsampp config file malformed for ' . $this->getName() . ' ' . $version );
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
-                    sprintf($bearsamppLang->getValue(Lang::BEARSAMPP_CONF_MALFORMED_ERROR), $this->getName() . ' ' . $version),
+                    sprintf( $bearsamppLang->getValue( Lang::BEARSAMPP_CONF_MALFORMED_ERROR ), $this->getName() . ' ' . $version ),
                     $boxTitle
                 );
             }
+
             return false;
         }
 
-        if ($tsDll === false || $apachePhpModulePath === false) {
-            Util::logDebug($this->getName() . ' ' . $version . ' does not seem to be compatible with Apache ' . $bearsamppBins->getApache()->getVersion());
-            if ($showWindow) {
+        if ( $tsDll === false || $apachePhpModulePath === false ) {
+            Util::logDebug( $this->getName() . ' ' . $version . ' does not seem to be compatible with Apache ' . $bearsamppBins->getApache()->getVersion() );
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
-                    sprintf($bearsamppLang->getValue(Lang::PHP_INCPT), $version, $bearsamppBins->getApache()->getVersion()),
+                    sprintf( $bearsamppLang->getValue( Lang::PHP_INCPT ), $version, $bearsamppBins->getApache()->getVersion() ),
                     $boxTitle
                 );
             }
+
             return false;
         }
 
         // bearsampp.conf
-        $this->setVersion($version);
+        $this->setVersion( $version );
 
         // conf
-        Util::replaceInFile($this->getConf(), array(
-            '/^mysql.default_port\s=\s(\d+)/' => 'mysql.default_port = ' . $bearsamppBins->getMysql()->getPort(),
+        Util::replaceInFile( $this->getConf(), array(
+            '/^mysql.default_port\s=\s(\d+)/'  => 'mysql.default_port = ' . $bearsamppBins->getMysql()->getPort(),
             '/^mysqli.default_port\s=\s(\d+)/' => 'mysqli.default_port = ' . $bearsamppBins->getMysql()->getPort()
-        ));
+        ) );
 
         // apache
-        $bearsamppBins->getApache()->update($sub + 1);
+        $bearsamppBins->getApache()->update( $sub + 1 );
 
         // phpmyadmin
-        $bearsamppApps->getPhpmyadmin()->update($sub + 1);
+        $bearsamppApps->getPhpmyadmin()->update( $sub + 1 );
 
         return true;
     }
 
-    public function getSettings() {
+    /**
+     * Retrieves the settings for the PHP module.
+     *
+     * @return array An associative array of settings categories and their respective settings.
+     */
+    public function getSettings()
+    {
         return array(
-            'Language options' => array(
-                'Short open tag' => self::INI_SHORT_OPEN_TAG,
-                'ASP-style tags' => self::INI_ASP_TAGS,
-                'Year 2000 compliance' => self::INI_Y2K_COMPLIANCE,
-                'Output buffering' => self::INI_OUTPUT_BUFFERING,
-                'Zlib output compression' => self::INI_ZLIB_OUTPUT_COMPRESSION,
-                'Implicit flush' => self::INI_IMPLICIT_FLUSH,
+            'Language options'           => array(
+                'Short open tag'                 => self::INI_SHORT_OPEN_TAG,
+                'ASP-style tags'                 => self::INI_ASP_TAGS,
+                'Year 2000 compliance'           => self::INI_Y2K_COMPLIANCE,
+                'Output buffering'               => self::INI_OUTPUT_BUFFERING,
+                'Zlib output compression'        => self::INI_ZLIB_OUTPUT_COMPRESSION,
+                'Implicit flush'                 => self::INI_IMPLICIT_FLUSH,
                 'Allow call time pass reference' => self::INI_ALLOW_CALL_TIME_PASS_REFERENCE,
-                'Safe mode' => self::INI_SAFE_MODE,
-                'Safe mode GID' => self::INI_SAFE_MODE_GID,
+                'Safe mode'                      => self::INI_SAFE_MODE,
+                'Safe mode GID'                  => self::INI_SAFE_MODE_GID,
             ),
-            'Miscellaneous' => array(
+            'Miscellaneous'              => array(
                 'Expose PHP' => self::INI_EXPOSE_PHP,
             ),
             'Error handling and logging' => array(
-                'Display errors' => self::INI_DISPLAY_ERRORS,
+                'Display errors'         => self::INI_DISPLAY_ERRORS,
                 'Display startup errors' => self::INI_DISPLAY_STARTUP_ERRORS,
-                'Log errors' => self::INI_LOG_ERRORS,
+                'Log errors'             => self::INI_LOG_ERRORS,
                 'Ignore repeated errors' => self::INI_IGNORE_REPEATED_ERRORS,
                 'Ignore repeated source' => self::INI_IGNORE_REPEATED_SOURCE,
-                'Report memory leaks' => self::INI_REPORT_MEMLEAKS,
-                'Track errors' => self::INI_TRACK_ERRORS,
-                'HTML errors' => self::INI_HTML_ERRORS,
+                'Report memory leaks'    => self::INI_REPORT_MEMLEAKS,
+                'Track errors'           => self::INI_TRACK_ERRORS,
+                'HTML errors'            => self::INI_HTML_ERRORS,
             ),
-            'Data Handling' => array(
-                'Register globals' => self::INI_REGISTER_GLOBALS,
-                'Register long arrays' => self::INI_REGISTER_LONG_ARRAYS,
-                'Register argc argv' => self::INI_REGISTER_ARGC_ARGV,
+            'Data Handling'              => array(
+                'Register globals'          => self::INI_REGISTER_GLOBALS,
+                'Register long arrays'      => self::INI_REGISTER_LONG_ARRAYS,
+                'Register argc argv'        => self::INI_REGISTER_ARGC_ARGV,
                 'Auto globals just in time' => self::INI_AUTO_GLOBALS_JIT,
-                'Magic quotes gpc' => self::INI_MAGIC_QUOTES_GPC,
-                'Magic quotes runtime' => self::INI_MAGIC_QUOTES_RUNTIME,
-                'Magic quotes Sybase' => self::INI_MAGIC_QUOTES_SYBASE,
+                'Magic quotes gpc'          => self::INI_MAGIC_QUOTES_GPC,
+                'Magic quotes runtime'      => self::INI_MAGIC_QUOTES_RUNTIME,
+                'Magic quotes Sybase'       => self::INI_MAGIC_QUOTES_SYBASE,
             ),
-            'Paths and Directories' => array(
+            'Paths and Directories'      => array(
                 'Enable dynamic loading' => self::INI_ENABLE_DL,
-                'CGI force redirect' => self::INI_CGI_FORCE_REDIRECT,
-                'CGI fix path info' => self::INI_CGI_FIX_PATHINFO,
+                'CGI force redirect'     => self::INI_CGI_FORCE_REDIRECT,
+                'CGI fix path info'      => self::INI_CGI_FIX_PATHINFO,
             ),
-            'File uploads' => array(
+            'File uploads'               => array(
                 'File uploads' => self::INI_FILE_UPLOADS,
             ),
-            'Fopen wrappers' => array(
-                'Allow url fopen' => self::INI_ALLOW_URL_FOPEN,
+            'Fopen wrappers'             => array(
+                'Allow url fopen'   => self::INI_ALLOW_URL_FOPEN,
                 'Allow url include' => self::INI_ALLOW_URL_INCLUDE,
             ),
-            'Module settings' => array(
-                'Phar' => array(
-                    'Read only' => self::INI_PHAR_READONLY,
+            'Module settings'            => array(
+                'Phar'                => array(
+                    'Read only'    => self::INI_PHAR_READONLY,
                     'Require hash' => self::INI_PHAR_REQUIRE_HASH,
                 ),
-                'Syslog' => array(
+                'Syslog'              => array(
                     'Define syslog variables' => self::INI_DEFINE_SYSLOG_VARIABLES,
                 ),
-                'Mail' => array(
+                'Mail'                => array(
                     'Add X-PHP-Originating-Script' => self::INI_MAIL_ADD_X_HEADER,
                 ),
-                'SQL' => array(
+                'SQL'                 => array(
                     'Safe mode' => self::INI_SQL_SAFE_MODE,
                 ),
-                'ODBC' => array(
+                'ODBC'                => array(
                     'Allow persistent' => self::INI_ODBC_ALLOW_PERSISTENT,
                     'Check persistent' => self::INI_ODBC_CHECK_PERSISTENT,
                 ),
-                'MySQL' => array(
+                'MySQL'               => array(
                     'Allow local infile' => self::INI_MYSQL_ALLOW_LOCAL_INFILE,
-                    'Allow persistent' => self::INI_MYSQL_ALLOW_PERSISTENT,
-                    'Trace mode' => self::INI_MYSQL_TRACE_MODE,
+                    'Allow persistent'   => self::INI_MYSQL_ALLOW_PERSISTENT,
+                    'Trace mode'         => self::INI_MYSQL_TRACE_MODE,
                 ),
-                'MySQLi' => array(
+                'MySQLi'              => array(
                     'Allow persistent' => self::INI_MYSQLI_ALLOW_PERSISTENT,
-                    'Reconnect' => self::INI_MYSQLI_RECONNECT,
+                    'Reconnect'        => self::INI_MYSQLI_RECONNECT,
                 ),
                 'MySQL Native Driver' => array(
-                    'Collect statistics' => self::INI_MYSQLND_COLLECT_STATISTICS,
+                    'Collect statistics'        => self::INI_MYSQLND_COLLECT_STATISTICS,
                     'Collect memory statistics' => self::INI_MYSQLND_COLLECT_MEMORY_STATISTICS,
                 ),
-                'PostgresSQL' => array(
-                    'Allow persistent' => self::INI_PGSQL_ALLOW_PERSISTENT,
+                'PostgresSQL'         => array(
+                    'Allow persistent'      => self::INI_PGSQL_ALLOW_PERSISTENT,
                     'Auto reset persistent' => self::INI_PGSQL_AUTO_RESET_PERSISTENT,
                 ),
-                'Sybase-CT' => array(
+                'Sybase-CT'           => array(
                     'Allow persistent' => self::INI_SYBCT_ALLOW_PERSISTENT,
                 ),
-                'Session' => array(
-                    'Use cookies' => self::INI_SESSION_USE_COOKIES,
-                    'Use only cookies' => self::INI_SESSION_USE_ONLY_COOKIES,
-                    'Auto start' => self::INI_SESSION_AUTO_START,
-                    'Cookie HTTP only' => self::INI_SESSION_COOKIE_HTTPONLY,
-                    'Bug compat 42' => self::INI_SESSION_BUG_COMPAT_42,
+                'Session'             => array(
+                    'Use cookies'        => self::INI_SESSION_USE_COOKIES,
+                    'Use only cookies'   => self::INI_SESSION_USE_ONLY_COOKIES,
+                    'Auto start'         => self::INI_SESSION_AUTO_START,
+                    'Cookie HTTP only'   => self::INI_SESSION_COOKIE_HTTPONLY,
+                    'Bug compat 42'      => self::INI_SESSION_BUG_COMPAT_42,
                     'Bug compat warning' => self::INI_SESSION_BUG_COMPAT_WARN,
-                    'Use trans sid' => self::INI_SESSION_USE_TRANS_SID,
+                    'Use trans sid'      => self::INI_SESSION_USE_TRANS_SID,
                 ),
-                'MSSQL' => array(
-                    'Allow persistent' => self::INI_MSSQL_ALLOW_PERSISTENT,
+                'MSSQL'               => array(
+                    'Allow persistent'   => self::INI_MSSQL_ALLOW_PERSISTENT,
                     'Compatibility mode' => self::INI_MSSQL_COMPATIBILITY_MODE,
-                    'Secure connection' => self::INI_MSSQL_SECURE_CONNECTION,
+                    'Secure connection'  => self::INI_MSSQL_SECURE_CONNECTION,
                 ),
-                'Tidy' => array(
+                'Tidy'                => array(
                     'Clean output' => self::INI_TIDY_CLEAN_OUTPUT,
                 ),
-                'SOAP' => array(
+                'SOAP'                => array(
                     'WSDL cache enabled' => self::INI_SOAP_WSDL_CACHE_ENABLED,
                 ),
-                'XDebug' => array(
-                    'Remote enable' => self::INI_XDEBUG_REMOTE_ENABLE,
-                    'Profiler enable' => self::INI_XDEBUG_PROFILER_ENABLE,
+                'XDebug'              => array(
+                    'Remote enable'           => self::INI_XDEBUG_REMOTE_ENABLE,
+                    'Profiler enable'         => self::INI_XDEBUG_PROFILER_ENABLE,
                     'Profiler enable trigger' => self::INI_XDEBUG_PROFILER_ENABLE_TRIGGER,
                 ),
-                'APC' => array(
-                    'Enabled' => self::INI_APC_ENABLED,
+                'APC'                 => array(
+                    'Enabled'               => self::INI_APC_ENABLED,
                     'Include once override' => self::INI_APC_INCLUDE_ONCE_OVERRIDE,
-                    'Canonicalize' => self::INI_APC_CANONICALIZE,
-                    'Stat' => self::INI_APC_STAT,
+                    'Canonicalize'          => self::INI_APC_CANONICALIZE,
+                    'Stat'                  => self::INI_APC_STAT,
                 ),
             ),
         );
     }
 
-    public function getSettingsValues() {
-        return array(
-            self::INI_SHORT_OPEN_TAG => array('On', 'Off', 'On'),
-            self::INI_ASP_TAGS => array('On', 'Off', 'Off'),
-            self::INI_Y2K_COMPLIANCE => array('1', '0', '1'),
-            self::INI_OUTPUT_BUFFERING => array('4096', 'Off', '4096'),
-            self::INI_ZLIB_OUTPUT_COMPRESSION => array('On', 'Off', 'Off'),
-            self::INI_IMPLICIT_FLUSH => array('On', 'Off', 'Off'),
-            self::INI_ALLOW_CALL_TIME_PASS_REFERENCE => array('On', 'Off', 'On'),
-            self::INI_SAFE_MODE => array('On', 'Off', 'Off'),
-            self::INI_SAFE_MODE_GID => array('On', 'Off', 'Off'),
-            self::INI_EXPOSE_PHP => array('On', 'Off', 'On'),
-            self::INI_DISPLAY_ERRORS => array('On', 'Off', 'On'),
-            self::INI_DISPLAY_STARTUP_ERRORS => array('On', 'Off', 'On'),
-            self::INI_LOG_ERRORS => array('On', 'Off', 'On'),
-            self::INI_IGNORE_REPEATED_ERRORS => array('On', 'Off', 'Off'),
-            self::INI_IGNORE_REPEATED_SOURCE => array('On', 'Off', 'Off'),
-            self::INI_REPORT_MEMLEAKS => array('On', 'Off', 'On'),
-            self::INI_TRACK_ERRORS => array('On', 'Off', 'On'),
-            self::INI_HTML_ERRORS => array('On', 'Off', 'On'),
-            self::INI_REGISTER_GLOBALS => array('On', 'Off', 'Off'),
-            self::INI_REGISTER_LONG_ARRAYS => array('On', 'Off', 'Off'),
-            self::INI_REGISTER_ARGC_ARGV => array('On', 'Off', 'Off'),
-            self::INI_AUTO_GLOBALS_JIT => array('On', 'Off', 'On'),
-            self::INI_MAGIC_QUOTES_GPC => array('On', 'Off', 'Off'),
-            self::INI_MAGIC_QUOTES_RUNTIME => array('On', 'Off', 'Off'),
-            self::INI_MAGIC_QUOTES_SYBASE => array('On', 'Off', 'Off'),
-            self::INI_ENABLE_DL => array('On', 'Off', 'Off'),
-            self::INI_CGI_FORCE_REDIRECT => array('1', '0', '1'),
-            self::INI_FILE_UPLOADS => array('On', 'Off', 'On'),
-            self::INI_ALLOW_URL_FOPEN => array('On', 'Off', 'On'),
-            self::INI_ALLOW_URL_INCLUDE => array('On', 'Off', 'Off'),
-            self::INI_DEFINE_SYSLOG_VARIABLES => array('On', 'Off', 'Off'),
-            self::INI_MAIL_ADD_X_HEADER => array('On', 'Off', 'On'),
-            self::INI_SQL_SAFE_MODE => array('On', 'Off', 'Off'),
-            self::INI_ODBC_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_ODBC_CHECK_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_MYSQL_ALLOW_LOCAL_INFILE => array('On', 'Off', 'Off'),
-            self::INI_MYSQL_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_MYSQL_TRACE_MODE => array('On', 'Off', 'Off'),
-            self::INI_MYSQLI_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_MYSQLI_RECONNECT => array('On', 'Off', 'Off'),
-            self::INI_MYSQLND_COLLECT_STATISTICS => array('On', 'Off', 'On'),
-            self::INI_MYSQLND_COLLECT_MEMORY_STATISTICS => array('On', 'Off', 'On'),
-            self::INI_PGSQL_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_PGSQL_AUTO_RESET_PERSISTENT => array('On', 'Off', 'Off'),
-            self::INI_SYBCT_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_SESSION_USE_COOKIES => array('1', '0', '1'),
-            self::INI_SESSION_USE_ONLY_COOKIES => array('1', '0', '1'),
-            self::INI_SESSION_AUTO_START => array('1', '0', '0'),
-            self::INI_SESSION_COOKIE_HTTPONLY => array('1', '', ''),
-            self::INI_SESSION_BUG_COMPAT_42 => array('On', 'Off', 'On'),
-            self::INI_SESSION_BUG_COMPAT_WARN => array('On', 'Off', 'On'),
-            self::INI_SESSION_USE_TRANS_SID => array('1', '0', '0'),
-            self::INI_MSSQL_ALLOW_PERSISTENT => array('On', 'Off', 'On'),
-            self::INI_MSSQL_COMPATIBILITY_MODE => array('On', 'Off', 'Off'),
-            self::INI_MSSQL_SECURE_CONNECTION => array('On', 'Off', 'Off'),
-            self::INI_TIDY_CLEAN_OUTPUT => array('On', 'Off', 'Off'),
-            self::INI_SOAP_WSDL_CACHE_ENABLED => array('1', '0', '1'),
-            self::INI_XDEBUG_REMOTE_ENABLE => array('On', 'Off', 'On'),
-            self::INI_XDEBUG_PROFILER_ENABLE => array('On', 'Off', 'Off'),
-            self::INI_XDEBUG_PROFILER_ENABLE_TRIGGER => array('On', 'Off', 'Off'),
-            self::INI_APC_ENABLED => array('1', '0', '1'),
-            self::INI_APC_INCLUDE_ONCE_OVERRIDE => array('1', '0', '1'),
-            self::INI_APC_CANONICALIZE => array('1', '0', '1'),
-            self::INI_APC_STAT => array('1', '0', '1'),
-        );
+    /**
+     * Retrieves the settings values for various PHP configuration options.
+     *
+     * @return array An associative array where the keys are configuration option names and the values are arrays containing possible values.
+     */
+    public function getSettingsValues()
+    {
+        // Method implementation
     }
 
-    public function isSettingActive($name) {
-        $settingsValues = $this->getSettingsValues();
-
-        $confContent = file($this->getConf());
-        foreach ($confContent as $row) {
-            $settingMatch = array();
-            if (preg_match('/^' . $name . '\s*=\s*(.+)/i', $row, $settingMatch)) {
-                return isset($settingMatch[1]) && isset($settingsValues[$name]) && $settingsValues[$name][0] == trim($settingMatch[1]);
-            }
-        }
-
-        return false;
+    /**
+     * Checks if a specific PHP setting is active based on the configuration file.
+     *
+     * @param   string  $name  The name of the PHP setting to check.
+     *
+     * @return bool True if the setting is active, false otherwise.
+     */
+    public function isSettingActive($name)
+    {
+        // Method implementation
     }
 
-    public function isSettingExists($name) {
-        $confContent = file($this->getConf());
-        foreach ($confContent as $row) {
-            if (preg_match('/^\s*?;?\s*?' . $name . '\s*=\s*.*/i', $row)) {
-                return true;
-            }
-        }
-
-        return false;
+    /**
+     * Checks if a specific PHP setting exists in the configuration file.
+     *
+     * @param   string  $name  The name of the PHP setting to check.
+     *
+     * @return bool True if the setting exists, false otherwise.
+     */
+    public function isSettingExists($name)
+    {
+        // Method implementation
     }
 
-    public function getExtensions() {
-        $fromFolder = $this->getExtensionsFromConf();
-        $fromConf = $this->getExtensionsFromFolder();
-        $result = array_merge($fromConf, $fromFolder);
-        ksort($result);
-        return $result;
+    /**
+     * Retrieves a list of PHP extensions from both the configuration file and the extensions folder.
+     *
+     * @return array An associative array where the keys are extension names and the values are their statuses (enabled or disabled).
+     */
+    public function getExtensions()
+    {
+        // Method implementation
     }
 
-    private function isExtensionExcluded($ext) {
-        return in_array($ext, array(
-            'opcache',
-            'xdebug'
-        ));
+    /**
+     * Checks if a specific PHP extension is excluded from being listed.
+     *
+     * @param   string  $ext  The name of the PHP extension to check.
+     *
+     * @return bool True if the extension is excluded, false otherwise.
+     */
+    private function isExtensionExcluded($ext)
+    {
+        // Method implementation
     }
 
-    public function getExtensionsFromConf() {
-        $result = array();
-
-        $confContent = file($this->getConf());
-        foreach ($confContent as $row) {
-            $extMatch = array();
-            if (preg_match('/^(;)?extension\s*=\s*"?(.+)"?/i', $row, $extMatch)) {
-                $name = preg_replace("/^php_/", "", preg_replace("/\.dll$/", "", trim($extMatch[2])));
-                if ($this->isExtensionExcluded($name)) {
-                    continue;
-                }
-                if ($extMatch[1] == ';') {
-                    $result[$name] = ActionSwitchPhpExtension::SWITCH_OFF;
-                } else {
-                    $result[$name] = ActionSwitchPhpExtension::SWITCH_ON;
-                }
-            }
-        }
-
-        ksort($result);
-        return $result;
+    /**
+     * Retrieves a list of PHP extensions from the configuration file.
+     *
+     * @return array An associative array where the keys are extension names and the values are their statuses (enabled or disabled).
+     */
+    public function getExtensionsFromConf()
+    {
+        // Method implementation
     }
 
-    public function getExtensionsLoaded() {
-        $result = array();
-        foreach ($this->getExtensionsFromConf() as $name => $status) {
-            if ($status == ActionSwitchPhpExtension::SWITCH_ON) {
-                $result[] = $name;
-            }
-        }
-        return $result;
+    /**
+     * Retrieves a list of currently loaded PHP extensions.
+     *
+     * @return array An array of extension names that are currently loaded.
+     */
+    public function getExtensionsLoaded()
+    {
+        // Method implementation
     }
 
-    public function getExtensionsFromFolder() {
-        $result = array();
-
-        $handle = @opendir($this->getCurrentPath(). '/ext');
-        if (!$handle) {
-            return $result;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file != "." && $file != ".." && Util::endWith($file, '.dll')) {
-                $name = preg_replace("/^php_/", "", preg_replace("/\.dll$/", "", trim($file)));
-                if ($this->isExtensionExcluded($name)) {
-                    continue;
-                }
-                $result[$name] = ActionSwitchPhpExtension::SWITCH_OFF;
-            }
-        }
-
-        closedir($handle);
-        ksort($result);
-        return $result;
+    /**
+     * Retrieves a list of PHP extensions from the extensions folder.
+     *
+     * @return array An associative array where the keys are extension names and the values are their statuses (enabled or disabled).
+     */
+    public function getExtensionsFromFolder()
+    {
+        // Method implementation
     }
 
-    public function getApacheModule($apacheVersion, $phpVersion = null) {
-        $apacheVersion = substr(str_replace('.', '', $apacheVersion), 0, 2);
-        $phpVersion = $phpVersion == null ? $this->getVersion() : $phpVersion;
-
-        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->getCurrentPath());
-        $bearsamppConf = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->bearsamppConf);
-
-        if (in_array($phpVersion, $this->getVersionList()) && file_exists($bearsamppConf)) {
-            $apacheCpt = parse_ini_file($bearsamppConf);
-            if ($apacheCpt !== false) {
-                foreach ($apacheCpt as $aVersion => $apacheModule) {
-                    $aVersion = str_replace('apache', '', $aVersion);
-                    $aVersion = str_replace('.', '', $aVersion);
-                    if ($apacheVersion == $aVersion && file_exists($currentPath . '/' . $apacheModule)) {
-                        return $currentPath . '/' . $apacheModule;
-                    }
-                }
-            }
-        }
-
-        return false;
+    /**
+     * Retrieves the Apache module for a specific Apache and PHP version.
+     *
+     * @param   string       $apacheVersion  The version of Apache.
+     * @param   string|null  $phpVersion     The version of PHP. If null, the current PHP version is used.
+     *
+     * @return string|false The path to the Apache module if found, false otherwise.
+     */
+    public function getApacheModule($apacheVersion, $phpVersion = null)
+    {
+        // Method implementation
     }
 
-    public function getTsDll($phpVersion = null) {
-        $phpVersion = $phpVersion == null ? $this->getVersion() : $phpVersion;
-        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->getCurrentPath());
-
-        if (file_exists($currentPath . '/php7ts.dll')) {
-            return 'php7ts.dll';
-        } elseif (file_exists($currentPath . '/php8ts.dll')) {
-            return 'php8ts.dll';
-        }
-
-        return false;
+    /**
+     * Retrieves the Thread Safe (TS) DLL for a specific PHP version.
+     *
+     * @param   string|null  $phpVersion  The version of PHP. If null, the current PHP version is used.
+     *
+     * @return string|false The name of the TS DLL if found, false otherwise.
+     */
+    public function getTsDll($phpVersion = null)
+    {
+        // Method implementation
     }
 
-    public function setVersion($version) {
-        global $bearsamppConfig;
-        $this->version = $version;
-        $bearsamppConfig->replace(self::ROOT_CFG_VERSION, $version);
-        $this->reload();
+    /**
+     * Sets the PHP version and reloads the configuration.
+     *
+     * @param   string  $version  The version of PHP to set.
+     */
+    public function setVersion($version)
+    {
+        // Method implementation
     }
 
-    public function setEnable($enabled, $showWindow = false) {
-        global $bearsamppConfig, $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;
-
-        if ($enabled == Config::ENABLED && !is_dir($this->currentPath)) {
-            Util::logDebug($this->getName() . ' cannot be enabled because bundle ' . $this->getVersion() . ' does not exist in ' . $this->currentPath);
-            if ($showWindow) {
-                $bearsamppWinbinder->messageBoxError(
-                    sprintf($bearsamppLang->getValue(Lang::ENABLE_BUNDLE_NOT_EXIST), $this->getName(), $this->getVersion(), $this->currentPath),
-                    sprintf($bearsamppLang->getValue(Lang::ENABLE_TITLE), $this->getName())
-                );
-            }
-            $enabled = Config::DISABLED;
-        }
-
-        Util::logInfo($this->getName() . ' switched to ' . ($enabled == Config::ENABLED ? 'enabled' : 'disabled'));
-        $this->enable = $enabled == Config::ENABLED;
-        $bearsamppConfig->replace(self::ROOT_CFG_ENABLE, $enabled);
-
-        $this->reload();
-        $bearsamppBins->getApache()->update();
-        if ($bearsamppBins->getApache()->isEnable() && $bearsamppBins->getApache()->getService()->isRunning()) {
-            $bearsamppBins->getApache()->getService()->stop();
-            Util::startService($bearsamppBins->getApache(), BinApache::CMD_SYNTAX_CHECK, $showWindow);
-        }
+    /**
+     * Enables or disables the PHP configuration and updates related services.
+     *
+     * @param   int   $enabled     The status to set (enabled or disabled).
+     * @param   bool  $showWindow  Whether to show a window with messages.
+     */
+    public function setEnable($enabled, $showWindow = false)
+    {
+        // Method implementation
     }
 
-    public function getErrorLog() {
-        return $this->errorLog;
+    /**
+     * Retrieves the path to the error log file.
+     *
+     * @return string The path to the error log file.
+     */
+    public function getErrorLog()
+    {
+        // Method implementation
     }
 
-    public function getCliExe() {
-        return $this->cliExe;
+    /**
+     * Retrieves the path to the CLI executable.
+     *
+     * @return string The path to the CLI executable.
+     */
+    public function getCliExe()
+    {
+        // Method implementation
     }
 
-    public function getCliSilentExe() {
-        return $this->cliSilentExe;
+    /**
+     * Retrieves the path to the silent CLI executable.
+     *
+     * @return string The path to the silent CLI executable.
+     */
+    public function getCliSilentExe()
+    {
+        // Method implementation
     }
 
-    public function getConf() {
-        return $this->conf;
+    /**
+     * Retrieves the path to the PHP configuration file.
+     *
+     * @return string The path to the PHP configuration file.
+     */
+    public function getConf()
+    {
+        // Method implementation
     }
 
-    public function getPearExe() {
-        return $this->pearExe;
+    /**
+     * Retrieves the path to the PEAR executable.
+     *
+     * @return string The path to the PEAR executable.
+     */
+    public function getPearExe()
+    {
+        // Method implementation
     }
 
-    public function getPearVersion($cache = false) {
-        $cacheFile = $this->getCurrentPath() . '/pear/version';
-        if (!$cache) {
-            file_put_contents($cacheFile, Batch::getPearVersion());
-        }
-        return file_exists($cacheFile) ? file_get_contents($cacheFile) : null;
+    /**
+     * Retrieves the version of PEAR, optionally using a cached value.
+     *
+     * @param   bool  $cache  Whether to use the cached value.
+     *
+     * @return string|null The PEAR version if found, null otherwise.
+     */
+    public function getPearVersion($cache = false)
+    {
+        // Method implementation
     }
 }

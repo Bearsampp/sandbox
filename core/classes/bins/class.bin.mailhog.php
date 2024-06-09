@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class BinMailhog extends Module
 {
@@ -22,11 +29,23 @@ class BinMailhog extends Module
     private $smtpPort;
     private $mailPath;
 
+    /**
+     * Constructor for the BinMailhog class.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration and initializes the module.
+     *
+     * @param string|null $id The ID of the module.
+     * @param string|null $type The type of the module.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -91,6 +110,11 @@ class BinMailhog extends Module
         $this->service->setNssm($nssm);
     }
 
+    /**
+     * Replaces all configuration parameters in the bearsampp configuration file.
+     *
+     * @param array $params An associative array of configuration keys and their new values.
+     */
     protected function replaceAll($params) {
         $content = file_get_contents($this->bearsamppConf);
 
@@ -113,6 +137,11 @@ class BinMailhog extends Module
         file_put_contents($this->bearsamppConf, $content);
     }
 
+    /**
+     * Rebuilds the configuration in the Windows Registry.
+     *
+     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     */
     public function rebuildConf() {
         global $bearsamppRegistry;
 
@@ -133,6 +162,14 @@ class BinMailhog extends Module
         return false;
     }
 
+    /**
+     * Changes the SMTP port for Mailhog.
+     *
+     * @param int $port The new port number.
+     * @param bool $checkUsed Whether to check if the port is already in use.
+     * @param mixed $wbProgressBar The progress bar object for UI updates.
+     * @return bool True if the port was successfully changed, false otherwise.
+     */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null) {
         global $bearsamppWinbinder;
 
@@ -161,6 +198,13 @@ class BinMailhog extends Module
         return $isPortInUse;
     }
 
+    /**
+     * Checks if a given port is used by Mailhog.
+     *
+     * @param int $port The port number to check.
+     * @param bool $showWindow Whether to show a window with the result.
+     * @return bool True if the port is used by Mailhog, false otherwise.
+     */
     public function checkPort($port, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
         $boxTitle = sprintf($bearsamppLang->getValue(Lang::CHECK_PORT_TITLE), $this->getName(), $port);
@@ -202,11 +246,26 @@ class BinMailhog extends Module
         return false;
     }
 
+    /**
+     * Switches the version of Mailhog.
+     *
+     * @param string $version The new version to switch to.
+     * @param bool $showWindow Whether to show a window with the result.
+     * @return bool True if the version was successfully switched, false otherwise.
+     */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
         return $this->updateConfig($version, 0, $showWindow);
     }
 
+    /**
+     * Updates the configuration for the specified version.
+     *
+     * @param string|null $version The version to update to.
+     * @param int $sub The sub-level for logging indentation.
+     * @param bool $showWindow Whether to show a window with the result.
+     * @return bool True if the configuration was successfully updated, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
 
@@ -249,6 +308,11 @@ class BinMailhog extends Module
         return true;
     }
 
+    /**
+     * Sets the version of Mailhog.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -256,10 +320,21 @@ class BinMailhog extends Module
         $this->reload();
     }
 
+    /**
+     * Retrieves the service object.
+     *
+     * @return Win32Service The service object.
+     */
     public function getService() {
         return $this->service;
     }
 
+    /**
+     * Enables or disables the Mailhog service.
+     *
+     * @param int $enabled The enable flag (1 for enabled, 0 for disabled).
+     * @param bool $showWindow Whether to show a window with the result.
+     */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
 
@@ -286,38 +361,83 @@ class BinMailhog extends Module
         }
     }
 
+    /**
+     * Retrieves the log file path.
+     *
+     * @return string The log file path.
+     */
     public function getLog() {
         return $this->log;
     }
 
+    /**
+     * Retrieves the executable file path.
+     *
+     * @return string The executable file path.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Retrieves the API port number.
+     *
+     * @return int The API port number.
+     */
     public function getApiPort() {
         return $this->apiPort;
     }
 
+    /**
+     * Sets the API port number.
+     *
+     * @param int $apiPort The API port number.
+     */
     public function setApiPort($apiPort) {
         $this->replace(self::LOCAL_CFG_API_PORT, $apiPort);
     }
 
+    /**
+     * Retrieves the UI port number.
+     *
+     * @return int The UI port number.
+     */
     public function getUiPort() {
         return $this->uiPort;
     }
 
+    /**
+     * Sets the UI port number.
+     *
+     * @param int $uiPort The UI port number.
+     */
     public function setUiPort($uiPort) {
         $this->replace(self::LOCAL_CFG_UI_PORT, $uiPort);
     }
 
+    /**
+     * Retrieves the SMTP port number.
+     *
+     * @return int The SMTP port number.
+     */
     public function getSmtpPort() {
         return $this->smtpPort;
     }
 
+    /**
+     * Sets the SMTP port number.
+     *
+     * @param int $smtpPort The SMTP port number.
+     */
     public function setSmtpPort($smtpPort) {
         $this->replace(self::LOCAL_CFG_SMTP_PORT, $smtpPort);
     }
 
+    /**
+     * Retrieves the mail storage path.
+     *
+     * @return string The mail storage path.
+     */
     public function getMailPath() {
         return $this->mailPath;
     }

@@ -1,5 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class BinMemcached
+ *
+ * This class represents the Memcached binary module in the Bearsampp application. It extends the `Module` class and provides
+ * functionalities to manage the Memcached service, including configuration, version switching, and port management.
+ */
 class BinMemcached extends Module
 {
     const SERVICE_NAME = 'bearsamppmemcached';
@@ -19,11 +32,23 @@ class BinMemcached extends Module
     private $memory;
     private $port;
 
+    /**
+     * Constructor for the BinMemcached class.
+     *
+     * @param string $id The ID of the module.
+     * @param string $type The type of the module.
+     */
     public function __construct($id, $type) {
         Util::logInitClass($this);
         $this->reload($id, $type);
     }
 
+    /**
+     * Reloads the configuration and state of the BinMemcached module.
+     *
+     * @param string|null $id The ID of the module.
+     * @param string|null $type The type of the module.
+     */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
@@ -82,6 +107,11 @@ class BinMemcached extends Module
         $this->service->setNssm($nssm);
     }
 
+    /**
+     * Replaces all configuration parameters in the bearsampp configuration file.
+     *
+     * @param array $params An associative array of configuration keys and their new values.
+     */
     protected function replaceAll($params) {
         $content = file_get_contents($this->bearsamppConf);
 
@@ -101,6 +131,11 @@ class BinMemcached extends Module
         file_put_contents($this->bearsamppConf, $content);
     }
 
+    /**
+     * Rebuilds the configuration in the Windows Registry.
+     *
+     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     */
     public function rebuildConf() {
         global $bearsamppRegistry;
 
@@ -121,6 +156,14 @@ class BinMemcached extends Module
         return false;
     }
 
+    /**
+     * Changes the port used by the Memcached service.
+     *
+     * @param int $port The new port number.
+     * @param bool $checkUsed Whether to check if the port is already in use.
+     * @param mixed $wbProgressBar The progress bar object for updating progress (optional).
+     * @return bool|int True if the port was successfully changed, false if the port is invalid, or the port number if it is already in use.
+     */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null) {
         global $bearsamppWinbinder;
 
@@ -149,6 +192,13 @@ class BinMemcached extends Module
         return $isPortInUse;
     }
 
+    /**
+     * Checks if the specified port is used by the Memcached service.
+     *
+     * @param int $port The port number to check.
+     * @param bool $showWindow Whether to show a message box with the result.
+     * @return bool True if the port is used by Memcached, false otherwise.
+     */
     public function checkPort($port, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
         $boxTitle = sprintf($bearsamppLang->getValue(Lang::CHECK_PORT_TITLE), $this->getName(), $port);
@@ -197,11 +247,26 @@ class BinMemcached extends Module
         return false;
     }
 
+    /**
+     * Switches the version of the Memcached service.
+     *
+     * @param string $version The new version to switch to.
+     * @param bool $showWindow Whether to show a message box with the result.
+     * @return bool True if the version was successfully switched, false otherwise.
+     */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
         return $this->updateConfig($version, 0, $showWindow);
     }
 
+    /**
+     * Updates the configuration of the Memcached service.
+     *
+     * @param string|null $version The version to update to.
+     * @param int $sub The sub-level of the update (used for logging indentation).
+     * @param bool $showWindow Whether to show a message box with the result.
+     * @return bool True if the configuration was successfully updated, false otherwise.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppApps, $bearsamppWinbinder;
 
@@ -244,6 +309,11 @@ class BinMemcached extends Module
         return true;
     }
 
+    /**
+     * Sets the version of the Memcached service.
+     *
+     * @param string $version The version to set.
+     */
     public function setVersion($version) {
         global $bearsamppConfig;
         $this->version = $version;
@@ -251,10 +321,21 @@ class BinMemcached extends Module
         $this->reload();
     }
 
+    /**
+     * Retrieves the service object for the Memcached service.
+     *
+     * @return Win32Service The service object.
+     */
     public function getService() {
         return $this->service;
     }
 
+    /**
+     * Enables or disables the Memcached service.
+     *
+     * @param int $enabled The enable status (1 for enabled, 0 for disabled).
+     * @param bool $showWindow Whether to show a message box with the result.
+     */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
 
@@ -281,26 +362,56 @@ class BinMemcached extends Module
         }
     }
 
+    /**
+     * Retrieves the log file path for the Memcached service.
+     *
+     * @return string The log file path.
+     */
     public function getLog() {
         return $this->log;
     }
 
+    /**
+     * Retrieves the executable path for the Memcached service.
+     *
+     * @return string The executable path.
+     */
     public function getExe() {
         return $this->exe;
     }
 
+    /**
+     * Retrieves the memory allocation for the Memcached service.
+     *
+     * @return int The memory allocation in MB.
+     */
     public function getMemory() {
         return $this->memory;
     }
 
+    /**
+     * Sets the memory allocation for the Memcached service.
+     *
+     * @param int $memory The memory allocation in MB.
+     */
     public function setMemory($memory) {
         $this->replace(self::LOCAL_CFG_MEMORY, $memory);
     }
 
+    /**
+     * Retrieves the port number for the Memcached service.
+     *
+     * @return int The port number.
+     */
     public function getPort() {
         return $this->port;
     }
 
+    /**
+     * Sets the port number for the Memcached service.
+     *
+     * @param int $port The port number.
+     */
     public function setPort($port) {
         $this->replace(self::LOCAL_CFG_PORT, $port);
     }

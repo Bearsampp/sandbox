@@ -1,5 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class BinFilezilla
+ *
+ * This class manages the configuration and operations of the FileZilla service within the Bearsampp application.
+ * It extends the Module class and provides methods to reload configurations, change ports, check ports, and manage service versions.
+ */
 class BinFilezilla extends Module
 {
     const SERVICE_NAME = 'bearsamppfilezilla';
@@ -33,12 +46,24 @@ class BinFilezilla extends Module
     private $port;
     private $sslPort;
 
+    /**
+     * Constructor for the BinFilezilla class.
+     *
+     * @param   string  $id    The identifier for the FileZilla instance.
+     * @param   string  $type  The type of the FileZilla instance.
+     */
     public function __construct($id, $type)
     {
         Util::logInitClass( $this );
         $this->reload( $id, $type );
     }
 
+    /**
+     * Reloads the configuration for the FileZilla instance.
+     *
+     * @param   string|null  $id    The identifier for the FileZilla instance.
+     * @param   string|null  $type  The type of the FileZilla instance.
+     */
     public function reload($id = null, $type = null)
     {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
@@ -53,8 +78,7 @@ class BinFilezilla extends Module
         $this->logsPath = $this->symlinkPath . '/Logs';
         $this->log      = $bearsamppRoot->getLogsPath() . '/filezilla.log';
 
-        if ( $this->bearsamppConfRaw !== false )
-        {
+        if ( $this->bearsamppConfRaw !== false ) {
             $this->exe          = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
             $this->itfExe       = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_ITF_EXE];
             $this->conf         = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONF];
@@ -64,26 +88,22 @@ class BinFilezilla extends Module
             $this->sslPort      = $this->bearsamppConfRaw[self::LOCAL_CFG_SSL_PORT];
         }
 
-        if ( !$this->enable )
-        {
+        if ( !$this->enable ) {
             Util::logInfo( $this->name . ' is not enabled!' );
 
             return;
         }
-        if ( !is_dir( $this->currentPath ) )
-        {
+        if ( !is_dir( $this->currentPath ) ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_FILE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->currentPath ) );
 
             return;
         }
-        if ( !is_dir( $this->symlinkPath ) )
-        {
+        if ( !is_dir( $this->symlinkPath ) ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_FILE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->symlinkPath ) );
 
             return;
         }
-        if ( !is_file( $this->bearsamppConf ) )
-        {
+        if ( !is_file( $this->bearsamppConf ) ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_CONF_NOT_FOUND ), $this->name . ' ' . $this->version, $this->bearsamppConf ) );
 
             return;
@@ -91,39 +111,32 @@ class BinFilezilla extends Module
 
         // Create log hard link
         $log = $this->logsPath . '/FileZilla Server.log';
-        if ( !file_exists( $this->log ) && file_exists( $log ) )
-        {
+        if ( !file_exists( $this->log ) && file_exists( $log ) ) {
             @link( $log, $this->log );
         }
 
-        if ( !is_file( $this->exe ) )
-        {
+        if ( !is_file( $this->exe ) ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_EXE_NOT_FOUND ), $this->name . ' ' . $this->version, $this->exe ) );
 
             return;
         }
-        if ( !is_file( $this->conf ) )
-        {
+        if ( !is_file( $this->conf ) ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_CONF_NOT_FOUND ), $this->name . ' ' . $this->version, $this->conf ) );
 
             return;
         }
-        if ( !is_numeric( $this->port ) || $this->port <= 0 )
-        {
+        if ( !is_numeric( $this->port ) || $this->port <= 0 ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_INVALID_PARAMETER ), self::LOCAL_CFG_PORT, $this->port ) );
 
             return;
         }
-        if ( !is_numeric( $this->sslPort ) || $this->sslPort <= 0 )
-        {
+        if ( !is_numeric( $this->sslPort ) || $this->sslPort <= 0 ) {
             Util::logError( sprintf( $bearsamppLang->getValue( Lang::ERROR_INVALID_PARAMETER ), self::LOCAL_CFG_SSL_PORT, $this->sslPort ) );
 
             return;
         }
-        if ( !file_exists( $this->localItfConf ) )
-        {
-            if ( !is_dir( dirname( $this->localItfConf ) ) )
-            {
+        if ( !file_exists( $this->localItfConf ) ) {
+            if ( !is_dir( dirname( $this->localItfConf ) ) ) {
                 Util::logDebug( 'Create folder ' . dirname( $this->localItfConf ) );
                 @mkdir( dirname( $this->localItfConf ), 0777 );
             }
@@ -137,12 +150,20 @@ class BinFilezilla extends Module
         $this->service->setErrorControl( Win32Service::SERVER_ERROR_NORMAL );
     }
 
+    /**
+     * Changes the port for the FileZilla service.
+     *
+     * @param   int    $port           The new port number.
+     * @param   bool   $checkUsed      Whether to check if the port is already in use.
+     * @param   mixed  $wbProgressBar  The progress bar object for UI updates.
+     *
+     * @return bool|mixed Returns false if the port is invalid or in use, otherwise true.
+     */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
         global $bearsamppWinbinder;
 
-        if ( !Util::isValidPort( $port ) )
-        {
+        if ( !Util::isValidPort( $port ) ) {
             Util::logError( $this->getName() . ' port not valid: ' . $port );
 
             return false;
@@ -152,8 +173,7 @@ class BinFilezilla extends Module
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
 
         $isPortInUse = Util::isPortInUse( $port );
-        if ( !$checkUsed || $isPortInUse === false )
-        {
+        if ( !$checkUsed || $isPortInUse === false ) {
             // bearsampp.conf
             $this->setPort( $port );
             $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
@@ -170,26 +190,31 @@ class BinFilezilla extends Module
         return $isPortInUse;
     }
 
+    /**
+     * Checks if a port is in use by the FileZilla service.
+     *
+     * @param   int   $port        The port number to check.
+     * @param   bool  $ssl         Whether to check for SSL.
+     * @param   bool  $showWindow  Whether to show a UI window with the result.
+     *
+     * @return bool Returns true if the port is in use, otherwise false.
+     */
     public function checkPort($port, $ssl = false, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
         $boxTitle = sprintf( $bearsamppLang->getValue( Lang::CHECK_PORT_TITLE ), $this->getName(), $port );
 
-        if ( !Util::isValidPort( $port ) )
-        {
+        if ( !Util::isValidPort( $port ) ) {
             Util::logError( $this->getName() . ' port not valid: ' . $port );
 
             return false;
         }
 
         $headers = Util::getHeaders( '127.0.0.1', $port, $ssl );
-        if ( !empty( $headers ) )
-        {
-            if ( $headers[0] == '220 ' . $this->getService()->getDisplayName() )
-            {
+        if ( !empty( $headers ) ) {
+            if ( $headers[0] == '220 ' . $this->getService()->getDisplayName() ) {
                 Util::logDebug( $this->getName() . ' port ' . $port . ' is used by: ' . str_replace( '220 ', '', $headers[0] ) );
-                if ( $showWindow )
-                {
+                if ( $showWindow ) {
                     $bearsamppWinbinder->messageBoxInfo(
                         sprintf( $bearsamppLang->getValue( Lang::PORT_USED_BY ), $port, str_replace( '220 ', '', $headers[0] ) ),
                         $boxTitle
@@ -199,19 +224,16 @@ class BinFilezilla extends Module
                 return true;
             }
             Util::logDebug( $this->getName() . ' port ' . $port . ' is used by another application' );
-            if ( $showWindow )
-            {
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxWarning(
                     sprintf( $bearsamppLang->getValue( Lang::PORT_NOT_USED_BY ), $port ),
                     $boxTitle
                 );
             }
         }
-        else
-        {
+        else {
             Util::logDebug( $this->getName() . ' port ' . $port . ' is not used' );
-            if ( $showWindow )
-            {
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf( $bearsamppLang->getValue( Lang::PORT_NOT_USED ), $port ),
                     $boxTitle
@@ -222,11 +244,24 @@ class BinFilezilla extends Module
         return false;
     }
 
+    /**
+     * Retrieves the Win32Service instance for the FileZilla service.
+     *
+     * @return Win32Service The Win32Service instance.
+     */
     public function getService()
     {
         return $this->service;
     }
 
+    /**
+     * Switches the version of the FileZilla service.
+     *
+     * @param   string  $version     The new version to switch to.
+     * @param   bool    $showWindow  Whether to show a UI window with the result.
+     *
+     * @return bool Returns true if the version switch was successful, otherwise false.
+     */
     public function switchVersion($version, $showWindow = false)
     {
         Util::logDebug( 'Switch ' . $this->name . ' version to ' . $version );
@@ -234,12 +269,20 @@ class BinFilezilla extends Module
         return $this->updateConfig( $version, 0, $showWindow );
     }
 
+    /**
+     * Updates the configuration for the FileZilla service.
+     *
+     * @param   string|null  $version     The version to update to.
+     * @param   int          $sub         The sub-level for logging indentation.
+     * @param   bool         $showWindow  Whether to show a UI window with the result.
+     *
+     * @return bool Returns true if the configuration update was successful, otherwise false.
+     */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
 
-        if ( !$this->enable )
-        {
+        if ( !$this->enable ) {
             return true;
         }
 
@@ -251,11 +294,9 @@ class BinFilezilla extends Module
         $conf          = str_replace( 'filezilla' . $this->getVersion(), 'filezilla' . $version, $this->getConf() );
         $bearsamppConf = str_replace( 'filezilla' . $this->getVersion(), 'filezilla' . $version, $this->bearsamppConf );
 
-        if ( !file_exists( $conf ) || !file_exists( $bearsamppConf ) )
-        {
+        if ( !file_exists( $conf ) || !file_exists( $bearsamppConf ) ) {
             Util::logError( 'bearsampp config files not found for ' . $this->getName() . ' ' . $version );
-            if ( $showWindow )
-            {
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf( $bearsamppLang->getValue( Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR ), $this->getName() . ' ' . $version ),
                     $boxTitle
@@ -266,11 +307,9 @@ class BinFilezilla extends Module
         }
 
         $bearsamppConfRaw = parse_ini_file( $bearsamppConf );
-        if ( $bearsamppConfRaw === false || !isset( $bearsamppConfRaw[self::ROOT_CFG_VERSION] ) || $bearsamppConfRaw[self::ROOT_CFG_VERSION] != $version )
-        {
+        if ( $bearsamppConfRaw === false || !isset( $bearsamppConfRaw[self::ROOT_CFG_VERSION] ) || $bearsamppConfRaw[self::ROOT_CFG_VERSION] != $version ) {
             Util::logError( 'bearsampp config file malformed for ' . $this->getName() . ' ' . $version );
-            if ( $showWindow )
-            {
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf( $bearsamppLang->getValue( Lang::BEARSAMPP_CONF_MALFORMED_ERROR ), $this->getName() . ' ' . $version ),
                     $boxTitle
@@ -289,26 +328,39 @@ class BinFilezilla extends Module
         return true;
     }
 
+    /**
+     * Retrieves the configuration file path for the FileZilla service.
+     *
+     * @return string The configuration file path.
+     */
     public function getConf()
     {
         return $this->conf;
     }
 
+    /**
+     * Sets the configuration elements for the FileZilla service.
+     *
+     * @param   array  $elts  An associative array of configuration elements.
+     */
     public function setConf($elts)
     {
-        if ( !$this->enable )
-        {
+        if ( !$this->enable ) {
             return;
         }
 
         $conf = simplexml_load_file( $this->conf );
-        foreach ( $elts as $key => $value )
-        {
+        foreach ( $elts as $key => $value ) {
             $conf->Settings->Item[$key] = $value;
         }
         $conf->asXML( $this->conf );
     }
 
+    /**
+     * Sets the version for the FileZilla service.
+     *
+     * @param   string  $version  The version to set.
+     */
     public function setVersion($version)
     {
         global $bearsamppConfig;
@@ -317,10 +369,12 @@ class BinFilezilla extends Module
         $this->reload();
     }
 
+    /**
+     * Rebuilds the configuration for the FileZilla service.
+     */
     public function rebuildConf()
     {
-        if ( !$this->enable )
-        {
+        if ( !$this->enable ) {
             return;
         }
 
@@ -332,15 +386,19 @@ class BinFilezilla extends Module
                         ) );
     }
 
+    /**
+     * Enables or disables the FileZilla service.
+     *
+     * @param   int   $enabled     The enable status (1 for enabled, 0 for disabled).
+     * @param   bool  $showWindow  Whether to show a UI window with the result.
+     */
     public function setEnable($enabled, $showWindow = false)
     {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
 
-        if ( $enabled == Config::ENABLED && !is_dir( $this->currentPath ) )
-        {
+        if ( $enabled == Config::ENABLED && !is_dir( $this->currentPath ) ) {
             Util::logDebug( $this->getName() . ' cannot be enabled because bundle ' . $this->getVersion() . ' does not exist in ' . $this->currentPath );
-            if ( $showWindow )
-            {
+            if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf( $bearsamppLang->getValue( Lang::ENABLE_BUNDLE_NOT_EXIST ), $this->getName(), $this->getVersion(), $this->currentPath ),
                     sprintf( $bearsamppLang->getValue( Lang::ENABLE_TITLE ), $this->getName() )
@@ -354,71 +412,117 @@ class BinFilezilla extends Module
         $bearsamppConfig->replace( self::ROOT_CFG_ENABLE, $enabled );
 
         $this->reload();
-        if ( $this->enable )
-        {
+        if ( $this->enable ) {
             Util::installService( $this, $this->port, null, $showWindow );
         }
-        else
-        {
+        else {
             Util::removeService( $this->service, $this->name );
         }
     }
 
+    /**
+     * Retrieves the logs path for the FileZilla service.
+     *
+     * @return string The logs path.
+     */
     public function getLogsPath()
     {
         return $this->logsPath;
     }
 
+    /**
+     * Retrieves the log file path for the FileZilla service.
+     *
+     * @return string The log file path.
+     */
     public function getLog()
     {
         return $this->log;
     }
 
+    /**
+     * Retrieves the executable file path for the FileZilla service.
+     *
+     * @return string The executable file path.
+     */
     public function getExe()
     {
         return $this->exe;
     }
 
+    /**
+     * Retrieves the interface executable file path for the FileZilla service.
+     *
+     * @return string The interface executable file path.
+     */
     public function getItfExe()
     {
         return $this->itfExe;
     }
 
+    /**
+     * Retrieves the interface configuration file path for the FileZilla service.
+     *
+     * @return string The interface configuration file path.
+     */
     public function getItfConf()
     {
         return $this->itfConf;
     }
 
+    /**
+     * Retrieves the port number for the FileZilla service.
+     *
+     * @return int The port number.
+     */
     public function getPort()
     {
         return $this->port;
     }
 
+    /**
+     * Sets the port number for the FileZilla service.
+     *
+     * @param   int  $port  The new port number.
+     */
     public function setPort($port)
     {
         $this->replace( self::LOCAL_CFG_PORT, $port );
     }
 
+    /**
+     * Retrieves the SSL port number for the FileZilla service.
+     *
+     * @return int The SSL port number.
+     */
     public function getSslPort()
     {
         return $this->sslPort;
     }
 
+    /**
+     * Sets the SSL port number for the FileZilla service.
+     *
+     * @param   int  $sslPort  The new SSL port number.
+     */
     public function setSslPort($sslPort)
     {
         $this->replace( self::LOCAL_CFG_SSL_PORT, $sslPort );
     }
 
+    /**
+     * Replaces multiple configuration parameters in the bearsampp configuration file.
+     *
+     * @param   array  $params  An associative array of configuration parameters to replace.
+     */
     protected function replaceAll($params)
     {
         $content = file_get_contents( $this->bearsamppConf );
 
-        foreach ( $params as $key => $value )
-        {
+        foreach ( $params as $key => $value ) {
             $content                      = preg_replace( '|' . $key . ' = .*|', $key . ' = ' . '"' . $value . '"', $content );
             $this->bearsamppConfRaw[$key] = $value;
-            switch ( $key )
-            {
+            switch ( $key ) {
                 case self::LOCAL_CFG_PORT:
                     $this->port = $value;
                     break;
