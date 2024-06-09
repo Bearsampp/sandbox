@@ -8,12 +8,15 @@
  */
 
 global $bearsamppBins, $bearsamppLang;
+
 /**
- * This code snippet retrieves information about the PostgreSQL service status and versions.
+ * This script retrieves information about the PostgreSQL service status and versions.
  * It checks if the PostgreSQL service is enabled, checks the port, and displays a corresponding badge.
  * It also retrieves the list of PostgreSQL versions and displays them as badges.
  * The final result is encoded in JSON format and returned.
  */
+
+// Initialize result array
 $result = array(
     'checkport' => '',
     'versions' => '',
@@ -26,6 +29,9 @@ $textServiceStarted = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STARTED);
 $textServiceStopped = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STOPPED);
 $textDisabled = $bearsamppLang->getValue(Lang::DISABLED);
 
+/**
+ * Check if PostgreSQL service is enabled and update the result array with the port status.
+ */
 if ($bearsamppBins->getPostgresql()->isEnable()) {
     if ($bearsamppBins->getPostgresql()->checkPort($port)) {
         $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
@@ -36,7 +42,9 @@ if ($bearsamppBins->getPostgresql()->isEnable()) {
     $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
-// Versions
+/**
+ * Retrieve and update the result array with the list of PostgreSQL versions.
+ */
 foreach ($bearsamppBins->getPostgresql()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getPostgresql()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
@@ -45,4 +53,5 @@ foreach ($bearsamppBins->getPostgresql()->getVersionList() as $version) {
     }
 }
 
+// Output the result as JSON
 echo json_encode($result);

@@ -8,12 +8,14 @@
  */
 
 global $bearsamppBins, $bearsamppLang;
+
 /**
- * This code snippet creates an array with keys 'checkport' and 'versions'.
- * It checks the status of the Memcached service, including the port check and service status.
+ * This script checks the status of the Memcached service, including the port check and service status.
  * It also retrieves and displays the list of Memcached versions, highlighting the current version.
  * The final output is encoded in JSON format.
  */
+
+// Initialize result array
 $result = array(
     'checkport' => '',
     'versions' => '',
@@ -26,6 +28,9 @@ $textServiceStarted = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STARTED);
 $textServiceStopped = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STOPPED);
 $textDisabled = $bearsamppLang->getValue(Lang::DISABLED);
 
+/**
+ * Check if Memcached is enabled and update the result array with the port status.
+ */
 if ($bearsamppBins->getMemcached()->isEnable()) {
     if ($bearsamppBins->getMemcached()->checkPort($port)) {
         $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
@@ -36,7 +41,10 @@ if ($bearsamppBins->getMemcached()->isEnable()) {
     $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
-// Versions
+/**
+ * Retrieve and update the result array with the list of Memcached versions.
+ * The current version is highlighted.
+ */
 foreach ($bearsamppBins->getMemcached()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getMemcached()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
@@ -45,4 +53,5 @@ foreach ($bearsamppBins->getMemcached()->getVersionList() as $version) {
     }
 }
 
+// Output the result as JSON
 echo json_encode($result);

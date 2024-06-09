@@ -6,11 +6,16 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+
 /**
  * Retrieves information about Apache server status, versions, modules, aliases, vhosts, directories, and URLs.
  * Returns a JSON-encoded array with the collected data.
  */
+
+// Declare global variables
 global $bearsamppRoot, $bearsamppBins, $bearsamppLang;
+
+// Initialize result array
 $result = array(
     'checkport' => '',
     'versions' => '',
@@ -23,7 +28,7 @@ $result = array(
     'vhostslist' => '',
 );
 
-// Check port
+// Check port status and update result
 $port = $bearsamppBins->getApache()->getPort();
 $sslPort = $bearsamppBins->getApache()->getSslPort();
 
@@ -46,7 +51,7 @@ if ($bearsamppBins->getApache()->isEnable()) {
     $result['checkport'] = '<span class="m-1 float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
-// Versions
+// Retrieve and update Apache versions
 foreach ($bearsamppBins->getApache()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getApache()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge float-end text-bg-secondary">' . $version . '</span>';
@@ -55,18 +60,18 @@ foreach ($bearsamppBins->getApache()->getVersionList() as $version) {
     }
 }
 
-// Modules count
+// Retrieve and update modules count
 $modules = count($bearsamppBins->getApache()->getModules());
 $modulesLoaded = count($bearsamppBins->getApache()->getModulesLoaded());
 $result['modulescount'] .= '<span class="m-1 float-end badge text-bg-primary">' . $modulesLoaded . ' / ' . $modules . '</span>';
 
-// Aliases count
+// Retrieve and update aliases count
 $result['aliasescount'] .= '<span class="m-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getAlias()) . '</span>';
 
-// Vhosts count
+// Retrieve and update vhosts count
 $result['vhostscount'] .= '<span class="m-1 float-end badge text-bg-primary">' . count($bearsamppBins->getApache()->getVhosts()) . '</span>';
 
-// Modules list
+// Retrieve and update modules list
 foreach ($bearsamppBins->getApache()->getModulesFromConf() as $moduleName => $moduleStatus) {
     if ($moduleStatus == ActionSwitchApacheModule::SWITCH_ON) {
         $result['moduleslist'] .= '<span class="p-1 col col-xs-12"><i class="fa-regular fa-circle-check"></i> <strong>' . $moduleName . '</strong></span>';
@@ -75,17 +80,17 @@ foreach ($bearsamppBins->getApache()->getModulesFromConf() as $moduleName => $mo
     }
 }
 
-// Aliases list
+// Retrieve and update aliases list
 foreach ($bearsamppBins->getApache()->getAlias() as $alias) {
     $result['aliaseslist'] .= '<div class="float-start p-1"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($alias) . '"><i class="fa-solid fa-link"></i> ' . $alias . '</a></div>';
 }
 
-// Www directory
+// Retrieve and update www directories
 foreach ($bearsamppBins->getApache()->getWwwDirectories() as $wwwDirectory) {
     $result['wwwdirectory'] .= '<div class="float-start p-1"><a class="btn btn-outline-dark" target="_blank" href="' . $bearsamppRoot->getLocalUrl($wwwDirectory) . '"><i class="fa-solid fa-link"></i> ' . $wwwDirectory . '</a></div>';
 }
 
-// Vhosts list
+// Retrieve and update vhosts list
 foreach ($bearsamppBins->getApache()->getVhostsUrl() as $vhost => $enabled) {
     if ($enabled) {
         $result['vhostslist'] .= '<div class="float-start p-1"><a class="btn btn-outline-dark" target="_blank" href="http://' . $vhost . '"><i class="fa-regular fa-circle-check"></i> ' . $vhost . '</a></div>';
@@ -94,4 +99,5 @@ foreach ($bearsamppBins->getApache()->getVhostsUrl() as $vhost => $enabled) {
     }
 }
 
+// Output the result as JSON
 echo json_encode($result);

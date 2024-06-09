@@ -6,13 +6,22 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+global $bearsamppBins, $bearsamppLang;
 
+/**
+ * This script retrieves information about Mailhog server status and versions.
+ * It returns a JSON-encoded array with the collected data.
+ */
+
+// Initialize result array
 $result = array(
     'checkport' => '',
     'versions' => '',
 );
 
-// Check port
+/**
+ * Check the SMTP port status and update the result array.
+ */
 $smtpPort = $bearsamppBins->getMailhog()->getSmtpPort();
 
 $textServiceStarted = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STARTED);
@@ -29,7 +38,9 @@ if ($bearsamppBins->getMailhog()->checkPort($smtpPort)) {
     $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
-// Versions
+/**
+ * Retrieve and update Mailhog versions.
+ */
 foreach ($bearsamppBins->getMailhog()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getMailhog()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
@@ -38,4 +49,7 @@ foreach ($bearsamppBins->getMailhog()->getVersionList() as $version) {
     }
 }
 
+/**
+ * Output the result as JSON.
+ */
 echo json_encode($result);

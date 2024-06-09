@@ -8,10 +8,16 @@
  */
 
 global $bearsamppBins, $bearsamppLang;
+
 /**
- * This code snippet generates information about the status of the MariaDB service and its versions.
+ * Generates information about the status of the MariaDB service and its versions.
  * It checks if the MariaDB service is enabled, checks the port, and retrieves the list of versions.
  * The output is encoded in JSON format and includes the port status and versions information.
+ *
+ * @global object $bearsamppBins Provides access to various binaries including MariaDB.
+ * @global object $bearsamppLang Provides access to language strings.
+ *
+ * @return void Outputs JSON-encoded array with MariaDB status and versions.
  */
 $result = array(
     'checkport' => '',

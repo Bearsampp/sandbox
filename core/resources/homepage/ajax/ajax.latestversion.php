@@ -41,6 +41,7 @@ if (!empty($githubVersionData)) {
 } else {
     Util::logError('No data available in $githubVersionData');
 }
+
 /* check to see if everything went sideways */
 if ($githubVersionData === null) {
     Util::logError('Failed to retrieve version data from GitHub URL: ' . APP_GITHUB_LATEST_URL);

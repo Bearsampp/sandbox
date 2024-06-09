@@ -7,6 +7,16 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Class TplAestan
+ *
+ * This class provides various utility methods for generating menu items and actions
+ * within the Bearsampp application. It includes constants for glyphs, service actions,
+ * and image paths, as well as methods for creating formatted strings representing
+ * different types of menu items and actions.
+ *
+ * @package Bearsampp
+ */
 class TplAestan
 {
     // Glyph constants

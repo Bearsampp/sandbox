@@ -7,6 +7,32 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Class TplService
+ *
+ * This class provides methods to generate actions and menu items for managing services.
+ * It includes methods to create, start, stop, restart, install, and remove services.
+ * The generated actions and menu items are formatted as strings that can be used within the Bearsampp application.
+ *
+ * Methods:
+ * - getActionCreate($sName): Generates the action to create a service.
+ * - getActionStart($sName): Generates the action to start a service.
+ * - getActionStop($sName): Generates the action to stop a service.
+ * - getActionRestart($sName): Generates the action to restart a service.
+ * - getActionInstall($sName): Generates the action to install a service.
+ * - getActionRemove($sName): Generates the action to remove a service.
+ * - getItemStart($sName): Generates a menu item to start a service.
+ * - getItemStop($sName): Generates a menu item to stop a service.
+ * - getItemRestart($sName): Generates a menu item to restart a service.
+ * - getItemInstall($sName): Generates a menu item to install a service.
+ * - getItemRemove($sName): Generates a menu item to remove a service.
+ *
+ * @package Bearsampp
+ * @license GNU General Public License version 3 or later; see LICENSE.txt
+ * @author Bear
+ * @link https://bearsampp.com
+ * @link https://github.com/Bearsampp
+ */
 class TplService
 {
     /**

@@ -8,25 +8,36 @@
  */
 
 global $bearsamppBins, $bearsamppLang;
+
 /**
- * This code snippet creates an array with 'status' and 'versions' keys.
- * It checks if Nodejs is enabled and sets the status accordingly.
- * Then, it loops through the Nodejs version list, adding versions to the 'versions' key.
+ * This script generates a JSON-encoded array containing the status and versions of Node.js.
+ * It checks if Node.js is enabled and sets the status accordingly.
+ * Then, it loops through the Node.js version list, adding versions to the 'versions' key.
  * Finally, it encodes the result array into a JSON format and echoes it.
  */
+
+// Initialize result array
 $result = array(
     'status' => '',
     'versions' => ''
 );
 
-// Status
+/**
+ * Check the status of Node.js and update the result array.
+ * If Node.js is enabled, set the status to 'enabled' with a success badge.
+ * Otherwise, set the status to 'disabled' with a danger badge.
+ */
 if ($bearsamppBins->getNodejs()->isEnable()) {
     $result['status'] = '<span class="float-end badge text-bg-success">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
 } else {
     $result['status'] = '<span class="float-end badge text-bg-danger">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
 }
 
-// Versions
+/**
+ * Loop through the Node.js version list and update the result array.
+ * If the version is not the current version, add it with a secondary badge.
+ * Otherwise, add the current version with a primary badge.
+ */
 foreach ($bearsamppBins->getNodejs()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getNodejs()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
@@ -35,4 +46,5 @@ foreach ($bearsamppBins->getNodejs()->getVersionList() as $version) {
     }
 }
 
+// Output the result as JSON
 echo json_encode($result);

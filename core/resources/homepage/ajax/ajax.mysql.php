@@ -8,19 +8,20 @@
  */
 
 global $bearsamppBins, $bearsamppLang;
+
 /**
- * This code snippet creates an array with keys 'checkport' and 'versions'.
- * It checks the status of a MySQL service, displaying a success message if the service is started and the port is open,
- * or a danger message if the service is stopped.
- * It also lists different versions of MySQL, highlighting the current version with a primary badge.
- * The final result is encoded in JSON format and echoed out.
+ * This script checks the status of the MySQL service and retrieves its versions.
+ * It creates an array with keys 'checkport' and 'versions', which are populated with HTML strings
+ * indicating the service status and available versions, respectively. The final result is encoded in JSON format and echoed out.
  */
+
+// Initialize result array
 $result = array(
     'checkport' => '',
     'versions' => '',
 );
 
-// Check port
+// Check port status and update result
 $port = $bearsamppBins->getMysql()->getPort();
 
 $textServiceStarted = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STARTED);
@@ -37,7 +38,7 @@ if ($bearsamppBins->getMysql()->isEnable()) {
     $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
-// Versions
+// Retrieve and update MySQL versions
 foreach ($bearsamppBins->getMysql()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getMysql()->getVersion()) {
         $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
@@ -46,4 +47,5 @@ foreach ($bearsamppBins->getMysql()->getVersionList() as $version) {
     }
 }
 
+// Output the result as JSON
 echo json_encode($result);
