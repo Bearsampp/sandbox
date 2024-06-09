@@ -1,20 +1,18 @@
-/*$(document).ready(function() {
-  if ($('a[name=mailhog]').length) {
-    $.ajax({
-      data: {
-        proc: 'mailhog'
-      },
-      success: function(data) {
-        $('.mailhog-checkport').append(data.checkport);
-        $('.mailhog-checkport').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.mailhog-version-list').append(data.versions);
-        $('.mailhog-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the MailHog status from the server and updates the DOM with the received data.
+ *
+ * @async
+ * @function getMailHogStatus
+ * @returns {Promise<void>} A promise that resolves when the MailHog status has been fetched and the DOM updated.
+ */
 async function getMailHogStatus() {
   const url = AJAX_URL;
   let data = new URLSearchParams();
@@ -30,25 +28,32 @@ async function getMailHogStatus() {
   } else {
     let myajaxresponse = await response.text();
     let data;
-try {
-  data = JSON.parse(myajaxresponse);
-} catch (error) {
-  console.error('Failed to parse response:', error);
-}
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
 
     let q = document.querySelector('.mailhog-checkport');
     let ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.checkport);
+    q.insertAdjacentHTML('beforeend', data.checkport);
 
     q = document.querySelector('.mailhog-version-list');
     ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.versions);
+    q.insertAdjacentHTML('beforeend', data.versions);
   }
 }
+
+/**
+ * Event listener for the DOMContentLoaded event.
+ * Checks if the MailHog anchor element is present and triggers the MailHog status fetch.
+ *
+ * @event DOMContentLoaded
+ */
 document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('a[name=mailhog]').name === 'mailhog') {
     getMailHogStatus();
   }
-})
+});

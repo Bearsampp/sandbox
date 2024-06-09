@@ -1,20 +1,18 @@
-/*$(document).ready(function() {
-  if ($('a[name=memcached]').length) {
-    $.ajax({
-      data: {
-        proc: 'memcached'
-      },
-      success: function(data) {
-        $('.memcached-checkport').append(data.checkport);
-        $('.memcached-checkport').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.memcached-version-list').append(data.versions);
-        $('.memcached-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the status of Memcached from the server and updates the DOM with the received data.
+ *
+ * @async
+ * @function getMemCachedStatus
+ * @returns {Promise<void>} A promise that resolves when the status has been fetched and the DOM updated.
+ */
 async function getMemCachedStatus() {
   const url = AJAX_URL;
   const proc = 'memcached';
@@ -48,8 +46,14 @@ async function getMemCachedStatus() {
   }
 }
 
+/**
+ * Event listener for the DOMContentLoaded event.
+ * Checks if the 'memcached' anchor tag is present and calls getMemCachedStatus if it is.
+ *
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=memcached]').name === 'memcached') {
     getMemCachedStatus();
   }
-})
+});

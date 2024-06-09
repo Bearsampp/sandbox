@@ -1,20 +1,18 @@
-/*$(document).ready(function() {
-  if ($('a[name=postgresql]').length) {
-    $.ajax({
-      data: {
-        proc: 'postgresql'
-      },
-      success: function(data) {
-        $('.postgresql-checkport').append(data.checkport);
-        $('.postgresql-checkport').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.postgresql-version-list').append(data.versions);
-        $('.postgresql-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the status of the PostgreSQL service and updates the DOM with the received data.
+ *
+ * @async
+ * @function getPostgresStatus
+ * @returns {Promise<void>} A promise that resolves when the status has been fetched and the DOM updated.
+ */
 async function getPostgresStatus() {
   const url = AJAX_URL;
   const proc = 'postgresql';
@@ -48,8 +46,14 @@ async function getPostgresStatus() {
   }
 }
 
+/**
+ * Event listener for the DOMContentLoaded event.
+ * Checks if the PostgreSQL section is present and calls getPostgresStatus if it is.
+ *
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=postgresql]').name === 'postgresql') {
     getPostgresStatus();
   }
-})
+});

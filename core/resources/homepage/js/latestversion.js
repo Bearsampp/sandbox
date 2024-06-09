@@ -1,20 +1,23 @@
-/*$(document).ready(function() {
-  if ($('.latestversion').length) {
-    $.ajax({
-      data: {
-        proc: 'latestversion'
-      },
-      success: function(data) {
-        if (data.display) {
-          $('.latestversion-download').append(data.download);
-          $('.latestversion-changelog').append(data.changelog);
-          $('.latestversion').show();
-        }
-      }
-    });
-  }
-});*/
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * @constant {string} AJAX_URL - The URL endpoint for AJAX requests.
+ */
+const AJAX_URL = "1fd5bfc5c72323f1d019208088a6de21/ajax.php";
+
+/**
+ * Fetches the latest version status from the server and updates the DOM accordingly.
+ *
+ * @async
+ * @function getLatestVersionStatus
+ * @returns {Promise<void>}
+ */
 async function getLatestVersionStatus() {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     let data = new URLSearchParams();
@@ -42,6 +45,11 @@ async function getLatestVersionStatus() {
     }
 }
 
+/**
+ * Initializes the fetching of the latest version status when the DOM content is fully loaded.
+ *
+ * @event DOMContentLoaded
+ */
 document.addEventListener("DOMContentLoaded", function() {
     getLatestVersionStatus();
 });

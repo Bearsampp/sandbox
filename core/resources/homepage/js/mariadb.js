@@ -1,20 +1,18 @@
-/*$(document).ready(function() {
-  if ($('a[name=mariadb]').length) {
-    $.ajax({
-      data: {
-        proc: 'mariadb'
-      },
-      success: function(data) {
-        $('.mariadb-checkport').append(data.checkport);
-        $('.mariadb-checkport').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.mariadb-version-list').append(data.versions);
-        $('.mariadb-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the MariaDB status from the server and updates the DOM with the received data.
+ *
+ * @async
+ * @function getMariaDBStatus
+ * @returns {Promise<void>}
+ */
 async function getMariaDBStatus() {
   const url = AJAX_URL;
   const proc = 'mariadb';
@@ -48,8 +46,14 @@ async function getMariaDBStatus() {
   }
 }
 
+/**
+ * Event listener for DOMContentLoaded that triggers the getMariaDBStatus function
+ * if an anchor element with the name 'mariadb' is found.
+ *
+ * @event DOMContentLoaded
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=mariadb]').name === 'mariadb') {
     getMariaDBStatus();
   }
-})
+});

@@ -1,20 +1,20 @@
-/*$(document).ready(function() {
-  if ($('a[name=nodejs]').length) {
-    $.ajax({
-      data: {
-        proc: 'nodejs'
-      },
-      success: function(data) {
-        $('.nodejs-status').append(data.status);
-        $('.nodejs-status').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.nodejs-version-list').append(data.versions);
-        $('.nodejs-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the NodeJS status and version information from the server.
+ * Sends a POST request to the AJAX_URL with the 'proc' parameter set to 'nodejs'.
+ * Updates the DOM with the received status and version information.
+ *
+ * @async
+ * @function getNodeJSStatus
+ * @returns {Promise<void>}
+ */
 async function getNodeJSStatus() {
   const url = AJAX_URL;
   const proc = 'nodejs';
@@ -48,8 +48,15 @@ async function getNodeJSStatus() {
   }
 }
 
+/**
+ * Event listener for the DOMContentLoaded event.
+ * Checks if an anchor element with the name 'nodejs' exists.
+ * If it exists, calls the getNodeJSStatus function to fetch and display NodeJS status and version information.
+ *
+ * @event DOMContentLoaded
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=nodejs]').name === 'nodejs') {
     getNodeJSStatus();
   }
-})
+});

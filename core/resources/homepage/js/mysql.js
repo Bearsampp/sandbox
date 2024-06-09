@@ -1,20 +1,18 @@
-/*$(document).ready(function() {
-  if ($('a[name=mysql]').length) {
-    $.ajax({
-      data: {
-        proc: 'mysql'
-      },
-      success: function(data) {
-        $('.mysql-checkport').append(data.checkport);
-        $('.mysql-checkport').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.mysql-version-list').append(data.versions);
-        $('.mysql-version-list').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the MySQL status from the server and updates the DOM with the received data.
+ *
+ * @async
+ * @function getMySQLStatus
+ * @returns {Promise<void>}
+ */
 async function getMySQLStatus() {
   const url = AJAX_URL;
   const proc = 'mysql';
@@ -31,28 +29,34 @@ async function getMySQLStatus() {
     let myajaxresponse = await response.text();
     let data;
     try {
-            if(myajaxresponse.includes("Uncaught mysqli_sql_exception")) {
-                console.log("Error occured accessing MySQL - ");
-            } else {
-      data = JSON.parse(myajaxresponse);
-    let q = document.querySelector('.mysql-checkport');
-    let ql = q.querySelector('.loader');
-    ql.remove();
-    q.insertAdjacentHTML('beforeend', data.checkport);
+      if (myajaxresponse.includes("Uncaught mysqli_sql_exception")) {
+        console.log("Error occurred accessing MySQL - ");
+      } else {
+        data = JSON.parse(myajaxresponse);
+        let q = document.querySelector('.mysql-checkport');
+        let ql = q.querySelector('.loader');
+        ql.remove();
+        q.insertAdjacentHTML('beforeend', data.checkport);
 
-    q = document.querySelector('.mysql-version-list');
-    ql = q.querySelector('.loader');
-    ql.remove();
-    q.insertAdjacentHTML('beforeend', data.versions);
-  }
-        } catch (error) {
-            console.error('Failed to parse response:', error);
-        }
+        q = document.querySelector('.mysql-version-list');
+        ql = q.querySelector('.loader');
+        ql.remove();
+        q.insertAdjacentHTML('beforeend', data.versions);
+      }
+    } catch (error) {
+      console.error('Failed to parse response:', error);
     }
+  }
 }
 
+/**
+ * Event listener for DOMContentLoaded event.
+ * Checks if the MySQL anchor element is present and triggers the MySQL status fetch.
+ *
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=mysql]').name === 'mysql') {
     getMySQLStatus();
   }
-})
+});

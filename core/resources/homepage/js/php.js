@@ -1,38 +1,28 @@
-/*$(document).ready(function() {
-  if ($('a[name=php]').length) {
-    $.ajax({
-      data: {
-        proc: 'php'
-      },
-      success: function(data) {
-        $('.php-status').append(data.status);
-        $('.php-status').find('.loader').remove();
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-        $('.php-version-list').append(data.versions);
-        $('.php-version-list').find('.loader').remove();
-
-        $('.php-extscount').append(data.extscount);
-        $('.php-extscount').find('.loader').remove();
-
-        $('.php-pearversion').append(data.pearversion);
-        $('.php-pearversion').find('.loader').remove();
-
-        $('.php-extslist').append(data.extslist);
-        $('.php-extslist').find('.loader').remove();
-      }
-    });
-  }
-});*/
-
+/**
+ * Fetches the PHP status from the server and updates the DOM with the received data.
+ *
+ * @async
+ * @function getPHPStatus
+ * @returns {Promise<void>}
+ */
 async function getPHPStatus() {
   const url = AJAX_URL;
   const proc = 'php';
   const senddata = new URLSearchParams();
-  senddata.append(`proc`, proc);
+  senddata.append('proc', proc);
   const options = {
     method: 'POST',
     body: senddata
-  }
+  };
+
   let response = await fetch(url, options);
   if (!response.ok) {
     console.log('Error receiving from ajax.php');
@@ -72,8 +62,14 @@ async function getPHPStatus() {
   }
 }
 
+/**
+ * Event listener for DOMContentLoaded event.
+ * Checks if the 'php' anchor element exists and calls getPHPStatus if it does.
+ *
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector('a[name=php]').name === 'php') {
     getPHPStatus();
   }
-})
+});
