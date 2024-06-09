@@ -7,6 +7,17 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Class Splash
+ *
+ * This class is responsible for creating and managing a splash screen with a progress bar.
+ * It utilizes the WinBinder library to create the GUI elements and handle events.
+ *
+ * @package Bearsampp
+ * @license GNU General Public License version 3 or later; see LICENSE.txt
+ * @link    https://bearsampp.com
+ * @link    https://github.com/Bearsampp
+ */
 class Splash
 {
     /* Set progress bar "loading" modal size. */
@@ -20,6 +31,11 @@ class Splash
 
     private $currentImg;
 
+    /**
+     * Splash constructor.
+     *
+     * Initializes the Splash class and sets the current image to null.
+     */
     public function __construct()
     {
         Util::logInitClass($this);
@@ -27,6 +43,13 @@ class Splash
         $this->currentImg = null;
     }
 
+    /**
+     * Initializes the splash screen with the specified title, gauge, and text.
+     *
+     * @param string $title The title of the splash screen.
+     * @param int    $gauge The maximum value of the progress bar.
+     * @param string $text  The initial text to display on the splash screen.
+     */
     public function init($title, $gauge, $text)
     {
         global $bearsamppCore, $bearsamppWinbinder;
@@ -47,6 +70,11 @@ class Splash
         $this->incrProgressBar();
     }
 
+    /**
+     * Sets the loading text on the splash screen.
+     *
+     * @param string $caption The text to display on the splash screen.
+     */
     public function setTextLoading($caption)
     {
         global $bearsamppWinbinder;
@@ -55,6 +83,11 @@ class Splash
         $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);
     }
 
+    /**
+     * Increments the progress bar by the specified number of steps.
+     *
+     * @param int $nb The number of steps to increment the progress bar. Default is 1.
+     */
     public function incrProgressBar($nb = 1)
     {
         global $bearsamppCore, $bearsamppWinbinder;
@@ -68,6 +101,11 @@ class Splash
         $bearsamppWinbinder->wait($this->wbWindow);
     }
 
+    /**
+     * Retrieves the WinBinder window object.
+     *
+     * @return mixed The WinBinder window object.
+     */
     public function getWbWindow()
     {
         return $this->wbWindow;

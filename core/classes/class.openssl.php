@@ -1,7 +1,25 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class OpenSsl
 {
+    /**
+     * Creates a certificate with the specified name and destination path.
+     *
+     * This method generates a private key (ppk), a public key (pub), and a certificate (crt)
+     * using OpenSSL. It also creates a temporary OpenSSL configuration file with the necessary
+     * extensions for Subject Alternative Names (SAN).
+     *
+     * @param string $name The name to be used for the certificate.
+     * @param string|null $destPath The destination path where the certificate files will be saved. If null, the default SSL path is used.
+     * @return bool Returns true if the certificate is successfully created, false otherwise.
+     */
     public function createCrt($name, $destPath = null)
     {
         global $bearsamppRoot, $bearsamppCore;
@@ -45,6 +63,15 @@ class OpenSsl
         return isset($result[0]) && $result[0] == 'OK';
     }
 
+    /**
+     * Checks if a certificate with the specified name exists.
+     *
+     * This method verifies the existence of the private key (ppk), public key (pub),
+     * and certificate (crt) files in the SSL path.
+     *
+     * @param string $name The name of the certificate to check.
+     * @return bool Returns true if all certificate files exist, false otherwise.
+     */
     public function existsCrt($name)
     {
         global $bearsamppRoot;
@@ -56,6 +83,15 @@ class OpenSsl
         return is_file($ppkPath) && is_file($pubPath) && is_file($crtPath);
     }
 
+    /**
+     * Removes a certificate with the specified name.
+     *
+     * This method deletes the private key (ppk), public key (pub), and certificate (crt)
+     * files from the SSL path.
+     *
+     * @param string $name The name of the certificate to remove.
+     * @return bool Returns true if all certificate files are successfully deleted, false otherwise.
+     */
     public function removeCrt($name)
     {
         global $bearsamppRoot;

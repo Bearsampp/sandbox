@@ -1,5 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class Win32Ps
+ *
+ * This class provides methods to interact with and manage Windows processes.
+ * It uses VBS scripts to retrieve and manipulate process information.
+ */
 class Win32Ps
 {
     const NAME = 'Name';
@@ -8,10 +21,19 @@ class Win32Ps
     const CAPTION = 'Caption';
     const COMMAND_LINE = 'CommandLine';
 
+    /**
+     * Win32Ps constructor.
+     */
     public function __construct()
     {
     }
 
+    /**
+     * Calls a specified function if it exists.
+     *
+     * @param string $function The name of the function to call.
+     * @return mixed The result of the function call, or false if the function does not exist.
+     */
     private static function callWin32Ps($function)
     {
         $result = false;
@@ -23,6 +45,11 @@ class Win32Ps
         return $result;
     }
 
+    /**
+     * Retrieves the keys used for process information.
+     *
+     * @return array An array of keys used for process information.
+     */
     public static function getKeys()
     {
         return array(
@@ -34,17 +61,32 @@ class Win32Ps
         );
     }
 
+    /**
+     * Retrieves the current process ID.
+     *
+     * @return int The current process ID.
+     */
     public static function getCurrentPid()
     {
         $procInfo = self::getStatProc();
         return isset($procInfo[self::PROCESS_ID]) ? intval($procInfo[self::PROCESS_ID]) : 0;
     }
 
+    /**
+     * Retrieves a list of all running processes.
+     *
+     * @return array|false An array of process information, or false on failure.
+     */
     public static function getListProcs()
     {
         return Vbs::getListProcs(self::getKeys());
     }
 
+    /**
+     * Retrieves the status of the current process.
+     *
+     * @return array|null An array containing the process ID and executable path, or null on failure.
+     */
     public static function getStatProc()
     {
         $statProc = self::callWin32Ps('win32_ps_stat_proc');
@@ -59,11 +101,23 @@ class Win32Ps
         return null;
     }
 
+    /**
+     * Checks if a process with the specified PID exists.
+     *
+     * @param int $pid The process ID to check.
+     * @return bool True if the process exists, false otherwise.
+     */
     public static function exists($pid)
     {
         return self::findByPid($pid) !== false;
     }
 
+    /**
+     * Finds a process by its PID.
+     *
+     * @param int $pid The process ID to find.
+     * @return array|false An array of process information, or false if the process is not found.
+     */
     public static function findByPid($pid)
     {
         if (!empty($pid)) {
@@ -80,6 +134,12 @@ class Win32Ps
         return false;
     }
 
+    /**
+     * Finds a process by its executable path.
+     *
+     * @param string $path The executable path to find.
+     * @return array|false An array of process information, or false if the process is not found.
+     */
     public static function findByPath($path)
     {
         $path = Util::formatUnixPath($path);
@@ -98,6 +158,11 @@ class Win32Ps
         return false;
     }
 
+    /**
+     * Kills a process by its PID.
+     *
+     * @param int $pid The process ID to kill.
+     */
     public static function kill($pid)
     {
         $pid = intval($pid);
@@ -106,6 +171,12 @@ class Win32Ps
         }
     }
 
+    /**
+     * Kills all processes related to Bearsampp binaries.
+     *
+     * @param bool $refreshProcs Whether to refresh the list of processes before killing.
+     * @return array An array of killed process information.
+     */
     public static function killBins($refreshProcs = false)
     {
         global $bearsamppRoot;

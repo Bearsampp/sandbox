@@ -1,8 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
-// StdRegProv class : http://msdn.microsoft.com/en-us/library/aa393664%28v=vs.85%29.aspx
-// Shell class : http://msdn.microsoft.com/en-us/library/2x3w20xf%28v=vs.84%29.aspx
-
+/**
+ * Class Registry
+ *
+ * This class provides methods to interact with the Windows Registry. It includes functionalities to read, write, and delete registry entries.
+ * It uses VBScript to perform these operations and logs the results.
+ */
 class Registry
 {
     const END_PROCESS_STR = 'FINISHED!';
@@ -39,19 +49,34 @@ class Registry
 
     private $latestError;
 
+    /**
+     * Constructs the Registry object and initializes the latest error to null.
+     */
     public function __construct()
     {
         Util::logInitClass($this);
-
         $this->latestError = null;
     }
 
+    /**
+     * Writes a log entry with a specific message.
+     *
+     * @param string $log The log message to write.
+     */
     private function writeLog($log)
     {
         global $bearsamppRoot;
         Util::logDebug($log, $bearsamppRoot->getRegistryLogFilePath());
     }
 
+    /**
+     * Checks if a specific registry key, subkey, and optionally an entry exists.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string|null $entry The specific entry under the subkey (optional).
+     * @return bool True if the key, subkey, and entry exist, false otherwise.
+     */
     public function exists($key, $subkey, $entry = null)
     {
         $basename = 'registryExists';
@@ -101,6 +126,14 @@ class Registry
         return !empty($result) && intval($result) == 1;
     }
 
+    /**
+     * Retrieves the value of a specific registry key, subkey, and entry.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string|null $entry The specific entry under the subkey (optional).
+     * @return string|false The value of the registry entry, or false if an error occurred.
+     */
     public function getValue($key, $subkey, $entry = null)
     {
         global $bearsamppLang;
@@ -139,22 +172,58 @@ class Registry
         return $result;
     }
 
+    /**
+     * Sets a string value in the registry.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string $entry The specific entry under the subkey.
+     * @param string $value The value to set.
+     * @return bool True if the value was set successfully, false otherwise.
+     */
     public function setStringValue($key, $subkey, $entry, $value)
     {
         return $this->setValue($key, $subkey, $entry, $value, 'SetStringValue');
     }
 
+    /**
+     * Sets an expanded string value in the registry.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string $entry The specific entry under the subkey.
+     * @param string $value The value to set.
+     * @return bool True if the value was set successfully, false otherwise.
+     */
     public function setExpandStringValue($key, $subkey, $entry, $value)
     {
         return $this->setValue($key, $subkey, $entry, $value, 'SetExpandedStringValue');
     }
 
+    /**
+     * Deletes a value from the registry.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string $entry The specific entry under the subkey.
+     * @return bool True if the value was deleted successfully, false otherwise.
+     */
     public function deleteValue($key, $subkey, $entry)
     {
         $this->writeLog('delete');
         return $this->setValue($key, $subkey, $entry, null, 'DeleteValue');
     }
 
+    /**
+     * Sets a value in the registry.
+     *
+     * @param string $key The registry key (e.g., HKEY_LOCAL_MACHINE).
+     * @param string $subkey The subkey under the registry key.
+     * @param string $entry The specific entry under the subkey.
+     * @param string|null $value The value to set (or null to delete the entry).
+     * @param string $type The type of value to set (e.g., 'SetStringValue').
+     * @return bool True if the value was set successfully, false otherwise.
+     */
     private function setValue($key, $subkey, $entry, $value, $type)
     {
         global $bearsamppLang;
@@ -232,6 +301,11 @@ class Registry
         return $result == self::REG_NO_ERROR;
     }
 
+    /**
+     * Retrieves the latest error message.
+     *
+     * @return string|null The latest error message, or null if no error occurred.
+     */
     public function getLatestError()
     {
         return $this->latestError;

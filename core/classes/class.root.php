@@ -1,5 +1,17 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class Root
+ *
+ * This class represents the root of the application and handles the initialization and configuration of various components.
+ */
 class Root
 {
     const ERROR_HANDLER = 'errorHandler';
