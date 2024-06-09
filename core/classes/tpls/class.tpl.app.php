@@ -1,5 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class TplApp
+ *
+ * This class provides various methods to generate and manage application menus, actions, and sections.
+ * It includes methods to process and generate configurations, services, startup actions, and menu items.
+ */
 class TplApp
 {
     const ITEM_CAPTION = 0;
@@ -8,10 +21,21 @@ class TplApp
     const SECTION_CALL = 0;
     const SECTION_CONTENT = 1;
 
+    /**
+     * TplApp constructor.
+     *
+     * Private constructor to prevent instantiation.
+     */
     private function __construct()
     {
     }
 
+    /**
+     * Processes and generates the main application sections.
+     *
+     * @global object $bearsamppCore The core application object.
+     * @return string The generated sections as a string.
+     */
     public static function process()
     {
         global $bearsamppCore;
@@ -26,6 +50,11 @@ class TplApp
             self::getSectionMenuLeft() . PHP_EOL;
     }
 
+    /**
+     * Processes and generates a lighter version of the main application sections.
+     *
+     * @return string The generated sections as a string.
+     */
     public static function processLight()
     {
         return TplAestan::getSectionConfig() . PHP_EOL .
@@ -34,11 +63,26 @@ class TplApp
             self::getSectionStartupAction() . PHP_EOL;
     }
 
+    /**
+     * Generates a section name based on the provided name and arguments.
+     *
+     * @param string $name The base name of the section.
+     * @param array $args Optional arguments to include in the section name.
+     * @return string The generated section name.
+     */
     public static function getSectionName($name, $args = array())
     {
         return ucfirst($name) . (!empty($args) ? '-' . md5(serialize($args)) : '');
     }
 
+    /**
+     * Generates the content of a section based on the provided name, class, and arguments.
+     *
+     * @param string $name The base name of the section.
+     * @param string $class The class name containing the method to generate the section content.
+     * @param array $args Optional arguments to pass to the method.
+     * @return string The generated section content.
+     */
     public static function getSectionContent($name, $class, $args = array())
     {
         $baseMethod = 'get' . ucfirst($name);
@@ -47,6 +91,17 @@ class TplApp
             call_user_func_array($class . '::' . $baseMethod, $args);
     }
 
+    /**
+     * Generates a run action string based on the provided action, arguments, and item.
+     *
+     * @global object $bearsamppRoot The root application object.
+     * @global object $bearsamppCore The core application object.
+     * @param string $action The action to run.
+     * @param array $args Optional arguments to pass to the action.
+     * @param array $item Optional item details to include in the action string.
+     * @param bool $waitUntilTerminated Whether to wait until the action is terminated.
+     * @return string The generated action string.
+     */
     public static function getActionRun($action, $args = array(), $item = array(), $waitUntilTerminated = true)
     {
         global $bearsamppRoot, $bearsamppCore;
@@ -73,18 +128,23 @@ class TplApp
         return $result;
     }
 
+    /**
+     * Generates a multi-action string based on the provided action, arguments, and item.
+     *
+     * @param string $action The action to run.
+     * @param array $args Optional arguments to pass to the action.
+     * @param array $item Optional item details to include in the action string.
+     * @param bool $disabled Whether the item is disabled.
+     * @param string $class The class name containing the method to generate the section content.
+     * @return array An array containing the call string and the section content.
+     */
     public static function getActionMulti($action, $args = array(), $item = array(), $disabled = false, $class = false)
     {
         $action = 'action' . ucfirst($action);
         $args = $args == null ? array() : $args;
         $sectionName = self::getSectionName($action, $args);
 
-        //TODO: How managed disabled item??
-        /*if ($disabled) {
-            $call = 'Action: run; FileName: "%AeTrayMenuPath%core/libs/php/php-win.exe"; Parameters: "root.php switchApacheVersion 2.2.22"; WorkingDir: "%AeTrayMenuPath%core"; ';
-        } else {*/
-            $call = 'Action: multi; Actions: ' . $sectionName;
-        //}
+        $call = 'Action: multi; Actions: ' . $sectionName;
 
         if (!empty($item)) {
             $call = 'Type: item; ' . $call .
@@ -97,11 +157,24 @@ class TplApp
         return array($call, self::getSectionContent($action, $class, $args));
     }
 
+    /**
+     * Generates an exec action string.
+     *
+     * @return string The generated exec action string.
+     */
     public static function getActionExec()
     {
         return self::getActionRun(Action::EXEC, array(), array(), false);
     }
 
+    /**
+     * Generates a menu string based on the provided caption, menu, and class.
+     *
+     * @param string $caption The caption of the menu.
+     * @param string $menu The menu name.
+     * @param string $class The class name containing the method to generate the menu content.
+     * @return array An array containing the call string and the menu content.
+     */
     public static function getMenu($caption, $menu, $class)
     {
         $menu = 'menu' . ucfirst($menu);
@@ -114,6 +187,15 @@ class TplApp
         return array($call, self::getSectionContent($menu, $class, null));
     }
 
+    /**
+     * Generates an enable menu string based on the provided caption, menu, class, and enabled status.
+     *
+     * @param string $caption The caption of the menu.
+     * @param string $menu The menu name.
+     * @param string $class The class name containing the method to generate the menu content.
+     * @param bool $enabled Whether the menu is enabled.
+     * @return array An array containing the call string and the menu content.
+     */
     public static function getMenuEnable($caption, $menu, $class, $enabled = true)
     {
         $menu = 'menu' . ucfirst($menu);
@@ -126,6 +208,12 @@ class TplApp
         return array($call, self::getSectionContent($menu, $class, null));
     }
 
+    /**
+     * Generates the services section.
+     *
+     * @global object $bearsamppBins The bins application object.
+     * @return string The generated services section.
+     */
     private static function getSectionServices()
     {
         global $bearsamppBins;
@@ -138,6 +226,11 @@ class TplApp
         return $result;
     }
 
+    /**
+     * Generates the startup action section.
+     *
+     * @return string The generated startup action section.
+     */
     private static function getSectionStartupAction()
     {
         return '[StartupAction]' . PHP_EOL .
@@ -147,6 +240,12 @@ class TplApp
             self::getActionExec() . PHP_EOL;
     }
 
+    /**
+     * Generates the right menu section.
+     *
+     * @global object $bearsamppLang The language application object.
+     * @return string The generated right menu section.
+     */
     private static function getSectionMenuRight()
     {
         global $bearsamppLang;
@@ -175,8 +274,7 @@ class TplApp
             $tplBrowser[self::SECTION_CALL] . PHP_EOL .
             TplAppEditConf::process() . PHP_EOL .
 
-
-        TplAestan::getItemSeparator() . PHP_EOL .
+            TplAestan::getItemSeparator() . PHP_EOL .
             $tplLang[self::SECTION_CALL] . PHP_EOL .
             $tplLogsVerbose[self::SECTION_CALL] . PHP_EOL .
             $tplLaunchStartup[self::SECTION_CALL] . PHP_EOL .
@@ -193,6 +291,14 @@ class TplApp
             PHP_EOL . $tplExit[self::SECTION_CONTENT] . PHP_EOL;
     }
 
+    /**
+     * Generates the left menu section.
+     *
+     * @global object $bearsamppRoot The root application object.
+     * @global object $bearsamppBins The bins application object.
+     * @global object $bearsamppLang The language application object.
+     * @return string The generated left menu section.
+     */
     private static function getSectionMenuLeft()
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppLang;
