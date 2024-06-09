@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 class TplAestan
 {
@@ -51,6 +58,7 @@ class TplAestan
     const GLYPH_PERL = 55;
     const GLYPH_GHOSTSCRIPT = 56;
     const GLYPH_NGROK = 57;
+    const GLYPH_PWGEN = 4;
 
     const SERVICE_START = 'startresume';
     const SERVICE_STOP = 'stop';
@@ -99,7 +107,6 @@ class TplAestan
     {
         global $bearsamppRoot, $bearsamppConfig;
 
-        $link = '';
         if ($local) {
             $link = $bearsamppRoot->getLocalUrl($link);
         }

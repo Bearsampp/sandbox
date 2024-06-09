@@ -22,14 +22,15 @@
 /vhosts/
 /www/.htaccess
 /**/post-install/
-bearsampp.ini
+# bearsampp.ini
 bearsampp.conf
 /core/resources/homepage/alias.conf
-#/core/resources/homepage/js/_commons.js
 /core/resources/loading.pid
 /core/libs/openssl/openssl.cfg
 /core/resources/lastPath.dat
 /core/libs/openssl/openssl.cfg
+/core/resources/version.dat
+
 
 
 # Visual Studio
