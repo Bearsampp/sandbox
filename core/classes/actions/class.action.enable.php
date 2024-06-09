@@ -1,7 +1,31 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionEnable
+ *
+ * This class is responsible for enabling various services (Apache, PHP, MySQL, MariaDB, Node.js, PostgreSQL, FileZilla, MailHog, Memcached)
+ * based on the provided arguments. It interacts with the global `$bearsamppBins` object to perform these actions.
+ */
 class ActionEnable
 {
+    /**
+     * ActionEnable constructor.
+     *
+     * Initializes the ActionEnable class and enables the specified service if the arguments are valid.
+     *
+     * @param array $args An array of arguments where:
+     *                    - $args[0] is the name of the service to be enabled.
+     *                    - $args[1] is a boolean indicating whether to enable (true) or disable (false) the service.
+     *
+     * @global object $bearsamppBins Global object containing instances of various services.
+     */
     public function __construct($args)
     {
         global $bearsamppBins;

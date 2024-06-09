@@ -1,9 +1,22 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionSwitchVersion
+ *
+ * This class handles the switching of versions for various services and applications within the Bearsampp environment.
+ * It supports switching versions for Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js, FileZilla, and Memcached.
+ * The class initializes a splash screen to show progress and updates the configuration and registry settings accordingly.
+ */
 class ActionSwitchVersion
 {
     private $bearsamppSplash;
-
     private $version;
     private $bin;
     private $currentVersion;
@@ -14,6 +27,15 @@ class ActionSwitchVersion
     const GAUGE_SERVICES = 1;
     const GAUGE_OTHERS = 7;
 
+    /**
+     * ActionSwitchVersion constructor.
+     *
+     * Initializes the version switching process based on the provided arguments.
+     * It sets up the paths to scan for configuration files, determines the current version, and initializes the splash screen.
+     *
+     * @param array $args Arguments passed to the constructor. The first argument is the name of the service/application,
+     *                    and the second argument is the version to switch to.
+     */
     public function __construct($args)
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
@@ -141,6 +163,18 @@ class ActionSwitchVersion
         }
     }
 
+    /**
+     * Processes the window events for the splash screen.
+     *
+     * This method handles the actual switching of versions, including stopping services, reloading configurations,
+     * changing ports, and restarting services. It updates the splash screen with progress and messages.
+     *
+     * @param mixed $window The window handle.
+     * @param int $id The event ID.
+     * @param mixed $ctrl The control that triggered the event.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;

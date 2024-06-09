@@ -1,20 +1,28 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionEditAlias
+ *
+ * This class handles the editing of Apache alias configurations within the Bearsampp application.
+ * It provides a graphical user interface for users to edit, save, and delete alias configurations.
+ */
 class ActionEditAlias
 {
     private $initName;
-
     private $wbWindow;
-
     private $wbLabelName;
     private $wbInputName;
-
     private $wbLabelDest;
     private $wbInputDest;
     private $wbBtnDest;
-
     private $wbLabelExp;
-
     private $wbProgressBar;
     private $wbBtnSave;
     private $wbBtnDelete;
@@ -23,6 +31,14 @@ class ActionEditAlias
     const GAUGE_SAVE = 2;
     const GAUGE_DELETE = 2;
 
+    /**
+     * Constructor for ActionEditAlias.
+     *
+     * Initializes the class with the provided arguments, sets up the WinBinder window and controls,
+     * and starts the main event loop.
+     *
+     * @param array $args Arguments passed to the script, typically including the alias name.
+     */
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
@@ -59,6 +75,17 @@ class ActionEditAlias
         }
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles various events triggered by user interactions with the WinBinder window controls.
+     *
+     * @param resource $window The window resource.
+     * @param int $id The control ID that triggered the event.
+     * @param resource $ctrl The control resource.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;
@@ -70,8 +97,8 @@ class ActionEditAlias
         switch ($id) {
             case $this->wbInputName[WinBinder::CTRL_ID]:
                 $bearsamppWinbinder->setText(
-                $this->wbLabelExp[WinBinder::CTRL_OBJ],
-                sprintf($bearsamppLang->getValue(Lang::ALIAS_EXP_LABEL), $apachePortUri, $aliasName, $aliasDest)
+                    $this->wbLabelExp[WinBinder::CTRL_OBJ],
+                    sprintf($bearsamppLang->getValue(Lang::ALIAS_EXP_LABEL), $apachePortUri, $aliasName, $aliasDest)
                 );
                 $bearsamppWinbinder->setEnabled($this->wbBtnSave[WinBinder::CTRL_OBJ], empty($aliasName) ? false : true);
                 break;

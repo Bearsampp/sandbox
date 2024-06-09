@@ -1,7 +1,29 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
 /**
  * Class Action handles the execution of various actions based on command line arguments.
+ *
+ * This class provides a mechanism to process and execute different actions specified via command line arguments.
+ * It supports a wide range of actions such as adding aliases, changing ports, debugging services, and more.
+ * The actions are defined as constants within the class.
+ *
+ * Usage:
+ * - Instantiate the class: $action = new Action();
+ * - Process the action: $action->process();
+ * - Call a specific action: $action->call('actionName', $actionArgs);
+ *
+ * Example:
+ * ```php
+ * $action = new Action();
+ * $action->process();
+ * ```
  */
 class Action
 {
@@ -49,9 +71,10 @@ class Action
      */
     private $current;
 
-
     /**
      * Constructor for the Action class.
+     *
+     * Initializes a new instance of the Action class.
      */
     public function __construct()
     {
@@ -59,6 +82,11 @@ class Action
 
     /**
      * Processes the action based on command line arguments.
+     *
+     * This method checks if an action exists in the command line arguments, cleans the arguments,
+     * and then attempts to instantiate and execute the corresponding action class.
+     *
+     * @return void
      */
     public function process()
     {
@@ -84,8 +112,12 @@ class Action
     /**
      * Calls a specific action by name with optional arguments.
      *
+     * This method allows for the direct invocation of a specific action class by its name.
+     * It logs the start of the action and then instantiates the action class with the provided arguments.
+     *
      * @param string $actionName The name of the action to call.
      * @param mixed $actionArgs Optional arguments for the action.
+     * @return void
      */
     public function call($actionName, $actionArgs = null)
     {
@@ -98,6 +130,9 @@ class Action
 
     /**
      * Checks if the action exists in the command line arguments.
+     *
+     * This method verifies if the command line arguments contain a valid action.
+     * It checks if the `argv` array is set and if the second element (the action) is not empty.
      *
      * @return bool Returns true if the action exists, false otherwise.
      */

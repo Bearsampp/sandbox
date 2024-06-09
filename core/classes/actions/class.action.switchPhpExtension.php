@@ -1,10 +1,44 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionSwitchPhpExtension
+ *
+ * This class is responsible for enabling or disabling PHP extensions by modifying the PHP configuration file (php.ini).
+ * It updates the configuration based on the provided arguments and the PHP version.
+ *
+ * Usage:
+ * Instantiate the class with an array of arguments where:
+ * - $args[0] is the name of the PHP extension.
+ * - $args[1] is the action to perform, either 'on' to enable the extension or 'off' to disable it.
+ *
+ * Example:
+ * $action = new ActionSwitchPhpExtension(['curl', 'on']);
+ *
+ * @package Bearsampp
+ * @license GNU General Public License version 3 or later; see LICENSE.txt
+ * @author Bear
+ * @link https://bearsampp.com
+ * @link https://github.com/Bearsampp
+ */
 class ActionSwitchPhpExtension
 {
     const SWITCH_ON = 'on';
     const SWITCH_OFF = 'off';
 
+    /**
+     * ActionSwitchPhpExtension constructor.
+     *
+     * @param array $args An array of arguments where:
+     *                    - $args[0] is the name of the PHP extension.
+     *                    - $args[1] is the action to perform, either 'on' to enable the extension or 'off' to disable it.
+     */
     public function __construct($args)
     {
         global $bearsamppBins;

@@ -1,7 +1,52 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionDebugApache
+ *
+ * This class is responsible for debugging various aspects of the Apache server.
+ * It retrieves and displays information such as version number, compile settings,
+ * compiled modules, configuration directives, virtual host settings, loaded modules,
+ * and performs syntax checks.
+ *
+ * The class utilizes global variables to access language settings, binaries, tools,
+ * and the WinBinder library for displaying messages.
+ */
 class ActionDebugApache
 {
+    /**
+     * Constructor for ActionDebugApache
+     *
+     * @param array $args An array of arguments specifying the type of debug information to retrieve.
+     *
+     * This constructor checks the provided argument to determine the type of Apache debug information
+     * to retrieve. It sets the appropriate caption for the debug window and retrieves the command line
+     * output from the Apache binary. Depending on the type of information, it either opens the content
+     * in an editor or displays it in a message box.
+     *
+     * The following debug types are supported:
+     * - Version Number
+     * - Compile Settings
+     * - Compiled Modules
+     * - Configuration Directives
+     * - Virtual Host Settings
+     * - Loaded Modules
+     * - Syntax Check
+     *
+     * If the syntax check is performed, the result is displayed in a message box indicating whether
+     * the syntax is OK or if there are errors.
+     *
+     * @global object $bearsamppLang Language settings object.
+     * @global object $bearsamppBins Binaries object.
+     * @global object $bearsamppTools Tools object.
+     * @global object $bearsamppWinbinder WinBinder library object.
+     */
     public function __construct($args)
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppTools, $bearsamppWinbinder;

@@ -1,7 +1,25 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionSwitchOnline
+ *
+ * This class handles the switching of the application between online and offline modes.
+ * It updates the configuration settings and refreshes the configurations for Apache, aliases, virtual hosts, and FileZilla.
+ */
 class ActionSwitchOnline
 {
+    /**
+     * Constructor for ActionSwitchOnline.
+     *
+     * @param array $args An array of arguments where the first element indicates whether to enable (Config::ENABLED) or disable (Config::DISABLED) online mode.
+     */
     public function __construct($args)
     {
         global $bearsamppConfig;
@@ -18,24 +36,44 @@ class ActionSwitchOnline
         }
     }
 
+    /**
+     * Switches the Apache configuration between online and offline modes.
+     *
+     * @param bool $putOnline True to enable online mode, false to enable offline mode.
+     */
     private function switchApache($putOnline)
     {
         global $bearsamppBins;
         $bearsamppBins->getApache()->refreshConf($putOnline);
     }
 
+    /**
+     * Switches the alias configuration between online and offline modes.
+     *
+     * @param bool $putOnline True to enable online mode, false to enable offline mode.
+     */
     private function switchAlias($putOnline)
     {
         global $bearsamppBins;
         $bearsamppBins->getApache()->refreshAlias($putOnline);
     }
 
+    /**
+     * Switches the virtual hosts configuration between online and offline modes.
+     *
+     * @param bool $putOnline True to enable online mode, false to enable offline mode.
+     */
     private function switchVhosts($putOnline)
     {
         global $bearsamppBins;
         $bearsamppBins->getApache()->refreshVhosts($putOnline);
     }
 
+    /**
+     * Switches the FileZilla configuration between online and offline modes.
+     *
+     * @param bool $putOnline True to enable online mode, false to enable offline mode.
+     */
     private function switchFilezilla($putOnline)
     {
         global $bearsamppBins;

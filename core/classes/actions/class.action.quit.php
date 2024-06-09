@@ -1,12 +1,38 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionQuit
+ *
+ * Handles the quitting process of the Bearsampp application. This includes displaying a splash screen,
+ * stopping services, deleting symbolic links, and killing other processes.
+ */
 class ActionQuit
 {
+    /**
+     * @var Splash The splash screen object used to display progress.
+     */
     private $splash;
 
+    /**
+     * Gauge values used for progress bar calculations.
+     */
     const GAUGE_PROCESSES = 1;
     const GAUGE_OTHERS = 1;
 
+    /**
+     * ActionQuit constructor.
+     *
+     * Initializes the quitting process by displaying a splash screen and setting up the main loop.
+     *
+     * @param array $args Command line arguments passed to the script.
+     */
     public function __construct($args)
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder, $arrayOfCurrents;
@@ -24,6 +50,18 @@ class ActionQuit
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes the window events.
+     *
+     * This method is called by the WinBinder library to handle window events. It stops services,
+     * deletes symbolic links, and kills other processes.
+     *
+     * @param resource $window The window resource.
+     * @param int $id The ID of the event.
+     * @param int $ctrl The control ID.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;

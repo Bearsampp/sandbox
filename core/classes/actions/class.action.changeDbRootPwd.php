@@ -1,5 +1,19 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionChangeDbRootPwd
+ *
+ * This class handles the process of changing the root password for various database systems (MySQL, MariaDB, PostgreSQL).
+ * It creates a graphical user interface (GUI) using WinBinder to prompt the user for the current and new passwords,
+ * validates the inputs, and performs the password change operation.
+ */
 class ActionChangeDbRootPwd
 {
     private $bin;
@@ -20,6 +34,13 @@ class ActionChangeDbRootPwd
     private $wbBtnFinish;
     private $wbBtnCancel;
 
+    /**
+     * Constructor for ActionChangeDbRootPwd.
+     *
+     * Initializes the class with the provided arguments, sets up the GUI components, and starts the main event loop.
+     *
+     * @param array $args Arguments passed to the constructor, typically containing the database type.
+     */
     public function __construct($args)
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
@@ -58,6 +79,18 @@ class ActionChangeDbRootPwd
         }
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles the events triggered by the GUI components, such as button clicks. Validates the input passwords,
+     * checks the current root password, and changes it to the new password if all validations pass.
+     *
+     * @param mixed $window The window object.
+     * @param int $id The ID of the control that triggered the event.
+     * @param mixed $ctrl The control object.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppLang, $bearsamppWinbinder;

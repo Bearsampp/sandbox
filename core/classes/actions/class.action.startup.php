@@ -1,5 +1,19 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionStartup
+ *
+ * This class handles the startup process of the Bearsampp application. It initializes the splash screen,
+ * performs various startup tasks such as cleaning temporary folders, rotating logs, refreshing configurations,
+ * and installing necessary services. It also handles the process of restarting the application if needed.
+ */
 class ActionStartup
 {
     private $splash;
@@ -13,35 +27,56 @@ class ActionStartup
     const GAUGE_SERVICES = 5;
     const GAUGE_OTHERS = 19;
 
+    /**
+     * ActionStartup constructor.
+     *
+     * Initializes the startup process by setting up the splash screen, calculating the progress gauge,
+     * and starting the main loop for the splash screen.
+     *
+     * @param   array  $args  Arguments passed to the constructor (not used in the current implementation).
+     */
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
-        $this->writeLog('Starting ' . APP_TITLE);
+        $this->writeLog( 'Starting ' . APP_TITLE );
 
         // Init
-        $this->splash = new Splash();
-        $this->restart = false;
+        $this->splash    = new Splash();
+        $this->restart   = false;
         $this->startTime = Util::getMicrotime();
-        $this->error = '';
+        $this->error     = '';
 
-        $this->rootPath = $bearsamppRoot->getRootPath();
+        $this->rootPath    = $bearsamppRoot->getRootPath();
         $this->filesToScan = array();
 
-        $gauge = self::GAUGE_SERVICES * count($bearsamppBins->getServices());
+        $gauge = self::GAUGE_SERVICES * count( $bearsamppBins->getServices() );
         $gauge += self::GAUGE_OTHERS + 1;
 
         // Start splash screen
         $this->splash->init(
-            $bearsamppLang->getValue(Lang::STARTUP),
+            $bearsamppLang->getValue( Lang::STARTUP ),
             $gauge,
-            sprintf($bearsamppLang->getValue(Lang::STARTUP_STARTING_TEXT), APP_TITLE . ' ' . $bearsamppCore->getAppVersion())
+            sprintf( $bearsamppLang->getValue( Lang::STARTUP_STARTING_TEXT ), APP_TITLE . ' ' . $bearsamppCore->getAppVersion() )
         );
 
-        $bearsamppWinbinder->setHandler($this->splash->getWbWindow(), $this, 'processWindow', 1000);
+        $bearsamppWinbinder->setHandler( $this->splash->getWbWindow(), $this, 'processWindow', 1000 );
         $bearsamppWinbinder->mainLoop();
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes the main window events during startup.
+     *
+     * This method handles various startup tasks such as rotating logs, cleaning temporary folders,
+     * listing processes and modules, killing old instances, refreshing configurations, and installing services.
+     * It also handles the restart process if needed.
+     *
+     * @param   mixed  $window  The window handle.
+     * @param   int    $id      The event ID.
+     * @param   int    $ctrl    The control ID.
+     * @param   mixed  $param1  The first parameter.
+     * @param   mixed  $param2  The second parameter.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppTools, $bearsamppApps, $bearsamppWinbinder;
@@ -54,42 +89,45 @@ class ActionStartup
         $this->cleanOldBehaviors();
 
         // List procs
-        if ($bearsamppRoot->getProcs() !== false) {
-            $this->writeLog('List procs:');
+        if ( $bearsamppRoot->getProcs() !== false ) {
+            $this->writeLog( 'List procs:' );
             $listProcs = array();
-            foreach ($bearsamppRoot->getProcs() as $proc) {
-                $unixExePath = Util::formatUnixPath($proc[Win32Ps::EXECUTABLE_PATH]);
-                $listProcs[] = '-> ' . basename($unixExePath) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
+            foreach ( $bearsamppRoot->getProcs() as $proc ) {
+                $unixExePath = Util::formatUnixPath( $proc[Win32Ps::EXECUTABLE_PATH] );
+                $listProcs[] = '-> ' . basename( $unixExePath ) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
             }
-            sort($listProcs);
-            foreach ($listProcs as $proc) {
-                $this->writeLog($proc);
+            sort( $listProcs );
+            foreach ( $listProcs as $proc ) {
+                $this->writeLog( $proc );
             }
         }
 
         // List modules
-        $this->writeLog('List bins modules:');
-        foreach ($bearsamppBins->getAll() as $module) {
-            if (!$module->isEnable()) {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $bearsamppLang->getValue(Lang::DISABLED));
-            } else {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')');
+        $this->writeLog( 'List bins modules:' );
+        foreach ( $bearsamppBins->getAll() as $module ) {
+            if ( !$module->isEnable() ) {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $bearsamppLang->getValue( Lang::DISABLED ) );
+            }
+            else {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')' );
             }
         }
-        $this->writeLog('List tools modules:');
-        foreach ($bearsamppTools->getAll() as $module) {
-            if (!$module->isEnable()) {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $bearsamppLang->getValue(Lang::DISABLED));
-            } else {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')');
+        $this->writeLog( 'List tools modules:' );
+        foreach ( $bearsamppTools->getAll() as $module ) {
+            if ( !$module->isEnable() ) {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $bearsamppLang->getValue( Lang::DISABLED ) );
+            }
+            else {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')' );
             }
         }
-        $this->writeLog('List apps modules:');
-        foreach ($bearsamppApps->getAll() as $module) {
-            if (!$module->isEnable()) {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $bearsamppLang->getValue(Lang::DISABLED));
-            } else {
-                $this->writeLog('-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')');
+        $this->writeLog( 'List apps modules:' );
+        foreach ( $bearsamppApps->getAll() as $module ) {
+            if ( !$module->isEnable() ) {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $bearsamppLang->getValue( Lang::DISABLED ) );
+            }
+            else {
+                $this->writeLog( '-> ' . $module->getName() . ': ' . $module->getVersion() . ' (' . $module->getRelease() . ')' );
             }
         }
 
@@ -125,130 +163,143 @@ class ActionStartup
         $this->installServices();
 
         // Actions if everything OK
-        if (!$this->restart && empty($this->error)) {
+        if ( !$this->restart && empty( $this->error ) ) {
             $this->refreshGitRepos();
-            $this->writeLog('Started in ' . round(Util::getMicrotime() - $this->startTime, 3) . 's');
-        } else {
-            $this->splash->incrProgressBar(2);
+            $this->writeLog( 'Started in ' . round( Util::getMicrotime() - $this->startTime, 3 ) . 's' );
+        }
+        else {
+            $this->splash->incrProgressBar( 2 );
         }
 
-        if ($this->restart) {
-            $this->writeLog(APP_TITLE . ' has to be restarted');
-            $this->splash->setTextLoading(sprintf(
-                $bearsamppLang->getValue(Lang::STARTUP_PREPARE_RESTART_TEXT),
-                APP_TITLE . ' ' . $bearsamppCore->getAppVersion())
+        if ( $this->restart ) {
+            $this->writeLog( APP_TITLE . ' has to be restarted' );
+            $this->splash->setTextLoading(
+                sprintf(
+                    $bearsamppLang->getValue( Lang::STARTUP_PREPARE_RESTART_TEXT ),
+                    APP_TITLE . ' ' . $bearsamppCore->getAppVersion()
+                )
             );
-            foreach ($bearsamppBins->getServices() as $sName => $service) {
+            foreach ( $bearsamppBins->getServices() as $sName => $service ) {
                 $service->delete();
             }
-            $bearsamppCore->setExec(ActionExec::RESTART);
+            $bearsamppCore->setExec( ActionExec::RESTART );
         }
 
-        if (!empty($this->error)) {
-            $this->writeLog('Error: ' . $this->error);
-            $bearsamppWinbinder->messageBoxError($this->error, $bearsamppLang->getValue(Lang::STARTUP_ERROR_TITLE));
+        if ( !empty( $this->error ) ) {
+            $this->writeLog( 'Error: ' . $this->error );
+            $bearsamppWinbinder->messageBoxError( $this->error, $bearsamppLang->getValue( Lang::STARTUP_ERROR_TITLE ) );
         }
 
         Util::startLoading();
-        $bearsamppWinbinder->destroyWindow($window);
+        $bearsamppWinbinder->destroyWindow( $window );
     }
 
+    /**
+     * Rotates the logs by archiving old logs and purging the current logs.
+     */
     private function rotationLogs()
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppConfig, $bearsamppLang, $bearsamppBins;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_ROTATION_LOGS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_ROTATION_LOGS_TEXT ) );
         $this->splash->incrProgressBar();
 
         $archivesPath = $bearsamppRoot->getLogsPath() . '/archives';
-        if (!is_dir($archivesPath)) {
-            mkdir($archivesPath, 0777, true);
+        if ( !is_dir( $archivesPath ) ) {
+            mkdir( $archivesPath, 0777, true );
+
             return;
         }
 
-        $date = date('Y-m-d-His', time());
-        $archiveLogsPath = $archivesPath . '/' . $date;
+        $date               = date( 'Y-m-d-His', time() );
+        $archiveLogsPath    = $archivesPath . '/' . $date;
         $archiveScriptsPath = $archiveLogsPath . '/scripts';
 
         // Create archive folders
-        mkdir($archiveLogsPath, 0777, true);
-        mkdir($archiveScriptsPath, 0777, true);
+        mkdir( $archiveLogsPath, 0777, true );
+        mkdir( $archiveScriptsPath, 0777, true );
 
         // Count archives
         $archives = array();
-        $handle = @opendir($archivesPath);
-        if (!$handle) {
+        $handle   = @opendir( $archivesPath );
+        if ( !$handle ) {
             return;
         }
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
+        while ( false !== ($file = readdir( $handle )) ) {
+            if ( $file == '.' || $file == '..' ) {
                 continue;
             }
             $archives[] = $archivesPath . '/' . $file;
         }
-        closedir($handle);
-        sort($archives);
+        closedir( $handle );
+        sort( $archives );
 
         // Remove old archives
-        if (count($archives) > $bearsamppConfig->getMaxLogsArchives()) {
-            $total = count($archives) - $bearsamppConfig->getMaxLogsArchives();
-            for ($i = 0; $i < $total; $i++) {
-                Util::deleteFolder($archives[$i]);
+        if ( count( $archives ) > $bearsamppConfig->getMaxLogsArchives() ) {
+            $total = count( $archives ) - $bearsamppConfig->getMaxLogsArchives();
+            for ( $i = 0; $i < $total; $i++ ) {
+                Util::deleteFolder( $archives[$i] );
             }
         }
 
         // Logs
         $srcPath = $bearsamppRoot->getLogsPath();
-        $handle = @opendir($srcPath);
-        if (!$handle) {
+        $handle  = @opendir( $srcPath );
+        if ( !$handle ) {
             return;
         }
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
+        while ( false !== ($file = readdir( $handle )) ) {
+            if ( $file == '.' || $file == '..' || is_dir( $srcPath . '/' . $file ) ) {
                 continue;
             }
-            copy($srcPath . '/' . $file, $archiveLogsPath . '/' . $file);
+            copy( $srcPath . '/' . $file, $archiveLogsPath . '/' . $file );
         }
-        closedir($handle);
+        closedir( $handle );
 
         // Scripts
         $srcPath = $bearsamppCore->getTmpPath();
-        $handle = @opendir($srcPath);
-        if (!$handle) {
+        $handle  = @opendir( $srcPath );
+        if ( !$handle ) {
             return;
         }
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
+        while ( false !== ($file = readdir( $handle )) ) {
+            if ( $file == '.' || $file == '..' || is_dir( $srcPath . '/' . $file ) ) {
                 continue;
             }
-            copy($srcPath . '/' . $file, $archiveScriptsPath . '/' . $file);
+            copy( $srcPath . '/' . $file, $archiveScriptsPath . '/' . $file );
         }
-        closedir($handle);
+        closedir( $handle );
 
         // Purge logs
-        Util::clearFolders($bearsamppBins->getLogsPath());
-        Util::clearFolder($bearsamppRoot->getLogsPath(), array('archives', '.gitignore'));
+        Util::clearFolders( $bearsamppBins->getLogsPath() );
+        Util::clearFolder( $bearsamppRoot->getLogsPath(), array('archives', '.gitignore') );
     }
 
+    /**
+     * Cleans temporary folders by removing unnecessary files.
+     */
     private function cleanTmpFolders()
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppCore;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_CLEAN_TMP_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_CLEAN_TMP_TEXT ) );
         $this->splash->incrProgressBar();
 
-        $this->writeLog('Clear tmp folders');
-        Util::clearFolder($bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn', '.gitignore'));
-        Util::clearFolder($bearsamppCore->getTmpPath(), array('.gitignore'));
+        $this->writeLog( 'Clear tmp folders' );
+        Util::clearFolder( $bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailhog', 'npm-cache', 'pip', 'yarn', '.gitignore') );
+        Util::clearFolder( $bearsamppCore->getTmpPath(), array('.gitignore') );
     }
 
+    /**
+     * Cleans old behaviors by removing outdated registry entries.
+     */
     private function cleanOldBehaviors()
     {
         global $bearsamppLang, $bearsamppRegistry;
 
-        $this->writeLog('Clean old behaviors');
+        $this->writeLog( 'Clean old behaviors' );
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_CLEAN_OLD_BEHAVIORS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_CLEAN_OLD_BEHAVIORS_TEXT ) );
         $this->splash->incrProgressBar();
 
         // App >= 1.0.13
@@ -259,150 +310,178 @@ class ActionStartup
         );
     }
 
+    /**
+     * Kills old instances of Bearsampp processes.
+     */
     private function killOldInstances()
     {
         global $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_KILL_OLD_PROCS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_KILL_OLD_PROCS_TEXT ) );
         $this->splash->incrProgressBar();
-
-        // Stop services
-        /*foreach ($bearsamppBins->getServices() as $sName => $service) {
-            $serviceInfos = $service->infos();
-            if ($serviceInfos === false) {
-                continue;
-            }
-            $service->stop();
-        }*/
 
         // Stop third party procs
         $procsKilled = Win32Ps::killBins();
-        if (!empty($procsKilled)) {
-            $this->writeLog('Procs killed:');
+        if ( !empty( $procsKilled ) ) {
+            $this->writeLog( 'Procs killed:' );
             $procsKilledSort = array();
-            foreach ($procsKilled as $proc) {
-                $unixExePath = Util::formatUnixPath($proc[Win32Ps::EXECUTABLE_PATH]);
-                $procsKilledSort[] = '-> ' . basename($unixExePath) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
+            foreach ( $procsKilled as $proc ) {
+                $unixExePath       = Util::formatUnixPath( $proc[Win32Ps::EXECUTABLE_PATH] );
+                $procsKilledSort[] = '-> ' . basename( $unixExePath ) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
             }
-            sort($procsKilledSort);
-            foreach ($procsKilledSort as $proc) {
-                $this->writeLog($proc);
+            sort( $procsKilledSort );
+            foreach ( $procsKilledSort as $proc ) {
+                $this->writeLog( $proc );
             }
         }
     }
 
+    /**
+     * Refreshes the hostname configuration.
+     */
     private function refreshHostname()
     {
         global $bearsamppConfig, $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_REFRESH_HOSTNAME_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_REFRESH_HOSTNAME_TEXT ) );
         $this->splash->incrProgressBar();
-        $this->writeLog('Refresh hostname');
+        $this->writeLog( 'Refresh hostname' );
 
-        $bearsamppConfig->replace(Config::CFG_HOSTNAME, gethostname());
+        $bearsamppConfig->replace( Config::CFG_HOSTNAME, gethostname() );
     }
 
+    /**
+     * Checks if the application is set to launch at startup and enables or disables it accordingly.
+     */
     private function checkLaunchStartup()
     {
         global $bearsamppConfig;
 
-        $this->writeLog('Check launch startup');
+        $this->writeLog( 'Check launch startup' );
 
-        if ($bearsamppConfig->isLaunchStartup()) {
+        if ( $bearsamppConfig->isLaunchStartup() ) {
             Util::enableLaunchStartup();
-        } else {
+        }
+        else {
             Util::disableLaunchStartup();
         }
     }
 
+    /**
+     * Checks the configured browser and updates it if necessary.
+     */
     private function checkBrowser()
     {
         global $bearsamppConfig, $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_CHECK_BROWSER_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_CHECK_BROWSER_TEXT ) );
         $this->splash->incrProgressBar();
-        $this->writeLog('Check browser');
+        $this->writeLog( 'Check browser' );
 
         $currentBrowser = $bearsamppConfig->getBrowser();
-        if (empty($currentBrowser) || !file_exists($currentBrowser)) {
-            $bearsamppConfig->replace(Config::CFG_BROWSER, Vbs::getDefaultBrowser());
+        if ( empty( $currentBrowser ) || !file_exists( $currentBrowser ) ) {
+            $bearsamppConfig->replace( Config::CFG_BROWSER, Vbs::getDefaultBrowser() );
         }
     }
 
+    /**
+     * Logs system information.
+     */
     private function sysInfos()
     {
         global $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_SYS_INFOS));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_SYS_INFOS ) );
         $this->splash->incrProgressBar();
 
         $os = Batch::getOsInfo();
-        $this->writeLog(sprintf("OS: %s", $os));
+        $this->writeLog( sprintf( 'OS: %s', $os ) );
     }
 
+    /**
+     * Refreshes the aliases configuration.
+     */
     private function refreshAliases()
     {
         global $bearsamppConfig, $bearsamppLang, $bearsamppBins;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_REFRESH_ALIAS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_REFRESH_ALIAS_TEXT ) );
         $this->splash->incrProgressBar();
-        $this->writeLog('Refresh aliases');
+        $this->writeLog( 'Refresh aliases' );
 
-        $bearsamppBins->getApache()->refreshAlias($bearsamppConfig->isOnline());
+        $bearsamppBins->getApache()->refreshAlias( $bearsamppConfig->isOnline() );
     }
 
+    /**
+     * Refreshes the virtual hosts configuration.
+     */
     private function refreshVhosts()
     {
         global $bearsamppConfig, $bearsamppLang, $bearsamppBins;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_REFRESH_VHOSTS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_REFRESH_VHOSTS_TEXT ) );
         $this->splash->incrProgressBar();
-        $this->writeLog('Refresh vhosts');
+        $this->writeLog( 'Refresh vhosts' );
 
-        $bearsamppBins->getApache()->refreshVhosts($bearsamppConfig->isOnline());
+        $bearsamppBins->getApache()->refreshVhosts( $bearsamppConfig->isOnline() );
     }
 
+    /**
+     * Checks the application path and logs the last path content.
+     */
     private function checkPath()
     {
         global $bearsamppCore, $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_CHECK_PATH_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_CHECK_PATH_TEXT ) );
         $this->splash->incrProgressBar();
 
-        $this->writeLog('Last path: ' . $bearsamppCore->getLastPathContent());
+        $this->writeLog( 'Last path: ' . $bearsamppCore->getLastPathContent() );
     }
 
+    /**
+     * Scans folders and logs the number of files to scan.
+     */
     private function scanFolders()
     {
         global $bearsamppLang;
 
-        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_SCAN_FOLDERS_TEXT));
+        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_SCAN_FOLDERS_TEXT ) );
         $this->splash->incrProgressBar();
 
         $this->filesToScan = Util::getFilesToScan();
-        $this->writeLog('Files to scan: ' . count($this->filesToScan));
+        $this->writeLog( 'Files to scan: ' . count( $this->filesToScan ) );
     }
 
+    /**
+     * Changes the path of the application files.
+     */
     private function changePath()
     {
         global $bearsamppLang;
 
-        $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_CHANGE_PATH_TEXT), $this->rootPath));
+        $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_CHANGE_PATH_TEXT ), $this->rootPath ) );
         $this->splash->incrProgressBar();
 
-        $result = Util::changePath($this->filesToScan, $this->rootPath);
-        $this->writeLog('Nb files changed: ' . $result['countChangedFiles']);
-        $this->writeLog('Nb occurences changed: ' . $result['countChangedOcc']);
+        $result = Util::changePath( $this->filesToScan, $this->rootPath );
+        $this->writeLog( 'Nb files changed: ' . $result['countChangedFiles'] );
+        $this->writeLog( 'Nb occurences changed: ' . $result['countChangedOcc'] );
     }
 
+    /**
+     * Saves the current path to a file.
+     */
     private function savePath()
     {
         global $bearsamppCore;
 
-        file_put_contents($bearsamppCore->getLastPath(), $this->rootPath);
-        $this->writeLog('Save current path: ' . $this->rootPath);
+        file_put_contents( $bearsamppCore->getLastPath(), $this->rootPath );
+        $this->writeLog( 'Save current path: ' . $this->rootPath );
     }
 
+    /**
+     * Checks and updates the application path registry key.
+     */
     private function checkPathRegKey()
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppRegistry;
@@ -427,7 +506,14 @@ class ActionStartup
             }
         }
     }
-
+    /**
+     * Checks and updates the application bins registry key.
+     * If the current key does not match the generated key, it updates the registry key and sets a restart flag.
+     * Logs the current and generated registry keys and any errors encountered.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppRegistry Registry object for interacting with the Windows registry.
+     */
     private function checkBinsRegKey()
     {
         global $bearsamppLang, $bearsamppRegistry;
@@ -453,6 +539,14 @@ class ActionStartup
         }
     }
 
+    /**
+     * Checks and updates the system PATH registry key.
+     * Ensures the application bins registry entry is at the beginning of the PATH.
+     * Logs the current and new PATH values and any errors encountered.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppRegistry Registry object for interacting with the Windows registry.
+     */
     private function checkSystemPathRegKey()
     {
         global $bearsamppLang, $bearsamppRegistry;
@@ -468,7 +562,7 @@ class ActionStartup
         $newSysPathRegKey = '%' . Registry::APP_BINS_REG_ENTRY . '%;' . $newSysPathRegKey;
         $this->writeLog('New system PATH: ' . $newSysPathRegKey);
 
-        if ($currentSysPathRegKey!= $newSysPathRegKey) {
+        if ($currentSysPathRegKey != $newSysPathRegKey) {
             if (!Util::setSysPathRegKey($newSysPathRegKey)) {
                 if (!empty($this->error)) {
                     $this->error .= PHP_EOL . PHP_EOL;
@@ -486,6 +580,15 @@ class ActionStartup
         }
     }
 
+    /**
+     * Updates the configuration for bins, tools, and apps.
+     * Logs the update process and updates the splash screen.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppBins Bins object for managing application binaries.
+     * @global object $bearsamppTools Tools object for managing application tools.
+     * @global object $bearsamppApps Apps object for managing application apps.
+     */
     private function updateConfig()
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppTools, $bearsamppApps;
@@ -499,6 +602,13 @@ class ActionStartup
         $bearsamppApps->update();
     }
 
+    /**
+     * Creates SSL certificates if they do not already exist.
+     * Logs the creation process and updates the splash screen.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppOpenSsl OpenSSL object for managing SSL certificates.
+     */
     private function createSslCrts()
     {
         global $bearsamppLang, $bearsamppOpenSsl;
@@ -510,6 +620,15 @@ class ActionStartup
         }
     }
 
+    /**
+     * Installs and starts services for various application components.
+     * Checks if services are already installed and if ports are in use.
+     * Logs the installation process and updates the splash screen.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppBins Bins object for managing application binaries.
+     * @global object $bearsamppRoot Root object for managing application root directory.
+     */
     private function installServices()
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppRoot;
@@ -631,6 +750,13 @@ class ActionStartup
         }
     }
 
+    /**
+     * Refreshes Git repositories if the scan on startup option is enabled.
+     * Logs the number of repositories found and updates the splash screen.
+     *
+     * @global object $bearsamppLang Language object for retrieving localized strings.
+     * @global object $bearsamppTools Tools object for managing application tools.
+     */
     private function refreshGitRepos()
     {
         global $bearsamppLang, $bearsamppTools;
@@ -644,10 +770,15 @@ class ActionStartup
         }
     }
 
+    /**
+     * Writes a log message to the startup log file.
+     *
+     * @param string $log The log message to write.
+     * @global object $bearsamppRoot Root object for managing application root directory.
+     */
     private function writeLog($log)
     {
         global $bearsamppRoot;
         Util::logDebug($log, $bearsamppRoot->getStartupLogFilePath());
     }
-
 }

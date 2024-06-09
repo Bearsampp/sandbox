@@ -1,22 +1,38 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionChangeBrowser
+ *
+ * This class handles the action of changing the default browser in the Bearsampp application.
+ * It provides a graphical interface for users to select from installed browsers or specify a custom browser path.
+ */
 class ActionChangeBrowser
 {
     private $wbWindow;
-
     private $wbLabelExp;
-
     private $wbRadioButton;
     private $wbRadioButtonOther;
     private $wbInputBrowse;
     private $wbBtnBrowse;
-
     private $wbProgressBar;
     private $wbBtnSave;
     private $wbBtnCancel;
 
     const GAUGE_SAVE = 2;
 
+    /**
+     * Constructor for the ActionChangeBrowser class.
+     * Initializes the window and its controls, and starts the main event loop.
+     *
+     * @param array $args Arguments passed to the constructor.
+     */
     public function __construct($args)
     {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
@@ -54,6 +70,15 @@ class ActionChangeBrowser
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes window events and handles user interactions.
+     *
+     * @param resource $window The window resource.
+     * @param int $id The control ID.
+     * @param resource $ctrl The control resource.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;

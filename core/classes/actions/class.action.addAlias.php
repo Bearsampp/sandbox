@@ -1,24 +1,42 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionAddAlias
+ *
+ * This class handles the creation of a new alias for the Apache server within the Bearsampp application.
+ * It provides a graphical interface for users to input the alias name and destination directory,
+ * and manages the process of saving the alias configuration and restarting the Apache service.
+ */
 class ActionAddAlias
 {
     private $wbWindow;
-
     private $wbLabelName;
     private $wbInputName;
-
     private $wbLabelDest;
     private $wbInputDest;
     private $wbBtnDest;
-
     private $wbLabelExp;
-
     private $wbProgressBar;
     private $wbBtnSave;
     private $wbBtnCancel;
 
     const GAUGE_SAVE = 2;
 
+    /**
+     * ActionAddAlias constructor.
+     *
+     * Initializes the window and controls for adding a new alias.
+     * Sets up event handlers and starts the main loop for the window.
+     *
+     * @param array $args Arguments passed to the constructor (not used in this implementation).
+     */
     public function __construct($args)
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
@@ -48,6 +66,19 @@ class ActionAddAlias
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles various events triggered by user interactions with the window controls.
+     * Updates the alias explanation label, opens a directory selection dialog, saves the alias configuration,
+     * and manages the progress bar and error messages.
+     *
+     * @param mixed $window The window object.
+     * @param int $id The ID of the control that triggered the event.
+     * @param mixed $ctrl The control object that triggered the event.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;

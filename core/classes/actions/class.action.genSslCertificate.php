@@ -1,22 +1,39 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionGenSslCertificate
+ *
+ * This class handles the generation of SSL certificates through a graphical user interface.
+ * It utilizes the WinBinder library to create and manage the UI components.
+ */
 class ActionGenSslCertificate
 {
     private $wbWindow;
-
     private $wbLabelName;
     private $wbInputName;
-
     private $wbLabelDest;
     private $wbInputDest;
     private $wbBtnDest;
-
     private $wbProgressBar;
     private $wbBtnSave;
     private $wbBtnCancel;
 
     const GAUGE_SAVE = 2;
 
+    /**
+     * Constructor for ActionGenSslCertificate.
+     *
+     * Initializes the UI components and sets up the event handlers.
+     *
+     * @param array $args Command line arguments passed to the script.
+     */
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppWinbinder;
@@ -43,6 +60,18 @@ class ActionGenSslCertificate
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles button clicks and other window events to perform actions such as browsing for a directory,
+     * saving the SSL certificate, and closing the window.
+     *
+     * @param resource $window The window resource.
+     * @param int $id The ID of the control that triggered the event.
+     * @param resource $ctrl The control resource.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppLang, $bearsamppOpenSsl, $bearsamppWinbinder;

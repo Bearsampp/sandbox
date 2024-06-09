@@ -7,18 +7,57 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * Class ActionAbout
+ *
+ * This class is responsible for creating and managing the "About" window in the Bearsampp application.
+ * It initializes the window, sets up various UI elements such as labels, hyperlinks, and buttons,
+ * and handles user interactions with these elements.
+ */
 class ActionAbout
 {
+    /**
+     * @var mixed $wbWindow The main window object for the "About" window.
+     */
     private $wbWindow;
 
+    /**
+     * @var mixed $wbImage The image object displayed in the "About" window.
+     */
     private $wbImage;
+
+    /**
+     * @var mixed $wbLinkHomepage The hyperlink object for the homepage link.
+     */
     private $wbLinkHomepage;
+
+    /**
+     * @var mixed $wbLinkDonate The hyperlink object for the donate link.
+     */
     private $wbLinkDonate;
+
+    /**
+     * @var mixed $wbLinkGithub The hyperlink object for the GitHub link.
+     */
     private $wbLinkGithub;
+
+    /**
+     * @var mixed $wbBtnOk The button object for the OK button.
+     */
     private $wbBtnOk;
 
+    /**
+     * Constant for gauge save value.
+     */
     const GAUGE_SAVE = 2;
 
+    /**
+     * Constructor for the ActionAbout class.
+     *
+     * Initializes the "About" window, sets up UI elements, and starts the main event loop.
+     *
+     * @param array $args Arguments passed to the constructor.
+     */
     public function __construct($args)
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
@@ -47,6 +86,17 @@ class ActionAbout
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles user interactions with the "About" window, such as clicking hyperlinks or the OK button.
+     *
+     * @param mixed $window The window object.
+     * @param int $id The ID of the control that triggered the event.
+     * @param mixed $ctrl The control object that triggered the event.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;

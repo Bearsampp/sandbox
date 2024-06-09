@@ -1,24 +1,42 @@
 <?php
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
 
+/**
+ * Class ActionAddVhost
+ *
+ * This class handles the creation of a new virtual host (vhost) in the Bearsampp application.
+ * It provides a graphical user interface (GUI) for users to input the server name and document root,
+ * and manages the process of validating the input, creating the necessary configuration files,
+ * and restarting the Apache service.
+ */
 class ActionAddVhost
 {
     private $wbWindow;
-
     private $wbLabelServerName;
     private $wbInputServerName;
-
     private $wbLabelDocRoot;
     private $wbInputDocRoot;
     private $wbBtnDocRoot;
-
     private $wbLabelExp;
-
     private $wbProgressBar;
     private $wbBtnSave;
     private $wbBtnCancel;
 
     const GAUGE_SAVE = 2;
 
+    /**
+     * Constructor for the ActionAddVhost class.
+     *
+     * Initializes the GUI components and sets up the event handlers.
+     *
+     * @param array $args Arguments passed to the constructor.
+     */
     public function __construct($args)
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppWinbinder;
@@ -47,6 +65,18 @@ class ActionAddVhost
         $bearsamppWinbinder->reset();
     }
 
+    /**
+     * Processes window events.
+     *
+     * Handles user interactions with the GUI components, such as input validation,
+     * browsing for document root, saving the vhost configuration, and handling errors.
+     *
+     * @param resource $window The window resource.
+     * @param int $id The control ID.
+     * @param resource $ctrl The control resource.
+     * @param mixed $param1 Additional parameter 1.
+     * @param mixed $param2 Additional parameter 2.
+     */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppLang, $bearsamppOpenSsl, $bearsamppWinbinder;
