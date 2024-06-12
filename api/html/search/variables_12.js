@@ -15,5 +15,6 @@ var searchData=
   ['tcm_5fgetcursel_4',['TCM_GETCURSEL',['../de/def/wb__windows_8inc_8php.html#adea7a0dec43dbb7f0b79ae1013538674',1,'wb_windows.inc.php']]],
   ['tcm_5fsetcursel_5',['TCM_SETCURSEL',['../de/def/wb__windows_8inc_8php.html#ac05d3d2290bd0a94f8969279a521a2f9',1,'wb_windows.inc.php']]],
   ['tools_6',['TOOLS',['../db/dfb/class_lang.html#a94ef6967123774c56f306d2ddd1063bb',1,'Lang']]],
-  ['type_7',['TYPE',['../de/d3d/class_apps.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Apps\TYPE'],['../df/d31/class_bins.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Bins\TYPE'],['../d9/dc5/class_tools.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Tools\TYPE']]]
+  ['try_7',['try',['../d1/dc6/ajax_8summary_8php.html#a34a17039defc0fb6017128350a10ba33',1,'ajax.summary.php']]],
+  ['type_8',['TYPE',['../de/d3d/class_apps.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Apps\TYPE'],['../df/d31/class_bins.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Bins\TYPE'],['../d9/dc5/class_tools.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Tools\TYPE']]]
 ];

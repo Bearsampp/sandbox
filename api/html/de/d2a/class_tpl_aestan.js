@@ -55,6 +55,7 @@ var class_tpl_aestan =
     [ "GLYPH_PAUSE", "de/d2a/class_tpl_aestan.html#a5406e7e84e3056a4dc044303ff21ed29", null ],
     [ "GLYPH_PEAR", "de/d2a/class_tpl_aestan.html#ac0c01ddbc267e4859e2fc394c9a5ac11", null ],
     [ "GLYPH_PERL", "de/d2a/class_tpl_aestan.html#a73c974b18af7f754ddf165d0a865d92c", null ],
+    [ "GLYPH_PWGEN", "de/d2a/class_tpl_aestan.html#ab170bb3fd4043d5949f9c071fea5b5d9", null ],
     [ "GLYPH_PYTHON", "de/d2a/class_tpl_aestan.html#a9b1c82bb8ecaef4c717d5fe97ad58733", null ],
     [ "GLYPH_PYTHON_CP", "de/d2a/class_tpl_aestan.html#a00da5ef0d61593dfa98de8cc2d3c1030", null ],
     [ "GLYPH_RED_LIGHT", "de/d2a/class_tpl_aestan.html#a3bbcbe09633f7696b64174f283f59a5a", null ],
