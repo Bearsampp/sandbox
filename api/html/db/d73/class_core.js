@@ -31,6 +31,8 @@ var class_core =
     [ "getOpenSslPath", "db/d73/class_core.html#a4fee07c22b8a7146de21d541294a58c0", null ],
     [ "getPhpExe", "db/d73/class_core.html#a91e9b4c0e8d292c44fd0aa92573a2db2", null ],
     [ "getPhpPath", "db/d73/class_core.html#a5f8142e357864110d753cd709df5ec81", null ],
+    [ "getPwgenExe", "db/d73/class_core.html#a2712f0cf5d9deb124086058dca9ac698", null ],
+    [ "getPwgenPath", "db/d73/class_core.html#aabde66767b1867f1341ba5c9141e842a", null ],
     [ "getResourcesPath", "db/d73/class_core.html#a6bdf4278af65d743219a590d405e83c6", null ],
     [ "getScript", "db/d73/class_core.html#a36e055f977e472dfc4b74b4c98f30e7b", null ],
     [ "getScriptsPath", "db/d73/class_core.html#ad0fedd076089c677cb07f212940726b7", null ],
@@ -58,6 +60,8 @@ var class_core =
     [ "PHP_CONF", "db/d73/class_core.html#ad5ac2080788cf2bd1b4b3fe4ce226e7a", null ],
     [ "PHP_EXE", "db/d73/class_core.html#a30af377f95e18e9a747b37dd84d95d03", null ],
     [ "PHP_VERSION", "db/d73/class_core.html#a048046640f0cd433c382c1be10c1c57e", null ],
+    [ "PWGEN_EXE", "db/d73/class_core.html#a30b903356253db6c30b3b31423737f3d", null ],
+    [ "PWGEN_VERSION", "db/d73/class_core.html#a8316cae4a65e6e1eba7abbb1bb57ae27", null ],
     [ "SCRIPT_EXEC_SILENT", "db/d73/class_core.html#a2ae46a45c1cdb9f6b4a27c10e28cbab9", null ],
     [ "SETENV_EXE", "db/d73/class_core.html#ab0adf5a4424ccc4d6b8e91c40adcd9a8", null ],
     [ "SETENV_VERSION", "db/d73/class_core.html#ae5288a2cb7fa789b7fb6e1f5900363bb", null ]

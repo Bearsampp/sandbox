@@ -196,6 +196,7 @@ var class_lang =
     [ "PORT_USED_BY", "db/dfb/class_lang.html#af7396b674be61851809412e77b876b8c", null ],
     [ "PORT_USED_BY_ANOTHER_DBMS", "db/dfb/class_lang.html#af9d87b70c27ae1127e061780ba3a506b", null ],
     [ "POSTGRESQL", "db/dfb/class_lang.html#a6b3d1bd7222d7cb1abd43c70d8137887", null ],
+    [ "PWGEN", "db/dfb/class_lang.html#ab4318eba3a3723117dc92ae2fb345660", null ],
     [ "PYTHON", "db/dfb/class_lang.html#aea6d87481cd9ca6b8675ad103214afd5", null ],
     [ "PYTHON_CONSOLE", "db/dfb/class_lang.html#a5be1c92f0c83342aead1686caddc3f66", null ],
     [ "PYTHON_CP", "db/dfb/class_lang.html#a100aa1fe1e5b29f43c5787f92aa0726e", null ],
