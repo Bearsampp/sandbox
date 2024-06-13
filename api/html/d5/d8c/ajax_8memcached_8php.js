@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var ajax_8memcached_8php =
 [
     [ "$bearsamppBins", "d5/d8c/ajax_8memcached_8php.html#a682f09b349e25300b21585300a71d17c", null ],

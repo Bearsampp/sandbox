@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var root_8php =
 [
     [ "$bearsamppAction", "d7/de1/root_8php.html#aebc8d881ce0c1095358364e92cf5656f", null ],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var freeimage_8inc_8php =
 [
     [ "FreeImage_Allocate", "de/d0a/freeimage_8inc_8php.html#ae863ef7eb259ba51afdaf0cdf32c6dc7", null ],

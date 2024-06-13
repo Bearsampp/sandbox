@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var wb__windows_8inc_8php =
 [
     [ "_make_file_filter", "de/def/wb__windows_8inc_8php.html#a55916b33a9c7573bc887a77fe63d6351", null ],

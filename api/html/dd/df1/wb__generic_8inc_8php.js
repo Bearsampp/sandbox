@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var wb__generic_8inc_8php =
 [
     [ "generate_ini", "dd/df1/wb__generic_8inc_8php.html#a73794477c9c5e14f29537cfc77a9c181", null ],

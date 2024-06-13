@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_208369be9e199adc21882297b6d5ef34 =
 [
     [ "class.bin.apache.php", "d0/d00/class_8bin_8apache_8php.html", "d0/d00/class_8bin_8apache_8php" ],

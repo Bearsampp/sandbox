@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var ajax_8mailhog_8php =
 [
     [ "$result", "d8/d31/ajax_8mailhog_8php.html#a112ef069ddc0454086e3d1e6d8d55d07", null ],

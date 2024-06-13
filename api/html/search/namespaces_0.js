@@ -1,12 +1,4 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
-  ['bearsampp_0',['Bearsampp',['../da/deb/namespace_bearsampp.html',1,'']]]
+  ['bearsampp_0',['Bearsampp',['../d1/ddc/namespaceBearsampp.html',1,'']]]
 ];

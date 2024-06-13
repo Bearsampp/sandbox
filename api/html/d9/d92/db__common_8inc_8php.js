@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var db__common_8inc_8php =
 [
     [ "db_close_database", "d9/d92/db__common_8inc_8php.html#ace8bf9eeee6d4c726079e90a20294368", null ],

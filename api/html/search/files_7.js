@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['wb_5fgeneric_2einc_2ephp_0',['wb_generic.inc.php',['../dd/df1/wb__generic_8inc_8php.html',1,'']]],

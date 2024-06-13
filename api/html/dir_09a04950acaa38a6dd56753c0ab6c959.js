@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_09a04950acaa38a6dd56753c0ab6c959 =
 [
     [ "class.tool.composer.php", "d0/d95/class_8tool_8composer_8php.html", "d0/d95/class_8tool_8composer_8php" ],

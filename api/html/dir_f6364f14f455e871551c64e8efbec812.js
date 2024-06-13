@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_f6364f14f455e871551c64e8efbec812 =
 [
     [ "ajax", "dir_99b38fd66b358ba54faa07c688cbfb56.html", "dir_99b38fd66b358ba54faa07c688cbfb56" ],

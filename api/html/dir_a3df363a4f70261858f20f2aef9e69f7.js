@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_a3df363a4f70261858f20f2aef9e69f7 =
 [
     [ "classes", "dir_3f3753672a7905d0810c5fdcab2dca29.html", "dir_3f3753672a7905d0810c5fdcab2dca29" ],

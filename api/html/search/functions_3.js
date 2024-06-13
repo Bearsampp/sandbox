@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['db_5fclose_5fdatabase_0',['db_close_database',['../d9/d92/db__common_8inc_8php.html#ace8bf9eeee6d4c726079e90a20294368',1,'db_common.inc.php']]],
@@ -34,18 +26,18 @@ var searchData=
   ['db_5frename_5ftable_23',['db_rename_table',['../d9/d92/db__common_8inc_8php.html#a15ceb027c54178332d6646e8ab743507',1,'db_common.inc.php']]],
   ['db_5fswap_5frecords_24',['db_swap_records',['../d9/d92/db__common_8inc_8php.html#a111b2e22e83336d81be9c2fae45a8adb',1,'db_common.inc.php']]],
   ['db_5ftable_5fexists_25',['db_table_exists',['../d9/d92/db__common_8inc_8php.html#a8168daf002dcfa31e047895b2d9505f2',1,'db_common.inc.php']]],
-  ['debugstringbacktrace_26',['debugStringBacktrace',['../de/d37/class_root.html#a13c480b77965fd269ddd79b92395111d',1,'Root']]],
+  ['debugstringbacktrace_26',['debugStringBacktrace',['../d8/d73/classRoot.html#a13c480b77965fd269ddd79b92395111d',1,'Root']]],
   ['debugstringpregreplace_27',['debugStringPregReplace',['../d6/d7e/class_8root_8php.html#a0c1cfac7e9bfd7bf15c8ed71d73b7503',1,'class.root.php']]],
-  ['decryptfile_28',['decryptFile',['../d1/d0a/class_util.html#a9ef9fa270e4e55707d09cc01576e7a60',1,'Util']]],
-  ['delete_29',['delete',['../d1/d2d/class_nssm.html#a13bdffdd926f26b825ea57066334ff01',1,'Nssm\delete()'],['../d3/d62/class_win32_service.html#a13bdffdd926f26b825ea57066334ff01',1,'Win32Service\delete()']]],
-  ['deletecurrentsymlinks_30',['deleteCurrentSymlinks',['../dc/d87/class_symlinks.html#a481e5161d8483e116769511960d5ac41',1,'Symlinks']]],
-  ['deletefolder_31',['deleteFolder',['../d1/d0a/class_util.html#a2d50ee48c71d073777f9537709b7ebee',1,'Util']]],
-  ['deletevalue_32',['deleteValue',['../d4/d78/class_registry.html#aee538409bda7bbca009cdb11a81a5226',1,'Registry']]],
-  ['destroytimer_33',['destroyTimer',['../d9/d34/class_win_binder.html#a2944b1c4faa9cb2a5ed2dee3bc4f0918',1,'WinBinder']]],
-  ['destroywindow_34',['destroyWindow',['../d9/d34/class_win_binder.html#aad9b4341f705cf1b7ec9c76468653cc6',1,'WinBinder']]],
-  ['disablelaunchstartup_35',['disableLaunchStartup',['../d1/d0a/class_util.html#a1fa9f5607c61152666185721cd958d5a',1,'Util']]],
-  ['drawimage_36',['drawImage',['../d9/d34/class_win_binder.html#ada1ff4f6a9d905ddbf51272d5c38b7ff',1,'WinBinder']]],
-  ['drawline_37',['drawLine',['../d9/d34/class_win_binder.html#a109a4ff8fddc37affce5da3a363bb173',1,'WinBinder']]],
-  ['drawrect_38',['drawRect',['../d9/d34/class_win_binder.html#a8cebce62fd96cc0f08550bc3ef17bdcc',1,'WinBinder']]],
-  ['drawtext_39',['drawText',['../d9/d34/class_win_binder.html#a783c6900cf0e5b7eeb46f7b139ac05f8',1,'WinBinder']]]
+  ['decryptfile_28',['decryptFile',['../d6/de4/classUtil.html#a9ef9fa270e4e55707d09cc01576e7a60',1,'Util']]],
+  ['delete_29',['delete',['../d3/d93/classNssm.html#a13bdffdd926f26b825ea57066334ff01',1,'Nssm\delete()'],['../df/d28/classWin32Service.html#a13bdffdd926f26b825ea57066334ff01',1,'Win32Service\delete()']]],
+  ['deletecurrentsymlinks_30',['deleteCurrentSymlinks',['../de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41',1,'Symlinks']]],
+  ['deletefolder_31',['deleteFolder',['../d6/de4/classUtil.html#a2d50ee48c71d073777f9537709b7ebee',1,'Util']]],
+  ['deletevalue_32',['deleteValue',['../db/d0d/classRegistry.html#aee538409bda7bbca009cdb11a81a5226',1,'Registry']]],
+  ['destroytimer_33',['destroyTimer',['../db/da5/classWinBinder.html#a2944b1c4faa9cb2a5ed2dee3bc4f0918',1,'WinBinder']]],
+  ['destroywindow_34',['destroyWindow',['../db/da5/classWinBinder.html#aad9b4341f705cf1b7ec9c76468653cc6',1,'WinBinder']]],
+  ['disablelaunchstartup_35',['disableLaunchStartup',['../d6/de4/classUtil.html#a1fa9f5607c61152666185721cd958d5a',1,'Util']]],
+  ['drawimage_36',['drawImage',['../db/da5/classWinBinder.html#ada1ff4f6a9d905ddbf51272d5c38b7ff',1,'WinBinder']]],
+  ['drawline_37',['drawLine',['../db/da5/classWinBinder.html#a109a4ff8fddc37affce5da3a363bb173',1,'WinBinder']]],
+  ['drawrect_38',['drawRect',['../db/da5/classWinBinder.html#a8cebce62fd96cc0f08550bc3ef17bdcc',1,'WinBinder']]],
+  ['drawtext_39',['drawText',['../db/da5/classWinBinder.html#a783c6900cf0e5b7eeb46f7b139ac05f8',1,'WinBinder']]]
 ];

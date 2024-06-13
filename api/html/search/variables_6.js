@@ -1,14 +1,6 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
-  ['facebook_0',['FACEBOOK',['../db/dfb/class_lang.html#a4d941b34615abdaa9658f44d6db72f02',1,'Lang']]],
+  ['facebook_0',['FACEBOOK',['../da/d49/classLang.html#a4d941b34615abdaa9658f44d6db72f02',1,'Lang']]],
   ['fetch_5fassoc_1',['FETCH_ASSOC',['../d4/dae/db__mysql_8inc_8php.html#a8ce33098aa8472004be871503377a577',1,'FETCH_ASSOC:&#160;db_mysql.inc.php'],['../d3/d41/db__sqlite_8inc_8php.html#a8ce33098aa8472004be871503377a577',1,'FETCH_ASSOC:&#160;db_sqlite.inc.php']]],
   ['fetch_5fboth_2',['FETCH_BOTH',['../d4/dae/db__mysql_8inc_8php.html#a0e5b2dc9c31f9998c7ac85676507a23e',1,'FETCH_BOTH:&#160;db_mysql.inc.php'],['../d3/d41/db__sqlite_8inc_8php.html#ae0a30dc37112e4e36cd2635cfff50000',1,'FETCH_BOTH:&#160;db_sqlite.inc.php']]],
   ['fetch_5fnum_3',['FETCH_NUM',['../d4/dae/db__mysql_8inc_8php.html#a7995ec4155465b4e82174c1b9ddc32fc',1,'FETCH_NUM:&#160;db_mysql.inc.php'],['../d3/d41/db__sqlite_8inc_8php.html#a7995ec4155465b4e82174c1b9ddc32fc',1,'FETCH_NUM:&#160;db_sqlite.inc.php']]],
@@ -40,6 +32,6 @@ var searchData=
   ['fif_5fwbmp_29',['FIF_WBMP',['../de/d0a/freeimage_8inc_8php.html#aa740c238313c837ddf097134f0080643',1,'freeimage.inc.php']]],
   ['fif_5fxbm_30',['FIF_XBM',['../de/d0a/freeimage_8inc_8php.html#adc4499141bd69a416978f434c47e642a',1,'freeimage.inc.php']]],
   ['fif_5fxpm_31',['FIF_XPM',['../de/d0a/freeimage_8inc_8php.html#ad10199584d10335a0ec5fba4ce84292d',1,'freeimage.inc.php']]],
-  ['filezilla_32',['FILEZILLA',['../db/dfb/class_lang.html#a0e21073aaceb25bdc498cefa047e79a5',1,'Lang']]],
+  ['filezilla_32',['FILEZILLA',['../da/d49/classLang.html#a0e21073aaceb25bdc498cefa047e79a5',1,'Lang']]],
   ['foreach_33',['foreach',['../d4/d44/ajax_8apache_8php.html#aef64eaa358ea9bfac0e251744b7a3e30',1,'foreach:&#160;ajax.apache.php'],['../d5/daf/ajax_8filezilla_8php.html#a0ffee6b6b2704f8079b138a0a8ee74ec',1,'foreach:&#160;ajax.filezilla.php'],['../d8/d31/ajax_8mailhog_8php.html#aa212fa25057181b0d0629f15b529b0a0',1,'foreach:&#160;ajax.mailhog.php'],['../d2/dde/ajax_8mariadb_8php.html#a66121b4e222dac3af18f3080ca584b5b',1,'foreach:&#160;ajax.mariadb.php'],['../d5/d8c/ajax_8memcached_8php.html#a91dd329e11d1b6c21e5be2821cc0cccb',1,'foreach:&#160;ajax.memcached.php'],['../d2/d90/ajax_8mysql_8php.html#a49e9e37d77db0c9a8b86a932e0432498',1,'foreach:&#160;ajax.mysql.php'],['../d8/ded/ajax_8nodejs_8php.html#add260363f3d8b831ceaa502b4ea19d6a',1,'foreach:&#160;ajax.nodejs.php'],['../d2/d8f/ajax_8php_8php.html#aba8e96ec56cc201c901c5a416a5920e2',1,'foreach:&#160;ajax.php.php'],['../da/dea/ajax_8postgresql_8php.html#a68fc3fb8e27c1c62e2563b06898bcc74',1,'foreach:&#160;ajax.postgresql.php'],['../d9/dbf/homepage_8php.html#a7a2d93406bae59bf962ec547174d0982',1,'foreach:&#160;homepage.php']]]
 ];

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var wb__resources_8inc_8php =
 [
     [ "_bit_test", "d9/d82/wb__resources_8inc_8php.html#a2beb8ac1a7b122050aa1607519cea192", null ],

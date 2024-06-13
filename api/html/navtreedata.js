@@ -1,10 +1,27 @@
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
+
+ The MIT License (MIT)
+
+ Copyright (C) 1997-2020 by Dimitri van Heesch
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
+*/
 var NAVTREE =
 [
   [ "Bearsampp", "index.html", [
@@ -35,17 +52,17 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/d57/class_8tool_8consolez_8php_source.html",
-"d2/d8f/ajax_8php_8php.html#a663994a29b2a316a190b7ba385d31848",
-"d4/d1f/class_action_startup.html#a1d3e96408243de0ee233f01ddde67042",
-"d5/daf/ajax_8filezilla_8php.html#a682f09b349e25300b21585300a71d17c",
-"d7/d08/class_tool_console_z.html#af4f09a4e480c786de740b640466ba9d6",
-"d8/d27/class_bin_mariadb.html#ad73e31b90854df5412f8b001ae2e9a0c",
-"d9/d76/class_bin_apache.html#aa63f51e7487eda3bde13034f1731691d",
-"db/d05/class_8bin_8mailhog_8php.html",
-"db/dfb/class_lang.html#a656c5162fe18bb9511034b27beee859e",
-"dd/d34/class_config.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc",
-"de/d37/class_root.html#ae6c355092713a32b81285031b92c8e8c",
+"d1/db8/classActionStartup.html#a298523223201366625cb7e465ee2acce",
+"d3/d93/classNssm.html#aff3603db3027215072b862544f660f77",
+"d4/dfe/class_8tpl_8app_8nodejs_8php.html",
+"d6/de4/classUtil.html#a2e243722302519425c3cf26fe2fc180c",
+"d8/d9c/classBinNodejs.html#a6a2f870d59df617e76c79a9996646832",
+"d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77",
+"da/d49/classLang.html#a5052354c923db99c265b575fe6e306e1",
+"da/dbb/classBatch.html#aca27f962f806f8bce07383b0b0b60a39",
+"db/da5/classWinBinder.html#a4975e04fec391935b646d47c46dbd18d",
+"dc/db3/classBinPhp.html#ab445a1b3ce787ae4145059d0fcd1df4c",
+"de/d54/classBins.html#a67321ed3a1a8e6e13ff486c4cc385eb4",
 "files.html"
 ];
 

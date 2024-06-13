@@ -1,11 +1,3 @@
-<!--
-  ~ Copyright (c) 2021-2024 Bearsampp
-  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
-  ~ Author: Bear
-  ~ Website: https://bearsampp.com
-  ~ Github: https://github.com/Bearsampp
-  -->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -38,7 +30,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.9</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
    </div>
   </td>
  </tr>
@@ -75,7 +67,7 @@ $(function() { codefold.init(1); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;"
+  <div id="splitbar" style="-moz-user-select:none;" 
        class="ui-resizable-handle">
   </div>
 </div>
@@ -113,10 +105,10 @@ $(function(){initNavTree('da/d7d/class_8openssl_8php_source.html','../../'); ini
 <a href="../../da/d7d/class_8openssl_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../d7/dde/class_open_ssl.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d7/dde/class_open_ssl.html">OpenSsl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../db/d46/classOpenSsl.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../db/d46/classOpenSsl.html">OpenSsl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
 <div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d7/dde/class_open_ssl.html#a55abe545574ebe853ae39930a2d84d9e">    5</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../d7/dde/class_open_ssl.html#a55abe545574ebe853ae39930a2d84d9e">createCrt</a>($name, $destPath = <span class="keyword">null</span>)</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../db/d46/classOpenSsl.html#a55abe545574ebe853ae39930a2d84d9e">    5</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../db/d46/classOpenSsl.html#a55abe545574ebe853ae39930a2d84d9e">createCrt</a>($name, $destPath = <span class="keyword">null</span>)</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        $destPath = empty($destPath) ? <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getSslPath() : $destPath;</div>
@@ -134,7 +126,7 @@ $(function(){initNavTree('da/d7d/class_8openssl_8php_source.html','../../'); ini
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        $extContent .= <span class="stringliteral">&#39;subjectAltName=DNS:*.&#39;</span> . $name . <span class="stringliteral">&#39;,DNS:&#39;</span> . $name . PHP_EOL;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// tmp openssl.cfg</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        $conf = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getTmpPath() . <span class="stringliteral">&#39;/openssl_&#39;</span> . $name . <span class="charliteral">&#39;_&#39;</span> . <a class="code hl_function" href="../../d1/d0a/class_util.html#a8947bb42d36178ac24f7f2168cdf7230">Util::random</a>() . <span class="stringliteral">&#39;.cfg&#39;</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        $conf = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getTmpPath() . <span class="stringliteral">&#39;/openssl_&#39;</span> . $name . <span class="charliteral">&#39;_&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a8947bb42d36178ac24f7f2168cdf7230">Util::random</a>() . <span class="stringliteral">&#39;.cfg&#39;</span>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        file_put_contents($conf, file_get_contents(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getOpenSslConf()) . $extContent);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// ppk</span></div>
@@ -155,13 +147,13 @@ $(function(){initNavTree('da/d7d/class_8openssl_8php_source.html','../../'); ini
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        $batch .= <span class="stringliteral">&#39;IF EXIST &#39;</span> . $pubPath . <span class="stringliteral">&#39; IF EXIST &#39;</span> . $crtPath . <span class="stringliteral">&#39; SET RESULT=OK&#39;</span> . PHP_EOL;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        $batch .= <span class="stringliteral">&#39;ECHO %RESULT%&#39;</span>;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="../../de/d14/class_batch.html#aee2bd91e3b020c299c87d3b9457421cc">Batch::exec</a>(<span class="stringliteral">&#39;createCertificate&#39;</span>, $batch);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="../../da/dbb/classBatch.html#aee2bd91e3b020c299c87d3b9457421cc">Batch::exec</a>(<span class="stringliteral">&#39;createCertificate&#39;</span>, $batch);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> isset(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>[0]) &amp;&amp; <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>[0] == <span class="stringliteral">&#39;OK&#39;</span>;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
 </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d7/dde/class_open_ssl.html#a6095afca36d492519916c08b3d317f83">   48</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../d7/dde/class_open_ssl.html#a6095afca36d492519916c08b3d317f83">existsCrt</a>($name)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../db/d46/classOpenSsl.html#a6095afca36d492519916c08b3d317f83">   48</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../db/d46/classOpenSsl.html#a6095afca36d492519916c08b3d317f83">existsCrt</a>($name)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
@@ -174,7 +166,7 @@ $(function(){initNavTree('da/d7d/class_8openssl_8php_source.html','../../'); ini
 </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../d7/dde/class_open_ssl.html#a8e534088721151013782352d4f356331">   59</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../d7/dde/class_open_ssl.html#a8e534088721151013782352d4f356331">removeCrt</a>($name)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../db/d46/classOpenSsl.html#a8e534088721151013782352d4f356331">   59</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../db/d46/classOpenSsl.html#a8e534088721151013782352d4f356331">removeCrt</a>($name)</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
@@ -190,12 +182,12 @@ $(function(){initNavTree('da/d7d/class_8openssl_8php_source.html','../../'); ini
 <div class="ttc" id="aajax_8apache_8php_html_a112ef069ddc0454086e3d1e6d8d55d07"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></div><div class="ttdeci">$result</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00014">ajax.apache.php:14</a></div></div>
 <div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
 <div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclass_batch_html_aee2bd91e3b020c299c87d3b9457421cc"><div class="ttname"><a href="../../de/d14/class_batch.html#aee2bd91e3b020c299c87d3b9457421cc">Batch\exec</a></div><div class="ttdeci">static exec($basename, $content, $timeout=true, $catchOutput=true, $standalone=false, $silent=true, $rebuild=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00223">class.batch.php:223</a></div></div>
-<div class="ttc" id="aclass_open_ssl_html"><div class="ttname"><a href="../../d7/dde/class_open_ssl.html">OpenSsl</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.openssl.php:4</a></div></div>
-<div class="ttc" id="aclass_open_ssl_html_a55abe545574ebe853ae39930a2d84d9e"><div class="ttname"><a href="../../d7/dde/class_open_ssl.html#a55abe545574ebe853ae39930a2d84d9e">OpenSsl\createCrt</a></div><div class="ttdeci">createCrt($name, $destPath=null)</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.openssl.php:5</a></div></div>
-<div class="ttc" id="aclass_open_ssl_html_a6095afca36d492519916c08b3d317f83"><div class="ttname"><a href="../../d7/dde/class_open_ssl.html#a6095afca36d492519916c08b3d317f83">OpenSsl\existsCrt</a></div><div class="ttdeci">existsCrt($name)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">class.openssl.php:48</a></div></div>
-<div class="ttc" id="aclass_open_ssl_html_a8e534088721151013782352d4f356331"><div class="ttname"><a href="../../d7/dde/class_open_ssl.html#a8e534088721151013782352d4f356331">OpenSsl\removeCrt</a></div><div class="ttdeci">removeCrt($name)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">class.openssl.php:59</a></div></div>
-<div class="ttc" id="aclass_util_html_a8947bb42d36178ac24f7f2168cdf7230"><div class="ttname"><a href="../../d1/d0a/class_util.html#a8947bb42d36178ac24f7f2168cdf7230">Util\random</a></div><div class="ttdeci">static random($length=32, $withNumeric=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00178">class.util.php:178</a></div></div>
+<div class="ttc" id="aclassBatch_html_aee2bd91e3b020c299c87d3b9457421cc"><div class="ttname"><a href="../../da/dbb/classBatch.html#aee2bd91e3b020c299c87d3b9457421cc">Batch\exec</a></div><div class="ttdeci">static exec($basename, $content, $timeout=true, $catchOutput=true, $standalone=false, $silent=true, $rebuild=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00223">class.batch.php:223</a></div></div>
+<div class="ttc" id="aclassOpenSsl_html"><div class="ttname"><a href="../../db/d46/classOpenSsl.html">OpenSsl</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.openssl.php:4</a></div></div>
+<div class="ttc" id="aclassOpenSsl_html_a55abe545574ebe853ae39930a2d84d9e"><div class="ttname"><a href="../../db/d46/classOpenSsl.html#a55abe545574ebe853ae39930a2d84d9e">OpenSsl\createCrt</a></div><div class="ttdeci">createCrt($name, $destPath=null)</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.openssl.php:5</a></div></div>
+<div class="ttc" id="aclassOpenSsl_html_a6095afca36d492519916c08b3d317f83"><div class="ttname"><a href="../../db/d46/classOpenSsl.html#a6095afca36d492519916c08b3d317f83">OpenSsl\existsCrt</a></div><div class="ttdeci">existsCrt($name)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">class.openssl.php:48</a></div></div>
+<div class="ttc" id="aclassOpenSsl_html_a8e534088721151013782352d4f356331"><div class="ttname"><a href="../../db/d46/classOpenSsl.html#a8e534088721151013782352d4f356331">OpenSsl\removeCrt</a></div><div class="ttdeci">removeCrt($name)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">class.openssl.php:59</a></div></div>
+<div class="ttc" id="aclassUtil_html_a8947bb42d36178ac24f7f2168cdf7230"><div class="ttname"><a href="../../d6/de4/classUtil.html#a8947bb42d36178ac24f7f2168cdf7230">Util\random</a></div><div class="ttdeci">static random($length=32, $withNumeric=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00178">class.util.php:178</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
