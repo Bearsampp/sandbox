@@ -1,0 +1,17 @@
+digraph "getMailhog"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=14,labelfontname=Helvetica,labelfontsize=14];
+  node [fontname=Helvetica,fontsize=14,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="getMailhog",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="getAll",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d54/classBins.html#aba0d5b303383fb5b1fabb5fd01cd3800",tooltip=" "];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="reload",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d54/classBins.html#a7b2a44f6ec87a111c1bc3cc911cd15f5",tooltip=" "];
+  Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="update",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d54/classBins.html#a842e4774e3b3601a005b995c02f7e883",tooltip=" "];
+  Node1 -> Node5 [id="edge4_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="getServices",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d54/classBins.html#a36d7e45e7f713b49a02b4988be6cbcd1",tooltip=" "];
+}

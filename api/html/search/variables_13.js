@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['vbs_5fdescription_0',['VBS_DESCRIPTION',['../df/d28/classWin32Service.html#a621513c97bf72862ffbe7ebfd3d540bd',1,'Win32Service']]],
+  ['vbs_5fdisplay_5fname_1',['VBS_DISPLAY_NAME',['../df/d28/classWin32Service.html#a760f3a02a20bae2b64b40188767e1ad6',1,'Win32Service']]],
+  ['vbs_5fname_2',['VBS_NAME',['../df/d28/classWin32Service.html#a3f7ebfe60bd9f4d80d81778b76da2530',1,'Win32Service']]],
+  ['vbs_5fpath_5fname_3',['VBS_PATH_NAME',['../df/d28/classWin32Service.html#ad29e608a9a56c3bf60844fbf2140c24a',1,'Win32Service']]],
+  ['vbs_5fstate_4',['VBS_STATE',['../df/d28/classWin32Service.html#a3ea4035124d5cd7a6ed81b828fb45c81',1,'Win32Service']]],
+  ['verbose_5fdebug_5',['VERBOSE_DEBUG',['../d9/df9/classConfig.html#ae6c8a7e9d49626914cae48063fd892d6',1,'Config\VERBOSE_DEBUG'],['../da/d49/classLang.html#ae6c8a7e9d49626914cae48063fd892d6',1,'Lang\VERBOSE_DEBUG']]],
+  ['verbose_5freport_6',['VERBOSE_REPORT',['../d9/df9/classConfig.html#a38315ca3ae0ba343600f0503e803bfe3',1,'Config\VERBOSE_REPORT'],['../da/d49/classLang.html#a38315ca3ae0ba343600f0503e803bfe3',1,'Lang\VERBOSE_REPORT']]],
+  ['verbose_5fsimple_7',['VERBOSE_SIMPLE',['../d9/df9/classConfig.html#a5b206afaa3840241217f7d198bcf777d',1,'Config\VERBOSE_SIMPLE'],['../da/d49/classLang.html#a5b206afaa3840241217f7d198bcf777d',1,'Lang\VERBOSE_SIMPLE']]],
+  ['verbose_5ftrace_8',['VERBOSE_TRACE',['../d9/df9/classConfig.html#aa6e6bc9eb7d4e8dd1e2182b18cacd7e3',1,'Config\VERBOSE_TRACE'],['../da/d49/classLang.html#aa6e6bc9eb7d4e8dd1e2182b18cacd7e3',1,'Lang\VERBOSE_TRACE']]],
+  ['version_9',['VERSION',['../da/d49/classLang.html#af71005841ce53adac00581ab0ba24c1f',1,'Lang']]],
+  ['version_5furl_10',['VERSION_URL',['../da/d49/classLang.html#a86818724bce85dfa76f0d67915bdb49b',1,'Lang']]],
+  ['versions_11',['VERSIONS',['../da/d49/classLang.html#afe2539ae90aa7ccf0e3bd315f3c15f37',1,'Lang']]],
+  ['vhost_5falready_5fexists_12',['VHOST_ALREADY_EXISTS',['../da/d49/classLang.html#accba59963a21bbcb01a739fa51d04b06',1,'Lang']]],
+  ['vhost_5fcreated_13',['VHOST_CREATED',['../da/d49/classLang.html#a38e17e6f3f6c0329fc9bcd776c6e76c8',1,'Lang']]],
+  ['vhost_5fcreated_5ferror_14',['VHOST_CREATED_ERROR',['../da/d49/classLang.html#a225a3ad03f00262f5f84dc5f5b63f25d',1,'Lang']]],
+  ['vhost_5fdoc_5froot_5fpath_15',['VHOST_DOC_ROOT_PATH',['../da/d49/classLang.html#ad5131320f7ed10a2e837cf742d70158d',1,'Lang']]],
+  ['vhost_5fdocument_5froot_5flabel_16',['VHOST_DOCUMENT_ROOT_LABEL',['../da/d49/classLang.html#a628ef3f2ca985e7faf326f04fc14c5f0',1,'Lang']]],
+  ['vhost_5fexp_5flabel_17',['VHOST_EXP_LABEL',['../da/d49/classLang.html#a03f05acd6eb24faa8291918b620d6ce6',1,'Lang']]],
+  ['vhost_5fnot_5fvalid_5fdomain_18',['VHOST_NOT_VALID_DOMAIN',['../da/d49/classLang.html#a4eb30b84226e6c2b02fe2b33a6e0499e',1,'Lang']]],
+  ['vhost_5fremove_5ferror_19',['VHOST_REMOVE_ERROR',['../da/d49/classLang.html#a1147d37649d0b5a303de8ec234389d1a',1,'Lang']]],
+  ['vhost_5fremoved_20',['VHOST_REMOVED',['../da/d49/classLang.html#ad7d1148e639c67ace1f8ed34aae30bf7',1,'Lang']]],
+  ['vhost_5fserver_5fname_5flabel_21',['VHOST_SERVER_NAME_LABEL',['../da/d49/classLang.html#a11c3d3dc051895043a8f23e3bc9e82b8',1,'Lang']]],
+  ['virtual_5fhosts_22',['VIRTUAL_HOSTS',['../da/d49/classLang.html#aa5289fd9ac4978d48b6b833d566a4ca2',1,'Lang']]]
+];

@@ -1,0 +1,13 @@
+digraph "getNgrok"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=14,labelfontname=Helvetica,labelfontsize=14];
+  node [fontname=Helvetica,fontsize=14,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="getNgrok",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="getAll",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/db2/classTools.html#aba0d5b303383fb5b1fabb5fd01cd3800",tooltip=" "];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="update",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/db2/classTools.html#a842e4774e3b3601a005b995c02f7e883",tooltip=" "];
+}
