@@ -26,7 +26,7 @@ bearsampp.ini
 #bearsampp.conf
 /core/resources/homepage/alias.conf
 /core/resources/loading.pid
-#/core/libs/openssl/openssl.cfg
+/core/libs/openssl/openssl.cfg
 /core/resources/lastPath.dat
 /core/resources/version.dat
 
