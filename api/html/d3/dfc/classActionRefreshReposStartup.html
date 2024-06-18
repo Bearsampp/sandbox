@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -106,8 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a57b60b4976a2c5d1e40f2d11aa72aa7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html#l00003">3</a> of file <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html">class.action.refreshReposStartup.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../d3/dfc/classActionRefreshReposStartup.html">ActionRefreshReposStartup</a></p>
+<p>This class is responsible for handling the action of setting the scan startup for repositories. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html#l00015">15</a> of file <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html">class.action.refreshReposStartup.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -123,20 +133,31 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../d3/dfc/classActionRefreshReposStartup.html">ActionRefreshReposStartup</a> constructor.</p>
+<p>This constructor initializes the action to set the scan startup for repositories based on the provided arguments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>An array of arguments where the first argument should be 'git' to trigger the git repository scan startup setting, and the second argument is the value to set for the scan startup. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html#l00005">5</a> of file <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html">class.action.refreshReposStartup.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        global $bearsamppTools;</div>
-<div class="line"><span class="lineno">    8</span> </div>
-<div class="line"><span class="lineno">    9</span>        <span class="keywordflow">if</span> (isset($args[0]) &amp;&amp; !empty($args[0]) &amp;&amp; isset($args[1])) {</div>
-<div class="line"><span class="lineno">   10</span>            <span class="keywordflow">if</span> ($args[0] == <a class="code hl_variable" href="../../d8/d75/classActionRefreshRepos.html#ac37cc40b87f80a276c0419ea556b91b1">ActionRefreshRepos::GIT</a>) {</div>
-<div class="line"><span class="lineno">   11</span>                $bearsamppTools-&gt;getGit()-&gt;setScanStartup($args[1]);</div>
-<div class="line"><span class="lineno">   12</span>            }</div>
-<div class="line"><span class="lineno">   13</span>        }</div>
-<div class="line"><span class="lineno">   14</span>    }</div>
-<div class="ttc" id="aclassActionRefreshRepos_html_ac37cc40b87f80a276c0419ea556b91b1"><div class="ttname"><a href="../../d8/d75/classActionRefreshRepos.html#ac37cc40b87f80a276c0419ea556b91b1">ActionRefreshRepos\GIT</a></div><div class="ttdeci">const GIT</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4f/class_8action_8refreshRepos_8php_source.html#l00005">class.action.refreshRepos.php:5</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html#l00025">25</a> of file <a class="el" href="../../d2/d93/class_8action_8refreshReposStartup_8php_source.html">class.action.refreshReposStartup.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>    {</div>
+<div class="line"><span class="lineno">   27</span>        <span class="comment">// Global variable for accessing bearsamppTools</span></div>
+<div class="line"><span class="lineno">   28</span>        global $bearsamppTools;</div>
+<div class="line"><span class="lineno">   29</span> </div>
+<div class="line"><span class="lineno">   30</span>        <span class="comment">// Check if the first and second arguments are set and not empty</span></div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">if</span> (isset($args[0]) &amp;&amp; !empty($args[0]) &amp;&amp; isset($args[1])) {</div>
+<div class="line"><span class="lineno">   32</span>            <span class="comment">// If the first argument is &#39;git&#39;, set the scan startup value</span></div>
+<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">if</span> ($args[0] == <a class="code hl_variable" href="../../d8/d75/classActionRefreshRepos.html#ac37cc40b87f80a276c0419ea556b91b1">ActionRefreshRepos::GIT</a>) {</div>
+<div class="line"><span class="lineno">   34</span>                $bearsamppTools-&gt;getGit()-&gt;setScanStartup($args[1]);</div>
+<div class="line"><span class="lineno">   35</span>            }</div>
+<div class="line"><span class="lineno">   36</span>        }</div>
+<div class="line"><span class="lineno">   37</span>    }</div>
+<div class="ttc" id="aclassActionRefreshRepos_html_ac37cc40b87f80a276c0419ea556b91b1"><div class="ttname"><a href="../../d8/d75/classActionRefreshRepos.html#ac37cc40b87f80a276c0419ea556b91b1">ActionRefreshRepos\GIT</a></div><div class="ttdeci">const GIT</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4f/class_8action_8refreshRepos_8php_source.html#l00020">class.action.refreshRepos.php:20</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d8/d4f/class_8action_8refreshRepos_8php_source.html#l00005">ActionRefreshRepos\GIT</a>.</p>
+<p class="reference">References <a class="el" href="../../d8/d4f/class_8action_8refreshRepos_8php_source.html#l00020">ActionRefreshRepos\GIT</a>.</p>
 
 </div>
 </div>

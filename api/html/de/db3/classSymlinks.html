@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -178,72 +186,72 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Deletes all symbolic links listed in the arrayOfCurrents. Logs each operation's success or failure. </p>
+<p>Deletes all symbolic links listed in the arrayOfCurrents. Logs each operation's success or failure.</p>
+<p>This method iterates over a predefined list of symbolic link paths and attempts to delete each one. If a symbolic link does not exist, an error is logged. If the deletion is successful, a debug message is logged.</p>
+<p>@global <a class="el" href="../../d8/d73/classRoot.html">Root</a> $bearsamppRoot The root object providing access to system paths. @global <a class="el" href="../../db/d6d/classCore.html">Core</a> $bearsamppCore The core object providing core functionalities. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00035">35</a> of file <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html">class.symlinks.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
-<div class="line"><span class="lineno">   37</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">   38</span> </div>
-<div class="line"><span class="lineno">   39</span>        <span class="comment">// Check to see if purging is necessary</span></div>
-<div class="line"><span class="lineno">   40</span>        $appsPath  = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath();</div>
-<div class="line"><span class="lineno">   41</span>        $binPath   = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath();</div>
-<div class="line"><span class="lineno">   42</span>        $toolsPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath();</div>
-<div class="line"><span class="lineno">   43</span> </div>
-<div class="line"><span class="lineno">   44</span>        $array = [</div>
-<div class="line"><span class="lineno">   45</span>            <span class="charliteral">&#39;1&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $appsPath . <span class="stringliteral">&#39;/adminer/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   46</span>            <span class="charliteral">&#39;2&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $appsPath . <span class="stringliteral">&#39;/phpmyadmin/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   47</span>            <span class="charliteral">&#39;3&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $appsPath . <span class="stringliteral">&#39;/phppgadmin/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   48</span>            <span class="charliteral">&#39;4&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $appsPath . <span class="stringliteral">&#39;/webgrind/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   49</span>            <span class="charliteral">&#39;5&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/apache/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   50</span>            <span class="charliteral">&#39;6&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/filezilla/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   51</span>            <span class="charliteral">&#39;7&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/mailhog/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   52</span>            <span class="charliteral">&#39;8&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/mariadb/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   53</span>            <span class="charliteral">&#39;9&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/memcached/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   54</span>            <span class="stringliteral">&#39;10&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/mysql/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   55</span>            <span class="stringliteral">&#39;11&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/nodejs/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   56</span>            <span class="stringliteral">&#39;12&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/php/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   57</span>            <span class="stringliteral">&#39;13&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $binPath . <span class="stringliteral">&#39;/postgresql/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   58</span>            <span class="stringliteral">&#39;14&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/composer/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   59</span>            <span class="stringliteral">&#39;15&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/consolez/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   60</span>            <span class="stringliteral">&#39;16&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/ghostscript/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   61</span>            <span class="stringliteral">&#39;17&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/git/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   62</span>            <span class="stringliteral">&#39;18&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/ngrok/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   63</span>            <span class="stringliteral">&#39;19&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/perl/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   64</span>            <span class="stringliteral">&#39;20&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/python/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   65</span>            <span class="stringliteral">&#39;21&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/ruby/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   66</span>            <span class="stringliteral">&#39;22&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/xdc/current&#39;</span> ),</div>
-<div class="line"><span class="lineno">   67</span>            <span class="stringliteral">&#39;23&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>( $toolsPath . <span class="stringliteral">&#39;/yarn/current&#39;</span> )</div>
-<div class="line"><span class="lineno">   68</span>        ];</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> ( !is_array( $array ) || empty( $array ) ) {</div>
-<div class="line"><span class="lineno">   71</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>( <span class="stringliteral">&#39;Current symlinks array is not initialized or empty.&#39;</span> );</div>
-<div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   74</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00041">41</a> of file <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html">class.symlinks.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
+<div class="line"><span class="lineno">   43</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>        <span class="comment">// Check to see if purging is necessary</span></div>
+<div class="line"><span class="lineno">   46</span>        $appsPath  = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath();</div>
+<div class="line"><span class="lineno">   47</span>        $binPath   = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath();</div>
+<div class="line"><span class="lineno">   48</span>        $toolsPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath();</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span>        $array = [</div>
+<div class="line"><span class="lineno">   51</span>            <span class="charliteral">&#39;1&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($appsPath . <span class="stringliteral">&#39;/adminer/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   52</span>            <span class="charliteral">&#39;2&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($appsPath . <span class="stringliteral">&#39;/phpmyadmin/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   53</span>            <span class="charliteral">&#39;3&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($appsPath . <span class="stringliteral">&#39;/phppgadmin/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   54</span>            <span class="charliteral">&#39;4&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($appsPath . <span class="stringliteral">&#39;/webgrind/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   55</span>            <span class="charliteral">&#39;5&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/apache/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   56</span>            <span class="charliteral">&#39;6&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/filezilla/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   57</span>            <span class="charliteral">&#39;7&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/mailhog/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   58</span>            <span class="charliteral">&#39;8&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/mariadb/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   59</span>            <span class="charliteral">&#39;9&#39;</span>  =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/memcached/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   60</span>            <span class="stringliteral">&#39;10&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/mysql/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   61</span>            <span class="stringliteral">&#39;11&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/nodejs/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   62</span>            <span class="stringliteral">&#39;12&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/php/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   63</span>            <span class="stringliteral">&#39;13&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($binPath . <span class="stringliteral">&#39;/postgresql/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   64</span>            <span class="stringliteral">&#39;14&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/composer/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   65</span>            <span class="stringliteral">&#39;15&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/consolez/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   66</span>            <span class="stringliteral">&#39;16&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/ghostscript/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   67</span>            <span class="stringliteral">&#39;17&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/git/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   68</span>            <span class="stringliteral">&#39;18&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/ngrok/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   69</span>            <span class="stringliteral">&#39;19&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/perl/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   70</span>            <span class="stringliteral">&#39;20&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/python/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   71</span>            <span class="stringliteral">&#39;21&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/ruby/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   72</span>            <span class="stringliteral">&#39;22&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/xdc/current&#39;</span>),</div>
+<div class="line"><span class="lineno">   73</span>            <span class="stringliteral">&#39;23&#39;</span> =&gt; <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($toolsPath . <span class="stringliteral">&#39;/yarn/current&#39;</span>)</div>
+<div class="line"><span class="lineno">   74</span>        ];</div>
 <div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>        <span class="comment">// purge &quot;current&quot; symlinks</span></div>
-<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">foreach</span> ( $array as $startPath ) {</div>
-<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">if</span> ( !file_exists( $startPath ) ) {</div>
-<div class="line"><span class="lineno">   79</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>( <span class="stringliteral">&#39;Symlink does not exist: &#39;</span> . $startPath );</div>
-<div class="line"><span class="lineno">   80</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">   81</span>            }</div>
-<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> ( @<a class="code hl_function" href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch::removeSymlink</a>( $startPath ) ) {</div>
-<div class="line"><span class="lineno">   84</span>                    <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>( <span class="stringliteral">&#39;Deleted: &#39;</span> . $startPath );</div>
-<div class="line"><span class="lineno">   85</span>                }</div>
-<div class="line"><span class="lineno">   86</span>            }</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassBatch_html_a29c82fdf9d8440ef7545562475163d55"><div class="ttname"><a href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch\removeSymlink</a></div><div class="ttdeci">static removeSymlink($link)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00182">class.batch.php:182</a></div></div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (!is_array($array) || empty($array)) {</div>
+<div class="line"><span class="lineno">   77</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;Current symlinks array is not initialized or empty.&#39;</span>);</div>
+<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   79</span>        }</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>        <span class="comment">// Purge &quot;current&quot; symlinks</span></div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">foreach</span> ($array as $startPath) {</div>
+<div class="line"><span class="lineno">   83</span>            <span class="keywordflow">if</span> (!file_exists($startPath)) {</div>
+<div class="line"><span class="lineno">   84</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;Symlink does not exist: &#39;</span> . $startPath);</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   86</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   87</span>                <span class="keywordflow">if</span> (@<a class="code hl_function" href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch::removeSymlink</a>($startPath)) {</div>
+<div class="line"><span class="lineno">   88</span>                    <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Deleted: &#39;</span> . $startPath);</div>
+<div class="line"><span class="lineno">   89</span>                }</div>
+<div class="line"><span class="lineno">   90</span>            }</div>
+<div class="line"><span class="lineno">   91</span>        }</div>
+<div class="line"><span class="lineno">   92</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassBatch_html_a29c82fdf9d8440ef7545562475163d55"><div class="ttname"><a href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch\removeSymlink</a></div><div class="ttdeci">static removeSymlink($link)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00286">class.batch.php:286</a></div></div>
 <div class="ttc" id="aclassUtil_html_a05d384b2e8414a0c833d6ce561007e62"><div class="ttname"><a href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util\logError</a></div><div class="ttdeci">static logError($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00751">class.util.php:751</a></div></div>
 <div class="ttc" id="aclassUtil_html_a708479f12c93bcadef186df397bbf049"><div class="ttname"><a href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util\logDebug</a></div><div class="ttdeci">static logDebug($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00715">class.util.php:715</a></div></div>
 <div class="ttc" id="aclassUtil_html_a929ef14f32f27fe757b324a9791c1e92"><div class="ttname"><a href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util\formatWindowsPath</a></div><div class="ttdeci">static formatWindowsPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00832">class.util.php:832</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00751">Util\logError()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00182">Batch\removeSymlink()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00751">Util\logError()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00286">Batch\removeSymlink()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00027">ActionQuit\processWindow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00062">ActionQuit\processWindow()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">

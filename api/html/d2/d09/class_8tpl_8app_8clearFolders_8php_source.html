@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -67,7 +75,7 @@ $(function() { codefold.init(1); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -103,30 +111,38 @@ $(function(){initNavTree('d2/d09/class_8tpl_8app_8clearFolders_8php_source.html'
 </div><!--header-->
 <div class="contents">
 <a href="../../d2/d09/class_8tpl_8app_8clearFolders_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../d3/d30/classTplAppClearFolders.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d3/d30/classTplAppClearFolders.html">TplAppClearFolders</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">    5</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">process</a>()</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d65/classTplApp.html#a65a2e6642c8cb9abe15db0070b93ca1b">TplApp::getActionRun</a>(</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            <a class="code hl_variable" href="../../db/d09/classAction.html#aca53a551980305179c86ccc6e9489ea9">Action::CLEAR_FOLDERS</a>, <span class="keyword">null</span>,</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aeb7d5b356fc813d01176d32dd947a93d">Lang::MENU_CLEAR_FOLDERS</a>), <a class="code hl_variable" href="../../d1/d79/classTplAestan.html#af8860fe9be80115e6a76ff38d350be72">TplAestan::GLYPH_TRASHCAN</a>)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        );</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    }</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (c) 2021-2024 Bearsampp</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * License:  GNU General Public License version 3 or later; see LICENSE.txt</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Author: bear</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Website: https://bearsampp.com</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Github: https://github.com/Bearsampp</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d3/d30/classTplAppClearFolders.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d3/d30/classTplAppClearFolders.html">TplAppClearFolders</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">   27</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">process</a>()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d65/classTplApp.html#a65a2e6642c8cb9abe15db0070b93ca1b">TplApp::getActionRun</a>(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <a class="code hl_variable" href="../../db/d09/classAction.html#aca53a551980305179c86ccc6e9489ea9">Action::CLEAR_FOLDERS</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aeb7d5b356fc813d01176d32dd947a93d">Lang::MENU_CLEAR_FOLDERS</a>), <a class="code hl_variable" href="../../d1/d79/classTplAestan.html#af8860fe9be80115e6a76ff38d350be72">TplAestan::GLYPH_TRASHCAN</a>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        );</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
 </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
 </div>
-<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aclassAction_html_aca53a551980305179c86ccc6e9489ea9"><div class="ttname"><a href="../../db/d09/classAction.html#aca53a551980305179c86ccc6e9489ea9">Action\CLEAR_FOLDERS</a></div><div class="ttdeci">const CLEAR_FOLDERS</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00017">class.action.php:17</a></div></div>
-<div class="ttc" id="aclassLang_html_aeb7d5b356fc813d01176d32dd947a93d"><div class="ttname"><a href="../../da/d49/classLang.html#aeb7d5b356fc813d01176d32dd947a93d">Lang\MENU_CLEAR_FOLDERS</a></div><div class="ttdeci">const MENU_CLEAR_FOLDERS</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00085">class.lang.php:85</a></div></div>
-<div class="ttc" id="aclassTplAestan_html_af8860fe9be80115e6a76ff38d350be72"><div class="ttname"><a href="../../d1/d79/classTplAestan.html#af8860fe9be80115e6a76ff38d350be72">TplAestan\GLYPH_TRASHCAN</a></div><div class="ttdeci">const GLYPH_TRASHCAN</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00040">class.tpl.aestan.php:40</a></div></div>
-<div class="ttc" id="aclassTplAppClearFolders_html"><div class="ttname"><a href="../../d3/d30/classTplAppClearFolders.html">TplAppClearFolders</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.tpl.app.clearFolders.php:4</a></div></div>
-<div class="ttc" id="aclassTplAppClearFolders_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplAppClearFolders\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.tpl.app.clearFolders.php:5</a></div></div>
-<div class="ttc" id="aclassTplApp_html_a65a2e6642c8cb9abe15db0070b93ca1b"><div class="ttname"><a href="../../d1/d65/classTplApp.html#a65a2e6642c8cb9abe15db0070b93ca1b">TplApp\getActionRun</a></div><div class="ttdeci">static getActionRun($action, $args=array(), $item=array(), $waitUntilTerminated=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/dec/class_8tpl_8app_8php_source.html#l00050">class.tpl.app.php:50</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aclassAction_html_aca53a551980305179c86ccc6e9489ea9"><div class="ttname"><a href="../../db/d09/classAction.html#aca53a551980305179c86ccc6e9489ea9">Action\CLEAR_FOLDERS</a></div><div class="ttdeci">const CLEAR_FOLDERS</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00024">class.action.php:24</a></div></div>
+<div class="ttc" id="aclassLang_html_aeb7d5b356fc813d01176d32dd947a93d"><div class="ttname"><a href="../../da/d49/classLang.html#aeb7d5b356fc813d01176d32dd947a93d">Lang\MENU_CLEAR_FOLDERS</a></div><div class="ttdeci">const MENU_CLEAR_FOLDERS</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00095">class.lang.php:95</a></div></div>
+<div class="ttc" id="aclassTplAestan_html_af8860fe9be80115e6a76ff38d350be72"><div class="ttname"><a href="../../d1/d79/classTplAestan.html#af8860fe9be80115e6a76ff38d350be72">TplAestan\GLYPH_TRASHCAN</a></div><div class="ttdeci">const GLYPH_TRASHCAN</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00041">class.tpl.aestan.php:41</a></div></div>
+<div class="ttc" id="aclassTplAppClearFolders_html"><div class="ttname"><a href="../../d3/d30/classTplAppClearFolders.html">TplAppClearFolders</a></div><div class="ttdef"><b>Definition</b> <a href="#l00015">class.tpl.app.clearFolders.php:16</a></div></div>
+<div class="ttc" id="aclassTplAppClearFolders_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d3/d30/classTplAppClearFolders.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplAppClearFolders\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="#l00027">class.tpl.app.clearFolders.php:27</a></div></div>
+<div class="ttc" id="aclassTplApp_html_a65a2e6642c8cb9abe15db0070b93ca1b"><div class="ttname"><a href="../../d1/d65/classTplApp.html#a65a2e6642c8cb9abe15db0070b93ca1b">TplApp\getActionRun</a></div><div class="ttdeci">static getActionRun($action, $args=array(), $item=array(), $waitUntilTerminated=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/dec/class_8tpl_8app_8php_source.html#l00115">class.tpl.app.php:115</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

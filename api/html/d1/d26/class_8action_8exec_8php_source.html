@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -67,7 +75,7 @@ $(function() { codefold.init(1); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -103,38 +111,46 @@ $(function(){initNavTree('d1/d26/class_8action_8exec_8php_source.html','../../')
 </div><!--header-->
 <div class="contents">
 <a href="../../d1/d26/class_8action_8exec_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../db/d8f/classActionExec.html">ActionExec</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">    5</a></span>    <span class="keyword">const</span> <a class="code hl_variable" href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">QUIT</a> = <span class="stringliteral">&#39;quit&#39;</span>;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">    6</a></span>    <span class="keyword">const</span> <a class="code hl_variable" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">RESTART</a> = <span class="stringliteral">&#39;restart&#39;</span>;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">    8</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">__construct</a>($args)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keywordflow">if</span> (file_exists(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec())) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            $action = file_get_contents(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec());</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keywordflow">if</span> ($action == self::QUIT) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#aca27f962f806f8bce07383b0b0b60a39">Batch::exitApp</a>();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            } elseif ($action == self::RESTART) {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#aec4e90053a1b80c468077e8f76544b8f">Batch::restartApp</a>();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            @unlink(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec());</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (c) 2021-2024 Bearsampp</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * License:  GNU General Public License version 3 or later; see LICENSE.txt</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Author: Bear</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Website: https://bearsampp.com</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Github: https://github.com/Bearsampp</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="../../db/d8f/classActionExec.html">ActionExec</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">   22</a></span>    <span class="keyword">const</span> <a class="code hl_variable" href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">QUIT</a> = <span class="stringliteral">&#39;quit&#39;</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">   27</a></span>    <span class="keyword">const</span> <a class="code hl_variable" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">RESTART</a> = <span class="stringliteral">&#39;restart&#39;</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">   38</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">__construct</a>($args)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (file_exists(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec())) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            $action = file_get_contents(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec());</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">if</span> ($action == self::QUIT) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#aca27f962f806f8bce07383b0b0b60a39">Batch::exitApp</a>();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            } elseif ($action == self::RESTART) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#aec4e90053a1b80c468077e8f76544b8f">Batch::restartApp</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            @unlink(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec());</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 </div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassActionExec_html"><div class="ttname"><a href="../../db/d8f/classActionExec.html">ActionExec</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.action.exec.php:4</a></div></div>
-<div class="ttc" id="aclassActionExec_html_a1cc596bf6994ded42040955f0d96b72e"><div class="ttname"><a href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">ActionExec\QUIT</a></div><div class="ttdeci">const QUIT</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.action.exec.php:5</a></div></div>
-<div class="ttc" id="aclassActionExec_html_a57b60b4976a2c5d1e40f2d11aa72aa7d"><div class="ttname"><a href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">ActionExec\__construct</a></div><div class="ttdeci">__construct($args)</div><div class="ttdef"><b>Definition</b> <a href="#l00008">class.action.exec.php:8</a></div></div>
-<div class="ttc" id="aclassActionExec_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="#l00006">class.action.exec.php:6</a></div></div>
-<div class="ttc" id="aclassBatch_html_aca27f962f806f8bce07383b0b0b60a39"><div class="ttname"><a href="../../da/dbb/classBatch.html#aca27f962f806f8bce07383b0b0b60a39">Batch\exitApp</a></div><div class="ttdeci">static exitApp($restart=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00054">class.batch.php:54</a></div></div>
-<div class="ttc" id="aclassBatch_html_aec4e90053a1b80c468077e8f76544b8f"><div class="ttname"><a href="../../da/dbb/classBatch.html#aec4e90053a1b80c468077e8f76544b8f">Batch\restartApp</a></div><div class="ttdeci">static restartApp()</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00073">class.batch.php:73</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassActionExec_html"><div class="ttname"><a href="../../db/d8f/classActionExec.html">ActionExec</a></div><div class="ttdef"><b>Definition</b> <a href="#l00017">class.action.exec.php:18</a></div></div>
+<div class="ttc" id="aclassActionExec_html_a1cc596bf6994ded42040955f0d96b72e"><div class="ttname"><a href="../../db/d8f/classActionExec.html#a1cc596bf6994ded42040955f0d96b72e">ActionExec\QUIT</a></div><div class="ttdeci">const QUIT</div><div class="ttdef"><b>Definition</b> <a href="#l00022">class.action.exec.php:22</a></div></div>
+<div class="ttc" id="aclassActionExec_html_a57b60b4976a2c5d1e40f2d11aa72aa7d"><div class="ttname"><a href="../../db/d8f/classActionExec.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">ActionExec\__construct</a></div><div class="ttdeci">__construct($args)</div><div class="ttdef"><b>Definition</b> <a href="#l00038">class.action.exec.php:38</a></div></div>
+<div class="ttc" id="aclassActionExec_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="#l00027">class.action.exec.php:27</a></div></div>
+<div class="ttc" id="aclassBatch_html_aca27f962f806f8bce07383b0b0b60a39"><div class="ttname"><a href="../../da/dbb/classBatch.html#aca27f962f806f8bce07383b0b0b60a39">Batch\exitApp</a></div><div class="ttdeci">static exitApp($restart=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00106">class.batch.php:106</a></div></div>
+<div class="ttc" id="aclassBatch_html_aec4e90053a1b80c468077e8f76544b8f"><div class="ttname"><a href="../../da/dbb/classBatch.html#aec4e90053a1b80c468077e8f76544b8f">Batch\restartApp</a></div><div class="ttdeci">static restartApp()</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00128">class.batch.php:128</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

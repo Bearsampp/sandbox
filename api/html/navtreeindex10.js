@@ -1,5 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var NAVTREEINDEX10 =
 {
+"dc/db3/classBinPhp.html#aaf70b9ef333eeec878b26c9ba47d8af8":[1,0,51,46],
+"dc/db3/classBinPhp.html#ab1fd25f51584f344a0520a0e4d22b430":[1,0,51,43],
 "dc/db3/classBinPhp.html#ab445a1b3ce787ae4145059d0fcd1df4c":[1,0,51,82],
 "dc/db3/classBinPhp.html#ab5019584a7fd1de86f069cbf20e5f06d":[1,0,51,4],
 "dc/db3/classBinPhp.html#ab818f4ba33f6c77923a54f8994d7326a":[1,0,51,27],
@@ -247,7 +257,5 @@ var NAVTREEINDEX10 =
 "de/d54/classBins.html#a36d7e45e7f713b49a02b4988be6cbcd1":[1,0,53,12],
 "de/d54/classBins.html#a3840da861f273b2a464a35de97b68cd8":[1,0,53,3],
 "de/d54/classBins.html#a3dee6b52fce7909eeb436f5dfff73f26":[1,0,53,5],
-"de/d54/classBins.html#a525b58cfc2293e8740fb5b82521531be":[1,0,53,22],
-"de/d54/classBins.html#a58906a4fabf3340333e925ee8f4e9bf8":[1,0,53,11],
-"de/d54/classBins.html#a60fbc654bcf100298baae46b89018b89":[1,0,53,7]
+"de/d54/classBins.html#a525b58cfc2293e8740fb5b82521531be":[1,0,53,22]
 };

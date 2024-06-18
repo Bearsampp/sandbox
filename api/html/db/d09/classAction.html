@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -196,7 +204,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="../../db/d09/classAction.html">Action</a> handles the execution of various actions based on command line arguments. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00006">6</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00013">13</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a095c5d389db211932136b53f25f39685" name="a095c5d389db211932136b53f25f39685"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a095c5d389db211932136b53f25f39685">&#9670;&#160;</a></span>__construct()</h2>
@@ -212,11 +220,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructor for the <a class="el" href="../../db/d09/classAction.html">Action</a> class. </p>
+<p>Constructor for the <a class="el" href="../../db/d09/classAction.html">Action</a> class. Initializes the <a class="el" href="../../db/d09/classAction.html">Action</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00056">56</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
-<div class="line"><span class="lineno">   58</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00063">63</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment">// Initialization code can be added here if needed</span></div>
+<div class="line"><span class="lineno">   66</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,6 +249,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Calls a specific action by name with optional arguments.</p>
+<p>This method constructs the action class name from the provided action name, checks if the class exists, and then initializes the action class with the provided arguments.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$actionName</td><td>The name of the action to call. </td></tr>
@@ -247,15 +257,16 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00090">90</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
-<div class="line"><span class="lineno">   92</span>        $actionClass = <span class="stringliteral">&#39;Action&#39;</span> . ucfirst($actionName);</div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (class_exists($actionClass)) {</div>
-<div class="line"><span class="lineno">   94</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Start &#39;</span> . $actionClass);</div>
-<div class="line"><span class="lineno">   95</span>            <span class="keyword">new</span> $actionClass($actionArgs);</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00109">109</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  110</span>    {</div>
+<div class="line"><span class="lineno">  111</span>        $actionClass = <span class="stringliteral">&#39;Action&#39;</span> . ucfirst($actionName);</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (class_exists($actionClass)) {</div>
+<div class="line"><span class="lineno">  113</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Start &#39;</span> . $actionClass);</div>
+<div class="line"><span class="lineno">  114</span>            <span class="keyword">new</span> $actionClass($actionArgs);</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a708479f12c93bcadef186df397bbf049"><div class="ttname"><a href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util\logDebug</a></div><div class="ttdeci">static logDebug($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00715">class.util.php:715</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
@@ -277,16 +288,17 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Checks if the action exists in the command line arguments.</p>
+<p>This method verifies if the command line arguments contain an action by checking the presence and non-emptiness of the second argument.</p>
 <dl class="section return"><dt>Returns</dt><dd>bool Returns true if the action exists, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00104">104</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>    {</div>
-<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span> isset($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>])</div>
-<div class="line"><span class="lineno">  107</span>            &amp;&amp; isset($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>][1])</div>
-<div class="line"><span class="lineno">  108</span>            &amp;&amp; !empty($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>][1]);</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00126">126</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  127</span>    {</div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> isset($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>])</div>
+<div class="line"><span class="lineno">  129</span>            &amp;&amp; isset($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>][1])</div>
+<div class="line"><span class="lineno">  130</span>            &amp;&amp; !empty($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>][1]);</div>
+<div class="line"><span class="lineno">  131</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00063">process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00077">process()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -311,32 +323,34 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Processes the action based on command line arguments. </p>
+<p>Processes the action based on command line arguments.</p>
+<p>This method checks if an action exists in the command line arguments, cleans the argument, constructs the action class name, and then initializes the action class with the provided arguments.</p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00063">63</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="#ac2f864b72dc2f778e68ad96364c48c5e">exists</a>()) {</div>
-<div class="line"><span class="lineno">   66</span>            $action = <a class="code hl_function" href="../../d6/de4/classUtil.html#a36df364a60f90190e825d2879d65c9f3">Util::cleanArgv</a>(1);</div>
-<div class="line"><span class="lineno">   67</span>            $actionClass = <span class="stringliteral">&#39;Action&#39;</span> . ucfirst($action);</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>            $args = array();</div>
-<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">foreach</span> ($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>] as $key =&gt; $arg) {</div>
-<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">if</span> ($key &gt; 1) {</div>
-<div class="line"><span class="lineno">   72</span>                    $args[] = $action == self::EXT ? $arg : base64_decode($arg);</div>
-<div class="line"><span class="lineno">   73</span>                }</div>
-<div class="line"><span class="lineno">   74</span>            }</div>
-<div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>            $this-&gt;current = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">if</span> (class_exists($actionClass)) {</div>
-<div class="line"><span class="lineno">   78</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Start &#39;</span> . $actionClass);</div>
-<div class="line"><span class="lineno">   79</span>                $this-&gt;current = <span class="keyword">new</span> $actionClass($args);</div>
-<div class="line"><span class="lineno">   80</span>            }</div>
-<div class="line"><span class="lineno">   81</span>        }</div>
-<div class="line"><span class="lineno">   82</span>    }</div>
-<div class="ttc" id="aclassAction_html_ac2f864b72dc2f778e68ad96364c48c5e"><div class="ttname"><a href="#ac2f864b72dc2f778e68ad96364c48c5e">Action\exists</a></div><div class="ttdeci">exists()</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00104">class.action.php:104</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00077">77</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="#ac2f864b72dc2f778e68ad96364c48c5e">exists</a>()) {</div>
+<div class="line"><span class="lineno">   80</span>            $action = <a class="code hl_function" href="../../d6/de4/classUtil.html#a36df364a60f90190e825d2879d65c9f3">Util::cleanArgv</a>(1);</div>
+<div class="line"><span class="lineno">   81</span>            $actionClass = <span class="stringliteral">&#39;Action&#39;</span> . ucfirst($action);</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>            $args = array();</div>
+<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">foreach</span> ($_SERVER[<span class="stringliteral">&#39;argv&#39;</span>] as $key =&gt; $arg) {</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> ($key &gt; 1) {</div>
+<div class="line"><span class="lineno">   86</span>                    $args[] = $action == self::EXT ? $arg : base64_decode($arg);</div>
+<div class="line"><span class="lineno">   87</span>                }</div>
+<div class="line"><span class="lineno">   88</span>            }</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>            $this-&gt;current = <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">if</span> (class_exists($actionClass)) {</div>
+<div class="line"><span class="lineno">   92</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(<span class="stringliteral">&#39;Start &#39;</span> . $actionClass);</div>
+<div class="line"><span class="lineno">   93</span>                $this-&gt;current = <span class="keyword">new</span> $actionClass($args);</div>
+<div class="line"><span class="lineno">   94</span>            }</div>
+<div class="line"><span class="lineno">   95</span>        }</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
+<div class="ttc" id="aclassAction_html_ac2f864b72dc2f778e68ad96364c48c5e"><div class="ttname"><a href="#ac2f864b72dc2f778e68ad96364c48c5e">Action\exists</a></div><div class="ttdeci">exists()</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00126">class.action.php:126</a></div></div>
 <div class="ttc" id="aclassUtil_html_a36df364a60f90190e825d2879d65c9f3"><div class="ttname"><a href="../../d6/de4/classUtil.html#a36df364a60f90190e825d2879d65c9f3">Util\cleanArgv</a></div><div class="ttdeci">static cleanArgv($name, $type='text')</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00051">class.util.php:51</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00051">Util\cleanArgv()</a>, <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00104">exists()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00051">Util\cleanArgv()</a>, <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00126">exists()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
 
 </div>
 </div>
@@ -361,7 +375,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00050">50</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00057">57</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
 </div>
 </div>
@@ -377,9 +391,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00009">9</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00016">16</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>.</p>
 
 </div>
 </div>
@@ -395,9 +409,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00010">10</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00017">17</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00320">TplAppApache\getActionAddAlias()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00433">TplAppApache\getActionAddAlias()</a>.</p>
 
 </div>
 </div>
@@ -413,9 +427,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00011">11</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00018">18</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00366">TplAppApache\getActionAddVhost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00498">TplAppApache\getActionAddVhost()</a>.</p>
 
 </div>
 </div>
@@ -431,9 +445,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00012">12</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00019">19</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d3a/class_8tpl_8app_8browser_8php_source.html#l00018">TplAppBrowser\getActionChangeBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d3a/class_8tpl_8app_8browser_8php_source.html#l00051">TplAppBrowser\getActionChangeBrowser()</a>.</p>
 
 </div>
 </div>
@@ -449,9 +463,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00013">13</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00020">20</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00206">TplAppMariadb\getActionChangeMariadbRootPwd()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00206">TplAppMysql\getActionChangeMysqlRootPwd()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00198">TplAppPostgresql\getActionChangePostgresqlRootPwd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00313">TplAppMariadb\getActionChangeMariadbRootPwd()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00311">TplAppMysql\getActionChangeMysqlRootPwd()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00282">TplAppPostgresql\getActionChangePostgresqlRootPwd()</a>.</p>
 
 </div>
 </div>
@@ -467,9 +481,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00014">14</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00021">21</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00201">TplAppApache\getActionChangeApachePort()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00169">TplAppFilezilla\getActionChangeFilezillaPort()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00169">TplAppMailhog\getActionChangeMailhogPort()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getActionChangeMariadbPort()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00154">TplAppMemcached\getActionChangeMemcachedPort()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getActionChangeMysqlPort()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00190">TplAppPostgresql\getActionChangePostgresqlPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00271">TplAppApache\getActionChangeApachePort()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00242">TplAppFilezilla\getActionChangeFilezillaPort()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00242">TplAppMailhog\getActionChangeMailhogPort()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00295">TplAppMariadb\getActionChangeMariadbPort()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00245">TplAppMemcached\getActionChangeMemcachedPort()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00294">TplAppMysql\getActionChangeMysqlPort()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00267">TplAppPostgresql\getActionChangePostgresqlPort()</a>.</p>
 
 </div>
 </div>
@@ -485,9 +499,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00015">15</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00022">22</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -503,9 +517,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00016">16</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00023">23</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00141">TplApp\getSectionStartupAction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00248">TplApp\getSectionStartupAction()</a>.</p>
 
 </div>
 </div>
@@ -521,9 +535,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00017">17</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00024">24</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/d09/class_8tpl_8app_8clearFolders_8php_source.html#l00005">TplAppClearFolders\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/d09/class_8tpl_8app_8clearFolders_8php_source.html#l00027">TplAppClearFolders\process()</a>.</p>
 
 </div>
 </div>
@@ -539,9 +553,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00018">18</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00025">25</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00221">TplAppApache\getMenuApacheDebug()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00308">TplAppApache\getMenuApacheDebug()</a>.</p>
 
 </div>
 </div>
@@ -557,9 +571,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00019">19</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00026">26</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00180">TplAppMariadb\getMenuMariadbDebug()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00267">TplAppMariadb\getMenuMariadbDebug()</a>.</p>
 
 </div>
 </div>
@@ -575,9 +589,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00020">20</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00027">27</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00180">TplAppMysql\getMenuMysqlDebug()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00267">TplAppMysql\getMenuMysqlDebug()</a>.</p>
 
 </div>
 </div>
@@ -593,9 +607,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00021">21</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00028">28</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00180">TplAppPostgresql\getMenuPostgresqlDebug()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00250">TplAppPostgresql\getMenuPostgresqlDebug()</a>.</p>
 
 </div>
 </div>
@@ -611,9 +625,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00022">22</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00029">29</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00326">TplAppApache\getActionEditAlias()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00445">TplAppApache\getActionEditAlias()</a>.</p>
 
 </div>
 </div>
@@ -629,9 +643,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00023">23</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00030">30</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00372">TplAppApache\getActionEditVhost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00510">TplAppApache\getActionEditVhost()</a>.</p>
 
 </div>
 </div>
@@ -647,9 +661,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00024">24</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00031">31</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00135">TplAppApache\getActionEnableApache()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00103">TplAppFilezilla\getActionEnableFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00104">TplAppMailhog\getActionEnableMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00105">TplAppMariadb\getActionEnableMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00091">TplAppMemcached\getActionEnableMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00105">TplAppMysql\getActionEnableMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00094">TplAppNodejs\getActionEnableNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00104">TplAppPhp\getActionEnablePhp()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00105">TplAppPostgresql\getActionEnablePostgresql()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00181">TplAppApache\getActionEnableApache()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00147">TplAppFilezilla\getActionEnableFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00147">TplAppMailhog\getActionEnableMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00158">TplAppMariadb\getActionEnableMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00149">TplAppMemcached\getActionEnableMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00161">TplAppMysql\getActionEnableMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00159">TplAppNodejs\getActionEnableNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00143">TplAppPhp\getActionEnablePhp()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00152">TplAppPostgresql\getActionEnablePostgresql()</a>.</p>
 
 </div>
 </div>
@@ -665,9 +679,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00025">25</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00032">32</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00100">TplApp\getActionExec()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00176">TplApp\getActionExec()</a>.</p>
 
 </div>
 </div>
@@ -683,7 +697,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00045">45</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00052">52</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
 </div>
 </div>
@@ -699,9 +713,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00026">26</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00033">33</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00127">TplAppTools\getActionGenSslCertificate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00155">TplAppTools\getActionGenSslCertificate()</a>.</p>
 
 </div>
 </div>
@@ -717,9 +731,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00027">27</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00034">34</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d0b/class_8tpl_8app_8launchStartup_8php_source.html#l00019">TplAppLaunchStartup\getActionLaunchStartup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d0b/class_8tpl_8app_8launchStartup_8php_source.html#l00055">TplAppLaunchStartup\getActionLaunchStartup()</a>.</p>
 
 </div>
 </div>
@@ -735,7 +749,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00029">29</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00036">36</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00886">Util\startLoading()</a>.</p>
 
@@ -753,7 +767,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00028">28</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00035">35</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
 </div>
 </div>
@@ -769,9 +783,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00030">30</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00037">37</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/dd1/class_8tpl_8app_8exit_8php_source.html#l00018">TplAppExit\getActionExit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/dd1/class_8tpl_8app_8exit_8php_source.html#l00052">TplAppExit\getActionExit()</a>.</p>
 
 </div>
 </div>
@@ -787,9 +801,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00031">31</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00038">38</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00081">TplAppGit\getActionRefreshGitRepos()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00135">TplAppGit\getActionRefreshGitRepos()</a>.</p>
 
 </div>
 </div>
@@ -805,9 +819,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00032">32</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00039">39</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00087">TplAppGit\getActionRefreshGitReposStartup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00151">TplAppGit\getActionRefreshGitReposStartup()</a>.</p>
 
 </div>
 </div>
@@ -823,9 +837,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00033">33</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00040">40</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d24/class_8tpl_8app_8reload_8php_source.html#l00018">TplAppReload\getActionReload()</a>, and <a class="el" href="../../d8/d8a/class_8action_8ext_8php_source.html#l00155">ActionExt\procRefresh()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d24/class_8tpl_8app_8reload_8php_source.html#l00052">TplAppReload\getActionReload()</a>, and <a class="el" href="../../d8/d8a/class_8action_8ext_8php_source.html#l00217">ActionExt\procRefresh()</a>.</p>
 
 </div>
 </div>
@@ -841,9 +855,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00034">34</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00041">41</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00054">Batch\exitApp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00106">Batch\exitApp()</a>.</p>
 
 </div>
 </div>
@@ -859,9 +873,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00035">35</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00042">42</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00005">TplService\getActionCreate()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00025">TplService\getActionInstall()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00209">TplAppApache\getActionInstallApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00177">TplAppFilezilla\getActionInstallFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00177">TplAppMailhog\getActionInstallMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00214">TplAppMariadb\getActionInstallMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00162">TplAppMemcached\getActionInstallMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00214">TplAppMysql\getActionInstallMysqlService()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00206">TplAppPostgresql\getActionInstallPostgresqlService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00030">TplService\getActionRemove()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00215">TplAppApache\getActionRemoveApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getActionRemoveFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00183">TplAppMailhog\getActionRemoveMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00220">TplAppMariadb\getActionRemoveMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00168">TplAppMemcached\getActionRemoveMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00220">TplAppMysql\getActionRemoveMysqlService()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00212">TplAppPostgresql\getActionRemovePostgresqlService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00020">TplService\getActionRestart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00010">TplService\getActionStart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00015">TplService\getActionStop()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00065">TplService\getItemInstall()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00075">TplService\getItemRemove()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00055">TplService\getItemRestart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00035">TplService\getItemStart()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00045">TplService\getItemStop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00018">TplService\getActionCreate()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00062">TplService\getActionInstall()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00284">TplAppApache\getActionInstallApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00257">TplAppFilezilla\getActionInstallFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00257">TplAppMailhog\getActionInstallMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00328">TplAppMariadb\getActionInstallMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00261">TplAppMemcached\getActionInstallMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00326">TplAppMysql\getActionInstallMysqlService()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00295">TplAppPostgresql\getActionInstallPostgresqlService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00073">TplService\getActionRemove()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00295">TplAppApache\getActionRemoveApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00270">TplAppFilezilla\getActionRemoveFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00270">TplAppMailhog\getActionRemoveMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00341">TplAppMariadb\getActionRemoveMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00275">TplAppMemcached\getActionRemoveMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00339">TplAppMysql\getActionRemoveMysqlService()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00306">TplAppPostgresql\getActionRemovePostgresqlService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00051">TplService\getActionRestart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00029">TplService\getActionStart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00040">TplService\getActionStop()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00132">TplService\getItemInstall()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00148">TplService\getItemRemove()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00116">TplService\getItemRestart()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00084">TplService\getItemStart()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00100">TplService\getItemStop()</a>.</p>
 
 </div>
 </div>
@@ -877,9 +891,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00036">36</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00043">43</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00141">TplApp\getSectionStartupAction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00248">TplApp\getSectionStartupAction()</a>.</p>
 
 </div>
 </div>
@@ -895,9 +909,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00037">37</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00044">44</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00278">TplAppApache\getActionSwitchApacheModule()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00379">TplAppApache\getActionSwitchApacheModule()</a>.</p>
 
 </div>
 </div>
@@ -913,9 +927,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00038">38</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00045">45</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00037">TplAppLang\getActionSwitchLang()</a>, and <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00014">TplAppLang\getMenuLang()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00084">TplAppLang\getActionSwitchLang()</a>, and <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00050">TplAppLang\getMenuLang()</a>.</p>
 
 </div>
 </div>
@@ -931,9 +945,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00039">39</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00046">46</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00045">TplAppLogsVerbose\getActionSwitchLogsVerbose()</a>, and <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00014">TplAppLogsVerbose\getMenuLogsVerbose()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00092">TplAppLogsVerbose\getActionSwitchLogsVerbose()</a>, and <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00051">TplAppLogsVerbose\getMenuLogsVerbose()</a>.</p>
 
 </div>
 </div>
@@ -949,9 +963,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00042">42</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00049">49</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d3c/class_8tpl_8app_8online_8php_source.html#l00018">TplAppOnline\getActionStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d3c/class_8tpl_8app_8online_8php_source.html#l00056">TplAppOnline\getActionStatus()</a>.</p>
 
 </div>
 </div>
@@ -967,9 +981,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00040">40</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00047">47</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00245">TplAppPhp\getActionSwitchPhpExtension()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00335">TplAppPhp\getActionSwitchPhpExtension()</a>.</p>
 
 </div>
 </div>
@@ -985,9 +999,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00041">41</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00048">48</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00214">TplAppPhp\getActionSwitchPhpSetting()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00289">TplAppPhp\getActionSwitchPhpSetting()</a>.</p>
 
 </div>
 </div>
@@ -1003,9 +1017,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00043">43</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00050">50</a> of file <a class="el" href="../../d9/d51/class_8action_8php_source.html">class.action.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00143">TplAppApache\getActionSwitchApacheVersion()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00111">TplAppFilezilla\getActionSwitchFilezillaVersion()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00112">TplAppMailhog\getActionSwitchMailhogVersion()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00113">TplAppMariadb\getActionSwitchMariadbVersion()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00099">TplAppMemcached\getActionSwitchMemcachedVersion()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00113">TplAppMysql\getActionSwitchMysqlVersion()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00102">TplAppNodejs\getActionSwitchNodejsVersion()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00112">TplAppPhp\getActionSwitchPhpVersion()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00113">TplAppPostgresql\getActionSwitchPostgresqlVersion()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00197">TplAppApache\getActionSwitchApacheVersion()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00165">TplAppFilezilla\getActionSwitchFilezillaVersion()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00165">TplAppMailhog\getActionSwitchMailhogVersion()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00178">TplAppMariadb\getActionSwitchMariadbVersion()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00168">TplAppMemcached\getActionSwitchMemcachedVersion()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00179">TplAppMysql\getActionSwitchMysqlVersion()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00180">TplAppNodejs\getActionSwitchNodejsVersion()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00160">TplAppPhp\getActionSwitchPhpVersion()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00168">TplAppPostgresql\getActionSwitchPostgresqlVersion()</a>.</p>
 
 </div>
 </div>

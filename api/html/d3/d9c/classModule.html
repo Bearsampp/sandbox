@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -193,8 +201,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a9a4a6fba2208984cabb3afacadf33919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00003">3</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="textblock"><p>Abstract class representing a module in the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. This class provides common functionalities for managing modules such as apps, bins, and tools. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00014">14</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a095c5d389db211932136b53f25f39685" name="a095c5d389db211932136b53f25f39685"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a095c5d389db211932136b53f25f39685">&#9670;&#160;</a></span>__construct()</h2>
@@ -218,11 +227,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructor for the <a class="el" href="../../d3/d9c/classModule.html">Module</a> class. Initializes the module with default values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00021">21</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   21</span>                                     {</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00036">36</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>                                     {</div>
+<div class="line"><span class="lineno">   37</span>        <span class="comment">// Initialization logic can be added here if needed</span></div>
+<div class="line"><span class="lineno">   38</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -241,14 +251,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the name of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The name of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00115">115</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  115</span>                                 {</div>
-<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a3d0963e68bb313b163a73f2803c64600">getName</a>();</div>
-<div class="line"><span class="lineno">  117</span>    }</div>
-<div class="ttc" id="aclassModule_html_a3d0963e68bb313b163a73f2803c64600"><div class="ttname"><a href="#a3d0963e68bb313b163a73f2803c64600">Module\getName</a></div><div class="ttdeci">getName()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00127">class.module.php:127</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00169">169</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>                                 {</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a3d0963e68bb313b163a73f2803c64600">getName</a>();</div>
+<div class="line"><span class="lineno">  171</span>    }</div>
+<div class="ttc" id="aclassModule_html_a3d0963e68bb313b163a73f2803c64600"><div class="ttname"><a href="#a3d0963e68bb313b163a73f2803c64600">Module\getName</a></div><div class="ttdeci">getName()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00196">class.module.php:196</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00127">getName()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00196">getName()</a>.</p>
 
 </div>
 </div>
@@ -274,42 +286,43 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates a symbolic link from the current path to the symlink path. If the symlink already exists and points to the correct target, no action is taken. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00063">63</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
-<div class="line"><span class="lineno">   65</span>        $src = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($this-&gt;currentPath);</div>
-<div class="line"><span class="lineno">   66</span>        $dest = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($this-&gt;symlinkPath);</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">if</span>(file_exists($dest)) {</div>
-<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">if</span> (is_link($dest)) {</div>
-<div class="line"><span class="lineno">   70</span>                $target = readlink($dest);</div>
-<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">if</span> ($target == $src) {</div>
-<div class="line"><span class="lineno">   72</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   73</span>                }</div>
-<div class="line"><span class="lineno">   74</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch::removeSymlink</a>($dest);</div>
-<div class="line"><span class="lineno">   75</span>            } elseif (is_file($dest)) {</div>
-<div class="line"><span class="lineno">   76</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;Removing . &#39;</span> . $this-&gt;symlinkPath . <span class="stringliteral">&#39; file. It should not be a regular file&#39;</span>);</div>
-<div class="line"><span class="lineno">   77</span>                unlink($dest);</div>
-<div class="line"><span class="lineno">   78</span>            } elseif (is_dir($dest)) {</div>
-<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">if</span> (!(<span class="keyword">new</span> \FilesystemIterator($dest))-&gt;valid()) {</div>
-<div class="line"><span class="lineno">   80</span>                    rmdir($dest);</div>
-<div class="line"><span class="lineno">   81</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   82</span>                    <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>($this-&gt;symlinkPath . <span class="stringliteral">&#39; should be a symlink to &#39;</span> . $this-&gt;currentPath . <span class="stringliteral">&#39;. Please remove this dir and restart bearsampp.&#39;</span>);</div>
-<div class="line"><span class="lineno">   83</span>                    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   84</span>                }</div>
-<div class="line"><span class="lineno">   85</span>            }</div>
-<div class="line"><span class="lineno">   86</span>        }</div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>        <a class="code hl_function" href="../../da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119">Batch::createSymlink</a>($src, $dest);</div>
-<div class="line"><span class="lineno">   89</span>    }</div>
-<div class="ttc" id="aclassBatch_html_a29c82fdf9d8440ef7545562475163d55"><div class="ttname"><a href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch\removeSymlink</a></div><div class="ttdeci">static removeSymlink($link)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00182">class.batch.php:182</a></div></div>
-<div class="ttc" id="aclassBatch_html_ac4b9f1fcd90a2b32cd962376d5734119"><div class="ttname"><a href="../../da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119">Batch\createSymlink</a></div><div class="ttdeci">static createSymlink($src, $dest)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00174">class.batch.php:174</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00088">88</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
+<div class="line"><span class="lineno">   90</span>        $src = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($this-&gt;currentPath);</div>
+<div class="line"><span class="lineno">   91</span>        $dest = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($this-&gt;symlinkPath);</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span>(file_exists($dest)) {</div>
+<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">if</span> (is_link($dest)) {</div>
+<div class="line"><span class="lineno">   95</span>                $target = readlink($dest);</div>
+<div class="line"><span class="lineno">   96</span>                <span class="keywordflow">if</span> ($target == $src) {</div>
+<div class="line"><span class="lineno">   97</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   98</span>                }</div>
+<div class="line"><span class="lineno">   99</span>                <a class="code hl_function" href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch::removeSymlink</a>($dest);</div>
+<div class="line"><span class="lineno">  100</span>            } elseif (is_file($dest)) {</div>
+<div class="line"><span class="lineno">  101</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>(<span class="stringliteral">&#39;Removing . &#39;</span> . $this-&gt;symlinkPath . <span class="stringliteral">&#39; file. It should not be a regular file&#39;</span>);</div>
+<div class="line"><span class="lineno">  102</span>                unlink($dest);</div>
+<div class="line"><span class="lineno">  103</span>            } elseif (is_dir($dest)) {</div>
+<div class="line"><span class="lineno">  104</span>                <span class="keywordflow">if</span> (!(<span class="keyword">new</span> \FilesystemIterator($dest))-&gt;valid()) {</div>
+<div class="line"><span class="lineno">  105</span>                    rmdir($dest);</div>
+<div class="line"><span class="lineno">  106</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  107</span>                    <a class="code hl_function" href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util::logError</a>($this-&gt;symlinkPath . <span class="stringliteral">&#39; should be a symlink to &#39;</span> . $this-&gt;currentPath . <span class="stringliteral">&#39;. Please remove this dir and restart bearsampp.&#39;</span>);</div>
+<div class="line"><span class="lineno">  108</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  109</span>                }</div>
+<div class="line"><span class="lineno">  110</span>            }</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
+<div class="line"><span class="lineno">  112</span> </div>
+<div class="line"><span class="lineno">  113</span>        <a class="code hl_function" href="../../da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119">Batch::createSymlink</a>($src, $dest);</div>
+<div class="line"><span class="lineno">  114</span>    }</div>
+<div class="ttc" id="aclassBatch_html_a29c82fdf9d8440ef7545562475163d55"><div class="ttname"><a href="../../da/dbb/classBatch.html#a29c82fdf9d8440ef7545562475163d55">Batch\removeSymlink</a></div><div class="ttdeci">static removeSymlink($link)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00286">class.batch.php:286</a></div></div>
+<div class="ttc" id="aclassBatch_html_ac4b9f1fcd90a2b32cd962376d5734119"><div class="ttname"><a href="../../da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119">Batch\createSymlink</a></div><div class="ttdeci">static createSymlink($src, $dest)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00273">class.batch.php:273</a></div></div>
 <div class="ttc" id="aclassUtil_html_a05d384b2e8414a0c833d6ce561007e62"><div class="ttname"><a href="../../d6/de4/classUtil.html#a05d384b2e8414a0c833d6ce561007e62">Util\logError</a></div><div class="ttdeci">static logError($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00751">class.util.php:751</a></div></div>
 <div class="ttc" id="aclassUtil_html_a929ef14f32f27fe757b324a9791c1e92"><div class="ttname"><a href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util\formatWindowsPath</a></div><div class="ttdeci">static formatWindowsPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00832">class.util.php:832</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00174">Batch\createSymlink()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00751">Util\logError()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00182">Batch\removeSymlink()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00273">Batch\createSymlink()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00751">Util\logError()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00286">Batch\removeSymlink()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">reload()</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -334,14 +347,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the current path of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The current path of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00149">149</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  149</span>                                     {</div>
-<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a7b510566e210275a709569a631c7803a">$this-&gt;currentPath</a>;</div>
-<div class="line"><span class="lineno">  151</span>    }</div>
-<div class="ttc" id="aclassModule_html_a7b510566e210275a709569a631c7803a"><div class="ttname"><a href="#a7b510566e210275a709569a631c7803a">Module\$currentPath</a></div><div class="ttdeci">$currentPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00015">class.module.php:15</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00248">248</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>                                     {</div>
+<div class="line"><span class="lineno">  249</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a7b510566e210275a709569a631c7803a">$this-&gt;currentPath</a>;</div>
+<div class="line"><span class="lineno">  250</span>    }</div>
+<div class="ttc" id="aclassModule_html_a7b510566e210275a709569a631c7803a"><div class="ttname"><a href="#a7b510566e210275a709569a631c7803a">Module\$currentPath</a></div><div class="ttdeci">$currentPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00026">class.module.php:26</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00015">$currentPath</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00026">$currentPath</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00509">BinPhp\getApacheModule()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00486">BinPhp\getExtensionsFromFolder()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00598">BinPhp\getPearVersion()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00532">BinPhp\getTsDll()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00376">BinPostgresql\initData()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00389">BinMysql\initData()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -368,14 +383,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the ID of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The ID of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00123">123</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  123</span>                            {</div>
-<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$this-&gt;id</a>;</div>
-<div class="line"><span class="lineno">  125</span>    }</div>
-<div class="ttc" id="aclassModule_html_ae97941710d863131c700f069b109991e"><div class="ttname"><a href="#ae97941710d863131c700f069b109991e">Module\$id</a></div><div class="ttdeci">$id</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00008">class.module.php:8</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00187">187</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>                            {</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$this-&gt;id</a>;</div>
+<div class="line"><span class="lineno">  189</span>    }</div>
+<div class="ttc" id="aclassModule_html_ae97941710d863131c700f069b109991e"><div class="ttname"><a href="#ae97941710d863131c700f069b109991e">Module\$id</a></div><div class="ttdeci">$id</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00019">class.module.php:19</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00008">$id</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">$id</a>.</p>
 
 </div>
 </div>
@@ -393,16 +410,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the name of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The name of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00127">127</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  127</span>                              {</div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab2fc40d43824ea3e1ce5d86dee0d763b">$this-&gt;name</a>;</div>
-<div class="line"><span class="lineno">  129</span>    }</div>
-<div class="ttc" id="aclassModule_html_ab2fc40d43824ea3e1ce5d86dee0d763b"><div class="ttname"><a href="#ab2fc40d43824ea3e1ce5d86dee0d763b">Module\$name</a></div><div class="ttdeci">$name</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00010">class.module.php:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00196">196</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  196</span>                              {</div>
+<div class="line"><span class="lineno">  197</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab2fc40d43824ea3e1ce5d86dee0d763b">$this-&gt;name</a>;</div>
+<div class="line"><span class="lineno">  198</span>    }</div>
+<div class="ttc" id="aclassModule_html_ab2fc40d43824ea3e1ce5d86dee0d763b"><div class="ttname"><a href="#ab2fc40d43824ea3e1ce5d86dee0d763b">Module\$name</a></div><div class="ttdeci">$name</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00021">class.module.php:21</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00010">$name</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00021">$name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00115">__toString()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00138">BinApache\changePort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00140">BinFilezilla\changePort()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00136">BinMailhog\changePort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00130">BinMariadb\changePort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00124">BinMemcached\changePort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00130">BinMysql\changePort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00155">BinPostgresql\changePort()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00164">BinMailhog\checkPort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00158">BinMariadb\checkPort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00152">BinMemcached\checkPort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00158">BinMysql\checkPort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00183">BinPostgresql\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00166">BinApache\checkPort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00173">BinFilezilla\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00658">BinApache\setEnable()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00335">BinFilezilla\setEnable()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00263">BinMailhog\setEnable()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00427">BinMariadb\setEnable()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00258">BinMemcached\setEnable()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00449">BinMysql\setEnable()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00132">BinNodejs\setEnable()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00552">BinPhp\setEnable()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00420">BinPostgresql\setEnable()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00047">AppAdminer\updateConfig()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00048">AppPhpmyadmin\updateConfig()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00047">AppPhppgadmin\updateConfig()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00047">AppWebgrind\updateConfig()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00169">__toString()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00138">BinApache\changePort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00140">BinFilezilla\changePort()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00136">BinMailhog\changePort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00130">BinMariadb\changePort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00124">BinMemcached\changePort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00130">BinMysql\changePort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00155">BinPostgresql\changePort()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00164">BinMailhog\checkPort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00158">BinMariadb\checkPort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00152">BinMemcached\checkPort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00158">BinMysql\checkPort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00183">BinPostgresql\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00166">BinApache\checkPort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00173">BinFilezilla\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00658">BinApache\setEnable()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00335">BinFilezilla\setEnable()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00263">BinMailhog\setEnable()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00427">BinMariadb\setEnable()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00258">BinMemcached\setEnable()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00449">BinMysql\setEnable()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00132">BinNodejs\setEnable()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00552">BinPhp\setEnable()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00420">BinPostgresql\setEnable()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00047">AppAdminer\updateConfig()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00048">AppPhpmyadmin\updateConfig()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00047">AppPhppgadmin\updateConfig()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00047">AppWebgrind\updateConfig()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -427,14 +446,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the release information of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The release information. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00141">141</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  141</span>                                 {</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a63c5d6a8a9f1768ea926cee666dc991b">$this-&gt;release</a>;</div>
-<div class="line"><span class="lineno">  143</span>    }</div>
-<div class="ttc" id="aclassModule_html_a63c5d6a8a9f1768ea926cee666dc991b"><div class="ttname"><a href="#a63c5d6a8a9f1768ea926cee666dc991b">Module\$release</a></div><div class="ttdeci">$release</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00012">class.module.php:12</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00230">230</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  230</span>                                 {</div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a63c5d6a8a9f1768ea926cee666dc991b">$this-&gt;release</a>;</div>
+<div class="line"><span class="lineno">  232</span>    }</div>
+<div class="ttc" id="aclassModule_html_a63c5d6a8a9f1768ea926cee666dc991b"><div class="ttname"><a href="#a63c5d6a8a9f1768ea926cee666dc991b">Module\$release</a></div><div class="ttdeci">$release</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00023">class.module.php:23</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00012">$release</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00023">$release</a>.</p>
 
 </div>
 </div>
@@ -452,14 +473,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the root path of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The root path of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00145">145</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  145</span>                                  {</div>
-<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a298523223201366625cb7e465ee2acce">$this-&gt;rootPath</a>;</div>
-<div class="line"><span class="lineno">  147</span>    }</div>
-<div class="ttc" id="aclassModule_html_a298523223201366625cb7e465ee2acce"><div class="ttname"><a href="#a298523223201366625cb7e465ee2acce">Module\$rootPath</a></div><div class="ttdeci">$rootPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00014">class.module.php:14</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00239">239</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  239</span>                                  {</div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a298523223201366625cb7e465ee2acce">$this-&gt;rootPath</a>;</div>
+<div class="line"><span class="lineno">  241</span>    }</div>
+<div class="ttc" id="aclassModule_html_a298523223201366625cb7e465ee2acce"><div class="ttname"><a href="#a298523223201366625cb7e465ee2acce">Module\$rootPath</a></div><div class="ttdeci">$rootPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00025">class.module.php:25</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00014">$rootPath</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">$rootPath</a>.</p>
 
 </div>
 </div>
@@ -477,14 +500,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the symlink path of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The symlink path of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00153">153</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  153</span>                                     {</div>
-<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a73ff84bb1c4a3e7dbc3045d964cbdf2a">$this-&gt;symlinkPath</a>;</div>
-<div class="line"><span class="lineno">  155</span>    }</div>
-<div class="ttc" id="aclassModule_html_a73ff84bb1c4a3e7dbc3045d964cbdf2a"><div class="ttname"><a href="#a73ff84bb1c4a3e7dbc3045d964cbdf2a">Module\$symlinkPath</a></div><div class="ttdeci">$symlinkPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00016">class.module.php:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00257">257</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  257</span>                                     {</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a73ff84bb1c4a3e7dbc3045d964cbdf2a">$this-&gt;symlinkPath</a>;</div>
+<div class="line"><span class="lineno">  259</span>    }</div>
+<div class="ttc" id="aclassModule_html_a73ff84bb1c4a3e7dbc3045d964cbdf2a"><div class="ttname"><a href="#a73ff84bb1c4a3e7dbc3045d964cbdf2a">Module\$symlinkPath</a></div><div class="ttdeci">$symlinkPath</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00027">class.module.php:27</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00016">$symlinkPath</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00027">$symlinkPath</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00047">AppAdminer\updateConfig()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00048">AppPhpmyadmin\updateConfig()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00047">AppPhppgadmin\updateConfig()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00047">AppWebgrind\updateConfig()</a>, and <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00086">ToolGit\updateConfig()</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -511,14 +536,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the type of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The type of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00119">119</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  119</span>                              {</div>
-<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$this-&gt;type</a>;</div>
-<div class="line"><span class="lineno">  121</span>    }</div>
-<div class="ttc" id="aclassModule_html_a9a4a6fba2208984cabb3afacadf33919"><div class="ttname"><a href="#a9a4a6fba2208984cabb3afacadf33919">Module\$type</a></div><div class="ttdeci">$type</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00007">class.module.php:7</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00178">178</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>                              {</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$this-&gt;type</a>;</div>
+<div class="line"><span class="lineno">  180</span>    }</div>
+<div class="ttc" id="aclassModule_html_a9a4a6fba2208984cabb3afacadf33919"><div class="ttname"><a href="#a9a4a6fba2208984cabb3afacadf33919">Module\$type</a></div><div class="ttdeci">$type</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00018">class.module.php:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00007">$type</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">$type</a>.</p>
 
 </div>
 </div>
@@ -536,14 +563,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the version of the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The version of the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00131">131</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  131</span>                                 {</div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$this-&gt;version</a>;</div>
-<div class="line"><span class="lineno">  133</span>    }</div>
-<div class="ttc" id="aclassModule_html_a17c8948c68aa44fa9961ae169b6a8961"><div class="ttname"><a href="#a17c8948c68aa44fa9961ae169b6a8961">Module\$version</a></div><div class="ttdeci">$version</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00011">class.module.php:11</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00205">205</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>                                 {</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$this-&gt;version</a>;</div>
+<div class="line"><span class="lineno">  207</span>    }</div>
+<div class="ttc" id="aclassModule_html_a17c8948c68aa44fa9961ae169b6a8961"><div class="ttname"><a href="#a17c8948c68aa44fa9961ae169b6a8961">Module\$version</a></div><div class="ttdeci">$version</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00022">class.module.php:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00011">$version</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">$version</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00183">BinPostgresql\checkPort()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00509">BinPhp\getApacheModule()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00498">BinApache\getOfflineContent()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00484">BinApache\getOnlineContent()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00532">BinPhp\getTsDll()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00389">BinMysql\initData()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00658">BinApache\setEnable()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00335">BinFilezilla\setEnable()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00263">BinMailhog\setEnable()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00427">BinMariadb\setEnable()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00258">BinMemcached\setEnable()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00449">BinMysql\setEnable()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00132">BinNodejs\setEnable()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00552">BinPhp\setEnable()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00420">BinPostgresql\setEnable()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -570,11 +599,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the list of available versions for the module.</p>
+<dl class="section return"><dt>Returns</dt><dd>array The list of available versions. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00135">135</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  135</span>                                     {</div>
-<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/de4/classUtil.html#a4ac58b2c88ae34ee302a2a2b99b2d7ba">Util::getVersionList</a>($this-&gt;rootPath);</div>
-<div class="line"><span class="lineno">  137</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00214">214</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  214</span>                                     {</div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/de4/classUtil.html#a4ac58b2c88ae34ee302a2a2b99b2d7ba">Util::getVersionList</a>($this-&gt;rootPath);</div>
+<div class="line"><span class="lineno">  216</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a4ac58b2c88ae34ee302a2a2b99b2d7ba"><div class="ttname"><a href="../../d6/de4/classUtil.html#a4ac58b2c88ae34ee302a2a2b99b2d7ba">Util\getVersionList</a></div><div class="ttdeci">static getVersionList($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00393">class.util.php:393</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00393">Util\getVersionList()</a>.</p>
@@ -604,14 +635,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Checks if the module is enabled.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the module is enabled, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00157">157</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  157</span>                               {</div>
-<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#abea865f3ca62b18578d7a0ca285d216e">$this-&gt;enable</a>;</div>
-<div class="line"><span class="lineno">  159</span>    }</div>
-<div class="ttc" id="aclassModule_html_abea865f3ca62b18578d7a0ca285d216e"><div class="ttname"><a href="#abea865f3ca62b18578d7a0ca285d216e">Module\$enable</a></div><div class="ttdeci">$enable</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00017">class.module.php:17</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00266">266</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  266</span>                               {</div>
+<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#abea865f3ca62b18578d7a0ca285d216e">$this-&gt;enable</a>;</div>
+<div class="line"><span class="lineno">  268</span>    }</div>
+<div class="ttc" id="aclassModule_html_abea865f3ca62b18578d7a0ca285d216e"><div class="ttname"><a href="#abea865f3ca62b18578d7a0ca285d216e">Module\$enable</a></div><div class="ttdeci">$enable</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00028">class.module.php:28</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00017">$enable</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00028">$enable</a>.</p>
 
 </div>
 </div>
@@ -641,55 +674,63 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Reloads the module configuration based on the provided ID and type.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$id</td><td>The ID of the module. If null, the current ID is used. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$type</td><td>The type of the module. If null, the current type is used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="../../df/d54/classAppAdminer.html#abcf741f558ed8382bf163307e1a4e71d">AppAdminer</a>, <a class="el" href="../../dd/dec/classAppPhpmyadmin.html#abcf741f558ed8382bf163307e1a4e71d">AppPhpmyadmin</a>, <a class="el" href="../../dc/d53/classAppPhppgadmin.html#abcf741f558ed8382bf163307e1a4e71d">AppPhppgadmin</a>, <a class="el" href="../../dc/df4/classAppWebgrind.html#abcf741f558ed8382bf163307e1a4e71d">AppWebgrind</a>, <a class="el" href="../../d9/d6c/classBinApache.html#abcf741f558ed8382bf163307e1a4e71d">BinApache</a>, <a class="el" href="../../da/d23/classBinFilezilla.html#abcf741f558ed8382bf163307e1a4e71d">BinFilezilla</a>, <a class="el" href="../../db/df2/classBinMailhog.html#abcf741f558ed8382bf163307e1a4e71d">BinMailhog</a>, <a class="el" href="../../d4/d8f/classBinMariadb.html#abcf741f558ed8382bf163307e1a4e71d">BinMariadb</a>, <a class="el" href="../../da/d10/classBinMemcached.html#abcf741f558ed8382bf163307e1a4e71d">BinMemcached</a>, <a class="el" href="../../d6/d88/classBinMysql.html#abcf741f558ed8382bf163307e1a4e71d">BinMysql</a>, <a class="el" href="../../d8/d9c/classBinNodejs.html#abcf741f558ed8382bf163307e1a4e71d">BinNodejs</a>, <a class="el" href="../../dc/db3/classBinPhp.html#abcf741f558ed8382bf163307e1a4e71d">BinPhp</a>, <a class="el" href="../../dc/db9/classBinPostgresql.html#abcf741f558ed8382bf163307e1a4e71d">BinPostgresql</a>, <a class="el" href="../../d7/d6f/classToolComposer.html#abcf741f558ed8382bf163307e1a4e71d">ToolComposer</a>, <a class="el" href="../../d6/d0c/classToolConsoleZ.html#abcf741f558ed8382bf163307e1a4e71d">ToolConsoleZ</a>, <a class="el" href="../../d3/df9/classToolGhostscript.html#abcf741f558ed8382bf163307e1a4e71d">ToolGhostscript</a>, <a class="el" href="../../d3/dc0/classToolGit.html#abcf741f558ed8382bf163307e1a4e71d">ToolGit</a>, <a class="el" href="../../dc/d8f/classToolNgrok.html#abcf741f558ed8382bf163307e1a4e71d">ToolNgrok</a>, <a class="el" href="../../d0/dd5/classToolPerl.html#abcf741f558ed8382bf163307e1a4e71d">ToolPerl</a>, <a class="el" href="../../d4/d34/classToolPython.html#abcf741f558ed8382bf163307e1a4e71d">ToolPython</a>, <a class="el" href="../../de/d39/classToolRuby.html#abcf741f558ed8382bf163307e1a4e71d">ToolRuby</a>, <a class="el" href="../../df/d1b/classToolXdc.html#abcf741f558ed8382bf163307e1a4e71d">ToolXdc</a>, and <a class="el" href="../../d7/d8e/classToolYarn.html#abcf741f558ed8382bf163307e1a4e71d">ToolYarn</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">25</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>                                                        {</div>
-<div class="line"><span class="lineno">   26</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>        $this-&gt;<span class="keywordtype">id</span> = empty(<a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$id</a>) ? $this-&gt;id : <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$id</a>;</div>
-<div class="line"><span class="lineno">   29</span>        $this-&gt;type = empty(<a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$type</a>) ? $this-&gt;type : <a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$type</a>;</div>
-<div class="line"><span class="lineno">   30</span>        $mainPath = <span class="stringliteral">&#39;N/A&#39;</span>;</div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">switch</span> ($this-&gt;type) {</div>
-<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../d1/d0e/classApps.html#a8d505777e1d7cfd6237e513f10cb7892">Apps::TYPE</a>:</div>
-<div class="line"><span class="lineno">   34</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath();</div>
-<div class="line"><span class="lineno">   35</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   36</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../de/d54/classBins.html#a8d505777e1d7cfd6237e513f10cb7892">Bins::TYPE</a>:</div>
-<div class="line"><span class="lineno">   37</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath();</div>
-<div class="line"><span class="lineno">   38</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../de/db2/classTools.html#a8d505777e1d7cfd6237e513f10cb7892">Tools::TYPE</a>:</div>
-<div class="line"><span class="lineno">   40</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath();</div>
-<div class="line"><span class="lineno">   41</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   42</span>        }</div>
-<div class="line"><span class="lineno">   43</span> </div>
-<div class="line"><span class="lineno">   44</span>        $this-&gt;rootPath = $mainPath . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$this-&gt;id</a>;</div>
-<div class="line"><span class="lineno">   45</span>        $this-&gt;currentPath = $this-&gt;rootPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;<span class="keywordtype">id</span> . <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$this-&gt;version</a>;</div>
-<div class="line"><span class="lineno">   46</span>        $this-&gt;symlinkPath = $this-&gt;rootPath . <span class="stringliteral">&#39;/current&#39;</span>;</div>
-<div class="line"><span class="lineno">   47</span>        $this-&gt;enable = is_dir($this-&gt;currentPath);</div>
-<div class="line"><span class="lineno">   48</span>        $this-&gt;bearsamppConf = $this-&gt;currentPath . <span class="stringliteral">&#39;/bearsampp.conf&#39;</span>;</div>
-<div class="line"><span class="lineno">   49</span>        $this-&gt;bearsamppConfRaw = @parse_ini_file($this-&gt;bearsamppConf);</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;isRoot()) {</div>
-<div class="line"><span class="lineno">   52</span>            $this-&gt;<a class="code hl_function" href="#a3b7d910692a21073c89f0b25218e1f0f">createSymlink</a>();</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        <span class="comment">// TODO Can we replace this or remove it since we dont use bundles</span></div>
-<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span> ($this-&gt;bearsamppConfRaw !== <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">if</span> (isset($this-&gt;bearsamppConfRaw[self::BUNDLE_RELEASE])) {</div>
-<div class="line"><span class="lineno">   58</span>                $this-&gt;release = $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a5759acb14beae020f1f9d428141561c8">self::BUNDLE_RELEASE</a>];</div>
-<div class="line"><span class="lineno">   59</span>            }</div>
-<div class="line"><span class="lineno">   60</span>        }</div>
-<div class="line"><span class="lineno">   61</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">46</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>                                                        {</div>
+<div class="line"><span class="lineno">   47</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        $this-&gt;<span class="keywordtype">id</span> = empty(<a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$id</a>) ? $this-&gt;id : <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$id</a>;</div>
+<div class="line"><span class="lineno">   50</span>        $this-&gt;type = empty(<a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$type</a>) ? $this-&gt;type : <a class="code hl_variable" href="#a9a4a6fba2208984cabb3afacadf33919">$type</a>;</div>
+<div class="line"><span class="lineno">   51</span>        $mainPath = <span class="stringliteral">&#39;N/A&#39;</span>;</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">switch</span> ($this-&gt;type) {</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../d1/d0e/classApps.html#a8d505777e1d7cfd6237e513f10cb7892">Apps::TYPE</a>:</div>
+<div class="line"><span class="lineno">   55</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath();</div>
+<div class="line"><span class="lineno">   56</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../de/d54/classBins.html#a8d505777e1d7cfd6237e513f10cb7892">Bins::TYPE</a>:</div>
+<div class="line"><span class="lineno">   58</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath();</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   60</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="../../de/db2/classTools.html#a8d505777e1d7cfd6237e513f10cb7892">Tools::TYPE</a>:</div>
+<div class="line"><span class="lineno">   61</span>                $mainPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath();</div>
+<div class="line"><span class="lineno">   62</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   63</span>        }</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        $this-&gt;rootPath = $mainPath . <span class="charliteral">&#39;/&#39;</span> . <a class="code hl_variable" href="#ae97941710d863131c700f069b109991e">$this-&gt;id</a>;</div>
+<div class="line"><span class="lineno">   66</span>        $this-&gt;currentPath = $this-&gt;rootPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;<span class="keywordtype">id</span> . <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$this-&gt;version</a>;</div>
+<div class="line"><span class="lineno">   67</span>        $this-&gt;symlinkPath = $this-&gt;rootPath . <span class="stringliteral">&#39;/current&#39;</span>;</div>
+<div class="line"><span class="lineno">   68</span>        $this-&gt;enable = is_dir($this-&gt;currentPath);</div>
+<div class="line"><span class="lineno">   69</span>        $this-&gt;bearsamppConf = $this-&gt;currentPath . <span class="stringliteral">&#39;/bearsampp.conf&#39;</span>;</div>
+<div class="line"><span class="lineno">   70</span>        $this-&gt;bearsamppConfRaw = @parse_ini_file($this-&gt;bearsamppConf);</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;isRoot()) {</div>
+<div class="line"><span class="lineno">   73</span>            $this-&gt;<a class="code hl_function" href="#a3b7d910692a21073c89f0b25218e1f0f">createSymlink</a>();</div>
+<div class="line"><span class="lineno">   74</span>        }</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>        <span class="comment">// TODO Can we replace this or remove it since we dont use bundles</span></div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> ($this-&gt;bearsamppConfRaw !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">if</span> (isset($this-&gt;bearsamppConfRaw[self::BUNDLE_RELEASE])) {</div>
+<div class="line"><span class="lineno">   79</span>                $this-&gt;release = $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a5759acb14beae020f1f9d428141561c8">self::BUNDLE_RELEASE</a>];</div>
+<div class="line"><span class="lineno">   80</span>            }</div>
+<div class="line"><span class="lineno">   81</span>        }</div>
+<div class="line"><span class="lineno">   82</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
 <div class="ttc" id="aclassApps_html_a8d505777e1d7cfd6237e513f10cb7892"><div class="ttname"><a href="../../d1/d0e/classApps.html#a8d505777e1d7cfd6237e513f10cb7892">Apps\TYPE</a></div><div class="ttdeci">const TYPE</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd3/class_8apps_8php_source.html#l00005">class.apps.php:5</a></div></div>
 <div class="ttc" id="aclassBins_html_a8d505777e1d7cfd6237e513f10cb7892"><div class="ttname"><a href="../../de/d54/classBins.html#a8d505777e1d7cfd6237e513f10cb7892">Bins\TYPE</a></div><div class="ttdeci">const TYPE</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d48/class_8bins_8php_source.html#l00005">class.bins.php:5</a></div></div>
-<div class="ttc" id="aclassModule_html_a3b7d910692a21073c89f0b25218e1f0f"><div class="ttname"><a href="#a3b7d910692a21073c89f0b25218e1f0f">Module\createSymlink</a></div><div class="ttdeci">createSymlink()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00063">class.module.php:63</a></div></div>
-<div class="ttc" id="aclassModule_html_a5759acb14beae020f1f9d428141561c8"><div class="ttname"><a href="#a5759acb14beae020f1f9d428141561c8">Module\BUNDLE_RELEASE</a></div><div class="ttdeci">const BUNDLE_RELEASE</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00005">class.module.php:5</a></div></div>
+<div class="ttc" id="aclassModule_html_a3b7d910692a21073c89f0b25218e1f0f"><div class="ttname"><a href="#a3b7d910692a21073c89f0b25218e1f0f">Module\createSymlink</a></div><div class="ttdeci">createSymlink()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00088">class.module.php:88</a></div></div>
+<div class="ttc" id="aclassModule_html_a5759acb14beae020f1f9d428141561c8"><div class="ttname"><a href="#a5759acb14beae020f1f9d428141561c8">Module\BUNDLE_RELEASE</a></div><div class="ttdeci">const BUNDLE_RELEASE</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00016">class.module.php:16</a></div></div>
 <div class="ttc" id="aclassTools_html_a8d505777e1d7cfd6237e513f10cb7892"><div class="ttname"><a href="../../de/db2/classTools.html#a8d505777e1d7cfd6237e513f10cb7892">Tools\TYPE</a></div><div class="ttdeci">const TYPE</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d61/class_8tools_8php_source.html#l00005">class.tools.php:5</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00008">$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00007">$type</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00011">$version</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00005">BUNDLE_RELEASE</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00063">createSymlink()</a>, <a class="el" href="../../d1/dd3/class_8apps_8php_source.html#l00005">Apps\TYPE</a>, <a class="el" href="../../dc/d48/class_8bins_8php_source.html#l00005">Bins\TYPE</a>, and <a class="el" href="../../dd/d61/class_8tools_8php_source.html#l00005">Tools\TYPE</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">$type</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">$version</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00016">BUNDLE_RELEASE</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00088">createSymlink()</a>, <a class="el" href="../../d1/dd3/class_8apps_8php_source.html#l00005">Apps\TYPE</a>, <a class="el" href="../../dc/d48/class_8bins_8php_source.html#l00005">Bins\TYPE</a>, and <a class="el" href="../../dd/d61/class_8tools_8php_source.html#l00005">Tools\TYPE</a>.</p>
 
 </div>
 </div>
@@ -719,14 +760,22 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Replaces a specific key-value pair in the configuration file.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$key</td><td>The key to replace. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$value</td><td>The new value for the key. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00091">91</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   91</span>                                             {</div>
-<div class="line"><span class="lineno">   92</span>        $this-&gt;<a class="code hl_function" href="#a3614638192ed37aeb3dd9173b1c8bde8">replaceAll</a>(array($key =&gt; $value));</div>
-<div class="line"><span class="lineno">   93</span>    }</div>
-<div class="ttc" id="aclassModule_html_a3614638192ed37aeb3dd9173b1c8bde8"><div class="ttname"><a href="#a3614638192ed37aeb3dd9173b1c8bde8">Module\replaceAll</a></div><div class="ttdeci">replaceAll($params)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00095">class.module.php:95</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00122">122</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  122</span>                                             {</div>
+<div class="line"><span class="lineno">  123</span>        $this-&gt;<a class="code hl_function" href="#a3614638192ed37aeb3dd9173b1c8bde8">replaceAll</a>(array($key =&gt; $value));</div>
+<div class="line"><span class="lineno">  124</span>    }</div>
+<div class="ttc" id="aclassModule_html_a3614638192ed37aeb3dd9173b1c8bde8"><div class="ttname"><a href="#a3614638192ed37aeb3dd9173b1c8bde8">Module\replaceAll</a></div><div class="ttdeci">replaceAll($params)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00131">class.module.php:131</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00095">replaceAll()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00131">replaceAll()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00301">BinMailhog\setApiPort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00296">BinMemcached\setMemory()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00727">BinApache\setPort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00397">BinFilezilla\setPort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00469">BinMariadb\setPort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00304">BinMemcached\setPort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00491">BinMysql\setPort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00478">BinPostgresql\setPort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00485">BinMariadb\setRootPwd()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00507">BinMysql\setRootPwd()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00494">BinPostgresql\setRootPwd()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00477">BinMariadb\setRootUser()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00499">BinMysql\setRootUser()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00486">BinPostgresql\setRootUser()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00317">BinMailhog\setSmtpPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00735">BinApache\setSslPort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00407">BinFilezilla\setSslPort()</a>, and <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00309">BinMailhog\setUiPort()</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -761,22 +810,29 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Replaces multiple key-value pairs in the configuration file.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>An associative array of key-value pairs to replace. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="../../d9/d6c/classBinApache.html#a3614638192ed37aeb3dd9173b1c8bde8">BinApache</a>, <a class="el" href="../../da/d23/classBinFilezilla.html#a3614638192ed37aeb3dd9173b1c8bde8">BinFilezilla</a>, <a class="el" href="../../db/df2/classBinMailhog.html#a3614638192ed37aeb3dd9173b1c8bde8">BinMailhog</a>, <a class="el" href="../../d4/d8f/classBinMariadb.html#a3614638192ed37aeb3dd9173b1c8bde8">BinMariadb</a>, <a class="el" href="../../da/d10/classBinMemcached.html#a3614638192ed37aeb3dd9173b1c8bde8">BinMemcached</a>, <a class="el" href="../../d6/d88/classBinMysql.html#a3614638192ed37aeb3dd9173b1c8bde8">BinMysql</a>, and <a class="el" href="../../dc/db9/classBinPostgresql.html#a3614638192ed37aeb3dd9173b1c8bde8">BinPostgresql</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00095">95</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>                                           {</div>
-<div class="line"><span class="lineno">   96</span>        $content = file_get_contents($this-&gt;bearsamppConf);</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">foreach</span> ($params as $key =&gt; $value) {</div>
-<div class="line"><span class="lineno">   99</span>            $content = preg_replace(<span class="charliteral">&#39;|&#39;</span> . $key . <span class="stringliteral">&#39; = .*|&#39;</span>, $key . <span class="stringliteral">&#39; = &#39;</span> . <span class="charliteral">&#39;&quot;&#39;</span> . $value.<span class="charliteral">&#39;&quot;&#39;</span>, $content);</div>
-<div class="line"><span class="lineno">  100</span>            $this-&gt;bearsamppConfRaw[$key] = $value;</div>
-<div class="line"><span class="lineno">  101</span>        }</div>
-<div class="line"><span class="lineno">  102</span> </div>
-<div class="line"><span class="lineno">  103</span>        file_put_contents($this-&gt;bearsamppConf, $content);</div>
-<div class="line"><span class="lineno">  104</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00131">131</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>                                           {</div>
+<div class="line"><span class="lineno">  132</span>        $content = file_get_contents($this-&gt;bearsamppConf);</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">foreach</span> ($params as $key =&gt; $value) {</div>
+<div class="line"><span class="lineno">  135</span>            $content = preg_replace(<span class="charliteral">&#39;|&#39;</span> . $key . <span class="stringliteral">&#39; = .*|&#39;</span>, $key . <span class="stringliteral">&#39; = &#39;</span> . <span class="charliteral">&#39;&quot;&#39;</span> . $value.<span class="charliteral">&#39;&quot;&#39;</span>, $content);</div>
+<div class="line"><span class="lineno">  136</span>            $this-&gt;bearsamppConfRaw[$key] = $value;</div>
+<div class="line"><span class="lineno">  137</span>        }</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>        file_put_contents($this-&gt;bearsamppConf, $content);</div>
+<div class="line"><span class="lineno">  140</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00091">replace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00122">replace()</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -809,6 +865,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Sets the version of the module.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$version</td><td>The version to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="../../df/d54/classAppAdminer.html#a6a2f870d59df617e76c79a9996646832">AppAdminer</a>, <a class="el" href="../../dd/dec/classAppPhpmyadmin.html#a6a2f870d59df617e76c79a9996646832">AppPhpmyadmin</a>, <a class="el" href="../../dc/d53/classAppPhppgadmin.html#a6a2f870d59df617e76c79a9996646832">AppPhppgadmin</a>, <a class="el" href="../../dc/df4/classAppWebgrind.html#a6a2f870d59df617e76c79a9996646832">AppWebgrind</a>, <a class="el" href="../../d9/d6c/classBinApache.html#a6a2f870d59df617e76c79a9996646832">BinApache</a>, <a class="el" href="../../da/d23/classBinFilezilla.html#a6a2f870d59df617e76c79a9996646832">BinFilezilla</a>, <a class="el" href="../../db/df2/classBinMailhog.html#a6a2f870d59df617e76c79a9996646832">BinMailhog</a>, <a class="el" href="../../d4/d8f/classBinMariadb.html#a6a2f870d59df617e76c79a9996646832">BinMariadb</a>, <a class="el" href="../../da/d10/classBinMemcached.html#a6a2f870d59df617e76c79a9996646832">BinMemcached</a>, <a class="el" href="../../d6/d88/classBinMysql.html#a6a2f870d59df617e76c79a9996646832">BinMysql</a>, <a class="el" href="../../d8/d9c/classBinNodejs.html#a6a2f870d59df617e76c79a9996646832">BinNodejs</a>, <a class="el" href="../../dc/db3/classBinPhp.html#a6a2f870d59df617e76c79a9996646832">BinPhp</a>, <a class="el" href="../../dc/db9/classBinPostgresql.html#a6a2f870d59df617e76c79a9996646832">BinPostgresql</a>, <a class="el" href="../../d7/d6f/classToolComposer.html#a6a2f870d59df617e76c79a9996646832">ToolComposer</a>, <a class="el" href="../../d6/d0c/classToolConsoleZ.html#a6a2f870d59df617e76c79a9996646832">ToolConsoleZ</a>, <a class="el" href="../../d3/df9/classToolGhostscript.html#a6a2f870d59df617e76c79a9996646832">ToolGhostscript</a>, <a class="el" href="../../d3/dc0/classToolGit.html#a6a2f870d59df617e76c79a9996646832">ToolGit</a>, <a class="el" href="../../dc/d8f/classToolNgrok.html#a6a2f870d59df617e76c79a9996646832">ToolNgrok</a>, <a class="el" href="../../d0/dd5/classToolPerl.html#a6a2f870d59df617e76c79a9996646832">ToolPerl</a>, <a class="el" href="../../d4/d34/classToolPython.html#a6a2f870d59df617e76c79a9996646832">ToolPython</a>, <a class="el" href="../../de/d39/classToolRuby.html#a6a2f870d59df617e76c79a9996646832">ToolRuby</a>, <a class="el" href="../../df/d1b/classToolXdc.html#a6a2f870d59df617e76c79a9996646832">ToolXdc</a>, and <a class="el" href="../../d7/d8e/classToolYarn.html#a6a2f870d59df617e76c79a9996646832">ToolYarn</a>.</p>
 
@@ -832,14 +895,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Updates the module configuration.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$sub</td><td>The sub-level for logging indentation. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$showWindow</td><td>Whether to show a window during the update process. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00106">106</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>                                                          {</div>
-<div class="line"><span class="lineno">  107</span>        $this-&gt;<a class="code hl_function" href="#a4ca4942bd159e981d98bae05e134855d">updateConfig</a>(<span class="keyword">null</span>, $sub, $showWindow);</div>
-<div class="line"><span class="lineno">  108</span>    }</div>
-<div class="ttc" id="aclassModule_html_a4ca4942bd159e981d98bae05e134855d"><div class="ttname"><a href="#a4ca4942bd159e981d98bae05e134855d">Module\updateConfig</a></div><div class="ttdeci">updateConfig($version=null, $sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00110">class.module.php:110</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00148">148</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  148</span>                                                          {</div>
+<div class="line"><span class="lineno">  149</span>        $this-&gt;<a class="code hl_function" href="#a4ca4942bd159e981d98bae05e134855d">updateConfig</a>(<span class="keyword">null</span>, $sub, $showWindow);</div>
+<div class="line"><span class="lineno">  150</span>    }</div>
+<div class="ttc" id="aclassModule_html_a4ca4942bd159e981d98bae05e134855d"><div class="ttname"><a href="#a4ca4942bd159e981d98bae05e134855d">Module\updateConfig</a></div><div class="ttdeci">updateConfig($version=null, $sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00159">class.module.php:159</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00110">updateConfig()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00159">updateConfig()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00138">BinApache\changePort()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00140">BinFilezilla\changePort()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00136">BinMailhog\changePort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00130">BinMariadb\changePort()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00124">BinMemcached\changePort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00130">BinMysql\changePort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00155">BinPostgresql\changePort()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00234">BinMariadb\changeRootPassword()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00234">BinMysql\changeRootPassword()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00248">BinPostgresql\changeRootPassword()</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -883,19 +954,28 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Updates the module configuration with a specific version.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$version</td><td>The version to update to. If null, the current version is used. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$sub</td><td>The sub-level for logging indentation. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$showWindow</td><td>Whether to show a window during the update process. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="../../df/d54/classAppAdminer.html#a4ca4942bd159e981d98bae05e134855d">AppAdminer</a>, <a class="el" href="../../dd/dec/classAppPhpmyadmin.html#a4ca4942bd159e981d98bae05e134855d">AppPhpmyadmin</a>, <a class="el" href="../../dc/d53/classAppPhppgadmin.html#a4ca4942bd159e981d98bae05e134855d">AppPhppgadmin</a>, <a class="el" href="../../dc/df4/classAppWebgrind.html#a4ca4942bd159e981d98bae05e134855d">AppWebgrind</a>, <a class="el" href="../../d9/d6c/classBinApache.html#a4ca4942bd159e981d98bae05e134855d">BinApache</a>, <a class="el" href="../../da/d23/classBinFilezilla.html#a4ca4942bd159e981d98bae05e134855d">BinFilezilla</a>, <a class="el" href="../../db/df2/classBinMailhog.html#a4ca4942bd159e981d98bae05e134855d">BinMailhog</a>, <a class="el" href="../../d4/d8f/classBinMariadb.html#a4ca4942bd159e981d98bae05e134855d">BinMariadb</a>, <a class="el" href="../../da/d10/classBinMemcached.html#a4ca4942bd159e981d98bae05e134855d">BinMemcached</a>, <a class="el" href="../../d6/d88/classBinMysql.html#a4ca4942bd159e981d98bae05e134855d">BinMysql</a>, <a class="el" href="../../d8/d9c/classBinNodejs.html#a4ca4942bd159e981d98bae05e134855d">BinNodejs</a>, <a class="el" href="../../dc/db3/classBinPhp.html#a4ca4942bd159e981d98bae05e134855d">BinPhp</a>, <a class="el" href="../../dc/db9/classBinPostgresql.html#a4ca4942bd159e981d98bae05e134855d">BinPostgresql</a>, and <a class="el" href="../../d3/dc0/classToolGit.html#a4ca4942bd159e981d98bae05e134855d">ToolGit</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00110">110</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  110</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  111</span>        <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> = <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> == <span class="keyword">null</span> ? $this-&gt;version : <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a>;</div>
-<div class="line"><span class="lineno">  112</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(($sub &gt; 0 ? str_repeat(<span class="charliteral">&#39; &#39;</span>, 2 * $sub) : <span class="stringliteral">&#39;&#39;</span>) . <span class="stringliteral">&#39;Update &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; &#39;</span> . <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> . <span class="stringliteral">&#39; config&#39;</span>);</div>
-<div class="line"><span class="lineno">  113</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00159">159</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  159</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  160</span>        <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> = <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> == <span class="keyword">null</span> ? $this-&gt;version : <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a>;</div>
+<div class="line"><span class="lineno">  161</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>(($sub &gt; 0 ? str_repeat(<span class="charliteral">&#39; &#39;</span>, 2 * $sub) : <span class="stringliteral">&#39;&#39;</span>) . <span class="stringliteral">&#39;Update &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; &#39;</span> . <a class="code hl_variable" href="#a17c8948c68aa44fa9961ae169b6a8961">$version</a> . <span class="stringliteral">&#39; config&#39;</span>);</div>
+<div class="line"><span class="lineno">  162</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a708479f12c93bcadef186df397bbf049"><div class="ttname"><a href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util\logDebug</a></div><div class="ttdeci">static logDebug($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00715">class.util.php:715</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00011">$version</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">$version</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00106">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00148">update()</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -927,7 +1007,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">18</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00029">29</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00509">BinPhp\getApacheModule()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 
@@ -953,7 +1033,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">19</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00030">30</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 
@@ -979,9 +1059,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00015">15</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00026">26</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00509">BinPhp\getApacheModule()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00149">getCurrentPath()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00532">BinPhp\getTsDll()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00509">BinPhp\getApacheModule()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00248">getCurrentPath()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00532">BinPhp\getTsDll()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>.</p>
 
 </div>
 </div>
@@ -1005,9 +1085,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00017">17</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00028">28</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00157">isEnable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00266">isEnable()</a>.</p>
 
 </div>
 </div>
@@ -1031,9 +1111,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00008">8</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">19</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00011">AppAdminer\__construct()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00011">AppPhpmyadmin\__construct()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00011">AppPhppgadmin\__construct()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00011">AppWebgrind\__construct()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00041">BinApache\__construct()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00036">BinFilezilla\__construct()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00025">BinMailhog\__construct()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00033">BinMariadb\__construct()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">BinMemcached\__construct()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00033">BinMysql\__construct()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00020">BinNodejs\__construct()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00089">BinPhp\__construct()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00040">BinPostgresql\__construct()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00011">ToolComposer\__construct()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00019">ToolConsoleZ\__construct()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00012">ToolGhostscript\__construct()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00022">ToolGit\__construct()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00011">ToolNgrok\__construct()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00011">ToolPerl\__construct()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00015">ToolPython\__construct()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00013">ToolRuby\__construct()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00011">ToolXdc\__construct()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00011">ToolYarn\__construct()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00123">getId()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00016">AppAdminer\reload()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00016">AppPhpmyadmin\reload()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00016">AppPhppgadmin\reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00016">AppWebgrind\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">BinNodejs\reload()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00094">BinPhp\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">reload()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00016">ToolComposer\reload()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00024">ToolConsoleZ\reload()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00017">ToolGhostscript\reload()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00027">ToolGit\reload()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00016">ToolNgrok\reload()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00016">ToolPerl\reload()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00020">ToolPython\reload()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00018">ToolRuby\reload()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00016">ToolXdc\reload()</a>, and <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00016">ToolYarn\reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00011">AppAdminer\__construct()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00011">AppPhpmyadmin\__construct()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00011">AppPhppgadmin\__construct()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00011">AppWebgrind\__construct()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00041">BinApache\__construct()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00036">BinFilezilla\__construct()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00025">BinMailhog\__construct()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00033">BinMariadb\__construct()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">BinMemcached\__construct()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00033">BinMysql\__construct()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00020">BinNodejs\__construct()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00089">BinPhp\__construct()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00040">BinPostgresql\__construct()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00011">ToolComposer\__construct()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00019">ToolConsoleZ\__construct()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00012">ToolGhostscript\__construct()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00022">ToolGit\__construct()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00011">ToolNgrok\__construct()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00011">ToolPerl\__construct()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00015">ToolPython\__construct()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00013">ToolRuby\__construct()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00011">ToolXdc\__construct()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00011">ToolYarn\__construct()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00187">getId()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00016">AppAdminer\reload()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00016">AppPhpmyadmin\reload()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00016">AppPhppgadmin\reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00016">AppWebgrind\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">BinNodejs\reload()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00094">BinPhp\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">reload()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00016">ToolComposer\reload()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00024">ToolConsoleZ\reload()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00017">ToolGhostscript\reload()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00027">ToolGit\reload()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00016">ToolNgrok\reload()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00016">ToolPerl\reload()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00020">ToolPython\reload()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00018">ToolRuby\reload()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00016">ToolXdc\reload()</a>, and <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00016">ToolYarn\reload()</a>.</p>
 
 </div>
 </div>
@@ -1057,9 +1137,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00010">10</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00021">21</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00518">BinApache\getAliasContent()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00453">BinPhp\getExtensionsFromConf()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00486">BinPhp\getExtensionsFromFolder()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00476">BinPhp\getExtensionsLoaded()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00319">BinApache\getModulesFromConf()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00356">BinApache\getModulesFromFolder()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00346">BinApache\getModulesLoaded()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00127">getName()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00413">BinPhp\isSettingActive()</a>, and <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00427">BinPhp\isSettingExists()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00518">BinApache\getAliasContent()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00453">BinPhp\getExtensionsFromConf()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00486">BinPhp\getExtensionsFromFolder()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00476">BinPhp\getExtensionsLoaded()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00319">BinApache\getModulesFromConf()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00356">BinApache\getModulesFromFolder()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00346">BinApache\getModulesLoaded()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00196">getName()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00413">BinPhp\isSettingActive()</a>, and <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00427">BinPhp\isSettingExists()</a>.</p>
 
 </div>
 </div>
@@ -1083,9 +1163,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00012">12</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00023">23</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00141">getRelease()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00230">getRelease()</a>.</p>
 
 </div>
 </div>
@@ -1109,9 +1189,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00014">14</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">25</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00145">getRootPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00239">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -1135,9 +1215,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00016">16</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00027">27</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00153">getSymlinkPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00257">getSymlinkPath()</a>.</p>
 
 </div>
 </div>
@@ -1161,9 +1241,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00007">7</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">18</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00011">AppAdminer\__construct()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00011">AppPhpmyadmin\__construct()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00011">AppPhppgadmin\__construct()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00011">AppWebgrind\__construct()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00041">BinApache\__construct()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00036">BinFilezilla\__construct()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00025">BinMailhog\__construct()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00033">BinMariadb\__construct()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">BinMemcached\__construct()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00033">BinMysql\__construct()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00020">BinNodejs\__construct()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00089">BinPhp\__construct()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00040">BinPostgresql\__construct()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00011">ToolComposer\__construct()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00019">ToolConsoleZ\__construct()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00012">ToolGhostscript\__construct()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00022">ToolGit\__construct()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00011">ToolNgrok\__construct()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00011">ToolPerl\__construct()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00015">ToolPython\__construct()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00013">ToolRuby\__construct()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00011">ToolXdc\__construct()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00011">ToolYarn\__construct()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00119">getType()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00016">AppAdminer\reload()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00016">AppPhpmyadmin\reload()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00016">AppPhppgadmin\reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00016">AppWebgrind\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">BinNodejs\reload()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00094">BinPhp\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">reload()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00016">ToolComposer\reload()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00024">ToolConsoleZ\reload()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00017">ToolGhostscript\reload()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00027">ToolGit\reload()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00016">ToolNgrok\reload()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00016">ToolPerl\reload()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00020">ToolPython\reload()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00018">ToolRuby\reload()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00016">ToolXdc\reload()</a>, and <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00016">ToolYarn\reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00011">AppAdminer\__construct()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00011">AppPhpmyadmin\__construct()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00011">AppPhppgadmin\__construct()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00011">AppWebgrind\__construct()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00041">BinApache\__construct()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00036">BinFilezilla\__construct()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00025">BinMailhog\__construct()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00033">BinMariadb\__construct()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00022">BinMemcached\__construct()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00033">BinMysql\__construct()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00020">BinNodejs\__construct()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00089">BinPhp\__construct()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00040">BinPostgresql\__construct()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00011">ToolComposer\__construct()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00019">ToolConsoleZ\__construct()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00012">ToolGhostscript\__construct()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00022">ToolGit\__construct()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00011">ToolNgrok\__construct()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00011">ToolPerl\__construct()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00015">ToolPython\__construct()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00013">ToolRuby\__construct()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00011">ToolXdc\__construct()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00011">ToolYarn\__construct()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00178">getType()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00016">AppAdminer\reload()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00016">AppPhpmyadmin\reload()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00016">AppPhppgadmin\reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00016">AppWebgrind\reload()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00046">BinApache\reload()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00042">BinFilezilla\reload()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00030">BinMailhog\reload()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00038">BinMariadb\reload()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00027">BinMemcached\reload()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00038">BinMysql\reload()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">BinNodejs\reload()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00094">BinPhp\reload()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00045">BinPostgresql\reload()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">reload()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00016">ToolComposer\reload()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00024">ToolConsoleZ\reload()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00017">ToolGhostscript\reload()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00027">ToolGit\reload()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00016">ToolNgrok\reload()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00016">ToolPerl\reload()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00020">ToolPython\reload()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00018">ToolRuby\reload()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00016">ToolXdc\reload()</a>, and <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00016">ToolYarn\reload()</a>.</p>
 
 </div>
 </div>
@@ -1187,9 +1267,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00011">11</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">22</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00158">BinMariadb\checkPort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00158">BinMysql\checkPort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00183">BinPostgresql\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00498">BinApache\getOfflineContent()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00484">BinApache\getOnlineContent()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00513">BinApache\getRequiredContent()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00131">getVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00389">BinMysql\initData()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00070">AppWebgrind\setVersion()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00684">BinApache\setVersion()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00312">BinFilezilla\setVersion()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00252">BinMailhog\setVersion()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00415">BinMariadb\setVersion()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00247">BinMemcached\setVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00438">BinMysql\setVersion()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00125">BinNodejs\setVersion()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00545">BinPhp\setVersion()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00409">BinPostgresql\setVersion()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00047">ToolComposer\setVersion()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00071">ToolConsoleZ\setVersion()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00052">ToolGhostscript\setVersion()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00134">ToolGit\setVersion()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00047">ToolNgrok\setVersion()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00047">ToolPerl\setVersion()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00059">ToolPython\setVersion()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00053">ToolRuby\setVersion()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00047">ToolXdc\setVersion()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00047">ToolYarn\setVersion()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00209">BinApache\switchVersion()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00230">BinFilezilla\switchVersion()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00205">BinMailhog\switchVersion()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00321">BinMariadb\switchVersion()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00200">BinMemcached\switchVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00321">BinMysql\switchVersion()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00076">BinNodejs\switchVersion()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00143">BinPhp\switchVersion()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00311">BinPostgresql\switchVersion()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00047">AppAdminer\updateConfig()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00048">AppPhpmyadmin\updateConfig()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00047">AppPhppgadmin\updateConfig()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00047">AppWebgrind\updateConfig()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00110">updateConfig()</a>, and <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00086">ToolGit\updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00158">BinMariadb\checkPort()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00158">BinMysql\checkPort()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00183">BinPostgresql\checkPort()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00498">BinApache\getOfflineContent()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00484">BinApache\getOnlineContent()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00513">BinApache\getRequiredContent()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00205">getVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00389">BinMysql\initData()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">reload()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00070">AppWebgrind\setVersion()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00684">BinApache\setVersion()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00312">BinFilezilla\setVersion()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00252">BinMailhog\setVersion()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00415">BinMariadb\setVersion()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00247">BinMemcached\setVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00438">BinMysql\setVersion()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00125">BinNodejs\setVersion()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00545">BinPhp\setVersion()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00409">BinPostgresql\setVersion()</a>, <a class="el" href="../../d0/d95/class_8tool_8composer_8php_source.html#l00047">ToolComposer\setVersion()</a>, <a class="el" href="../../d1/d57/class_8tool_8consolez_8php_source.html#l00071">ToolConsoleZ\setVersion()</a>, <a class="el" href="../../df/dd7/class_8tool_8ghostscript_8php_source.html#l00052">ToolGhostscript\setVersion()</a>, <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00134">ToolGit\setVersion()</a>, <a class="el" href="../../df/d7e/class_8tool_8ngrok_8php_source.html#l00047">ToolNgrok\setVersion()</a>, <a class="el" href="../../d6/db7/class_8tool_8perl_8php_source.html#l00047">ToolPerl\setVersion()</a>, <a class="el" href="../../db/d62/class_8tool_8python_8php_source.html#l00059">ToolPython\setVersion()</a>, <a class="el" href="../../d0/def/class_8tool_8ruby_8php_source.html#l00053">ToolRuby\setVersion()</a>, <a class="el" href="../../dc/d85/class_8tool_8xdc_8php_source.html#l00047">ToolXdc\setVersion()</a>, <a class="el" href="../../d9/d76/class_8tool_8yarn_8php_source.html#l00047">ToolYarn\setVersion()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00209">BinApache\switchVersion()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00230">BinFilezilla\switchVersion()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00205">BinMailhog\switchVersion()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00321">BinMariadb\switchVersion()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00200">BinMemcached\switchVersion()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00321">BinMysql\switchVersion()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00076">BinNodejs\switchVersion()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00143">BinPhp\switchVersion()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00311">BinPostgresql\switchVersion()</a>, <a class="el" href="../../d6/d7c/class_8app_8adminer_8php_source.html#l00047">AppAdminer\updateConfig()</a>, <a class="el" href="../../d6/d8c/class_8app_8phpmyadmin_8php_source.html#l00048">AppPhpmyadmin\updateConfig()</a>, <a class="el" href="../../d3/dc0/class_8app_8phppgadmin_8php_source.html#l00047">AppPhppgadmin\updateConfig()</a>, <a class="el" href="../../d9/dca/class_8app_8webgrind_8php_source.html#l00047">AppWebgrind\updateConfig()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00214">BinApache\updateConfig()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00237">BinFilezilla\updateConfig()</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00210">BinMailhog\updateConfig()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00326">BinMariadb\updateConfig()</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00205">BinMemcached\updateConfig()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00326">BinMysql\updateConfig()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00081">BinNodejs\updateConfig()</a>, <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00148">BinPhp\updateConfig()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00316">BinPostgresql\updateConfig()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00159">updateConfig()</a>, and <a class="el" href="../../d7/d2a/class_8tool_8git_8php_source.html#l00086">ToolGit\updateConfig()</a>.</p>
 
 </div>
 </div>
@@ -1205,9 +1285,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00005">5</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00016">16</a> of file <a class="el" href="../../de/d1b/class_8module_8php_source.html">class.module.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00025">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00046">reload()</a>.</p>
 
 </div>
 </div>

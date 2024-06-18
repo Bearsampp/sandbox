@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -298,48 +306,58 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service action.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$service</td><td>The service name. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$action</td><td>The action to perform. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$item</td><td>Whether to return as an item. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service action string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">153</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  154</span>    {</div>
-<div class="line"><span class="lineno">  155</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
-<div class="line"><span class="lineno">  156</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Action: &#39;</span> . $action;</div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">if</span> ($service != <span class="keyword">null</span>) {</div>
-<div class="line"><span class="lineno">  159</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Action: service; &#39;</span> .</div>
-<div class="line"><span class="lineno">  160</span>                <span class="stringliteral">&#39;Service: &#39;</span> . $service . <span class="stringliteral">&#39;; &#39;</span> .</div>
-<div class="line"><span class="lineno">  161</span>                <span class="stringliteral">&#39;ServiceAction: &#39;</span> . $action;</div>
-<div class="line"><span class="lineno">  162</span>        }</div>
-<div class="line"><span class="lineno">  163</span> </div>
-<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> ($item) {</div>
-<div class="line"><span class="lineno">  165</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Type: item; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
-<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">if</span> ($action == self::SERVICE_START) {</div>
-<div class="line"><span class="lineno">  167</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aa01efbb236f671bec86b0a86cf97e73e">Lang::MENU_START_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
-<div class="line"><span class="lineno">  168</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#abcc0119b777303a6c9ec2ed9e5743136">self::GLYPH_START</a>;</div>
-<div class="line"><span class="lineno">  169</span>            } elseif ($action == self::SERVICE_STOP) {</div>
-<div class="line"><span class="lineno">  170</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a4e66a8fbe44ee888fb72d87e4aaaaf05">Lang::MENU_STOP_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
-<div class="line"><span class="lineno">  171</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#a24f5e766f037c1f87fd52832e6e6543c">self::GLYPH_STOP</a>;</div>
-<div class="line"><span class="lineno">  172</span>            } elseif ($action == self::SERVICE_RESTART) {</div>
-<div class="line"><span class="lineno">  173</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a918c24977de0a5dcbb2d71c997114602">Lang::MENU_RESTART_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
-<div class="line"><span class="lineno">  174</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#aed4007fb3bbe1a5edfa3315ae216d524">self::GLYPH_RELOAD</a>;</div>
-<div class="line"><span class="lineno">  175</span>            }</div>
-<div class="line"><span class="lineno">  176</span>        } elseif ($action != self::SERVICES_CLOSE) {</div>
-<div class="line"><span class="lineno">  177</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Flags: ignoreerrors waituntilterminated&#39;</span>;</div>
-<div class="line"><span class="lineno">  178</span>        }</div>
-<div class="line"><span class="lineno">  179</span> </div>
-<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
-<div class="line"><span class="lineno">  181</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a112ef069ddc0454086e3d1e6d8d55d07"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></div><div class="ttdeci">$result</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00014">ajax.apache.php:14</a></div></div>
-<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aclassLang_html_a4e66a8fbe44ee888fb72d87e4aaaaf05"><div class="ttname"><a href="../../da/d49/classLang.html#a4e66a8fbe44ee888fb72d87e4aaaaf05">Lang\MENU_STOP_SERVICE</a></div><div class="ttdeci">const MENU_STOP_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00108">class.lang.php:108</a></div></div>
-<div class="ttc" id="aclassLang_html_a918c24977de0a5dcbb2d71c997114602"><div class="ttname"><a href="../../da/d49/classLang.html#a918c24977de0a5dcbb2d71c997114602">Lang\MENU_RESTART_SERVICE</a></div><div class="ttdeci">const MENU_RESTART_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00100">class.lang.php:100</a></div></div>
-<div class="ttc" id="aclassLang_html_aa01efbb236f671bec86b0a86cf97e73e"><div class="ttname"><a href="../../da/d49/classLang.html#aa01efbb236f671bec86b0a86cf97e73e">Lang\MENU_START_SERVICE</a></div><div class="ttdeci">const MENU_START_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00105">class.lang.php:105</a></div></div>
-<div class="ttc" id="aclassTplAestan_html_a24f5e766f037c1f87fd52832e6e6543c"><div class="ttname"><a href="#a24f5e766f037c1f87fd52832e6e6543c">TplAestan\GLYPH_STOP</a></div><div class="ttdeci">const GLYPH_STOP</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00022">class.tpl.aestan.php:22</a></div></div>
-<div class="ttc" id="aclassTplAestan_html_abcc0119b777303a6c9ec2ed9e5743136"><div class="ttname"><a href="#abcc0119b777303a6c9ec2ed9e5743136">TplAestan\GLYPH_START</a></div><div class="ttdeci">const GLYPH_START</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00020">class.tpl.aestan.php:20</a></div></div>
-<div class="ttc" id="aclassTplAestan_html_aed4007fb3bbe1a5edfa3315ae216d524"><div class="ttname"><a href="#aed4007fb3bbe1a5edfa3315ae216d524">TplAestan\GLYPH_RELOAD</a></div><div class="ttdeci">const GLYPH_RELOAD</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">class.tpl.aestan.php:23</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">218</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  219</span>    {</div>
+<div class="line"><span class="lineno">  220</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">  221</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Action: &#39;</span> . $action;</div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>        <span class="keywordflow">if</span> ($service != <span class="keyword">null</span>) {</div>
+<div class="line"><span class="lineno">  224</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Action: service; &#39;</span> .</div>
+<div class="line"><span class="lineno">  225</span>                <span class="stringliteral">&#39;Service: &#39;</span> . $service . <span class="stringliteral">&#39;; &#39;</span> .</div>
+<div class="line"><span class="lineno">  226</span>                <span class="stringliteral">&#39;ServiceAction: &#39;</span> . $action;</div>
+<div class="line"><span class="lineno">  227</span>        }</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">if</span> ($item) {</div>
+<div class="line"><span class="lineno">  230</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="stringliteral">&#39;Type: item; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
+<div class="line"><span class="lineno">  231</span>            <span class="keywordflow">if</span> ($action == self::SERVICE_START) {</div>
+<div class="line"><span class="lineno">  232</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aa01efbb236f671bec86b0a86cf97e73e">Lang::MENU_START_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
+<div class="line"><span class="lineno">  233</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#abcc0119b777303a6c9ec2ed9e5743136">self::GLYPH_START</a>;</div>
+<div class="line"><span class="lineno">  234</span>            } elseif ($action == self::SERVICE_STOP) {</div>
+<div class="line"><span class="lineno">  235</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a4e66a8fbe44ee888fb72d87e4aaaaf05">Lang::MENU_STOP_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
+<div class="line"><span class="lineno">  236</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#a24f5e766f037c1f87fd52832e6e6543c">self::GLYPH_STOP</a>;</div>
+<div class="line"><span class="lineno">  237</span>            } elseif ($action == self::SERVICE_RESTART) {</div>
+<div class="line"><span class="lineno">  238</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Caption: &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a918c24977de0a5dcbb2d71c997114602">Lang::MENU_RESTART_SERVICE</a>) . <span class="charliteral">&#39;&quot;&#39;</span> .</div>
+<div class="line"><span class="lineno">  239</span>                    <span class="stringliteral">&#39;; Glyph: &#39;</span> . <a class="code hl_variable" href="#aed4007fb3bbe1a5edfa3315ae216d524">self::GLYPH_RELOAD</a>;</div>
+<div class="line"><span class="lineno">  240</span>            }</div>
+<div class="line"><span class="lineno">  241</span>        } elseif ($action != self::SERVICES_CLOSE) {</div>
+<div class="line"><span class="lineno">  242</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> .= <span class="stringliteral">&#39;; Flags: ignoreerrors waituntilterminated&#39;</span>;</div>
+<div class="line"><span class="lineno">  243</span>        }</div>
+<div class="line"><span class="lineno">  244</span> </div>
+<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
+<div class="line"><span class="lineno">  246</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a112ef069ddc0454086e3d1e6d8d55d07"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></div><div class="ttdeci">$result</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00019">ajax.apache.php:19</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aclassLang_html_a4e66a8fbe44ee888fb72d87e4aaaaf05"><div class="ttname"><a href="../../da/d49/classLang.html#a4e66a8fbe44ee888fb72d87e4aaaaf05">Lang\MENU_STOP_SERVICE</a></div><div class="ttdeci">const MENU_STOP_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00118">class.lang.php:118</a></div></div>
+<div class="ttc" id="aclassLang_html_a918c24977de0a5dcbb2d71c997114602"><div class="ttname"><a href="../../da/d49/classLang.html#a918c24977de0a5dcbb2d71c997114602">Lang\MENU_RESTART_SERVICE</a></div><div class="ttdeci">const MENU_RESTART_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00110">class.lang.php:110</a></div></div>
+<div class="ttc" id="aclassLang_html_aa01efbb236f671bec86b0a86cf97e73e"><div class="ttname"><a href="../../da/d49/classLang.html#aa01efbb236f671bec86b0a86cf97e73e">Lang\MENU_START_SERVICE</a></div><div class="ttdeci">const MENU_START_SERVICE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00115">class.lang.php:115</a></div></div>
+<div class="ttc" id="aclassTplAestan_html_a24f5e766f037c1f87fd52832e6e6543c"><div class="ttname"><a href="#a24f5e766f037c1f87fd52832e6e6543c">TplAestan\GLYPH_STOP</a></div><div class="ttdeci">const GLYPH_STOP</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">class.tpl.aestan.php:23</a></div></div>
+<div class="ttc" id="aclassTplAestan_html_abcc0119b777303a6c9ec2ed9e5743136"><div class="ttname"><a href="#abcc0119b777303a6c9ec2ed9e5743136">TplAestan\GLYPH_START</a></div><div class="ttdeci">const GLYPH_START</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00021">class.tpl.aestan.php:21</a></div></div>
+<div class="ttc" id="aclassTplAestan_html_aed4007fb3bbe1a5edfa3315ae216d524"><div class="ttname"><a href="#aed4007fb3bbe1a5edfa3315ae216d524">TplAestan\GLYPH_RELOAD</a></div><div class="ttdeci">const GLYPH_RELOAD</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00024">class.tpl.aestan.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppLang</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">GLYPH_RELOAD</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00020">GLYPH_START</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00022">GLYPH_STOP</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00100">Lang\MENU_RESTART_SERVICE</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00105">Lang\MENU_START_SERVICE</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00108">Lang\MENU_STOP_SERVICE</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00024">GLYPH_RELOAD</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00021">GLYPH_START</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">GLYPH_STOP</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00110">Lang\MENU_RESTART_SERVICE</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00115">Lang\MENU_START_SERVICE</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00118">Lang\MENU_STOP_SERVICE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00203">getActionServiceRestart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00213">getActionServicesClose()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00183">getActionServiceStart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00193">getActionServiceStop()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00208">getItemActionServiceRestart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getItemActionServicesClose()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00188">getItemActionServiceStart()</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00198">getItemActionServiceStop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00298">getActionServiceRestart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00319">getActionServicesClose()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00254">getActionServiceStart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00276">getActionServiceStop()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00309">getItemActionServiceRestart()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00329">getItemActionServicesClose()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00265">getItemActionServiceStart()</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00287">getItemActionServiceStop()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -372,14 +390,22 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service restart action.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service restart action string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00203">203</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  204</span>    {</div>
-<div class="line"><span class="lineno">  205</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_RESTART, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  206</span>    }</div>
-<div class="ttc" id="aclassTplAestan_html_a04815fa63ff24fbc5f238c38bbbcb5cd"><div class="ttname"><a href="#a04815fa63ff24fbc5f238c38bbbcb5cd">TplAestan\getActionService</a></div><div class="ttdeci">static getActionService($service, $action, $item=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">class.tpl.aestan.php:153</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00298">298</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  299</span>    {</div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_RESTART, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  301</span>    }</div>
+<div class="ttc" id="aclassTplAestan_html_a04815fa63ff24fbc5f238c38bbbcb5cd"><div class="ttname"><a href="#a04815fa63ff24fbc5f238c38bbbcb5cd">TplAestan\getActionService</a></div><div class="ttdeci">static getActionService($service, $action, $item=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">class.tpl.aestan.php:218</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
 </div>
 </div>
@@ -405,13 +431,15 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a close services action.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The close services action string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00213">213</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  214</span>    {</div>
-<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>(<span class="keyword">null</span>, self::SERVICES_CLOSE, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  216</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00319">319</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  320</span>    {</div>
+<div class="line"><span class="lineno">  321</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>(<span class="keyword">null</span>, self::SERVICES_CLOSE, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  322</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
 </div>
 </div>
@@ -437,13 +465,21 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service start action.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service start action string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00183">183</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  184</span>    {</div>
-<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_START, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  186</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00254">254</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  255</span>    {</div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_START, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
 </div>
 </div>
@@ -469,13 +505,21 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service stop action.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service stop action string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00193">193</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  194</span>    {</div>
-<div class="line"><span class="lineno">  195</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_STOP, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  196</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00276">276</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  277</span>    {</div>
+<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_STOP, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  279</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
 </div>
 </div>
@@ -501,10 +545,18 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Retrieves the glyph flag for a given language.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$lang</td><td>The language code. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00071">71</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
-<div class="line"><span class="lineno">   73</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00080">80</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
+<div class="line"><span class="lineno">   82</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -530,15 +582,23 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service restart item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service restart item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00208">208</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  209</span>    {</div>
-<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_RESTART, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  211</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00309">309</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  310</span>    {</div>
+<div class="line"><span class="lineno">  311</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_RESTART, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  312</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -571,13 +631,15 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a close services item.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The close services item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">218</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  219</span>    {</div>
-<div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>(<span class="keyword">null</span>, self::SERVICES_CLOSE, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  221</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00329">329</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  330</span>    {</div>
+<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>(<span class="keyword">null</span>, self::SERVICES_CLOSE, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  332</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
 </div>
 </div>
@@ -603,15 +665,23 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service start item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service start item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00188">188</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  189</span>    {</div>
-<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_STOP, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  191</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00265">265</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  266</span>    {</div>
+<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_STOP, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  268</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -644,15 +714,23 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a service stop item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>The service name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The service stop item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00198">198</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  199</span>    {</div>
-<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_START, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  201</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00287">287</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  288</span>    {</div>
+<div class="line"><span class="lineno">  289</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a04815fa63ff24fbc5f238c38bbbcb5cd">self::getActionService</a>($service, self::SERVICE_START, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  290</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -709,37 +787,50 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a ConsoleZ item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the item. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$glyph</td><td>The glyph index. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$id</td><td>The ID for the item. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$title</td><td>The title for the item. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$initDir</td><td>The initial directory for the item. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$command</td><td>The command to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The ConsoleZ item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00080">80</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   81</span>    {</div>
-<div class="line"><span class="lineno">   82</span>        global $bearsamppTools;</div>
-<div class="line"><span class="lineno">   83</span> </div>
-<div class="line"><span class="lineno">   84</span>        $args = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">if</span> ($id != <span class="keyword">null</span>) {</div>
-<div class="line"><span class="lineno">   86</span>            $args .= <span class="stringliteral">&#39; -t &quot;&quot;&#39;</span> . $id . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">if</span> ($title != <span class="keyword">null</span>) {</div>
-<div class="line"><span class="lineno">   89</span>            $args .= <span class="stringliteral">&#39; -w &quot;&quot;&#39;</span> . $title . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">   90</span>        }</div>
-<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span> ($initDir != <span class="keyword">null</span>) {</div>
-<div class="line"><span class="lineno">   92</span>            $args .= <span class="stringliteral">&#39; -d &quot;&quot;&#39;</span> . $initDir . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">   93</span>        }</div>
-<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> ($command != <span class="keyword">null</span>) {</div>
-<div class="line"><span class="lineno">   95</span>            $args .= <span class="stringliteral">&#39; -r &quot;&quot;&#39;</span> . $command . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
-<div class="line"><span class="lineno">   99</span>            $caption,</div>
-<div class="line"><span class="lineno">  100</span>            $bearsamppTools-&gt;getConsoleZ()-&gt;getExe(),</div>
-<div class="line"><span class="lineno">  101</span>            $glyph,</div>
-<div class="line"><span class="lineno">  102</span>            $args</div>
-<div class="line"><span class="lineno">  103</span>        );</div>
-<div class="line"><span class="lineno">  104</span>    }</div>
-<div class="ttc" id="aclassTplAestan_html_a27c38f5040b43b7b248ed49de548dcb2"><div class="ttname"><a href="#a27c38f5040b43b7b248ed49de548dcb2">TplAestan\getItemExe</a></div><div class="ttdeci">static getItemExe($caption, $exe, $glyph, $params=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00134">class.tpl.aestan.php:134</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00105">105</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  106</span>    {</div>
+<div class="line"><span class="lineno">  107</span>        global $bearsamppTools;</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>        $args = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> ($id != <span class="keyword">null</span>) {</div>
+<div class="line"><span class="lineno">  111</span>            $args .= <span class="stringliteral">&#39; -t &quot;&quot;&#39;</span> . $id . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  112</span>        }</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">if</span> ($title != <span class="keyword">null</span>) {</div>
+<div class="line"><span class="lineno">  114</span>            $args .= <span class="stringliteral">&#39; -w &quot;&quot;&#39;</span> . $title . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> ($initDir != <span class="keyword">null</span>) {</div>
+<div class="line"><span class="lineno">  117</span>            $args .= <span class="stringliteral">&#39; -d &quot;&quot;&#39;</span> . $initDir . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> ($command != <span class="keyword">null</span>) {</div>
+<div class="line"><span class="lineno">  120</span>            $args .= <span class="stringliteral">&#39; -r &quot;&quot;&#39;</span> . $command . <span class="stringliteral">&#39;&quot;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  121</span>        }</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
+<div class="line"><span class="lineno">  124</span>            $caption,</div>
+<div class="line"><span class="lineno">  125</span>            $bearsamppTools-&gt;getConsoleZ()-&gt;getExe(),</div>
+<div class="line"><span class="lineno">  126</span>            $glyph,</div>
+<div class="line"><span class="lineno">  127</span>            $args</div>
+<div class="line"><span class="lineno">  128</span>        );</div>
+<div class="line"><span class="lineno">  129</span>    }</div>
+<div class="ttc" id="aclassTplAestan_html_a27c38f5040b43b7b248ed49de548dcb2"><div class="ttname"><a href="#a27c38f5040b43b7b248ed49de548dcb2">TplAestan\getItemExe</a></div><div class="ttdeci">static getItemExe($caption, $exe, $glyph, $params=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00184">class.tpl.aestan.php:184</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00134">getItemExe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00184">getItemExe()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00063">TplAppGit\getMenuGitRepos()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00014">TplAppPython\getMenuPython()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00109">TplAppGit\getMenuGitRepos()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00044">TplAppPython\getMenuPython()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -786,18 +877,29 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing an executable item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the item. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$exe</td><td>The path to the executable. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$glyph</td><td>The glyph index. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$params</td><td>The parameters for the executable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The executable item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00134">134</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  135</span>    {</div>
-<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: item; &#39;</span> .</div>
-<div class="line"><span class="lineno">  137</span>            <span class="stringliteral">&#39;Caption: &quot;&#39;</span> . $caption . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
-<div class="line"><span class="lineno">  138</span>            <span class="stringliteral">&#39;Action: run; &#39;</span> .</div>
-<div class="line"><span class="lineno">  139</span>            <span class="stringliteral">&#39;FileName: &quot;&#39;</span> . $exe . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
-<div class="line"><span class="lineno">  140</span>            (!empty($params) ? <span class="stringliteral">&#39;Parameters: &quot;&#39;</span> . $params . <span class="stringliteral">&#39;&quot;; &#39;</span> : <span class="stringliteral">&#39;&#39;</span>) .</div>
-<div class="line"><span class="lineno">  141</span>            <span class="stringliteral">&#39;Glyph: &#39;</span> . $glyph;</div>
-<div class="line"><span class="lineno">  142</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00184">184</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  185</span>    {</div>
+<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: item; &#39;</span> .</div>
+<div class="line"><span class="lineno">  187</span>            <span class="stringliteral">&#39;Caption: &quot;&#39;</span> . $caption . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
+<div class="line"><span class="lineno">  188</span>            <span class="stringliteral">&#39;Action: run; &#39;</span> .</div>
+<div class="line"><span class="lineno">  189</span>            <span class="stringliteral">&#39;FileName: &quot;&#39;</span> . $exe . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
+<div class="line"><span class="lineno">  190</span>            (!empty($params) ? <span class="stringliteral">&#39;Parameters: &quot;&#39;</span> . $params . <span class="stringliteral">&#39;&quot;; &#39;</span> : <span class="stringliteral">&#39;&#39;</span>) .</div>
+<div class="line"><span class="lineno">  191</span>            <span class="stringliteral">&#39;Glyph: &#39;</span> . $glyph;</div>
+<div class="line"><span class="lineno">  192</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00080">getItemConsoleZ()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00106">getItemLink()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00122">getItemNotepad()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00014">TplAppPython\getMenuPython()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00105">getItemConsoleZ()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00140">getItemLink()</a>, <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00163">getItemNotepad()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00044">TplAppPython\getMenuPython()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -834,20 +936,29 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing an explorer item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the item. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td>The path to explore. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The explorer item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00144">144</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  145</span>    {</div>
-<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: item; &#39;</span> .</div>
-<div class="line"><span class="lineno">  147</span>            <span class="stringliteral">&#39;Caption: &quot;&#39;</span> . $caption . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
-<div class="line"><span class="lineno">  148</span>            <span class="stringliteral">&#39;Action: shellexecute; &#39;</span> .</div>
-<div class="line"><span class="lineno">  149</span>            <span class="stringliteral">&#39;FileName: &quot;&#39;</span> . $path . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
-<div class="line"><span class="lineno">  150</span>            <span class="stringliteral">&#39;Glyph: &#39;</span> . <a class="code hl_variable" href="#aae28597c0ddaa9ac10c22305cb33bcdf">self::GLYPH_FOLDER_OPEN</a>;</div>
-<div class="line"><span class="lineno">  151</span>    }</div>
-<div class="ttc" id="aclassTplAestan_html_aae28597c0ddaa9ac10c22305cb33bcdf"><div class="ttname"><a href="#aae28597c0ddaa9ac10c22305cb33bcdf">TplAestan\GLYPH_FOLDER_OPEN</a></div><div class="ttdeci">const GLYPH_FOLDER_OPEN</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00014">class.tpl.aestan.php:14</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00201">201</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  202</span>    {</div>
+<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: item; &#39;</span> .</div>
+<div class="line"><span class="lineno">  204</span>            <span class="stringliteral">&#39;Caption: &quot;&#39;</span> . $caption . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
+<div class="line"><span class="lineno">  205</span>            <span class="stringliteral">&#39;Action: shellexecute; &#39;</span> .</div>
+<div class="line"><span class="lineno">  206</span>            <span class="stringliteral">&#39;FileName: &quot;&#39;</span> . $path . <span class="stringliteral">&#39;&quot;; &#39;</span> .</div>
+<div class="line"><span class="lineno">  207</span>            <span class="stringliteral">&#39;Glyph: &#39;</span> . <a class="code hl_variable" href="#aae28597c0ddaa9ac10c22305cb33bcdf">self::GLYPH_FOLDER_OPEN</a>;</div>
+<div class="line"><span class="lineno">  208</span>    }</div>
+<div class="ttc" id="aclassTplAestan_html_aae28597c0ddaa9ac10c22305cb33bcdf"><div class="ttname"><a href="#aae28597c0ddaa9ac10c22305cb33bcdf">TplAestan\GLYPH_FOLDER_OPEN</a></div><div class="ttdeci">const GLYPH_FOLDER_OPEN</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00015">class.tpl.aestan.php:15</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00014">GLYPH_FOLDER_OPEN</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00015">GLYPH_FOLDER_OPEN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00196">TplApp\getSectionMenuLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00318">TplApp\getSectionMenuLeft()</a>.</p>
 <div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -894,28 +1005,39 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a link item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the item. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$link</td><td>The URL for the link. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$local</td><td>Whether the link is local. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$glyph</td><td>The glyph index. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The link item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00106">106</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  107</span>    {</div>
-<div class="line"><span class="lineno">  108</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">  109</span> </div>
-<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> ($local) {</div>
-<div class="line"><span class="lineno">  111</span>            $link = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getLocalUrl($link);</div>
-<div class="line"><span class="lineno">  112</span>        }</div>
-<div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
-<div class="line"><span class="lineno">  115</span>            $caption,</div>
-<div class="line"><span class="lineno">  116</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getBrowser(),</div>
-<div class="line"><span class="lineno">  117</span>            $glyph,</div>
-<div class="line"><span class="lineno">  118</span>            $link</div>
-<div class="line"><span class="lineno">  119</span>        );</div>
-<div class="line"><span class="lineno">  120</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00140">140</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  141</span>    {</div>
+<div class="line"><span class="lineno">  142</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">  143</span> </div>
+<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">if</span> ($local) {</div>
+<div class="line"><span class="lineno">  145</span>            $link = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getLocalUrl($link);</div>
+<div class="line"><span class="lineno">  146</span>        }</div>
+<div class="line"><span class="lineno">  147</span> </div>
+<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
+<div class="line"><span class="lineno">  149</span>            $caption,</div>
+<div class="line"><span class="lineno">  150</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getBrowser(),</div>
+<div class="line"><span class="lineno">  151</span>            $glyph,</div>
+<div class="line"><span class="lineno">  152</span>            $link</div>
+<div class="line"><span class="lineno">  153</span>        );</div>
+<div class="line"><span class="lineno">  154</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00134">getItemExe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00184">getItemExe()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00031">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d2/d64/class_8tpl_8app_8apps_8php_source.html#l00014">TplAppApps\getMenuApps()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00022">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00022">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00196">TplApp\getSectionMenuLeft()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00062">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d2/d64/class_8tpl_8app_8apps_8php_source.html#l00049">TplAppApps\getMenuApps()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00059">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00045">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00318">TplApp\getSectionMenuLeft()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -952,22 +1074,31 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a Notepad item.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the item. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td>The path to the file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The Notepad item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00122">122</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  123</span>    {</div>
-<div class="line"><span class="lineno">  124</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">  125</span> </div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
-<div class="line"><span class="lineno">  127</span>            $caption,</div>
-<div class="line"><span class="lineno">  128</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getNotepad(),</div>
-<div class="line"><span class="lineno">  129</span>            self::GLYPH_FILE,</div>
-<div class="line"><span class="lineno">  130</span>            $path</div>
-<div class="line"><span class="lineno">  131</span>        );</div>
-<div class="line"><span class="lineno">  132</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00163">163</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  164</span>    {</div>
+<div class="line"><span class="lineno">  165</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a27c38f5040b43b7b248ed49de548dcb2">self::getItemExe</a>(</div>
+<div class="line"><span class="lineno">  168</span>            $caption,</div>
+<div class="line"><span class="lineno">  169</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getNotepad(),</div>
+<div class="line"><span class="lineno">  170</span>            self::GLYPH_FILE,</div>
+<div class="line"><span class="lineno">  171</span>            $path</div>
+<div class="line"><span class="lineno">  172</span>        );</div>
+<div class="line"><span class="lineno">  173</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00134">getItemExe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, and <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00184">getItemExe()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00031">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../dc/d8f/class_8tpl_8app_8logs_8php_source.html#l00014">TplAppLogs\getMenuLogs()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00022">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00022">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d7/d11/class_8tpl_8app_8EditConf_8php_source.html#l00006">TplAppEditConf\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00062">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../dc/d8f/class_8tpl_8app_8logs_8php_source.html#l00048">TplAppLogs\getMenuLogs()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00059">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00045">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d7/d11/class_8tpl_8app_8EditConf_8php_source.html#l00022">TplAppEditConf\process()</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1000,13 +1131,15 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing a separator item.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The separator item string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00075">75</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   76</span>    {</div>
-<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: separator&#39;</span>;</div>
-<div class="line"><span class="lineno">   78</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00089">89</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
+<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;Type: separator&#39;</span>;</div>
+<div class="line"><span class="lineno">   92</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00031">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00286">TplAppApache\getMenuApacheAlias()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00332">TplAppApache\getMenuApacheVhosts()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00022">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00022">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>, <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00196">TplApp\getSectionMenuLeft()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00062">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00394">TplAppApache\getMenuApacheAlias()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00459">TplAppApache\getMenuApacheVhosts()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00059">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00045">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>, <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00318">TplApp\getSectionMenuLeft()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1039,26 +1172,28 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing the config section.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The config section string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00233">233</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  234</span>    {</div>
-<div class="line"><span class="lineno">  235</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Config]&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  237</span>            <span class="stringliteral">&#39;ImageList=&#39;</span> . self::IMG_GLYPH_SPRITES . PHP_EOL .</div>
-<div class="line"><span class="lineno">  238</span>            <span class="stringliteral">&#39;ServiceCheckInterval=1&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  239</span>            <span class="stringliteral">&#39;TrayIconAllRunning=&#39;</span> . self::GLYPH_SERVICE_ALL_RUNNING . PHP_EOL .</div>
-<div class="line"><span class="lineno">  240</span>            <span class="stringliteral">&#39;TrayIconSomeRunning=&#39;</span> . self::GLYPH_SERVICE_SOME_RUNNING . PHP_EOL .</div>
-<div class="line"><span class="lineno">  241</span>            <span class="stringliteral">&#39;TrayIconNoneRunning=&#39;</span> . self::GLYPH_SERVICE_NONE_RUNNING . PHP_EOL .</div>
-<div class="line"><span class="lineno">  242</span>            <span class="stringliteral">&#39;ID={&#39;</span> . strtolower(<a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a>) . <span class="charliteral">&#39;}&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  243</span>            <span class="stringliteral">&#39;AboutHeader=&#39;</span> . <a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  244</span>            <span class="stringliteral">&#39;AboutVersion=Version &#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getAppVersion() . PHP_EOL;</div>
-<div class="line"><span class="lineno">  245</span>    }</div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00354">354</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  355</span>    {</div>
+<div class="line"><span class="lineno">  356</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  357</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Config]&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  358</span>            <span class="stringliteral">&#39;ImageList=&#39;</span> . self::IMG_GLYPH_SPRITES . PHP_EOL .</div>
+<div class="line"><span class="lineno">  359</span>            <span class="stringliteral">&#39;ServiceCheckInterval=1&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  360</span>            <span class="stringliteral">&#39;TrayIconAllRunning=&#39;</span> . self::GLYPH_SERVICE_ALL_RUNNING . PHP_EOL .</div>
+<div class="line"><span class="lineno">  361</span>            <span class="stringliteral">&#39;TrayIconSomeRunning=&#39;</span> . self::GLYPH_SERVICE_SOME_RUNNING . PHP_EOL .</div>
+<div class="line"><span class="lineno">  362</span>            <span class="stringliteral">&#39;TrayIconNoneRunning=&#39;</span> . self::GLYPH_SERVICE_NONE_RUNNING . PHP_EOL .</div>
+<div class="line"><span class="lineno">  363</span>            <span class="stringliteral">&#39;ID={&#39;</span> . strtolower(<a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a>) . <span class="charliteral">&#39;}&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  364</span>            <span class="stringliteral">&#39;AboutHeader=&#39;</span> . <a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  365</span>            <span class="stringliteral">&#39;AboutVersion=Version &#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getAppVersion() . PHP_EOL;</div>
+<div class="line"><span class="lineno">  366</span>    }</div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
 <div class="ttc" id="aroot_8php_html_af76956a6aeffa052e53bbcc9b2afb3df"><div class="ttname"><a href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a></div><div class="ttdeci">const APP_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de1/root_8php_source.html#l00012">root.php:12</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, and <a class="el" href="../../d7/de1/root_8php_source.html#l00012">APP_TITLE</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, and <a class="el" href="../../d7/de1/root_8php_source.html#l00012">APP_TITLE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00015">TplApp\process()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00029">TplApp\processLight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00043">TplApp\process()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00064">TplApp\processLight()</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1091,45 +1226,53 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing the left menu settings section.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The caption for the left menu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The left menu settings section string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00261">261</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  262</span>    {</div>
-<div class="line"><span class="lineno">  263</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Menu.Left.Settings]&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  264</span>            <span class="stringliteral">&#39;AutoLineReduction=no&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  265</span>            <span class="stringliteral">&#39;BarVisible=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  266</span>            <span class="stringliteral">&#39;BarCaptionAlignment=bottom&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  267</span>            <span class="stringliteral">&#39;BarCaptionCaption=&#39;</span> . $caption . PHP_EOL .</div>
-<div class="line"><span class="lineno">  268</span>            <span class="stringliteral">&#39;BarCaptionDepth=1&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  269</span>            <span class="stringliteral">&#39;BarCaptionDirection=downtoup&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  270</span>            <span class="stringliteral">&#39;BarCaptionFont=Tahoma,14,clWhite&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  271</span>            <span class="stringliteral">&#39;BarCaptionHighlightColor=clNone&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  272</span>            <span class="stringliteral">&#39;BarCaptionOffsetY=0&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  273</span>            <span class="stringliteral">&#39;BarCaptionShadowColor=clNone&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  274</span>            <span class="stringliteral">&#39;BarPictureHorzAlignment=center&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  275</span>            <span class="stringliteral">&#39;BarPictureOffsetX=0&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  276</span>            <span class="stringliteral">&#39;BarPictureOffsetY=0&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  277</span>            <span class="stringliteral">&#39;BarPicturePicture=&#39;</span> . self::IMG_BAR_PICTURE . PHP_EOL .</div>
-<div class="line"><span class="lineno">  278</span>            <span class="stringliteral">&#39;BarPictureTransparent=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  279</span>            <span class="stringliteral">&#39;BarPictureVertAlignment=bottom&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  280</span>            <span class="stringliteral">&#39;BarBorder=clNone&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  281</span>            <span class="stringliteral">&#39;BarGradientEnd=$00c07840&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  282</span>            <span class="stringliteral">&#39;BarGradientStart=$00c07840&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  283</span>            <span class="stringliteral">&#39;BarGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  284</span>            <span class="stringliteral">&#39;BarSide=left&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  285</span>            <span class="stringliteral">&#39;BarSpace=0&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  286</span>            <span class="stringliteral">&#39;BarWidth=32&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  287</span>            <span class="stringliteral">&#39;SeparatorsAlignment=center&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  288</span>            <span class="stringliteral">&#39;SeparatorsFade=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  289</span>            <span class="stringliteral">&#39;SeparatorsFadeColor=clBtnShadow&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  290</span>            <span class="stringliteral">&#39;SeparatorsFlatLines=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  291</span>            <span class="stringliteral">&#39;SeparatorsFont=Arial,8,clWhite,bold&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  292</span>            <span class="stringliteral">&#39;SeparatorsGradientEnd=$00FFAA55&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  293</span>            <span class="stringliteral">&#39;SeparatorsGradientStart=$00550000&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  294</span>            <span class="stringliteral">&#39;SeparatorsGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  295</span>            <span class="stringliteral">&#39;SeparatorsSeparatorStyle=caption&#39;</span> . PHP_EOL;</div>
-<div class="line"><span class="lineno">  296</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00393">393</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  394</span>    {</div>
+<div class="line"><span class="lineno">  395</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Menu.Left.Settings]&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  396</span>            <span class="stringliteral">&#39;AutoLineReduction=no&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  397</span>            <span class="stringliteral">&#39;BarVisible=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  398</span>            <span class="stringliteral">&#39;BarCaptionAlignment=bottom&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  399</span>            <span class="stringliteral">&#39;BarCaptionCaption=&#39;</span> . $caption . PHP_EOL .</div>
+<div class="line"><span class="lineno">  400</span>            <span class="stringliteral">&#39;BarCaptionDepth=1&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  401</span>            <span class="stringliteral">&#39;BarCaptionDirection=downtoup&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  402</span>            <span class="stringliteral">&#39;BarCaptionFont=Tahoma,14,clWhite&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  403</span>            <span class="stringliteral">&#39;BarCaptionHighlightColor=clNone&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  404</span>            <span class="stringliteral">&#39;BarCaptionOffsetY=0&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  405</span>            <span class="stringliteral">&#39;BarCaptionShadowColor=clNone&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  406</span>            <span class="stringliteral">&#39;BarPictureHorzAlignment=center&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  407</span>            <span class="stringliteral">&#39;BarPictureOffsetX=0&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  408</span>            <span class="stringliteral">&#39;BarPictureOffsetY=0&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  409</span>            <span class="stringliteral">&#39;BarPicturePicture=&#39;</span> . self::IMG_BAR_PICTURE . PHP_EOL .</div>
+<div class="line"><span class="lineno">  410</span>            <span class="stringliteral">&#39;BarPictureTransparent=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  411</span>            <span class="stringliteral">&#39;BarPictureVertAlignment=bottom&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  412</span>            <span class="stringliteral">&#39;BarBorder=clNone&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  413</span>            <span class="stringliteral">&#39;BarGradientEnd=$00c07840&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  414</span>            <span class="stringliteral">&#39;BarGradientStart=$00c07840&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  415</span>            <span class="stringliteral">&#39;BarGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  416</span>            <span class="stringliteral">&#39;BarSide=left&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  417</span>            <span class="stringliteral">&#39;BarSpace=0&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  418</span>            <span class="stringliteral">&#39;BarWidth=32&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  419</span>            <span class="stringliteral">&#39;SeparatorsAlignment=center&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  420</span>            <span class="stringliteral">&#39;SeparatorsFade=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  421</span>            <span class="stringliteral">&#39;SeparatorsFadeColor=clBtnShadow&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  422</span>            <span class="stringliteral">&#39;SeparatorsFlatLines=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  423</span>            <span class="stringliteral">&#39;SeparatorsFont=Arial,8,clWhite,bold&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  424</span>            <span class="stringliteral">&#39;SeparatorsGradientEnd=$00FFAA55&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  425</span>            <span class="stringliteral">&#39;SeparatorsGradientStart=$00550000&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  426</span>            <span class="stringliteral">&#39;SeparatorsGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  427</span>            <span class="stringliteral">&#39;SeparatorsSeparatorStyle=caption&#39;</span> . PHP_EOL;</div>
+<div class="line"><span class="lineno">  428</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00015">TplApp\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00043">TplApp\process()</a>.</p>
 <div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1162,22 +1305,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing the right menu settings section.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The right menu settings section string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00247">247</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  248</span>    {</div>
-<div class="line"><span class="lineno">  249</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Menu.Right.Settings]&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  250</span>            <span class="stringliteral">&#39;BarVisible=no&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  251</span>            <span class="stringliteral">&#39;SeparatorsAlignment=center&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  252</span>            <span class="stringliteral">&#39;SeparatorsFade=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  253</span>            <span class="stringliteral">&#39;SeparatorsFadeColor=clBtnShadow&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  254</span>            <span class="stringliteral">&#39;SeparatorsFlatLines=yes&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  255</span>            <span class="stringliteral">&#39;SeparatorsGradientEnd=clSilver&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  256</span>            <span class="stringliteral">&#39;SeparatorsGradientStart=clGray&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  257</span>            <span class="stringliteral">&#39;SeparatorsGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  258</span>            <span class="stringliteral">&#39;SeparatorsSeparatorStyle=shortline&#39;</span> . PHP_EOL;</div>
-<div class="line"><span class="lineno">  259</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00373">373</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  374</span>    {</div>
+<div class="line"><span class="lineno">  375</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Menu.Right.Settings]&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  376</span>            <span class="stringliteral">&#39;BarVisible=no&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  377</span>            <span class="stringliteral">&#39;SeparatorsAlignment=center&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  378</span>            <span class="stringliteral">&#39;SeparatorsFade=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  379</span>            <span class="stringliteral">&#39;SeparatorsFadeColor=clBtnShadow&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  380</span>            <span class="stringliteral">&#39;SeparatorsFlatLines=yes&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  381</span>            <span class="stringliteral">&#39;SeparatorsGradientEnd=clSilver&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  382</span>            <span class="stringliteral">&#39;SeparatorsGradientStart=clGray&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  383</span>            <span class="stringliteral">&#39;SeparatorsGradientStyle=horizontal&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  384</span>            <span class="stringliteral">&#39;SeparatorsSeparatorStyle=shortline&#39;</span> . PHP_EOL;</div>
+<div class="line"><span class="lineno">  385</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00015">TplApp\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00043">TplApp\process()</a>.</p>
 <div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1210,23 +1355,25 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representing the messages section.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The messages section string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00223">223</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  224</span>    {</div>
-<div class="line"><span class="lineno">  225</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
-<div class="line"><span class="lineno">  226</span> </div>
-<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Messages]&#39;</span> . PHP_EOL .</div>
-<div class="line"><span class="lineno">  228</span>            <span class="stringliteral">&#39;AllRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a66b67f6fd8396857862cd6791d6a54c7">Lang::ALL_RUNNING_HINT</a>) . PHP_EOL .</div>
-<div class="line"><span class="lineno">  229</span>            <span class="stringliteral">&#39;SomeRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a9e4b31aadd1e3e8da637ec97b4692175">Lang::SOME_RUNNING_HINT</a>) . PHP_EOL .</div>
-<div class="line"><span class="lineno">  230</span>            <span class="stringliteral">&#39;NoneRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a28fe03116aafe92b7d17f7ca6ce46f6a">Lang::NONE_RUNNING_HINT</a>) . PHP_EOL;</div>
-<div class="line"><span class="lineno">  231</span>    }</div>
-<div class="ttc" id="aclassLang_html_a28fe03116aafe92b7d17f7ca6ce46f6a"><div class="ttname"><a href="../../da/d49/classLang.html#a28fe03116aafe92b7d17f7ca6ce46f6a">Lang\NONE_RUNNING_HINT</a></div><div class="ttdeci">const NONE_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00015">class.lang.php:15</a></div></div>
-<div class="ttc" id="aclassLang_html_a66b67f6fd8396857862cd6791d6a54c7"><div class="ttname"><a href="../../da/d49/classLang.html#a66b67f6fd8396857862cd6791d6a54c7">Lang\ALL_RUNNING_HINT</a></div><div class="ttdeci">const ALL_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00013">class.lang.php:13</a></div></div>
-<div class="ttc" id="aclassLang_html_a9e4b31aadd1e3e8da637ec97b4692175"><div class="ttname"><a href="../../da/d49/classLang.html#a9e4b31aadd1e3e8da637ec97b4692175">Lang\SOME_RUNNING_HINT</a></div><div class="ttdeci">const SOME_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00014">class.lang.php:14</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00339">339</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  340</span>    {</div>
+<div class="line"><span class="lineno">  341</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">  342</span> </div>
+<div class="line"><span class="lineno">  343</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;[Messages]&#39;</span> . PHP_EOL .</div>
+<div class="line"><span class="lineno">  344</span>            <span class="stringliteral">&#39;AllRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a66b67f6fd8396857862cd6791d6a54c7">Lang::ALL_RUNNING_HINT</a>) . PHP_EOL .</div>
+<div class="line"><span class="lineno">  345</span>            <span class="stringliteral">&#39;SomeRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a9e4b31aadd1e3e8da637ec97b4692175">Lang::SOME_RUNNING_HINT</a>) . PHP_EOL .</div>
+<div class="line"><span class="lineno">  346</span>            <span class="stringliteral">&#39;NoneRunningHint=&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a28fe03116aafe92b7d17f7ca6ce46f6a">Lang::NONE_RUNNING_HINT</a>) . PHP_EOL;</div>
+<div class="line"><span class="lineno">  347</span>    }</div>
+<div class="ttc" id="aclassLang_html_a28fe03116aafe92b7d17f7ca6ce46f6a"><div class="ttname"><a href="../../da/d49/classLang.html#a28fe03116aafe92b7d17f7ca6ce46f6a">Lang\NONE_RUNNING_HINT</a></div><div class="ttdeci">const NONE_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00025">class.lang.php:25</a></div></div>
+<div class="ttc" id="aclassLang_html_a66b67f6fd8396857862cd6791d6a54c7"><div class="ttname"><a href="../../da/d49/classLang.html#a66b67f6fd8396857862cd6791d6a54c7">Lang\ALL_RUNNING_HINT</a></div><div class="ttdeci">const ALL_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00023">class.lang.php:23</a></div></div>
+<div class="ttc" id="aclassLang_html_a9e4b31aadd1e3e8da637ec97b4692175"><div class="ttname"><a href="../../da/d49/classLang.html#a9e4b31aadd1e3e8da637ec97b4692175">Lang\SOME_RUNNING_HINT</a></div><div class="ttdeci">const SOME_RUNNING_HINT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00024">class.lang.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppLang</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00013">Lang\ALL_RUNNING_HINT</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00015">Lang\NONE_RUNNING_HINT</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00014">Lang\SOME_RUNNING_HINT</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00023">Lang\ALL_RUNNING_HINT</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00025">Lang\NONE_RUNNING_HINT</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00024">Lang\SOME_RUNNING_HINT</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00015">TplApp\process()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00029">TplApp\processLight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00043">TplApp\process()</a>, and <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00064">TplApp\processLight()</a>.</p>
 <div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1250,9 +1397,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00030">30</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00031">31</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>.</p>
 
 </div>
 </div>
@@ -1268,9 +1415,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00013">13</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00014">14</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00286">TplAppApache\getMenuApacheAlias()</a>, and <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00332">TplAppApache\getMenuApacheVhosts()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00394">TplAppApache\getMenuApacheAlias()</a>, and <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00459">TplAppApache\getMenuApacheVhosts()</a>.</p>
 
 </div>
 </div>
@@ -1286,9 +1433,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00016">16</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00017">17</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00031">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00022">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00022">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d0/d3a/class_8tpl_8app_8browser_8php_source.html#l00007">TplAppBrowser\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00062">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00059">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00045">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d0/d3a/class_8tpl_8app_8browser_8php_source.html#l00032">TplAppBrowser\process()</a>.</p>
 
 </div>
 </div>
@@ -1304,9 +1451,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00024">24</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00025">25</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00031">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00255">TplAppApache\getMenuApacheModules()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00104">TplAppApache\getMenuApacheVersions()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00080">TplAppFilezilla\getMenuFilezillaVersions()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00014">TplAppLang\getMenuLang()</a>, <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00014">TplAppLogsVerbose\getMenuLogsVerbose()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00081">TplAppMailhog\getMenuMailhogVersions()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00082">TplAppMariadb\getMenuMariadbVersions()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00022">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00068">TplAppMemcached\getMenuMemcachedVersions()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00082">TplAppMysql\getMenuMysqlVersions()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00071">TplAppNodejs\getMenuNodejsVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00022">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00222">TplAppPhp\getMenuPhpExtensions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00120">TplAppPhp\getMenuPhpSettings()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00073">TplAppPhp\getMenuPhpVersions()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00082">TplAppPostgresql\getMenuPostgresqlVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00164">TplAppPhp\getSubmenuPhpSettings()</a>, and <a class="el" href="../../d9/d0b/class_8tpl_8app_8launchStartup_8php_source.html#l00007">TplAppLaunchStartup\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00062">TplAppApache\getMenuApache()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00349">TplAppApache\getMenuApacheModules()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00142">TplAppApache\getMenuApacheVersions()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00114">TplAppFilezilla\getMenuFilezillaVersions()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, <a class="el" href="../../d4/d8d/class_8tpl_8app_8lang_8php_source.html#l00050">TplAppLang\getMenuLang()</a>, <a class="el" href="../../d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html#l00051">TplAppLogsVerbose\getMenuLogsVerbose()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00114">TplAppMailhog\getMenuMailhogVersions()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00123">TplAppMariadb\getMenuMariadbVersions()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00059">TplAppMemcached\getMenuMemcached()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00115">TplAppMemcached\getMenuMemcachedVersions()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00128">TplAppMysql\getMenuMysqlVersions()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00123">TplAppNodejs\getMenuNodejsVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00045">TplAppPhp\getMenuPhp()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00304">TplAppPhp\getMenuPhpExtensions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00175">TplAppPhp\getMenuPhpSettings()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00103">TplAppPhp\getMenuPhpVersions()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00231">TplAppPhp\getSubmenuPhpSettings()</a>, and <a class="el" href="../../d9/d0b/class_8tpl_8app_8launchStartup_8php_source.html#l00032">TplAppLaunchStartup\process()</a>.</p>
 
 </div>
 </div>
@@ -1322,9 +1469,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00045">45</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00046">46</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1340,9 +1487,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00012">12</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00013">13</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00024">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00024">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00025">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00024">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00055">TplAppMariadb\getMenuMariadb()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00061">TplAppMysql\getMenuMysql()</a>, <a class="el" href="../../d4/dfe/class_8tpl_8app_8nodejs_8php_source.html#l00059">TplAppNodejs\getMenuNodejs()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00055">TplAppPostgresql\getMenuPostgresql()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1358,9 +1505,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00039">39</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00040">40</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00221">TplAppApache\getMenuApacheDebug()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00180">TplAppMariadb\getMenuMariadbDebug()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00180">TplAppMysql\getMenuMysqlDebug()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00180">TplAppPostgresql\getMenuPostgresqlDebug()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00308">TplAppApache\getMenuApacheDebug()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00267">TplAppMariadb\getMenuMariadbDebug()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00267">TplAppMysql\getMenuMysqlDebug()</a>, <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00250">TplAppPostgresql\getMenuPostgresqlDebug()</a>, and <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1376,9 +1523,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00029">29</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00030">30</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/dd1/class_8tpl_8app_8exit_8php_source.html#l00007">TplAppExit\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/dd1/class_8tpl_8app_8exit_8php_source.html#l00032">TplAppExit\process()</a>.</p>
 
 </div>
 </div>
@@ -1394,9 +1541,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00017">17</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00018">18</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00286">TplAppApache\getMenuApacheAlias()</a>, and <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00332">TplAppApache\getMenuApacheVhosts()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00394">TplAppApache\getMenuApacheAlias()</a>, and <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00459">TplAppApache\getMenuApacheVhosts()</a>.</p>
 
 </div>
 </div>
@@ -1412,9 +1559,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00051">51</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00052">52</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00029">TplAppFilezilla\getMenuFilezilla()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00054">TplAppFilezilla\getMenuFilezilla()</a>.</p>
 
 </div>
 </div>
@@ -1430,9 +1577,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00015">15</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00016">16</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00105">TplApp\getMenu()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00117">TplApp\getMenuEnable()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00120">TplAppPhp\getMenuPhpSettings()</a>, and <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00164">TplAppPhp\getSubmenuPhpSettings()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00190">TplApp\getMenu()</a>, <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00212">TplApp\getMenuEnable()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00175">TplAppPhp\getMenuPhpSettings()</a>, and <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00231">TplAppPhp\getSubmenuPhpSettings()</a>.</p>
 
 </div>
 </div>
@@ -1448,9 +1595,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00052">52</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00053">53</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00117">TplApp\getMenuEnable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00212">TplApp\getMenuEnable()</a>.</p>
 
 </div>
 </div>
@@ -1466,7 +1613,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00053">53</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00054">54</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1482,9 +1629,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00014">14</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00015">15</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00144">getItemExplore()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00201">getItemExplore()</a>.</p>
 
 </div>
 </div>
@@ -1500,9 +1647,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00059">59</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00060">60</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1518,9 +1665,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00035">35</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00036">36</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, and <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00063">TplAppGit\getMenuGitRepos()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, and <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00109">TplAppGit\getMenuGitRepos()</a>.</p>
 
 </div>
 </div>
@@ -1536,9 +1683,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00047">47</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00048">48</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1554,7 +1701,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00048">48</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00049">49</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1570,9 +1717,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00034">34</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00035">35</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -1588,9 +1735,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00037">37</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00038">38</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -1606,9 +1753,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00060">60</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00061">61</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1624,7 +1771,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00036">36</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00037">37</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1640,7 +1787,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00049">49</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00050">50</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1656,9 +1803,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00050">50</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00051">51</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -1674,7 +1821,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00021">21</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00022">22</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1690,9 +1837,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00046">46</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00047">47</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1708,9 +1855,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00058">58</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00059">59</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1726,9 +1873,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00061">61</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00062">62</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1744,9 +1891,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00054">54</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00055">55</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00014">TplAppPython\getMenuPython()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00044">TplAppPython\getMenuPython()</a>.</p>
 
 </div>
 </div>
@@ -1762,9 +1909,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00055">55</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00056">56</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00014">TplAppPython\getMenuPython()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d84/class_8tpl_8app_8python_8php_source.html#l00044">TplAppPython\getMenuPython()</a>.</p>
 
 </div>
 </div>
@@ -1780,9 +1927,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00044">44</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00045">45</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, and <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, and <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>.</p>
 
 </div>
 </div>
@@ -1798,9 +1945,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">23</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00024">24</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00055">TplService\getItemRestart()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00018">TplAppGit\getMenuGit()</a>, and <a class="el" href="../../d1/d24/class_8tpl_8app_8reload_8php_source.html#l00007">TplAppReload\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>, <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00116">TplService\getItemRestart()</a>, <a class="el" href="../../d2/de5/class_8tpl_8app_8git_8php_source.html#l00054">TplAppGit\getMenuGit()</a>, and <a class="el" href="../../d1/d24/class_8tpl_8app_8reload_8php_source.html#l00032">TplAppReload\process()</a>.</p>
 
 </div>
 </div>
@@ -1816,7 +1963,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00042">42</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00043">43</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1832,9 +1979,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00056">56</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00057">57</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -1850,7 +1997,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00025">25</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00026">26</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1866,9 +2013,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00019">19</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00020">20</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00065">TplService\getItemInstall()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00132">TplService\getItemInstall()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -1884,7 +2031,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00027">27</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00028">28</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1900,9 +2047,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00018">18</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00019">19</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00075">TplService\getItemRemove()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00150">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00119">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00120">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00121">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00107">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00121">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00121">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00148">TplService\getItemRemove()</a>, <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00213">TplAppApache\getMenuApacheService()</a>, <a class="el" href="../../d0/d31/class_8tpl_8app_8filezilla_8php_source.html#l00183">TplAppFilezilla\getMenuFilezillaService()</a>, <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00185">TplAppMailhog\getMenuMailhogService()</a>, <a class="el" href="../../dc/d49/class_8tpl_8app_8mariadb_8php_source.html#l00198">TplAppMariadb\getMenuMariadbService()</a>, <a class="el" href="../../d8/d0a/class_8tpl_8app_8memcached_8php_source.html#l00188">TplAppMemcached\getMenuMemcachedService()</a>, <a class="el" href="../../df/d5c/class_8tpl_8app_8mysql_8php_source.html#l00198">TplAppMysql\getMenuMysqlService()</a>, and <a class="el" href="../../da/d13/class_8tpl_8app_8postgresql_8php_source.html#l00184">TplAppPostgresql\getMenuPostgresqlService()</a>.</p>
 
 </div>
 </div>
@@ -1918,7 +2065,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00026">26</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00027">27</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -1934,9 +2081,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00031">31</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00032">32</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00009">TplAppServices\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00031">TplAppServices\process()</a>.</p>
 
 </div>
 </div>
@@ -1952,9 +2099,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00033">33</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00034">34</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00009">TplAppServices\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00031">TplAppServices\process()</a>.</p>
 
 </div>
 </div>
@@ -1970,9 +2117,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00032">32</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00033">33</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00009">TplAppServices\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/de4/class_8tpl_8app_8services_8php_source.html#l00031">TplAppServices\process()</a>.</p>
 
 </div>
 </div>
@@ -1988,9 +2135,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00043">43</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00044">44</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -2006,9 +2153,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00020">20</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00021">21</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00035">TplService\getItemStart()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00084">TplService\getItemStart()</a>.</p>
 
 </div>
 </div>
@@ -2024,9 +2171,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00022">22</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00023">23</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00153">getActionService()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00045">TplService\getItemStop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00218">getActionService()</a>, and <a class="el" href="../../d7/d51/class_8tpl_8service_8php_source.html#l00100">TplService\getItemStop()</a>.</p>
 
 </div>
 </div>
@@ -2042,9 +2189,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00040">40</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00041">41</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/d09/class_8tpl_8app_8clearFolders_8php_source.html#l00005">TplAppClearFolders\process()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/d09/class_8tpl_8app_8clearFolders_8php_source.html#l00027">TplAppClearFolders\process()</a>.</p>
 
 </div>
 </div>
@@ -2060,9 +2207,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00041">41</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00042">42</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00150">TplApp\getSectionMenuRight()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/dec/class_8tpl_8app_8php_source.html#l00264">TplApp\getSectionMenuRight()</a>.</p>
 
 </div>
 </div>
@@ -2078,9 +2225,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00028">28</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00029">29</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00104">TplAppApache\getMenuApacheVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00120">TplAppPhp\getMenuPhpSettings()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00073">TplAppPhp\getMenuPhpVersions()</a>, and <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00164">TplAppPhp\getSubmenuPhpSettings()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d77/class_8tpl_8app_8apache_8php_source.html#l00142">TplAppApache\getMenuApacheVersions()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00175">TplAppPhp\getMenuPhpSettings()</a>, <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00103">TplAppPhp\getMenuPhpVersions()</a>, and <a class="el" href="../../d9/d05/class_8tpl_8app_8php_8php_source.html#l00231">TplAppPhp\getSubmenuPhpSettings()</a>.</p>
 
 </div>
 </div>
@@ -2096,9 +2243,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00038">38</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00039">39</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00029">TplAppMailhog\getMenuMailhog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d92/class_8tpl_8app_8mailhog_8php_source.html#l00053">TplAppMailhog\getMenuMailhog()</a>.</p>
 
 </div>
 </div>
@@ -2114,9 +2261,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00057">57</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00058">58</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00023">TplAppTools\getMenuTools()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/d47/class_8tpl_8app_8tools_8php_source.html#l00046">TplAppTools\getMenuTools()</a>.</p>
 
 </div>
 </div>
@@ -2132,7 +2279,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00068">68</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00071">71</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -2148,7 +2295,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00069">69</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00072">72</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -2164,7 +2311,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00065">65</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00067">67</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -2180,7 +2327,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00063">63</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00065">65</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -2196,7 +2343,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00064">64</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00066">66</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>
@@ -2212,7 +2359,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00066">66</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html#l00068">68</a> of file <a class="el" href="../../d1/d3d/class_8tpl_8aestan_8php_source.html">class.tpl.aestan.php</a>.</p>
 
 </div>
 </div>

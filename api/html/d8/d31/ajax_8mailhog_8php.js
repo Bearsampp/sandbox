@@ -1,5 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var ajax_8mailhog_8php =
 [
+    [ "$bearsamppBins", "d8/d31/ajax_8mailhog_8php.html#a682f09b349e25300b21585300a71d17c", null ],
+    [ "$bearsamppLang", "d8/d31/ajax_8mailhog_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a", null ],
     [ "$result", "d8/d31/ajax_8mailhog_8php.html#a112ef069ddc0454086e3d1e6d8d55d07", null ],
     [ "$smtpPort", "d8/d31/ajax_8mailhog_8php.html#aece640e496802d043c54320eb330ff4d", null ],
     [ "$textDisabled", "d8/d31/ajax_8mailhog_8php.html#a642365a723e6996d190fb800bb6a7e01", null ],

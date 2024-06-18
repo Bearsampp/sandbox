@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -106,16 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a57b60b4976a2c5d1e40f2d11aa72aa7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Initializes the <a class="el" href="../../d7/d5e/classActionLaunchStartup.html">ActionLaunchStartup</a> class and manages the application's launch startup settings.</p>
-<p>This constructor uses the provided arguments to determine whether to enable or disable the application's launch at startup feature. It starts the loading process, updates the launch startup configuration based on the provided argument, and modifies the system's startup settings accordingly.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>An array of arguments where the first element should be either <a class="el" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> or <a class="el" href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config::DISABLED</a> to indicate the desired launch startup setting. </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Class <a class="el" href="../../d7/d5e/classActionLaunchStartup.html">ActionLaunchStartup</a></p>
+<p>This class manages the application's launch startup settings. It initializes the settings based on the provided arguments and updates the configuration accordingly. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html#l00013">13</a> of file <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html">class.action.launchStartup.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html#l00016">16</a> of file <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html">class.action.launchStartup.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -131,30 +133,38 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../d7/d5e/classActionLaunchStartup.html">ActionLaunchStartup</a> constructor.</p>
+<p>This constructor uses the provided arguments to determine whether to enable or disable the application's launch at startup feature. It starts the loading process, updates the launch startup configuration based on the provided argument, and modifies the system's startup settings accordingly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>An array of arguments where the first element should be either <a class="el" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> or <a class="el" href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config::DISABLED</a> to indicate the desired launch startup setting. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html#l00015">15</a> of file <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html">class.action.launchStartup.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
-<div class="line"><span class="lineno">   17</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">   18</span> </div>
-<div class="line"><span class="lineno">   19</span>        <span class="keywordflow">if</span> (isset($args[0])) {</div>
-<div class="line"><span class="lineno">   20</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
-<div class="line"><span class="lineno">   21</span>            $launchStartup = $args[0] == <a class="code hl_variable" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a>;</div>
-<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">if</span> ($launchStartup) {</div>
-<div class="line"><span class="lineno">   23</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#ae90194df3cda9bb5b62fe1cc24079532">Util::enableLaunchStartup</a>();</div>
-<div class="line"><span class="lineno">   24</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   25</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a1fa9f5607c61152666185721cd958d5a">Util::disableLaunchStartup</a>();</div>
-<div class="line"><span class="lineno">   26</span>            }</div>
-<div class="line"><span class="lineno">   27</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config::CFG_LAUNCH_STARTUP</a>, $args[0]);</div>
-<div class="line"><span class="lineno">   28</span>        }</div>
-<div class="line"><span class="lineno">   29</span>    }</div>
-<div class="ttc" id="aclassConfig_html_abbf662c7051d76c1f949043b72ae7c84"><div class="ttname"><a href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00018">class.config.php:18</a></div></div>
-<div class="ttc" id="aclassConfig_html_aecf6a7f1f76e4bcbc5bb3a980308c4cc"><div class="ttname"><a href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config\CFG_LAUNCH_STARTUP</a></div><div class="ttdeci">const CFG_LAUNCH_STARTUP</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00016">class.config.php:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html#l00028">28</a> of file <a class="el" href="../../d5/dc3/class_8action_8launchStartup_8php_source.html">class.action.launchStartup.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>    {</div>
+<div class="line"><span class="lineno">   30</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">   31</span> </div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">if</span> (isset($args[0])) {</div>
+<div class="line"><span class="lineno">   33</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
+<div class="line"><span class="lineno">   34</span>            $launchStartup = $args[0] == <a class="code hl_variable" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a>;</div>
+<div class="line"><span class="lineno">   35</span>            <span class="keywordflow">if</span> ($launchStartup) {</div>
+<div class="line"><span class="lineno">   36</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#ae90194df3cda9bb5b62fe1cc24079532">Util::enableLaunchStartup</a>();</div>
+<div class="line"><span class="lineno">   37</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   38</span>                <a class="code hl_function" href="../../d6/de4/classUtil.html#a1fa9f5607c61152666185721cd958d5a">Util::disableLaunchStartup</a>();</div>
+<div class="line"><span class="lineno">   39</span>            }</div>
+<div class="line"><span class="lineno">   40</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config::CFG_LAUNCH_STARTUP</a>, $args[0]);</div>
+<div class="line"><span class="lineno">   41</span>        }</div>
+<div class="line"><span class="lineno">   42</span>    }</div>
+<div class="ttc" id="aclassConfig_html_abbf662c7051d76c1f949043b72ae7c84"><div class="ttname"><a href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00031">class.config.php:31</a></div></div>
+<div class="ttc" id="aclassConfig_html_aecf6a7f1f76e4bcbc5bb3a980308c4cc"><div class="ttname"><a href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config\CFG_LAUNCH_STARTUP</a></div><div class="ttdeci">const CFG_LAUNCH_STARTUP</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00029">class.config.php:29</a></div></div>
 <div class="ttc" id="aclassUtil_html_a1fa9f5607c61152666185721cd958d5a"><div class="ttname"><a href="../../d6/de4/classUtil.html#a1fa9f5607c61152666185721cd958d5a">Util\disableLaunchStartup</a></div><div class="ttdeci">static disableLaunchStartup()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00617">class.util.php:617</a></div></div>
 <div class="ttc" id="aclassUtil_html_a8a811986c436362a1539fc942af1b61b"><div class="ttname"><a href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util\startLoading</a></div><div class="ttdeci">static startLoading()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00886">class.util.php:886</a></div></div>
 <div class="ttc" id="aclassUtil_html_ae90194df3cda9bb5b62fe1cc24079532"><div class="ttname"><a href="../../d6/de4/classUtil.html#ae90194df3cda9bb5b62fe1cc24079532">Util\enableLaunchStartup</a></div><div class="ttdeci">static enableLaunchStartup()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00607">class.util.php:607</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00016">Config\CFG_LAUNCH_STARTUP</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00617">Util\disableLaunchStartup()</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00018">Config\ENABLED</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00607">Util\enableLaunchStartup()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00886">Util\startLoading()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00029">Config\CFG_LAUNCH_STARTUP</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00617">Util\disableLaunchStartup()</a>, <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00031">Config\ENABLED</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00607">Util\enableLaunchStartup()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00886">Util\startLoading()</a>.</p>
 
 </div>
 </div>
