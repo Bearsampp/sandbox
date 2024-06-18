@@ -23,12 +23,11 @@
 /www/.htaccess
 /**/post-install/
 bearsampp.ini
-bearsampp.conf
+#bearsampp.conf
 /core/resources/homepage/alias.conf
 /core/resources/loading.pid
-/core/libs/openssl/openssl.cfg
+#/core/libs/openssl/openssl.cfg
 /core/resources/lastPath.dat
-/core/libs/openssl/openssl.cfg
 /core/resources/version.dat
 
 

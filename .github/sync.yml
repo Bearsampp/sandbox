@@ -9,6 +9,7 @@ group:
             /homepage/img/icons/app.ico
             /homepage/img/icons/bearsampp.ico
             /homepage/img/icons/favicon.ico
+            /homepage/img/header-logo.png
         deleteOrphaned: true
       - source: LICENSE
         dest: LICENSE
@@ -20,5 +21,7 @@ group:
         dest: nssmEnvPaths.dat
       - source: sprites.dat
         dest: sprites.dat
+      - source: bearsampp.conf
+        dest: /base/bearsampp.conf
     repos: |
         Bearsampp/Bearsampp
