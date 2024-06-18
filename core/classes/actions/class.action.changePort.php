@@ -66,6 +66,10 @@ class ActionChangePort
                 $this->bin = $bearsamppBins->getMemcached();
                 $this->currentPort = $bearsamppBins->getMemcached()->getPort();
                 $this->cntProcessActions = 3;
+            } elseif ($args[0] == $bearsamppBins->getXlight()->getName()) {
+                $this->bin               = $bearsamppBins->getXlight();
+                $this->currentPort       = $bearsamppBins->getXlight()->getPort();
+                $this->cntProcessActions = 3;
             }
 
             $bearsamppWinbinder->reset();

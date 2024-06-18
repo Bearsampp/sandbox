@@ -49,7 +49,8 @@ class ActionCheckPort
                 $bearsamppBins->getMailhog()->checkPort($args[1], true);
             } elseif ($args[0] == $bearsamppBins->getMemcached()->getName()) {
                 $bearsamppBins->getMemcached()->checkPort($args[1], true);
-            }
+            } elseif ($args[0] == $bearsamppBins->getXlight()->getName()) {
+                $bearsamppBins->getXlight()->checkPort($args[1], true);
         }
     }
 }

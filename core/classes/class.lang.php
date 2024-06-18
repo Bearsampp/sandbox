@@ -132,6 +132,7 @@ class Lang
     const MYSQL = 'mysql';
     const NODEJS = 'nodejs';
     const POSTGRESQL = 'postgresql';
+    const XLIGHT = 'xlight';
 
     // Apps
     const PHPMYADMIN = 'phpmyadmin';
@@ -371,6 +372,7 @@ class Lang
     const HOMEPAGE_PHPINFO_TEXT = 'homepagePhpinfoText';
     const HOMEPAGE_APC_TEXT = 'homepageApcText';
     const HOMEPAGE_MAILHOG_TEXT = 'homepageMailhogText';
+    const HOMEPAGE_XLIGHT_TEXT = 'homepageXlightText';
     const HOMEPAGE_BACK_TEXT = 'homepageBackText';
 
     /**
@@ -492,6 +494,7 @@ class Lang
             self::MYSQL,
             self::NODEJS,
             self::POSTGRESQL,
+            self::XLIGHT,
 
             // Apps
             self::PHPMYADMIN,
@@ -730,6 +733,7 @@ class Lang
             self::HOMEPAGE_PHPINFO_TEXT,
             self::HOMEPAGE_APC_TEXT,
             self::HOMEPAGE_MAILHOG_TEXT,
+            self::HOMEPAGE_XLIGHT_TEXT,
             self::HOMEPAGE_BACK_TEXT,
         );
     }

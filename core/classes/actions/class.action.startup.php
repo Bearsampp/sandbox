@@ -668,6 +668,10 @@ class ActionStartup
                     $bin  = $bearsamppBins->getFilezilla();
                     $port = $bearsamppBins->getFilezilla()->getPort();
                 }
+                elseif ( $sName == BinXlight::SERVICE_NAME ) {
+                    $bin  = $bearsamppBins->getXlight();
+                    $port = $bearsamppBins->getXlight()->getPort();
+                }
 
                 $name = $bin->getName() . ' ' . $bin->getVersion() . ' (' . $service->getName() . ')';
 
