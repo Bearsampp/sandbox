@@ -24,6 +24,7 @@ class BinXlight extends Module
 
     private $exe;
     private $port;
+    private $SslPort;
 
     public function __construct($id, $type) {
         Util::logInitClass($this);
