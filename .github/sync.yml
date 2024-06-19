@@ -22,6 +22,6 @@ group:
       - source: sprites.dat
         dest: sprites.dat
       - source: bearsampp.conf
-        dest: /base/bearsampp.conf
+        dest: base/bearsampp.conf
     repos: |
         Bearsampp/Bearsampp
