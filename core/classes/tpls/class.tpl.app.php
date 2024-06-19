@@ -2,7 +2,7 @@
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: bear
+ * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
@@ -328,6 +328,7 @@ class TplApp
         $tplMailhog = TplAppMailhog::process();
         $tplMemcached = TplAppMemcached::process();
         $tplFilezilla = TplAppFilezilla::process();
+        $tplXlight = TplAppXlight::process();
 
         $tplLogs = TplAppLogs::process();
         $tplApps = TplAppApps::process();
@@ -357,6 +358,7 @@ class TplApp
             $tplPostgresql[self::SECTION_CALL] . PHP_EOL .
             $tplMailhog[self::SECTION_CALL] . PHP_EOL .
             $tplMemcached[self::SECTION_CALL] . PHP_EOL .
+            $tplXlight[self::SECTION_CALL] . PHP_EOL .
             $tplFilezilla[self::SECTION_CALL] . PHP_EOL .
 
             //// Stuff menus
@@ -383,6 +385,7 @@ class TplApp
             PHP_EOL . $tplMailhog[self::SECTION_CONTENT] .
             PHP_EOL . $tplMemcached[self::SECTION_CONTENT] .
             PHP_EOL . $tplFilezilla[self::SECTION_CONTENT] .
+            PHP_EOL . $tplXlight[self::SECTION_CONTENT] .
             PHP_EOL . $tplLogs[self::SECTION_CONTENT] .
             PHP_EOL . $tplTools[self::SECTION_CONTENT] .
             PHP_EOL . $tplApps[self::SECTION_CONTENT] .

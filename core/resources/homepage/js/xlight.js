@@ -6,7 +6,7 @@
  * Github: https://github.com/Bearsampp
  */
 
-async function getMailHogStatus() {
+async function getXlightStatus() {
   const url = AJAX_URL;
   let data = new URLSearchParams();
   const proc = 'xlight';
@@ -21,25 +21,25 @@ async function getMailHogStatus() {
   } else {
     let myajaxresponse = await response.text();
     let data;
-try {
-  data = JSON.parse(myajaxresponse);
-} catch (error) {
-  console.error('Failed to parse response:', error);
-}
+    try {
+      data = JSON.parse(myajaxresponse);
+    } catch (error) {
+      console.error('Failed to parse response:', error);
+    }
 
     let q = document.querySelector('.xlight-checkport');
     let ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.checkport);
+    q.insertAdjacentHTML('beforeend', data.checkport);
 
     q = document.querySelector('.xlight-version-list');
     ql = q.querySelector('.loader');
     ql.remove();
-    q.insertAdjacentHTML('beforeend',data.versions);
+    q.insertAdjacentHTML('beforeend', data.versions);
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('a[name=xlight]').name === 'xlight') {
-    getMailHogStatus();
+    getXlightStatus();
   }
 })

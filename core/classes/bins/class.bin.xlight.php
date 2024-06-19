@@ -10,24 +10,20 @@
 class BinXlight extends Module
 {
     const SERVICE_NAME = 'bearsamppxlight';
-    const SERVICE_PARAMS = '-hostname localhost -api-bind-addr 127.0.0.1:%d -ui-bind-addr 127.0.0.1:%d -smtp-bind-addr 127.0.0.1:%d -storage maildir -maildir-path "%s"';
+    const SERVICE_PARAMS = ' -startall';
 
     const ROOT_CFG_ENABLE = 'xlightEnable';
     const ROOT_CFG_VERSION = 'xlightVersion';
 
     const LOCAL_CFG_EXE = 'xlightExe';
-    const LOCAL_CFG_API_PORT = 'xlightApiPort';
-    const LOCAL_CFG_UI_PORT = 'xlightUiPort';
-    const LOCAL_CFG_SMTP_PORT = 'xlightSmtpPort';
+    const LOCAL_CFG_SSL_PORT = 'xlightSslPort';
+    const LOCAL_CFG_PORT = 'xlightPort';
 
     private $service;
     private $log;
 
     private $exe;
-    private $apiPort;
-    private $uiPort;
-    private $smtpPort;
-    private $mailPath;
+    private $port;
 
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -44,14 +40,12 @@ class BinXlight extends Module
 
         $this->enable = $this->enable && $bearsamppConfig->getRaw(self::ROOT_CFG_ENABLE);
         $this->service = new Win32Service(self::SERVICE_NAME);
-        $this->mailPath = $bearsamppRoot->getTmpPath() . '/xlight';
         $this->log = $bearsamppRoot->getLogsPath() . '/xlight.log';
 
         if ($this->bearsamppConfRaw !== false) {
             $this->exe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
-            $this->apiPort = intval($this->bearsamppConfRaw[self::LOCAL_CFG_API_PORT]);
-            $this->uiPort = intval($this->bearsamppConfRaw[self::LOCAL_CFG_UI_PORT]);
-            $this->smtpPort = intval($this->bearsamppConfRaw[self::LOCAL_CFG_SMTP_PORT]);
+            $this->SslPort = intval($this->bearsamppConfRaw[self::LOCAL_CFG_SSL_PORT]);
+            $this->port = intval($this->bearsamppConfRaw[self::LOCAL_CFG_PORT]);
         }
 
         if (!$this->enable) {
@@ -74,26 +68,22 @@ class BinXlight extends Module
             Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
             return;
         }
-        if (empty($this->apiPort)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_API_PORT, $this->apiPort));
+        if (empty($this->SslPort)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_SSL_PORT, $this->SslPort));
             return;
         }
-        if (empty($this->uiPort)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_UI_PORT, $this->uiPort));
-            return;
-        }
-        if (empty($this->smtpPort)) {
-            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_SMTP_PORT, $this->smtpPort));
+        if (empty($this->port)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_PORT, $this->port));
             return;
         }
 
         $nssm = new Nssm(self::SERVICE_NAME);
         $nssm->setDisplayName(APP_TITLE . ' ' . $this->getName());
         $nssm->setBinPath($this->exe);
-        $nssm->setParams(sprintf(self::SERVICE_PARAMS, $this->apiPort, $this->uiPort, $this->smtpPort, $this->mailPath));
+        $nssm->setParams(sprintf(self::SERVICE_PARAMS, $this->SslPort, $this->port));
         $nssm->setStart(Nssm::SERVICE_DEMAND_START);
-        $nssm->setStdout($bearsamppRoot->getLogsPath() . '/xlight.out.log');
-        $nssm->setStderr($bearsamppRoot->getLogsPath() . '/xlight.err.log');
+        $nssm->setStdout($bearsamppRoot->getLogsPath() . '/xlight.log');
+        $nssm->setStderr($bearsamppRoot->getLogsPath() . '/xlight.error.log');
 
         $this->service->setNssm($nssm);
     }
@@ -105,14 +95,11 @@ class BinXlight extends Module
             $content = preg_replace('|' . $key . ' = .*|', $key . ' = ' . '"' . $value.'"', $content);
             $this->bearsamppConfRaw[$key] = $value;
             switch ($key) {
-                case self::LOCAL_CFG_API_PORT:
-                    $this->apiPort = intval($value);
+                case self::LOCAL_CFG_SSL_PORT:
+                    $this->SslPort = intval($value);
                     break;
-                case self::LOCAL_CFG_UI_PORT:
-                    $this->uiPort = intval($value);
-                    break;
-                case self::LOCAL_CFG_SMTP_PORT:
-                    $this->smtpPort = intval($value);
+                case self::LOCAL_CFG_PORT:
+                    $this->port = intval($value);
                     break;
             }
         }
@@ -133,7 +120,7 @@ class BinXlight extends Module
                 Registry::HKEY_LOCAL_MACHINE,
                 'SYSTEM\CurrentControlSet\Services\\' . self::SERVICE_NAME . '\Parameters',
                 Nssm::INFO_APP_PARAMETERS,
-                sprintf(self::SERVICE_PARAMS, $this->apiPort, $this->uiPort, $this->smtpPort, $this->mailPath)
+                sprintf(self::SERVICE_PARAMS, $this->SslPort, $this->port)
             );
         }
 
@@ -179,7 +166,7 @@ class BinXlight extends Module
 
         $headers = Util::getHeaders('127.0.0.1', $port);
         if (!empty($headers)) {
-            if (Util::contains($headers[0], 'MailHog')) {
+            if (Util::contains($headers[0], 'Xlight')) {
                 Util::logDebug($this->getName() . ' port ' . $port . ' is used by: ' . str_replace('220 ', '', $headers[0]));
                 if ($showWindow) {
                     $bearsamppWinbinder->messageBoxInfo(
@@ -287,7 +274,7 @@ class BinXlight extends Module
 
         $this->reload();
         if ($this->enable) {
-            Util::installService($this, $this->smtpPort, null, $showWindow);
+            Util::installService($this, $this->port, null, $showWindow);
         } else {
             Util::removeService($this->service, $this->name);
         }
@@ -301,31 +288,20 @@ class BinXlight extends Module
         return $this->exe;
     }
 
-    public function getApiPort() {
-        return $this->apiPort;
-    }
-
-    public function setApiPort($apiPort) {
-        $this->replace(self::LOCAL_CFG_API_PORT, $apiPort);
-    }
-
     public function getUiPort() {
-        return $this->uiPort;
+        return $this->SslPort;
     }
 
-    public function setUiPort($uiPort) {
-        $this->replace(self::LOCAL_CFG_UI_PORT, $uiPort);
+    public function setSslPort($SslPort) {
+        $this->replace(self::LOCAL_CFG_SSL_PORT, $SslPort);
     }
 
-    public function getSmtpPort() {
-        return $this->smtpPort;
+    public function getPort() {
+        return $this->port;
     }
 
-    public function setSmtpPort($smtpPort) {
-        $this->replace(self::LOCAL_CFG_SMTP_PORT, $smtpPort);
+    public function setPort($port) {
+        $this->replace(self::LOCAL_CFG_PORT, $port);
     }
 
-    public function getMailPath() {
-        return $this->mailPath;
-    }
 }

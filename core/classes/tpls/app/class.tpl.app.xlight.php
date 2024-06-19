@@ -87,14 +87,6 @@ class TplAppXlight
             $resultItems   .= $tplService[TplApp::SECTION_CALL] . PHP_EOL;
             $resultActions .= $tplService[TplApp::SECTION_CONTENT] . PHP_EOL;
 
-            // Web page
-            $resultItems .= TplAestan::getItemExe(
-                    $bearsamppLang->getValue(Lang::XLIGHT),
-                    $bearsamppConfig->getBrowser(),
-                    TplAestan::GLYPH_WEB_PAGE,
-                    $bearsamppRoot->getLocalUrl() . ':' . $bearsamppBins->getXlight()->getUiPort()
-                ) . PHP_EOL;
-
             // Log
             $resultItems .= TplAestan::getItemNotepad($bearsamppLang->getValue(Lang::MENU_LOGS), $bearsamppBins->getXlight()->getLog()) . PHP_EOL;
         }
@@ -199,8 +191,8 @@ class TplAppXlight
             TplAestan::getItemActionServiceRestart($bearsamppBins->getXlight()->getService()->getName()) . PHP_EOL .
             TplAestan::getItemSeparator() . PHP_EOL .
             TplApp::getActionRun(
-                Action::CHECK_PORT, array($bearsamppBins->getXlight()->getName(), $bearsamppBins->getXlight()->getSmtpPort()),
-                array(sprintf($bearsamppLang->getValue(Lang::MENU_CHECK_PORT), $bearsamppBins->getXlight()->getSmtpPort()), TplAestan::GLYPH_LIGHT)
+                Action::CHECK_PORT, array($bearsamppBins->getXlight()->getName(), $bearsamppBins->getXlight()->getPort()),
+                array(sprintf($bearsamppLang->getValue(Lang::MENU_CHECK_PORT), $bearsamppBins->getXlight()->getPort()), TplAestan::GLYPH_LIGHT)
             ) . PHP_EOL .
             $tplChangePort[TplApp::SECTION_CALL] . PHP_EOL .
             TplAestan::getItemNotepad($bearsamppLang->getValue(Lang::MENU_UPDATE_ENV_PATH), $bearsamppRoot->getRootPath() . '/nssmEnvPaths.dat') . PHP_EOL;

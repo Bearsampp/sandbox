@@ -86,6 +86,8 @@ class ActionQuit
             }
             elseif ( $sName == BinFilezilla::SERVICE_NAME ) {
                 $name = $bearsamppBins->getFilezilla()->getName() . ' ' . $bearsamppBins->getFilezilla()->getVersion();
+            } elseif ($sName == BinXlight::SERVICE_NAME) {
+                $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();
             }
             elseif ( $sName == BinXlight::SERVICE_NAME ) {
                 $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();

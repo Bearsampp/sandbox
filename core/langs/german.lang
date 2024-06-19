@@ -1,5 +1,5 @@
 ; Autor: / DM8DR
-; 
+;
 
 ; General
 allRunningHint = "Alle Dienste laufen"
@@ -113,6 +113,7 @@ nodejs = "Node.js"
 pear = "PEAR"
 php = "PHP"
 postgresql = "PostgreSQL"
+xlight = "Xlight"
 
 ; Apps
 adminer = "Adminer"
@@ -353,4 +354,5 @@ homepagePostIssue = "Auf GitHub posten"
 homepagePhpinfoText = "phpinfo() anzeigen"
 homepageMailhogText = "Empfangene E-Mails anzeigen"
 homepageApcText = "APC Manager"
-homepageBackText = "Zurück zur Homepage"	  
+homepageBackText = "Zurück zur Homepage"
+homepageXlightText = "GUI anzeigen"
