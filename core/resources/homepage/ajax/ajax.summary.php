@@ -113,7 +113,7 @@ try {
      * Retrieves the port for Xlight, checks if Xlight is enabled and the port is open.
      * Sets the appropriate label based on the status and appends the version and download link to the result.
      */
-    $xlightPort  = $bearsamppBins->getXlight()->getSmtpPort();
+    $xlightPort  = $bearsamppBins->getXlight()->getPort();
     $xlightLabel = 'bg-secondary';
     if ( $bearsamppBins->getXlight()->isEnable() ) {
         $xlightLabel = 'bg-danger';
