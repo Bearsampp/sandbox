@@ -60,7 +60,8 @@ class TplAestan
     const GLYPH_GHOSTSCRIPT = 56;
     const GLYPH_NGROK = 57;
     const GLYPH_PWGEN = 58;
-    const GLYPH_XLIGHT = 47;
+    const GLYPH_XLIGHT = 59;
+    const GLYPH_REBUILD_INI = 60;
 
     // Service actions
     const SERVICE_START = 'startresume';
