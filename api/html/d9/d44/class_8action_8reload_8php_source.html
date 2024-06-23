@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -67,7 +75,7 @@ $(function() { codefold.init(1); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -103,69 +111,76 @@ $(function(){initNavTree('d9/d44/class_8action_8reload_8php_source.html','../../
 </div><!--header-->
 <div class="contents">
 <a href="../../d9/d44/class_8action_8reload_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../dd/dea/classActionReload.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../dd/dea/classActionReload.html">ActionReload</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">    5</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">__construct</a>($args)</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keywordflow">if</span> (file_exists(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec())) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        }</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="comment">// Start loading</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="comment">// Refresh hostname</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#a0500eefb2f750679ff001717c696088f">Config::CFG_HOSTNAME</a>, gethostname());</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="comment">// Refresh launch startup</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config::CFG_LAUNCH_STARTUP</a>, <a class="code hl_function" href="../../d6/de4/classUtil.html#a0cb46393fe9fd056f85f717c3c6f8564">Util::isLaunchStartup</a>() ? <a class="code hl_variable" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> : <a class="code hl_variable" href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config::DISABLED</a>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// Check browser</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        $currentBrowser = <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getBrowser();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">if</span> (empty($currentBrowser) || !file_exists($currentBrowser)) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#a8bb4fb4ce702eaee91d041cde6ee6812">Config::CFG_BROWSER</a>, <a class="code hl_function" href="../../dd/de9/classVbs.html#a3cd75e2b339fe9e96ab0bd481a35d612">Vbs::getDefaultBrowser</a>());</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// Process bearsampp.ini</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        file_put_contents(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getIniFilePath(), <a class="code hl_function" href="../../d6/de4/classUtil.html#a533dd700b5293f76a4939d0609daec4b">Util::utf8ToCp1252</a>(<a class="code hl_function" href="../../d1/d65/classTplApp.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplApp::process</a>()));</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">// Process ConsoleZ config</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_function" href="../../d6/d32/classTplConsoleZ.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplConsoleZ::process</a>();</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (c) 2021-2024 Bearsampp</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * License:  GNU General Public License version 3 or later; see LICENSE.txt</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Author: Bear</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Website: https://bearsampp.com</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Github: https://github.com/Bearsampp</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../dd/dea/classActionReload.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="../../dd/dea/classActionReload.html">ActionReload</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">   30</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">__construct</a>($args)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="comment">// Refresh PEAR version cache file</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPhp()-&gt;getPearVersion();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">// Rebuild alias homepage</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>-&gt;refreshAliasContent();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// Rebuild _commons.js</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>-&gt;refreshCommonsJsContent();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="comment">// If the executable file exists, return early.</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (file_exists(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getExec())) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="comment">// Start loading process</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// Refresh hostname in the configuration</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#a0500eefb2f750679ff001717c696088f">Config::CFG_HOSTNAME</a>, gethostname());</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="comment">// Refresh launch startup setting in the configuration</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config::CFG_LAUNCH_STARTUP</a>, <a class="code hl_function" href="../../d6/de4/classUtil.html#a0cb46393fe9fd056f85f717c3c6f8564">Util::isLaunchStartup</a>() ? <a class="code hl_variable" href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config::ENABLED</a> : <a class="code hl_variable" href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config::DISABLED</a>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">// Check and update the browser setting in the configuration</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        $currentBrowser = <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getBrowser();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">if</span> (empty($currentBrowser) || !file_exists($currentBrowser)) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#a8bb4fb4ce702eaee91d041cde6ee6812">Config::CFG_BROWSER</a>, <a class="code hl_function" href="../../dd/de9/classVbs.html#a3cd75e2b339fe9e96ab0bd481a35d612">Vbs::getDefaultBrowser</a>());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Process and update the bearsampp.ini file</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        file_put_contents(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getIniFilePath(), <a class="code hl_function" href="../../d6/de4/classUtil.html#a533dd700b5293f76a4939d0609daec4b">Util::utf8ToCp1252</a>(<a class="code hl_function" href="../../d1/d65/classTplApp.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplApp::process</a>()));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="comment">// Process and update the ConsoleZ configuration</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_function" href="../../d6/d32/classTplConsoleZ.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplConsoleZ::process</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// Refresh PEAR version cache file</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPhp()-&gt;getPearVersion();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// Rebuild alias homepage content</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>-&gt;refreshAliasContent();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// Rebuild _commons.js content</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>-&gt;refreshCommonsJsContent();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
 </div>
-<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassActionReload_html"><div class="ttname"><a href="../../dd/dea/classActionReload.html">ActionReload</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.action.reload.php:4</a></div></div>
-<div class="ttc" id="aclassActionReload_html_a57b60b4976a2c5d1e40f2d11aa72aa7d"><div class="ttname"><a href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">ActionReload\__construct</a></div><div class="ttdeci">__construct($args)</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.action.reload.php:5</a></div></div>
-<div class="ttc" id="aclassConfig_html_a0500eefb2f750679ff001717c696088f"><div class="ttname"><a href="../../d9/df9/classConfig.html#a0500eefb2f750679ff001717c696088f">Config\CFG_HOSTNAME</a></div><div class="ttdeci">const CFG_HOSTNAME</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00013">class.config.php:13</a></div></div>
-<div class="ttc" id="aclassConfig_html_a30966ddcb9e02419716b353279bda3ef"><div class="ttname"><a href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config\DISABLED</a></div><div class="ttdeci">const DISABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00019">class.config.php:19</a></div></div>
-<div class="ttc" id="aclassConfig_html_a8bb4fb4ce702eaee91d041cde6ee6812"><div class="ttname"><a href="../../d9/df9/classConfig.html#a8bb4fb4ce702eaee91d041cde6ee6812">Config\CFG_BROWSER</a></div><div class="ttdeci">const CFG_BROWSER</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00014">class.config.php:14</a></div></div>
-<div class="ttc" id="aclassConfig_html_abbf662c7051d76c1f949043b72ae7c84"><div class="ttname"><a href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00018">class.config.php:18</a></div></div>
-<div class="ttc" id="aclassConfig_html_aecf6a7f1f76e4bcbc5bb3a980308c4cc"><div class="ttname"><a href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config\CFG_LAUNCH_STARTUP</a></div><div class="ttdeci">const CFG_LAUNCH_STARTUP</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00016">class.config.php:16</a></div></div>
-<div class="ttc" id="aclassTplApp_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d1/d65/classTplApp.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplApp\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="../../d0/dec/class_8tpl_8app_8php_source.html#l00015">class.tpl.app.php:15</a></div></div>
-<div class="ttc" id="aclassTplConsoleZ_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d6/d32/classTplConsoleZ.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplConsoleZ\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de4/class_8tpl_8consolez_8php_source.html#l00030">class.tpl.consolez.php:30</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassActionReload_html"><div class="ttname"><a href="../../dd/dea/classActionReload.html">ActionReload</a></div><div class="ttdef"><b>Definition</b> <a href="#l00017">class.action.reload.php:18</a></div></div>
+<div class="ttc" id="aclassActionReload_html_a57b60b4976a2c5d1e40f2d11aa72aa7d"><div class="ttname"><a href="../../dd/dea/classActionReload.html#a57b60b4976a2c5d1e40f2d11aa72aa7d">ActionReload\__construct</a></div><div class="ttdeci">__construct($args)</div><div class="ttdef"><b>Definition</b> <a href="#l00030">class.action.reload.php:30</a></div></div>
+<div class="ttc" id="aclassConfig_html_a0500eefb2f750679ff001717c696088f"><div class="ttname"><a href="../../d9/df9/classConfig.html#a0500eefb2f750679ff001717c696088f">Config\CFG_HOSTNAME</a></div><div class="ttdeci">const CFG_HOSTNAME</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00026">class.config.php:26</a></div></div>
+<div class="ttc" id="aclassConfig_html_a30966ddcb9e02419716b353279bda3ef"><div class="ttname"><a href="../../d9/df9/classConfig.html#a30966ddcb9e02419716b353279bda3ef">Config\DISABLED</a></div><div class="ttdeci">const DISABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00032">class.config.php:32</a></div></div>
+<div class="ttc" id="aclassConfig_html_a8bb4fb4ce702eaee91d041cde6ee6812"><div class="ttname"><a href="../../d9/df9/classConfig.html#a8bb4fb4ce702eaee91d041cde6ee6812">Config\CFG_BROWSER</a></div><div class="ttdeci">const CFG_BROWSER</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00027">class.config.php:27</a></div></div>
+<div class="ttc" id="aclassConfig_html_abbf662c7051d76c1f949043b72ae7c84"><div class="ttname"><a href="../../d9/df9/classConfig.html#abbf662c7051d76c1f949043b72ae7c84">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00031">class.config.php:31</a></div></div>
+<div class="ttc" id="aclassConfig_html_aecf6a7f1f76e4bcbc5bb3a980308c4cc"><div class="ttname"><a href="../../d9/df9/classConfig.html#aecf6a7f1f76e4bcbc5bb3a980308c4cc">Config\CFG_LAUNCH_STARTUP</a></div><div class="ttdeci">const CFG_LAUNCH_STARTUP</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00029">class.config.php:29</a></div></div>
+<div class="ttc" id="aclassTplApp_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d1/d65/classTplApp.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplApp\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="../../d0/dec/class_8tpl_8app_8php_source.html#l00043">class.tpl.app.php:43</a></div></div>
+<div class="ttc" id="aclassTplConsoleZ_html_a5b3838bb1c8bd255aa6f2d5fc48f38d5"><div class="ttname"><a href="../../d6/d32/classTplConsoleZ.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5">TplConsoleZ\process</a></div><div class="ttdeci">static process()</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de4/class_8tpl_8consolez_8php_source.html#l00047">class.tpl.consolez.php:47</a></div></div>
 <div class="ttc" id="aclassUtil_html_a0cb46393fe9fd056f85f717c3c6f8564"><div class="ttname"><a href="../../d6/de4/classUtil.html#a0cb46393fe9fd056f85f717c3c6f8564">Util\isLaunchStartup</a></div><div class="ttdeci">static isLaunchStartup()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00597">class.util.php:597</a></div></div>
 <div class="ttc" id="aclassUtil_html_a533dd700b5293f76a4939d0609daec4b"><div class="ttname"><a href="../../d6/de4/classUtil.html#a533dd700b5293f76a4939d0609daec4b">Util\utf8ToCp1252</a></div><div class="ttdeci">static utf8ToCp1252($data)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00867">class.util.php:867</a></div></div>
 <div class="ttc" id="aclassUtil_html_a8a811986c436362a1539fc942af1b61b"><div class="ttname"><a href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util\startLoading</a></div><div class="ttdeci">static startLoading()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00886">class.util.php:886</a></div></div>
-<div class="ttc" id="aclassVbs_html_a3cd75e2b339fe9e96ab0bd481a35d612"><div class="ttname"><a href="../../dd/de9/classVbs.html#a3cd75e2b339fe9e96ab0bd481a35d612">Vbs\getDefaultBrowser</a></div><div class="ttdeci">static getDefaultBrowser()</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d62/class_8vbs_8php_source.html#l00054">class.vbs.php:54</a></div></div>
+<div class="ttc" id="aclassVbs_html_a3cd75e2b339fe9e96ab0bd481a35d612"><div class="ttname"><a href="../../dd/de9/classVbs.html#a3cd75e2b339fe9e96ab0bd481a35d612">Vbs\getDefaultBrowser</a></div><div class="ttdeci">static getDefaultBrowser()</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d62/class_8vbs_8php_source.html#l00080">class.vbs.php:80</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a565b46ef3900acf8acf4a0e06e824f77"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a></div><div class="ttdeci">global $bearsamppHomepage</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

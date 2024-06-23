@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -128,8 +136,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2cc79e8b485f4c328c10892c4349c397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00009">9</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../df/d6b/classActionLoading.html">ActionLoading</a></p>
+<p>This class handles the loading action, including the creation and management of a progress bar window. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00015">15</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -145,37 +155,46 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../df/d6b/classActionLoading.html">ActionLoading</a> constructor.</p>
+<p>Initializes the loading action, creates the progress bar window, and starts the main loop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>The arguments passed to the constructor. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00019">19</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>        $bearsamppWinbinder-&gt;reset();</div>
-<div class="line"><span class="lineno">   24</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;addLoadingPid(<a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps::getCurrentPid</a>());</div>
-<div class="line"><span class="lineno">   25</span> </div>
-<div class="line"><span class="lineno">   26</span>        <span class="comment">// Screen infos</span></div>
-<div class="line"><span class="lineno">   27</span>        $screenArea = explode(<span class="charliteral">&#39; &#39;</span>, $bearsamppWinbinder-&gt;getSystemInfo(<a class="code hl_variable" href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder::SYSINFO_WORKAREA</a>));</div>
-<div class="line"><span class="lineno">   28</span>        $screenWidth = intval($screenArea[2]);</div>
-<div class="line"><span class="lineno">   29</span>        $screenHeight = intval($screenArea[3]);</div>
-<div class="line"><span class="lineno">   30</span>        $xPos = $screenWidth - <a class="code hl_variable" href="#aa50b2b060781c21a0edcd4ddb9aba645">self::WINDOW_WIDTH</a>;</div>
-<div class="line"><span class="lineno">   31</span>        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span>        $this-&gt;wbWindow = $bearsamppWinbinder-&gt;createWindow(<span class="keyword">null</span>, ToolDialog, <span class="keyword">null</span>, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, <span class="keyword">null</span>);</div>
-<div class="line"><span class="lineno">   34</span> </div>
-<div class="line"><span class="lineno">   35</span>        $bearsamppWinbinder-&gt;createLabel($this-&gt;wbWindow, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a61ebf0dd3b2df158ce38893aad1ed20a">Lang::LOADING</a>), 42, 2, 295, <span class="keyword">null</span>, WBC_LEFT);</div>
-<div class="line"><span class="lineno">   36</span>        $this-&gt;wbProgressBar = $bearsamppWinbinder-&gt;createProgressBar($this-&gt;wbWindow, self::GAUGE, 42, 20, 290, 15);</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>        $bearsamppWinbinder-&gt;setHandler($this-&gt;wbWindow, $this, <span class="stringliteral">&#39;processLoading&#39;</span>, 10);</div>
-<div class="line"><span class="lineno">   39</span>        $bearsamppWinbinder-&gt;mainLoop();</div>
-<div class="line"><span class="lineno">   40</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassActionLoading_html_aa50b2b060781c21a0edcd4ddb9aba645"><div class="ttname"><a href="#aa50b2b060781c21a0edcd4ddb9aba645">ActionLoading\WINDOW_WIDTH</a></div><div class="ttdeci">const WINDOW_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00012">class.action.loading.php:12</a></div></div>
-<div class="ttc" id="aclassLang_html_a61ebf0dd3b2df158ce38893aad1ed20a"><div class="ttname"><a href="../../da/d49/classLang.html#a61ebf0dd3b2df158ce38893aad1ed20a">Lang\LOADING</a></div><div class="ttdeci">const LOADING</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00350">class.lang.php:350</a></div></div>
-<div class="ttc" id="aclassWin32Ps_html_a44f342eae2e8d799b8f54fc5adf1f1a9"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps\getCurrentPid</a></div><div class="ttdeci">static getCurrentPid()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00037">class.win32ps.php:37</a></div></div>
-<div class="ttc" id="aclassWinBinder_html_aad529b19b699cd1b210de28d5d3de9a9"><div class="ttname"><a href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder\SYSINFO_WORKAREA</a></div><div class="ttdeci">const SYSINFO_WORKAREA</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d9c/class_8winbinder_8php_source.html#l00044">class.winbinder.php:44</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00039">39</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   40</span>    {</div>
+<div class="line"><span class="lineno">   41</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>        $bearsamppWinbinder-&gt;reset();</div>
+<div class="line"><span class="lineno">   44</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;addLoadingPid(<a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps::getCurrentPid</a>());</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>        <span class="comment">// Screen information</span></div>
+<div class="line"><span class="lineno">   47</span>        $screenArea = explode(<span class="charliteral">&#39; &#39;</span>, $bearsamppWinbinder-&gt;getSystemInfo(<a class="code hl_variable" href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder::SYSINFO_WORKAREA</a>));</div>
+<div class="line"><span class="lineno">   48</span>        $screenWidth = intval($screenArea[2]);</div>
+<div class="line"><span class="lineno">   49</span>        $screenHeight = intval($screenArea[3]);</div>
+<div class="line"><span class="lineno">   50</span>        $xPos = $screenWidth - <a class="code hl_variable" href="#aa50b2b060781c21a0edcd4ddb9aba645">self::WINDOW_WIDTH</a>;</div>
+<div class="line"><span class="lineno">   51</span>        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        <span class="comment">// Create the window and progress bar</span></div>
+<div class="line"><span class="lineno">   54</span>        $this-&gt;wbWindow = $bearsamppWinbinder-&gt;createWindow(<span class="keyword">null</span>, ToolDialog, <span class="keyword">null</span>, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, <span class="keyword">null</span>);</div>
+<div class="line"><span class="lineno">   55</span>        $bearsamppWinbinder-&gt;createLabel($this-&gt;wbWindow, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a61ebf0dd3b2df158ce38893aad1ed20a">Lang::LOADING</a>), 42, 2, 295, <span class="keyword">null</span>, WBC_LEFT);</div>
+<div class="line"><span class="lineno">   56</span>        $this-&gt;wbProgressBar = $bearsamppWinbinder-&gt;createProgressBar($this-&gt;wbWindow, self::GAUGE, 42, 20, 290, 15);</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>        <span class="comment">// Set the handler and start the main loop</span></div>
+<div class="line"><span class="lineno">   59</span>        $bearsamppWinbinder-&gt;setHandler($this-&gt;wbWindow, $this, <span class="stringliteral">&#39;processLoading&#39;</span>, 10);</div>
+<div class="line"><span class="lineno">   60</span>        $bearsamppWinbinder-&gt;mainLoop();</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassActionLoading_html_aa50b2b060781c21a0edcd4ddb9aba645"><div class="ttname"><a href="#aa50b2b060781c21a0edcd4ddb9aba645">ActionLoading\WINDOW_WIDTH</a></div><div class="ttdeci">const WINDOW_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00018">class.action.loading.php:18</a></div></div>
+<div class="ttc" id="aclassLang_html_a61ebf0dd3b2df158ce38893aad1ed20a"><div class="ttname"><a href="../../da/d49/classLang.html#a61ebf0dd3b2df158ce38893aad1ed20a">Lang\LOADING</a></div><div class="ttdeci">const LOADING</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00360">class.lang.php:360</a></div></div>
+<div class="ttc" id="aclassWin32Ps_html_a44f342eae2e8d799b8f54fc5adf1f1a9"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps\getCurrentPid</a></div><div class="ttdeci">static getCurrentPid()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00067">class.win32ps.php:67</a></div></div>
+<div class="ttc" id="aclassWinBinder_html_aad529b19b699cd1b210de28d5d3de9a9"><div class="ttname"><a href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder\SYSINFO_WORKAREA</a></div><div class="ttdeci">const SYSINFO_WORKAREA</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d9c/class_8winbinder_8php_source.html#l00056">class.winbinder.php:56</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppLang</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00037">Win32Ps\getCurrentPid()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00350">Lang\LOADING</a>, <a class="el" href="../../d0/d9c/class_8winbinder_8php_source.html#l00044">WinBinder\SYSINFO_WORKAREA</a>, and <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00012">WINDOW_WIDTH</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00067">Win32Ps\getCurrentPid()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00360">Lang\LOADING</a>, <a class="el" href="../../d0/d9c/class_8winbinder_8php_source.html#l00056">WinBinder\SYSINFO_WORKAREA</a>, and <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00018">WINDOW_WIDTH</a>.</p>
 
 </div>
 </div>
@@ -194,23 +213,30 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Increments the progress bar by a specified number of steps.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$nb</td><td>The number of steps to increment the progress bar by. Default is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00042">42</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
-<div class="line"><span class="lineno">   44</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">for</span> ($i = 0; $i &lt; $nb; $i++) {</div>
-<div class="line"><span class="lineno">   47</span>            $bearsamppWinbinder-&gt;incrProgressBar($this-&gt;wbProgressBar);</div>
-<div class="line"><span class="lineno">   48</span>            $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>, 4, 2, 32, 32);</div>
-<div class="line"><span class="lineno">   49</span>        }</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        $bearsamppWinbinder-&gt;wait();</div>
-<div class="line"><span class="lineno">   52</span>        $bearsamppWinbinder-&gt;wait($this-&gt;wbWindow);</div>
-<div class="line"><span class="lineno">   53</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00068">68</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
+<div class="line"><span class="lineno">   70</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">for</span> ($i = 0; $i &lt; $nb; $i++) {</div>
+<div class="line"><span class="lineno">   73</span>            $bearsamppWinbinder-&gt;incrProgressBar($this-&gt;wbProgressBar);</div>
+<div class="line"><span class="lineno">   74</span>            $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>, 4, 2, 32, 32);</div>
+<div class="line"><span class="lineno">   75</span>        }</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>        $bearsamppWinbinder-&gt;wait();</div>
+<div class="line"><span class="lineno">   78</span>        $bearsamppWinbinder-&gt;wait($this-&gt;wbWindow);</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00055">processLoading()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00090">processLoading()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -254,33 +280,44 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Processes the loading action, including handling window events and updating the progress bar.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mixed</td><td class="paramname">$window</td><td>The window object. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>The ID of the event. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$ctrl</td><td>The control object. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$param1</td><td>The first parameter of the event. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$param2</td><td>The second parameter of the event. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00055">55</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   56</span>    {</div>
-<div class="line"><span class="lineno">   57</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">switch</span> ($id) {</div>
-<div class="line"><span class="lineno">   60</span>            <span class="keywordflow">case</span> IDCLOSE:</div>
-<div class="line"><span class="lineno">   61</span>                <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#ab3a27d691d2bbc2cd2c442d325d468d1">Win32Ps::kill</a>(<a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps::getCurrentPid</a>());</div>
-<div class="line"><span class="lineno">   62</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   63</span>        }</div>
-<div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><span class="lineno">   66</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;removeErrorHandling();</div>
-<div class="line"><span class="lineno">   67</span>            $bearsamppWinbinder-&gt;resetProgressBar($this-&gt;wbProgressBar);</div>
-<div class="line"><span class="lineno">   68</span>            usleep(100000);</div>
-<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">for</span> ($i = 0; $i &lt; <a class="code hl_variable" href="#a101418bea16da18d5eb8860a5a126084">self::GAUGE</a>; $i++) {</div>
-<div class="line"><span class="lineno">   70</span>                $this-&gt;<a class="code hl_function" href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">incrProgressBar</a>();</div>
-<div class="line"><span class="lineno">   71</span>                usleep(100000);</div>
-<div class="line"><span class="lineno">   72</span>            }</div>
-<div class="line"><span class="lineno">   73</span>        }</div>
-<div class="line"><span class="lineno">   74</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aclassActionLoading_html_a101418bea16da18d5eb8860a5a126084"><div class="ttname"><a href="#a101418bea16da18d5eb8860a5a126084">ActionLoading\GAUGE</a></div><div class="ttdeci">const GAUGE</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00014">class.action.loading.php:14</a></div></div>
-<div class="ttc" id="aclassActionLoading_html_ae4319a8e2bfb861acbe9bf5e5f64c9dd"><div class="ttname"><a href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">ActionLoading\incrProgressBar</a></div><div class="ttdeci">incrProgressBar($nb=1)</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00042">class.action.loading.php:42</a></div></div>
-<div class="ttc" id="aclassWin32Ps_html_ab3a27d691d2bbc2cd2c442d325d468d1"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#ab3a27d691d2bbc2cd2c442d325d468d1">Win32Ps\kill</a></div><div class="ttdeci">static kill($pid)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00101">class.win32ps.php:101</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00090">90</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
+<div class="line"><span class="lineno">   92</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">switch</span> ($id) {</div>
+<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">case</span> IDCLOSE:</div>
+<div class="line"><span class="lineno">   96</span>                <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#ab3a27d691d2bbc2cd2c442d325d468d1">Win32Ps::kill</a>(<a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9">Win32Ps::getCurrentPid</a>());</div>
+<div class="line"><span class="lineno">   97</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   98</span>        }</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><span class="lineno">  101</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;removeErrorHandling();</div>
+<div class="line"><span class="lineno">  102</span>            $bearsamppWinbinder-&gt;resetProgressBar($this-&gt;wbProgressBar);</div>
+<div class="line"><span class="lineno">  103</span>            usleep(100000);</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">for</span> ($i = 0; $i &lt; <a class="code hl_variable" href="#a101418bea16da18d5eb8860a5a126084">self::GAUGE</a>; $i++) {</div>
+<div class="line"><span class="lineno">  105</span>                $this-&gt;<a class="code hl_function" href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">incrProgressBar</a>();</div>
+<div class="line"><span class="lineno">  106</span>                usleep(100000);</div>
+<div class="line"><span class="lineno">  107</span>            }</div>
+<div class="line"><span class="lineno">  108</span>        }</div>
+<div class="line"><span class="lineno">  109</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aclassActionLoading_html_a101418bea16da18d5eb8860a5a126084"><div class="ttname"><a href="#a101418bea16da18d5eb8860a5a126084">ActionLoading\GAUGE</a></div><div class="ttdeci">const GAUGE</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00024">class.action.loading.php:24</a></div></div>
+<div class="ttc" id="aclassActionLoading_html_ae4319a8e2bfb861acbe9bf5e5f64c9dd"><div class="ttname"><a href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">ActionLoading\incrProgressBar</a></div><div class="ttdeci">incrProgressBar($nb=1)</div><div class="ttdef"><b>Definition</b> <a href="../../d2/de8/class_8action_8loading_8php_source.html#l00068">class.action.loading.php:68</a></div></div>
+<div class="ttc" id="aclassWin32Ps_html_ab3a27d691d2bbc2cd2c442d325d468d1"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#ab3a27d691d2bbc2cd2c442d325d468d1">Win32Ps\kill</a></div><div class="ttdeci">static kill($pid)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00164">class.win32ps.php:164</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00014">GAUGE</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00037">Win32Ps\getCurrentPid()</a>, <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00042">incrProgressBar()</a>, and <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00101">Win32Ps\kill()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00024">GAUGE</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00067">Win32Ps\getCurrentPid()</a>, <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00068">incrProgressBar()</a>, and <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00164">Win32Ps\kill()</a>.</p>
 
 </div>
 </div>
@@ -305,7 +342,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00017">17</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00030">30</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 
 </div>
 </div>
@@ -329,7 +366,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00016">16</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00027">27</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 
 </div>
 </div>
@@ -345,9 +382,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00014">14</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00024">24</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00055">processLoading()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00090">processLoading()</a>.</p>
 
 </div>
 </div>
@@ -363,7 +400,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00013">13</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00021">21</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 
 </div>
 </div>
@@ -379,9 +416,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00012">12</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00018">18</a> of file <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html">class.action.loading.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00019">__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de8/class_8action_8loading_8php_source.html#l00039">__construct()</a>.</p>
 
 </div>
 </div>

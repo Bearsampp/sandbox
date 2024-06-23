@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -136,8 +144,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2cc79e8b485f4c328c10892c4349c397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00010">10</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../d1/d56/classSplash.html">Splash</a></p>
+<p>This class represents a splash screen with a progress bar for the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It provides methods to initialize the splash screen, set loading text, and increment the progress bar. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00016">16</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a095c5d389db211932136b53f25f39685" name="a095c5d389db211932136b53f25f39685"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a095c5d389db211932136b53f25f39685">&#9670;&#160;</a></span>__construct()</h2>
@@ -153,13 +163,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../d1/d56/classSplash.html">Splash</a> constructor.</p>
+<p>Initializes the <a class="el" href="../../d1/d56/classSplash.html">Splash</a> class and sets the current image to null. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00023">23</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   24</span>    {</div>
-<div class="line"><span class="lineno">   25</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a2dfc13763d0173d6e71576fb4970c77e">Util::logInitClass</a>($this);</div>
-<div class="line"><span class="lineno">   26</span> </div>
-<div class="line"><span class="lineno">   27</span>        $this-&gt;currentImg = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   28</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00034">34</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a2dfc13763d0173d6e71576fb4970c77e">Util::logInitClass</a>($this);</div>
+<div class="line"><span class="lineno">   37</span>        $this-&gt;currentImg = <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   38</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a2dfc13763d0173d6e71576fb4970c77e"><div class="ttname"><a href="../../d6/de4/classUtil.html#a2dfc13763d0173d6e71576fb4970c77e">Util\logInitClass</a></div><div class="ttdeci">static logInitClass($classInstance)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00761">class.util.php:761</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00761">Util\logInitClass()</a>.</p>
@@ -181,14 +192,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retrieves the window object of the splash screen.</p>
+<dl class="section return"><dt>Returns</dt><dd>mixed The window object of the splash screen. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00071">71</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
-<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a2cc79e8b485f4c328c10892c4349c397">$this-&gt;wbWindow</a>;</div>
-<div class="line"><span class="lineno">   74</span>    }</div>
-<div class="ttc" id="aclassSplash_html_a2cc79e8b485f4c328c10892c4349c397"><div class="ttname"><a href="#a2cc79e8b485f4c328c10892c4349c397">Splash\$wbWindow</a></div><div class="ttdeci">$wbWindow</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00016">class.splash.php:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00103">103</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  104</span>    {</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a2cc79e8b485f4c328c10892c4349c397">$this-&gt;wbWindow</a>;</div>
+<div class="line"><span class="lineno">  106</span>    }</div>
+<div class="ttc" id="aclassSplash_html_a2cc79e8b485f4c328c10892c4349c397"><div class="ttname"><a href="#a2cc79e8b485f4c328c10892c4349c397">Splash\$wbWindow</a></div><div class="ttdeci">$wbWindow</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00022">class.splash.php:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00016">$wbWindow</a>.</p>
+<p class="reference">References <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00022">$wbWindow</a>.</p>
 
 </div>
 </div>
@@ -206,24 +219,31 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Increments the progress bar by a specified number of steps.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$nb</td><td>The number of steps to increment the progress bar by. Default is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00058">58</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   59</span>    {</div>
-<div class="line"><span class="lineno">   60</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">for</span> ($i = 0; $i &lt; $nb; $i++) {</div>
-<div class="line"><span class="lineno">   63</span>            $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>, 4, 4, 32, 32);</div>
-<div class="line"><span class="lineno">   64</span>            $bearsamppWinbinder-&gt;incrProgressBar($this-&gt;wbProgressBar);</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>        $bearsamppWinbinder-&gt;wait();</div>
-<div class="line"><span class="lineno">   68</span>        $bearsamppWinbinder-&gt;wait($this-&gt;wbWindow);</div>
-<div class="line"><span class="lineno">   69</span>    }</div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00085">85</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>    {</div>
+<div class="line"><span class="lineno">   87</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">for</span> ($i = 0; $i &lt; $nb; $i++) {</div>
+<div class="line"><span class="lineno">   90</span>            $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>, 4, 4, 32, 32);</div>
+<div class="line"><span class="lineno">   91</span>            $bearsamppWinbinder-&gt;incrProgressBar($this-&gt;wbProgressBar);</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        $bearsamppWinbinder-&gt;wait();</div>
+<div class="line"><span class="lineno">   95</span>        $bearsamppWinbinder-&gt;wait($this-&gt;wbWindow);</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00030">init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00047">init()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -257,32 +277,41 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initializes the splash screen.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$title</td><td>The title of the splash screen window. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$gauge</td><td>The maximum value for the progress bar. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$text</td><td>The initial loading text to display. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00030">30</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>    {</div>
-<div class="line"><span class="lineno">   32</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>        $bearsamppWinbinder-&gt;reset();</div>
-<div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>        $screenArea = explode(<span class="charliteral">&#39; &#39;</span>, $bearsamppWinbinder-&gt;getSystemInfo(<a class="code hl_variable" href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder::SYSINFO_WORKAREA</a>));</div>
-<div class="line"><span class="lineno">   37</span>        $screenWidth = intval($screenArea[2]);</div>
-<div class="line"><span class="lineno">   38</span>        $screenHeight = intval($screenArea[3]);</div>
-<div class="line"><span class="lineno">   39</span>        $xPos = $screenWidth - <a class="code hl_variable" href="#aa50b2b060781c21a0edcd4ddb9aba645">self::WINDOW_WIDTH</a>;</div>
-<div class="line"><span class="lineno">   40</span>        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>        $this-&gt;wbWindow = $bearsamppWinbinder-&gt;createWindow(<span class="keyword">null</span>, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, <span class="keyword">null</span>);</div>
-<div class="line"><span class="lineno">   43</span>        $this-&gt;wbImage = $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>);</div>
-<div class="line"><span class="lineno">   44</span>        $this-&gt;wbProgressBar = $bearsamppWinbinder-&gt;createProgressBar($this-&gt;wbWindow, $gauge + 1, 42, 24, 390, 15);</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>        $this-&gt;<a class="code hl_function" href="#a688c3125971aca6af7e3c7bc7dfaab2b">setTextLoading</a>($text);</div>
-<div class="line"><span class="lineno">   47</span>        $this-&gt;<a class="code hl_function" href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">incrProgressBar</a>();</div>
-<div class="line"><span class="lineno">   48</span>    }</div>
-<div class="ttc" id="aclassSplash_html_a688c3125971aca6af7e3c7bc7dfaab2b"><div class="ttname"><a href="#a688c3125971aca6af7e3c7bc7dfaab2b">Splash\setTextLoading</a></div><div class="ttdeci">setTextLoading($caption)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00050">class.splash.php:50</a></div></div>
-<div class="ttc" id="aclassSplash_html_aa50b2b060781c21a0edcd4ddb9aba645"><div class="ttname"><a href="#aa50b2b060781c21a0edcd4ddb9aba645">Splash\WINDOW_WIDTH</a></div><div class="ttdeci">const WINDOW_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00013">class.splash.php:13</a></div></div>
-<div class="ttc" id="aclassSplash_html_ae4319a8e2bfb861acbe9bf5e5f64c9dd"><div class="ttname"><a href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">Splash\incrProgressBar</a></div><div class="ttdeci">incrProgressBar($nb=1)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00058">class.splash.php:58</a></div></div>
-<div class="ttc" id="aclassWinBinder_html_aad529b19b699cd1b210de28d5d3de9a9"><div class="ttname"><a href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder\SYSINFO_WORKAREA</a></div><div class="ttdeci">const SYSINFO_WORKAREA</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d9c/class_8winbinder_8php_source.html#l00044">class.winbinder.php:44</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00047">47</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>        $bearsamppWinbinder-&gt;reset();</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        $screenArea = explode(<span class="charliteral">&#39; &#39;</span>, $bearsamppWinbinder-&gt;getSystemInfo(<a class="code hl_variable" href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder::SYSINFO_WORKAREA</a>));</div>
+<div class="line"><span class="lineno">   54</span>        $screenWidth = intval($screenArea[2]);</div>
+<div class="line"><span class="lineno">   55</span>        $screenHeight = intval($screenArea[3]);</div>
+<div class="line"><span class="lineno">   56</span>        $xPos = $screenWidth - <a class="code hl_variable" href="#aa50b2b060781c21a0edcd4ddb9aba645">self::WINDOW_WIDTH</a>;</div>
+<div class="line"><span class="lineno">   57</span>        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        $this-&gt;wbWindow = $bearsamppWinbinder-&gt;createWindow(<span class="keyword">null</span>, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, <span class="keyword">null</span>);</div>
+<div class="line"><span class="lineno">   60</span>        $this-&gt;wbImage = $bearsamppWinbinder-&gt;drawImage($this-&gt;wbWindow, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getResourcesPath() . <span class="stringliteral">&#39;/homepage/img/bearsampp.bmp&#39;</span>);</div>
+<div class="line"><span class="lineno">   61</span>        $this-&gt;wbProgressBar = $bearsamppWinbinder-&gt;createProgressBar($this-&gt;wbWindow, $gauge + 1, 42, 24, 390, 15);</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>        $this-&gt;<a class="code hl_function" href="#a688c3125971aca6af7e3c7bc7dfaab2b">setTextLoading</a>($text);</div>
+<div class="line"><span class="lineno">   64</span>        $this-&gt;<a class="code hl_function" href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">incrProgressBar</a>();</div>
+<div class="line"><span class="lineno">   65</span>    }</div>
+<div class="ttc" id="aclassSplash_html_a688c3125971aca6af7e3c7bc7dfaab2b"><div class="ttname"><a href="#a688c3125971aca6af7e3c7bc7dfaab2b">Splash\setTextLoading</a></div><div class="ttdeci">setTextLoading($caption)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00072">class.splash.php:72</a></div></div>
+<div class="ttc" id="aclassSplash_html_aa50b2b060781c21a0edcd4ddb9aba645"><div class="ttname"><a href="#aa50b2b060781c21a0edcd4ddb9aba645">Splash\WINDOW_WIDTH</a></div><div class="ttdeci">const WINDOW_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00019">class.splash.php:19</a></div></div>
+<div class="ttc" id="aclassSplash_html_ae4319a8e2bfb861acbe9bf5e5f64c9dd"><div class="ttname"><a href="#ae4319a8e2bfb861acbe9bf5e5f64c9dd">Splash\incrProgressBar</a></div><div class="ttdeci">incrProgressBar($nb=1)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00085">class.splash.php:85</a></div></div>
+<div class="ttc" id="aclassWinBinder_html_aad529b19b699cd1b210de28d5d3de9a9"><div class="ttname"><a href="../../db/da5/classWinBinder.html#aad529b19b699cd1b210de28d5d3de9a9">WinBinder\SYSINFO_WORKAREA</a></div><div class="ttdeci">const SYSINFO_WORKAREA</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d9c/class_8winbinder_8php_source.html#l00056">class.winbinder.php:56</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00058">incrProgressBar()</a>, <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00050">setTextLoading()</a>, <a class="el" href="../../d0/d9c/class_8winbinder_8php_source.html#l00044">WinBinder\SYSINFO_WORKAREA</a>, and <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00013">WINDOW_WIDTH</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00085">incrProgressBar()</a>, <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00072">setTextLoading()</a>, <a class="el" href="../../d0/d9c/class_8winbinder_8php_source.html#l00056">WinBinder\SYSINFO_WORKAREA</a>, and <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00019">WINDOW_WIDTH</a>.</p>
 
 </div>
 </div>
@@ -300,16 +329,23 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the loading text on the splash screen.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$caption</td><td>The loading text to display. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00050">50</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
-<div class="line"><span class="lineno">   52</span>        global $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>        $bearsamppWinbinder-&gt;drawRect($this-&gt;wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);</div>
-<div class="line"><span class="lineno">   55</span>        $this-&gt;wbTextLoading = $bearsamppWinbinder-&gt;drawText($this-&gt;wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);</div>
-<div class="line"><span class="lineno">   56</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00072">72</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   73</span>    {</div>
+<div class="line"><span class="lineno">   74</span>        global $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>        $bearsamppWinbinder-&gt;drawRect($this-&gt;wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);</div>
+<div class="line"><span class="lineno">   77</span>        $this-&gt;wbTextLoading = $bearsamppWinbinder-&gt;drawText($this-&gt;wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);</div>
+<div class="line"><span class="lineno">   78</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00030">init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00047">init()</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -341,7 +377,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00021">21</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00027">27</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
 </div>
 </div>
@@ -365,7 +401,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00017">17</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00023">23</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
 </div>
 </div>
@@ -389,7 +425,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00019">19</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00025">25</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
 </div>
 </div>
@@ -413,7 +449,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00018">18</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00024">24</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
 </div>
 </div>
@@ -437,9 +473,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00016">16</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00022">22</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00071">getWbWindow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00103">getWbWindow()</a>.</p>
 
 </div>
 </div>
@@ -455,7 +491,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00014">14</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00020">20</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
 </div>
 </div>
@@ -471,9 +507,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00013">13</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00019">19</a> of file <a class="el" href="../../d0/d44/class_8splash_8php_source.html">class.splash.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00030">init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d44/class_8splash_8php_source.html#l00047">init()</a>.</p>
 
 </div>
 </div>

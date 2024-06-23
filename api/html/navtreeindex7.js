@@ -1,5 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var NAVTREEINDEX7 =
 {
+"da/d49/classLang.html#a4eb30b84226e6c2b02fe2b33a6e0499e":[1,0,57,274],
+"da/d49/classLang.html#a4f4525b5669b14c5a60c5fe5c0bf86b9":[1,0,57,76],
 "da/d49/classLang.html#a5052354c923db99c265b575fe6e306e1":[1,0,57,90],
 "da/d49/classLang.html#a510e953da00b2517d0ad345741951112":[1,0,57,102],
 "da/d49/classLang.html#a519028bc365cfa251d18fb15aeac7620":[1,0,57,217],
@@ -247,7 +257,5 @@ var NAVTREEINDEX7 =
 "da/dbb/classBatch.html#a8eaf1384680cf871cbf27b360fd24868":[1,0,43,19],
 "da/dbb/classBatch.html#a9879dc655ec1eb634f8047379c5f81a9":[1,0,43,21],
 "da/dbb/classBatch.html#aa8268b8c76a2192b53246868f9d8676f":[1,0,43,14],
-"da/dbb/classBatch.html#ab770ebd59c187f7d798546c4171ca91e":[1,0,43,10],
-"da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119":[1,0,43,1],
-"da/dbb/classBatch.html#ac83f11b6ccf65f89682e269e9528a492":[1,0,43,9]
+"da/dbb/classBatch.html#ab770ebd59c187f7d798546c4171ca91e":[1,0,43,10]
 };

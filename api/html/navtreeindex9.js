@@ -1,5 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var NAVTREEINDEX9 =
 {
+"db/da5/classWinBinder.html#a46517726d1fadaad0b4b0e0b06bc9682":[1,0,109,48],
+"db/da5/classWinBinder.html#a46c32f5de3c080ffd22fae248b7f1189":[1,0,109,55],
 "db/da5/classWinBinder.html#a4975e04fec391935b646d47c46dbd18d":[1,0,109,2],
 "db/da5/classWinBinder.html#a4a20559544fdf4dcb457e258dc976cf8":[1,0,109,40],
 "db/da5/classWinBinder.html#a4af9fd3364925852c8539284b087da25":[1,0,109,72],
@@ -247,7 +257,5 @@ var NAVTREEINDEX9 =
 "dc/db3/classBinPhp.html#aa7f8d827577ec66c738d718de36c7edc":[1,0,51,89],
 "dc/db3/classBinPhp.html#aa9d53178819a1176eca987a2076b7791":[1,0,51,80],
 "dc/db3/classBinPhp.html#aaaf512f540666f7c6796494ed6689fb7":[1,0,51,1],
-"dc/db3/classBinPhp.html#aaeb41d3bd324826e75f3179440551c19":[1,0,51,28],
-"dc/db3/classBinPhp.html#aaf70b9ef333eeec878b26c9ba47d8af8":[1,0,51,46],
-"dc/db3/classBinPhp.html#ab1fd25f51584f344a0520a0e4d22b430":[1,0,51,43]
+"dc/db3/classBinPhp.html#aaeb41d3bd324826e75f3179440551c19":[1,0,51,28]
 };

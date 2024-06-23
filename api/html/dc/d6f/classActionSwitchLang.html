@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -106,8 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a57b60b4976a2c5d1e40f2d11aa72aa7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html#l00003">3</a> of file <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html">class.action.switchLang.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../dc/d6f/classActionSwitchLang.html">ActionSwitchLang</a></p>
+<p>This class handles the action of switching the language configuration for the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html#l00015">15</a> of file <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html">class.action.switchLang.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -123,19 +133,27 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../dc/d6f/classActionSwitchLang.html">ActionSwitchLang</a> constructor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>An array of arguments where the first element is expected to be the new language code. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html#l00005">5</a> of file <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html">class.action.switchLang.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">    8</span> </div>
-<div class="line"><span class="lineno">    9</span>        <span class="keywordflow">if</span> (isset($args[0]) &amp;&amp; !empty($args[0])) {</div>
-<div class="line"><span class="lineno">   10</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#ac7f86668c354c8d007806ce450401dc2">Config::CFG_LANG</a>, $args[0]);</div>
-<div class="line"><span class="lineno">   11</span>        }</div>
-<div class="line"><span class="lineno">   12</span>    }</div>
-<div class="ttc" id="aclassConfig_html_ac7f86668c354c8d007806ce450401dc2"><div class="ttname"><a href="../../d9/df9/classConfig.html#ac7f86668c354c8d007806ce450401dc2">Config\CFG_LANG</a></div><div class="ttdeci">const CFG_LANG</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00007">class.config.php:7</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html#l00022">22</a> of file <a class="el" href="../../db/d83/class_8action_8switchLang_8php_source.html">class.action.switchLang.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>    {</div>
+<div class="line"><span class="lineno">   24</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">   25</span> </div>
+<div class="line"><span class="lineno">   26</span>        <span class="comment">// Check if the first argument is set and not empty, then replace the language configuration.</span></div>
+<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">if</span> (isset($args[0]) &amp;&amp; !empty($args[0])) {</div>
+<div class="line"><span class="lineno">   28</span>            <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(<a class="code hl_variable" href="../../d9/df9/classConfig.html#ac7f86668c354c8d007806ce450401dc2">Config::CFG_LANG</a>, $args[0]);</div>
+<div class="line"><span class="lineno">   29</span>        }</div>
+<div class="line"><span class="lineno">   30</span>    }</div>
+<div class="ttc" id="aclassConfig_html_ac7f86668c354c8d007806ce450401dc2"><div class="ttname"><a href="../../d9/df9/classConfig.html#ac7f86668c354c8d007806ce450401dc2">Config\CFG_LANG</a></div><div class="ttdeci">const CFG_LANG</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00020">class.config.php:20</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, and <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00007">Config\CFG_LANG</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, and <a class="el" href="../../d4/d4d/class_8config_8php_source.html#l00020">Config\CFG_LANG</a>.</p>
 
 </div>
 </div>

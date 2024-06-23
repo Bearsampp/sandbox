@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -67,7 +75,7 @@ $(function() { codefold.init(1); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -103,74 +111,81 @@ $(function(){initNavTree('dd/d40/class_8autoloader_8php_source.html','../../'); 
 </div><!--header-->
 <div class="contents">
 <a href="../../dd/d40/class_8autoloader_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html">    3</a></span><span class="keyword">class </span><a class="code hl_class" href="../../df/d3d/classAutoloader.html">Autoloader</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">    5</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    }</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (c) 2021-2024 Bearsampp</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * License:  GNU General Public License version 3 or later; see LICENSE.txt</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Author: Bear</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Website: https://bearsampp.com</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Github: https://github.com/Bearsampp</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="../../df/d3d/classAutoloader.html">Autoloader</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">   23</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
 </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">    9</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">load</a>($class)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        $class = strtolower($class);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        $rootPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath();</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        $file = $rootPath . <span class="stringliteral">&#39;/classes/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;bin&#39;</span>)) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            $class = $class != <span class="stringliteral">&#39;bins&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/bins/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tool&#39;</span>)) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            $class = $class != <span class="stringliteral">&#39;tools&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 4, 0) : $class;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tools/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;app&#39;</span>)) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            $class = $class != <span class="stringliteral">&#39;apps&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/apps/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;action&#39;</span>)) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            $class = $class != <span class="stringliteral">&#39;action&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 6, 0) : $class;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/actions/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tplapp&#39;</span>) &amp;&amp; $class != <span class="stringliteral">&#39;tplapp&#39;</span>) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            $class = substr_replace(substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0), <span class="charliteral">&#39;.&#39;</span>, 7, 0);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tpls/app/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tpl&#39;</span>)) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            $class = $class != <span class="stringliteral">&#39;tpls&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tpls/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">   33</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">load</a>($class)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (!file_exists($file)) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        require_once $file;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        $class = strtolower($class);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        $rootPath = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getCorePath();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        $file = $rootPath . <span class="stringliteral">&#39;/classes/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;bin&#39;</span>)) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            $class = $class != <span class="stringliteral">&#39;bins&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/bins/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tool&#39;</span>)) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            $class = $class != <span class="stringliteral">&#39;tools&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 4, 0) : $class;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tools/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;app&#39;</span>)) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            $class = $class != <span class="stringliteral">&#39;apps&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/apps/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;action&#39;</span>)) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            $class = $class != <span class="stringliteral">&#39;action&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 6, 0) : $class;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/actions/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tplapp&#39;</span>) &amp;&amp; $class != <span class="stringliteral">&#39;tplapp&#39;</span>) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            $class = substr_replace(substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0), <span class="charliteral">&#39;.&#39;</span>, 7, 0);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tpls/app/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        } elseif (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($class, <span class="stringliteral">&#39;tpl&#39;</span>)) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            $class = $class != <span class="stringliteral">&#39;tpls&#39;</span> ? substr_replace($class, <span class="charliteral">&#39;.&#39;</span>, 3, 0) : $class;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            $file = $rootPath . <span class="stringliteral">&#39;/classes/tpls/class.&#39;</span> . $class . <span class="stringliteral">&#39;.php&#39;</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">if</span> (!file_exists($file)) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        require_once $file;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#acc294a6cc8e69743746820e3d15e3f78">   45</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">register</span>()</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> spl_autoload_register(array($this, <span class="stringliteral">&#39;load&#39;</span>));</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#acc294a6cc8e69743746820e3d15e3f78">   74</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">register</span>()</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> spl_autoload_register(array($this, <span class="stringliteral">&#39;load&#39;</span>));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">   50</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">unregister</a>()</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span> spl_autoload_unregister(array($this, <span class="stringliteral">&#39;load&#39;</span>));</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">   84</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">unregister</a>()</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">return</span> spl_autoload_unregister(array($this, <span class="stringliteral">&#39;load&#39;</span>));</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
 </div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aclassAutoloader_html"><div class="ttname"><a href="../../df/d3d/classAutoloader.html">Autoloader</a></div><div class="ttdef"><b>Definition</b> <a href="#l00003">class.autoloader.php:4</a></div></div>
-<div class="ttc" id="aclassAutoloader_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">Autoloader\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdef"><b>Definition</b> <a href="#l00005">class.autoloader.php:5</a></div></div>
-<div class="ttc" id="aclassAutoloader_html_a501cedfa611556a0100e024a0e102d9d"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">Autoloader\unregister</a></div><div class="ttdeci">unregister()</div><div class="ttdef"><b>Definition</b> <a href="#l00050">class.autoloader.php:50</a></div></div>
-<div class="ttc" id="aclassAutoloader_html_af916111cf2b46e3284dae3c9a28e5246"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">Autoloader\load</a></div><div class="ttdeci">load($class)</div><div class="ttdef"><b>Definition</b> <a href="#l00009">class.autoloader.php:9</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aclassAutoloader_html"><div class="ttname"><a href="../../df/d3d/classAutoloader.html">Autoloader</a></div><div class="ttdef"><b>Definition</b> <a href="#l00016">class.autoloader.php:17</a></div></div>
+<div class="ttc" id="aclassAutoloader_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685">Autoloader\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdef"><b>Definition</b> <a href="#l00023">class.autoloader.php:23</a></div></div>
+<div class="ttc" id="aclassAutoloader_html_a501cedfa611556a0100e024a0e102d9d"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d">Autoloader\unregister</a></div><div class="ttdeci">unregister()</div><div class="ttdef"><b>Definition</b> <a href="#l00084">class.autoloader.php:84</a></div></div>
+<div class="ttc" id="aclassAutoloader_html_af916111cf2b46e3284dae3c9a28e5246"><div class="ttname"><a href="../../df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246">Autoloader\load</a></div><div class="ttdeci">load($class)</div><div class="ttdef"><b>Definition</b> <a href="#l00033">class.autoloader.php:33</a></div></div>
 <div class="ttc" id="aclassUtil_html_a7b420042518bbb2ba19f81bd3e138d71"><div class="ttname"><a href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util\startWith</a></div><div class="ttdeci">static startWith($string, $search)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00148">class.util.php:148</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

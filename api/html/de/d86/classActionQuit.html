@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -122,8 +130,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a5cd658675838384af1a6b083c4a45b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00003">3</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../de/d86/classActionQuit.html">ActionQuit</a> Handles the quitting process of the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. Displays a splash screen and stops all services and processes. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00015">15</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -139,32 +148,40 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../de/d86/classActionQuit.html">ActionQuit</a> constructor. Initializes the quitting process, displays the splash screen, and sets up the main loop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>Command line arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00010">10</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, $bearsamppWinbinder, $arrayOfCurrents;</div>
-<div class="line"><span class="lineno">   13</span> </div>
-<div class="line"><span class="lineno">   14</span>        <span class="comment">// Start splash screen</span></div>
-<div class="line"><span class="lineno">   15</span>        $this-&gt;splash = <span class="keyword">new</span> <a class="code hl_class" href="../../d1/d56/classSplash.html">Splash</a>();</div>
-<div class="line"><span class="lineno">   16</span>        $this-&gt;splash-&gt;init(</div>
-<div class="line"><span class="lineno">   17</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a1cc596bf6994ded42040955f0d96b72e">Lang::QUIT</a>),</div>
-<div class="line"><span class="lineno">   18</span>            self::GAUGE_PROCESSES * count(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices()) + self::GAUGE_OTHERS,</div>
-<div class="line"><span class="lineno">   19</span>            sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aaae664497a31ea8c8fc4573cef50efb8">Lang::EXIT_LEAVING_TEXT</a>), <a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a> . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getAppVersion())</div>
-<div class="line"><span class="lineno">   20</span>        );</div>
-<div class="line"><span class="lineno">   21</span> </div>
-<div class="line"><span class="lineno">   22</span>        $bearsamppWinbinder-&gt;setHandler($this-&gt;splash-&gt;getWbWindow(), $this, <span class="stringliteral">&#39;processWindow&#39;</span>, 2000);</div>
-<div class="line"><span class="lineno">   23</span>        $bearsamppWinbinder-&gt;mainLoop();</div>
-<div class="line"><span class="lineno">   24</span>        $bearsamppWinbinder-&gt;reset();</div>
-<div class="line"><span class="lineno">   25</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassLang_html_a1cc596bf6994ded42040955f0d96b72e"><div class="ttname"><a href="../../da/d49/classLang.html#a1cc596bf6994ded42040955f0d96b72e">Lang\QUIT</a></div><div class="ttdeci">const QUIT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00053">class.lang.php:53</a></div></div>
-<div class="ttc" id="aclassLang_html_aaae664497a31ea8c8fc4573cef50efb8"><div class="ttname"><a href="../../da/d49/classLang.html#aaae664497a31ea8c8fc4573cef50efb8">Lang\EXIT_LEAVING_TEXT</a></div><div class="ttdeci">const EXIT_LEAVING_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00282">class.lang.php:282</a></div></div>
-<div class="ttc" id="aclassSplash_html"><div class="ttname"><a href="../../d1/d56/classSplash.html">Splash</a></div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00010">class.splash.php:11</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00034">34</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
+<div class="line"><span class="lineno">   36</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, $bearsamppWinbinder, $arrayOfCurrents;</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>        <span class="comment">// Start splash screen</span></div>
+<div class="line"><span class="lineno">   39</span>        $this-&gt;splash = <span class="keyword">new</span> <a class="code hl_class" href="../../d1/d56/classSplash.html">Splash</a>();</div>
+<div class="line"><span class="lineno">   40</span>        $this-&gt;splash-&gt;init(</div>
+<div class="line"><span class="lineno">   41</span>            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a1cc596bf6994ded42040955f0d96b72e">Lang::QUIT</a>),</div>
+<div class="line"><span class="lineno">   42</span>            self::GAUGE_PROCESSES * count(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices()) + self::GAUGE_OTHERS,</div>
+<div class="line"><span class="lineno">   43</span>            sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#aaae664497a31ea8c8fc4573cef50efb8">Lang::EXIT_LEAVING_TEXT</a>), <a class="code hl_variable" href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a> . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getAppVersion())</div>
+<div class="line"><span class="lineno">   44</span>        );</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>        <span class="comment">// Set handler for the splash screen window</span></div>
+<div class="line"><span class="lineno">   47</span>        $bearsamppWinbinder-&gt;setHandler($this-&gt;splash-&gt;getWbWindow(), $this, <span class="stringliteral">&#39;processWindow&#39;</span>, 2000);</div>
+<div class="line"><span class="lineno">   48</span>        $bearsamppWinbinder-&gt;mainLoop();</div>
+<div class="line"><span class="lineno">   49</span>        $bearsamppWinbinder-&gt;reset();</div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassLang_html_a1cc596bf6994ded42040955f0d96b72e"><div class="ttname"><a href="../../da/d49/classLang.html#a1cc596bf6994ded42040955f0d96b72e">Lang\QUIT</a></div><div class="ttdeci">const QUIT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00063">class.lang.php:63</a></div></div>
+<div class="ttc" id="aclassLang_html_aaae664497a31ea8c8fc4573cef50efb8"><div class="ttname"><a href="../../da/d49/classLang.html#aaae664497a31ea8c8fc4573cef50efb8">Lang\EXIT_LEAVING_TEXT</a></div><div class="ttdeci">const EXIT_LEAVING_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00292">class.lang.php:292</a></div></div>
+<div class="ttc" id="aclassSplash_html"><div class="ttname"><a href="../../d1/d56/classSplash.html">Splash</a></div><div class="ttdef"><b>Definition</b> <a href="../../d0/d44/class_8splash_8php_source.html#l00016">class.splash.php:17</a></div></div>
 <div class="ttc" id="aroot_8php_html_af76956a6aeffa052e53bbcc9b2afb3df"><div class="ttname"><a href="../../d7/de1/root_8php.html#af76956a6aeffa052e53bbcc9b2afb3df">APP_TITLE</a></div><div class="ttdeci">const APP_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../d7/de1/root_8php_source.html#l00012">root.php:12</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppLang</a>, <a class="el" href="../../d7/de1/root_8php_source.html#l00012">APP_TITLE</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00282">Lang\EXIT_LEAVING_TEXT</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00053">Lang\QUIT</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../d7/de1/root_8php_source.html#l00012">APP_TITLE</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00292">Lang\EXIT_LEAVING_TEXT</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00063">Lang\QUIT</a>.</p>
 
 </div>
 </div>
@@ -202,56 +219,70 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Processes the splash screen window events. Stops all services, deletes symlinks, and kills remaining processes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">resource</td><td class="paramname">$window</td><td>The window resource. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>The event ID. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$ctrl</td><td>The control ID. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$param1</td><td>Additional parameter 1. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$param2</td><td>Additional parameter 2. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00027">27</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>    {</div>
-<div class="line"><span class="lineno">   29</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices() as $sName =&gt; $service) {</div>
-<div class="line"><span class="lineno">   32</span>            $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">if</span> ($sName == <a class="code hl_variable" href="../../d6/d88/classBinMysql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMysql::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   34</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMysql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMysql()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   35</span>            } elseif ($sName == <a class="code hl_variable" href="../../db/df2/classBinMailhog.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMailhog::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   36</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMailhog()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMailhog()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   37</span>            } elseif ($sName == <a class="code hl_variable" href="../../d4/d8f/classBinMariadb.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMariadb::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   38</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMariadb()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMariadb()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   39</span>            } elseif ($sName == <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   40</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   41</span>            } elseif ($sName == <a class="code hl_variable" href="../../db/df2/classBinMailhog.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMailhog::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   42</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   43</span>            } elseif ($sName == <a class="code hl_variable" href="../../da/d10/classBinMemcached.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMemcached::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   44</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMemcached()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMemcached()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   45</span>            } elseif ($sName == <a class="code hl_variable" href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla::SERVICE_NAME</a>) {</div>
-<div class="line"><span class="lineno">   46</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getVersion();</div>
-<div class="line"><span class="lineno">   47</span>            }</div>
-<div class="line"><span class="lineno">   48</span>            $name .= <span class="stringliteral">&#39; (&#39;</span> . $service-&gt;getName() . <span class="charliteral">&#39;)&#39;</span>;</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>            $this-&gt;splash-&gt;incrProgressBar();</div>
-<div class="line"><span class="lineno">   51</span>            $this-&gt;splash-&gt;setTextLoading(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#ac3797481135af8e5f4979807530afcc4">Lang::EXIT_REMOVE_SERVICE_TEXT</a>), $name));</div>
-<div class="line"><span class="lineno">   52</span>            $service-&gt;delete();</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        <span class="comment">// Purge &quot;current&quot; symlinks</span></div>
-<div class="line"><span class="lineno">   56</span>        <a class="code hl_function" href="../../de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41">Symlinks::deleteCurrentSymlinks</a>();</div>
-<div class="line"><span class="lineno">   57</span> </div>
-<div class="line"><span class="lineno">   58</span>        $this-&gt;splash-&gt;incrProgressBar();</div>
-<div class="line"><span class="lineno">   59</span>        $this-&gt;splash-&gt;setTextLoading(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#af92711a8ccf708d7d9f40a4ea94f74eb">Lang::EXIT_STOP_OTHER_PROCESS_TEXT</a>));</div>
-<div class="line"><span class="lineno">   60</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>(<span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>        $bearsamppWinbinder-&gt;destroyWindow($window);</div>
-<div class="line"><span class="lineno">   63</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00062">62</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
+<div class="line"><span class="lineno">   64</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>        <span class="comment">// Stop all services</span></div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices() as $sName =&gt; $service) {</div>
+<div class="line"><span class="lineno">   68</span>            $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">if</span> ($sName == <a class="code hl_variable" href="../../d6/d88/classBinMysql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMysql::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   70</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMysql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMysql()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   71</span>            } elseif ($sName == <a class="code hl_variable" href="../../db/df2/classBinMailhog.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMailhog::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   72</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMailhog()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMailhog()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   73</span>            } elseif ($sName == <a class="code hl_variable" href="../../d4/d8f/classBinMariadb.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMariadb::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   74</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMariadb()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMariadb()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   75</span>            } elseif ($sName == <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   76</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   77</span>            } elseif ($sName == <a class="code hl_variable" href="../../db/df2/classBinMailhog.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMailhog::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   78</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   79</span>            } elseif ($sName == <a class="code hl_variable" href="../../da/d10/classBinMemcached.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMemcached::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   80</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMemcached()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getMemcached()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   81</span>            } elseif ($sName == <a class="code hl_variable" href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla::SERVICE_NAME</a>) {</div>
+<div class="line"><span class="lineno">   82</span>                $name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getVersion();</div>
+<div class="line"><span class="lineno">   83</span>            }</div>
+<div class="line"><span class="lineno">   84</span>            $name .= <span class="stringliteral">&#39; (&#39;</span> . $service-&gt;getName() . <span class="charliteral">&#39;)&#39;</span>;</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>            $this-&gt;splash-&gt;incrProgressBar();</div>
+<div class="line"><span class="lineno">   87</span>            $this-&gt;splash-&gt;setTextLoading(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#ac3797481135af8e5f4979807530afcc4">Lang::EXIT_REMOVE_SERVICE_TEXT</a>), $name));</div>
+<div class="line"><span class="lineno">   88</span>            $service-&gt;delete();</div>
+<div class="line"><span class="lineno">   89</span>        }</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment">// Purge &quot;current&quot; symlinks</span></div>
+<div class="line"><span class="lineno">   92</span>        <a class="code hl_function" href="../../de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41">Symlinks::deleteCurrentSymlinks</a>();</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        <span class="comment">// Stop other processes</span></div>
+<div class="line"><span class="lineno">   95</span>        $this-&gt;splash-&gt;incrProgressBar();</div>
+<div class="line"><span class="lineno">   96</span>        $this-&gt;splash-&gt;setTextLoading(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#af92711a8ccf708d7d9f40a4ea94f74eb">Lang::EXIT_STOP_OTHER_PROCESS_TEXT</a>));</div>
+<div class="line"><span class="lineno">   97</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>        <span class="comment">// Destroy the splash screen window</span></div>
+<div class="line"><span class="lineno">  100</span>        $bearsamppWinbinder-&gt;destroyWindow($window);</div>
+<div class="line"><span class="lineno">  101</span>    }</div>
 <div class="ttc" id="aclassBinFilezilla_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">class.bin.filezilla.php:5</a></div></div>
 <div class="ttc" id="aclassBinMailhog_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../db/df2/classBinMailhog.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMailhog\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00005">class.bin.mailhog.php:5</a></div></div>
 <div class="ttc" id="aclassBinMariadb_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../d4/d8f/classBinMariadb.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMariadb\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00005">class.bin.mariadb.php:5</a></div></div>
 <div class="ttc" id="aclassBinMemcached_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../da/d10/classBinMemcached.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMemcached\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00005">class.bin.memcached.php:5</a></div></div>
 <div class="ttc" id="aclassBinMysql_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../d6/d88/classBinMysql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinMysql\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00005">class.bin.mysql.php:5</a></div></div>
 <div class="ttc" id="aclassBinPostgresql_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">class.bin.postgresql.php:5</a></div></div>
-<div class="ttc" id="aclassLang_html_ac3797481135af8e5f4979807530afcc4"><div class="ttname"><a href="../../da/d49/classLang.html#ac3797481135af8e5f4979807530afcc4">Lang\EXIT_REMOVE_SERVICE_TEXT</a></div><div class="ttdeci">const EXIT_REMOVE_SERVICE_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00283">class.lang.php:283</a></div></div>
-<div class="ttc" id="aclassLang_html_af92711a8ccf708d7d9f40a4ea94f74eb"><div class="ttname"><a href="../../da/d49/classLang.html#af92711a8ccf708d7d9f40a4ea94f74eb">Lang\EXIT_STOP_OTHER_PROCESS_TEXT</a></div><div class="ttdeci">const EXIT_STOP_OTHER_PROCESS_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00284">class.lang.php:284</a></div></div>
-<div class="ttc" id="aclassSymlinks_html_a481e5161d8483e116769511960d5ac41"><div class="ttname"><a href="../../de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41">Symlinks\deleteCurrentSymlinks</a></div><div class="ttdeci">static deleteCurrentSymlinks()</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d7a/class_8symlinks_8php_source.html#l00035">class.symlinks.php:35</a></div></div>
-<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00109">class.win32ps.php:109</a></div></div>
+<div class="ttc" id="aclassLang_html_ac3797481135af8e5f4979807530afcc4"><div class="ttname"><a href="../../da/d49/classLang.html#ac3797481135af8e5f4979807530afcc4">Lang\EXIT_REMOVE_SERVICE_TEXT</a></div><div class="ttdeci">const EXIT_REMOVE_SERVICE_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00293">class.lang.php:293</a></div></div>
+<div class="ttc" id="aclassLang_html_af92711a8ccf708d7d9f40a4ea94f74eb"><div class="ttname"><a href="../../da/d49/classLang.html#af92711a8ccf708d7d9f40a4ea94f74eb">Lang\EXIT_STOP_OTHER_PROCESS_TEXT</a></div><div class="ttdeci">const EXIT_STOP_OTHER_PROCESS_TEXT</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00294">class.lang.php:294</a></div></div>
+<div class="ttc" id="aclassSymlinks_html_a481e5161d8483e116769511960d5ac41"><div class="ttname"><a href="../../de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41">Symlinks\deleteCurrentSymlinks</a></div><div class="ttdeci">static deleteCurrentSymlinks()</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d7a/class_8symlinks_8php_source.html#l00041">class.symlinks.php:41</a></div></div>
+<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00178">class.win32ps.php:178</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppLang</a>, <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00035">Symlinks\deleteCurrentSymlinks()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00283">Lang\EXIT_REMOVE_SERVICE_TEXT</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00284">Lang\EXIT_STOP_OTHER_PROCESS_TEXT</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00109">Win32Ps\killBins()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">BinFilezilla\SERVICE_NAME</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00005">BinMailhog\SERVICE_NAME</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00005">BinMariadb\SERVICE_NAME</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00005">BinMemcached\SERVICE_NAME</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00005">BinMysql\SERVICE_NAME</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00041">Symlinks\deleteCurrentSymlinks()</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00293">Lang\EXIT_REMOVE_SERVICE_TEXT</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00294">Lang\EXIT_STOP_OTHER_PROCESS_TEXT</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00178">Win32Ps\killBins()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">BinFilezilla\SERVICE_NAME</a>, <a class="el" href="../../db/d05/class_8bin_8mailhog_8php_source.html#l00005">BinMailhog\SERVICE_NAME</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00005">BinMariadb\SERVICE_NAME</a>, <a class="el" href="../../d7/d85/class_8bin_8memcached_8php_source.html#l00005">BinMemcached\SERVICE_NAME</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00005">BinMysql\SERVICE_NAME</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>.</p>
 
 </div>
 </div>
@@ -276,7 +307,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00005">5</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00020">20</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
 
 </div>
 </div>
@@ -292,7 +323,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00008">8</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00026">26</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
 
 </div>
 </div>
@@ -307,8 +338,9 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gauge values for progress bar increments. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00007">7</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html#l00025">25</a> of file <a class="el" href="../../d6/dd4/class_8action_8quit_8php_source.html">class.action.quit.php</a>.</p>
 
 </div>
 </div>

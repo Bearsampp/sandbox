@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -106,8 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a57b60b4976a2c5d1e40f2d11aa72aa7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html#l00003">3</a> of file <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html">class.action.manualRestart.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../d0/d9f/classActionManualRestart.html">ActionManualRestart</a></p>
+<p>This class handles the manual restart of services in the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It stops all running services, kills all related processes, and sets the application to restart. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html#l00017">17</a> of file <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html">class.action.manualRestart.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a57b60b4976a2c5d1e40f2d11aa72aa7d" name="a57b60b4976a2c5d1e40f2d11aa72aa7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57b60b4976a2c5d1e40f2d11aa72aa7d">&#9670;&#160;</a></span>__construct()</h2>
@@ -123,30 +133,50 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="../../d0/d9f/classActionManualRestart.html">ActionManualRestart</a> constructor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$args</td><td>Arguments passed to the constructor.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This constructor initializes the manual restart process by performing the following steps:</p><ol type="1">
+<li>Starts the loading process.</li>
+<li>Deletes all services managed by <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a>.</li>
+<li>Kills all related processes.</li>
+<li>Sets the application to restart.</li>
+<li>Stops the loading process. </li>
+</ol>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html#l00005">5</a> of file <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html">class.action.manualRestart.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">    8</span> </div>
-<div class="line"><span class="lineno">    9</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
-<div class="line"><span class="lineno">   10</span> </div>
-<div class="line"><span class="lineno">   11</span>        <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices() as $sName =&gt; $service) {</div>
-<div class="line"><span class="lineno">   12</span>            $service-&gt;delete();</div>
-<div class="line"><span class="lineno">   13</span>        }</div>
-<div class="line"><span class="lineno">   14</span> </div>
-<div class="line"><span class="lineno">   15</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>(<span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">   16</span> </div>
-<div class="line"><span class="lineno">   17</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;setExec(<a class="code hl_variable" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec::RESTART</a>);</div>
-<div class="line"><span class="lineno">   18</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#abe4123ae7ba5319d706045cebcc8defa">Util::stopLoading</a>();</div>
-<div class="line"><span class="lineno">   19</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassActionExec_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d26/class_8action_8exec_8php_source.html#l00006">class.action.exec.php:6</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html#l00031">31</a> of file <a class="el" href="../../d6/d02/class_8action_8manualRestart_8php_source.html">class.action.manualRestart.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>    {</div>
+<div class="line"><span class="lineno">   33</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>        <span class="comment">// Start the loading process</span></div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util::startLoading</a>();</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>        <span class="comment">// Delete all services managed by Bearsampp</span></div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getServices() as $sName =&gt; $service) {</div>
+<div class="line"><span class="lineno">   40</span>            $service-&gt;delete();</div>
+<div class="line"><span class="lineno">   41</span>        }</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>        <span class="comment">// Kill all related processes</span></div>
+<div class="line"><span class="lineno">   44</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>        <span class="comment">// Set the application to restart</span></div>
+<div class="line"><span class="lineno">   47</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;setExec(<a class="code hl_variable" href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec::RESTART</a>);</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        <span class="comment">// Stop the loading process</span></div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#abe4123ae7ba5319d706045cebcc8defa">Util::stopLoading</a>();</div>
+<div class="line"><span class="lineno">   51</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassActionExec_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d8f/classActionExec.html#aa608af4e70cb2fde5cbd5a4614d4dd50">ActionExec\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d26/class_8action_8exec_8php_source.html#l00027">class.action.exec.php:27</a></div></div>
 <div class="ttc" id="aclassUtil_html_a8a811986c436362a1539fc942af1b61b"><div class="ttname"><a href="../../d6/de4/classUtil.html#a8a811986c436362a1539fc942af1b61b">Util\startLoading</a></div><div class="ttdeci">static startLoading()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00886">class.util.php:886</a></div></div>
 <div class="ttc" id="aclassUtil_html_abe4123ae7ba5319d706045cebcc8defa"><div class="ttname"><a href="../../d6/de4/classUtil.html#abe4123ae7ba5319d706045cebcc8defa">Util\stopLoading</a></div><div class="ttdeci">static stopLoading()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00895">class.util.php:895</a></div></div>
-<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00109">class.win32ps.php:109</a></div></div>
+<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00178">class.win32ps.php:178</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00109">Win32Ps\killBins()</a>, <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00006">ActionExec\RESTART</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00886">Util\startLoading()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00895">Util\stopLoading()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00178">Win32Ps\killBins()</a>, <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00027">ActionExec\RESTART</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00886">Util\startLoading()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00895">Util\stopLoading()</a>.</p>
 
 </div>
 </div>

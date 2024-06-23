@@ -1,5 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var NAVTREEINDEX11 =
 {
+"de/d54/classBins.html#a58906a4fabf3340333e925ee8f4e9bf8":[1,0,53,11],
+"de/d54/classBins.html#a60fbc654bcf100298baae46b89018b89":[1,0,53,7],
 "de/d54/classBins.html#a67321ed3a1a8e6e13ff486c4cc385eb4":[1,0,53,2],
 "de/d54/classBins.html#a7b2a44f6ec87a111c1bc3cc911cd15f5":[1,0,53,13],
 "de/d54/classBins.html#a7c2fa463c47dd1a79132c396af1c7627":[1,0,53,17],
@@ -20,8 +30,8 @@ var NAVTREEINDEX11 =
 "de/d86/classActionQuit.html#afc12986dbf227fa5e106f23dc3092b03":[1,0,23,3],
 "de/dae/ajax_8php.html":[2,0,0,0,0,2,0,1],
 "de/dae/ajax_8php.html#a2d5f75233d615d7905386776f5b3eb0c":[2,0,0,0,0,2,0,1,2],
+"de/dae/ajax_8php.html#a32b457dbee9a81adcb4458839a9fc115":[2,0,0,0,0,2,0,1,1],
 "de/dae/ajax_8php.html#a81074f17c3e09da822dc9063d7711243":[2,0,0,0,0,2,0,1,0],
-"de/dae/ajax_8php.html#ab24ab70dec96840a106679de009f178c":[2,0,0,0,0,2,0,1,1],
 "de/dae/ajax_8php_source.html":[2,0,0,0,0,2,0,1],
 "de/db2/classTools.html":[1,0,74],
 "de/db2/classTools.html#a095c5d389db211932136b53f25f39685":[1,0,74,0],
@@ -247,7 +257,5 @@ var NAVTREEINDEX11 =
 "dir_a179f0d0b58d9716897c7c681415ace7.html":[2,0,0,0,0,1,0,1],
 "dir_a3df363a4f70261858f20f2aef9e69f7.html":[2,0,0,0,0],
 "dir_ccdffaff8f99dda21aee566f25957f47.html":[2,0,0,0,0,1,0],
-"dir_cf2fc36f8b20c127a0d2f4160bea902c.html":[2,0,0,0],
-"dir_f6364f14f455e871551c64e8efbec812.html":[2,0,0,0,0,2,0],
-"dir_fcc88c569f317c7829deff31294b9893.html":[2,0,0,0,0,0,4,0]
+"dir_cf2fc36f8b20c127a0d2f4160bea902c.html":[2,0,0,0]
 };

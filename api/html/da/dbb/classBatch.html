@@ -1,3 +1,11 @@
+<!--
+  ~ Copyright (c) 2021-2024 Bearsampp
+  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~ Author: Bear
+  ~ Website: https://bearsampp.com
+  ~ Github: https://github.com/Bearsampp
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
@@ -30,7 +38,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.13</span>
+   <div id="projectname">Bearsampp<span id="projectnumber">&#160;2024.6.18</span>
    </div>
   </td>
  </tr>
@@ -62,7 +70,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -166,8 +174,21 @@ Static Private Member Functions</h2></td></tr>
 <tr class="separator:a1e3715665ded5e5e73e20916e669da29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00003">3</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../da/dbb/classBatch.html">Batch</a></p>
+<p>This class provides various utility functions for managing processes, services, and environment variables within the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It includes methods for finding executables by process ID, checking which process is using a specific port, exiting and restarting the application, managing services, and executing batch scripts.</p>
+<p>Key functionalities include:</p><ul>
+<li>Finding executables by process ID.</li>
+<li>Checking which process is using a specific port.</li>
+<li>Exiting and restarting the application.</li>
+<li>Managing services (installing, uninstalling, setting descriptions, etc.).</li>
+<li>Executing batch scripts with optional output capture and timeout.</li>
+<li>Refreshing environment variables.</li>
+<li>Creating and removing symbolic links.</li>
+<li>Retrieving operating system information.</li>
+</ul>
+<p>The class utilizes global variables to access application settings and paths, and logs operations for debugging purposes. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00030">30</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a095c5d389db211932136b53f25f39685" name="a095c5d389db211932136b53f25f39685"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a095c5d389db211932136b53f25f39685">&#9670;&#160;</a></span>__construct()</h2>
@@ -183,10 +204,11 @@ Static Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Constructor for the <a class="el" href="../../da/dbb/classBatch.html">Batch</a> class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00008">8</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    9</span>    {</div>
-<div class="line"><span class="lineno">   10</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00038">38</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -217,21 +239,29 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates a symbolic link.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$src</td><td>The source path. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$dest</td><td>The destination path. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00174">174</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  175</span>    {</div>
-<div class="line"><span class="lineno">  176</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  177</span>        $src = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($src);</div>
-<div class="line"><span class="lineno">  178</span>        $dest = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($dest);</div>
-<div class="line"><span class="lineno">  179</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;createSymlink&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getLnExe() . <span class="stringliteral">&#39;&quot; --absolute --symbolic --traditional --1023safe &quot;&#39;</span> . $src . <span class="stringliteral">&#39;&quot; &#39;</span> . <span class="charliteral">&#39;&quot;&#39;</span> . $dest . <span class="charliteral">&#39;&quot;&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  180</span>    }</div>
-<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">ajax.latestversion.php:25</a></div></div>
-<div class="ttc" id="aclassBatch_html_aee2bd91e3b020c299c87d3b9457421cc"><div class="ttname"><a href="#aee2bd91e3b020c299c87d3b9457421cc">Batch\exec</a></div><div class="ttdeci">static exec($basename, $content, $timeout=true, $catchOutput=true, $standalone=false, $silent=true, $rebuild=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00223">class.batch.php:223</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00273">273</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  274</span>    {</div>
+<div class="line"><span class="lineno">  275</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  276</span>        $src = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($src);</div>
+<div class="line"><span class="lineno">  277</span>        $dest = <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($dest);</div>
+<div class="line"><span class="lineno">  278</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;createSymlink&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getLnExe() . <span class="stringliteral">&#39;&quot; --absolute --symbolic --traditional --1023safe &quot;&#39;</span> . $src . <span class="stringliteral">&#39;&quot; &#39;</span> . <span class="charliteral">&#39;&quot;&#39;</span> . $dest . <span class="charliteral">&#39;&quot;&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  279</span>    }</div>
+<div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
+<div class="ttc" id="aclassBatch_html_aee2bd91e3b020c299c87d3b9457421cc"><div class="ttname"><a href="#aee2bd91e3b020c299c87d3b9457421cc">Batch\exec</a></div><div class="ttdeci">static exec($basename, $content, $timeout=true, $catchOutput=true, $standalone=false, $silent=true, $rebuild=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00370">class.batch.php:370</a></div></div>
 <div class="ttc" id="aclassUtil_html_a929ef14f32f27fe757b324a9791c1e92"><div class="ttname"><a href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util\formatWindowsPath</a></div><div class="ttdeci">static formatWindowsPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00832">class.util.php:832</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00063">Module\createSymlink()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00088">Module\createSymlink()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -293,87 +323,101 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Executes a batch script.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$basename</td><td>The base name for the script and result files. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$content</td><td>The content of the batch script. </td></tr>
+    <tr><td class="paramtype">int&#160;|&#160;bool</td><td class="paramname">$timeout</td><td>The timeout for the script execution in seconds, or true for default timeout, or false for no timeout. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$catchOutput</td><td>Whether to capture the output of the script. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$standalone</td><td>Whether the script is standalone. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$silent</td><td>Whether to execute the script silently. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$rebuild</td><td>Whether to rebuild the result array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array|false The result of the execution, or false on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">223</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  224</span>    {</div>
-<div class="line"><span class="lineno">  225</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">  226</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  227</span> </div>
-<div class="line"><span class="lineno">  228</span>        $resultFile = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.tmp&#39;</span>, $basename);</div>
-<div class="line"><span class="lineno">  229</span>        $scriptPath = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.bat&#39;</span>, $basename);</div>
-<div class="line"><span class="lineno">  230</span>        $checkFile = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.tmp&#39;</span>, $basename);</div>
-<div class="line"><span class="lineno">  231</span> </div>
-<div class="line"><span class="lineno">  232</span>        <span class="comment">// Redirect output</span></div>
-<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">if</span> ($catchOutput) {</div>
-<div class="line"><span class="lineno">  234</span>            $content .= <span class="stringliteral">&#39;&gt; &quot;&#39;</span> . $resultFile . <span class="charliteral">&#39;&quot;&#39;</span> . (!<a class="code hl_function" href="../../d6/de4/classUtil.html#a8e8191dea722336bbce94f43e721472b">Util::endWith</a>($content, <span class="charliteral">&#39;2&#39;</span>) ? <span class="stringliteral">&#39; 2&gt;&amp;1&#39;</span> : <span class="stringliteral">&#39;&#39;</span>);</div>
-<div class="line"><span class="lineno">  235</span>        }</div>
-<div class="line"><span class="lineno">  236</span> </div>
-<div class="line"><span class="lineno">  237</span>        <span class="comment">// Header</span></div>
-<div class="line"><span class="lineno">  238</span>        $header = <span class="stringliteral">&#39;@ECHO OFF&#39;</span> . PHP_EOL . PHP_EOL;</div>
-<div class="line"><span class="lineno">  239</span> </div>
-<div class="line"><span class="lineno">  240</span>        <span class="comment">// Footer</span></div>
-<div class="line"><span class="lineno">  241</span>        $footer = PHP_EOL . (!$standalone ? PHP_EOL . <span class="stringliteral">&#39;ECHO &#39;</span> . self::END_PROCESS_STR . <span class="stringliteral">&#39; &gt; &quot;&#39;</span> . $checkFile . <span class="charliteral">&#39;&quot;&#39;</span> : <span class="stringliteral">&#39;&#39;</span>);</div>
-<div class="line"><span class="lineno">  242</span> </div>
-<div class="line"><span class="lineno">  243</span>        <span class="comment">// Process</span></div>
-<div class="line"><span class="lineno">  244</span>        file_put_contents($scriptPath, $header . $content . $footer);</div>
-<div class="line"><span class="lineno">  245</span>        $bearsamppWinbinder-&gt;exec($scriptPath, <span class="keyword">null</span>, $silent);</div>
-<div class="line"><span class="lineno">  246</span> </div>
-<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">if</span> (!$standalone) {</div>
-<div class="line"><span class="lineno">  248</span>            $timeout = is_numeric($timeout) ? $timeout : ($timeout === <span class="keyword">true</span> ? <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getScriptsTimeout() : <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  249</span>            $maxtime = time() + $timeout;</div>
-<div class="line"><span class="lineno">  250</span>            $noTimeout = $timeout === <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  251</span>            <span class="keywordflow">while</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> === <span class="keyword">false</span> || empty(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
-<div class="line"><span class="lineno">  252</span>                <span class="keywordflow">if</span> (file_exists($checkFile)) {</div>
-<div class="line"><span class="lineno">  253</span>                    $check = file($checkFile);</div>
-<div class="line"><span class="lineno">  254</span>                    <span class="keywordflow">if</span> (!empty($check) &amp;&amp; trim($check[0]) == self::END_PROCESS_STR) {</div>
-<div class="line"><span class="lineno">  255</span>                        <span class="keywordflow">if</span> ($catchOutput &amp;&amp; file_exists($resultFile)) {</div>
-<div class="line"><span class="lineno">  256</span>                            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = file($resultFile);</div>
-<div class="line"><span class="lineno">  257</span>                        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  258</span>                            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_variable" href="#a6e242bdfdf202324c772a5b82a0197fd">self::CATCH_OUTPUT_FALSE</a>;</div>
-<div class="line"><span class="lineno">  259</span>                        }</div>
-<div class="line"><span class="lineno">  260</span>                    }</div>
-<div class="line"><span class="lineno">  261</span>                }</div>
-<div class="line"><span class="lineno">  262</span>                <span class="keywordflow">if</span> ($maxtime &lt; time() &amp;&amp; !$noTimeout) {</div>
-<div class="line"><span class="lineno">  263</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  264</span>                }</div>
-<div class="line"><span class="lineno">  265</span>            }</div>
-<div class="line"><span class="lineno">  266</span>        }</div>
-<div class="line"><span class="lineno">  267</span> </div>
-<div class="line"><span class="lineno">  268</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;Exec:&#39;</span>);</div>
-<div class="line"><span class="lineno">  269</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; basename: &#39;</span> . $basename);</div>
-<div class="line"><span class="lineno">  270</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; content: &#39;</span> . str_replace(PHP_EOL, <span class="stringliteral">&#39; \\\\ &#39;</span>, $content));</div>
-<div class="line"><span class="lineno">  271</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; checkFile: &#39;</span> . $checkFile);</div>
-<div class="line"><span class="lineno">  272</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; resultFile: &#39;</span> . $resultFile);</div>
-<div class="line"><span class="lineno">  273</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; scriptPath: &#39;</span> . $scriptPath);</div>
-<div class="line"><span class="lineno">  274</span> </div>
-<div class="line"><span class="lineno">  275</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span> &amp;&amp; !empty(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>) &amp;&amp; is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
-<div class="line"><span class="lineno">  276</span>            <span class="keywordflow">if</span> ($rebuild) {</div>
-<div class="line"><span class="lineno">  277</span>                $rebuildResult = array();</div>
-<div class="line"><span class="lineno">  278</span>                <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
-<div class="line"><span class="lineno">  279</span>                    $row = trim($row);</div>
-<div class="line"><span class="lineno">  280</span>                    <span class="keywordflow">if</span> (!empty($row)) {</div>
-<div class="line"><span class="lineno">  281</span>                        $rebuildResult[] = $row;</div>
-<div class="line"><span class="lineno">  282</span>                    }</div>
-<div class="line"><span class="lineno">  283</span>                }</div>
-<div class="line"><span class="lineno">  284</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = $rebuildResult;</div>
-<div class="line"><span class="lineno">  285</span>            }</div>
-<div class="line"><span class="lineno">  286</span>            <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; result: &#39;</span> . substr(implode(<span class="stringliteral">&#39; \\\\ &#39;</span>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>), 0, 2048));</div>
-<div class="line"><span class="lineno">  287</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  288</span>            <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; result: N/A&#39;</span>);</div>
-<div class="line"><span class="lineno">  289</span>        }</div>
-<div class="line"><span class="lineno">  290</span> </div>
-<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
-<div class="line"><span class="lineno">  292</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a112ef069ddc0454086e3d1e6d8d55d07"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></div><div class="ttdeci">$result</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00014">ajax.apache.php:14</a></div></div>
-<div class="ttc" id="aclassBatch_html_a1e3715665ded5e5e73e20916e669da29"><div class="ttname"><a href="#a1e3715665ded5e5e73e20916e669da29">Batch\writeLog</a></div><div class="ttdeci">static writeLog($log)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00012">class.batch.php:12</a></div></div>
-<div class="ttc" id="aclassBatch_html_a6e242bdfdf202324c772a5b82a0197fd"><div class="ttname"><a href="#a6e242bdfdf202324c772a5b82a0197fd">Batch\CATCH_OUTPUT_FALSE</a></div><div class="ttdeci">const CATCH_OUTPUT_FALSE</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00006">class.batch.php:6</a></div></div>
-<div class="ttc" id="aclassBatch_html_ac83f11b6ccf65f89682e269e9528a492"><div class="ttname"><a href="#ac83f11b6ccf65f89682e269e9528a492">Batch\getTmpFile</a></div><div class="ttdeci">static getTmpFile($ext, $customName=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00294">class.batch.php:294</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">370</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  371</span>    {</div>
+<div class="line"><span class="lineno">  372</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  373</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  374</span> </div>
+<div class="line"><span class="lineno">  375</span>        $resultFile = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.tmp&#39;</span>, $basename);</div>
+<div class="line"><span class="lineno">  376</span>        $scriptPath = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.bat&#39;</span>, $basename);</div>
+<div class="line"><span class="lineno">  377</span>        $checkFile = <a class="code hl_function" href="#ac83f11b6ccf65f89682e269e9528a492">self::getTmpFile</a>(<span class="stringliteral">&#39;.tmp&#39;</span>, $basename);</div>
+<div class="line"><span class="lineno">  378</span> </div>
+<div class="line"><span class="lineno">  379</span>        <span class="comment">// Redirect output</span></div>
+<div class="line"><span class="lineno">  380</span>        <span class="keywordflow">if</span> ($catchOutput) {</div>
+<div class="line"><span class="lineno">  381</span>            $content .= <span class="stringliteral">&#39;&gt; &quot;&#39;</span> . $resultFile . <span class="charliteral">&#39;&quot;&#39;</span> . (!<a class="code hl_function" href="../../d6/de4/classUtil.html#a8e8191dea722336bbce94f43e721472b">Util::endWith</a>($content, <span class="charliteral">&#39;2&#39;</span>) ? <span class="stringliteral">&#39; 2&gt;&amp;1&#39;</span> : <span class="stringliteral">&#39;&#39;</span>);</div>
+<div class="line"><span class="lineno">  382</span>        }</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>        <span class="comment">// Header</span></div>
+<div class="line"><span class="lineno">  385</span>        $header = <span class="stringliteral">&#39;@ECHO OFF&#39;</span> . PHP_EOL . PHP_EOL;</div>
+<div class="line"><span class="lineno">  386</span> </div>
+<div class="line"><span class="lineno">  387</span>        <span class="comment">// Footer</span></div>
+<div class="line"><span class="lineno">  388</span>        $footer = PHP_EOL . (!$standalone ? PHP_EOL . <span class="stringliteral">&#39;ECHO &#39;</span> . self::END_PROCESS_STR . <span class="stringliteral">&#39; &gt; &quot;&#39;</span> . $checkFile . <span class="charliteral">&#39;&quot;&#39;</span> : <span class="stringliteral">&#39;&#39;</span>);</div>
+<div class="line"><span class="lineno">  389</span> </div>
+<div class="line"><span class="lineno">  390</span>        <span class="comment">// Process</span></div>
+<div class="line"><span class="lineno">  391</span>        file_put_contents($scriptPath, $header . $content . $footer);</div>
+<div class="line"><span class="lineno">  392</span>        $bearsamppWinbinder-&gt;exec($scriptPath, <span class="keyword">null</span>, $silent);</div>
+<div class="line"><span class="lineno">  393</span> </div>
+<div class="line"><span class="lineno">  394</span>        <span class="keywordflow">if</span> (!$standalone) {</div>
+<div class="line"><span class="lineno">  395</span>            $timeout = is_numeric($timeout) ? $timeout : ($timeout === <span class="keyword">true</span> ? <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getScriptsTimeout() : <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  396</span>            $maxtime = time() + $timeout;</div>
+<div class="line"><span class="lineno">  397</span>            $noTimeout = $timeout === <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  398</span>            <span class="keywordflow">while</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> === <span class="keyword">false</span> || empty(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
+<div class="line"><span class="lineno">  399</span>                <span class="keywordflow">if</span> (file_exists($checkFile)) {</div>
+<div class="line"><span class="lineno">  400</span>                    $check = file($checkFile);</div>
+<div class="line"><span class="lineno">  401</span>                    <span class="keywordflow">if</span> (!empty($check) &amp;&amp; trim($check[0]) == self::END_PROCESS_STR) {</div>
+<div class="line"><span class="lineno">  402</span>                        <span class="keywordflow">if</span> ($catchOutput &amp;&amp; file_exists($resultFile)) {</div>
+<div class="line"><span class="lineno">  403</span>                            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = file($resultFile);</div>
+<div class="line"><span class="lineno">  404</span>                        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  405</span>                            <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_variable" href="#a6e242bdfdf202324c772a5b82a0197fd">self::CATCH_OUTPUT_FALSE</a>;</div>
+<div class="line"><span class="lineno">  406</span>                        }</div>
+<div class="line"><span class="lineno">  407</span>                    }</div>
+<div class="line"><span class="lineno">  408</span>                }</div>
+<div class="line"><span class="lineno">  409</span>                <span class="keywordflow">if</span> ($maxtime &lt; time() &amp;&amp; !$noTimeout) {</div>
+<div class="line"><span class="lineno">  410</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  411</span>                }</div>
+<div class="line"><span class="lineno">  412</span>            }</div>
+<div class="line"><span class="lineno">  413</span>        }</div>
+<div class="line"><span class="lineno">  414</span> </div>
+<div class="line"><span class="lineno">  415</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;Exec:&#39;</span>);</div>
+<div class="line"><span class="lineno">  416</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; basename: &#39;</span> . $basename);</div>
+<div class="line"><span class="lineno">  417</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; content: &#39;</span> . str_replace(PHP_EOL, <span class="stringliteral">&#39; \\\\ &#39;</span>, $content));</div>
+<div class="line"><span class="lineno">  418</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; checkFile: &#39;</span> . $checkFile);</div>
+<div class="line"><span class="lineno">  419</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; resultFile: &#39;</span> . $resultFile);</div>
+<div class="line"><span class="lineno">  420</span>        <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; scriptPath: &#39;</span> . $scriptPath);</div>
+<div class="line"><span class="lineno">  421</span> </div>
+<div class="line"><span class="lineno">  422</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span> &amp;&amp; !empty(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>) &amp;&amp; is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
+<div class="line"><span class="lineno">  423</span>            <span class="keywordflow">if</span> ($rebuild) {</div>
+<div class="line"><span class="lineno">  424</span>                $rebuildResult = array();</div>
+<div class="line"><span class="lineno">  425</span>                <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
+<div class="line"><span class="lineno">  426</span>                    $row = trim($row);</div>
+<div class="line"><span class="lineno">  427</span>                    <span class="keywordflow">if</span> (!empty($row)) {</div>
+<div class="line"><span class="lineno">  428</span>                        $rebuildResult[] = $row;</div>
+<div class="line"><span class="lineno">  429</span>                    }</div>
+<div class="line"><span class="lineno">  430</span>                }</div>
+<div class="line"><span class="lineno">  431</span>                <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = $rebuildResult;</div>
+<div class="line"><span class="lineno">  432</span>            }</div>
+<div class="line"><span class="lineno">  433</span>            <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; result: &#39;</span> . substr(implode(<span class="stringliteral">&#39; \\\\ &#39;</span>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>), 0, 2048));</div>
+<div class="line"><span class="lineno">  434</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  435</span>            <a class="code hl_function" href="#a1e3715665ded5e5e73e20916e669da29">self::writeLog</a>(<span class="stringliteral">&#39;-&gt; result: N/A&#39;</span>);</div>
+<div class="line"><span class="lineno">  436</span>        }</div>
+<div class="line"><span class="lineno">  437</span> </div>
+<div class="line"><span class="lineno">  438</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>;</div>
+<div class="line"><span class="lineno">  439</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a112ef069ddc0454086e3d1e6d8d55d07"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></div><div class="ttdeci">$result</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00019">ajax.apache.php:19</a></div></div>
+<div class="ttc" id="aclassBatch_html_a1e3715665ded5e5e73e20916e669da29"><div class="ttname"><a href="#a1e3715665ded5e5e73e20916e669da29">Batch\writeLog</a></div><div class="ttdeci">static writeLog($log)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00047">class.batch.php:47</a></div></div>
+<div class="ttc" id="aclassBatch_html_a6e242bdfdf202324c772a5b82a0197fd"><div class="ttname"><a href="#a6e242bdfdf202324c772a5b82a0197fd">Batch\CATCH_OUTPUT_FALSE</a></div><div class="ttdeci">const CATCH_OUTPUT_FALSE</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00033">class.batch.php:33</a></div></div>
+<div class="ttc" id="aclassBatch_html_ac83f11b6ccf65f89682e269e9528a492"><div class="ttname"><a href="#ac83f11b6ccf65f89682e269e9528a492">Batch\getTmpFile</a></div><div class="ttdeci">static getTmpFile($ext, $customName=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00448">class.batch.php:448</a></div></div>
 <div class="ttc" id="aclassUtil_html_a8e8191dea722336bbce94f43e721472b"><div class="ttname"><a href="../../d6/de4/classUtil.html#a8e8191dea722336bbce94f43e721472b">Util\endWith</a></div><div class="ttdeci">static endWith($string, $search)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00164">class.util.php:164</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00006">CATCH_OUTPUT_FALSE</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00164">Util\endWith()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00294">getTmpFile()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00012">writeLog()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00033">CATCH_OUTPUT_FALSE</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00164">Util\endWith()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00448">getTmpFile()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00047">writeLog()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d7d/class_8openssl_8php_source.html#l00005">OpenSsl\createCrt()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00174">createSymlink()</a>, <a class="el" href="../../db/d83/class_8nssm_8php_source.html#l00072">Nssm\exec()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">execStandalone()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00018">findExeByPid()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00464">BinApache\getCmdLineOutput()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00381">BinMariadb\getCmdLineOutput()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00404">BinMysql\getCmdLineOutput()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00395">BinPostgresql\getCmdLineOutput()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00187">getOsInfo()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00078">getPearVersion()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00031">getProcessUsingPort()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00126">initializeMysql()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00165">initializePostgresql()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00103">installFilezillaService()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00135">installPostgresqlService()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00182">removeSymlink()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00206">setServiceDescription()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00200">setServiceDisplayName()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00212">setServiceStartType()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00118">uninstallFilezillaService()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00155">uninstallPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d7d/class_8openssl_8php_source.html#l00019">OpenSsl\createCrt()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00273">createSymlink()</a>, <a class="el" href="../../db/d83/class_8nssm_8php_source.html#l00114">Nssm\exec()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00353">execStandalone()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00059">findExeByPid()</a>, <a class="el" href="../../d0/d00/class_8bin_8apache_8php_source.html#l00464">BinApache\getCmdLineOutput()</a>, <a class="el" href="../../d9/d85/class_8bin_8mariadb_8php_source.html#l00381">BinMariadb\getCmdLineOutput()</a>, <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00404">BinMysql\getCmdLineOutput()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00395">BinPostgresql\getCmdLineOutput()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00296">getOsInfo()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00138">getPearVersion()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00078">getProcessUsingPort()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00204">initializeMysql()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00258">initializePostgresql()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00171">installFilezillaService()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">installPostgresqlService()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00286">removeSymlink()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00327">setServiceDescription()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00315">setServiceDisplayName()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00339">setServiceStartType()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00191">uninstallFilezillaService()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00243">uninstallPostgresqlService()</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -415,15 +459,25 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Executes a standalone batch script.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$basename</td><td>The base name for the script and result files. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$content</td><td>The content of the batch script. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$silent</td><td>Whether to execute the script silently. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array|false The result of the execution, or false on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">218</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  219</span>    {</div>
-<div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>($basename, $content, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, $silent);</div>
-<div class="line"><span class="lineno">  221</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00353">353</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  354</span>    {</div>
+<div class="line"><span class="lineno">  355</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>($basename, $content, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, $silent);</div>
+<div class="line"><span class="lineno">  356</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00054">exitApp()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00097">refreshEnvVars()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00106">exitApp()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00160">refreshEnvVars()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -456,35 +510,42 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Exits the application, optionally restarting it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">bool</td><td class="paramname">$restart</td><td>Whether to restart the application after exiting. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00054">54</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
-<div class="line"><span class="lineno">   56</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">   57</span> </div>
-<div class="line"><span class="lineno">   58</span>        $content = <span class="stringliteral">&#39;PING 1.1.1.1 -n 1 -w 2000 &gt; nul&#39;</span> . PHP_EOL;</div>
-<div class="line"><span class="lineno">   59</span>        $content .= <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getExeFilePath() . <span class="stringliteral">&#39;&quot; -quit -id={bearsampp}&#39;</span> . PHP_EOL;</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> ($restart) {</div>
-<div class="line"><span class="lineno">   61</span>            $basename = <span class="stringliteral">&#39;restartApp&#39;</span>;</div>
-<div class="line"><span class="lineno">   62</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>(<span class="stringliteral">&#39;Restart App&#39;</span>);</div>
-<div class="line"><span class="lineno">   63</span>            $content .= <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getPhpExe() . <span class="stringliteral">&#39;&quot; &quot;&#39;</span> . <a class="code hl_variable" href="../../db/d6d/classCore.html#a3bdb564a53fd3a213e9fae78643e67bd">Core::isRoot_FILE</a> . <span class="stringliteral">&#39;&quot; &quot;&#39;</span> . <a class="code hl_variable" href="../../db/d09/classAction.html#aa608af4e70cb2fde5cbd5a4614d4dd50">Action::RESTART</a> . <span class="charliteral">&#39;&quot;&#39;</span> . PHP_EOL;</div>
-<div class="line"><span class="lineno">   64</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   65</span>            $basename = <span class="stringliteral">&#39;exitApp&#39;</span>;</div>
-<div class="line"><span class="lineno">   66</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>(<span class="stringliteral">&#39;Exit App&#39;</span>);</div>
-<div class="line"><span class="lineno">   67</span>        }</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>();</div>
-<div class="line"><span class="lineno">   70</span>        <a class="code hl_function" href="#a871fd22dab90ef1499e2eae9f2c73377">self::execStandalone</a>($basename, $content);</div>
-<div class="line"><span class="lineno">   71</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
-<div class="ttc" id="aclassAction_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d09/classAction.html#aa608af4e70cb2fde5cbd5a4614d4dd50">Action\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00034">class.action.php:34</a></div></div>
-<div class="ttc" id="aclassBatch_html_a871fd22dab90ef1499e2eae9f2c73377"><div class="ttname"><a href="#a871fd22dab90ef1499e2eae9f2c73377">Batch\execStandalone</a></div><div class="ttdeci">static execStandalone($basename, $content, $silent=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00218">class.batch.php:218</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00106">106</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  107</span>    {</div>
+<div class="line"><span class="lineno">  108</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  109</span> </div>
+<div class="line"><span class="lineno">  110</span>        $content = <span class="stringliteral">&#39;PING 1.1.1.1 -n 1 -w 2000 &gt; nul&#39;</span> . PHP_EOL;</div>
+<div class="line"><span class="lineno">  111</span>        $content .= <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getExeFilePath() . <span class="stringliteral">&#39;&quot; -quit -id={bearsampp}&#39;</span> . PHP_EOL;</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> ($restart) {</div>
+<div class="line"><span class="lineno">  113</span>            $basename = <span class="stringliteral">&#39;restartApp&#39;</span>;</div>
+<div class="line"><span class="lineno">  114</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>(<span class="stringliteral">&#39;Restart App&#39;</span>);</div>
+<div class="line"><span class="lineno">  115</span>            $content .= <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getPhpExe() . <span class="stringliteral">&#39;&quot; &quot;&#39;</span> . <a class="code hl_variable" href="../../db/d6d/classCore.html#a3bdb564a53fd3a213e9fae78643e67bd">Core::isRoot_FILE</a> . <span class="stringliteral">&#39;&quot; &quot;&#39;</span> . <a class="code hl_variable" href="../../db/d09/classAction.html#aa608af4e70cb2fde5cbd5a4614d4dd50">Action::RESTART</a> . <span class="charliteral">&#39;&quot;&#39;</span> . PHP_EOL;</div>
+<div class="line"><span class="lineno">  116</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  117</span>            $basename = <span class="stringliteral">&#39;exitApp&#39;</span>;</div>
+<div class="line"><span class="lineno">  118</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a3ce627b3c417b42254504e0ee528caa4">Util::logInfo</a>(<span class="stringliteral">&#39;Exit App&#39;</span>);</div>
+<div class="line"><span class="lineno">  119</span>        }</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps::killBins</a>();</div>
+<div class="line"><span class="lineno">  122</span>        <a class="code hl_function" href="#a871fd22dab90ef1499e2eae9f2c73377">self::execStandalone</a>($basename, $content);</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
+<div class="ttc" id="aclassAction_html_aa608af4e70cb2fde5cbd5a4614d4dd50"><div class="ttname"><a href="../../db/d09/classAction.html#aa608af4e70cb2fde5cbd5a4614d4dd50">Action\RESTART</a></div><div class="ttdeci">const RESTART</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d51/class_8action_8php_source.html#l00041">class.action.php:41</a></div></div>
+<div class="ttc" id="aclassBatch_html_a871fd22dab90ef1499e2eae9f2c73377"><div class="ttname"><a href="#a871fd22dab90ef1499e2eae9f2c73377">Batch\execStandalone</a></div><div class="ttdeci">static execStandalone($basename, $content, $silent=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00353">class.batch.php:353</a></div></div>
 <div class="ttc" id="aclassCore_html_a3bdb564a53fd3a213e9fae78643e67bd"><div class="ttname"><a href="../../db/d6d/classCore.html#a3bdb564a53fd3a213e9fae78643e67bd">Core\isRoot_FILE</a></div><div class="ttdeci">const isRoot_FILE</div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00020">class.core.php:20</a></div></div>
 <div class="ttc" id="aclassUtil_html_a3ce627b3c417b42254504e0ee528caa4"><div class="ttname"><a href="../../d6/de4/classUtil.html#a3ce627b3c417b42254504e0ee528caa4">Util\logInfo</a></div><div class="ttdeci">static logInfo($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00727">class.util.php:727</a></div></div>
-<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00109">class.win32ps.php:109</a></div></div>
+<div class="ttc" id="aclassWin32Ps_html_aaf3a3d60cfa7edaef259faf15171f1bb"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb">Win32Ps\killBins</a></div><div class="ttdeci">static killBins($refreshProcs=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00178">class.win32ps.php:178</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">execStandalone()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00020">Core\isRoot_FILE</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00109">Win32Ps\killBins()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00727">Util\logInfo()</a>, and <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00034">Action\RESTART</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00353">execStandalone()</a>, <a class="el" href="../../da/d0e/class_8core_8php_source.html#l00020">Core\isRoot_FILE</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00178">Win32Ps\killBins()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00727">Util\logInfo()</a>, and <a class="el" href="../../d9/d51/class_8action_8php_source.html#l00041">Action\RESTART</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00008">ActionExec\__construct()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00073">restartApp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00038">ActionExec\__construct()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00128">restartApp()</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -517,23 +578,31 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Finds the executable name by its process ID (PID).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$pid</td><td>The process ID to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string|false The executable name if found, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00018">18</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
-<div class="line"><span class="lineno">   20</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;findExeByPid&#39;</span>, <span class="stringliteral">&#39;TASKLIST /FO CSV /NH /FI &quot;PID eq &#39;</span> . $pid . <span class="charliteral">&#39;&quot;&#39;</span>, 5);</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">   22</span>            $expResult = explode(<span class="stringliteral">&#39;&quot;,&quot;&#39;</span>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>[0]);</div>
-<div class="line"><span class="lineno">   23</span>            <span class="keywordflow">if</span> (is_array($expResult) &amp;&amp; count($expResult) &gt; 2 &amp;&amp; isset($expResult[0]) &amp;&amp; !empty($expResult[0])) {</div>
-<div class="line"><span class="lineno">   24</span>                <span class="keywordflow">return</span> substr($expResult[0], 1);</div>
-<div class="line"><span class="lineno">   25</span>            }</div>
-<div class="line"><span class="lineno">   26</span>        }</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   29</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00059">59</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>    {</div>
+<div class="line"><span class="lineno">   61</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;findExeByPid&#39;</span>, <span class="stringliteral">&#39;TASKLIST /FO CSV /NH /FI &quot;PID eq &#39;</span> . $pid . <span class="charliteral">&#39;&quot;&#39;</span>, 5);</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   63</span>            $expResult = explode(<span class="stringliteral">&#39;&quot;,&quot;&#39;</span>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>[0]);</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">if</span> (is_array($expResult) &amp;&amp; count($expResult) &gt; 2 &amp;&amp; isset($expResult[0]) &amp;&amp; !empty($expResult[0])) {</div>
+<div class="line"><span class="lineno">   65</span>                <span class="keywordflow">return</span> substr($expResult[0], 1);</div>
+<div class="line"><span class="lineno">   66</span>            }</div>
+<div class="line"><span class="lineno">   67</span>        }</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   70</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00031">getProcessUsingPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00078">getProcessUsingPort()</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -566,24 +635,26 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Gets the operating system information.</p>
+<dl class="section return"><dt>Returns</dt><dd>string The operating system information. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00187">187</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  188</span>    {</div>
-<div class="line"><span class="lineno">  189</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getOsInfo&#39;</span>, <span class="stringliteral">&#39;ver&#39;</span>, 5);</div>
-<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">if</span> (is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
-<div class="line"><span class="lineno">  191</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
-<div class="line"><span class="lineno">  192</span>                <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;Microsoft&#39;</span>)) {</div>
-<div class="line"><span class="lineno">  193</span>                    <span class="keywordflow">return</span> trim($row);</div>
-<div class="line"><span class="lineno">  194</span>                }</div>
-<div class="line"><span class="lineno">  195</span>            }</div>
-<div class="line"><span class="lineno">  196</span>        }</div>
-<div class="line"><span class="lineno">  197</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><span class="lineno">  198</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00296">296</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  297</span>    {</div>
+<div class="line"><span class="lineno">  298</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getOsInfo&#39;</span>, <span class="stringliteral">&#39;ver&#39;</span>, 5);</div>
+<div class="line"><span class="lineno">  299</span>        <span class="keywordflow">if</span> (is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
+<div class="line"><span class="lineno">  300</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
+<div class="line"><span class="lineno">  301</span>                <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;Microsoft&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  302</span>                    <span class="keywordflow">return</span> trim($row);</div>
+<div class="line"><span class="lineno">  303</span>                }</div>
+<div class="line"><span class="lineno">  304</span>            }</div>
+<div class="line"><span class="lineno">  305</span>        }</div>
+<div class="line"><span class="lineno">  306</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><span class="lineno">  307</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a7b420042518bbb2ba19f81bd3e138d71"><div class="ttname"><a href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util\startWith</a></div><div class="ttdeci">static startWith($string, $search)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00148">class.util.php:148</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d3c/class_8action_8startup_8php_source.html#l00332">ActionStartup\sysInfos()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d3c/class_8action_8startup_8php_source.html#l00391">ActionStartup\sysInfos()</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -616,28 +687,30 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Gets the version of PEAR installed.</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null The PEAR version if found, null otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00078">78</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getPearVersion&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPhp()-&gt;getPearExe() . <span class="stringliteral">&#39;&quot; -V&#39;</span>, 5);</div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">if</span> (is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
-<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
-<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;PEAR Version:&#39;</span>)) {</div>
-<div class="line"><span class="lineno">   86</span>                    $expResult = explode(<span class="charliteral">&#39; &#39;</span>, $row);</div>
-<div class="line"><span class="lineno">   87</span>                    <span class="keywordflow">if</span> (count($expResult) == 3) {</div>
-<div class="line"><span class="lineno">   88</span>                        <span class="keywordflow">return</span> trim($expResult[2]);</div>
-<div class="line"><span class="lineno">   89</span>                    }</div>
-<div class="line"><span class="lineno">   90</span>                }</div>
-<div class="line"><span class="lineno">   91</span>            }</div>
-<div class="line"><span class="lineno">   92</span>        }</div>
-<div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   95</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00013">ajax.apache.php:13</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00138">138</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  139</span>    {</div>
+<div class="line"><span class="lineno">  140</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getPearVersion&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPhp()-&gt;getPearExe() . <span class="stringliteral">&#39;&quot; -V&#39;</span>, 5);</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">if</span> (is_array(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a>)) {</div>
+<div class="line"><span class="lineno">  144</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
+<div class="line"><span class="lineno">  145</span>                <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;PEAR Version:&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  146</span>                    $expResult = explode(<span class="charliteral">&#39; &#39;</span>, $row);</div>
+<div class="line"><span class="lineno">  147</span>                    <span class="keywordflow">if</span> (count($expResult) == 3) {</div>
+<div class="line"><span class="lineno">  148</span>                        <span class="keywordflow">return</span> trim($expResult[2]);</div>
+<div class="line"><span class="lineno">  149</span>                    }</div>
+<div class="line"><span class="lineno">  150</span>                }</div>
+<div class="line"><span class="lineno">  151</span>            }</div>
+<div class="line"><span class="lineno">  152</span>        }</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">  155</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d2/d14/class_8bin_8php_8php_source.html#l00598">BinPhp\getPearVersion()</a>.</p>
 <div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -672,33 +745,41 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Gets the process using a specific port.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$port</td><td>The port number to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string|int|null The executable name and PID if found, the PID if executable not found, or null if no process is using the port. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00031">31</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>    {</div>
-<div class="line"><span class="lineno">   33</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getProcessUsingPort&#39;</span>, <span class="stringliteral">&#39;NETSTAT -aon&#39;</span>, 4);</div>
-<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">   35</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
-<div class="line"><span class="lineno">   36</span>                <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;TCP&#39;</span>)) {</div>
-<div class="line"><span class="lineno">   37</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">   38</span>                }</div>
-<div class="line"><span class="lineno">   39</span>                $rowExp = explode(<span class="charliteral">&#39; &#39;</span>, preg_replace(<span class="stringliteral">&#39;/\s+/&#39;</span>, <span class="charliteral">&#39; &#39;</span>, $row));</div>
-<div class="line"><span class="lineno">   40</span>                <span class="keywordflow">if</span> (count($rowExp) == 5 &amp;&amp; <a class="code hl_function" href="../../d6/de4/classUtil.html#a8e8191dea722336bbce94f43e721472b">Util::endWith</a>($rowExp[1], <span class="charliteral">&#39;:&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#aa0787efab4b22e8a212882f3409d4c77">$port</a>) &amp;&amp; $rowExp[3] == <span class="stringliteral">&#39;LISTENING&#39;</span>) {</div>
-<div class="line"><span class="lineno">   41</span>                    $pid = intval($rowExp[4]);</div>
-<div class="line"><span class="lineno">   42</span>                    $exe = <a class="code hl_function" href="#affa163da5118bee1ebaf70e3f5605114">self::findExeByPid</a>($pid);</div>
-<div class="line"><span class="lineno">   43</span>                    <span class="keywordflow">if</span> ($exe !== <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">   44</span>                        <span class="keywordflow">return</span> $exe . <span class="stringliteral">&#39; (&#39;</span> . $pid . <span class="charliteral">&#39;)&#39;</span>;</div>
-<div class="line"><span class="lineno">   45</span>                    }</div>
-<div class="line"><span class="lineno">   46</span>                    <span class="keywordflow">return</span> $pid;</div>
-<div class="line"><span class="lineno">   47</span>                }</div>
-<div class="line"><span class="lineno">   48</span>            }</div>
-<div class="line"><span class="lineno">   49</span>        }</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   52</span>    }</div>
-<div class="ttc" id="aajax_8apache_8php_html_aa0787efab4b22e8a212882f3409d4c77"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#aa0787efab4b22e8a212882f3409d4c77">$port</a></div><div class="ttdeci">$port</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00027">ajax.apache.php:27</a></div></div>
-<div class="ttc" id="aclassBatch_html_affa163da5118bee1ebaf70e3f5605114"><div class="ttname"><a href="#affa163da5118bee1ebaf70e3f5605114">Batch\findExeByPid</a></div><div class="ttdeci">static findExeByPid($pid)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00018">class.batch.php:18</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00078">78</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
+<div class="line"><span class="lineno">   80</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;getProcessUsingPort&#39;</span>, <span class="stringliteral">&#39;NETSTAT -aon&#39;</span>, 4);</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> as $row) {</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d6/de4/classUtil.html#a7b420042518bbb2ba19f81bd3e138d71">Util::startWith</a>($row, <span class="stringliteral">&#39;TCP&#39;</span>)) {</div>
+<div class="line"><span class="lineno">   84</span>                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   85</span>                }</div>
+<div class="line"><span class="lineno">   86</span>                $rowExp = explode(<span class="charliteral">&#39; &#39;</span>, preg_replace(<span class="stringliteral">&#39;/\s+/&#39;</span>, <span class="charliteral">&#39; &#39;</span>, $row));</div>
+<div class="line"><span class="lineno">   87</span>                <span class="keywordflow">if</span> (count($rowExp) == 5 &amp;&amp; <a class="code hl_function" href="../../d6/de4/classUtil.html#a8e8191dea722336bbce94f43e721472b">Util::endWith</a>($rowExp[1], <span class="charliteral">&#39;:&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#aa0787efab4b22e8a212882f3409d4c77">$port</a>) &amp;&amp; $rowExp[3] == <span class="stringliteral">&#39;LISTENING&#39;</span>) {</div>
+<div class="line"><span class="lineno">   88</span>                    $pid = intval($rowExp[4]);</div>
+<div class="line"><span class="lineno">   89</span>                    $exe = <a class="code hl_function" href="#affa163da5118bee1ebaf70e3f5605114">self::findExeByPid</a>($pid);</div>
+<div class="line"><span class="lineno">   90</span>                    <span class="keywordflow">if</span> ($exe !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   91</span>                        <span class="keywordflow">return</span> $exe . <span class="stringliteral">&#39; (&#39;</span> . $pid . <span class="charliteral">&#39;)&#39;</span>;</div>
+<div class="line"><span class="lineno">   92</span>                    }</div>
+<div class="line"><span class="lineno">   93</span>                    <span class="keywordflow">return</span> $pid;</div>
+<div class="line"><span class="lineno">   94</span>                }</div>
+<div class="line"><span class="lineno">   95</span>            }</div>
+<div class="line"><span class="lineno">   96</span>        }</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   99</span>    }</div>
+<div class="ttc" id="aajax_8apache_8php_html_aa0787efab4b22e8a212882f3409d4c77"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#aa0787efab4b22e8a212882f3409d4c77">$port</a></div><div class="ttdeci">$port</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00034">ajax.apache.php:34</a></div></div>
+<div class="ttc" id="aclassBatch_html_affa163da5118bee1ebaf70e3f5605114"><div class="ttname"><a href="#affa163da5118bee1ebaf70e3f5605114">Batch\findExeByPid</a></div><div class="ttdeci">static findExeByPid($pid)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00059">class.batch.php:59</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00027">$port</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00014">$result</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00164">Util\endWith()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00018">findExeByPid()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00034">$port</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00164">Util\endWith()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00059">findExeByPid()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00148">Util\startWith()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d12/class_8util_8php_source.html#l01554">Util\isPortInUse()</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -737,17 +818,26 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Gets a temporary file path with a specified extension and optional custom name.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$ext</td><td>The file extension. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$customName</td><td>An optional custom name for the file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The temporary file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00294">294</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  295</span>    {</div>
-<div class="line"><span class="lineno">  296</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getTmpPath() . <span class="charliteral">&#39;/&#39;</span> . (!empty($customName) ? $customName . <span class="charliteral">&#39;-&#39;</span> : <span class="stringliteral">&#39;&#39;</span>) . <a class="code hl_class" href="../../d6/de4/classUtil.html">Util</a>::random() . $ext);</div>
-<div class="line"><span class="lineno">  298</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00448">448</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  449</span>    {</div>
+<div class="line"><span class="lineno">  450</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  451</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getTmpPath() . <span class="charliteral">&#39;/&#39;</span> . (!empty($customName) ? $customName . <span class="charliteral">&#39;-&#39;</span> : <span class="stringliteral">&#39;&#39;</span>) . <a class="code hl_class" href="../../d6/de4/classUtil.html">Util</a>::random() . $ext);</div>
+<div class="line"><span class="lineno">  452</span>    }</div>
 <div class="ttc" id="aclassUtil_html"><div class="ttname"><a href="../../d6/de4/classUtil.html">Util</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00033">class.util.php:34</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00178">Util\random()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00178">Util\random()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -780,18 +870,25 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Initializes MySQL using a specified path.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td>The path to the MySQL initialization script. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00126">126</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  127</span>    {</div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (!file_exists($path . <span class="stringliteral">&#39;/init.bat&#39;</span>)) {</div>
-<div class="line"><span class="lineno">  129</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#afb595f5d1eb1812a8662a81a814b7d64">Util::logWarning</a>($path . <span class="stringliteral">&#39;/init.bat does not exist&#39;</span>);</div>
-<div class="line"><span class="lineno">  130</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  131</span>        }</div>
-<div class="line"><span class="lineno">  132</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;initializeMysql&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . $path . <span class="stringliteral">&#39;/init.bat&quot;&#39;</span>, 60);</div>
-<div class="line"><span class="lineno">  133</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00204">204</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>    {</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">if</span> (!file_exists($path . <span class="stringliteral">&#39;/init.bat&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  207</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#afb595f5d1eb1812a8662a81a814b7d64">Util::logWarning</a>($path . <span class="stringliteral">&#39;/init.bat does not exist&#39;</span>);</div>
+<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  209</span>        }</div>
+<div class="line"><span class="lineno">  210</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;initializeMysql&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . $path . <span class="stringliteral">&#39;/init.bat&quot;&#39;</span>, 60);</div>
+<div class="line"><span class="lineno">  211</span>    }</div>
 <div class="ttc" id="aclassUtil_html_afb595f5d1eb1812a8662a81a814b7d64"><div class="ttname"><a href="../../d6/de4/classUtil.html#afb595f5d1eb1812a8662a81a814b7d64">Util\logWarning</a></div><div class="ttdeci">static logWarning($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00739">class.util.php:739</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00739">Util\logWarning()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00739">Util\logWarning()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/dd4/class_8bin_8mysql_8php_source.html#l00389">BinMysql\initData()</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -826,17 +923,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Initializes PostgreSQL using a specified path.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td>The path to the PostgreSQL initialization script. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00165">165</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  166</span>    {</div>
-<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">if</span> (!file_exists($path . <span class="stringliteral">&#39;/init.bat&#39;</span>)) {</div>
-<div class="line"><span class="lineno">  168</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#afb595f5d1eb1812a8662a81a814b7d64">Util::logWarning</a>($path . <span class="stringliteral">&#39;/init.bat does not exist&#39;</span>);</div>
-<div class="line"><span class="lineno">  169</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  170</span>        }</div>
-<div class="line"><span class="lineno">  171</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;initializePostgresql&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . $path . <span class="stringliteral">&#39;/init.bat&quot;&#39;</span>, 15);</div>
-<div class="line"><span class="lineno">  172</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00258">258</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  259</span>    {</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">if</span> (!file_exists($path . <span class="stringliteral">&#39;/init.bat&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  261</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#afb595f5d1eb1812a8662a81a814b7d64">Util::logWarning</a>($path . <span class="stringliteral">&#39;/init.bat does not exist&#39;</span>);</div>
+<div class="line"><span class="lineno">  262</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  263</span>        }</div>
+<div class="line"><span class="lineno">  264</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;initializePostgresql&#39;</span>, <span class="stringliteral">&#39;CMD /C &quot;&#39;</span> . $path . <span class="stringliteral">&#39;/init.bat&quot;&#39;</span>, 15);</div>
+<div class="line"><span class="lineno">  265</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00739">Util\logWarning()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00739">Util\logWarning()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00376">BinPostgresql\initData()</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -871,27 +975,29 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Installs the FileZilla service.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the service was installed successfully, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00103">103</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  104</span>    {</div>
-<div class="line"><span class="lineno">  105</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  106</span> </div>
-<div class="line"><span class="lineno">  107</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;installFilezillaService&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getExe() . <span class="stringliteral">&#39;&quot; /install&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  108</span> </div>
-<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;isInstalled()) {</div>
-<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  111</span>        }</div>
-<div class="line"><span class="lineno">  112</span> </div>
-<div class="line"><span class="lineno">  113</span>        <a class="code hl_function" href="#acda0b6404dd20579381b751d3d4af707">self::setServiceDescription</a>(<a class="code hl_variable" href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;getDisplayName());</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  116</span>    }</div>
-<div class="ttc" id="aclassBatch_html_acda0b6404dd20579381b751d3d4af707"><div class="ttname"><a href="#acda0b6404dd20579381b751d3d4af707">Batch\setServiceDescription</a></div><div class="ttdeci">static setServiceDescription($serviceName, $desc)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00206">class.batch.php:206</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00171">171</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>    {</div>
+<div class="line"><span class="lineno">  173</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  174</span> </div>
+<div class="line"><span class="lineno">  175</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;installFilezillaService&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getExe() . <span class="stringliteral">&#39;&quot; /install&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;isInstalled()) {</div>
+<div class="line"><span class="lineno">  178</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  179</span>        }</div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>        <a class="code hl_function" href="#acda0b6404dd20579381b751d3d4af707">self::setServiceDescription</a>(<a class="code hl_variable" href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;getDisplayName());</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  184</span>    }</div>
+<div class="ttc" id="aclassBatch_html_acda0b6404dd20579381b751d3d4af707"><div class="ttname"><a href="#acda0b6404dd20579381b751d3d4af707">Batch\setServiceDescription</a></div><div class="ttdeci">static setServiceDescription($serviceName, $desc)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00327">class.batch.php:327</a></div></div>
 <div class="ttc" id="aclassBinFilezilla_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../da/d23/classBinFilezilla.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinFilezilla\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">class.bin.filezilla.php:5</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">BinFilezilla\SERVICE_NAME</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00206">setServiceDescription()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, <a class="el" href="../../d7/d7c/class_8bin_8filezilla_8php_source.html#l00005">BinFilezilla\SERVICE_NAME</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00327">setServiceDescription()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00136">Win32Service\create()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00187">Win32Service\create()</a>.</p>
 <div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -924,33 +1030,35 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Installs the PostgreSQL service.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the service was installed successfully, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00135">135</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  136</span>    {</div>
-<div class="line"><span class="lineno">  137</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>        $cmd = <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getCtlExe()) . <span class="stringliteral">&#39;&quot; register -N &quot;&#39;</span> . <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a> . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">  140</span>        $cmd .= <span class="stringliteral">&#39; -U &quot;LocalSystem&quot; -D &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getSymlinkPath()) . <span class="stringliteral">&#39;\\data&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">  141</span>        $cmd .= <span class="stringliteral">&#39; -l &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getErrorLog()) . <span class="stringliteral">&#39;&quot; -w&#39;</span>;</div>
-<div class="line"><span class="lineno">  142</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;installPostgresqlService&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  143</span> </div>
-<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;isInstalled()) {</div>
-<div class="line"><span class="lineno">  145</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  146</span>        }</div>
-<div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span>        <a class="code hl_function" href="#a8c13852b90e417cdf3f92019cc4b8bc0">self::setServiceDisplayName</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;getDisplayName());</div>
-<div class="line"><span class="lineno">  149</span>        <a class="code hl_function" href="#acda0b6404dd20579381b751d3d4af707">self::setServiceDescription</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;getDisplayName());</div>
-<div class="line"><span class="lineno">  150</span>        <a class="code hl_function" href="#a8eaf1384680cf871cbf27b360fd24868">self::setServiceStartType</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <span class="stringliteral">&quot;demand&quot;</span>);</div>
-<div class="line"><span class="lineno">  151</span> </div>
-<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  153</span>    }</div>
-<div class="ttc" id="aclassBatch_html_a8c13852b90e417cdf3f92019cc4b8bc0"><div class="ttname"><a href="#a8c13852b90e417cdf3f92019cc4b8bc0">Batch\setServiceDisplayName</a></div><div class="ttdeci">static setServiceDisplayName($serviceName, $displayName)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00200">class.batch.php:200</a></div></div>
-<div class="ttc" id="aclassBatch_html_a8eaf1384680cf871cbf27b360fd24868"><div class="ttname"><a href="#a8eaf1384680cf871cbf27b360fd24868">Batch\setServiceStartType</a></div><div class="ttdeci">static setServiceStartType($serviceName, $startType)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00212">class.batch.php:212</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">218</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  219</span>    {</div>
+<div class="line"><span class="lineno">  220</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  221</span> </div>
+<div class="line"><span class="lineno">  222</span>        $cmd = <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getCtlExe()) . <span class="stringliteral">&#39;&quot; register -N &quot;&#39;</span> . <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a> . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  223</span>        $cmd .= <span class="stringliteral">&#39; -U &quot;LocalSystem&quot; -D &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getSymlinkPath()) . <span class="stringliteral">&#39;\\data&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  224</span>        $cmd .= <span class="stringliteral">&#39; -l &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getErrorLog()) . <span class="stringliteral">&#39;&quot; -w&#39;</span>;</div>
+<div class="line"><span class="lineno">  225</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;installPostgresqlService&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  226</span> </div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;isInstalled()) {</div>
+<div class="line"><span class="lineno">  228</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  229</span>        }</div>
+<div class="line"><span class="lineno">  230</span> </div>
+<div class="line"><span class="lineno">  231</span>        <a class="code hl_function" href="#a8c13852b90e417cdf3f92019cc4b8bc0">self::setServiceDisplayName</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;getDisplayName());</div>
+<div class="line"><span class="lineno">  232</span>        <a class="code hl_function" href="#acda0b6404dd20579381b751d3d4af707">self::setServiceDescription</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;getDisplayName());</div>
+<div class="line"><span class="lineno">  233</span>        <a class="code hl_function" href="#a8eaf1384680cf871cbf27b360fd24868">self::setServiceStartType</a>(<a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a>, <span class="stringliteral">&quot;demand&quot;</span>);</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  236</span>    }</div>
+<div class="ttc" id="aclassBatch_html_a8c13852b90e417cdf3f92019cc4b8bc0"><div class="ttname"><a href="#a8c13852b90e417cdf3f92019cc4b8bc0">Batch\setServiceDisplayName</a></div><div class="ttdeci">static setServiceDisplayName($serviceName, $displayName)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00315">class.batch.php:315</a></div></div>
+<div class="ttc" id="aclassBatch_html_a8eaf1384680cf871cbf27b360fd24868"><div class="ttname"><a href="#a8eaf1384680cf871cbf27b360fd24868">Batch\setServiceStartType</a></div><div class="ttdeci">static setServiceStartType($serviceName, $startType)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00339">class.batch.php:339</a></div></div>
 <div class="ttc" id="aclassBinPostgresql_html_a1b0aff1ce1a09db49bfb05d38276ff94"><div class="ttname"><a href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql\SERVICE_NAME</a></div><div class="ttdeci">const SERVICE_NAME</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">class.bin.postgresql.php:5</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00206">setServiceDescription()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00200">setServiceDisplayName()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00212">setServiceStartType()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00327">setServiceDescription()</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00315">setServiceDisplayName()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00339">setServiceStartType()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00136">Win32Service\create()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00187">Win32Service\create()</a>.</p>
 <div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -983,17 +1091,18 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Refreshes the environment variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00097">97</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   98</span>    {</div>
-<div class="line"><span class="lineno">   99</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  100</span>        <a class="code hl_function" href="#a871fd22dab90ef1499e2eae9f2c73377">self::execStandalone</a>(<span class="stringliteral">&#39;refreshEnvVars&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getSetEnvExe() . <span class="stringliteral">&#39;&quot; -a &#39;</span> . <a class="code hl_variable" href="../../db/d0d/classRegistry.html#aa610cc28e0fadc1ef12f0c2b24791c6c">Registry::APP_PATH_REG_ENTRY</a> . <span class="stringliteral">&#39; &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getRootPath()) . <span class="charliteral">&#39;&quot;&#39;</span>);</div>
-<div class="line"><span class="lineno">  101</span>    }</div>
-<div class="ttc" id="aclassRegistry_html_aa610cc28e0fadc1ef12f0c2b24791c6c"><div class="ttname"><a href="../../db/d0d/classRegistry.html#aa610cc28e0fadc1ef12f0c2b24791c6c">Registry\APP_PATH_REG_ENTRY</a></div><div class="ttdeci">const APP_PATH_REG_ENTRY</div><div class="ttdef"><b>Definition</b> <a href="../../d7/dbf/class_8registry_8php_source.html#l00031">class.registry.php:31</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00160">160</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
+<div class="line"><span class="lineno">  162</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  163</span>        <a class="code hl_function" href="#a871fd22dab90ef1499e2eae9f2c73377">self::execStandalone</a>(<span class="stringliteral">&#39;refreshEnvVars&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getSetEnvExe() . <span class="stringliteral">&#39;&quot; -a &#39;</span> . <a class="code hl_variable" href="../../db/d0d/classRegistry.html#aa610cc28e0fadc1ef12f0c2b24791c6c">Registry::APP_PATH_REG_ENTRY</a> . <span class="stringliteral">&#39; &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getRootPath()) . <span class="charliteral">&#39;&quot;&#39;</span>);</div>
+<div class="line"><span class="lineno">  164</span>    }</div>
+<div class="ttc" id="aclassRegistry_html_aa610cc28e0fadc1ef12f0c2b24791c6c"><div class="ttname"><a href="../../db/d0d/classRegistry.html#aa610cc28e0fadc1ef12f0c2b24791c6c">Registry\APP_PATH_REG_ENTRY</a></div><div class="ttdeci">const APP_PATH_REG_ENTRY</div><div class="ttdef"><b>Definition</b> <a href="../../d7/dbf/class_8registry_8php_source.html#l00042">class.registry.php:42</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00025">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, <a class="el" href="../../d7/dbf/class_8registry_8php_source.html#l00031">Registry\APP_PATH_REG_ENTRY</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">execStandalone()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d7/dbf/class_8registry_8php_source.html#l00042">Registry\APP_PATH_REG_ENTRY</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00353">execStandalone()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/dbf/class_8registry_8php_source.html#l00158">Registry\setValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/dbf/class_8registry_8php_source.html#l00229">Registry\setValue()</a>.</p>
 <div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1026,15 +1135,22 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Removes a symbolic link.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$link</td><td>The path to the symbolic link. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00182">182</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  183</span>    {</div>
-<div class="line"><span class="lineno">  184</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;removeSymlink&#39;</span>, <span class="stringliteral">&#39;rmdir /Q &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($link) . <span class="charliteral">&#39;&quot;&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  185</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00286">286</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  287</span>    {</div>
+<div class="line"><span class="lineno">  288</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;removeSymlink&#39;</span>, <span class="stringliteral">&#39;rmdir /Q &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>($link) . <span class="charliteral">&#39;&quot;&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  289</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00063">Module\createSymlink()</a>, and <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00035">Symlinks\deleteCurrentSymlinks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00088">Module\createSymlink()</a>, and <a class="el" href="../../dd/d7a/class_8symlinks_8php_source.html#l00041">Symlinks\deleteCurrentSymlinks()</a>.</p>
 <div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1067,16 +1183,17 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Restarts the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00073">73</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   74</span>    {</div>
-<div class="line"><span class="lineno">   75</span>        <a class="code hl_function" href="#aca27f962f806f8bce07383b0b0b60a39">self::exitApp</a>(<span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">   76</span>    }</div>
-<div class="ttc" id="aclassBatch_html_aca27f962f806f8bce07383b0b0b60a39"><div class="ttname"><a href="#aca27f962f806f8bce07383b0b0b60a39">Batch\exitApp</a></div><div class="ttdeci">static exitApp($restart=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00054">class.batch.php:54</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00128">128</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  129</span>    {</div>
+<div class="line"><span class="lineno">  130</span>        <a class="code hl_function" href="#aca27f962f806f8bce07383b0b0b60a39">self::exitApp</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  131</span>    }</div>
+<div class="ttc" id="aclassBatch_html_aca27f962f806f8bce07383b0b0b60a39"><div class="ttname"><a href="#aca27f962f806f8bce07383b0b0b60a39">Batch\exitApp</a></div><div class="ttdeci">static exitApp($restart=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd7/class_8batch_8php_source.html#l00106">class.batch.php:106</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00054">exitApp()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00106">exitApp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00008">ActionExec\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/d26/class_8action_8exec_8php_source.html#l00038">ActionExec\__construct()</a>.</p>
 <div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1113,16 +1230,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Sets the description of a service.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$serviceName</td><td>The name of the service. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$desc</td><td>The description to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00206">206</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  207</span>    {</div>
-<div class="line"><span class="lineno">  208</span>        $cmd = <span class="stringliteral">&#39;sc description &#39;</span> . $serviceName . <span class="stringliteral">&#39; &quot;&#39;</span> . $desc . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">  209</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceDescription&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  210</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00327">327</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  328</span>    {</div>
+<div class="line"><span class="lineno">  329</span>        $cmd = <span class="stringliteral">&#39;sc description &#39;</span> . $serviceName . <span class="stringliteral">&#39; &quot;&#39;</span> . $desc . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  330</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceDescription&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  331</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00103">installFilezillaService()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00135">installPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00171">installFilezillaService()</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">installPostgresqlService()</a>.</p>
 <div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1159,16 +1284,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Sets the display name of a service.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$serviceName</td><td>The name of the service. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$displayName</td><td>The display name to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00200">200</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  201</span>    {</div>
-<div class="line"><span class="lineno">  202</span>        $cmd = <span class="stringliteral">&#39;sc config &#39;</span> . $serviceName . <span class="stringliteral">&#39; DisplayName= &quot;&#39;</span> . $displayName . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">  203</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceDisplayName&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  204</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00315">315</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  316</span>    {</div>
+<div class="line"><span class="lineno">  317</span>        $cmd = <span class="stringliteral">&#39;sc config &#39;</span> . $serviceName . <span class="stringliteral">&#39; DisplayName= &quot;&#39;</span> . $displayName . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  318</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceDisplayName&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  319</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00135">installPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">installPostgresqlService()</a>.</p>
 <div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1205,16 +1338,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Sets the start type of a service.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$serviceName</td><td>The name of the service. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$startType</td><td>The start type to set (e.g., "auto", "demand"). </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00212">212</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  213</span>    {</div>
-<div class="line"><span class="lineno">  214</span>        $cmd = <span class="stringliteral">&#39;sc config &#39;</span> . $serviceName . <span class="stringliteral">&#39; start= &#39;</span> . $startType;</div>
-<div class="line"><span class="lineno">  215</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceStartType&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  216</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00339">339</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  340</span>    {</div>
+<div class="line"><span class="lineno">  341</span>        $cmd = <span class="stringliteral">&#39;sc config &#39;</span> . $serviceName . <span class="stringliteral">&#39; start= &#39;</span> . $startType;</div>
+<div class="line"><span class="lineno">  342</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;setServiceStartType&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  343</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00135">installPostgresqlService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00218">installPostgresqlService()</a>.</p>
 <div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1247,18 +1388,20 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Uninstalls the FileZilla service.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the service was uninstalled successfully, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00118">118</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  119</span>    {</div>
-<div class="line"><span class="lineno">  120</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  121</span> </div>
-<div class="line"><span class="lineno">  122</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;uninstallFilezillaService&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getExe() . <span class="stringliteral">&#39;&quot; /uninstall&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;isInstalled();</div>
-<div class="line"><span class="lineno">  124</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00191">191</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  192</span>    {</div>
+<div class="line"><span class="lineno">  193</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;uninstallFilezillaService&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getExe() . <span class="stringliteral">&#39;&quot; /uninstall&#39;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  196</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getFilezilla()-&gt;getService()-&gt;isInstalled();</div>
+<div class="line"><span class="lineno">  197</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, and <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00187">Win32Service\delete()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00250">Win32Service\delete()</a>.</p>
 <div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -1291,20 +1434,22 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Uninstalls the PostgreSQL service.</p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the service was uninstalled successfully, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00155">155</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  156</span>    {</div>
-<div class="line"><span class="lineno">  157</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  158</span> </div>
-<div class="line"><span class="lineno">  159</span>        $cmd = <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getCtlExe()) . <span class="stringliteral">&#39;&quot; unregister -N &quot;&#39;</span> . <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a> . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
-<div class="line"><span class="lineno">  160</span>        $cmd .= <span class="stringliteral">&#39; -l &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getErrorLog()) . <span class="stringliteral">&#39;&quot; -w&#39;</span>;</div>
-<div class="line"><span class="lineno">  161</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;uninstallPostgresqlService&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;isInstalled();</div>
-<div class="line"><span class="lineno">  163</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00243">243</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  244</span>    {</div>
+<div class="line"><span class="lineno">  245</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  246</span> </div>
+<div class="line"><span class="lineno">  247</span>        $cmd = <span class="charliteral">&#39;&quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getCtlExe()) . <span class="stringliteral">&#39;&quot; unregister -N &quot;&#39;</span> . <a class="code hl_variable" href="../../dc/db9/classBinPostgresql.html#a1b0aff1ce1a09db49bfb05d38276ff94">BinPostgresql::SERVICE_NAME</a> . <span class="charliteral">&#39;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">  248</span>        $cmd .= <span class="stringliteral">&#39; -l &quot;&#39;</span> . <a class="code hl_function" href="../../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92">Util::formatWindowsPath</a>(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getErrorLog()) . <span class="stringliteral">&#39;&quot; -w&#39;</span>;</div>
+<div class="line"><span class="lineno">  249</span>        <a class="code hl_function" href="#aee2bd91e3b020c299c87d3b9457421cc">self::exec</a>(<span class="stringliteral">&#39;uninstallPostgresqlService&#39;</span>, $cmd, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getPostgresql()-&gt;getService()-&gt;isInstalled();</div>
+<div class="line"><span class="lineno">  251</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>, <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00832">Util\formatWindowsPath()</a>, and <a class="el" href="../../d7/d99/class_8bin_8postgresql_8php_source.html#l00005">BinPostgresql\SERVICE_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00187">Win32Service\delete()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/db9/class_8win32service_8php_source.html#l00250">Win32Service\delete()</a>.</p>
 <div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1337,17 +1482,24 @@ Static Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Writes a log entry to the batch log file.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$log</td><td>The log message to write. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00012">12</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   13</span>    {</div>
-<div class="line"><span class="lineno">   14</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
-<div class="line"><span class="lineno">   15</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($log, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBatchLogFilePath());</div>
-<div class="line"><span class="lineno">   16</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00047">47</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util::logDebug</a>($log, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBatchLogFilePath());</div>
+<div class="line"><span class="lineno">   51</span>    }</div>
 <div class="ttc" id="aclassUtil_html_a708479f12c93bcadef186df397bbf049"><div class="ttname"><a href="../../d6/de4/classUtil.html#a708479f12c93bcadef186df397bbf049">Util\logDebug</a></div><div class="ttdeci">static logDebug($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00715">class.util.php:715</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00013">$bearsamppRoot</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00715">Util\logDebug()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 <div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -1371,9 +1523,9 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00006">6</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00033">33</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00223">exec()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00370">exec()</a>.</p>
 
 </div>
 </div>
@@ -1389,7 +1541,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00005">5</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd7/class_8batch_8php_source.html#l00032">32</a> of file <a class="el" href="../../d1/dd7/class_8batch_8php_source.html">class.batch.php</a>.</p>
 
 </div>
 </div>

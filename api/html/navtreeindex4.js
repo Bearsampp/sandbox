@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var NAVTREEINDEX4 =
 {
 "d6/de4/classUtil.html#a2e243722302519425c3cf26fe2fc180c":[1,0,105,29],
@@ -164,13 +172,15 @@ var NAVTREEINDEX4 =
 "d8/d0a/class_8tpl_8app_8memcached_8php.html":[2,0,0,0,0,0,4,0,14],
 "d8/d0a/class_8tpl_8app_8memcached_8php_source.html":[2,0,0,0,0,0,4,0,14],
 "d8/d31/ajax_8mailhog_8php.html":[2,0,0,0,0,2,0,0,3],
-"d8/d31/ajax_8mailhog_8php.html#a112ef069ddc0454086e3d1e6d8d55d07":[2,0,0,0,0,2,0,0,3,0],
-"d8/d31/ajax_8mailhog_8php.html#a506bf1e4412a414f6caee6bb129b67a3":[2,0,0,0,0,2,0,0,3,4],
-"d8/d31/ajax_8mailhog_8php.html#a642365a723e6996d190fb800bb6a7e01":[2,0,0,0,0,2,0,0,3,2],
-"d8/d31/ajax_8mailhog_8php.html#aa07984a6eae8bb831dd77c2cdf7ee4cd":[2,0,0,0,0,2,0,0,3,3],
-"d8/d31/ajax_8mailhog_8php.html#aa212fa25057181b0d0629f15b529b0a0":[2,0,0,0,0,2,0,0,3,6],
-"d8/d31/ajax_8mailhog_8php.html#aece640e496802d043c54320eb330ff4d":[2,0,0,0,0,2,0,0,3,1],
-"d8/d31/ajax_8mailhog_8php.html#aef0d7f4cc957a86f100faa6e955423c3":[2,0,0,0,0,2,0,0,3,5],
+"d8/d31/ajax_8mailhog_8php.html#a112ef069ddc0454086e3d1e6d8d55d07":[2,0,0,0,0,2,0,0,3,2],
+"d8/d31/ajax_8mailhog_8php.html#a506bf1e4412a414f6caee6bb129b67a3":[2,0,0,0,0,2,0,0,3,6],
+"d8/d31/ajax_8mailhog_8php.html#a642365a723e6996d190fb800bb6a7e01":[2,0,0,0,0,2,0,0,3,4],
+"d8/d31/ajax_8mailhog_8php.html#a682f09b349e25300b21585300a71d17c":[2,0,0,0,0,2,0,0,3,0],
+"d8/d31/ajax_8mailhog_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a":[2,0,0,0,0,2,0,0,3,1],
+"d8/d31/ajax_8mailhog_8php.html#aa07984a6eae8bb831dd77c2cdf7ee4cd":[2,0,0,0,0,2,0,0,3,5],
+"d8/d31/ajax_8mailhog_8php.html#aa212fa25057181b0d0629f15b529b0a0":[2,0,0,0,0,2,0,0,3,8],
+"d8/d31/ajax_8mailhog_8php.html#aece640e496802d043c54320eb330ff4d":[2,0,0,0,0,2,0,0,3,3],
+"d8/d31/ajax_8mailhog_8php.html#aef0d7f4cc957a86f100faa6e955423c3":[2,0,0,0,0,2,0,0,3,7],
 "d8/d31/ajax_8mailhog_8php_source.html":[2,0,0,0,0,2,0,0,3],
 "d8/d3c/class_8tpl_8app_8logsVerbose_8php.html":[2,0,0,0,0,0,4,0,11],
 "d8/d3c/class_8tpl_8app_8logsVerbose_8php_source.html":[2,0,0,0,0,0,4,0,11],
@@ -247,7 +257,5 @@ var NAVTREEINDEX4 =
 "d8/d9c/classBinNodejs.html#a09f2c833c130b4443725fb576d9d5269":[1,0,50,15],
 "d8/d9c/classBinNodejs.html#a0a6b39bb1c8d746a09325a52c690b240":[1,0,50,17],
 "d8/d9c/classBinNodejs.html#a2765d3ab7d552c52afe204ece91c4c45":[1,0,50,19],
-"d8/d9c/classBinNodejs.html#a4ca4942bd159e981d98bae05e134855d":[1,0,50,10],
-"d8/d9c/classBinNodejs.html#a5f33c33705dd268ad4799ceeacc8eec3":[1,0,50,9],
-"d8/d9c/classBinNodejs.html#a65093e6cbd7012059bc81f5bbfe8efbb":[1,0,50,21]
+"d8/d9c/classBinNodejs.html#a4ca4942bd159e981d98bae05e134855d":[1,0,50,10]
 };
