@@ -311,6 +311,9 @@ class Win32Service
         elseif ( $this->getName() == BinMailhog::SERVICE_NAME ) {
             $bearsamppBins->getMailhog()->rebuildConf();
         }
+        elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
+            $bearsamppBins->getMailpit()->rebuildConf();
+        }
         elseif ( $this->getName() == BinMemcached::SERVICE_NAME ) {
             $bearsamppBins->getMemcached()->rebuildConf();
         }
