@@ -348,12 +348,12 @@ class BinMailpit extends Module
         return $this->exe;
     }
 
-    public function getApiPort()
+    public function getWebRoot()
     {
         return $this->webRoot;
     }
 
-    public function setApiPort($webRoot)
+    public function setWebRoot($webRoot)
     {
         $this->replace( self::LOCAL_CFG_WEB_ROOT, $webRoot );
     }
@@ -378,8 +378,13 @@ class BinMailpit extends Module
         $this->replace( self::LOCAL_CFG_SMTP_PORT, $smtpPort );
     }
 
-    public function getMailPath()
+    public function getListen()
     {
-        return $this->mailPath;
+        return $this->listen;
+    }
+
+    public function setListen()
+    {
+        return $this->replace( self::LOCAL_CFG_LISTEN, $this->listen );
     }
 }

@@ -92,7 +92,7 @@ class TplAppMailpit
                     $bearsamppLang->getValue(Lang::MAILPIT),
                     $bearsamppConfig->getBrowser(),
                     TplAestan::GLYPH_WEB_PAGE,
-                    $bearsamppRoot->getLocalUrl() . ':' . $bearsamppBins->getMailpit()->getUiPort()
+                    $bearsamppRoot->getLocalUrl() . ':' . $bearsamppBins->getMailpit()->getUiPort() . '/' . $bearsamppBins->getMailpit()->getWebRoot()
                 ) . PHP_EOL;
 
             // Log
