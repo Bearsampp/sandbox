@@ -6,6 +6,7 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+
 global $bearsamppBins, $bearsamppLang;
 
 /**
@@ -17,7 +18,7 @@ global $bearsamppBins, $bearsamppLang;
 // Initialize result array
 $result = array(
     'checkport' => '',
-    'versions' => '',
+    'versions'  => '',
 );
 
 // Check SMTP port
@@ -25,7 +26,7 @@ $smtpPort = $bearsamppBins->getMailhog()->getSmtpPort();
 
 $textServiceStarted = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STARTED);
 $textServiceStopped = $bearsamppLang->getValue(Lang::HOMEPAGE_SERVICE_STOPPED);
-$textDisabled = $bearsamppLang->getValue(Lang::DISABLED);
+$textDisabled       = $bearsamppLang->getValue(Lang::DISABLED);
 
 /**
  * Check if the Mailhog service is running on the specified SMTP port.
@@ -33,7 +34,7 @@ $textDisabled = $bearsamppLang->getValue(Lang::DISABLED);
  * If the port is closed, indicate that the service is stopped.
  * If the service is disabled, indicate that it is disabled.
  */
-if ($bearsamppBins->getMailhog()->checkPort($smtpPort)) {
+if ($bearsamppBins->getMailhog()->isEnable()) {
     if ($bearsamppBins->getMailhog()->checkPort($smtpPort)) {
         $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $smtpPort) . '</span>';
     } else {

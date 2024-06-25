@@ -112,17 +112,6 @@ class BinMailpit extends Module
         $nssm->setStderr( $bearsamppRoot->getLogsPath() . '/mailpit.err.log' );
 
         $this->service->setNssm( $nssm );
-
-        if ( Util::isPortInUse( $this->uiPort ) ) {
-            Util::logError( 'UI port ' . $this->uiPort . ' is already in use.' );
-
-            return;
-        }
-        if ( Util::isPortInUse( $this->smtpPort ) ) {
-            Util::logError( 'SMTP port ' . $this->smtpPort . ' is already in use.' );
-
-            return;
-        }
     }
 
     protected function replaceAll($params)

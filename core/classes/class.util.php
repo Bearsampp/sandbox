@@ -1553,6 +1553,7 @@ class Util
      */
     public static function isPortInUse($port)
     {
+        //TODO: Change to check config for localhost ip else use 127.0.0.1
         $connection = @fsockopen('127.0.0.1', $port);
         if (is_resource($connection)) {
             fclose($connection);
