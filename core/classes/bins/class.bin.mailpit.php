@@ -133,9 +133,6 @@ class BinMailpit extends Module
             $content = preg_replace( '|' . $key . ' = .*|', $key . ' = ' . '"' . $value . '"', $content );
             $this->bearsamppConfRaw[$key] = $value;
             switch ( $key ) {
-                case self::LOCAL_CFG_LISTEN:
-                    $this->listen =  $value;
-                    break;
                 case self::LOCAL_CFG_UI_PORT:
                     $this->uiPort = intval( $value );
                     break;
@@ -213,7 +210,7 @@ class BinMailpit extends Module
 
         $headers = Util::getHeaders( $this->listen, $port );
         if ( !empty( $headers ) ) {
-            if ( Util::contains( $headers[0], 'MailPit' ) ) {
+            if ( Util::contains( $headers[0], 'Mailpit' ) ) {
                 Util::logDebug( $this->getName() . ' port ' . $port . ' is used by: ' . str_replace( '220 ', '', $headers[0] ) );
                 if ( $showWindow ) {
                     $bearsamppWinbinder->messageBoxInfo(

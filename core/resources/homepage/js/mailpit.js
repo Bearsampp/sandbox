@@ -6,14 +6,14 @@
  * Github: https://github.com/Bearsampp
  */
 
-async function getMailPitStatus() {
+async function getMailpitStatus() {
   const url = AJAX_URL;
-  let data = new URLSearchParams();
   const proc = 'mailpit';
-  data.append(`proc`, proc);
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
@@ -40,6 +40,6 @@ try {
 }
 document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('a[name=mailpit]').name === 'mailpit') {
-    getMailPitStatus();
+    getMailpitStatus();
   }
 })

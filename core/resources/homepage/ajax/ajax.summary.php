@@ -110,8 +110,8 @@ catch ( Exception $e ) {
 
 try {
     /**
-     * MailPit Bin Information
-     * Retrieves the SMTP port for MailPit, checks if MailPit is enabled and the port is open.
+     * Mailpit Bin Information
+     * Retrieves the SMTP port for Mailpit, checks if Mailpit is enabled and the port is open.
      * Sets the appropriate label based on the status and appends the version and download link to the result.
      */
     $mailpitPort  = $bearsamppBins->getMailpit()->getSmtpPort();

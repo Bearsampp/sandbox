@@ -8,12 +8,12 @@
 
 async function getXlightStatus() {
   const url = AJAX_URL;
-  let data = new URLSearchParams();
   const proc = 'xlight';
-  data.append(`proc`, proc);
+  const senddata = new URLSearchParams();
+  senddata.append(`proc`, proc);
   const options = {
     method: 'POST',
-    body: data
+    body: senddata
   }
   let response = await fetch(url, options);
   if (!response.ok) {
