@@ -1497,8 +1497,8 @@ class Util
         if ($fp) {
             $out = fgets($fp);
             $result = explode(PHP_EOL, $out);
+            @fclose($fp);
         }
-        @fclose($fp);
 
         if (!empty($result)) {
             $rebuildResult = array();
