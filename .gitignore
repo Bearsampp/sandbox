@@ -23,14 +23,18 @@
 /www/.htaccess
 /**/post-install/
 bearsampp.ini
+bearsampp.exe
 #bearsampp.conf
 /core/resources/homepage/alias.conf
 /core/resources/loading.pid
 /core/libs/openssl/openssl.cfg
 /core/resources/lastPath.dat
 /core/resources/version.dat
-
-
+/core/resources/img/about.bmp
+/core/resources/img/bearsampp.bmp
+/core/resources/img/header-logo.png
+/core/resources/img/icons/app.ico
+/core/resources/img/icons/bearsampp.ico
 
 # Visual Studio
 .vscode/
