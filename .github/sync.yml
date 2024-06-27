@@ -7,7 +7,6 @@ group:
             /homepage/img/about.bmp
             /homepage/img/bearsampp.bmp
             /homepage/img/icons/app.ico
-            /homepage/img/icons/bearsampp.ico
             /homepage/img/icons/favicon.ico
             /homepage/img/header-logo.png
         deleteOrphaned: true
