@@ -46,3 +46,4 @@ bearsampp.ini
 !/tmp/.gitignore
 !/logs/.gitignore
 !/core/tmp/.gitignore
+.codiumai
