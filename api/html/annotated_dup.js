@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var annotated_dup =
 [
     [ "Action", "db/d09/classAction.html", "db/d09/classAction" ],
@@ -24,6 +32,7 @@ var annotated_dup =
     [ "ActionLoading", "df/d6b/classActionLoading.html", "df/d6b/classActionLoading" ],
     [ "ActionManualRestart", "d0/d9f/classActionManualRestart.html", "d0/d9f/classActionManualRestart" ],
     [ "ActionQuit", "de/d86/classActionQuit.html", "de/d86/classActionQuit" ],
+    [ "ActionRebuildini", "dd/d50/classActionRebuildini.html", "dd/d50/classActionRebuildini" ],
     [ "ActionRefreshRepos", "d8/d75/classActionRefreshRepos.html", "d8/d75/classActionRefreshRepos" ],
     [ "ActionRefreshReposStartup", "d3/dfc/classActionRefreshReposStartup.html", "d3/dfc/classActionRefreshReposStartup" ],
     [ "ActionReload", "dd/dea/classActionReload.html", "dd/dea/classActionReload" ],
@@ -47,6 +56,7 @@ var annotated_dup =
     [ "BinApache", "d9/d6c/classBinApache.html", "d9/d6c/classBinApache" ],
     [ "BinFilezilla", "da/d23/classBinFilezilla.html", "da/d23/classBinFilezilla" ],
     [ "BinMailhog", "db/df2/classBinMailhog.html", "db/df2/classBinMailhog" ],
+    [ "BinMailpit", "d9/ddd/classBinMailpit.html", "d9/ddd/classBinMailpit" ],
     [ "BinMariadb", "d4/d8f/classBinMariadb.html", "d4/d8f/classBinMariadb" ],
     [ "BinMemcached", "da/d10/classBinMemcached.html", "da/d10/classBinMemcached" ],
     [ "BinMysql", "d6/d88/classBinMysql.html", "d6/d88/classBinMysql" ],
@@ -54,6 +64,7 @@ var annotated_dup =
     [ "BinPhp", "dc/db3/classBinPhp.html", "dc/db3/classBinPhp" ],
     [ "BinPostgresql", "dc/db9/classBinPostgresql.html", "dc/db9/classBinPostgresql" ],
     [ "Bins", "de/d54/classBins.html", "de/d54/classBins" ],
+    [ "BinXlight", "d8/ddb/classBinXlight.html", "d8/ddb/classBinXlight" ],
     [ "Config", "d9/df9/classConfig.html", "d9/df9/classConfig" ],
     [ "Core", "db/d6d/classCore.html", "db/d6d/classCore" ],
     [ "Homepage", "d4/ddb/classHomepage.html", "d4/ddb/classHomepage" ],
@@ -92,6 +103,7 @@ var annotated_dup =
     [ "TplAppLogs", "d2/d2a/classTplAppLogs.html", "d2/d2a/classTplAppLogs" ],
     [ "TplAppLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html", "d9/d3f/classTplAppLogsVerbose" ],
     [ "TplAppMailhog", "d4/d8a/classTplAppMailhog.html", "d4/d8a/classTplAppMailhog" ],
+    [ "TplAppMailpit", "d8/dd3/classTplAppMailpit.html", "d8/dd3/classTplAppMailpit" ],
     [ "TplAppMariadb", "d4/de1/classTplAppMariadb.html", "d4/de1/classTplAppMariadb" ],
     [ "TplAppMemcached", "d8/dff/classTplAppMemcached.html", "d8/dff/classTplAppMemcached" ],
     [ "TplAppMysql", "d6/d19/classTplAppMysql.html", "d6/d19/classTplAppMysql" ],
@@ -100,9 +112,11 @@ var annotated_dup =
     [ "TplAppPhp", "d0/d1a/classTplAppPhp.html", "d0/d1a/classTplAppPhp" ],
     [ "TplAppPostgresql", "d3/d1b/classTplAppPostgresql.html", "d3/d1b/classTplAppPostgresql" ],
     [ "TplAppPython", "de/d1b/classTplAppPython.html", "de/d1b/classTplAppPython" ],
+    [ "TplAppRebuildIni", "d9/da5/classTplAppRebuildIni.html", "d9/da5/classTplAppRebuildIni" ],
     [ "TplAppReload", "da/d00/classTplAppReload.html", "da/d00/classTplAppReload" ],
     [ "TplAppServices", "d3/d3e/classTplAppServices.html", "d3/d3e/classTplAppServices" ],
     [ "TplAppTools", "dc/dd8/classTplAppTools.html", "dc/dd8/classTplAppTools" ],
+    [ "TplAppXlight", "dc/d83/classTplAppXlight.html", "dc/d83/classTplAppXlight" ],
     [ "TplConsoleZ", "d6/d32/classTplConsoleZ.html", "d6/d32/classTplConsoleZ" ],
     [ "TplService", "db/dc8/classTplService.html", "db/dc8/classTplService" ],
     [ "Util", "d6/de4/classUtil.html", "d6/de4/classUtil" ],

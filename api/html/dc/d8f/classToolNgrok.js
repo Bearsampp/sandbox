@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolNgrok =
 [
-    [ "__construct", "dc/d8f/classToolNgrok.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getExe", "dc/d8f/classToolNgrok.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "reload", "dc/d8f/classToolNgrok.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "dc/d8f/classToolNgrok.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "$exe", "dc/d8f/classToolNgrok.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "LOCAL_CFG_EXE", "dc/d8f/classToolNgrok.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "ROOT_CFG_VERSION", "dc/d8f/classToolNgrok.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "dc/d8f/classToolNgrok.html#a9acd6610c7d5d80472f99f01e9bdf60b", null ],
+    [ "getExe", "dc/d8f/classToolNgrok.html#a53d996d32340d9d6f76ad0c0b1b17ff7", null ],
+    [ "reload", "dc/d8f/classToolNgrok.html#a6f892a6e494fbd75709353a2d768d89e", null ],
+    [ "setVersion", "dc/d8f/classToolNgrok.html#aa83638453353fc867cbf907211e78dff", null ],
+    [ "$exe", "dc/d8f/classToolNgrok.html#a83c8fdcc5d20f219944626efac93da42", null ],
+    [ "LOCAL_CFG_EXE", "dc/d8f/classToolNgrok.html#ac32ef1a90e0c8c9c21a610a8713f8372", null ],
+    [ "ROOT_CFG_VERSION", "dc/d8f/classToolNgrok.html#aad5d6252d533143c17eddaef5564fe07", null ]
 ];

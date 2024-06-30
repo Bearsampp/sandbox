@@ -1,12 +1,20 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionAbout =
 [
-    [ "__construct", "d5/d43/classActionAbout.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "d5/d43/classActionAbout.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$wbBtnOk", "d5/d43/classActionAbout.html#a7e7ed7e073e724e8057265ef6719b648", null ],
-    [ "$wbImage", "d5/d43/classActionAbout.html#a9030488e2366bc6f14bac2199e71e5ed", null ],
-    [ "$wbLinkDonate", "d5/d43/classActionAbout.html#a2fea2de0c29184235661cda361815295", null ],
-    [ "$wbLinkGithub", "d5/d43/classActionAbout.html#a3e66942e63a00853c4aae32a18220b43", null ],
-    [ "$wbLinkHomepage", "d5/d43/classActionAbout.html#ab735c7b93c7d519408836e469fe8700c", null ],
-    [ "$wbWindow", "d5/d43/classActionAbout.html#a2cc79e8b485f4c328c10892c4349c397", null ],
-    [ "GAUGE_SAVE", "d5/d43/classActionAbout.html#ad679d92e80e6fcd645765b4b5c0d6ca3", null ]
+    [ "__construct", "d5/d43/classActionAbout.html#aaa96db6b0220bee91c8f026b562cef76", null ],
+    [ "processWindow", "d5/d43/classActionAbout.html#a686ab955b412bedcf7b9509228d62bde", null ],
+    [ "$wbBtnOk", "d5/d43/classActionAbout.html#a95138dcd73e115f6f7574c3cdf52d802", null ],
+    [ "$wbImage", "d5/d43/classActionAbout.html#a90d835e4b55a67e28892bdfa5de10fa5", null ],
+    [ "$wbLinkDonate", "d5/d43/classActionAbout.html#a41263082320a66a7e0e776ecfeb0117b", null ],
+    [ "$wbLinkGithub", "d5/d43/classActionAbout.html#a7526d86d7c99f7d6a4c93f640d50e3d5", null ],
+    [ "$wbLinkHomepage", "d5/d43/classActionAbout.html#a287a204b48c6ef00023881faefd539c3", null ],
+    [ "$wbWindow", "d5/d43/classActionAbout.html#a83411682443070d48f8fbd18031b4a2a", null ],
+    [ "GAUGE_SAVE", "d5/d43/classActionAbout.html#aec8b2a15410e3d240564c822117e5017", null ]
 ];

@@ -1,19 +1,27 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionEditAlias =
 [
-    [ "__construct", "d5/d4e/classActionEditAlias.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "d5/d4e/classActionEditAlias.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$initName", "d5/d4e/classActionEditAlias.html#ac9263842e42dedd463c5e07bb8388842", null ],
-    [ "$wbBtnCancel", "d5/d4e/classActionEditAlias.html#ab22f8ec0ba27c7d39a1a65cd8ed2853a", null ],
-    [ "$wbBtnDelete", "d5/d4e/classActionEditAlias.html#a12dd7cd71cc550f64310c4d3bf96d98a", null ],
-    [ "$wbBtnDest", "d5/d4e/classActionEditAlias.html#a3d13938d22736a3ed701974ecddf8b02", null ],
-    [ "$wbBtnSave", "d5/d4e/classActionEditAlias.html#ab919cf62d7ddda4d31455a3c721187b0", null ],
-    [ "$wbInputDest", "d5/d4e/classActionEditAlias.html#a14c5bc73b76ff9c1fd549099deecc014", null ],
-    [ "$wbInputName", "d5/d4e/classActionEditAlias.html#aae8c2e016a0eed9d13c90c4220b8e24d", null ],
-    [ "$wbLabelDest", "d5/d4e/classActionEditAlias.html#a5cbccfd7cbe8dc77577a1b899cf19ab7", null ],
-    [ "$wbLabelExp", "d5/d4e/classActionEditAlias.html#a1dad74160c0d06ea19c740157243b9a7", null ],
-    [ "$wbLabelName", "d5/d4e/classActionEditAlias.html#a250d48106a8df89d9a5289766f8abca9", null ],
-    [ "$wbProgressBar", "d5/d4e/classActionEditAlias.html#ae0249e7a7a289ad2d29ac55138152284", null ],
-    [ "$wbWindow", "d5/d4e/classActionEditAlias.html#a2cc79e8b485f4c328c10892c4349c397", null ],
-    [ "GAUGE_DELETE", "d5/d4e/classActionEditAlias.html#a38ce5e6cb03b90548a7264e6d2fe63b2", null ],
-    [ "GAUGE_SAVE", "d5/d4e/classActionEditAlias.html#ad679d92e80e6fcd645765b4b5c0d6ca3", null ]
+    [ "__construct", "d5/d4e/classActionEditAlias.html#a82f0be24c2d92bcc9b3aeba1f9e9dfe0", null ],
+    [ "processWindow", "d5/d4e/classActionEditAlias.html#a43750bb8b233634348f84929af8604ea", null ],
+    [ "$initName", "d5/d4e/classActionEditAlias.html#ab995eb0f27e674dbd6dff1129446fbf1", null ],
+    [ "$wbBtnCancel", "d5/d4e/classActionEditAlias.html#a626550eb549dfcf63aad4682f8f64601", null ],
+    [ "$wbBtnDelete", "d5/d4e/classActionEditAlias.html#a65d47e14c9fba79585373fe7394b4604", null ],
+    [ "$wbBtnDest", "d5/d4e/classActionEditAlias.html#a06c21daf4a8753a53f75af0beb8a9b4c", null ],
+    [ "$wbBtnSave", "d5/d4e/classActionEditAlias.html#ad3095361f91cb6be82dfd69eb69a9f3d", null ],
+    [ "$wbInputDest", "d5/d4e/classActionEditAlias.html#a8a23ac67017bfa5e2223882b3ff210ed", null ],
+    [ "$wbInputName", "d5/d4e/classActionEditAlias.html#a6b1492f2c2d502e929f778cdb7354d61", null ],
+    [ "$wbLabelDest", "d5/d4e/classActionEditAlias.html#a0fe609e59b36a27198ffb2c163dde5ab", null ],
+    [ "$wbLabelExp", "d5/d4e/classActionEditAlias.html#a9725bde70531cec818ed81e734737ba5", null ],
+    [ "$wbLabelName", "d5/d4e/classActionEditAlias.html#a7b066bfe809fa3ffbef0d15ff3e505af", null ],
+    [ "$wbProgressBar", "d5/d4e/classActionEditAlias.html#a602a44c3324cb344f6db3acc86f5f105", null ],
+    [ "$wbWindow", "d5/d4e/classActionEditAlias.html#a4157a01a432b97c2cd6289114615aeb0", null ],
+    [ "GAUGE_DELETE", "d5/d4e/classActionEditAlias.html#afcb83702d50f6531701a65cefa182baf", null ],
+    [ "GAUGE_SAVE", "d5/d4e/classActionEditAlias.html#a6d5297d2878a523a98e53d36337b185b", null ]
 ];

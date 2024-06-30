@@ -1,23 +1,31 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classVbs =
 [
-    [ "__construct", "dd/de9/classVbs.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "countFilesFolders", "dd/de9/classVbs.html#a881ab318419acf17f1e26dab1de1a19d", null ],
-    [ "createShortcut", "dd/de9/classVbs.html#a486b0eb0eacdd2766e62e969b77b7b9d", null ],
-    [ "exec", "dd/de9/classVbs.html#a5be68e999bf31b7f671054c54565b6a1", null ],
-    [ "getDefaultBrowser", "dd/de9/classVbs.html#a3cd75e2b339fe9e96ab0bd481a35d612", null ],
-    [ "getInstalledBrowsers", "dd/de9/classVbs.html#a51101c75bfdf7cdce10de2a1d1fc6ffc", null ],
-    [ "getListProcs", "dd/de9/classVbs.html#afaafe73f99805f4c5d9fbeea9a36e5cf", null ],
-    [ "getResultFile", "dd/de9/classVbs.html#a2790ba3876c9f7f66ebec833eea82a2b", null ],
-    [ "getServiceInfos", "dd/de9/classVbs.html#a37812a8038eddfce6bb5a756af87935a", null ],
-    [ "getSpecialPath", "dd/de9/classVbs.html#a53925cff6048273f90461d3bc6aa4ac5", null ],
-    [ "getStartupPath", "dd/de9/classVbs.html#afa896a018142f4d91a29b1cf67dbf51d", null ],
-    [ "getTmpFile", "dd/de9/classVbs.html#ac83f11b6ccf65f89682e269e9528a492", null ],
-    [ "killProc", "dd/de9/classVbs.html#aebc14ecd472e0982e772d53f02ffe220", null ],
-    [ "writeLog", "dd/de9/classVbs.html#a1e3715665ded5e5e73e20916e669da29", null ],
-    [ "ALL_DESKTOP_PATH", "dd/de9/classVbs.html#a56575463227295c2eb9e96538e874207", null ],
-    [ "ALL_STARTUP_PATH", "dd/de9/classVbs.html#ac13ae1a5af3c69138feec1408ac983e2", null ],
-    [ "DESKTOP_PATH", "dd/de9/classVbs.html#a8b5fceba526639344aec54e33c9fe838", null ],
-    [ "END_PROCESS_STR", "dd/de9/classVbs.html#af5b7c5485cc0fb57776174544fed2823", null ],
-    [ "STARTUP_PATH", "dd/de9/classVbs.html#a54192de84d35d097a2d1ec81e5a2c704", null ],
-    [ "STR_SEPARATOR", "dd/de9/classVbs.html#abcd066e2ac9191bca4dff9f4b39960c3", null ]
+    [ "__construct", "dd/de9/classVbs.html#a9afd761022bd6c17665d1d29548df9d7", null ],
+    [ "countFilesFolders", "dd/de9/classVbs.html#a640cefad4fc0c28bcd23a41c7ae82451", null ],
+    [ "createShortcut", "dd/de9/classVbs.html#ac49556d381f31a45a6103d83b0336329", null ],
+    [ "exec", "dd/de9/classVbs.html#a194bf362d5d286cc9e7d06bc30a0c030", null ],
+    [ "getDefaultBrowser", "dd/de9/classVbs.html#a69142d090a5ad67d1ceb1e61e4aabf8c", null ],
+    [ "getInstalledBrowsers", "dd/de9/classVbs.html#a100363cb22a264f99b1913de37a23acc", null ],
+    [ "getListProcs", "dd/de9/classVbs.html#afbbfb279335ab8f60360ac25454de193", null ],
+    [ "getResultFile", "dd/de9/classVbs.html#abbe5092e5ae604ae3e448813464d2914", null ],
+    [ "getServiceInfos", "dd/de9/classVbs.html#a0caaf59e2ff4129acd1dfe1ab03aa67d", null ],
+    [ "getSpecialPath", "dd/de9/classVbs.html#a659e3763b0d13a6e60c1068bcdcb6e81", null ],
+    [ "getStartupPath", "dd/de9/classVbs.html#a8371d4f8e7e1dd4bfa6f9f300293df36", null ],
+    [ "getTmpFile", "dd/de9/classVbs.html#ac214aefa5d32bdb15229bd92a0cc5fd8", null ],
+    [ "killProc", "dd/de9/classVbs.html#a986c247220459b9cc3cd7c5ba77d7fcb", null ],
+    [ "writeLog", "dd/de9/classVbs.html#a370cef1411b4c2ee24b9acbf77ea82c2", null ],
+    [ "ALL_DESKTOP_PATH", "dd/de9/classVbs.html#af14f6db03b9ac4ce802d65deb810d3d7", null ],
+    [ "ALL_STARTUP_PATH", "dd/de9/classVbs.html#a0abb5ffde4d1ef7fd9777ac8bbbbeb3e", null ],
+    [ "DESKTOP_PATH", "dd/de9/classVbs.html#a062462ded0ffe8c1d00308846b8f1961", null ],
+    [ "END_PROCESS_STR", "dd/de9/classVbs.html#a7c695d095fe52d28305ba745a509c3b0", null ],
+    [ "STARTUP_PATH", "dd/de9/classVbs.html#a9c89a2c3706d4a69192bdf8249dc2432", null ],
+    [ "STR_SEPARATOR", "dd/de9/classVbs.html#a98f274a7980f7c5cc79a750a128e7199", null ]
 ];

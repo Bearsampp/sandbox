@@ -1,16 +1,24 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionAddAlias =
 [
-    [ "__construct", "da/d7d/classActionAddAlias.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "da/d7d/classActionAddAlias.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$wbBtnCancel", "da/d7d/classActionAddAlias.html#ab22f8ec0ba27c7d39a1a65cd8ed2853a", null ],
-    [ "$wbBtnDest", "da/d7d/classActionAddAlias.html#a3d13938d22736a3ed701974ecddf8b02", null ],
-    [ "$wbBtnSave", "da/d7d/classActionAddAlias.html#ab919cf62d7ddda4d31455a3c721187b0", null ],
-    [ "$wbInputDest", "da/d7d/classActionAddAlias.html#a14c5bc73b76ff9c1fd549099deecc014", null ],
-    [ "$wbInputName", "da/d7d/classActionAddAlias.html#aae8c2e016a0eed9d13c90c4220b8e24d", null ],
-    [ "$wbLabelDest", "da/d7d/classActionAddAlias.html#a5cbccfd7cbe8dc77577a1b899cf19ab7", null ],
-    [ "$wbLabelExp", "da/d7d/classActionAddAlias.html#a1dad74160c0d06ea19c740157243b9a7", null ],
-    [ "$wbLabelName", "da/d7d/classActionAddAlias.html#a250d48106a8df89d9a5289766f8abca9", null ],
-    [ "$wbProgressBar", "da/d7d/classActionAddAlias.html#ae0249e7a7a289ad2d29ac55138152284", null ],
-    [ "$wbWindow", "da/d7d/classActionAddAlias.html#a2cc79e8b485f4c328c10892c4349c397", null ],
-    [ "GAUGE_SAVE", "da/d7d/classActionAddAlias.html#ad679d92e80e6fcd645765b4b5c0d6ca3", null ]
+    [ "__construct", "da/d7d/classActionAddAlias.html#a5af88ce44fb93e8fcb9165abdbf4e215", null ],
+    [ "processWindow", "da/d7d/classActionAddAlias.html#aec483c317c42742d0bac17fa804de29f", null ],
+    [ "$wbBtnCancel", "da/d7d/classActionAddAlias.html#a572ad4508c3c5087ce99dbee79acea3f", null ],
+    [ "$wbBtnDest", "da/d7d/classActionAddAlias.html#ac939526c03d778ecf4c42d1c17d2ae1f", null ],
+    [ "$wbBtnSave", "da/d7d/classActionAddAlias.html#ac8f091f547120d00b55e0531a61ad275", null ],
+    [ "$wbInputDest", "da/d7d/classActionAddAlias.html#a8a61707757ca209e96c92a06969872bf", null ],
+    [ "$wbInputName", "da/d7d/classActionAddAlias.html#a9f575a458f5df6fd20c6990f079d133e", null ],
+    [ "$wbLabelDest", "da/d7d/classActionAddAlias.html#ac745013766fad4db466e0ca69d33b345", null ],
+    [ "$wbLabelExp", "da/d7d/classActionAddAlias.html#ac12936169ed6bf03baef96624cc2300c", null ],
+    [ "$wbLabelName", "da/d7d/classActionAddAlias.html#a3621e136e8aa4bb0c3fded158768dcb8", null ],
+    [ "$wbProgressBar", "da/d7d/classActionAddAlias.html#a0e779c1973144894edc3975d2474f822", null ],
+    [ "$wbWindow", "da/d7d/classActionAddAlias.html#a4afe395e6ed8a9e48ba17aecbe4b0d5d", null ],
+    [ "GAUGE_SAVE", "da/d7d/classActionAddAlias.html#a5245af229bf668dad27a94f733aaf0a6", null ]
 ];

@@ -1,21 +1,29 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplApp =
 [
-    [ "__construct", "d1/d65/classTplApp.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "getActionExec", "d1/d65/classTplApp.html#ad5136b6a2d8db70e1f6e987615829ca4", null ],
-    [ "getActionMulti", "d1/d65/classTplApp.html#a060e7f48242478a8b5145ede7bdced6d", null ],
-    [ "getActionRun", "d1/d65/classTplApp.html#a65a2e6642c8cb9abe15db0070b93ca1b", null ],
-    [ "getMenu", "d1/d65/classTplApp.html#a20d37a1e0d572af79a366489efb7f3a0", null ],
-    [ "getMenuEnable", "d1/d65/classTplApp.html#ae7bf20bbd47f927bba31510b7fd9e174", null ],
-    [ "getSectionContent", "d1/d65/classTplApp.html#a6598cb69ff122ca98dc3f6028f6a38ca", null ],
-    [ "getSectionMenuLeft", "d1/d65/classTplApp.html#a3af91359ec48328e33b633e450cccaf3", null ],
-    [ "getSectionMenuRight", "d1/d65/classTplApp.html#a5256365f47e4af250396df59cc770cea", null ],
-    [ "getSectionName", "d1/d65/classTplApp.html#a43acd8affaac51edd16ed837c18f7999", null ],
-    [ "getSectionServices", "d1/d65/classTplApp.html#a8f630c714e355711a344c6c2d6f912bc", null ],
-    [ "getSectionStartupAction", "d1/d65/classTplApp.html#a01b764792f507b0cceaa62aed968d51d", null ],
-    [ "process", "d1/d65/classTplApp.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "processLight", "d1/d65/classTplApp.html#a5aa827d581331e454d779b8d6baf7e72", null ],
-    [ "ITEM_CAPTION", "d1/d65/classTplApp.html#acf54da22f02a6b2a9a9b34c09fc67714", null ],
-    [ "ITEM_GLYPH", "d1/d65/classTplApp.html#a513d7428c3f4e4c021e088bce760c4cf", null ],
-    [ "SECTION_CALL", "d1/d65/classTplApp.html#ab6473395f061b206dfef0e8c7fc9d2da", null ],
-    [ "SECTION_CONTENT", "d1/d65/classTplApp.html#ab6beb715817a8f17adf1641483777889", null ]
+    [ "__construct", "d1/d65/classTplApp.html#ac5feec21695e839f04c38ea50e6cdf8d", null ],
+    [ "getActionExec", "d1/d65/classTplApp.html#a2d538e00cfcb2ebd4a7bae5207791fc8", null ],
+    [ "getActionMulti", "d1/d65/classTplApp.html#a2d0597176f8b4a74bf0ebcb715bbeaf5", null ],
+    [ "getActionRun", "d1/d65/classTplApp.html#ab73acd67d5211a8d3240db4ba75d8557", null ],
+    [ "getMenu", "d1/d65/classTplApp.html#ad922d164c77acd93d176eb04301d68b3", null ],
+    [ "getMenuEnable", "d1/d65/classTplApp.html#a6c80bb1a9034d0ca40dd32852bb27d31", null ],
+    [ "getSectionContent", "d1/d65/classTplApp.html#a2f712fdda9a45aa398b0aabbd5185d6e", null ],
+    [ "getSectionMenuLeft", "d1/d65/classTplApp.html#a7548fa52341ab60cfa061827d44cf43c", null ],
+    [ "getSectionMenuRight", "d1/d65/classTplApp.html#a9db61fdb53ab5d42766b0634f77dd458", null ],
+    [ "getSectionName", "d1/d65/classTplApp.html#a8e5a4210bc4bc633c1b1848374189fe0", null ],
+    [ "getSectionServices", "d1/d65/classTplApp.html#a4bd98078132dfe970e32c8d8f3b74097", null ],
+    [ "getSectionStartupAction", "d1/d65/classTplApp.html#abd029d38c48d655491eab0a6116c87fa", null ],
+    [ "process", "d1/d65/classTplApp.html#a57b270c79fbb8b220ad02af08368e367", null ],
+    [ "processLight", "d1/d65/classTplApp.html#af21cc09d1f63ca9dd7a3041e0a90b293", null ],
+    [ "ITEM_CAPTION", "d1/d65/classTplApp.html#a564209c7d66a566be0dc01299cc86654", null ],
+    [ "ITEM_GLYPH", "d1/d65/classTplApp.html#adbcab627e56f754b5311f4bff1f3e7f6", null ],
+    [ "SECTION_CALL", "d1/d65/classTplApp.html#a5d02743e8710736dcc0ae382e892711e", null ],
+    [ "SECTION_CONTENT", "d1/d65/classTplApp.html#aad392c4c5a19e0f258f1521adb514110", null ]
 ];

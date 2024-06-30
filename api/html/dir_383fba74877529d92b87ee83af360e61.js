@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var dir_383fba74877529d92b87ee83af360e61 =
 [
     [ "class.action.about.php", "d9/d6c/class_8action_8about_8php.html", "d9/d6c/class_8action_8about_8php" ],
@@ -24,6 +32,7 @@ var dir_383fba74877529d92b87ee83af360e61 =
     [ "class.action.manualRestart.php", "d6/d02/class_8action_8manualRestart_8php.html", "d6/d02/class_8action_8manualRestart_8php" ],
     [ "class.action.php", "d9/d51/class_8action_8php.html", "d9/d51/class_8action_8php" ],
     [ "class.action.quit.php", "d6/dd4/class_8action_8quit_8php.html", "d6/dd4/class_8action_8quit_8php" ],
+    [ "class.action.rebuildIni.php", "d2/dc7/class_8action_8rebuildIni_8php.html", "d2/dc7/class_8action_8rebuildIni_8php" ],
     [ "class.action.refreshRepos.php", "d8/d4f/class_8action_8refreshRepos_8php.html", "d8/d4f/class_8action_8refreshRepos_8php" ],
     [ "class.action.refreshReposStartup.php", "d2/d93/class_8action_8refreshReposStartup_8php.html", "d2/d93/class_8action_8refreshReposStartup_8php" ],
     [ "class.action.reload.php", "d9/d44/class_8action_8reload_8php.html", "d9/d44/class_8action_8reload_8php" ],

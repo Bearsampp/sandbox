@@ -1,34 +1,42 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
-  ['page_5findex_0',['PAGE_INDEX',['../d4/ddb/classHomepage.html#ac8a44e3aa5f75869de610fd50af24a1a',1,'Homepage']]],
-  ['page_5fphpinfo_1',['PAGE_PHPINFO',['../d4/ddb/classHomepage.html#a07a2ba1a781e7d4b7db64054fd8cbeef',1,'Homepage']]],
-  ['page_5fstdl_5fapc_2',['PAGE_STDL_APC',['../d4/ddb/classHomepage.html#af6df2dac8768df0af094c906be78d7d0',1,'Homepage']]],
-  ['path_5flin_5fplaceholder_3',['PATH_LIN_PLACEHOLDER',['../db/d6d/classCore.html#a86d933ab960eea0d6df0041bb25b82fb',1,'Core']]],
-  ['path_5fwin_5fplaceholder_4',['PATH_WIN_PLACEHOLDER',['../db/d6d/classCore.html#aceda99eddb21663e66568354a7bfe9e0',1,'Core']]],
-  ['paypal_5',['PAYPAL',['../da/d49/classLang.html#ade985201edca5b5c3e912034efcdf9e1',1,'Lang']]],
-  ['pear_6',['PEAR',['../da/d49/classLang.html#ab6888b8af12e45d9d66fab2084cac7ed',1,'Lang']]],
-  ['pending_5ftimeout_7',['PENDING_TIMEOUT',['../d3/d93/classNssm.html#afb1e5546bc19c7e241593e3e53f3f40e',1,'Nssm\PENDING_TIMEOUT'],['../df/d28/classWin32Service.html#afb1e5546bc19c7e241593e3e53f3f40e',1,'Win32Service\PENDING_TIMEOUT']]],
-  ['perl_8',['PERL',['../da/d49/classLang.html#ae28a700f741004211a40d9e65ed1ed0a',1,'Lang']]],
-  ['php_9',['PHP',['../da/d49/classLang.html#a73772a621a7e28099f92a56d9abe7de0',1,'Lang']]],
-  ['php_5fconf_10',['PHP_CONF',['../db/d6d/classCore.html#ad5ac2080788cf2bd1b4b3fe4ce226e7a',1,'Core']]],
-  ['php_5fexe_11',['PHP_EXE',['../db/d6d/classCore.html#a30af377f95e18e9a747b37dd84d95d03',1,'Core']]],
-  ['php_5fincpt_12',['PHP_INCPT',['../da/d49/classLang.html#a1e95677b5d3f4baf76d5383b4a2ad30d',1,'Lang']]],
-  ['php_5fversion_13',['PHP_VERSION',['../db/d6d/classCore.html#a048046640f0cd433c382c1be10c1c57e',1,'Core']]],
-  ['phpmyadmin_14',['PHPMYADMIN',['../da/d49/classLang.html#a63f3ebb6153e33d77d684ba92ee75c1c',1,'Lang']]],
-  ['phppgadmin_15',['PHPPGADMIN',['../da/d49/classLang.html#a68e7f4ba0e0ed5569797ceef5841f63b',1,'Lang']]],
-  ['port_5fchanged_16',['PORT_CHANGED',['../da/d49/classLang.html#ab9bd9da5d5bfcacf7047e36828ca4848',1,'Lang']]],
-  ['port_5fnot_5fused_17',['PORT_NOT_USED',['../da/d49/classLang.html#aaa4fd805d618490380743474ec9ff3fd',1,'Lang']]],
-  ['port_5fnot_5fused_5fby_18',['PORT_NOT_USED_BY',['../da/d49/classLang.html#ad5f064f482823794d8e3e66b5cf8e8eb',1,'Lang']]],
-  ['port_5fused_5fby_19',['PORT_USED_BY',['../da/d49/classLang.html#af7396b674be61851809412e77b876b8c',1,'Lang']]],
-  ['port_5fused_5fby_5fanother_5fdbms_20',['PORT_USED_BY_ANOTHER_DBMS',['../da/d49/classLang.html#af9d87b70c27ae1127e061780ba3a506b',1,'Lang']]],
-  ['postgresql_21',['POSTGRESQL',['../da/d49/classLang.html#a6b3d1bd7222d7cb1abd43c70d8137887',1,'Lang']]],
-  ['process_5fid_22',['PROCESS_ID',['../dc/ddb/classWin32Ps.html#af7b931682b6dad93371dd8558538466f',1,'Win32Ps']]],
-  ['processor_5freg_5fentry_23',['PROCESSOR_REG_ENTRY',['../db/d0d/classRegistry.html#aa1eadced42ab2ea2868ba90546dfa288',1,'Registry']]],
-  ['processor_5freg_5fsubkey_24',['PROCESSOR_REG_SUBKEY',['../db/d0d/classRegistry.html#a374553bdb8941a189acb5e62b179589a',1,'Registry']]],
-  ['pwgen_25',['PWGEN',['../da/d49/classLang.html#ab4318eba3a3723117dc92ae2fb345660',1,'Lang']]],
-  ['pwgen_5fexe_26',['PWGEN_EXE',['../db/d6d/classCore.html#a30b903356253db6c30b3b31423737f3d',1,'Core']]],
-  ['pwgen_5fversion_27',['PWGEN_VERSION',['../db/d6d/classCore.html#a8316cae4a65e6e1eba7abbb1bb57ae27',1,'Core']]],
-  ['python_28',['PYTHON',['../da/d49/classLang.html#aea6d87481cd9ca6b8675ad103214afd5',1,'Lang']]],
-  ['python_5fconsole_29',['PYTHON_CONSOLE',['../da/d49/classLang.html#a5be1c92f0c83342aead1686caddc3f66',1,'Lang']]],
-  ['python_5fcp_30',['PYTHON_CP',['../da/d49/classLang.html#a100aa1fe1e5b29f43c5787f92aa0726e',1,'Lang']]]
+  ['page_5findex_0',['PAGE_INDEX',['../d4/ddb/classHomepage.html#a7251d39903ea15c948a9f24cb201e3ed',1,'Homepage']]],
+  ['page_5fphpinfo_1',['PAGE_PHPINFO',['../d4/ddb/classHomepage.html#a99858ece72840de09ea0f50e16fe9b4b',1,'Homepage']]],
+  ['page_5fstdl_5fapc_2',['PAGE_STDL_APC',['../d4/ddb/classHomepage.html#a3e9663a4c9cb0369668a9c484210a58a',1,'Homepage']]],
+  ['path_5flin_5fplaceholder_3',['PATH_LIN_PLACEHOLDER',['../db/d6d/classCore.html#af5e1db6364f2b96b3ba8ad9e1717af3b',1,'Core']]],
+  ['path_5fwin_5fplaceholder_4',['PATH_WIN_PLACEHOLDER',['../db/d6d/classCore.html#a9ad5edd211c851f9eb88e0be0e351cb4',1,'Core']]],
+  ['paypal_5',['PAYPAL',['../da/d49/classLang.html#a6e078eb82bbe05c47806dae45cc8b77f',1,'Lang']]],
+  ['pear_6',['PEAR',['../da/d49/classLang.html#a6ef6ab618f04a35a794b25b43e85f9d6',1,'Lang']]],
+  ['pending_5ftimeout_7',['PENDING_TIMEOUT',['../d3/d93/classNssm.html#a006bf02c3c41ab8ee95e6e914f0b2a8b',1,'Nssm\PENDING_TIMEOUT'],['../df/d28/classWin32Service.html#aa531611577d8c7bce96398306e6c002c',1,'Win32Service\PENDING_TIMEOUT']]],
+  ['perl_8',['PERL',['../da/d49/classLang.html#ad6af008b5aaa276656826b6d83b8dcbd',1,'Lang']]],
+  ['php_9',['PHP',['../da/d49/classLang.html#acea89a9b08c5e5c594b0b285f3159b86',1,'Lang']]],
+  ['php_5fconf_10',['PHP_CONF',['../db/d6d/classCore.html#a5d135d4843f03ead7c73928b887e4a0f',1,'Core']]],
+  ['php_5fexe_11',['PHP_EXE',['../db/d6d/classCore.html#a64abe3e9775e0be6d256a8e0f073b95f',1,'Core']]],
+  ['php_5fincpt_12',['PHP_INCPT',['../da/d49/classLang.html#a1abbc35f1bcdbfa8cdf3be01636ae87a',1,'Lang']]],
+  ['php_5fversion_13',['PHP_VERSION',['../db/d6d/classCore.html#ad67e5c5060090c0eb9cdd78d22129f1c',1,'Core']]],
+  ['phpmyadmin_14',['PHPMYADMIN',['../da/d49/classLang.html#acb14c3017828b01c0dc7862be60cffbe',1,'Lang']]],
+  ['phppgadmin_15',['PHPPGADMIN',['../da/d49/classLang.html#a3ac3a69b0f1a6708c39bece90e90aed6',1,'Lang']]],
+  ['port_5fchanged_16',['PORT_CHANGED',['../da/d49/classLang.html#aef4e6a55de836a22b78cd7c747071807',1,'Lang']]],
+  ['port_5fnot_5fused_17',['PORT_NOT_USED',['../da/d49/classLang.html#af900f8d2daf5194b5641ec3f1f4dabac',1,'Lang']]],
+  ['port_5fnot_5fused_5fby_18',['PORT_NOT_USED_BY',['../da/d49/classLang.html#a1e00f2c2d881d622aaa68c9fbd27cfe8',1,'Lang']]],
+  ['port_5fused_5fby_19',['PORT_USED_BY',['../da/d49/classLang.html#ae7fd66cb9723b93aaf4721393b3f4cc7',1,'Lang']]],
+  ['port_5fused_5fby_5fanother_5fdbms_20',['PORT_USED_BY_ANOTHER_DBMS',['../da/d49/classLang.html#a31c95482d717e9acf1bb4399ace1dfcd',1,'Lang']]],
+  ['postgresql_21',['POSTGRESQL',['../da/d49/classLang.html#ada21975ecddb76ddc3525697aaad323b',1,'Lang']]],
+  ['process_5fid_22',['PROCESS_ID',['../dc/ddb/classWin32Ps.html#a3084ebfe7290a400a45038bdd4441569',1,'Win32Ps']]],
+  ['processor_5freg_5fentry_23',['PROCESSOR_REG_ENTRY',['../db/d0d/classRegistry.html#a8465a4e5784686910e1ba00fc9035902',1,'Registry']]],
+  ['processor_5freg_5fsubkey_24',['PROCESSOR_REG_SUBKEY',['../db/d0d/classRegistry.html#ac60caaa44ba72c7591a58b538cdedbef',1,'Registry']]],
+  ['pwgen_25',['PWGEN',['../da/d49/classLang.html#a17aeaf45d121cf3d885a910bf5d39673',1,'Lang']]],
+  ['pwgen_5fexe_26',['PWGEN_EXE',['../db/d6d/classCore.html#ab19a15576c8645cb18cee9b46ab0b38d',1,'Core']]],
+  ['pwgen_5fversion_27',['PWGEN_VERSION',['../db/d6d/classCore.html#a96d4a4ae22dbb52f1b0b360e1a3be7b6',1,'Core']]],
+  ['python_28',['PYTHON',['../da/d49/classLang.html#a019b42599eac5b2429b6bdf0ef8020c0',1,'Lang']]],
+  ['python_5fconsole_29',['PYTHON_CONSOLE',['../da/d49/classLang.html#a789bdf57312b149c83559df6e6a6ccb0',1,'Lang']]],
+  ['python_5fcp_30',['PYTHON_CP',['../da/d49/classLang.html#a8bf5d0270d5d7a4d201676c1baf7edad',1,'Lang']]]
 ];

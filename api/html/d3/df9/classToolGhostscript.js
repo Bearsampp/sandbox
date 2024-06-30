@@ -1,13 +1,21 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolGhostscript =
 [
-    [ "__construct", "d3/df9/classToolGhostscript.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getExe", "d3/df9/classToolGhostscript.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "getExeConsole", "d3/df9/classToolGhostscript.html#a91e283c20ef13b399331c87aa2c9300b", null ],
-    [ "reload", "d3/df9/classToolGhostscript.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "d3/df9/classToolGhostscript.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "$exe", "d3/df9/classToolGhostscript.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "$exeConsole", "d3/df9/classToolGhostscript.html#af51415f7fcbf4987e41b3a1b7f96a0fa", null ],
-    [ "LOCAL_CFG_EXE", "d3/df9/classToolGhostscript.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "LOCAL_CFG_EXE_CONSOLE", "d3/df9/classToolGhostscript.html#a4792c715eeefdfdbb2a4e65b979bc5d9", null ],
-    [ "ROOT_CFG_VERSION", "d3/df9/classToolGhostscript.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "d3/df9/classToolGhostscript.html#aeca0ac85e5332f874450f38eb08c5dc9", null ],
+    [ "getExe", "d3/df9/classToolGhostscript.html#ae06cade1b72df5961e9f671217ca8150", null ],
+    [ "getExeConsole", "d3/df9/classToolGhostscript.html#a1f11efc01959f01c7738f0d5bd2106e9", null ],
+    [ "reload", "d3/df9/classToolGhostscript.html#a59c2a1d3eb7c68987cca809f2f4aed1c", null ],
+    [ "setVersion", "d3/df9/classToolGhostscript.html#a98d1d26380d60b5d6b3c098dc80de2a5", null ],
+    [ "$exe", "d3/df9/classToolGhostscript.html#a61ca863123e555d8292f8b8766387218", null ],
+    [ "$exeConsole", "d3/df9/classToolGhostscript.html#add86ad7d2c222e6bf84e4f0a09d6a3f6", null ],
+    [ "LOCAL_CFG_EXE", "d3/df9/classToolGhostscript.html#a0ff245ad4c60993f0ace708e460d3b5b", null ],
+    [ "LOCAL_CFG_EXE_CONSOLE", "d3/df9/classToolGhostscript.html#a630ef38116dc0344027e768c86b855dd", null ],
+    [ "ROOT_CFG_VERSION", "d3/df9/classToolGhostscript.html#aaf65345501dc0ed0138ad0480b3dec67", null ]
 ];

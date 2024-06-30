@@ -1,11 +1,19 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classAppPhpmyadmin =
 [
-    [ "__construct", "dd/dec/classAppPhpmyadmin.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getConf", "dd/dec/classAppPhpmyadmin.html#ab5019584a7fd1de86f069cbf20e5f06d", null ],
-    [ "reload", "dd/dec/classAppPhpmyadmin.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "dd/dec/classAppPhpmyadmin.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "updateConfig", "dd/dec/classAppPhpmyadmin.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$conf", "dd/dec/classAppPhpmyadmin.html#ae4901046cc3e1deebf77ccc785384a78", null ],
-    [ "LOCAL_CFG_CONF", "dd/dec/classAppPhpmyadmin.html#a8d8d1ea5f871a90f0c43677ed653cefc", null ],
-    [ "ROOT_CFG_VERSION", "dd/dec/classAppPhpmyadmin.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "dd/dec/classAppPhpmyadmin.html#a40805dbd949eb9da437ff1a292c18792", null ],
+    [ "getConf", "dd/dec/classAppPhpmyadmin.html#a8177a550a915fe12b9181d39654a5d2d", null ],
+    [ "reload", "dd/dec/classAppPhpmyadmin.html#a100d0bc0d133f40826cf601a52f591b7", null ],
+    [ "setVersion", "dd/dec/classAppPhpmyadmin.html#a77b4fe892a04c8edb93533efe68db801", null ],
+    [ "updateConfig", "dd/dec/classAppPhpmyadmin.html#a78f1cd4b9a3ab52d45ca05da77c56bba", null ],
+    [ "$conf", "dd/dec/classAppPhpmyadmin.html#abf775d75b5b8a9fb5c05622965792f82", null ],
+    [ "LOCAL_CFG_CONF", "dd/dec/classAppPhpmyadmin.html#ac06e7d60387e9b7dd4f34897f62bc397", null ],
+    [ "ROOT_CFG_VERSION", "dd/dec/classAppPhpmyadmin.html#a074f706748ac9863c082fcc429f5b471", null ]
 ];

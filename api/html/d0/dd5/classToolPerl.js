@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolPerl =
 [
-    [ "__construct", "d0/dd5/classToolPerl.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getExe", "d0/dd5/classToolPerl.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "reload", "d0/dd5/classToolPerl.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "d0/dd5/classToolPerl.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "$exe", "d0/dd5/classToolPerl.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "LOCAL_CFG_EXE", "d0/dd5/classToolPerl.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "ROOT_CFG_VERSION", "d0/dd5/classToolPerl.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "d0/dd5/classToolPerl.html#aee7a98e6821492a0dc667c813c4f1fcf", null ],
+    [ "getExe", "d0/dd5/classToolPerl.html#a84295560821ac38608483132723bf2fc", null ],
+    [ "reload", "d0/dd5/classToolPerl.html#abe6c07f1748abfc2b07f0467e423475f", null ],
+    [ "setVersion", "d0/dd5/classToolPerl.html#a1e1fe9f2865d7513029d03b8dab488bd", null ],
+    [ "$exe", "d0/dd5/classToolPerl.html#af2222de65a310ea44a4c23e84e758fd8", null ],
+    [ "LOCAL_CFG_EXE", "d0/dd5/classToolPerl.html#aa8d1dc0de06f10407728c8611a837e06", null ],
+    [ "ROOT_CFG_VERSION", "d0/dd5/classToolPerl.html#a09c559c9711b9156af6fbd1a8ac069b4", null ]
 ];

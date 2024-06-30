@@ -1,34 +1,42 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classModule =
 [
-    [ "__construct", "d3/d9c/classModule.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "__toString", "d3/d9c/classModule.html#a7516ca30af0db3cdbf9a7739b48ce91d", null ],
-    [ "createSymlink", "d3/d9c/classModule.html#a3b7d910692a21073c89f0b25218e1f0f", null ],
-    [ "getCurrentPath", "d3/d9c/classModule.html#a4d21d13bce5054a6d451284009f5ecbf", null ],
-    [ "getId", "d3/d9c/classModule.html#a12251d0c022e9e21c137a105ff683f13", null ],
-    [ "getName", "d3/d9c/classModule.html#a3d0963e68bb313b163a73f2803c64600", null ],
-    [ "getRelease", "d3/d9c/classModule.html#a9d2664bd6bafd5d471c8fe5503cc3412", null ],
-    [ "getRootPath", "d3/d9c/classModule.html#a107a7dfe205287c1e3747efd599791ff", null ],
-    [ "getSymlinkPath", "d3/d9c/classModule.html#a9b1717054aa5da83c44df7855a0db746", null ],
-    [ "getType", "d3/d9c/classModule.html#a830b5c75df72b32396701bc563fbe3c7", null ],
-    [ "getVersion", "d3/d9c/classModule.html#afa8e7a3a646144eab50188b7a805a389", null ],
-    [ "getVersionList", "d3/d9c/classModule.html#aef34815746820e4318940efbdde4bbdd", null ],
-    [ "isEnable", "d3/d9c/classModule.html#a31595d71457017f21b976b3cccc686ca", null ],
-    [ "reload", "d3/d9c/classModule.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "replace", "d3/d9c/classModule.html#aa9e39cffd72d25a5fdba69558c7686fb", null ],
-    [ "replaceAll", "d3/d9c/classModule.html#a3614638192ed37aeb3dd9173b1c8bde8", null ],
-    [ "setVersion", "d3/d9c/classModule.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "update", "d3/d9c/classModule.html#a3edae59e4bc3dfc2837475945e9d9f25", null ],
-    [ "updateConfig", "d3/d9c/classModule.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$bearsamppConf", "d3/d9c/classModule.html#a07b8214f43c12f643ab466d80efd770b", null ],
-    [ "$bearsamppConfRaw", "d3/d9c/classModule.html#a254a9828b4a2ed2fb52811bf6acbeca3", null ],
-    [ "$currentPath", "d3/d9c/classModule.html#a7b510566e210275a709569a631c7803a", null ],
-    [ "$enable", "d3/d9c/classModule.html#abea865f3ca62b18578d7a0ca285d216e", null ],
-    [ "$id", "d3/d9c/classModule.html#ae97941710d863131c700f069b109991e", null ],
-    [ "$name", "d3/d9c/classModule.html#ab2fc40d43824ea3e1ce5d86dee0d763b", null ],
-    [ "$release", "d3/d9c/classModule.html#a63c5d6a8a9f1768ea926cee666dc991b", null ],
-    [ "$rootPath", "d3/d9c/classModule.html#a298523223201366625cb7e465ee2acce", null ],
-    [ "$symlinkPath", "d3/d9c/classModule.html#a73ff84bb1c4a3e7dbc3045d964cbdf2a", null ],
-    [ "$type", "d3/d9c/classModule.html#a9a4a6fba2208984cabb3afacadf33919", null ],
-    [ "$version", "d3/d9c/classModule.html#a17c8948c68aa44fa9961ae169b6a8961", null ],
-    [ "BUNDLE_RELEASE", "d3/d9c/classModule.html#a5759acb14beae020f1f9d428141561c8", null ]
+    [ "__construct", "d3/d9c/classModule.html#a623227da83fb41d9909fcd7ad6b4a8e1", null ],
+    [ "__toString", "d3/d9c/classModule.html#a98aecfe8417a91fd115dd0dbb16a14d3", null ],
+    [ "createSymlink", "d3/d9c/classModule.html#a070d1df222b1eb7876da52944d74cfea", null ],
+    [ "getCurrentPath", "d3/d9c/classModule.html#acf24f2c5ad92b79f62cad65a3ee10c24", null ],
+    [ "getId", "d3/d9c/classModule.html#ad7aabc3fefe1877bb66acc6b8dc0d930", null ],
+    [ "getName", "d3/d9c/classModule.html#a4708855b554a347551e479379f845d65", null ],
+    [ "getRelease", "d3/d9c/classModule.html#a9b2c698fa8323e2873b7bd61c047932e", null ],
+    [ "getRootPath", "d3/d9c/classModule.html#a56ca1f9577a8b3608a741e1bc569c172", null ],
+    [ "getSymlinkPath", "d3/d9c/classModule.html#ac2da339dab9bd20de02fe74bb2de2cee", null ],
+    [ "getType", "d3/d9c/classModule.html#a2288555e81c9d1c538e9d5083df152d5", null ],
+    [ "getVersion", "d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964", null ],
+    [ "getVersionList", "d3/d9c/classModule.html#a7a69b39c08d0dcace8525719548862fc", null ],
+    [ "isEnable", "d3/d9c/classModule.html#af2d8db010f13d7c9d6c22cf375825cc1", null ],
+    [ "reload", "d3/d9c/classModule.html#a3697b7a9b8437458ecbdf3de9e345d01", null ],
+    [ "replace", "d3/d9c/classModule.html#ab6e4627bef25c288252f3b457049346d", null ],
+    [ "replaceAll", "d3/d9c/classModule.html#a7926c9d583fa75128d46ddd32bfcc0ed", null ],
+    [ "setVersion", "d3/d9c/classModule.html#a6d1c58d459ce05e331a9c76e2d977d02", null ],
+    [ "update", "d3/d9c/classModule.html#a47f387037148c9ad87aea328f6439127", null ],
+    [ "updateConfig", "d3/d9c/classModule.html#a675bb2654622fddf7b65e53308455caf", null ],
+    [ "$bearsamppConf", "d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06", null ],
+    [ "$bearsamppConfRaw", "d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675", null ],
+    [ "$currentPath", "d3/d9c/classModule.html#a758e8152687a299464d7dddf33393895", null ],
+    [ "$enable", "d3/d9c/classModule.html#ac7549feef839ac71e9f121d20e1b1229", null ],
+    [ "$id", "d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f", null ],
+    [ "$name", "d3/d9c/classModule.html#add68be3906e8c442c5e91d0bdeb887d5", null ],
+    [ "$release", "d3/d9c/classModule.html#a88d3256dc20a1bf0e753804498a1dc81", null ],
+    [ "$rootPath", "d3/d9c/classModule.html#a530b85e07ae1ae66bb44e74412ec68c3", null ],
+    [ "$symlinkPath", "d3/d9c/classModule.html#a724108df4b66313c3ef631d26f966c3a", null ],
+    [ "$type", "d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04", null ],
+    [ "$version", "d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f", null ],
+    [ "BUNDLE_RELEASE", "d3/d9c/classModule.html#a8794e02097b64fbd96ad475550b0d101", null ]
 ];

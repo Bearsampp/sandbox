@@ -1,21 +1,29 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionExt =
 [
-    [ "__construct", "d1/d42/classActionExt.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "addLog", "d1/d42/classActionExt.html#a5cc1ef11325ef4cfdfcfd7d898bb73f3", null ],
-    [ "getProcs", "d1/d42/classActionExt.html#ab0066c8eea5c5c1226f399dbdffe463f", null ],
-    [ "procRefresh", "d1/d42/classActionExt.html#a0f61cc82282c90349bf605c43a9015b4", null ],
-    [ "procReload", "d1/d42/classActionExt.html#af4d587deb551a8192a7095cf9651f455", null ],
-    [ "procStart", "d1/d42/classActionExt.html#aff92ff88224d54e9e0686523cdfa0474", null ],
-    [ "procStop", "d1/d42/classActionExt.html#ad9dd569d875588c6300ab117462dd468", null ],
-    [ "sendLogs", "d1/d42/classActionExt.html#abf83278e4862ee0cc6eeb3762a75e885", null ],
-    [ "setStatus", "d1/d42/classActionExt.html#a7d02c100d684fe1dffc6cb3486a48511", null ],
-    [ "$logs", "d1/d42/classActionExt.html#a1985bbbc5349038a012f02c97f5276e6", null ],
-    [ "$status", "d1/d42/classActionExt.html#a58391ea75f2d29d5d708d7050b641c33", null ],
-    [ "REFRESH", "d1/d42/classActionExt.html#a32ffeca013bf1cb4d5a61e7bfe3306a1", null ],
-    [ "RELOAD", "d1/d42/classActionExt.html#a7c60aa8e291e32b0e4b31e1a7a86223e", null ],
-    [ "START", "d1/d42/classActionExt.html#a9f6555155d644ea25adfe7e156624c2d", null ],
-    [ "STATUS_ERROR", "d1/d42/classActionExt.html#a1146470c30c7d95d6d85427eaf81c5b3", null ],
-    [ "STATUS_SUCCESS", "d1/d42/classActionExt.html#ad91a3d18b9e0b3933bcc2b756547172c", null ],
-    [ "STATUS_WARNING", "d1/d42/classActionExt.html#a74244d8aee9ce6294218f69ae7b32a67", null ],
-    [ "STOP", "d1/d42/classActionExt.html#a54fcb9862c9c33bc35789a5bec3f18e0", null ]
+    [ "__construct", "d1/d42/classActionExt.html#a95dbe38feca167c565707d22db5388b8", null ],
+    [ "addLog", "d1/d42/classActionExt.html#a00df5b1470955b1f267f6cc84c120b74", null ],
+    [ "getProcs", "d1/d42/classActionExt.html#acbbc5619428f2d5e4f50485b81f9c49d", null ],
+    [ "procRefresh", "d1/d42/classActionExt.html#af687ce78e7efc214204064a9afb1b701", null ],
+    [ "procReload", "d1/d42/classActionExt.html#a773acee7f7d11b500400d4c897323076", null ],
+    [ "procStart", "d1/d42/classActionExt.html#a03eaf499e37fc62d4c62f800b96dd2b6", null ],
+    [ "procStop", "d1/d42/classActionExt.html#ac504fe5a10590fd7bbb93aad7b32c5b9", null ],
+    [ "sendLogs", "d1/d42/classActionExt.html#ae328e0e82ae121ce13de3f13937334c8", null ],
+    [ "setStatus", "d1/d42/classActionExt.html#a60f7e11b84bdd01da5d24ecba1b068ae", null ],
+    [ "$logs", "d1/d42/classActionExt.html#a88497daf7362745e8ef84b925662c1b1", null ],
+    [ "$status", "d1/d42/classActionExt.html#a31d8378759fc6c41c0047b93c5a77241", null ],
+    [ "REFRESH", "d1/d42/classActionExt.html#abbb3ddd593396d584e779d834201cc6b", null ],
+    [ "RELOAD", "d1/d42/classActionExt.html#a31c44bbb8d4e0c70b4e32e8b6c26edfd", null ],
+    [ "START", "d1/d42/classActionExt.html#a3bd03164e10c2ec0a27fca79ccce731f", null ],
+    [ "STATUS_ERROR", "d1/d42/classActionExt.html#adc94c94aa358beb9d2cf867f29b41a56", null ],
+    [ "STATUS_SUCCESS", "d1/d42/classActionExt.html#a40fa501d11cbf7e8fdc879b6ed9e3c21", null ],
+    [ "STATUS_WARNING", "d1/d42/classActionExt.html#ae863cf6fc45e18877b48a36912b4b5ca", null ],
+    [ "STOP", "d1/d42/classActionExt.html#a15d8d5e1bb0c38d32f76e7224fbf0769", null ]
 ];

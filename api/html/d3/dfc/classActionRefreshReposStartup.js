@@ -1,4 +1,12 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionRefreshReposStartup =
 [
-    [ "__construct", "d3/dfc/classActionRefreshReposStartup.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ]
+    [ "__construct", "d3/dfc/classActionRefreshReposStartup.html#af5ca56009cd94c7e4bc946d2d03ed77c", null ]
 ];

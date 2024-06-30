@@ -1,11 +1,19 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classAppAdminer =
 [
-    [ "__construct", "df/d54/classAppAdminer.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getConf", "df/d54/classAppAdminer.html#ab5019584a7fd1de86f069cbf20e5f06d", null ],
-    [ "reload", "df/d54/classAppAdminer.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "df/d54/classAppAdminer.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "updateConfig", "df/d54/classAppAdminer.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$conf", "df/d54/classAppAdminer.html#ae4901046cc3e1deebf77ccc785384a78", null ],
-    [ "LOCAL_CFG_CONF", "df/d54/classAppAdminer.html#a8d8d1ea5f871a90f0c43677ed653cefc", null ],
-    [ "ROOT_CFG_VERSION", "df/d54/classAppAdminer.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "df/d54/classAppAdminer.html#a7463642ab7bb00cdf02097ce59489e1b", null ],
+    [ "getConf", "df/d54/classAppAdminer.html#af1e7474dffee9c0a10592c303c803349", null ],
+    [ "reload", "df/d54/classAppAdminer.html#a78eea9c2b9f4896e1b11938e08f66855", null ],
+    [ "setVersion", "df/d54/classAppAdminer.html#ab36ac06e3bfa0227815808a449ca0e3d", null ],
+    [ "updateConfig", "df/d54/classAppAdminer.html#a21d4f19f407b6d453ed8feccc4e75a65", null ],
+    [ "$conf", "df/d54/classAppAdminer.html#a32f851b7c859b7c922683eda3ed17d28", null ],
+    [ "LOCAL_CFG_CONF", "df/d54/classAppAdminer.html#a0d3e05fb9a0f706969116a6968675cbc", null ],
+    [ "ROOT_CFG_VERSION", "df/d54/classAppAdminer.html#a179a56b76bbab8af542a917cb0a02ca3", null ]
 ];

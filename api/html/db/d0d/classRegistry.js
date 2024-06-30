@@ -1,32 +1,40 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classRegistry =
 [
-    [ "__construct", "db/d0d/classRegistry.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "deleteValue", "db/d0d/classRegistry.html#aee538409bda7bbca009cdb11a81a5226", null ],
-    [ "exists", "db/d0d/classRegistry.html#ad6ffdf4f654f0b6f71b723d16b3cb849", null ],
-    [ "getLatestError", "db/d0d/classRegistry.html#a92ef6862ad1c6bc4914e9ba6a9553d93", null ],
-    [ "getValue", "db/d0d/classRegistry.html#a6727064af8bfb122c2111a70790bf5ff", null ],
-    [ "setExpandStringValue", "db/d0d/classRegistry.html#a15980e040d8647f19763e6f68aee07ab", null ],
-    [ "setStringValue", "db/d0d/classRegistry.html#a90cd9aba35744bcb030db9b77d263d9b", null ],
-    [ "setValue", "db/d0d/classRegistry.html#a9050261e000314acbf283becdf1a610b", null ],
-    [ "writeLog", "db/d0d/classRegistry.html#a2aaa55eaa3e3e023d5c372b46ba5099f", null ],
-    [ "$latestError", "db/d0d/classRegistry.html#a95b1c2c2027e643f614d735d1c1acd00", null ],
-    [ "APP_BINS_REG_ENTRY", "db/d0d/classRegistry.html#afcefee770ffb1bdfbfb391b58e82b2ff", null ],
-    [ "APP_PATH_REG_ENTRY", "db/d0d/classRegistry.html#aa610cc28e0fadc1ef12f0c2b24791c6c", null ],
-    [ "END_PROCESS_STR", "db/d0d/classRegistry.html#af5b7c5485cc0fb57776174544fed2823", null ],
-    [ "ENV_KEY", "db/d0d/classRegistry.html#a7b8f6083e2878af8004100a420c0c8b0", null ],
-    [ "HKEY_CLASSES_ROOT", "db/d0d/classRegistry.html#abae6b873cf038785d147427592b486b0", null ],
-    [ "HKEY_CURRENT_USER", "db/d0d/classRegistry.html#a4e790c6e6884981971f8730e39acc072", null ],
-    [ "HKEY_LOCAL_MACHINE", "db/d0d/classRegistry.html#a4eaea720d5ae5b4894e029c3eaa2702a", null ],
-    [ "HKEY_USERS", "db/d0d/classRegistry.html#ab9ec0a8cf8a0dc07d658dc825a8b8137", null ],
-    [ "PROCESSOR_REG_ENTRY", "db/d0d/classRegistry.html#aa1eadced42ab2ea2868ba90546dfa288", null ],
-    [ "PROCESSOR_REG_SUBKEY", "db/d0d/classRegistry.html#a374553bdb8941a189acb5e62b179589a", null ],
-    [ "REG_BINARY", "db/d0d/classRegistry.html#a3c49705ccf40d57337a2f4bb6498509f", null ],
-    [ "REG_DWORD", "db/d0d/classRegistry.html#ac8f3201260da955778e733438b3d3405", null ],
-    [ "REG_ERROR_ENTRY", "db/d0d/classRegistry.html#a28e4bdaf2438575879088d8aca465ab8", null ],
-    [ "REG_ERROR_SET", "db/d0d/classRegistry.html#ae3c8dbfe131f8c182e7c40300b0b3872", null ],
-    [ "REG_EXPAND_SZ", "db/d0d/classRegistry.html#aa2747f3b34e97fc93b1ccc21a6d0a04f", null ],
-    [ "REG_MULTI_SZ", "db/d0d/classRegistry.html#a84f399cae9a125417c500dd3a8181796", null ],
-    [ "REG_NO_ERROR", "db/d0d/classRegistry.html#a795298fae2f0c0a83a7cd3c0c2214425", null ],
-    [ "REG_SZ", "db/d0d/classRegistry.html#a4b41bde8d0aa380581d60a0e2ddbd6ec", null ],
-    [ "SYSPATH_REG_ENTRY", "db/d0d/classRegistry.html#a2302e49c589c1c1ba6ae20979ff79c0e", null ]
+    [ "__construct", "db/d0d/classRegistry.html#a8692ca76b3f6d20e0233fdbdfa66f846", null ],
+    [ "deleteValue", "db/d0d/classRegistry.html#ae63a1ff65a73f45574727e442d0afa22", null ],
+    [ "exists", "db/d0d/classRegistry.html#a08f9ad8c7f3e0d8eb42ca68d23dc9a3c", null ],
+    [ "getLatestError", "db/d0d/classRegistry.html#af62eabca859538e8ea93a7c238f13d93", null ],
+    [ "getValue", "db/d0d/classRegistry.html#a5936f182b778b24d86ff9f02d676d39d", null ],
+    [ "setExpandStringValue", "db/d0d/classRegistry.html#aa22ce26a46610799e48d929d9a9afcfd", null ],
+    [ "setStringValue", "db/d0d/classRegistry.html#a598ce170cfd231fec55bb30d4cbd8c9b", null ],
+    [ "setValue", "db/d0d/classRegistry.html#a190f76a5541f724f564124ea4df49313", null ],
+    [ "writeLog", "db/d0d/classRegistry.html#a836ef3e2c2f37924e4e879f45bc01726", null ],
+    [ "$latestError", "db/d0d/classRegistry.html#ad9396dc6235b74d25aa126ef33a4f97d", null ],
+    [ "APP_BINS_REG_ENTRY", "db/d0d/classRegistry.html#a6401b7e28a24c997fd9f5b75289d7674", null ],
+    [ "APP_PATH_REG_ENTRY", "db/d0d/classRegistry.html#ad97a2cd9c5007b2c5d66b2bce7e1d961", null ],
+    [ "END_PROCESS_STR", "db/d0d/classRegistry.html#a0ab1b5125e8a9b7cf817ebcf4a669f13", null ],
+    [ "ENV_KEY", "db/d0d/classRegistry.html#a401a6629b82af7b5cec62a23b9ce5f3c", null ],
+    [ "HKEY_CLASSES_ROOT", "db/d0d/classRegistry.html#abe7ab9d1a735a1331da907fb02c2d539", null ],
+    [ "HKEY_CURRENT_USER", "db/d0d/classRegistry.html#a331a0f55f01fe0c35e5b782aa19b98ef", null ],
+    [ "HKEY_LOCAL_MACHINE", "db/d0d/classRegistry.html#afc151bf94c9a75543635b09afad0990e", null ],
+    [ "HKEY_USERS", "db/d0d/classRegistry.html#a5ed8d5a102231143d8e4521377c11d5a", null ],
+    [ "PROCESSOR_REG_ENTRY", "db/d0d/classRegistry.html#a8465a4e5784686910e1ba00fc9035902", null ],
+    [ "PROCESSOR_REG_SUBKEY", "db/d0d/classRegistry.html#ac60caaa44ba72c7591a58b538cdedbef", null ],
+    [ "REG_BINARY", "db/d0d/classRegistry.html#a2eea0e35a0bd42ae18afd8cecfc4c46a", null ],
+    [ "REG_DWORD", "db/d0d/classRegistry.html#ae49b327e3555dad79500b9aedce492b6", null ],
+    [ "REG_ERROR_ENTRY", "db/d0d/classRegistry.html#a057c1412e9fbe518827ccb37144ec8b9", null ],
+    [ "REG_ERROR_SET", "db/d0d/classRegistry.html#a88ed93fb369a3092dc63af4a84455b88", null ],
+    [ "REG_EXPAND_SZ", "db/d0d/classRegistry.html#ae6eb45f8ab2c1c38a4af5aaec1a441ae", null ],
+    [ "REG_MULTI_SZ", "db/d0d/classRegistry.html#abb15a48483761092680c2306c849f8c0", null ],
+    [ "REG_NO_ERROR", "db/d0d/classRegistry.html#a8dd60daff67b49502ef82a79d9655355", null ],
+    [ "REG_SZ", "db/d0d/classRegistry.html#a09f6a1c33cc9f9a5d6db7e52d0df128b", null ],
+    [ "SYSPATH_REG_ENTRY", "db/d0d/classRegistry.html#ab3db17482e906ac7113cfc374ddd0664", null ]
 ];

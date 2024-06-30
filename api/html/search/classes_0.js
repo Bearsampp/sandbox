@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
   ['action_0',['Action',['../db/d09/classAction.html',1,'']]],
@@ -24,23 +32,24 @@ var searchData=
   ['actionloading_21',['ActionLoading',['../df/d6b/classActionLoading.html',1,'']]],
   ['actionmanualrestart_22',['ActionManualRestart',['../d0/d9f/classActionManualRestart.html',1,'']]],
   ['actionquit_23',['ActionQuit',['../de/d86/classActionQuit.html',1,'']]],
-  ['actionrefreshrepos_24',['ActionRefreshRepos',['../d8/d75/classActionRefreshRepos.html',1,'']]],
-  ['actionrefreshreposstartup_25',['ActionRefreshReposStartup',['../d3/dfc/classActionRefreshReposStartup.html',1,'']]],
-  ['actionreload_26',['ActionReload',['../dd/dea/classActionReload.html',1,'']]],
-  ['actionrestart_27',['ActionRestart',['../df/dfd/classActionRestart.html',1,'']]],
-  ['actionservice_28',['ActionService',['../d7/d0e/classActionService.html',1,'']]],
-  ['actionstartup_29',['ActionStartup',['../d1/db8/classActionStartup.html',1,'']]],
-  ['actionswitchapachemodule_30',['ActionSwitchApacheModule',['../df/d85/classActionSwitchApacheModule.html',1,'']]],
-  ['actionswitchlang_31',['ActionSwitchLang',['../dc/d6f/classActionSwitchLang.html',1,'']]],
-  ['actionswitchlogsverbose_32',['ActionSwitchLogsVerbose',['../da/d2c/classActionSwitchLogsVerbose.html',1,'']]],
-  ['actionswitchonline_33',['ActionSwitchOnline',['../df/d7b/classActionSwitchOnline.html',1,'']]],
-  ['actionswitchphpextension_34',['ActionSwitchPhpExtension',['../df/d9c/classActionSwitchPhpExtension.html',1,'']]],
-  ['actionswitchphpparam_35',['ActionSwitchPhpParam',['../d4/db7/classActionSwitchPhpParam.html',1,'']]],
-  ['actionswitchversion_36',['ActionSwitchVersion',['../d6/dff/classActionSwitchVersion.html',1,'']]],
-  ['appadminer_37',['AppAdminer',['../df/d54/classAppAdminer.html',1,'']]],
-  ['appphpmyadmin_38',['AppPhpmyadmin',['../dd/dec/classAppPhpmyadmin.html',1,'']]],
-  ['appphppgadmin_39',['AppPhppgadmin',['../dc/d53/classAppPhppgadmin.html',1,'']]],
-  ['apps_40',['Apps',['../d1/d0e/classApps.html',1,'']]],
-  ['appwebgrind_41',['AppWebgrind',['../dc/df4/classAppWebgrind.html',1,'']]],
-  ['autoloader_42',['Autoloader',['../df/d3d/classAutoloader.html',1,'']]]
+  ['actionrebuildini_24',['ActionRebuildini',['../dd/d50/classActionRebuildini.html',1,'']]],
+  ['actionrefreshrepos_25',['ActionRefreshRepos',['../d8/d75/classActionRefreshRepos.html',1,'']]],
+  ['actionrefreshreposstartup_26',['ActionRefreshReposStartup',['../d3/dfc/classActionRefreshReposStartup.html',1,'']]],
+  ['actionreload_27',['ActionReload',['../dd/dea/classActionReload.html',1,'']]],
+  ['actionrestart_28',['ActionRestart',['../df/dfd/classActionRestart.html',1,'']]],
+  ['actionservice_29',['ActionService',['../d7/d0e/classActionService.html',1,'']]],
+  ['actionstartup_30',['ActionStartup',['../d1/db8/classActionStartup.html',1,'']]],
+  ['actionswitchapachemodule_31',['ActionSwitchApacheModule',['../df/d85/classActionSwitchApacheModule.html',1,'']]],
+  ['actionswitchlang_32',['ActionSwitchLang',['../dc/d6f/classActionSwitchLang.html',1,'']]],
+  ['actionswitchlogsverbose_33',['ActionSwitchLogsVerbose',['../da/d2c/classActionSwitchLogsVerbose.html',1,'']]],
+  ['actionswitchonline_34',['ActionSwitchOnline',['../df/d7b/classActionSwitchOnline.html',1,'']]],
+  ['actionswitchphpextension_35',['ActionSwitchPhpExtension',['../df/d9c/classActionSwitchPhpExtension.html',1,'']]],
+  ['actionswitchphpparam_36',['ActionSwitchPhpParam',['../d4/db7/classActionSwitchPhpParam.html',1,'']]],
+  ['actionswitchversion_37',['ActionSwitchVersion',['../d6/dff/classActionSwitchVersion.html',1,'']]],
+  ['appadminer_38',['AppAdminer',['../df/d54/classAppAdminer.html',1,'']]],
+  ['appphpmyadmin_39',['AppPhpmyadmin',['../dd/dec/classAppPhpmyadmin.html',1,'']]],
+  ['appphppgadmin_40',['AppPhppgadmin',['../dc/d53/classAppPhppgadmin.html',1,'']]],
+  ['apps_41',['Apps',['../d1/d0e/classApps.html',1,'']]],
+  ['appwebgrind_42',['AppWebgrind',['../dc/df4/classAppWebgrind.html',1,'']]],
+  ['autoloader_43',['Autoloader',['../df/d3d/classAutoloader.html',1,'']]]
 ];

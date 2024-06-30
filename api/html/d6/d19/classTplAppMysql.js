@@ -1,24 +1,32 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppMysql =
 [
-    [ "getActionChangeMysqlPort", "d6/d19/classTplAppMysql.html#a8b6ccb5ae006e1ceb392704677d3c4af", null ],
-    [ "getActionChangeMysqlRootPwd", "d6/d19/classTplAppMysql.html#a6d0c1b328a16f7ce027667652e188ca9", null ],
-    [ "getActionEnableMysql", "d6/d19/classTplAppMysql.html#a75bc99128eae3f8eed439d5dddbf923a", null ],
-    [ "getActionInstallMysqlService", "d6/d19/classTplAppMysql.html#adc23a49ccde56dbd3e8365f262fcbdc5", null ],
-    [ "getActionRemoveMysqlService", "d6/d19/classTplAppMysql.html#a289cd2db1ff0a4cb08cc80ecad8f3779", null ],
-    [ "getActionSwitchMysqlVersion", "d6/d19/classTplAppMysql.html#ac791839de0d488a3fd42516051ab3a32", null ],
-    [ "getMenuMysql", "d6/d19/classTplAppMysql.html#a3239c5537b97cef2824d2c9a00abb906", null ],
-    [ "getMenuMysqlDebug", "d6/d19/classTplAppMysql.html#a7406bb92d686135a9467b8925b69ea27", null ],
-    [ "getMenuMysqlService", "d6/d19/classTplAppMysql.html#a4da84828a7e4619bfe802d220f390334", null ],
-    [ "getMenuMysqlVersions", "d6/d19/classTplAppMysql.html#aa2147b60d379a78b2ab2660937994311", null ],
-    [ "process", "d6/d19/classTplAppMysql.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION_CHANGE_PORT", "d6/d19/classTplAppMysql.html#aec83d60f154253dd5e765dd0e3dd5c9e", null ],
-    [ "ACTION_CHANGE_ROOT_PWD", "d6/d19/classTplAppMysql.html#ac83bb52612457adf1aa4921ea36ce611", null ],
-    [ "ACTION_ENABLE", "d6/d19/classTplAppMysql.html#a51ff5c246a15e0f76f46c9ed8b644fad", null ],
-    [ "ACTION_INSTALL_SERVICE", "d6/d19/classTplAppMysql.html#ac5100acf5105e8d0935de59b86aad45e", null ],
-    [ "ACTION_REMOVE_SERVICE", "d6/d19/classTplAppMysql.html#acb85b166e1a7c4af5353407981d5fa32", null ],
-    [ "ACTION_SWITCH_VERSION", "d6/d19/classTplAppMysql.html#a62aa72980d0bdd9c2a7125139dbaa730", null ],
-    [ "MENU", "d6/d19/classTplAppMysql.html#a55a141700514f2e78a8efc2ae5f60f89", null ],
-    [ "MENU_DEBUG", "d6/d19/classTplAppMysql.html#a13eca798abc1cd6b8c967a3f18b216cc", null ],
-    [ "MENU_SERVICE", "d6/d19/classTplAppMysql.html#aad434fce3fd8582d2b46bd392c6ade57", null ],
-    [ "MENU_VERSIONS", "d6/d19/classTplAppMysql.html#a8fc75ed90eb7f498be4ea4735ac954a9", null ]
+    [ "getActionChangeMysqlPort", "d6/d19/classTplAppMysql.html#aa2499840b8e416674aa1d5105558c890", null ],
+    [ "getActionChangeMysqlRootPwd", "d6/d19/classTplAppMysql.html#a32b3254512515359829dec2bce7d984d", null ],
+    [ "getActionEnableMysql", "d6/d19/classTplAppMysql.html#a889c8995e0a46dfa8e576c1818f74a3e", null ],
+    [ "getActionInstallMysqlService", "d6/d19/classTplAppMysql.html#a2b70ffd9359c858f7713c98d80693c58", null ],
+    [ "getActionRemoveMysqlService", "d6/d19/classTplAppMysql.html#acfadccb15c1d56445c9a9330be316b60", null ],
+    [ "getActionSwitchMysqlVersion", "d6/d19/classTplAppMysql.html#aa918a3945ddb2a4f7c36a4dec766de9e", null ],
+    [ "getMenuMysql", "d6/d19/classTplAppMysql.html#ab73238f0e33b03f8ce20144b582e5609", null ],
+    [ "getMenuMysqlDebug", "d6/d19/classTplAppMysql.html#ad802807f42e41fea3d71884d44676e08", null ],
+    [ "getMenuMysqlService", "d6/d19/classTplAppMysql.html#a1514c87f9ff4a5a4e042c8b6aafc957c", null ],
+    [ "getMenuMysqlVersions", "d6/d19/classTplAppMysql.html#aa74b5dbbaa7053a9c0584a993ac679bc", null ],
+    [ "process", "d6/d19/classTplAppMysql.html#af8621685c1a610f8df1749d4ffad0a78", null ],
+    [ "ACTION_CHANGE_PORT", "d6/d19/classTplAppMysql.html#a552dd9c90e2b3a68824a6eda4c778d8e", null ],
+    [ "ACTION_CHANGE_ROOT_PWD", "d6/d19/classTplAppMysql.html#aabb649b33f366d01901689919f77122e", null ],
+    [ "ACTION_ENABLE", "d6/d19/classTplAppMysql.html#aec914e3ba22886e58278fe6db6e53410", null ],
+    [ "ACTION_INSTALL_SERVICE", "d6/d19/classTplAppMysql.html#a3a7024c188e305d16cd0b5288d332d47", null ],
+    [ "ACTION_REMOVE_SERVICE", "d6/d19/classTplAppMysql.html#ac850372fcc8883a769167fe7667d1980", null ],
+    [ "ACTION_SWITCH_VERSION", "d6/d19/classTplAppMysql.html#a86285ec46e7e9eaab6392d1252cf0ebf", null ],
+    [ "MENU", "d6/d19/classTplAppMysql.html#aeb1ea4355d926585f59e74a83aae4290", null ],
+    [ "MENU_DEBUG", "d6/d19/classTplAppMysql.html#a65c770093efa0dba0f4b03e30dddda22", null ],
+    [ "MENU_SERVICE", "d6/d19/classTplAppMysql.html#a71ab226ad03a9e6efe800b8b6f273e67", null ],
+    [ "MENU_VERSIONS", "d6/d19/classTplAppMysql.html#a3fa8cad170225671b01e97fc25cb75e5", null ]
 ];

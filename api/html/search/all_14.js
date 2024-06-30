@@ -1,8 +1,16 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
-  ['tag_5fend_5fswitchonline_0',['TAG_END_SWITCHONLINE',['../d9/d6c/classBinApache.html#aa227239745f673e6df784412410c5b9f',1,'BinApache']]],
-  ['tag_5fstart_5fswitchonline_1',['TAG_START_SWITCHONLINE',['../d9/d6c/classBinApache.html#a02d876a25ebbf88ae651a99eb0386c26',1,'BinApache']]],
-  ['target_2',['TARGET',['../da/d49/classLang.html#aa1fc4718500cc9357004c8d76da4c585',1,'Lang']]],
+  ['tag_5fend_5fswitchonline_0',['TAG_END_SWITCHONLINE',['../d9/d6c/classBinApache.html#a96584e515f5f3062836c70837c0369b9',1,'BinApache']]],
+  ['tag_5fstart_5fswitchonline_1',['TAG_START_SWITCHONLINE',['../d9/d6c/classBinApache.html#aa7c4f51b8248ff1f4a5ec5f572f5c1c6',1,'BinApache']]],
+  ['target_2',['TARGET',['../da/d49/classLang.html#adc45a0dad852a4dd36b71c680e43dcfb',1,'Lang']]],
   ['tbs_5fautoticks_3',['TBS_AUTOTICKS',['../d9/d82/wb__resources_8inc_8php.html#abc6b865103d95aff2b647070b2f2be0c',1,'wb_resources.inc.php']]],
   ['tcm_5fgetcursel_4',['TCM_GETCURSEL',['../de/def/wb__windows_8inc_8php.html#adea7a0dec43dbb7f0b79ae1013538674',1,'wb_windows.inc.php']]],
   ['tcm_5fsetcursel_5',['TCM_SETCURSEL',['../de/def/wb__windows_8inc_8php.html#ac05d3d2290bd0a94f8969279a521a2f9',1,'wb_windows.inc.php']]],
@@ -14,8 +22,8 @@ var searchData=
   ['toolperl_11',['ToolPerl',['../d0/dd5/classToolPerl.html',1,'']]],
   ['toolpython_12',['ToolPython',['../d4/d34/classToolPython.html',1,'']]],
   ['toolruby_13',['ToolRuby',['../de/d39/classToolRuby.html',1,'']]],
-  ['tools_14',['Tools',['../de/db2/classTools.html',1,'']]],
-  ['tools_15',['TOOLS',['../da/d49/classLang.html#a94ef6967123774c56f306d2ddd1063bb',1,'Lang']]],
+  ['tools_14',['TOOLS',['../da/d49/classLang.html#a5a84dfa5f17516b7929056d52cc3e0f0',1,'Lang']]],
+  ['tools_15',['Tools',['../de/db2/classTools.html',1,'']]],
   ['toolxdc_16',['ToolXdc',['../df/d1b/classToolXdc.html',1,'']]],
   ['toolyarn_17',['ToolYarn',['../d7/d8e/classToolYarn.html',1,'']]],
   ['tplaestan_18',['TplAestan',['../d1/d79/classTplAestan.html',1,'']]],
@@ -33,19 +41,22 @@ var searchData=
   ['tplapplogs_30',['TplAppLogs',['../d2/d2a/classTplAppLogs.html',1,'']]],
   ['tplapplogsverbose_31',['TplAppLogsVerbose',['../d9/d3f/classTplAppLogsVerbose.html',1,'']]],
   ['tplappmailhog_32',['TplAppMailhog',['../d4/d8a/classTplAppMailhog.html',1,'']]],
-  ['tplappmariadb_33',['TplAppMariadb',['../d4/de1/classTplAppMariadb.html',1,'']]],
-  ['tplappmemcached_34',['TplAppMemcached',['../d8/dff/classTplAppMemcached.html',1,'']]],
-  ['tplappmysql_35',['TplAppMysql',['../d6/d19/classTplAppMysql.html',1,'']]],
-  ['tplappnodejs_36',['TplAppNodejs',['../dc/d32/classTplAppNodejs.html',1,'']]],
-  ['tplapponline_37',['TplAppOnline',['../d7/dbb/classTplAppOnline.html',1,'']]],
-  ['tplappphp_38',['TplAppPhp',['../d0/d1a/classTplAppPhp.html',1,'']]],
-  ['tplapppostgresql_39',['TplAppPostgresql',['../d3/d1b/classTplAppPostgresql.html',1,'']]],
-  ['tplapppython_40',['TplAppPython',['../de/d1b/classTplAppPython.html',1,'']]],
-  ['tplappreload_41',['TplAppReload',['../da/d00/classTplAppReload.html',1,'']]],
-  ['tplappservices_42',['TplAppServices',['../d3/d3e/classTplAppServices.html',1,'']]],
-  ['tplapptools_43',['TplAppTools',['../dc/dd8/classTplAppTools.html',1,'']]],
-  ['tplconsolez_44',['TplConsoleZ',['../d6/d32/classTplConsoleZ.html',1,'']]],
-  ['tplservice_45',['TplService',['../db/dc8/classTplService.html',1,'']]],
-  ['try_46',['try',['../d1/dc6/ajax_8summary_8php.html#a34a17039defc0fb6017128350a10ba33',1,'ajax.summary.php']]],
-  ['type_47',['TYPE',['../d1/d0e/classApps.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Apps\TYPE'],['../de/d54/classBins.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Bins\TYPE'],['../de/db2/classTools.html#a8d505777e1d7cfd6237e513f10cb7892',1,'Tools\TYPE']]]
+  ['tplappmailpit_33',['TplAppMailpit',['../d8/dd3/classTplAppMailpit.html',1,'']]],
+  ['tplappmariadb_34',['TplAppMariadb',['../d4/de1/classTplAppMariadb.html',1,'']]],
+  ['tplappmemcached_35',['TplAppMemcached',['../d8/dff/classTplAppMemcached.html',1,'']]],
+  ['tplappmysql_36',['TplAppMysql',['../d6/d19/classTplAppMysql.html',1,'']]],
+  ['tplappnodejs_37',['TplAppNodejs',['../dc/d32/classTplAppNodejs.html',1,'']]],
+  ['tplapponline_38',['TplAppOnline',['../d7/dbb/classTplAppOnline.html',1,'']]],
+  ['tplappphp_39',['TplAppPhp',['../d0/d1a/classTplAppPhp.html',1,'']]],
+  ['tplapppostgresql_40',['TplAppPostgresql',['../d3/d1b/classTplAppPostgresql.html',1,'']]],
+  ['tplapppython_41',['TplAppPython',['../de/d1b/classTplAppPython.html',1,'']]],
+  ['tplapprebuildini_42',['TplAppRebuildIni',['../d9/da5/classTplAppRebuildIni.html',1,'']]],
+  ['tplappreload_43',['TplAppReload',['../da/d00/classTplAppReload.html',1,'']]],
+  ['tplappservices_44',['TplAppServices',['../d3/d3e/classTplAppServices.html',1,'']]],
+  ['tplapptools_45',['TplAppTools',['../dc/dd8/classTplAppTools.html',1,'']]],
+  ['tplappxlight_46',['TplAppXlight',['../dc/d83/classTplAppXlight.html',1,'']]],
+  ['tplconsolez_47',['TplConsoleZ',['../d6/d32/classTplConsoleZ.html',1,'']]],
+  ['tplservice_48',['TplService',['../db/dc8/classTplService.html',1,'']]],
+  ['try_49',['try',['../d1/dc6/ajax_8summary_8php.html#a34a17039defc0fb6017128350a10ba33',1,'ajax.summary.php']]],
+  ['type_50',['TYPE',['../d1/d0e/classApps.html#a4dd86b255ce9cc327fd5756b24e867cf',1,'Apps\TYPE'],['../de/d54/classBins.html#a9f43cb635c83e837536fc74e21210017',1,'Bins\TYPE'],['../de/db2/classTools.html#a5c8eedc54f1dc8b99fc76610d7d97d2c',1,'Tools\TYPE']]]
 ];

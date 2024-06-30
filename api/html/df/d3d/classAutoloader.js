@@ -1,7 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classAutoloader =
 [
-    [ "__construct", "df/d3d/classAutoloader.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "load", "df/d3d/classAutoloader.html#af916111cf2b46e3284dae3c9a28e5246", null ],
-    [ "register", "df/d3d/classAutoloader.html#acc294a6cc8e69743746820e3d15e3f78", null ],
-    [ "unregister", "df/d3d/classAutoloader.html#a501cedfa611556a0100e024a0e102d9d", null ]
+    [ "__construct", "df/d3d/classAutoloader.html#ab04eb2e0cb60c3018fcd71444df8e4df", null ],
+    [ "load", "df/d3d/classAutoloader.html#a492b488b33147d2f84b687c01110a175", null ],
+    [ "register", "df/d3d/classAutoloader.html#a927b4f3324244fe012d0a75c1d2c32e8", null ],
+    [ "unregister", "df/d3d/classAutoloader.html#aded46eaaabba97ef4c324e48956a62e3", null ]
 ];

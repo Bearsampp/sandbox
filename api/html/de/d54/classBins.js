@@ -1,28 +1,40 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classBins =
 [
-    [ "__construct", "de/d54/classBins.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "getAll", "de/d54/classBins.html#aba0d5b303383fb5b1fabb5fd01cd3800", null ],
-    [ "getApache", "de/d54/classBins.html#a67321ed3a1a8e6e13ff486c4cc385eb4", null ],
-    [ "getFilezilla", "de/d54/classBins.html#a3840da861f273b2a464a35de97b68cd8", null ],
-    [ "getLogsPath", "de/d54/classBins.html#a1b8f3f16ab3c10cddc898f4cad6dec43", null ],
-    [ "getMailhog", "de/d54/classBins.html#a3dee6b52fce7909eeb436f5dfff73f26", null ],
-    [ "getMariadb", "de/d54/classBins.html#abf13c9b750feee48cb994ea13f6d946d", null ],
-    [ "getMemcached", "de/d54/classBins.html#a60fbc654bcf100298baae46b89018b89", null ],
-    [ "getMysql", "de/d54/classBins.html#a0ae6c24c90d5b89adc081882f650c8cb", null ],
-    [ "getNodejs", "de/d54/classBins.html#ae9dc2b1ac4205ff0238f9500d77218b8", null ],
-    [ "getPhp", "de/d54/classBins.html#ac65c2555c09638bb6abc022401d1e0ba", null ],
-    [ "getPostgresql", "de/d54/classBins.html#a58906a4fabf3340333e925ee8f4e9bf8", null ],
-    [ "getServices", "de/d54/classBins.html#a36d7e45e7f713b49a02b4988be6cbcd1", null ],
-    [ "reload", "de/d54/classBins.html#a7b2a44f6ec87a111c1bc3cc911cd15f5", null ],
-    [ "update", "de/d54/classBins.html#a842e4774e3b3601a005b995c02f7e883", null ],
-    [ "$apache", "de/d54/classBins.html#a001962ed54ec83ffb4e12cd382c9a54a", null ],
-    [ "$filezilla", "de/d54/classBins.html#a2c2b81455849927a3249b776783764cb", null ],
-    [ "$mailhog", "de/d54/classBins.html#a7c2fa463c47dd1a79132c396af1c7627", null ],
-    [ "$mariadb", "de/d54/classBins.html#a14047ada5652a465fe1d9b836a893057", null ],
-    [ "$memcached", "de/d54/classBins.html#ad3517bdc06c5d7f8fe82a5ac13ac1b3c", null ],
-    [ "$mysql", "de/d54/classBins.html#ac62d1c231e5b3d4c5dd314d5482601d8", null ],
-    [ "$nodejs", "de/d54/classBins.html#a2fab207c09af0ade21dbad4e4f99d825", null ],
-    [ "$php", "de/d54/classBins.html#a525b58cfc2293e8740fb5b82521531be", null ],
-    [ "$postgresql", "de/d54/classBins.html#ab4914304bf700f7df96f12edd479925b", null ],
-    [ "TYPE", "de/d54/classBins.html#a8d505777e1d7cfd6237e513f10cb7892", null ]
+    [ "__construct", "de/d54/classBins.html#af1b1018d56d89d699f9099f9bb79b056", null ],
+    [ "getAll", "de/d54/classBins.html#a7ea4035267f2dac5fbdddd8f19dfa2a0", null ],
+    [ "getApache", "de/d54/classBins.html#a7d0663710a72c4d79c444cd99481b9c1", null ],
+    [ "getFilezilla", "de/d54/classBins.html#ac94bcb58f2c291f26fdf22e0ea4bf530", null ],
+    [ "getLogsPath", "de/d54/classBins.html#a2e183439ce403a18d659b4a16aa943f4", null ],
+    [ "getMailhog", "de/d54/classBins.html#a06ddca8f2c0ae2f56dc4b2875afe520e", null ],
+    [ "getMailpit", "de/d54/classBins.html#ab87856506b2d867424fa787a1117a459", null ],
+    [ "getMariadb", "de/d54/classBins.html#a5ca029ca86048729fca33f1b7db2446b", null ],
+    [ "getMemcached", "de/d54/classBins.html#af285ea7b7467fad58e323bc201ed60dc", null ],
+    [ "getMysql", "de/d54/classBins.html#afafa11d1af28a858281f624f83a0f1ea", null ],
+    [ "getNodejs", "de/d54/classBins.html#a82e89028b9fd802cf63be5bb13baaeec", null ],
+    [ "getPhp", "de/d54/classBins.html#a3e9d8d2b0cea28770ac130fd9873f168", null ],
+    [ "getPostgresql", "de/d54/classBins.html#a9e625d9974549d339e712c99ea2be145", null ],
+    [ "getServices", "de/d54/classBins.html#a68ab99140e18eaf1f27ceab8d4f66d88", null ],
+    [ "getXlight", "de/d54/classBins.html#ae38e011b9915da1df87dca3599b2740a", null ],
+    [ "reload", "de/d54/classBins.html#a7c50bf487ae95e3dc284f064bc1ca260", null ],
+    [ "update", "de/d54/classBins.html#aae91a19ced3436e43eb5a05c84079076", null ],
+    [ "$apache", "de/d54/classBins.html#ac433512c71279ef46e41977f011b19c8", null ],
+    [ "$filezilla", "de/d54/classBins.html#a32f0c90d4800f28d3929fb6b2c4ab2a5", null ],
+    [ "$mailhog", "de/d54/classBins.html#a17045286cd82e0b12a601138e595757f", null ],
+    [ "$mailpit", "de/d54/classBins.html#ac3a729ec5cc3e8f2489bca3a0dc8b6ab", null ],
+    [ "$mariadb", "de/d54/classBins.html#aaa53171a066e76b3af39a28dfd4b5f77", null ],
+    [ "$memcached", "de/d54/classBins.html#a32db03a935a58a906ca60c6549cf5bd8", null ],
+    [ "$mysql", "de/d54/classBins.html#af0fc4bbac7357dac1b0d5fb3f2cc8445", null ],
+    [ "$nodejs", "de/d54/classBins.html#a0c4370fa2fd5031b3aa697a3a1c48b3e", null ],
+    [ "$php", "de/d54/classBins.html#a6ac9ade37b239cc988ff4ff00a108d2c", null ],
+    [ "$postgresql", "de/d54/classBins.html#a0b0ba801a82c15e2174d0499549d2697", null ],
+    [ "$xlight", "de/d54/classBins.html#a3c41d93226b84996bda46074f4dae3b2", null ],
+    [ "TYPE", "de/d54/classBins.html#a9f43cb635c83e837536fc74e21210017", null ]
 ];

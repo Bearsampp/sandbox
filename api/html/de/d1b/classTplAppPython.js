@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppPython =
 [
-    [ "getMenuPython", "de/d1b/classTplAppPython.html#a8c1e3b5cc7e5208cd8cf339643e34c7d", null ],
-    [ "process", "de/d1b/classTplAppPython.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "MENU", "de/d1b/classTplAppPython.html#a55a141700514f2e78a8efc2ae5f60f89", null ]
+    [ "getMenuPython", "de/d1b/classTplAppPython.html#a07983dd6698aad23d7418a0e7986ab2f", null ],
+    [ "process", "de/d1b/classTplAppPython.html#a2e1c0ccfe5817de9d36f506d884d866f", null ],
+    [ "MENU", "de/d1b/classTplAppPython.html#a7b4d669d5dae069e956a2713be82d649", null ]
 ];

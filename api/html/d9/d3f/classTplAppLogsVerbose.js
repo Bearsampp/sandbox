@@ -1,7 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppLogsVerbose =
 [
-    [ "getActionSwitchLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html#a03fa35fcc508bfeabd5326df90938dd3", null ],
-    [ "getMenuLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html#a2d8ebb8b94a78a45b9e71a17a3b485a7", null ],
-    [ "process", "d9/d3f/classTplAppLogsVerbose.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "MENU", "d9/d3f/classTplAppLogsVerbose.html#a55a141700514f2e78a8efc2ae5f60f89", null ]
+    [ "getActionSwitchLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html#a86a8bd2485c2cb2f3d98642859625d7c", null ],
+    [ "getMenuLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html#a5de3189f04955b3a996706d9e47806b5", null ],
+    [ "process", "d9/d3f/classTplAppLogsVerbose.html#a11a29ae5ff5c48b458f391eb4a9e2dfb", null ],
+    [ "MENU", "d9/d3f/classTplAppLogsVerbose.html#a4ef117ade49d657f1ea26b203823a8e6", null ]
 ];

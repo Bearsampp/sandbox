@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppLaunchStartup =
 [
-    [ "getActionLaunchStartup", "dd/d54/classTplAppLaunchStartup.html#ad2701787cc3cf1cb4f083b4247c9364a", null ],
-    [ "process", "dd/d54/classTplAppLaunchStartup.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION", "dd/d54/classTplAppLaunchStartup.html#aff329be36615a18f3dd0bc2d393dbc2f", null ]
+    [ "getActionLaunchStartup", "dd/d54/classTplAppLaunchStartup.html#a2a27441f4251fe5e3aaa3825efd06ba9", null ],
+    [ "process", "dd/d54/classTplAppLaunchStartup.html#ad9365c36113086abee5c58cca6c95dfa", null ],
+    [ "ACTION", "dd/d54/classTplAppLaunchStartup.html#ad9ff34ed2f7346d7ef26e986074bdbe3", null ]
 ];

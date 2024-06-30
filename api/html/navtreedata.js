@@ -35,18 +35,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/db8/classActionStartup.html#a298523223201366625cb7e465ee2acce",
-"d3/d93/classNssm.html#aff3603db3027215072b862544f660f77",
-"d4/dfe/class_8tpl_8app_8nodejs_8php.html",
-"d6/de4/classUtil.html#a2e243722302519425c3cf26fe2fc180c",
-"d8/d9c/classBinNodejs.html#a5f33c33705dd268ad4799ceeacc8eec3",
-"d9/dbf/homepage_8php.html#a2b604d50e996bc0da9715631aa41babd",
-"da/d49/classLang.html#a4eb30b84226e6c2b02fe2b33a6e0499e",
-"da/dbb/classBatch.html#ac4b9f1fcd90a2b32cd962376d5734119",
-"db/da5/classWinBinder.html#a46517726d1fadaad0b4b0e0b06bc9682",
-"dc/db3/classBinPhp.html#aaf70b9ef333eeec878b26c9ba47d8af8",
-"de/d54/classBins.html#a58906a4fabf3340333e925ee8f4e9bf8",
-"dir_f6364f14f455e871551c64e8efbec812.html"
+"d1/db8/classActionStartup.html#a198e31dd1b8ae7457eb18959a04a2748",
+"d3/d93/classNssm.html#aa32df80b96119003df6133155b5a6610",
+"d4/ddb/classHomepage.html#aec4d136c91a567b0470a2d363e65e6d0",
+"d6/d88/classBinMysql.html#afbd9de6ff63b3f2640f1b8c521fe397c",
+"d8/d73/classRoot.html#ad7e1631fb937b7856f77e8ab89e4e55d",
+"d9/d82/wb__resources_8inc_8php.html#a261d8c62c512b99dde29205a769e1a83",
+"da/d27/classActionCheckVersion.html#a03f8b0702ac9522900de386acf40b9f9",
+"da/d49/classLang.html#ad178ce8b914663d0561b79480eb0c610",
+"db/d0d/classRegistry.html#ad9396dc6235b74d25aa126ef33a4f97d",
+"db/df2/classBinMailhog.html#afd8514658a8d328dfaed242ad56176e5",
+"dc/dd8/classTplAppTools.html#a71a8e890bc4331d10d3fa386c04ad677",
+"df/d28/classWin32Service.html#a03b0fa6d390599bdac41a93a49309579",
+"globals_t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

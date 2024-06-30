@@ -1,13 +1,21 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
-  ['findbypath_0',['findByPath',['../dc/ddb/classWin32Ps.html#a2425cea44fd398bb8b0b7c20e5d0efe3',1,'Win32Ps']]],
-  ['findbypid_1',['findByPid',['../dc/ddb/classWin32Ps.html#a137acc75ee12f8a68e03ef0673a02e77',1,'Win32Ps']]],
-  ['findexebypid_2',['findExeByPid',['../da/dbb/classBatch.html#affa163da5118bee1ebaf70e3f5605114',1,'Batch']]],
-  ['findfile_3',['findFile',['../d6/de4/classUtil.html#ad955eb2759880eac45ef7bd54f339a2e',1,'Util\findFile()'],['../db/da5/classWinBinder.html#a12a16ba66537e6273c56d0919d663660',1,'WinBinder\findFile()']]],
-  ['findfiles_4',['findFiles',['../d6/de4/classUtil.html#aae128b672636af0e9ae1195abac19223',1,'Util']]],
-  ['findrepos_5',['findRepos',['../d6/de4/classUtil.html#a0a1e896ab7d6c4ba08dc8ae64988816d',1,'Util\findRepos()'],['../d3/dc0/classToolGit.html#a2a331b4b28ae7b5176ac7198b956a3be',1,'ToolGit\findRepos()']]],
-  ['formatunixpath_6',['formatUnixPath',['../d6/de4/classUtil.html#a9926f7e8c24507b7dea25e3343238a2f',1,'Util']]],
-  ['formatwindowspath_7',['formatWindowsPath',['../d6/de4/classUtil.html#a929ef14f32f27fe757b324a9791c1e92',1,'Util']]],
+  ['findbypath_0',['findByPath',['../dc/ddb/classWin32Ps.html#ac0804222f21d96f2404bd798c5805576',1,'Win32Ps']]],
+  ['findbypid_1',['findByPid',['../dc/ddb/classWin32Ps.html#a055648012f53f02dc744387e07e25f0a',1,'Win32Ps']]],
+  ['findexebypid_2',['findExeByPid',['../da/dbb/classBatch.html#a13c8f8378c450ecc34b3c3d1f5803dbf',1,'Batch']]],
+  ['findfile_3',['findFile',['../d6/de4/classUtil.html#a9450555a5438c123a566ef0c926c89b8',1,'Util\findFile()'],['../db/da5/classWinBinder.html#a7c4d13321f88e9652b4d5a484b336460',1,'WinBinder\findFile()']]],
+  ['findfiles_4',['findFiles',['../d6/de4/classUtil.html#a08b0c742440b411d1ab9fdcaba408dbb',1,'Util']]],
+  ['findrepos_5',['findRepos',['../d6/de4/classUtil.html#a28147962d5de17b2696d6805254f1291',1,'Util\findRepos()'],['../d3/dc0/classToolGit.html#a04b644cec0f5f45c618eb7948c3d4689',1,'ToolGit\findRepos()']]],
+  ['formatunixpath_6',['formatUnixPath',['../d6/de4/classUtil.html#a7e1d6744781147aa7676da79f53b4db7',1,'Util']]],
+  ['formatwindowspath_7',['formatWindowsPath',['../d6/de4/classUtil.html#ae4ffc8c304921dee2d5905b509504982',1,'Util']]],
   ['freeimage_5fallocate_8',['FreeImage_Allocate',['../de/d0a/freeimage_8inc_8php.html#ae863ef7eb259ba51afdaf0cdf32c6dc7',1,'freeimage.inc.php']]],
   ['freeimage_5fgetbits_9',['FreeImage_GetBits',['../de/d0a/freeimage_8inc_8php.html#a291e74c0f17a5c75768156ac845be8d2',1,'freeimage.inc.php']]],
   ['freeimage_5fgetheight_10',['FreeImage_GetHeight',['../de/d0a/freeimage_8inc_8php.html#a66fce8ba2eefb4eef2cf044e2aaef89a',1,'freeimage.inc.php']]],

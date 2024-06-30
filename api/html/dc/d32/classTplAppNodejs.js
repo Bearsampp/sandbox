@@ -1,12 +1,20 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppNodejs =
 [
-    [ "getActionEnableNodejs", "dc/d32/classTplAppNodejs.html#ac56395b56e2ac0b2ae1f61372028d0ea", null ],
-    [ "getActionSwitchNodejsVersion", "dc/d32/classTplAppNodejs.html#a1fa0d9427e7475ff381cf81c2d246d7c", null ],
-    [ "getMenuNodejs", "dc/d32/classTplAppNodejs.html#a02745b2ee80d5c7bc141af8c18b5b015", null ],
-    [ "getMenuNodejsVersions", "dc/d32/classTplAppNodejs.html#a4463ebdd3b388e3ecf3586dd6bde248d", null ],
-    [ "process", "dc/d32/classTplAppNodejs.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION_ENABLE", "dc/d32/classTplAppNodejs.html#a51ff5c246a15e0f76f46c9ed8b644fad", null ],
-    [ "ACTION_SWITCH_VERSION", "dc/d32/classTplAppNodejs.html#a62aa72980d0bdd9c2a7125139dbaa730", null ],
-    [ "MENU", "dc/d32/classTplAppNodejs.html#a55a141700514f2e78a8efc2ae5f60f89", null ],
-    [ "MENU_VERSIONS", "dc/d32/classTplAppNodejs.html#a8fc75ed90eb7f498be4ea4735ac954a9", null ]
+    [ "getActionEnableNodejs", "dc/d32/classTplAppNodejs.html#a616aea3a608499f2387a8518f22f39c8", null ],
+    [ "getActionSwitchNodejsVersion", "dc/d32/classTplAppNodejs.html#a97f23e5a53785cce195edf7a0e6e930f", null ],
+    [ "getMenuNodejs", "dc/d32/classTplAppNodejs.html#ae6136fcf0895063f90caa2b191d0d11b", null ],
+    [ "getMenuNodejsVersions", "dc/d32/classTplAppNodejs.html#a72657418b1198e0bbb9b1dcbce001059", null ],
+    [ "process", "dc/d32/classTplAppNodejs.html#a6eae155f0915bd2aed6247651ce961ca", null ],
+    [ "ACTION_ENABLE", "dc/d32/classTplAppNodejs.html#af21529bc65139dad1089156fd36510f6", null ],
+    [ "ACTION_SWITCH_VERSION", "dc/d32/classTplAppNodejs.html#a0162fc86b385930e3901004348afd581", null ],
+    [ "MENU", "dc/d32/classTplAppNodejs.html#aa3d3ce036676a8947aa4a8911d75f340", null ],
+    [ "MENU_VERSIONS", "dc/d32/classTplAppNodejs.html#a7afea763e558847d23ed06b2565b2665", null ]
 ];

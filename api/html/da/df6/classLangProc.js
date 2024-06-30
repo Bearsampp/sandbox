@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classLangProc =
 [
-    [ "__construct", "da/df6/classLangProc.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "getCurrent", "da/df6/classLangProc.html#ad926899d7cac34a3f1a90e552d8eb27d", null ],
-    [ "getList", "da/df6/classLangProc.html#a5610c1415bd5fd946a42fd0fd4da4cff", null ],
-    [ "getValue", "da/df6/classLangProc.html#a8d7e1f100def0d8701b53ca45fabbfb4", null ],
-    [ "load", "da/df6/classLangProc.html#a4dcaa8f72c8423d4de25a9e87fa6f3e4", null ],
-    [ "$current", "da/df6/classLangProc.html#a2c4c58e377f6c66ca38c8ea97666fc5e", null ],
-    [ "$raw", "da/df6/classLangProc.html#ad2850dbb22c3d9922e340365d5b10f5f", null ]
+    [ "__construct", "da/df6/classLangProc.html#a7bb63445c91bf3d46be3f9867c3d20ef", null ],
+    [ "getCurrent", "da/df6/classLangProc.html#aac566b26fc4d44990e1fd77dddd24b7a", null ],
+    [ "getList", "da/df6/classLangProc.html#ab6cd1ca7428de1e84a9b4b181804ea36", null ],
+    [ "getValue", "da/df6/classLangProc.html#a06676854a1ba9e8f62a3e8b8524bf5cd", null ],
+    [ "load", "da/df6/classLangProc.html#aa397e9ef589b2d2ac31e70d105472fca", null ],
+    [ "$current", "da/df6/classLangProc.html#a6b66cbdbe0a9dabd9d6044be34089508", null ],
+    [ "$raw", "da/df6/classLangProc.html#ad0baa1ee5e234bfd1ab867797a3bc5de", null ]
 ];

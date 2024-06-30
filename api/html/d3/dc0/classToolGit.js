@@ -1,25 +1,33 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolGit =
 [
-    [ "__construct", "d3/dc0/classToolGit.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "findRepos", "d3/dc0/classToolGit.html#a2a331b4b28ae7b5176ac7198b956a3be", null ],
-    [ "getBash", "d3/dc0/classToolGit.html#abf3e7638ae353a1dabc3eeb3be9a8b76", null ],
-    [ "getExe", "d3/dc0/classToolGit.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "getRepos", "d3/dc0/classToolGit.html#a450f3076ace91b4fa44a5364127a6a5a", null ],
-    [ "isScanStartup", "d3/dc0/classToolGit.html#a906d2c28cb28ff855244ef94e784dd56", null ],
-    [ "reload", "d3/dc0/classToolGit.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setScanStartup", "d3/dc0/classToolGit.html#aaf4d329573d3a292316519d758e19b55", null ],
-    [ "setVersion", "d3/dc0/classToolGit.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "updateConfig", "d3/dc0/classToolGit.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$bash", "d3/dc0/classToolGit.html#ac741cc5a4b7ea1e312e4d78cfb3aa454", null ],
-    [ "$exe", "d3/dc0/classToolGit.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "$repos", "d3/dc0/classToolGit.html#a8d8f4d2608731c9eea2f5691ed858578", null ],
-    [ "$reposCacheFile", "d3/dc0/classToolGit.html#ae6cb3da7cea289ed043ed0ebd63143a2", null ],
-    [ "$reposFile", "d3/dc0/classToolGit.html#af02111b6c14d95830cf6065a404719df", null ],
-    [ "$scanStartup", "d3/dc0/classToolGit.html#a194cd82e92b90956181a6047089344ac", null ],
-    [ "LOCAL_CFG_BASH", "d3/dc0/classToolGit.html#aee3ba92c1975be63902ea2a0c485a0ee", null ],
-    [ "LOCAL_CFG_EXE", "d3/dc0/classToolGit.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "LOCAL_CFG_SCAN_STARTUP", "d3/dc0/classToolGit.html#abf962a613028e49c3e951226aa1274bd", null ],
-    [ "REPOS_CACHE_FILE", "d3/dc0/classToolGit.html#a7860644af52bd3b6588809f176267d8c", null ],
-    [ "REPOS_FILE", "d3/dc0/classToolGit.html#a643bcb4754eb301b140ce6c56e24b854", null ],
-    [ "ROOT_CFG_VERSION", "d3/dc0/classToolGit.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "d3/dc0/classToolGit.html#af65324d2b48326eaa85ead71a7db6c46", null ],
+    [ "findRepos", "d3/dc0/classToolGit.html#a04b644cec0f5f45c618eb7948c3d4689", null ],
+    [ "getBash", "d3/dc0/classToolGit.html#adef981c8453afc0602ada8f3f60ee49f", null ],
+    [ "getExe", "d3/dc0/classToolGit.html#ab7e3e0fd73411daed1c6813cfa642ee1", null ],
+    [ "getRepos", "d3/dc0/classToolGit.html#a588cfc2e470041d89c233811c2e47b7d", null ],
+    [ "isScanStartup", "d3/dc0/classToolGit.html#afd447c6081419c7ca1df52dc9d5e3763", null ],
+    [ "reload", "d3/dc0/classToolGit.html#af6a9258a0bc77c87bda2e34ae3fc1833", null ],
+    [ "setScanStartup", "d3/dc0/classToolGit.html#a3267ba608ed65f683f44e27c2570d9d8", null ],
+    [ "setVersion", "d3/dc0/classToolGit.html#a97493fb6ac4a0fb5c0f882d6b02e37f1", null ],
+    [ "updateConfig", "d3/dc0/classToolGit.html#ac463f968089166b32e648b5e2d7b8d88", null ],
+    [ "$bash", "d3/dc0/classToolGit.html#acf488c321a74bd6a420623ebcaa8d780", null ],
+    [ "$exe", "d3/dc0/classToolGit.html#af974cc1f8c9a8699b08b5b4f651f9ba7", null ],
+    [ "$repos", "d3/dc0/classToolGit.html#a2a9a5d0e2c084a13cd30ca16cf8eb2c3", null ],
+    [ "$reposCacheFile", "d3/dc0/classToolGit.html#ad0102007ce4254e5330ceb2b469e4a12", null ],
+    [ "$reposFile", "d3/dc0/classToolGit.html#a6cfc08fe0a920d158f85589c8455223e", null ],
+    [ "$scanStartup", "d3/dc0/classToolGit.html#aca2bdce8d2edbc18b565316981406381", null ],
+    [ "LOCAL_CFG_BASH", "d3/dc0/classToolGit.html#a75f627d27bfc3299c3dd1c2e916ebc48", null ],
+    [ "LOCAL_CFG_EXE", "d3/dc0/classToolGit.html#aff37b7406247ab9b8a1d4d3a02007c93", null ],
+    [ "LOCAL_CFG_SCAN_STARTUP", "d3/dc0/classToolGit.html#aae67f33f9479cfe9932e3839950298ec", null ],
+    [ "REPOS_CACHE_FILE", "d3/dc0/classToolGit.html#a3f91c1d76f4cde8734e600f0f2e3f545", null ],
+    [ "REPOS_FILE", "d3/dc0/classToolGit.html#a216d200640402f88ed90ad22f3003262", null ],
+    [ "ROOT_CFG_VERSION", "d3/dc0/classToolGit.html#a3eeb2cf2e2d247c2e7543ab4a980cb72", null ]
 ];

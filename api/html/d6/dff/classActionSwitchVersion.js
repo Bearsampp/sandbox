@@ -1,14 +1,22 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionSwitchVersion =
 [
-    [ "__construct", "d6/dff/classActionSwitchVersion.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "d6/dff/classActionSwitchVersion.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$bearsamppSplash", "d6/dff/classActionSwitchVersion.html#aae2d171d60949cfcf8f61e82c61b30af", null ],
-    [ "$bin", "d6/dff/classActionSwitchVersion.html#a7a975fd5b0c64377ddc64a4184311508", null ],
-    [ "$boxTitle", "d6/dff/classActionSwitchVersion.html#a57268a8a695a04eda83ab638b176c5a4", null ],
-    [ "$changePort", "d6/dff/classActionSwitchVersion.html#adc2facf6b46de8d9112875525c2c2ed9", null ],
-    [ "$currentVersion", "d6/dff/classActionSwitchVersion.html#ac470a7cade05ec4c5028ff54e619a308", null ],
-    [ "$service", "d6/dff/classActionSwitchVersion.html#abb8d1943d2cf9b6a3d54a4fed1ad2d9d", null ],
-    [ "$version", "d6/dff/classActionSwitchVersion.html#a17c8948c68aa44fa9961ae169b6a8961", null ],
-    [ "GAUGE_OTHERS", "d6/dff/classActionSwitchVersion.html#afc12986dbf227fa5e106f23dc3092b03", null ],
-    [ "GAUGE_SERVICES", "d6/dff/classActionSwitchVersion.html#ab4860ff68258283c14545d95175c3bfa", null ]
+    [ "__construct", "d6/dff/classActionSwitchVersion.html#acdbc039c467c3965e3c2b476b1fbe8d9", null ],
+    [ "processWindow", "d6/dff/classActionSwitchVersion.html#a89f1ff41b1715ca23ea9f9d35f7ff643", null ],
+    [ "$bearsamppSplash", "d6/dff/classActionSwitchVersion.html#ad00352a783a8e6c7e123b856429785ce", null ],
+    [ "$bin", "d6/dff/classActionSwitchVersion.html#a26daa069c99d2030d85147ed75d0cf92", null ],
+    [ "$boxTitle", "d6/dff/classActionSwitchVersion.html#a98b1694054c4c56e491169dacdca0852", null ],
+    [ "$changePort", "d6/dff/classActionSwitchVersion.html#a5c57b0cd0e3431ab474181314f48acc8", null ],
+    [ "$currentVersion", "d6/dff/classActionSwitchVersion.html#a5cbefe9e46e71e84f506da5db902da0f", null ],
+    [ "$service", "d6/dff/classActionSwitchVersion.html#a06e980c9f3f6124501f545bbd0744086", null ],
+    [ "$version", "d6/dff/classActionSwitchVersion.html#ac5dd9fa3fe0309c4c6af721952c4cca5", null ],
+    [ "GAUGE_OTHERS", "d6/dff/classActionSwitchVersion.html#a79c67d268ae563edb897e4a1e35a9f3d", null ],
+    [ "GAUGE_SERVICES", "d6/dff/classActionSwitchVersion.html#a827bac97c3d14198ba551e81db24728a", null ]
 ];

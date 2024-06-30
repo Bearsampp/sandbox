@@ -1,17 +1,25 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionChangeDbRootPwd =
 [
-    [ "__construct", "da/de4/classActionChangeDbRootPwd.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "da/de4/classActionChangeDbRootPwd.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$bin", "da/de4/classActionChangeDbRootPwd.html#a7a975fd5b0c64377ddc64a4184311508", null ],
-    [ "$cntProcessActions", "da/de4/classActionChangeDbRootPwd.html#ae7a0ecc8a7b64ad61255323b0ac646b8", null ],
-    [ "$wbBtnCancel", "da/de4/classActionChangeDbRootPwd.html#ab22f8ec0ba27c7d39a1a65cd8ed2853a", null ],
-    [ "$wbBtnFinish", "da/de4/classActionChangeDbRootPwd.html#aec2c6ce781dd7bba2d9e42c141749248", null ],
-    [ "$wbInputCurrentPwd", "da/de4/classActionChangeDbRootPwd.html#ae8ffc0cdf8d2f900ba136661743b5227", null ],
-    [ "$wbInputNewPwd1", "da/de4/classActionChangeDbRootPwd.html#a1579c1a5ba8a51de9b6e2d476b88e604", null ],
-    [ "$wbInputNewPwd2", "da/de4/classActionChangeDbRootPwd.html#a54d705c49bb50f7992118ec869e1e52e", null ],
-    [ "$wbLabelCurrentPwd", "da/de4/classActionChangeDbRootPwd.html#afed3cc89cc065d751f564736790fb523", null ],
-    [ "$wbLabelNewPwd1", "da/de4/classActionChangeDbRootPwd.html#a2dc5250014fed44081708db7727cdb89", null ],
-    [ "$wbLabelNewPwd2", "da/de4/classActionChangeDbRootPwd.html#a9adb8171c385ce28ec7e02ae1c26e434", null ],
-    [ "$wbProgressBar", "da/de4/classActionChangeDbRootPwd.html#ae0249e7a7a289ad2d29ac55138152284", null ],
-    [ "$wbWindow", "da/de4/classActionChangeDbRootPwd.html#a2cc79e8b485f4c328c10892c4349c397", null ]
+    [ "__construct", "da/de4/classActionChangeDbRootPwd.html#aca8fe71bf2b6d9a3faf5b27c8ee5e7de", null ],
+    [ "processWindow", "da/de4/classActionChangeDbRootPwd.html#addb9cc37f2973caf8dde96ae373c3e30", null ],
+    [ "$bin", "da/de4/classActionChangeDbRootPwd.html#a5b744a02c6394a6b5cb65d87230e03ae", null ],
+    [ "$cntProcessActions", "da/de4/classActionChangeDbRootPwd.html#a4474ddf97e059f312aa8dab21cd9d9ca", null ],
+    [ "$wbBtnCancel", "da/de4/classActionChangeDbRootPwd.html#af32dafb65f8969da2f8c9448c40405ff", null ],
+    [ "$wbBtnFinish", "da/de4/classActionChangeDbRootPwd.html#a633349bcee1b36649719a2e7712ff199", null ],
+    [ "$wbInputCurrentPwd", "da/de4/classActionChangeDbRootPwd.html#a273a3bae753e4c01d01897daf370d74c", null ],
+    [ "$wbInputNewPwd1", "da/de4/classActionChangeDbRootPwd.html#af603e585a308d3aaf1682987388d542e", null ],
+    [ "$wbInputNewPwd2", "da/de4/classActionChangeDbRootPwd.html#adb4b78515fc346525756f7ca55f39803", null ],
+    [ "$wbLabelCurrentPwd", "da/de4/classActionChangeDbRootPwd.html#a8a555a9b5dccf490a4b5d09f30f5f3e4", null ],
+    [ "$wbLabelNewPwd1", "da/de4/classActionChangeDbRootPwd.html#a775480f33fb3ac1d70374b73c85a2aa2", null ],
+    [ "$wbLabelNewPwd2", "da/de4/classActionChangeDbRootPwd.html#abe4f404c90bbfe03ad7b773babdf8306", null ],
+    [ "$wbProgressBar", "da/de4/classActionChangeDbRootPwd.html#aeda9a2d44a3fb7a46e3ee73522bfa24a", null ],
+    [ "$wbWindow", "da/de4/classActionChangeDbRootPwd.html#a58cc9d11030c865906e2446fccc1f463", null ]
 ];

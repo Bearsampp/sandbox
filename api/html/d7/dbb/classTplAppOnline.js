@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppOnline =
 [
-    [ "getActionStatus", "d7/dbb/classTplAppOnline.html#a71810d92a7a9c045f1aeb6b347897567", null ],
-    [ "process", "d7/dbb/classTplAppOnline.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION", "d7/dbb/classTplAppOnline.html#aff329be36615a18f3dd0bc2d393dbc2f", null ]
+    [ "getActionStatus", "d7/dbb/classTplAppOnline.html#a7e030a94b4ba6d77e3134bb41a915da3", null ],
+    [ "process", "d7/dbb/classTplAppOnline.html#a6e675974be2bae91cb62a5f70c0e7bad", null ],
+    [ "ACTION", "d7/dbb/classTplAppOnline.html#aa40429c66cd3fd25578ec79918ceb93d", null ]
 ];

@@ -1,20 +1,28 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppFilezilla =
 [
-    [ "getActionChangeFilezillaPort", "d0/d23/classTplAppFilezilla.html#a7e2e569a9eac86de694df49f15ff014b", null ],
-    [ "getActionEnableFilezilla", "d0/d23/classTplAppFilezilla.html#a0f187bc577612da740d844dd08b3a1c0", null ],
-    [ "getActionInstallFilezillaService", "d0/d23/classTplAppFilezilla.html#a06c4d5ca959d6edf8ca2f0b38601fe84", null ],
-    [ "getActionRemoveFilezillaService", "d0/d23/classTplAppFilezilla.html#aae53788f450eed0a06c9a1733f9abe6c", null ],
-    [ "getActionSwitchFilezillaVersion", "d0/d23/classTplAppFilezilla.html#add06b89473cff2d7b1ce58df899a45a5", null ],
-    [ "getMenuFilezilla", "d0/d23/classTplAppFilezilla.html#a10c27530edc1a460355637d330e2c609", null ],
-    [ "getMenuFilezillaService", "d0/d23/classTplAppFilezilla.html#a03f5d05e3dfa5f877aab6e0c10ebd1b4", null ],
-    [ "getMenuFilezillaVersions", "d0/d23/classTplAppFilezilla.html#ad4ebedbbbed6767503356897f1beb859", null ],
-    [ "process", "d0/d23/classTplAppFilezilla.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION_CHANGE_PORT", "d0/d23/classTplAppFilezilla.html#aec83d60f154253dd5e765dd0e3dd5c9e", null ],
-    [ "ACTION_ENABLE", "d0/d23/classTplAppFilezilla.html#a51ff5c246a15e0f76f46c9ed8b644fad", null ],
-    [ "ACTION_INSTALL_SERVICE", "d0/d23/classTplAppFilezilla.html#ac5100acf5105e8d0935de59b86aad45e", null ],
-    [ "ACTION_REMOVE_SERVICE", "d0/d23/classTplAppFilezilla.html#acb85b166e1a7c4af5353407981d5fa32", null ],
-    [ "ACTION_SWITCH_VERSION", "d0/d23/classTplAppFilezilla.html#a62aa72980d0bdd9c2a7125139dbaa730", null ],
-    [ "MENU", "d0/d23/classTplAppFilezilla.html#a55a141700514f2e78a8efc2ae5f60f89", null ],
-    [ "MENU_SERVICE", "d0/d23/classTplAppFilezilla.html#aad434fce3fd8582d2b46bd392c6ade57", null ],
-    [ "MENU_VERSIONS", "d0/d23/classTplAppFilezilla.html#a8fc75ed90eb7f498be4ea4735ac954a9", null ]
+    [ "getActionChangeFilezillaPort", "d0/d23/classTplAppFilezilla.html#a5dafc2c07d336161b16a8b6b6dbd54f7", null ],
+    [ "getActionEnableFilezilla", "d0/d23/classTplAppFilezilla.html#a191650341b6606571488034e406d34b7", null ],
+    [ "getActionInstallFilezillaService", "d0/d23/classTplAppFilezilla.html#a5061f3e669d32247b75f8fd1c4a04560", null ],
+    [ "getActionRemoveFilezillaService", "d0/d23/classTplAppFilezilla.html#a8658be99e276588634472b4b862c98b1", null ],
+    [ "getActionSwitchFilezillaVersion", "d0/d23/classTplAppFilezilla.html#adaac82754615d81e379c09bbcb1057cb", null ],
+    [ "getMenuFilezilla", "d0/d23/classTplAppFilezilla.html#ac79291983a2d52baddaff20066557be6", null ],
+    [ "getMenuFilezillaService", "d0/d23/classTplAppFilezilla.html#a89f9b4439470e541b663fd23c641a352", null ],
+    [ "getMenuFilezillaVersions", "d0/d23/classTplAppFilezilla.html#a6f97efa02aebbbacb82d5d5d6888837e", null ],
+    [ "process", "d0/d23/classTplAppFilezilla.html#a95d6ff0a80636e3ab69efdf97da7a970", null ],
+    [ "ACTION_CHANGE_PORT", "d0/d23/classTplAppFilezilla.html#a01fc47079d27c7a5c99d29299a1bf749", null ],
+    [ "ACTION_ENABLE", "d0/d23/classTplAppFilezilla.html#af9238659a1bad98b2adfd604b27c8657", null ],
+    [ "ACTION_INSTALL_SERVICE", "d0/d23/classTplAppFilezilla.html#ac743505235b05e2803980d4f77c15d61", null ],
+    [ "ACTION_REMOVE_SERVICE", "d0/d23/classTplAppFilezilla.html#ac29dec0ae43c4f2797758ead8086638f", null ],
+    [ "ACTION_SWITCH_VERSION", "d0/d23/classTplAppFilezilla.html#add2d8c9617862ead23d0c828f0642968", null ],
+    [ "MENU", "d0/d23/classTplAppFilezilla.html#ac5cb66cf50b68c2500fff85765f6cc4b", null ],
+    [ "MENU_SERVICE", "d0/d23/classTplAppFilezilla.html#a0a8d0869b500d8a05881d9422b07379a", null ],
+    [ "MENU_VERSIONS", "d0/d23/classTplAppFilezilla.html#a4da831cb5ece4636d5802497612081d7", null ]
 ];

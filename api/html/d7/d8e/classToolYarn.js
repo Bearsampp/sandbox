@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolYarn =
 [
-    [ "__construct", "d7/d8e/classToolYarn.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getExe", "d7/d8e/classToolYarn.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "reload", "d7/d8e/classToolYarn.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "d7/d8e/classToolYarn.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "$exe", "d7/d8e/classToolYarn.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "LOCAL_CFG_EXE", "d7/d8e/classToolYarn.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "ROOT_CFG_VERSION", "d7/d8e/classToolYarn.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "d7/d8e/classToolYarn.html#ad822c8b683bc5820e51e6aca5b9be09a", null ],
+    [ "getExe", "d7/d8e/classToolYarn.html#adb90c8b1c7bb19df55e8ddf644e209e2", null ],
+    [ "reload", "d7/d8e/classToolYarn.html#ae0cb544f7e10a74a146466486e8fc5a8", null ],
+    [ "setVersion", "d7/d8e/classToolYarn.html#a77152b7caf43b1f72b15ca1ac250567c", null ],
+    [ "$exe", "d7/d8e/classToolYarn.html#a79eb1b66b9c02ae15b9c731155c7095b", null ],
+    [ "LOCAL_CFG_EXE", "d7/d8e/classToolYarn.html#a9707ed69d6743f47ec3feb06c7838a26", null ],
+    [ "ROOT_CFG_VERSION", "d7/d8e/classToolYarn.html#a17f738f10a9f756b3ad2206536bee55e", null ]
 ];

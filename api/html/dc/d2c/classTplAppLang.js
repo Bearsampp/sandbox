@@ -1,7 +1,15 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppLang =
 [
-    [ "getActionSwitchLang", "dc/d2c/classTplAppLang.html#a77eae1d27d7e80e813ed938bdd90e01f", null ],
-    [ "getMenuLang", "dc/d2c/classTplAppLang.html#aacd195c3d8971eff6f7c0248b1b04c7f", null ],
-    [ "process", "dc/d2c/classTplAppLang.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "MENU", "dc/d2c/classTplAppLang.html#a55a141700514f2e78a8efc2ae5f60f89", null ]
+    [ "getActionSwitchLang", "dc/d2c/classTplAppLang.html#a79c8a7c1735d9d1eaf6fdc36ed55d0ab", null ],
+    [ "getMenuLang", "dc/d2c/classTplAppLang.html#afffbbeeafe201f591f8b4b00cd084228", null ],
+    [ "process", "dc/d2c/classTplAppLang.html#abff3e31875497aeeb561e38d9c86ad2d", null ],
+    [ "MENU", "dc/d2c/classTplAppLang.html#ac0b183b802f38830bc4384f492766998", null ]
 ];

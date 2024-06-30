@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classToolXdc =
 [
-    [ "__construct", "df/d1b/classToolXdc.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getExe", "df/d1b/classToolXdc.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "reload", "df/d1b/classToolXdc.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setVersion", "df/d1b/classToolXdc.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "$exe", "df/d1b/classToolXdc.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "LOCAL_CFG_EXE", "df/d1b/classToolXdc.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "ROOT_CFG_VERSION", "df/d1b/classToolXdc.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "df/d1b/classToolXdc.html#a9bdb243af760d32f93099c5c3a2a2f20", null ],
+    [ "getExe", "df/d1b/classToolXdc.html#a86618fb25646066fc0299cc63826b505", null ],
+    [ "reload", "df/d1b/classToolXdc.html#a6690d00d784c40b895d367f31e863ffd", null ],
+    [ "setVersion", "df/d1b/classToolXdc.html#a001ca0d22c18f83ffb81264f351f8f37", null ],
+    [ "$exe", "df/d1b/classToolXdc.html#a96ba61ad89f68549f143149d563fd514", null ],
+    [ "LOCAL_CFG_EXE", "df/d1b/classToolXdc.html#ae8ace541792db7226ded12f7f313b32d", null ],
+    [ "ROOT_CFG_VERSION", "df/d1b/classToolXdc.html#a8363267dda9f6fc60454006312093e2a", null ]
 ];

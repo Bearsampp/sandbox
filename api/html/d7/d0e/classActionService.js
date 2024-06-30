@@ -1,16 +1,24 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionService =
 [
-    [ "__construct", "d7/d0e/classActionService.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "create", "d7/d0e/classActionService.html#af6684cec4b9c081f5d9e115479bafec5", null ],
-    [ "install", "d7/d0e/classActionService.html#aee9a1fbfda965e60de3befb697c057fe", null ],
-    [ "remove", "d7/d0e/classActionService.html#ae386089fef458f765679e7e52398b158", null ],
-    [ "restart", "d7/d0e/classActionService.html#a850e1cf7f10bd7c8ddd0fb1aba4ef64a", null ],
-    [ "start", "d7/d0e/classActionService.html#a3971ade5e54fcbb1f8881cf9581a4f90", null ],
-    [ "stop", "d7/d0e/classActionService.html#a9f2e3e346e708c860fff2ae78bc65fcf", null ],
-    [ "CREATE", "d7/d0e/classActionService.html#ae7d71eec207ebcef53a99536e8ca8825", null ],
-    [ "INSTALL", "d7/d0e/classActionService.html#a8f70a889dc0260be85c75eb1037a0f81", null ],
-    [ "REMOVE", "d7/d0e/classActionService.html#a22e8f71d521b789e05b1448c9f652179", null ],
-    [ "RESTART", "d7/d0e/classActionService.html#aa608af4e70cb2fde5cbd5a4614d4dd50", null ],
-    [ "START", "d7/d0e/classActionService.html#a9f6555155d644ea25adfe7e156624c2d", null ],
-    [ "STOP", "d7/d0e/classActionService.html#a54fcb9862c9c33bc35789a5bec3f18e0", null ]
+    [ "__construct", "d7/d0e/classActionService.html#a4440ed18ce314e66ba30932864b5584b", null ],
+    [ "create", "d7/d0e/classActionService.html#a71424b498c2fe7fb2c9c22ea1103f724", null ],
+    [ "install", "d7/d0e/classActionService.html#a0a1a0cd7ef10e75a7b29e39b2542b2b2", null ],
+    [ "remove", "d7/d0e/classActionService.html#aef966abecbb314d1534fb4d15ac1c2a4", null ],
+    [ "restart", "d7/d0e/classActionService.html#a66abcafad5706de7894580c0dab1ca0a", null ],
+    [ "start", "d7/d0e/classActionService.html#aa2ecd338f211716418b803af44a713c4", null ],
+    [ "stop", "d7/d0e/classActionService.html#a88fc3369eebd249260e95598bd9178bf", null ],
+    [ "CREATE", "d7/d0e/classActionService.html#a58f112faca3c3084f29963673221ef82", null ],
+    [ "INSTALL", "d7/d0e/classActionService.html#a6ce177a1b9d8677fb77d06745418e38d", null ],
+    [ "REMOVE", "d7/d0e/classActionService.html#ade9f50f27540e825df5147062dfc6946", null ],
+    [ "RESTART", "d7/d0e/classActionService.html#aa75ae19fbabf5ab47303e57cc163659b", null ],
+    [ "START", "d7/d0e/classActionService.html#a9a6afadee17d9a4c9c813a5146886758", null ],
+    [ "STOP", "d7/d0e/classActionService.html#a9a23360f5cf959d81b8ec9856dfa52bf", null ]
 ];

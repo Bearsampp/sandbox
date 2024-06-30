@@ -1,19 +1,27 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classWin32Ps =
 [
-    [ "__construct", "dc/ddb/classWin32Ps.html#a095c5d389db211932136b53f25f39685", null ],
-    [ "callWin32Ps", "dc/ddb/classWin32Ps.html#ac2896e40c1c36612a8524c22ffa89051", null ],
-    [ "exists", "dc/ddb/classWin32Ps.html#a6949f34088c4283c41b94dbf25d54ffa", null ],
-    [ "findByPath", "dc/ddb/classWin32Ps.html#a2425cea44fd398bb8b0b7c20e5d0efe3", null ],
-    [ "findByPid", "dc/ddb/classWin32Ps.html#a137acc75ee12f8a68e03ef0673a02e77", null ],
-    [ "getCurrentPid", "dc/ddb/classWin32Ps.html#a44f342eae2e8d799b8f54fc5adf1f1a9", null ],
-    [ "getKeys", "dc/ddb/classWin32Ps.html#aedd764a40b47ff6fabf993c461833228", null ],
-    [ "getListProcs", "dc/ddb/classWin32Ps.html#a9c7b2f4a4f4bae90af72bcbea919306b", null ],
-    [ "getStatProc", "dc/ddb/classWin32Ps.html#a339bf1ed7a3a75050ae3e7b5e6d1fcec", null ],
-    [ "kill", "dc/ddb/classWin32Ps.html#ab3a27d691d2bbc2cd2c442d325d468d1", null ],
-    [ "killBins", "dc/ddb/classWin32Ps.html#aaf3a3d60cfa7edaef259faf15171f1bb", null ],
-    [ "CAPTION", "dc/ddb/classWin32Ps.html#abfaf3617c75fd4f0c333349dc457c71c", null ],
-    [ "COMMAND_LINE", "dc/ddb/classWin32Ps.html#a81e145efa3286bf4b4667136301f418e", null ],
-    [ "EXECUTABLE_PATH", "dc/ddb/classWin32Ps.html#acfadf5fdbb366cba8d32bd273dbc45ef", null ],
-    [ "NAME", "dc/ddb/classWin32Ps.html#a244352f035b82b20b0efa506167fd862", null ],
-    [ "PROCESS_ID", "dc/ddb/classWin32Ps.html#af7b931682b6dad93371dd8558538466f", null ]
+    [ "__construct", "dc/ddb/classWin32Ps.html#a3961edc6874b3c02fd24ebbe4b2126a2", null ],
+    [ "callWin32Ps", "dc/ddb/classWin32Ps.html#a803baab6f5e53d4de72b706e2d04bd07", null ],
+    [ "exists", "dc/ddb/classWin32Ps.html#a9cb77db1e38839997bdd92489c47245a", null ],
+    [ "findByPath", "dc/ddb/classWin32Ps.html#ac0804222f21d96f2404bd798c5805576", null ],
+    [ "findByPid", "dc/ddb/classWin32Ps.html#a055648012f53f02dc744387e07e25f0a", null ],
+    [ "getCurrentPid", "dc/ddb/classWin32Ps.html#a45c6b3a9ac19c6abe3a005fda55a20dd", null ],
+    [ "getKeys", "dc/ddb/classWin32Ps.html#a58b01569e93df4e20597f3a04e995d89", null ],
+    [ "getListProcs", "dc/ddb/classWin32Ps.html#afea33a59c09d4c9e2fe1bdf0d5b1d406", null ],
+    [ "getStatProc", "dc/ddb/classWin32Ps.html#a542d4cc1ce2b100e9561df8e0b3abf02", null ],
+    [ "kill", "dc/ddb/classWin32Ps.html#a8c0952657a6a635ab2da52ac4d3c0f2b", null ],
+    [ "killBins", "dc/ddb/classWin32Ps.html#aa522ce4696d00af3e499932fff26a2da", null ],
+    [ "CAPTION", "dc/ddb/classWin32Ps.html#a0dcb4a4603c31e73324d4508d74527c0", null ],
+    [ "COMMAND_LINE", "dc/ddb/classWin32Ps.html#a2b2ab42627274a12fbad19f76b6fed87", null ],
+    [ "EXECUTABLE_PATH", "dc/ddb/classWin32Ps.html#af5e88d3b0391c51198465ac1cca55924", null ],
+    [ "NAME", "dc/ddb/classWin32Ps.html#aa03c112223847095fbc90a5b57b49d45", null ],
+    [ "PROCESS_ID", "dc/ddb/classWin32Ps.html#a3084ebfe7290a400a45038bdd4441569", null ]
 ];

@@ -1,24 +1,32 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppMariadb =
 [
-    [ "getActionChangeMariadbPort", "d4/de1/classTplAppMariadb.html#a06e9eb404a3bacf6f5160c38fdb7a2b5", null ],
-    [ "getActionChangeMariadbRootPwd", "d4/de1/classTplAppMariadb.html#aa0fe8d9ea795fe022c8106b2f78d3bee", null ],
-    [ "getActionEnableMariadb", "d4/de1/classTplAppMariadb.html#a64599354751e714e59072ebbb3369203", null ],
-    [ "getActionInstallMariadbService", "d4/de1/classTplAppMariadb.html#a20084692609bfef6e21ac9a239893596", null ],
-    [ "getActionRemoveMariadbService", "d4/de1/classTplAppMariadb.html#a665c2f0e49870212b4a4cfc175f7ad63", null ],
-    [ "getActionSwitchMariadbVersion", "d4/de1/classTplAppMariadb.html#a588693a9af8c406bac11faf5e2b5c933", null ],
-    [ "getMenuMariadb", "d4/de1/classTplAppMariadb.html#ad53f7fbab9e36efd4c3d63ec90a73512", null ],
-    [ "getMenuMariadbDebug", "d4/de1/classTplAppMariadb.html#a21edb271a6ea0127fac9c2a595b0ffb1", null ],
-    [ "getMenuMariadbService", "d4/de1/classTplAppMariadb.html#ae9d5502077c65e304d88c4c67965e28d", null ],
-    [ "getMenuMariadbVersions", "d4/de1/classTplAppMariadb.html#adb7e6d6d918e1d8a117fae5482bd5e61", null ],
-    [ "process", "d4/de1/classTplAppMariadb.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION_CHANGE_PORT", "d4/de1/classTplAppMariadb.html#aec83d60f154253dd5e765dd0e3dd5c9e", null ],
-    [ "ACTION_CHANGE_ROOT_PWD", "d4/de1/classTplAppMariadb.html#ac83bb52612457adf1aa4921ea36ce611", null ],
-    [ "ACTION_ENABLE", "d4/de1/classTplAppMariadb.html#a51ff5c246a15e0f76f46c9ed8b644fad", null ],
-    [ "ACTION_INSTALL_SERVICE", "d4/de1/classTplAppMariadb.html#ac5100acf5105e8d0935de59b86aad45e", null ],
-    [ "ACTION_REMOVE_SERVICE", "d4/de1/classTplAppMariadb.html#acb85b166e1a7c4af5353407981d5fa32", null ],
-    [ "ACTION_SWITCH_VERSION", "d4/de1/classTplAppMariadb.html#a62aa72980d0bdd9c2a7125139dbaa730", null ],
-    [ "MENU", "d4/de1/classTplAppMariadb.html#a55a141700514f2e78a8efc2ae5f60f89", null ],
-    [ "MENU_DEBUG", "d4/de1/classTplAppMariadb.html#a13eca798abc1cd6b8c967a3f18b216cc", null ],
-    [ "MENU_SERVICE", "d4/de1/classTplAppMariadb.html#aad434fce3fd8582d2b46bd392c6ade57", null ],
-    [ "MENU_VERSIONS", "d4/de1/classTplAppMariadb.html#a8fc75ed90eb7f498be4ea4735ac954a9", null ]
+    [ "getActionChangeMariadbPort", "d4/de1/classTplAppMariadb.html#ad6d562bb65f362c571d0dc9c6f9d13be", null ],
+    [ "getActionChangeMariadbRootPwd", "d4/de1/classTplAppMariadb.html#a26646385b6f4226562e7383dc1e6bacb", null ],
+    [ "getActionEnableMariadb", "d4/de1/classTplAppMariadb.html#a123fe06eb75ca936082fcd70a78fd9b4", null ],
+    [ "getActionInstallMariadbService", "d4/de1/classTplAppMariadb.html#a20f55b4b69d3ca84481ea16f014c7d61", null ],
+    [ "getActionRemoveMariadbService", "d4/de1/classTplAppMariadb.html#a9e977adfb8e551f9437322609cb06466", null ],
+    [ "getActionSwitchMariadbVersion", "d4/de1/classTplAppMariadb.html#a6a6a4364541154a821aae2022e2ecddb", null ],
+    [ "getMenuMariadb", "d4/de1/classTplAppMariadb.html#a46c8afea1780be6bdd5989bccb0c67e2", null ],
+    [ "getMenuMariadbDebug", "d4/de1/classTplAppMariadb.html#af35164080061d261bbff915dd2b2e6c0", null ],
+    [ "getMenuMariadbService", "d4/de1/classTplAppMariadb.html#a2c6a44257c87226af4b314640f693215", null ],
+    [ "getMenuMariadbVersions", "d4/de1/classTplAppMariadb.html#a99ef3115e95d78d25f477c1dad370a38", null ],
+    [ "process", "d4/de1/classTplAppMariadb.html#a0216892642132b350a0ac4aed8e4365e", null ],
+    [ "ACTION_CHANGE_PORT", "d4/de1/classTplAppMariadb.html#ae1c69133353d082f2dd6807dca38f274", null ],
+    [ "ACTION_CHANGE_ROOT_PWD", "d4/de1/classTplAppMariadb.html#a015a10a8e33ec40160a7f7af2bdb1628", null ],
+    [ "ACTION_ENABLE", "d4/de1/classTplAppMariadb.html#a32936ba6397fbbacbe89e20f21a3cb30", null ],
+    [ "ACTION_INSTALL_SERVICE", "d4/de1/classTplAppMariadb.html#a06b01d6980e68ae3bbe0414e6dc5409d", null ],
+    [ "ACTION_REMOVE_SERVICE", "d4/de1/classTplAppMariadb.html#aa3c5974b292d63f196d92d263723a81c", null ],
+    [ "ACTION_SWITCH_VERSION", "d4/de1/classTplAppMariadb.html#a46bd20c511d315c7e74311ddedbcd3d8", null ],
+    [ "MENU", "d4/de1/classTplAppMariadb.html#a8ee27caeb36930b178501fb095ff7d26", null ],
+    [ "MENU_DEBUG", "d4/de1/classTplAppMariadb.html#ae3540266f204e1d4423132f09d5a43e6", null ],
+    [ "MENU_SERVICE", "d4/de1/classTplAppMariadb.html#a9410d5b5ccc7730e536c66c43f9a999f", null ],
+    [ "MENU_VERSIONS", "d4/de1/classTplAppMariadb.html#a799bbccb543385b76f20cc4cb8a7b26b", null ]
 ];

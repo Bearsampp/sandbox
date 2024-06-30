@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
-  ['addloadingpid_0',['addLoadingPid',['../db/d6d/classCore.html#a46caae00a0dae48a5cf982318212e0b1',1,'Core']]],
-  ['addlog_1',['addLog',['../d1/d42/classActionExt.html#a5cc1ef11325ef4cfdfcfd7d898bb73f3',1,'ActionExt']]],
-  ['aetraypath_2',['aetrayPath',['../d8/d73/classRoot.html#a20dfd69a76f7fdf0d9fe335a866d15a3',1,'Root']]]
+  ['addloadingpid_0',['addLoadingPid',['../db/d6d/classCore.html#a02955a6ecc7a47aec50da90fd4de366f',1,'Core']]],
+  ['addlog_1',['addLog',['../d1/d42/classActionExt.html#a00df5b1470955b1f267f6cc84c120b74',1,'ActionExt']]],
+  ['aetraypath_2',['aetrayPath',['../d8/d73/classRoot.html#ac294db39924512d49a7a4b5b2870883e',1,'Root']]]
 ];

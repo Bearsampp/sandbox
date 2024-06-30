@@ -1,15 +1,23 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classActionChangeBrowser =
 [
-    [ "__construct", "db/d91/classActionChangeBrowser.html#a57b60b4976a2c5d1e40f2d11aa72aa7d", null ],
-    [ "processWindow", "db/d91/classActionChangeBrowser.html#adba450ef82fe3ce72172fb9ab22588cb", null ],
-    [ "$wbBtnBrowse", "db/d91/classActionChangeBrowser.html#a0f1388240fe0b7912c5d1c10d0f79907", null ],
-    [ "$wbBtnCancel", "db/d91/classActionChangeBrowser.html#ab22f8ec0ba27c7d39a1a65cd8ed2853a", null ],
-    [ "$wbBtnSave", "db/d91/classActionChangeBrowser.html#ab919cf62d7ddda4d31455a3c721187b0", null ],
-    [ "$wbInputBrowse", "db/d91/classActionChangeBrowser.html#a7225039f3687636ecea8c1c1dfb62f04", null ],
-    [ "$wbLabelExp", "db/d91/classActionChangeBrowser.html#a1dad74160c0d06ea19c740157243b9a7", null ],
-    [ "$wbProgressBar", "db/d91/classActionChangeBrowser.html#ae0249e7a7a289ad2d29ac55138152284", null ],
-    [ "$wbRadioButton", "db/d91/classActionChangeBrowser.html#ab2e5a7b30529e2902c04cc86537988a0", null ],
-    [ "$wbRadioButtonOther", "db/d91/classActionChangeBrowser.html#a9d0c938279447688364b952eafc181dc", null ],
-    [ "$wbWindow", "db/d91/classActionChangeBrowser.html#a2cc79e8b485f4c328c10892c4349c397", null ],
-    [ "GAUGE_SAVE", "db/d91/classActionChangeBrowser.html#ad679d92e80e6fcd645765b4b5c0d6ca3", null ]
+    [ "__construct", "db/d91/classActionChangeBrowser.html#af9e69c72b691978f51e2ae5de05faa5d", null ],
+    [ "processWindow", "db/d91/classActionChangeBrowser.html#a1c96d412a9c38f8cb0f3c1f8ec448b77", null ],
+    [ "$wbBtnBrowse", "db/d91/classActionChangeBrowser.html#acc8db002f58f1da90ac6f4cc94689870", null ],
+    [ "$wbBtnCancel", "db/d91/classActionChangeBrowser.html#a3b73077f318b6cb2b59925a46f8c31f6", null ],
+    [ "$wbBtnSave", "db/d91/classActionChangeBrowser.html#a8e4666f634a27e40233eecde2aa6fedf", null ],
+    [ "$wbInputBrowse", "db/d91/classActionChangeBrowser.html#a9df04e4d0334c459d97a8baf642179f6", null ],
+    [ "$wbLabelExp", "db/d91/classActionChangeBrowser.html#a2f3f5fe074c809e50480438f77196a3a", null ],
+    [ "$wbProgressBar", "db/d91/classActionChangeBrowser.html#a2d83624cbc9bf99bf0b21926df0cf2c9", null ],
+    [ "$wbRadioButton", "db/d91/classActionChangeBrowser.html#a7e9a63a6685e85abbabbd9c6c27afa29", null ],
+    [ "$wbRadioButtonOther", "db/d91/classActionChangeBrowser.html#a377274721848adb0e8ae68248b5fca7b", null ],
+    [ "$wbWindow", "db/d91/classActionChangeBrowser.html#ae26d571597cd3ce3219a22456b62d815", null ],
+    [ "GAUGE_SAVE", "db/d91/classActionChangeBrowser.html#aec6bb566ab315cb6923b61636a922ad6", null ]
 ];

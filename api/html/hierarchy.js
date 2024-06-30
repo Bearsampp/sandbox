@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var hierarchy =
 [
     [ "Action", "db/d09/classAction.html", null ],
@@ -24,6 +32,7 @@ var hierarchy =
     [ "ActionLoading", "df/d6b/classActionLoading.html", null ],
     [ "ActionManualRestart", "d0/d9f/classActionManualRestart.html", null ],
     [ "ActionQuit", "de/d86/classActionQuit.html", null ],
+    [ "ActionRebuildini", "dd/d50/classActionRebuildini.html", null ],
     [ "ActionRefreshRepos", "d8/d75/classActionRefreshRepos.html", null ],
     [ "ActionRefreshReposStartup", "d3/dfc/classActionRefreshReposStartup.html", null ],
     [ "ActionReload", "dd/dea/classActionReload.html", null ],
@@ -54,12 +63,14 @@ var hierarchy =
       [ "BinApache", "d9/d6c/classBinApache.html", null ],
       [ "BinFilezilla", "da/d23/classBinFilezilla.html", null ],
       [ "BinMailhog", "db/df2/classBinMailhog.html", null ],
+      [ "BinMailpit", "d9/ddd/classBinMailpit.html", null ],
       [ "BinMariadb", "d4/d8f/classBinMariadb.html", null ],
       [ "BinMemcached", "da/d10/classBinMemcached.html", null ],
       [ "BinMysql", "d6/d88/classBinMysql.html", null ],
       [ "BinNodejs", "d8/d9c/classBinNodejs.html", null ],
       [ "BinPhp", "dc/db3/classBinPhp.html", null ],
       [ "BinPostgresql", "dc/db9/classBinPostgresql.html", null ],
+      [ "BinXlight", "d8/ddb/classBinXlight.html", null ],
       [ "ToolComposer", "d7/d6f/classToolComposer.html", null ],
       [ "ToolConsoleZ", "d6/d0c/classToolConsoleZ.html", null ],
       [ "ToolGhostscript", "d3/df9/classToolGhostscript.html", null ],
@@ -93,6 +104,7 @@ var hierarchy =
     [ "TplAppLogs", "d2/d2a/classTplAppLogs.html", null ],
     [ "TplAppLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html", null ],
     [ "TplAppMailhog", "d4/d8a/classTplAppMailhog.html", null ],
+    [ "TplAppMailpit", "d8/dd3/classTplAppMailpit.html", null ],
     [ "TplAppMariadb", "d4/de1/classTplAppMariadb.html", null ],
     [ "TplAppMemcached", "d8/dff/classTplAppMemcached.html", null ],
     [ "TplAppMysql", "d6/d19/classTplAppMysql.html", null ],
@@ -101,9 +113,11 @@ var hierarchy =
     [ "TplAppPhp", "d0/d1a/classTplAppPhp.html", null ],
     [ "TplAppPostgresql", "d3/d1b/classTplAppPostgresql.html", null ],
     [ "TplAppPython", "de/d1b/classTplAppPython.html", null ],
+    [ "TplAppRebuildIni", "d9/da5/classTplAppRebuildIni.html", null ],
     [ "TplAppReload", "da/d00/classTplAppReload.html", null ],
     [ "TplAppServices", "d3/d3e/classTplAppServices.html", null ],
     [ "TplAppTools", "dc/dd8/classTplAppTools.html", null ],
+    [ "TplAppXlight", "dc/d83/classTplAppXlight.html", null ],
     [ "TplConsoleZ", "d6/d32/classTplConsoleZ.html", null ],
     [ "TplService", "db/dc8/classTplService.html", null ],
     [ "Util", "d6/de4/classUtil.html", null ],

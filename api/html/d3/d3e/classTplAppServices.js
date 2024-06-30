@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classTplAppServices =
 [
-    [ "getActionRestartServices", "d3/d3e/classTplAppServices.html#a7dca45d7e0361a9fcbbe9a96ccd2e196", null ],
-    [ "getActionStartServices", "d3/d3e/classTplAppServices.html#a9bd2dd63d01e08ad7013f35b99ab1d29", null ],
-    [ "getActionStopServices", "d3/d3e/classTplAppServices.html#a97e225434c183683fdb8561cbd1b8dd2", null ],
-    [ "process", "d3/d3e/classTplAppServices.html#a5b3838bb1c8bd255aa6f2d5fc48f38d5", null ],
-    [ "ACTION_RESTART", "d3/d3e/classTplAppServices.html#a0cdbcc38ca6602eb3c7236386d3de314", null ],
-    [ "ACTION_START", "d3/d3e/classTplAppServices.html#a9cd97eb25f0b4062aaa91f9fad8e0c3e", null ],
-    [ "ACTION_STOP", "d3/d3e/classTplAppServices.html#af820ce4fae582b386899d350a158c39f", null ]
+    [ "getActionRestartServices", "d3/d3e/classTplAppServices.html#a47ef245180c0d44d8d4df85b709caba7", null ],
+    [ "getActionStartServices", "d3/d3e/classTplAppServices.html#a30cf26d9a7f52f090548aa872478167a", null ],
+    [ "getActionStopServices", "d3/d3e/classTplAppServices.html#aad181c8e3dad942198c4a59e6ae0be41", null ],
+    [ "process", "d3/d3e/classTplAppServices.html#a6891c75fd1ce60ea3621f3addd0d02d5", null ],
+    [ "ACTION_RESTART", "d3/d3e/classTplAppServices.html#aaec8bbc344da7bb59860fd4d479e5660", null ],
+    [ "ACTION_START", "d3/d3e/classTplAppServices.html#aae5f53e0d73844fbfebd1ac05b7d8775", null ],
+    [ "ACTION_STOP", "d3/d3e/classTplAppServices.html#a2f7a5d815ce4754b253a71af81a562ae", null ]
 ];

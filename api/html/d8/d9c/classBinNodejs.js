@@ -1,26 +1,34 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classBinNodejs =
 [
-    [ "__construct", "d8/d9c/classBinNodejs.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "getConf", "d8/d9c/classBinNodejs.html#ab5019584a7fd1de86f069cbf20e5f06d", null ],
-    [ "getExe", "d8/d9c/classBinNodejs.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "getLaunch", "d8/d9c/classBinNodejs.html#ae74a924ad3b2ad3ae709ff97ad14b53e", null ],
-    [ "getNpm", "d8/d9c/classBinNodejs.html#aa9e15b6bff32275d900bbaf395551daf", null ],
-    [ "getVars", "d8/d9c/classBinNodejs.html#ab81a1d1cef7f7d6c406e60bd368f94af", null ],
-    [ "reload", "d8/d9c/classBinNodejs.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "setEnable", "d8/d9c/classBinNodejs.html#a8793e887e0ef76afd6f91028fc480674", null ],
-    [ "setVersion", "d8/d9c/classBinNodejs.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "switchVersion", "d8/d9c/classBinNodejs.html#a5f33c33705dd268ad4799ceeacc8eec3", null ],
-    [ "updateConfig", "d8/d9c/classBinNodejs.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$conf", "d8/d9c/classBinNodejs.html#ae4901046cc3e1deebf77ccc785384a78", null ],
-    [ "$exe", "d8/d9c/classBinNodejs.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "$launch", "d8/d9c/classBinNodejs.html#a7ff51fb5813813951916a504668f78fd", null ],
-    [ "$npm", "d8/d9c/classBinNodejs.html#a008d23879072afb5fbeb568abbbc6e6c", null ],
-    [ "$vars", "d8/d9c/classBinNodejs.html#a09f2c833c130b4443725fb576d9d5269", null ],
-    [ "LOCAL_CFG_CONF", "d8/d9c/classBinNodejs.html#a8d8d1ea5f871a90f0c43677ed653cefc", null ],
-    [ "LOCAL_CFG_EXE", "d8/d9c/classBinNodejs.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "LOCAL_CFG_LAUNCH", "d8/d9c/classBinNodejs.html#aac536a97ca88f3202a2c6dde07d6ca02", null ],
-    [ "LOCAL_CFG_NPM", "d8/d9c/classBinNodejs.html#a2765d3ab7d552c52afe204ece91c4c45", null ],
-    [ "LOCAL_CFG_VARS", "d8/d9c/classBinNodejs.html#a9e4c1bccba2e4db5478ad1d0d803d897", null ],
-    [ "ROOT_CFG_ENABLE", "d8/d9c/classBinNodejs.html#a65093e6cbd7012059bc81f5bbfe8efbb", null ],
-    [ "ROOT_CFG_VERSION", "d8/d9c/classBinNodejs.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ]
+    [ "__construct", "d8/d9c/classBinNodejs.html#a6b318e5149cf52b3a6bdaca425d162f0", null ],
+    [ "getConf", "d8/d9c/classBinNodejs.html#ac75e1c7c559a2fe11600359e96ea0a92", null ],
+    [ "getExe", "d8/d9c/classBinNodejs.html#a792e9443b04ef4a0f610a191b5762391", null ],
+    [ "getLaunch", "d8/d9c/classBinNodejs.html#a9d9c23895e926123d26c9dd593d27c65", null ],
+    [ "getNpm", "d8/d9c/classBinNodejs.html#a7cb5721d62ce6e5bd885d0ea7861616e", null ],
+    [ "getVars", "d8/d9c/classBinNodejs.html#a2b31e21c6ad11cd0b7d47dc4144eaef6", null ],
+    [ "reload", "d8/d9c/classBinNodejs.html#ac3b6b7cbe6147b26b153b1ce851a7f01", null ],
+    [ "setEnable", "d8/d9c/classBinNodejs.html#a4a52d5023ae050c401ec388decd02546", null ],
+    [ "setVersion", "d8/d9c/classBinNodejs.html#ae267b2e0458d42532bb0d0cafaf7ac96", null ],
+    [ "switchVersion", "d8/d9c/classBinNodejs.html#a13a10227cebce8b72fa3408bf946a988", null ],
+    [ "updateConfig", "d8/d9c/classBinNodejs.html#a7e05048d9ec4cee6fa7b07fcf8461474", null ],
+    [ "$conf", "d8/d9c/classBinNodejs.html#a95745ad52cddb833ca43df1d510c0fed", null ],
+    [ "$exe", "d8/d9c/classBinNodejs.html#acf6a3fd1ae79ebd0960d1906e98bb73f", null ],
+    [ "$launch", "d8/d9c/classBinNodejs.html#a512f007165e15f9e96641c7583c6f30b", null ],
+    [ "$npm", "d8/d9c/classBinNodejs.html#a39363fafda039eeadf0335abca12dff2", null ],
+    [ "$vars", "d8/d9c/classBinNodejs.html#a7e7e2983f026af713e0e7ab8dda1adc2", null ],
+    [ "LOCAL_CFG_CONF", "d8/d9c/classBinNodejs.html#ad084839db55d091181a5184099d7e357", null ],
+    [ "LOCAL_CFG_EXE", "d8/d9c/classBinNodejs.html#a2c693495774394447c1b6db816e760a7", null ],
+    [ "LOCAL_CFG_LAUNCH", "d8/d9c/classBinNodejs.html#a4dfbd3230540ee6776441e39f8be29e1", null ],
+    [ "LOCAL_CFG_NPM", "d8/d9c/classBinNodejs.html#afcf4d71c01fd66a5df7d428b43eb7d04", null ],
+    [ "LOCAL_CFG_VARS", "d8/d9c/classBinNodejs.html#a3e8c068959b5100d6ca4f08be61ce922", null ],
+    [ "ROOT_CFG_ENABLE", "d8/d9c/classBinNodejs.html#a893452af5bbde8ce74fcb963ab946901", null ],
+    [ "ROOT_CFG_VERSION", "d8/d9c/classBinNodejs.html#a2b0fb31210f35505229660826eb58c4e", null ]
 ];

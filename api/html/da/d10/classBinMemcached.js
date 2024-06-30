@@ -1,32 +1,40 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classBinMemcached =
 [
-    [ "__construct", "da/d10/classBinMemcached.html#ad2d1f4e407b6f242de3af2a95dc1078e", null ],
-    [ "changePort", "da/d10/classBinMemcached.html#a85f983791a52bf029fac9b6d3b3976d2", null ],
-    [ "checkPort", "da/d10/classBinMemcached.html#a6ac161241c3339d3885d9ab6e53dca82", null ],
-    [ "getExe", "da/d10/classBinMemcached.html#a04ffef4e15d42599735b0536614b19ba", null ],
-    [ "getLog", "da/d10/classBinMemcached.html#af8283af3e7c972d9c276dc634eec0bdc", null ],
-    [ "getMemory", "da/d10/classBinMemcached.html#a144248575cd034a40315155a9b48ff87", null ],
-    [ "getPort", "da/d10/classBinMemcached.html#afd4db46d3c12f47f0bee19cd2101be64", null ],
-    [ "getService", "da/d10/classBinMemcached.html#ae2ec6b84e042bbd7a712d834a5d46f1f", null ],
-    [ "rebuildConf", "da/d10/classBinMemcached.html#ae9b1926b231d22d9d2771a0c767331d0", null ],
-    [ "reload", "da/d10/classBinMemcached.html#abcf741f558ed8382bf163307e1a4e71d", null ],
-    [ "replaceAll", "da/d10/classBinMemcached.html#a3614638192ed37aeb3dd9173b1c8bde8", null ],
-    [ "setEnable", "da/d10/classBinMemcached.html#a8793e887e0ef76afd6f91028fc480674", null ],
-    [ "setMemory", "da/d10/classBinMemcached.html#a165f0d8dd30c6ddee7bf5baee198f3db", null ],
-    [ "setPort", "da/d10/classBinMemcached.html#a000ce1ff20433f6ac9297e01c31d0678", null ],
-    [ "setVersion", "da/d10/classBinMemcached.html#a6a2f870d59df617e76c79a9996646832", null ],
-    [ "switchVersion", "da/d10/classBinMemcached.html#a5f33c33705dd268ad4799ceeacc8eec3", null ],
-    [ "updateConfig", "da/d10/classBinMemcached.html#a4ca4942bd159e981d98bae05e134855d", null ],
-    [ "$exe", "da/d10/classBinMemcached.html#ad6b47af56500940987d1e72e428726ce", null ],
-    [ "$log", "da/d10/classBinMemcached.html#a9a2cf15a653aee8be437f7ae474cd494", null ],
-    [ "$memory", "da/d10/classBinMemcached.html#a5e20a9a3e12271b3b8d685805590c9e0", null ],
-    [ "$port", "da/d10/classBinMemcached.html#aa0787efab4b22e8a212882f3409d4c77", null ],
-    [ "$service", "da/d10/classBinMemcached.html#abb8d1943d2cf9b6a3d54a4fed1ad2d9d", null ],
-    [ "LOCAL_CFG_EXE", "da/d10/classBinMemcached.html#a0a6b39bb1c8d746a09325a52c690b240", null ],
-    [ "LOCAL_CFG_MEMORY", "da/d10/classBinMemcached.html#a575a7b20284a988d4ba3287481321840", null ],
-    [ "LOCAL_CFG_PORT", "da/d10/classBinMemcached.html#a60ba9988f7edcd78183b01da8c753746", null ],
-    [ "ROOT_CFG_ENABLE", "da/d10/classBinMemcached.html#a65093e6cbd7012059bc81f5bbfe8efbb", null ],
-    [ "ROOT_CFG_VERSION", "da/d10/classBinMemcached.html#ace3a00a909ed90236d0aa51a6ce5a34e", null ],
-    [ "SERVICE_NAME", "da/d10/classBinMemcached.html#a1b0aff1ce1a09db49bfb05d38276ff94", null ],
-    [ "SERVICE_PARAMS", "da/d10/classBinMemcached.html#a86b070844762d196c920e7ac167a18a4", null ]
+    [ "__construct", "da/d10/classBinMemcached.html#ae499cddf960db523f908daf1f519f4ae", null ],
+    [ "changePort", "da/d10/classBinMemcached.html#a74251cd69f82fc40a87ede6e34f48701", null ],
+    [ "checkPort", "da/d10/classBinMemcached.html#ae5cca001bf994bfa686d58f0077b764c", null ],
+    [ "getExe", "da/d10/classBinMemcached.html#aa71d33b08ec93555714026354d1ab535", null ],
+    [ "getLog", "da/d10/classBinMemcached.html#ab1a4d6739eae4d6436f6cf6d500bcd04", null ],
+    [ "getMemory", "da/d10/classBinMemcached.html#a46a63700f437218a6141ed2584a5c253", null ],
+    [ "getPort", "da/d10/classBinMemcached.html#ac1cb08a22920c37c326501c68ec11a3f", null ],
+    [ "getService", "da/d10/classBinMemcached.html#acf35f7273fa46ffbc1722571ae84541f", null ],
+    [ "rebuildConf", "da/d10/classBinMemcached.html#a2c8161c1f40801ce70be3416a603b731", null ],
+    [ "reload", "da/d10/classBinMemcached.html#addb9d990160ec4dabbcf14814918cac1", null ],
+    [ "replaceAll", "da/d10/classBinMemcached.html#a473d0862be054dd343132c9ea2d8fc4e", null ],
+    [ "setEnable", "da/d10/classBinMemcached.html#a6e34e322bae67fd3cb41528c12e62a4c", null ],
+    [ "setMemory", "da/d10/classBinMemcached.html#a97a9d2872697f81f8c84dc2821571eda", null ],
+    [ "setPort", "da/d10/classBinMemcached.html#a9b1fca163bd87019a841f265ece693cd", null ],
+    [ "setVersion", "da/d10/classBinMemcached.html#a2f74fe4d3628d986c2c6ab4d3ff6f746", null ],
+    [ "switchVersion", "da/d10/classBinMemcached.html#a3ba44288eaf9296f593d37b514213991", null ],
+    [ "updateConfig", "da/d10/classBinMemcached.html#a9f3d2973395fca97e1bd29b48019cbb3", null ],
+    [ "$exe", "da/d10/classBinMemcached.html#a321c1c047554473c1ff2a1b9cd9a2e82", null ],
+    [ "$log", "da/d10/classBinMemcached.html#ab9e5b80da5e06bb09a8cc216d153bcb1", null ],
+    [ "$memory", "da/d10/classBinMemcached.html#ada3c7c564b9b2326b8868a18254d17a3", null ],
+    [ "$port", "da/d10/classBinMemcached.html#a312aabcb88e90b9a20852086ee058482", null ],
+    [ "$service", "da/d10/classBinMemcached.html#a2c5593988ec9a2d08225d04ab4fc611d", null ],
+    [ "LOCAL_CFG_EXE", "da/d10/classBinMemcached.html#aafaf733424502d6957cdabf86d78e17a", null ],
+    [ "LOCAL_CFG_MEMORY", "da/d10/classBinMemcached.html#a2de2155681c69cc0f74a5eda5b7ba0b2", null ],
+    [ "LOCAL_CFG_PORT", "da/d10/classBinMemcached.html#a7daea2e3b491cc76d30a4756da50c209", null ],
+    [ "ROOT_CFG_ENABLE", "da/d10/classBinMemcached.html#ae113e0bf5efe854bb778a62d563b1762", null ],
+    [ "ROOT_CFG_VERSION", "da/d10/classBinMemcached.html#a4981e1d9281359c65d7b21c8159a9171", null ],
+    [ "SERVICE_NAME", "da/d10/classBinMemcached.html#a229b235609ba22d735f9cf7b45c89418", null ],
+    [ "SERVICE_PARAMS", "da/d10/classBinMemcached.html#af96bc28c995816909a902a5707b35612", null ]
 ];

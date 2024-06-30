@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var searchData=
 [
   ['toolcomposer_0',['ToolComposer',['../d7/d6f/classToolComposer.html',1,'']]],
@@ -26,17 +34,20 @@ var searchData=
   ['tplapplogs_23',['TplAppLogs',['../d2/d2a/classTplAppLogs.html',1,'']]],
   ['tplapplogsverbose_24',['TplAppLogsVerbose',['../d9/d3f/classTplAppLogsVerbose.html',1,'']]],
   ['tplappmailhog_25',['TplAppMailhog',['../d4/d8a/classTplAppMailhog.html',1,'']]],
-  ['tplappmariadb_26',['TplAppMariadb',['../d4/de1/classTplAppMariadb.html',1,'']]],
-  ['tplappmemcached_27',['TplAppMemcached',['../d8/dff/classTplAppMemcached.html',1,'']]],
-  ['tplappmysql_28',['TplAppMysql',['../d6/d19/classTplAppMysql.html',1,'']]],
-  ['tplappnodejs_29',['TplAppNodejs',['../dc/d32/classTplAppNodejs.html',1,'']]],
-  ['tplapponline_30',['TplAppOnline',['../d7/dbb/classTplAppOnline.html',1,'']]],
-  ['tplappphp_31',['TplAppPhp',['../d0/d1a/classTplAppPhp.html',1,'']]],
-  ['tplapppostgresql_32',['TplAppPostgresql',['../d3/d1b/classTplAppPostgresql.html',1,'']]],
-  ['tplapppython_33',['TplAppPython',['../de/d1b/classTplAppPython.html',1,'']]],
-  ['tplappreload_34',['TplAppReload',['../da/d00/classTplAppReload.html',1,'']]],
-  ['tplappservices_35',['TplAppServices',['../d3/d3e/classTplAppServices.html',1,'']]],
-  ['tplapptools_36',['TplAppTools',['../dc/dd8/classTplAppTools.html',1,'']]],
-  ['tplconsolez_37',['TplConsoleZ',['../d6/d32/classTplConsoleZ.html',1,'']]],
-  ['tplservice_38',['TplService',['../db/dc8/classTplService.html',1,'']]]
+  ['tplappmailpit_26',['TplAppMailpit',['../d8/dd3/classTplAppMailpit.html',1,'']]],
+  ['tplappmariadb_27',['TplAppMariadb',['../d4/de1/classTplAppMariadb.html',1,'']]],
+  ['tplappmemcached_28',['TplAppMemcached',['../d8/dff/classTplAppMemcached.html',1,'']]],
+  ['tplappmysql_29',['TplAppMysql',['../d6/d19/classTplAppMysql.html',1,'']]],
+  ['tplappnodejs_30',['TplAppNodejs',['../dc/d32/classTplAppNodejs.html',1,'']]],
+  ['tplapponline_31',['TplAppOnline',['../d7/dbb/classTplAppOnline.html',1,'']]],
+  ['tplappphp_32',['TplAppPhp',['../d0/d1a/classTplAppPhp.html',1,'']]],
+  ['tplapppostgresql_33',['TplAppPostgresql',['../d3/d1b/classTplAppPostgresql.html',1,'']]],
+  ['tplapppython_34',['TplAppPython',['../de/d1b/classTplAppPython.html',1,'']]],
+  ['tplapprebuildini_35',['TplAppRebuildIni',['../d9/da5/classTplAppRebuildIni.html',1,'']]],
+  ['tplappreload_36',['TplAppReload',['../da/d00/classTplAppReload.html',1,'']]],
+  ['tplappservices_37',['TplAppServices',['../d3/d3e/classTplAppServices.html',1,'']]],
+  ['tplapptools_38',['TplAppTools',['../dc/dd8/classTplAppTools.html',1,'']]],
+  ['tplappxlight_39',['TplAppXlight',['../dc/d83/classTplAppXlight.html',1,'']]],
+  ['tplconsolez_40',['TplConsoleZ',['../d6/d32/classTplConsoleZ.html',1,'']]],
+  ['tplservice_41',['TplService',['../db/dc8/classTplService.html',1,'']]]
 ];

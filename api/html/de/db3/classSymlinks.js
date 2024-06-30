@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var classSymlinks =
 [
-    [ "__construct", "de/db3/classSymlinks.html#a8bf810b473aaf5d06715a3a047afc451", null ],
-    [ "deleteCurrentSymlinks", "de/db3/classSymlinks.html#a481e5161d8483e116769511960d5ac41", null ],
-    [ "$root", "de/db3/classSymlinks.html#ab37f7c32f41c3c61ed940887453767f4", null ]
+    [ "__construct", "de/db3/classSymlinks.html#aa291a5f38bf5259eb47ade923216fe08", null ],
+    [ "deleteCurrentSymlinks", "de/db3/classSymlinks.html#a413d85d62113556873ce86c67808782d", null ],
+    [ "$root", "de/db3/classSymlinks.html#a52a559f19c99a39fbdec82b9b1b06d60", null ]
 ];
