@@ -24,7 +24,7 @@
 /**/post-install/
 bearsampp.ini
 bearsampp.exe
-#bearsampp.conf
+bearsampp.conf
 /core/resources/homepage/alias.conf
 /core/resources/loading.pid
 /core/libs/openssl/openssl.cfg
