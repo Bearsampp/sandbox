@@ -1,0 +1,9 @@
+<map id="Nssm\isRunning" name="Nssm\isRunning">
+<area shape="rect" id="Node000001" title=" " alt="" coords="353,35,511,67"/>
+<area shape="rect" id="Node000002" href="$d3/d93/classNssm.html#aa32df80b96119003df6133155b5a6610" title=" " alt="" coords="194,35,305,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="337,54,306,54,306,48,337,48"/>
+<area shape="rect" id="Node000003" href="$d3/d93/classNssm.html#a4222f835dea3ac472ab8fd54a77dbc98" title=" " alt="" coords="11,5,140,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="178,42,139,35,140,30,179,36"/>
+<area shape="rect" id="Node000004" href="$d3/d93/classNssm.html#a61e340f35a716e338685f4bd9d3b4dc3" title=" " alt="" coords="5,63,146,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="179,65,146,70,146,65,178,60"/>
+</map>

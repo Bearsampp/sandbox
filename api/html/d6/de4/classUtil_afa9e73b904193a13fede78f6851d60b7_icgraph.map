@@ -1,0 +1,12 @@
+<map id="Util\isLaunchStartup" name="Util\isLaunchStartup">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1068,9,1255,42"/>
+<area shape="rect" id="Node000002" href="$dd/dea/classActionReload.html#a9caf3b20c05475876e5dc72cdcdf6024" title=" " alt="" coords="5,5,245,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1052,22,1020,20,293,23,245,23,245,18,293,18,1020,15,1052,16"/>
+<area shape="rect" id="Node000003" href="$dd/d54/classTplAppLaunchStartup.html#ad9365c36113086abee5c58cca6c95dfa" title=" " alt="" coords="815,30,1020,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1053,43,1020,47,1020,42,1052,37"/>
+<area shape="rect" id="Node000004" href="$d1/d65/classTplApp.html#a9db61fdb53ab5d42766b0634f77dd458" title=" " alt="" coords="498,37,767,70"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="800,59,768,58,768,53,800,53"/>
+<area shape="rect" id="Node000005" href="$d1/d65/classTplApp.html#a57b270c79fbb8b220ad02af08368e367" title=" " alt="" coords="293,32,450,65"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="482,53,451,53,451,47,482,48"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="277,41,245,37,245,32,277,36"/>
+</map>

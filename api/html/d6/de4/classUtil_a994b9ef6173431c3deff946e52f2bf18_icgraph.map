@@ -1,0 +1,21 @@
+<map id="Util\startLoading" name="Util\startLoading">
+<area shape="rect" id="Node000001" title=" " alt="" coords="330,310,486,342"/>
+<area shape="rect" id="Node000002" href="$da/d27/classActionCheckVersion.html#a28bc17b27165f0051d6daa9b4db830d3" title=" " alt="" coords="47,5,240,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="397,296,383,247,360,187,326,126,305,99,280,75,261,62,239,52,242,47,263,57,283,71,309,95,330,123,365,185,388,245,402,294"/>
+<area shape="rect" id="Node000003" href="$d8/d65/classActionEnable.html#aff89eb7a9b90b065fd938c5bbb0112e6" title=" " alt="" coords="25,84,262,117"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="394,297,377,258,353,213,321,168,280,131,261,120,263,115,283,127,325,164,357,210,382,256,399,295"/>
+<area shape="rect" id="Node000004" href="$d7/d5e/classActionLaunchStartup.html#ac73132d2feaecbc33b08f312c698e035" title=" " alt="" coords="46,141,241,196"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="382,299,338,253,310,230,280,210,241,192,243,187,283,205,313,225,341,249,386,296"/>
+<area shape="rect" id="Node000005" href="$d0/d9f/classActionManualRestart.html#a229630778cbd92fef95f4e99e872fdca" title=" " alt="" coords="46,220,241,275"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="340,307,281,289,240,277,242,272,282,283,342,302"/>
+<area shape="rect" id="Node000006" href="$d8/d75/classActionRefreshRepos.html#af1efc3416dac6015926af8357a6ff7e6" title=" " alt="" coords="44,299,243,353"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="314,329,243,329,243,323,314,323"/>
+<area shape="rect" id="Node000007" href="$dd/dea/classActionReload.html#a9caf3b20c05475876e5dc72cdcdf6024" title=" " alt="" coords="24,378,263,410"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="342,350,282,367,230,380,229,374,281,362,341,345"/>
+<area shape="rect" id="Node000008" href="$d7/d0e/classActionService.html#a4440ed18ce314e66ba30932864b5584b" title=" " alt="" coords="22,435,265,468"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="381,355,337,391,283,424,249,437,247,432,281,420,334,387,378,351"/>
+<area shape="rect" id="Node000009" href="$df/d7b/classActionSwitchOnline.html#a01990938d61622ee216f8d269ae3dbfb" title=" " alt="" coords="52,492,235,547"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="392,357,348,420,318,453,283,482,237,504,234,499,280,477,314,449,344,417,388,354"/>
+<area shape="rect" id="Node000010" href="$d1/db8/classActionStartup.html#a1234a0f2093a95140d6f86983514d28f" title=" " alt="" coords="5,571,282,604"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="401,358,387,404,363,459,329,514,308,539,283,560,262,573,259,568,280,556,304,535,325,511,358,456,382,402,396,356"/>
+</map>

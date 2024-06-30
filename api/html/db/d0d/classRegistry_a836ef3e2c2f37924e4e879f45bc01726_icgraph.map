@@ -1,0 +1,16 @@
+<map id="Registry\writeLog" name="Registry\writeLog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="508,58,676,91"/>
+<area shape="rect" id="Node000002" href="$db/d0d/classRegistry.html#ae63a1ff65a73f45574727e442d0afa22" title=" " alt="" coords="24,9,222,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="547,53,506,34,459,20,399,11,337,8,222,14,222,9,337,3,399,6,461,15,507,29,550,48"/>
+<area shape="rect" id="Node000003" href="$db/d0d/classRegistry.html#a08f9ad8c7f3e0d8eb42ca68d23dc9a3c" title=" " alt="" coords="302,29,447,62"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="492,64,447,58,448,53,493,59"/>
+<area shape="rect" id="Node000004" href="$db/d0d/classRegistry.html#a5936f182b778b24d86ff9f02d676d39d" title=" " alt="" coords="289,86,460,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="493,90,461,94,460,89,492,85"/>
+<area shape="rect" id="Node000005" href="$db/d0d/classRegistry.html#a190f76a5541f724f564124ea4df49313" title=" " alt="" coords="289,144,460,176"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="541,100,461,133,427,146,425,141,459,128,538,95"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="299,139,287,133,272,122,262,111,239,87,201,64,162,45,165,40,203,59,242,83,266,107,276,118,290,128,301,135"/>
+<area shape="rect" id="Node000006" href="$db/d0d/classRegistry.html#aa22ce26a46610799e48d929d9a9afcfd" title=" " alt="" coords="5,98,241,153"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="273,149,241,144,241,139,274,144"/>
+<area shape="rect" id="Node000007" href="$db/d0d/classRegistry.html#a598ce170cfd231fec55bb30d4cbd8c9b" title=" " alt="" coords="13,177,233,210"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="274,176,233,181,233,176,274,171"/>
+</map>
