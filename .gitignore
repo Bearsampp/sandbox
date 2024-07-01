@@ -30,10 +30,11 @@ bearsampp.conf
 /core/libs/openssl/openssl.cfg
 /core/resources/lastPath.dat
 /core/resources/version.dat
-/core/resources/img/about.bmp
-/core/resources/img/bearsampp.bmp
-/core/resources/img/header-logo.png
-/core/resources/img/icons/app.ico
+/core/resources/homepage/img/about.bmp
+/core/resources/homepage/img/bearsampp.bmp
+/core/resources/homepage/img/header-logo.png
+/core/resources/homepage/img/icons/app.ico
+/core/resources/homepage/img/icons/favicon.ico
 
 # Visual Studio
 .vscode/
