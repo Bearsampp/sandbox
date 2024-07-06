@@ -256,3 +256,11 @@ nav.navbar .svg-inline--fa.fa-discord {
     margin-right: -40px;
     margin-top: -10px;
 }
+
+/*
+*  ---- QUICKPICK DROPDOWN ----
+*/
+.quickpick {
+    background-color: #212529;
+    color: white;
+    }

@@ -18,6 +18,14 @@
 include __DIR__ . '/../../root.php';
 
 /**
+ * Include the quickPick class which provides a 1-click installation of popular applications.
+ */
+include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
+$quickPick = new QuickPick();
+$modules = $quickPick->getModules();
+$moduleVersions = QuickPick::getModuleVersions($modules);
+
+/**
  * Declare global variables to access various parts of the application such as language settings,
  * core functionalities, homepage configurations, and more.
  */
@@ -49,7 +57,6 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
  * and the document title.
  */
 ?>
-
 <!DOCTYPE html>
 <html lang = "<?php echo $bearsamppLang->getValue( Lang::LOCALE ) ?>">
 
@@ -65,12 +72,12 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
      */
     $cssFiles = [
         "/css/app.css",
-        "/libs/bootstrap/bootstrap.min.css",
+        "/libs/bootstrap/css/bootstrap.min.css",
         "/libs/fontawesome/css/all.min.css",
     ];
     $jsFiles  = [
 
-        "/libs/bootstrap/bootstrap.min.js",
+        "/libs/bootstrap/js/bootstrap.bundle.min.js",
         "/libs/fontawesome/js/all.min.js",
         "/js/_commons.js",
         "/js/latestversion.js",
@@ -85,7 +92,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         "/js/nodejs.js",
         "/js/php.js",
         "/js/postgresql.js",
-        "/js/xlight.js"
+        "/js/xlight.js",
+        "/js/quickpick.js"
     ];
 
     /**
@@ -120,6 +128,18 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                 <span class = "navbar-toggler-icon"></span>
             </button>
         </div>
+    </div>
+    <div class = 'quickpick me-5'>
+        <select class = 'form-select' id = 'moduleDropdown' aria-label = 'Quick Pick Modules'>
+            <option value = '' disabled selected>Select a module</option>
+            <?php foreach ( $modules as $module ): ?>
+                <option value = "<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div id = "moduleVersions" class = "mt-3">
+        <!-- Versions will be loaded here -->
     </div>
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
