@@ -247,7 +247,6 @@ nav.navbar .svg-inline--fa.fa-discord {
 .svg-inline--fa {
     height: 1.125em;
     }
-
 /* ---- END ICONOGRAPHY ---- */
 
 .close-button {
@@ -263,4 +262,5 @@ nav.navbar .svg-inline--fa.fa-discord {
 .quickpick {
     background-color: #212529;
     color: white;
+    min-width: 165px;
     }

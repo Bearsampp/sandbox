@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const selectedModule = this.value;
         if (!selectedModule) return;
 
-        const url = 'path/to/your/ajax/handler'; // Update this to your actual AJAX handler URL
+        const url = AJAX_URL; // Update this to your actual AJAX handler URL
         const senddata = new URLSearchParams();
         senddata.append('module', selectedModule);
 

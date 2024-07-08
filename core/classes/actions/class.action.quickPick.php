@@ -12,36 +12,36 @@ class QuickPick
     /**
      * Define an array of modules containing our module names.
      */
-    private $modules = [
-        'Adminer',
-        'Apache',
-        'Composer',
-        'ConsoleZ',
-        'Ghostscript',
-        'Git',
-        'Mailpit',
-        'MariaDB',
-        'Memcached',
-        'MySQL',
-        'Ngrok',
-        'NodeJS',
-        'Perl',
-        'PHP',
-        'PostgreSQL',
-        'PhpMyAdmin',
-        'PhpPgAdmin',
-        'Python',
-        'Ruby',
-        'Webgrind',
-        'Xlight',
-        'Yarn'
+    private static $modules = [
+        'Adminer' => 'application',
+        'Apache' => 'binary',
+        'Composer' => 'tool',
+        'ConsoleZ' => 'tool',
+        'Ghostscript' => 'tool',
+        'Git' => 'tool',
+        'Mailpit' => 'binary',
+        'MariaDB' => 'binary',
+        'Memcached' => 'binary',
+        'MySQL' => 'binary',
+        'Ngrok' => 'tool',
+        'NodeJS' => 'binary',
+        'Perl' => 'tool',
+        'PHP' => 'binary',
+        'PhpMyAdmin' => 'application',
+        'PhpPgAdmin' => 'application',
+        'PostgreSQL' => 'binary',
+        'Python' => 'tool',
+        'Ruby' => 'tool',
+        'Webgrind' => 'application',
+        'Xlight' => 'binary',
+        'Yarn' => 'tool'
     ];
 
     const GH_PREFIX = 'https://github.com/Bearsampp/module-';
 
-    public function getModules()
+    public static function getModules()
     {
-        return $this->modules;
+        return array_keys(self::$modules);
     }
 
     public static function getModuleVersions($modules) {

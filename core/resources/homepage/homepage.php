@@ -21,8 +21,8 @@ include __DIR__ . '/../../root.php';
  * Include the quickPick class which provides a 1-click installation of popular applications.
  */
 include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
-$quickPick = new QuickPick();
-$modules = $quickPick->getModules();
+
+$modules = QuickPick::getModules();
 $moduleVersions = QuickPick::getModuleVersions($modules);
 
 /**
