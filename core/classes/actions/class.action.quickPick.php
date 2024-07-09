@@ -13,71 +13,87 @@ class QuickPick
      * Define an array of modules containing our module names.
      */
     private static $modules = [
-        'Adminer' => 'application',
-        'Apache' => 'binary',
-        'Composer' => 'tool',
-        'ConsoleZ' => 'tool',
+        'Adminer'     => 'application',
+        'Apache'      => 'binary',
+        'Composer'    => 'tool',
+        'ConsoleZ'    => 'tool',
         'Ghostscript' => 'tool',
-        'Git' => 'tool',
-        'Mailpit' => 'binary',
-        'MariaDB' => 'binary',
-        'Memcached' => 'binary',
-        'MySQL' => 'binary',
-        'Ngrok' => 'tool',
-        'NodeJS' => 'binary',
-        'Perl' => 'tool',
-        'PHP' => 'binary',
-        'PhpMyAdmin' => 'application',
-        'PhpPgAdmin' => 'application',
-        'PostgreSQL' => 'binary',
-        'Python' => 'tool',
-        'Ruby' => 'tool',
-        'Webgrind' => 'application',
-        'Xlight' => 'binary',
-        'Yarn' => 'tool'
+        'Git'         => 'tool',
+        'Mailpit'     => 'binary',
+        'MariaDB'     => 'binary',
+        'Memcached'   => 'binary',
+        'MySQL'       => 'binary',
+        'Ngrok'       => 'tool',
+        'NodeJS'      => 'binary',
+        'Perl'        => 'tool',
+        'PHP'         => 'binary',
+        'PhpMyAdmin'  => 'application',
+        'PhpPgAdmin'  => 'application',
+        'PostgreSQL'  => 'binary',
+        'Python'      => 'tool',
+        'Ruby'        => 'tool',
+        'Webgrind'    => 'application',
+        'Xlight'      => 'binary',
+        'Yarn'        => 'tool'
     ];
 
-    const GH_PREFIX = 'https://github.com/Bearsampp/module-';
+    const GH_PREFIX = 'https://api.github.com/repos/Bearsampp/module-';
 
     public static function getModules()
     {
-        return array_keys(self::$modules);
+        return array_keys( self::$modules );
     }
 
-    public static function getModuleVersions($modules) {
+public static function getModuleVersions($module)
+{
+    $versions = [];
+    $content = Util::getApiJson(self::GH_PREFIX . strtolower($module) . '/contents/releases.properties');
+
+    if ($content !== '') {
+        // Decode the JSON string into a PHP array
+        $jsonArray = json_decode($content, true);
+
+        // Check if decoding was successful and the 'content' key exists
+        if (json_last_error() === JSON_ERROR_NONE && isset($jsonArray['content'])) {
+            $contentValue = $jsonArray['content'];
+            $versions[$module] = self::parseReleasesProperties($contentValue);
+        } else {
+            $versions[$module] = 'Error fetching version';
+        }
+    } else {
+        $versions[$module] = 'Error fetching version';
+    }
+    return $versions;
+}
+
+    private static function parseReleasesProperties($content)
+    {
+        $lines    = explode( "\n", $content );
         $versions = [];
-        foreach ($modules as $module) {
-            $url = self::GH_PREFIX . strtolower($module) . '/blob/main/releases.properties';
-            $content = file_get_contents($url);
-            if ($content !== false) {
-                $versions[$module] = self::parseReleasesProperties($content);
-            } else {
-                $versions[$module] = 'Error fetching version';
-            }
-        }
-        return $versions;
-    }
 
-    private static function parseReleasesProperties($content) {
-        $lines = explode("\n", $content);
-        foreach ($lines as $line) {
-            if (strpos($line, 'version=') === 0) {
-                return trim(substr($line, strlen('version=')));
+        foreach ( $lines as $line ) {
+            $line = trim( $line );
+            if ( !empty( $line ) ) {
+                list( $version, $url ) = explode( '=', $line, 2 );
+                $versions[trim( $version )] = trim( $url );
             }
         }
-        return 'Version not found';
+
+        return $versions;
     }
 
     public function getLicenseKey()
     {
-        if (!file_exists($this->configFilePath)) {
-            Util::logError('Config file not found: ' . $this->configFilePath);
+        if ( !file_exists( $this->configFilePath ) ) {
+            Util::logError( 'Config file not found: ' . $this->configFilePath );
+
             return false;
         }
 
-        $config = parse_ini_file($this->configFilePath);
-        if ($config === false || !isset($config['licenseKey'])) {
-            Util::logError('License key not found in config file: ' . $this->configFilePath);
+        $config = parse_ini_file( $this->configFilePath );
+        if ( $config === false || !isset( $config['licenseKey'] ) ) {
+            Util::logError( 'License key not found in config file: ' . $this->configFilePath );
+
             return false;
         }
 
@@ -88,21 +104,27 @@ class QuickPick
     {
         // Implement your validation logic here
         // For example, check if the license key matches a specific pattern
-        if (preg_match('/^[A-Z0-9]{16}$/', $licenseKey)) {
+        if ( preg_match( '/^[A-Z0-9]{16}$/', $licenseKey ) ) {
             return true;
         }
 
-        Util::logError('Invalid license key: ' . $licenseKey);
+        Util::logError( 'Invalid license key: ' . $licenseKey );
+
         return false;
     }
 
     public function validateLicenseKey()
     {
         $licenseKey = $this->getLicenseKey();
-        if ($licenseKey === false) {
+        if ( $licenseKey === false ) {
             return false;
         }
 
-        return $this->isLicenseKeyValid($licenseKey);
+        return $this->isLicenseKeyValid( $licenseKey );
+    }
+
+    public function installModule($module, $version)
+    {
+
     }
 }

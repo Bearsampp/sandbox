@@ -23,7 +23,6 @@ include __DIR__ . '/../../root.php';
 include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 
 $modules = QuickPick::getModules();
-$moduleVersions = QuickPick::getModuleVersions($modules);
 
 /**
  * Declare global variables to access various parts of the application such as language settings,
@@ -129,17 +128,21 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <div class = 'quickpick me-5'>
-        <select class = 'form-select' id = 'moduleDropdown' aria-label = 'Quick Pick Modules'>
-            <option value = '' disabled selected>Select a module</option>
-            <?php foreach ( $modules as $module ): ?>
-                <option value = "<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+    <div id = "quickPickContainer">
+        <div class = 'quickpick me-5'>
+            <select class = 'form-select' id = 'moduleDropdown' aria-label = 'Quick Pick Modules'>
+                <option value = '' disabled selected>Select a module</option>
+                <?php foreach ( $modules as $module ): ?>
+                    <option value = "<?php echo htmlspecialchars( $module ); ?>">
+                        <?php echo htmlspecialchars( $module ); ?> <i class = "fa fa-caret-right"></i>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    <div id = "moduleVersions" class = "mt-3">
-        <!-- Versions will be loaded here -->
+        <div id = "moduleVersions" class = "mt-2">
+            <!-- Versions will be loaded here -->
+        </div>
     </div>
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
