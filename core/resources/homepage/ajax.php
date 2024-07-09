@@ -30,7 +30,8 @@ $procs = array(
     'nodejs',
     'php',
     'postgresql',
-    'xlight'
+    'xlight',
+    'quickpick'
 );
 
 /**

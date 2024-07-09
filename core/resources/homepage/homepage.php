@@ -6,6 +6,7 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
+
 /**
  * This script sets up the homepage for the Bearsampp application, including loading necessary resources,
  * setting up the navigation bar, and including dynamic content based on the application's state.
@@ -18,17 +19,24 @@
 include __DIR__ . '/../../root.php';
 
 /**
+ * Declare global variables to access various parts of the application such as language settings,
+ * core functionalities, homepage configurations, and more.
+ */
+global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $bearsamppRoot;
+
+
+/**
  * Include the quickPick class which provides a 1-click installation of popular applications.
  */
 include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 
 $modules = QuickPick::getModules();
-
-/**
- * Declare global variables to access various parts of the application such as language settings,
- * core functionalities, homepage configurations, and more.
- */
-global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $bearsamppRoot;
+$ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
+?>
+    <script>
+        const ajaxUrl = '<?php echo $ajaxUrl; ?>';
+    </script>
+<?php
 
 /**
  * Set the base path for resources, ensuring there is a trailing slash.

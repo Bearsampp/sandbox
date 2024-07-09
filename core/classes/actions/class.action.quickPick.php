@@ -44,23 +44,27 @@ class QuickPick
         return array_keys( self::$modules );
     }
 
-public static function getModuleVersions($module)
-{
-    $versions = [];
-    $content = Util::getApiJson(self::GH_PREFIX . strtolower($module) . '/contents/releases.properties');
+    public static function getModuleVersions($module)
+    {
+        $versions = [];
+        $url      = self::GH_PREFIX . strtolower( $module ) . '/contents/releases.properties';
+        $content = Util::getApiJson( $url );
+        Util::logError("Json output " . $content);
 
-    if ($content !== '') {
+    if ( $content !== '' ) {
         // Decode the JSON string into a PHP array
-        $jsonArray = json_decode($content, true);
+        $jsonArray = json_decode( $content, true );
 
         // Check if decoding was successful and the 'content' key exists
-        if (json_last_error() === JSON_ERROR_NONE && isset($jsonArray['content'])) {
-            $contentValue = $jsonArray['content'];
-            $versions[$module] = self::parseReleasesProperties($contentValue);
-        } else {
+        if ( json_last_error() === JSON_ERROR_NONE && isset( $jsonArray['content'] ) ) {
+            $contentValue      = $jsonArray['content'];
+            $versions[$module] = self::parseReleasesProperties( $contentValue );
+        }
+        else {
             $versions[$module] = 'Error fetching version';
         }
-    } else {
+    }
+    else {
         $versions[$module] = 'Error fetching version';
     }
     return $versions;
