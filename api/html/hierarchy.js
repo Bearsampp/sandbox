@@ -84,6 +84,7 @@ var hierarchy =
     ] ],
     [ "Nssm", "d3/d93/classNssm.html", null ],
     [ "OpenSsl", "db/d46/classOpenSsl.html", null ],
+    [ "QuickPick", "d7/dcf/classQuickPick.html", null ],
     [ "Registry", "db/d0d/classRegistry.html", null ],
     [ "Root", "d8/d73/classRoot.html", null ],
     [ "Splash", "d1/d56/classSplash.html", null ],

@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var indexSectionsWithContent =
 {
   0: "$_abcdefghiklmnopqrstuvwxy",
-  1: "abchlmnorstuvw",
+  1: "abchlmnoqrstuvw",
   2: "b",
   3: "acdfhprw",
-  4: "_acdefghiklmoprsuw",
+  4: "_acdefghiklmoprsuvw",
   5: "$abcdefghilmnopqrstvwxy"
 };
 
@@ -27,4 +35,3 @@ var indexSectionLabels =
   4: "Functions",
   5: "Variables"
 };
-

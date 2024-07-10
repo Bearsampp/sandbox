@@ -31,6 +31,7 @@ var dir_383fba74877529d92b87ee83af360e61 =
     [ "class.action.loading.php", "d2/de8/class_8action_8loading_8php.html", "d2/de8/class_8action_8loading_8php" ],
     [ "class.action.manualRestart.php", "d6/d02/class_8action_8manualRestart_8php.html", "d6/d02/class_8action_8manualRestart_8php" ],
     [ "class.action.php", "d9/d51/class_8action_8php.html", "d9/d51/class_8action_8php" ],
+    [ "class.action.quickPick.php", "d5/d16/class_8action_8quickPick_8php.html", "d5/d16/class_8action_8quickPick_8php" ],
     [ "class.action.quit.php", "d6/dd4/class_8action_8quit_8php.html", "d6/dd4/class_8action_8quit_8php" ],
     [ "class.action.rebuildIni.php", "d2/dc7/class_8action_8rebuildIni_8php.html", "d2/dc7/class_8action_8rebuildIni_8php" ],
     [ "class.action.refreshRepos.php", "d8/d4f/class_8action_8refreshRepos_8php.html", "d8/d4f/class_8action_8refreshRepos_8php" ],

@@ -7,7 +7,7 @@
  */
 var NAVTREE =
 [
-  [ "Bearsampp", "index.html", [
+  [ "My Project", "index.html", [
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -38,16 +38,16 @@ var NAVTREEINDEX =
 "d1/db8/classActionStartup.html#a198e31dd1b8ae7457eb18959a04a2748",
 "d3/d93/classNssm.html#aa32df80b96119003df6133155b5a6610",
 "d4/ddb/classHomepage.html#aec4d136c91a567b0470a2d363e65e6d0",
-"d6/d88/classBinMysql.html#afbd9de6ff63b3f2640f1b8c521fe397c",
-"d8/d73/classRoot.html#ad7e1631fb937b7856f77e8ab89e4e55d",
-"d9/d82/wb__resources_8inc_8php.html#a261d8c62c512b99dde29205a769e1a83",
-"da/d27/classActionCheckVersion.html#a03f8b0702ac9522900de386acf40b9f9",
-"da/d49/classLang.html#ad178ce8b914663d0561b79480eb0c610",
-"db/d0d/classRegistry.html#ad9396dc6235b74d25aa126ef33a4f97d",
-"db/df2/classBinMailhog.html#afd8514658a8d328dfaed242ad56176e5",
-"dc/dd8/classTplAppTools.html#a71a8e890bc4331d10d3fa386c04ad677",
-"df/d28/classWin32Service.html#a03b0fa6d390599bdac41a93a49309579",
-"globals_t.html"
+"d6/d88/classBinMysql.html#af3216fb20d1d2f235b17b66d5e882b21",
+"d8/d73/classRoot.html#ab5d7ed743b7131977e4ccde6bd58a7de",
+"d9/d6c/class_8action_8about_8php_source.html",
+"da/d23/classBinFilezilla.html#aae2a025e3cd9cde21340dae236692167",
+"da/d49/classLang.html#ac21c2216cec4a6dbd6a09d6bde00b6a5",
+"db/d0d/classRegistry.html#a5936f182b778b24d86ff9f02d676d39d",
+"db/df2/classBinMailhog.html#a9d85abbc5c9a8189757323aa22772b75",
+"dc/db9/classBinPostgresql.html#ae1b66728d186a0041f5fc23026ea4a88",
+"de/def/wb__windows_8inc_8php.html#aebb63985212caa4f6d8b8f254a075d66",
+"globals.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

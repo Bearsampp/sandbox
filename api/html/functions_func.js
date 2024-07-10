@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var functions_func =
 [
     [ "_", "functions_func.html", null ],
@@ -17,5 +25,6 @@ var functions_func =
     [ "r", "functions_func_r.html", null ],
     [ "s", "functions_func_s.html", null ],
     [ "u", "functions_func_u.html", null ],
+    [ "v", "functions_func_v.html", null ],
     [ "w", "functions_func_w.html", null ]
 ];

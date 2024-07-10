@@ -7,12 +7,15 @@
  * Github: https://github.com/Bearsampp
  */
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 if (isset($_POST['module'])) {
     $module = $_POST['module'];
     $versions = QuickPick::getModuleVersions($module);
-
     header('Content-Type: application/json');
-    echo json_encode($versions);
+    echo json_encode(['versions' => $versions]);
 } else {
     header('HTTP/1.1 400 Bad Request');
     echo json_encode(['error' => 'Module parameter is missing']);
