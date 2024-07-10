@@ -37,8 +37,6 @@ class QuickPick
         'Yarn'        => 'tool'
     ];
 
-    const GH_PREFIX = 'https://api.github.com/repos/Bearsampp/module-';
-
     public static function getModules()
     {
         return array_keys( self::$modules );
@@ -46,29 +44,20 @@ class QuickPick
 
     public static function getModuleVersions($module)
     {
-        $versions = [];
-        $url      = self::GH_PREFIX . strtolower( $module ) . '/contents/releases.properties';
-        $content = Util::getApiJson( $url );
-        Util::logError("Json output " . $content);
+        global $bearsamppCore;
+        $url      = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
+        $content  = Util::getGithubRawUrl( $url );
+        Util::logError( "Text output " . $content );
 
-    if ( $content !== '' ) {
-        // Decode the JSON string into a PHP array
-        $jsonArray = json_decode( $content, true );
-
-        // Check if decoding was successful and the 'content' key exists
-        if ( json_last_error() === JSON_ERROR_NONE && isset( $jsonArray['content'] ) ) {
-            $contentValue      = $jsonArray['content'];
-            $versions[$module] = self::parseReleasesProperties( $contentValue );
+        if ( !empty( $content ) ) {
+            $versions[$module] = self::parseReleasesProperties( $content );
         }
         else {
             $versions[$module] = 'Error fetching version';
         }
+
+        return $versions;
     }
-    else {
-        $versions[$module] = 'Error fetching version';
-    }
-    return $versions;
-}
 
     private static function parseReleasesProperties($content)
     {

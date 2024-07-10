@@ -33,9 +33,9 @@ include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 $modules = QuickPick::getModules();
 $ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
 ?>
-    <script>
-        const ajaxUrl = '<?php echo $ajaxUrl; ?>';
-    </script>
+<script>
+    const ajaxUrl = '<?php echo $ajaxUrl; ?>';
+</script>
 <?php
 
 /**
@@ -148,8 +148,12 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </select>
         </div>
 
-        <div id = "moduleVersions" class = "mt-2">
-            <!-- Versions will be loaded here -->
+        <div id = "moduleVersionsContainer" class = "mt-2">
+            <?php foreach ( $modules as $module ): ?>
+                <div id = "moduleVersions-<?php echo htmlspecialchars( $module ); ?>" class = "moduleVersions" style = "display: none;">
+                    <!-- Versions for <?php echo htmlspecialchars( $module ); ?> will be loaded here -->
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
