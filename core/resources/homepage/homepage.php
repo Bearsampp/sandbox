@@ -32,11 +32,6 @@ include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 
 $modules = QuickPick::getModules();
 $ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
-?>
-<script>
-    const ajaxUrl = '<?php echo $ajaxUrl; ?>';
-</script>
-<?php
 
 /**
  * Set the base path for resources, ensuring there is a trailing slash.
