@@ -131,25 +131,29 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <div id = "quickPickContainer">
+    <div id = 'quickPickContainer'>
         <div class = 'quickpick me-5'>
-            <select class = 'form-select' id = 'moduleDropdown' aria-label = 'Quick Pick Modules'>
+            <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
                 <option value = '' disabled selected>Select a module</option>
                 <?php foreach ( $modules as $module ): ?>
-                    <option value = "<?php echo htmlspecialchars( $module ); ?>">
-                        <?php echo htmlspecialchars( $module ); ?> <i class = "fa fa-caret-right"></i>
+                    <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
+                            id = "<?php echo htmlspecialchars( $module ); ?>">
+                        <?php echo htmlspecialchars( $module ); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </div>
-
-        <div id = "moduleVersionsContainer" class = "mt-2">
-            <?php foreach ( $modules as $module ): ?>
-                <div id = "moduleVersions-<?php echo htmlspecialchars( $module ); ?>" class = "moduleVersions" style = "display: none;">
-                    <!-- Versions for <?php echo htmlspecialchars( $module ); ?> will be loaded here -->
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <?php foreach ( $modules as $module ): ?>
+            <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
+                <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
+                        class = "<?php echo htmlspecialchars( $module ); ?>">
+                    <?php foreach ( QuickPick::getModuleVersions( $module ) as $version ): ?>
+                        <option value = "<?php echo htmlspecialchars( $version ); ?>"
+                                id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endforeach; ?>
     </div>
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
