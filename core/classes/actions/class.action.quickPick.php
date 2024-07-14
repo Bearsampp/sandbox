@@ -25,7 +25,7 @@ class QuickPick
      * - 'binary'
      * - 'tool'
      */
-    private static $modules = [
+    private $modules = [
         'Adminer'     => ['type' => 'application'],
         'Apache'      => ['type' => 'binary'],
         'Composer'    => ['type' => 'tool'],
@@ -51,33 +51,13 @@ class QuickPick
     ];
 
     /**
-     * QuickPick constructor.
-     *
-     * This constructor initializes the QuickPick class by retrieving the list of available modules
-     * and fetching their respective versions. It calls the `getModules` method to obtain the module names
-     * and the `getModuleVersions` method to fetch the versions of each module from a remote repository.
-     *
-     * @see QuickPick::getModules()
-     * @see QuickPick::getModuleVersions()
-     */
-    public function __construct()
-    {
-        $this->getModules();
-
-        /* populate versions */
-        foreach ( self::$modules as $moduleName => $moduleInfo ) {
-            $this->getModuleVersions( $moduleName );
-        }
-    }
-
-    /**
      * Retrieves the list of available modules.
      *
      * @return array An array of module names.
      */
-    public static function getModules()
+    public function getModules()
     {
-        return array_keys( self::$modules );
+        return array_keys( $this->modules );
     }
 
     /**
@@ -87,21 +67,32 @@ class QuickPick
      *
      * @return array An associative array containing the module name and its versions or an error message.
      */
-    public static function getModuleVersions($module)
+    public function getModuleVersions($module)
     {
         global $bearsamppCore;
-        $url     = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
-        $content = Util::getGithubRawUrl( $url );
-        Util::logError( "Text output " . $content );
+        Util::logDebug( "getModuleVersions called for module: " . $module );
+
+        $url = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
+        Util::logDebug( "Fetching URL: " . $url );
+
+        $content = @file_get_contents( $url );
+        if ( $content === false ) {
+            Util::logError( "Error fetching content from URL: " . $url );
+
+            return ['error' => 'Error fetching version'];
+        }
+
+        Util::logDebug( "Fetched content: " . $content );
 
         $versions = []; // Initialize the versions array
 
         if ( !empty( $content ) ) {
             // Parse the content to get versions
-            $parsedVersions = self::parseReleasesProperties( $content );
+            $parsedVersions = $this->getVersions( $content );
+            Util::logDebug( "Parsed versions: " . print_r( $parsedVersions, true ) );
 
             // Iterate over the $modules array and add the "version" key
-            foreach ( self::$modules as $moduleName => &$moduleInfo ) {
+            foreach ( $this->modules as $moduleName => &$moduleInfo ) {
                 if ( strtolower( $moduleName ) === strtolower( $module ) ) {
                     $moduleInfo['version'] = $parsedVersions;
                     $versions              = $parsedVersions; // Populate the versions array
@@ -109,8 +100,11 @@ class QuickPick
             }
         }
         else {
+            Util::logError( "Error fetching version for module: " . $module );
             $versions[$module] = 'Error fetching version';
         }
+
+        Util::logDebug( "Returning versions: " . print_r( $versions, true ) );
 
         return $versions;
     }
@@ -122,18 +116,65 @@ class QuickPick
      *
      * @return array An associative array of versions and their corresponding URLs.
      */
-    private static function parseReleasesProperties($content)
+    public function parseReleasesProperties($content)
     {
+        Util::logDebug( "Parsing content: " . $content );
         $lines    = explode( "\n", $content );
         $versions = [];
 
         foreach ( $lines as $line ) {
             $line = trim( $line );
             if ( !empty( $line ) ) {
-                list( $version, $url ) = explode( '=', $line, 2 );
-                $versions[trim( $version )] = trim( $url );
+                $parts = explode( '=', $line, 2 );
+                if ( count( $parts ) == 2 ) {
+                    list( $version, $url ) = $parts;
+                    $versions[trim( $version )] = trim( $url );
+                }
+                else {
+                    // Handle the case where the line does not contain an '=' character
+                    Util::logError( "Invalid line format: " . $line );
+                }
             }
         }
+
+        Util::logError( "Parsed versions: " . print_r( $versions, true ) );
+
+        return $versions;
+    }
+
+/**
+     * Parses the content of a releases.properties file to extract version keys.
+     *
+     * This method processes the content of a releases.properties file, extracting
+     * only the version keys from each line. Each line is expected to be in the format
+     * "version=url". If a line does not contain an '=' character, it is logged as an error.
+     *
+     * @param string $content The content of the releases.properties file.
+     *
+     * @return array An array of version keys.
+     */
+    public function getVersions($content)
+    {
+        Util::logDebug( 'Parsing content: ' . $content );
+        $lines    = explode( "\n", $content );
+        $versions = [];
+
+        foreach ( $lines as $line ) {
+            $line = trim( $line );
+            if ( !empty( $line ) ) {
+                $parts = explode( '=', $line, 2 );
+                if ( count( $parts ) == 2 ) {
+                    list( $version, $url ) = $parts;
+                    $versions[] = trim( $version ); // Collect only the version key
+                }
+                else {
+                    // Handle the case where the line does not contain an '=' character
+                    Util::logError( 'Invalid line format: ' . $line );
+                }
+            }
+        }
+
+        Util::logError( 'Parsed versions: ' . print_r( $versions, true ) );
 
         return $versions;
     }
@@ -145,9 +186,9 @@ class QuickPick
      *
      * @return string|null The type of the module, or null if the module does not exist.
      */
-    public static function getModuleType($moduleName)
+    public function getModuleType($moduleName)
     {
-        return isset( self::$modules[$moduleName] ) ? self::$modules[$moduleName]['type'] : null;
+        return isset( $this->modules[$moduleName] ) ? $this->modules[$moduleName]['type'] : null;
     }
 
     /**
@@ -216,6 +257,6 @@ class QuickPick
      */
     public function installModule($module, $version)
     {
-        // Implementation for installing the module goes here
+        Util::logDebug('install module routine instantiated ' . $module . ' ' . $version );
     }
 }

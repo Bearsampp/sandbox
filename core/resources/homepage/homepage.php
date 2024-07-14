@@ -30,7 +30,11 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $be
  */
 include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 
-$modules = QuickPick::getModules();
+// Instantiate the QuickPick class
+$QuickPick = new QuickPick();
+
+// Retrieve the list of modules
+$modules = $QuickPick->getModules();
 $ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
 
 /**
@@ -146,8 +150,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         <?php foreach ( $modules as $module ): ?>
             <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
                 <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
-                        class = "<?php echo htmlspecialchars( $module ); ?>">
-                    <?php foreach ( QuickPick::getModuleVersions( $module ) as $version ): ?>
+                        class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
+                    <?php foreach ( $QuickPick->getModuleVersions( $module ) as $version ): ?>
                         <option value = "<?php echo htmlspecialchars( $version ); ?>"
                                 id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
                     <?php endforeach; ?>

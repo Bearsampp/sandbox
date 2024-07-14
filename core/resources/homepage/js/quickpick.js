@@ -7,27 +7,40 @@
  */
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('select').forEach(function(selectElement) {
-        selectElement.addEventListener('change', function() {
-            var target = this.options[this.selectedIndex].getAttribute("data-target");
-            var id = this.id;
-
-            console.log("Selected target:", target);
-            console.log("Select element ID:", id);
-
-            // Hide all divs with IDs starting with the select element's ID
-            document.querySelectorAll("div[id^='" + id + "']").forEach(function(divElement) {
-                divElement.style.display = 'none';
+    var selects = document.querySelectorAll('select');
+    selects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            var selectedOption = select.options[select.selectedIndex];
+            var target = selectedOption.getAttribute('data-target');
+            var id = select.id;
+            var divs = document.querySelectorAll("div[id^='" + id + "']");
+            divs.forEach(function(div) {
+                div.style.display = 'none';
             });
-
-            // Show the div corresponding to the selected option's data-target attribute
             var targetDiv = document.getElementById(id + "-" + target);
             if (targetDiv) {
-                console.log("Showing div:", targetDiv.id);
                 targetDiv.style.display = 'block';
-            } else {
-                console.log("No div found for target:", id + "-" + target);
+            }
+
+            // New code to handle module installation
+            var module = select.getAttribute('data-module');
+            var version = selectedOption.value;
+            if (module && version) {
+                installModule(module, version);
             }
         });
     });
+
+    function installModule(module, version) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/../core/resources/ajax/ajax.quickpick.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+                // Handle the response if needed
+            }
+        };
+        xhr.send("module=" + encodeURIComponent(module) + "&version=" + encodeURIComponent(version));
+    }
 });
