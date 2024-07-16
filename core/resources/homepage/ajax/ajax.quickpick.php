@@ -20,8 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $version = isset($_POST['version']) ? $_POST['version'] : null;
 
     if ($module && $version) {
-        $QuickPick->installModule($module, $version);
-        $response['message'] = "Module $module version $version installed successfully.";
+        $response = $QuickPick->installModule($module, $version);
+        if (!isset($response['error'])) {
+            $response['message'] = "Module $module version $version installed successfully.";
+        }
     } else {
         $response['error'] = "Invalid module or version.";
     }

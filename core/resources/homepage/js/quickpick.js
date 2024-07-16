@@ -23,49 +23,49 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // New code to handle module installation
-            var module = select.getAttribute('data-module');
+            var moduleName = select.getAttribute('data-module');
             var version = selectedOption.value;
-            if (module && version) {
-                installModule(module, version);
+            if (moduleName && version) {
+                installModule(moduleName, version);
             }
         });
     });
+});
 
-    async function installModule(module, version) {
-        const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
-        const senddata = new URLSearchParams();
-        senddata.append('module', module);
-        senddata.append('version', version);
-        senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
+async function installModule(moduleName, version) {
+    const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
+    const senddata = new URLSearchParams();
+    senddata.append('module', moduleName);
+    senddata.append('version', version);
+    senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
 
-        const options = {
-            method: 'POST',
-            body: senddata,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
+    const options = {
+        method: 'POST',
+        body: senddata,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
 
+    try {
+        let response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        let responseText = await response.text();
+        console.log('Response Text:', responseText); // Log the response text
         try {
-            let response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            let responseText = await response.text();
-            console.log('Response Text:', responseText); // Log the response text
-            try {
-                let data = JSON.parse(responseText);
-                if (data.error && data.error === 'Invalid proc parameter') {
-                    console.error('Invalid proc parameter:', data.error);
-                } else {
-                    console.log(data);
-                    // Handle the response if needed
-                }
-            } catch (error) {
-                console.error('Failed to parse response:', error);
+            let data = JSON.parse(responseText);
+            if (data.error) {
+                console.error('Error:', data.error);
+            } else {
+                console.log(data);
+                // Handle the response if needed
             }
         } catch (error) {
-            console.error('Failed to install module:', error);
+            console.error('Failed to parse response:', error);
         }
+    } catch (error) {
+        console.error('Failed to install module:', error);
     }
-});
+}

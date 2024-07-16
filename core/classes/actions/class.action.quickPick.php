@@ -105,41 +105,58 @@ class QuickPick
         }
 
         Util::logDebug( "Returning versions: " . print_r( $versions, true ) );
-Util::logDebug('Module info ' .  print_r( $moduleType, true ) );
+        Util::logDebug( 'Module info ' . print_r( $moduleType, true ) );
+
         return $versions;
     }
 
     /**
-     * Parses the content of a releases.properties file to extract version information.
+     * Fetches the URL of a specified module version from a remote repository.
      *
-     * @param   string  $content  The content of the releases.properties file.
+     * @param   string  $module   The name of the module.
+     * @param   string  $version  The version of the module.
      *
-     * @return array An associative array of versions and their corresponding URLs.
+     * @return string|array The URL of the specified module version or an error message.
      */
-    public function parseReleasesProperties($content)
+    public function getModuleUrl($module, $version)
     {
-        Util::logDebug( "Parsing content: " . $content );
-        $lines    = explode( "\n", $content );
-        $versions = [];
+        global $bearsamppCore;
+        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
 
+        $url = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
+        Util::logDebug( 'Fetching URL: ' . $url );
+
+        $content = @file_get_contents( $url );
+        if ( $content === false ) {
+            Util::logError( 'Error fetching content from URL: ' . $url );
+
+            return ['error' => 'Error fetching version URL'];
+        }
+
+        Util::logDebug( 'Fetched content: ' . $content );
+
+        $lines = explode( "\n", $content );
         foreach ( $lines as $line ) {
             $line = trim( $line );
             if ( !empty( $line ) ) {
                 $parts = explode( '=', $line, 2 );
                 if ( count( $parts ) == 2 ) {
-                    list( $version, $url ) = $parts;
-                    $versions[trim( $version )] = trim( $url );
+                    list( $lineVersion, $lineUrl ) = $parts;
+                    if ( trim( $lineVersion ) === $version ) {
+                        Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $lineUrl );
+
+                        return (string) trim( $lineUrl );
+                    }
                 }
                 else {
-                    // Handle the case where the line does not contain an '=' character
-                    Util::logError( "Invalid line format: " . $line );
+                    Util::logError( 'Invalid line format: ' . $line );
                 }
             }
         }
 
-        Util::logDebug( "Parsed versions: " . print_r( $versions, true ) );
+        Util::logError( 'Version not found: ' . $version );
 
-        return $versions;
+        return ['error' => 'Version not found'];
     }
 
     /**
@@ -269,29 +286,81 @@ Util::logDebug('Module info ' .  print_r( $moduleType, true ) );
 
         // Fetch the module versions to ensure the specified version is available
         $moduleType = $this->getModuleType( $module );
-        $moduleVersions = $this->getModuleVersions( $module );
-        if ( isset( $moduleVersions['error'] ) ) {
-            Util::logError( 'Error fetching versions for module: ' . $module );
+        $moduleUrl  = $this->getModuleUrl( $module, $version ); // Pass both module and version
 
-            return ['error' => 'Error fetching versions'];
+        if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
+            Util::logError( 'Error fetching module URL: ' . $moduleUrl['error'] );
+
+            return $moduleUrl;
         }
 
-        Util::logDebug( 'Fetched module versions: ' . print_r( $moduleVersions, true ) );
-        Util::logDebug( 'Fetched module type: ' . print_r( $moduleType, true ) );
+        $response = $this->fetchAndUnzipModule( $moduleUrl );
+        Util::logDebug( "Response is: " . print_r( $response, true ) );
 
-        if ( !in_array( $version, $moduleVersions ) ) {
-            Util::logError( 'Specified version not found for module: ' . $module );
+        return $response;
+    }
 
-            return ['error' => 'Specified version not found'];
+    // Assuming other methods and properties are defined here
+
+    /**
+     * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
+     *
+     * @param   string  $moduleUrl  The URL of the module to fetch.
+     *
+     * @return array An array containing the status and message.
+     */
+    public function fetchAndUnzipModule($moduleUrl)
+    {
+        global $bearsamppRoot, $bearsamppCore;
+        $tmpDir   = $bearsamppRoot->getTmpPath();
+        $fileName = basename( $moduleUrl );
+        $filePath = $tmpDir . '/' . $fileName;
+
+        // Ensure the /tmp directory exists
+        if ( !is_dir( $tmpDir ) ) {
+            if ( !mkdir( $tmpDir, 0777, true ) ) {
+                Util::logError( 'Failed to create /tmp directory' );
+
+                return ['error' => 'Failed to create /tmp directory'];
+            }
         }
 
-        Util::logDebug( 'Specified version found: ' . $version );
+        // Fetch the file from the URL
+        $fileContent = @file_get_contents( $moduleUrl );
+        if ( $fileContent === false ) {
+            Util::logError( 'Error fetching content from URL: ' . $moduleUrl );
 
-        // Proceed with the installation process
-        Util::logDebug( 'Proceeding with installation of module: ' . $module . ' version: ' . $version );
+            return ['error' => 'Error fetching module'];
+        }
 
-        // Add your installation logic here
+        // Save the file to /tmp
+        if ( file_put_contents( $filePath, $fileContent ) === false ) {
+            Util::logError( 'Error saving file to: ' . $filePath );
 
-        Util::logDebug( 'Installation completed for module: ' . $module . ' version: ' . $version );
+            return ['error' => 'Error saving module'];
+        }
+
+        Util::logDebug( 'File saved to: ' . $filePath );
+
+        // Determine the file extension and call the appropriate unzipping function
+        $fileExtension = pathinfo( $filePath, PATHINFO_EXTENSION );
+        Util::logDebug( 'File extension: ' . $fileExtension );
+        if ( $fileExtension === '7z' ) {
+            if ( !$bearsamppCore->unzip7zFile( $filePath, $tmpDir ) ) {
+                return ['error' => 'Failed to unzip .7z file'];
+            }
+        }
+        elseif ( $fileExtension === 'zip' ) {
+            if ( !$bearsamppCore->unzipFile( $filePath, $tmpDir ) ) {
+                return ['error' => 'Failed to unzip .zip file'];
+            }
+        }
+        else {
+            Util::logError( 'Unsupported file extension: ' . $fileExtension );
+
+            return ['error' => 'Unsupported file extension'];
+        }
+
+        return ['success' => 'Module fetched and unzipped successfully'];
     }
 }

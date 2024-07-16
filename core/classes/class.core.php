@@ -461,27 +461,69 @@ class Core
     /**
      * Unzips a file to a specified destination.
      *
-     * @param   string  $zipFilePath      The path to the zip file.
-     * @param   string  $destinationPath  The path where the contents should be extracted.
+     * @param   string  $filePath     The path to the zip file.
+     * @param   string  $destination  The path where the contents should be extracted.
      *
      * @return bool True on success, false on failure.
      */
-    public function unzipFile($zipFilePath, $destinationPath)
+    public function unzipFile($filePath, $destination)
     {
         $zip = new ZipArchive;
-        if ( $zip->open( $zipFilePath ) === true ) {
-            $zip->extractTo( $destinationPath );
+        if ( $zip->open( $filePath ) === true ) {
+            $zip->extractTo( $destination );
             $zip->close();
 
-            Util::logError( "source: {$zipFilePath}" );
-            Util::logError( "destination: {$destinationPath}" );
+            Util::logError( "source: {$filePath}" );
+            Util::logError( "destination: {$destination}" );
 
             return true;
         }
         else {
-            Util::logError( 'Failed to open zip file: ' . $zipFilePath );
+            Util::logError( 'Failed to open zip file: ' . $filePath );
 
             return false;
         }
+    }
+
+    /**
+     * Unzips a .7z file to the specified directory.
+     *
+     * @param   string  $filePath     The path to the .7z file.
+     * @param   string  $destination  The directory to extract the files to.
+     *
+     * @return bool True on success, false on failure.
+     */
+    public function unzip7zFile($filePath, $destination)
+    {
+        global $bearsamppRoot;
+
+        // Ensure the destination directory exists
+        if ( !is_dir( $destination ) ) {
+            if ( !mkdir( $destination, 0777, true ) ) {
+                Util::logError( 'Failed to create destination directory: ' . $destination );
+
+                return false;
+            }
+        }
+
+        // Path to 7za.exe
+        $sevenZipPath = $bearsamppRoot->getRootPath() . '/core/libs/7zip/7za.exe';
+
+        // Command to unzip the .7z file using 7za.exe
+        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -o" . escapeshellarg( $destination );
+
+        // Execute the command
+        exec( $command, $output, $returnVar );
+
+        // Check if the command was successful
+        if ( $returnVar !== 0 ) {
+            Util::logError( 'Failed to unzip .7z file: ' . implode( "\n", $output ) );
+
+            return false;
+        }
+
+        Util::logDebug( 'Successfully unzipped .7z file to: ' . $destination );
+
+        return true;
     }
 }
