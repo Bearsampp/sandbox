@@ -497,23 +497,28 @@ class Core
     {
         global $bearsamppRoot;
 
-        // Ensure the destination directory exists
-        if ( !is_dir( $destination ) ) {
-            if ( !mkdir( $destination, 0777, true ) ) {
-                Util::logError( 'Failed to create destination directory: ' . $destination );
+        // Path to 7za.exe
+        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-                return false;
-            }
+        // Check if 7za.exe exists
+        if ( !file_exists( $sevenZipPath ) ) {
+            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
+
+            return false;
         }
 
-        // Path to 7za.exe
-        $sevenZipPath = $bearsamppRoot->getRootPath() . '/core/libs/7zip/7za.exe';
-
         // Command to unzip the .7z file using 7za.exe
-        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -o" . escapeshellarg( $destination );
+        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -o" . escapeshellarg( $destination );
+
+        // Log the command for debugging
+        Util::logDebug( 'Executing command: ' . $command );
 
         // Execute the command
         exec( $command, $output, $returnVar );
+
+        // Log the output and return value
+        Util::logDebug( 'Command output: ' . implode( "\n", $output ) );
+        Util::logDebug( 'Command return value: ' . $returnVar );
 
         // Check if the command was successful
         if ( $returnVar !== 0 ) {

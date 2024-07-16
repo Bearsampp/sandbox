@@ -28,26 +28,26 @@ class QuickPick
     private $modules = [
         'Adminer'     => ['type' => 'application'],
         'Apache'      => ['type' => 'binary'],
-        'Composer'    => ['type' => 'tool'],
-        'ConsoleZ'    => ['type' => 'tool'],
-        'Ghostscript' => ['type' => 'tool'],
-        'Git'         => ['type' => 'tool'],
+        'Composer'    => ['type' => 'tools'],
+        'ConsoleZ'    => ['type' => 'tools'],
+        'Ghostscript' => ['type' => 'tools'],
+        'Git'         => ['type' => 'tools'],
         'Mailpit'     => ['type' => 'binary'],
         'MariaDB'     => ['type' => 'binary'],
         'Memcached'   => ['type' => 'binary'],
         'MySQL'       => ['type' => 'binary'],
-        'Ngrok'       => ['type' => 'tool'],
+        'Ngrok'       => ['type' => 'tools'],
         'NodeJS'      => ['type' => 'binary'],
-        'Perl'        => ['type' => 'tool'],
+        'Perl'        => ['type' => 'tools'],
         'PHP'         => ['type' => 'binary'],
         'PhpMyAdmin'  => ['type' => 'application'],
         'PhpPgAdmin'  => ['type' => 'application'],
         'PostgreSQL'  => ['type' => 'binary'],
-        'Python'      => ['type' => 'tool'],
-        'Ruby'        => ['type' => 'tool'],
+        'Python'      => ['type' => 'tools'],
+        'Ruby'        => ['type' => 'tools'],
         'Webgrind'    => ['type' => 'application'],
         'Xlight'      => ['type' => 'binary'],
-        'Yarn'        => ['type' => 'tool']
+        'Yarn'        => ['type' => 'tools']
     ];
 
     /**
@@ -196,18 +196,6 @@ class QuickPick
     }
 
     /**
-     * Get the type of a specific module.
-     *
-     * @param   string  $moduleName  The name of the module.
-     *
-     * @return string|null The type of the module, or null if the module does not exist.
-     */
-    public function getModuleType($moduleName)
-    {
-        return isset( $this->modules[$moduleName] ) ? $this->modules[$moduleName]['type'] : null;
-    }
-
-    /**
      * Retrieves the license key from the configuration file.
      *
      * @return string|false The license key if found, or false if not found or an error occurs.
@@ -285,7 +273,7 @@ class QuickPick
         Util::logDebug( 'Module found: ' . $module );
 
         // Fetch the module versions to ensure the specified version is available
-        $moduleType = $this->getModuleType( $module );
+        $moduleType = $this->modules[$module]['type'];
         $moduleUrl  = $this->getModuleUrl( $module, $version ); // Pass both module and version
 
         if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
@@ -294,7 +282,7 @@ class QuickPick
             return $moduleUrl;
         }
 
-        $response = $this->fetchAndUnzipModule( $moduleUrl );
+        $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
         Util::logDebug( "Response is: " . print_r( $response, true ) );
 
         return $response;
@@ -309,20 +297,27 @@ class QuickPick
      *
      * @return array An array containing the status and message.
      */
-    public function fetchAndUnzipModule($moduleUrl)
+    public function fetchAndUnzipModule($moduleUrl, $module)
     {
         global $bearsamppRoot, $bearsamppCore;
         $tmpDir   = $bearsamppRoot->getTmpPath();
         $fileName = basename( $moduleUrl );
-        $filePath = $tmpDir . '/' . $fileName;
+        $filePath   = $tmpDir . '/' . $fileName;
+        $moduleName = strtolower( $module );;
+        $moduleType = $this->modules[$module]['type'];
 
-        // Ensure the /tmp directory exists
-        if ( !is_dir( $tmpDir ) ) {
-            if ( !mkdir( $tmpDir, 0777, true ) ) {
-                Util::logError( 'Failed to create /tmp directory' );
 
-                return ['error' => 'Failed to create /tmp directory'];
-            }
+        if ( $moduleType === "application" ) {
+            $destination = $bearsamppRoot->getAppsPath() . '/' . $moduleName . '/';
+        }
+        elseif ( $moduleType === "binary" ) {
+            $destination = $bearsamppRoot->getBinPath() . '/' . $moduleName . '/';
+        }
+        elseif ( $moduleType === "tools" ) {
+            $destination = $bearsamppRoot->getToolsPath() . '/' . $moduleName . '/';
+        }
+        else {
+            $destination = '';
         }
 
         // Fetch the file from the URL
@@ -346,12 +341,12 @@ class QuickPick
         $fileExtension = pathinfo( $filePath, PATHINFO_EXTENSION );
         Util::logDebug( 'File extension: ' . $fileExtension );
         if ( $fileExtension === '7z' ) {
-            if ( !$bearsamppCore->unzip7zFile( $filePath, $tmpDir ) ) {
+            if ( !$bearsamppCore->unzip7zFile( $filePath, $destination ) ) {
                 return ['error' => 'Failed to unzip .7z file'];
             }
         }
         elseif ( $fileExtension === 'zip' ) {
-            if ( !$bearsamppCore->unzipFile( $filePath, $tmpDir ) ) {
+            if ( !$bearsamppCore->unzipFile( $filePath, $destination ) ) {
                 return ['error' => 'Failed to unzip .zip file'];
             }
         }
