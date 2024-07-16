@@ -196,26 +196,17 @@ class QuickPick
     }
 
     /**
-     * Retrieves the license key from the configuration file.
-     *
-     * @return string|false The license key if found, or false if not found or an error occurs.
-     */
-    public function getLicenseKey()
-    {
-        $licenseKey = Config::getLicenseKey();
-
-        return $licenseKey;
-    }
-
-    /**
      * Validates the format of a given license key.
      *
      * @param   string  $licenseKey  The license key to validate.
      *
      * @return bool True if the license key is valid, false otherwise.
      */
-    public function isLicenseKeyValid($licenseKey)
+    public static function isLicenseKeyValid()
     {
+        global $bearsamppConfig;
+        $licenseKey = $bearsamppConfig->getLicenseKey();
+
         // Implement your validation logic here
         // For example, check if the license key matches a specific pattern
         if ( preg_match( '/^[A-Z0-9]{16}$/', $licenseKey ) ) {

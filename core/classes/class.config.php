@@ -21,7 +21,7 @@ class Config
     const CFG_TIMEZONE = 'timezone';
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
-    const LICENSE_KEY = 'licensekey';
+    const LICENSE_KEY = 'licenseKey';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';

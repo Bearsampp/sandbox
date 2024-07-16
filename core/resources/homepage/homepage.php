@@ -135,30 +135,35 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <div id = 'quickPickContainer'>
-        <div class = 'quickpick me-5'>
-            <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
-                <option value = '' disabled selected>Select a module</option>
-                <?php foreach ( $modules as $module ): ?>
-                    <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
-                            id = "<?php echo htmlspecialchars( $module ); ?>">
-                        <?php echo htmlspecialchars( $module ); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <?php foreach ( $modules as $module ): ?>
-            <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
-                <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
-                        class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
-                    <?php foreach ( $QuickPick->getModuleVersions( $module ) as $version ): ?>
-                        <option value = "<?php echo htmlspecialchars( $version ); ?>"
-                                id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+    <?php
+
+    // Check if the license key is valid
+    if ( $QuickPick->isLicenseKeyValid() ): ?>
+        <div id = 'quickPickContainer'>
+            <div class = 'quickpick me-5'>
+                <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
+                    <option value = '' disabled selected>Select a module</option>
+                    <?php foreach ( $modules as $module ): ?>
+                        <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
+                                id = "<?php echo htmlspecialchars( $module ); ?>">
+                            <?php echo htmlspecialchars( $module ); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-        <?php endforeach; ?>
-    </div>
+            <?php foreach ( $modules as $module ): ?>
+                <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
+                    <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
+                            class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
+                        <?php foreach ( $QuickPick->getModuleVersions( $module ) as $version ): ?>
+                            <option value = "<?php echo htmlspecialchars( $version ); ?>"
+                                    id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
