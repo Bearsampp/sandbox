@@ -21,6 +21,7 @@ class Config
     const CFG_TIMEZONE = 'timezone';
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
+    const LICENSE_KEY = 'licensekey';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -201,5 +202,16 @@ class Config
     public function getMaxLogsArchives()
     {
         return intval($this->raw[self::CFG_MAX_LOGS_ARCHIVES]);
+    }
+
+
+    /**
+     * Retrieves the license key from the configuration.
+     *
+     * @return string The license key.
+     */
+    public function getLicenseKey()
+    {
+        return $this->raw[self::LICENSE_KEY];
     }
 }

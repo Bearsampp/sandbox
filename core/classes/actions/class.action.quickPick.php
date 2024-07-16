@@ -202,20 +202,9 @@ class QuickPick
      */
     public function getLicenseKey()
     {
-        if ( !file_exists( $this->configFilePath ) ) {
-            Util::logError( 'Config file not found: ' . $this->configFilePath );
+        $licenseKey = Config::getLicenseKey();
 
-            return false;
-        }
-
-        $config = parse_ini_file( $this->configFilePath );
-        if ( $config === false || !isset( $config['licenseKey'] ) ) {
-            Util::logError( 'License key not found in config file: ' . $this->configFilePath );
-
-            return false;
-        }
-
-        return $config['licenseKey'];
+        return $licenseKey;
     }
 
     /**
@@ -236,21 +225,6 @@ class QuickPick
         Util::logError( 'Invalid license key: ' . $licenseKey );
 
         return false;
-    }
-
-    /**
-     * Validates the license key by retrieving it from the configuration file and checking its format.
-     *
-     * @return bool True if the license key is valid, false otherwise.
-     */
-    public function validateLicenseKey()
-    {
-        $licenseKey = $this->getLicenseKey();
-        if ( $licenseKey === false ) {
-            return false;
-        }
-
-        return $this->isLicenseKeyValid( $licenseKey );
     }
 
     /**
@@ -300,8 +274,8 @@ class QuickPick
     public function fetchAndUnzipModule($moduleUrl, $module)
     {
         global $bearsamppRoot, $bearsamppCore;
-        $tmpDir   = $bearsamppRoot->getTmpPath();
-        $fileName = basename( $moduleUrl );
+        $tmpDir     = $bearsamppRoot->getTmpPath();
+        $fileName   = basename( $moduleUrl );
         $filePath   = $tmpDir . '/' . $fileName;
         $moduleName = strtolower( $module );;
         $moduleType = $this->modules[$module]['type'];
