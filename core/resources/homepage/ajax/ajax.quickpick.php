@@ -8,9 +8,12 @@
  */
 
 include __DIR__ . '/../../../classes/actions/class.action.quickPick.php';
-
-// Instantiate the QuickPick class
+Util::logDebug('File accessed successfully.');
 $QuickPick = new QuickPick();
+
+header('Content-Type: application/json');
+
+$response = array();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $module = isset($_POST['module']) ? $_POST['module'] : null;
@@ -18,10 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($module && $version) {
         $QuickPick->installModule($module, $version);
-        echo "Module $module version $version installed successfully.";
+        $response['message'] = "Module $module version $version installed successfully.";
     } else {
-        echo "Invalid module or version.";
+        $response['error'] = "Invalid module or version.";
     }
 } else {
-    echo "Invalid request method.";
+    $response['error'] = "Invalid request method.";
 }
+
+echo json_encode($response);

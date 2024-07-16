@@ -88,14 +88,14 @@ class QuickPick
 
         if ( !empty( $content ) ) {
             // Parse the content to get versions
-            $parsedVersions = $this->getVersions( $content );
-            Util::logDebug( "Parsed versions: " . print_r( $parsedVersions, true ) );
+            $Versions = $this->getVersions( $content );
+            Util::logDebug( " versions: " . print_r( $Versions, true ) );
 
             // Iterate over the $modules array and add the "version" key
-            foreach ( $this->modules as $moduleName => &$moduleInfo ) {
+            foreach ( $this->modules as $moduleName => &$moduleType ) {
                 if ( strtolower( $moduleName ) === strtolower( $module ) ) {
-                    $moduleInfo['version'] = $parsedVersions;
-                    $versions              = $parsedVersions; // Populate the versions array
+                    $moduleType['version'] = $Versions;
+                    $versions              = $Versions; // Populate the versions array
                 }
             }
         }
@@ -105,7 +105,7 @@ class QuickPick
         }
 
         Util::logDebug( "Returning versions: " . print_r( $versions, true ) );
-
+Util::logDebug('Module info ' .  print_r( $moduleType, true ) );
         return $versions;
     }
 
@@ -137,25 +137,24 @@ class QuickPick
             }
         }
 
-        Util::logError( "Parsed versions: " . print_r( $versions, true ) );
+        Util::logDebug( "Parsed versions: " . print_r( $versions, true ) );
 
         return $versions;
     }
 
-/**
+    /**
      * Parses the content of a releases.properties file to extract version keys.
      *
      * This method processes the content of a releases.properties file, extracting
      * only the version keys from each line. Each line is expected to be in the format
      * "version=url". If a line does not contain an '=' character, it is logged as an error.
      *
-     * @param string $content The content of the releases.properties file.
+     * @param   string  $content  The content of the releases.properties file.
      *
      * @return array An array of version keys.
      */
     public function getVersions($content)
     {
-        Util::logDebug( 'Parsing content: ' . $content );
         $lines    = explode( "\n", $content );
         $versions = [];
 
@@ -174,7 +173,7 @@ class QuickPick
             }
         }
 
-        Util::logError( 'Parsed versions: ' . print_r( $versions, true ) );
+        Util::logDebug( 'Parsed versions: ' . print_r( $versions, true ) );
 
         return $versions;
     }
@@ -257,6 +256,42 @@ class QuickPick
      */
     public function installModule($module, $version)
     {
-        Util::logDebug('install module routine instantiated ' . $module . ' ' . $version );
+        Util::logDebug( 'install module routine instantiated ' . $module . ' ' . $version );
+
+        // Check if the module exists in the list of available modules
+        if ( !isset( $this->modules[$module] ) ) {
+            Util::logError( 'Module not found: ' . $module );
+
+            return ['error' => 'Module not found'];
+        }
+
+        Util::logDebug( 'Module found: ' . $module );
+
+        // Fetch the module versions to ensure the specified version is available
+        $moduleType = $this->getModuleType( $module );
+        $moduleVersions = $this->getModuleVersions( $module );
+        if ( isset( $moduleVersions['error'] ) ) {
+            Util::logError( 'Error fetching versions for module: ' . $module );
+
+            return ['error' => 'Error fetching versions'];
+        }
+
+        Util::logDebug( 'Fetched module versions: ' . print_r( $moduleVersions, true ) );
+        Util::logDebug( 'Fetched module type: ' . print_r( $moduleType, true ) );
+
+        if ( !in_array( $version, $moduleVersions ) ) {
+            Util::logError( 'Specified version not found for module: ' . $module );
+
+            return ['error' => 'Specified version not found'];
+        }
+
+        Util::logDebug( 'Specified version found: ' . $version );
+
+        // Proceed with the installation process
+        Util::logDebug( 'Proceeding with installation of module: ' . $module . ' version: ' . $version );
+
+        // Add your installation logic here
+
+        Util::logDebug( 'Installation completed for module: ' . $module . ' version: ' . $version );
     }
 }

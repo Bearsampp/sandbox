@@ -6,15 +6,15 @@
  * Github: https://github.com/Bearsampp
  */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var selects = document.querySelectorAll('select');
-    selects.forEach(function(select) {
-        select.addEventListener('change', function() {
+    selects.forEach(function (select) {
+        select.addEventListener('change', function () {
             var selectedOption = select.options[select.selectedIndex];
             var target = selectedOption.getAttribute('data-target');
             var id = select.id;
             var divs = document.querySelectorAll("div[id^='" + id + "']");
-            divs.forEach(function(div) {
+            divs.forEach(function (div) {
                 div.style.display = 'none';
             });
             var targetDiv = document.getElementById(id + "-" + target);
@@ -31,16 +31,41 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    function installModule(module, version) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/../core/resources/ajax/ajax.quickpick.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-                // Handle the response if needed
+    async function installModule(module, version) {
+        const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
+        const senddata = new URLSearchParams();
+        senddata.append('module', module);
+        senddata.append('version', version);
+        senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
+
+        const options = {
+            method: 'POST',
+            body: senddata,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        xhr.send("module=" + encodeURIComponent(module) + "&version=" + encodeURIComponent(version));
+
+        try {
+            let response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let responseText = await response.text();
+            console.log('Response Text:', responseText); // Log the response text
+            try {
+                let data = JSON.parse(responseText);
+                if (data.error && data.error === 'Invalid proc parameter') {
+                    console.error('Invalid proc parameter:', data.error);
+                } else {
+                    console.log(data);
+                    // Handle the response if needed
+                }
+            } catch (error) {
+                console.error('Failed to parse response:', error);
+            }
+        } catch (error) {
+            console.error('Failed to install module:', error);
+        }
     }
 });

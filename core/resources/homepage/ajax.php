@@ -6,7 +6,6 @@
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
  */
-
 /**
  * Include the root configuration file.
  * This file is expected to set up the environment and include necessary configurations.
