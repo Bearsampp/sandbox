@@ -129,7 +129,7 @@ class Config
      *
      * @return string The license key.
      */
-    public function getusernameKey()
+    public function getUsernameKey()
     {
         return $this->raw[self::USERNAME_KEY];
     }

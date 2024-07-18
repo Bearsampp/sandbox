@@ -218,7 +218,7 @@ class QuickPick
             return false;
         }
 
-        $usernameKey = $bearsamppConfig->getusernameKey();
+        $usernameKey = $bearsamppConfig->getUsernameKey();
         Util::logDebug( 'usernameKey is: ' . $usernameKey );
 
         // Ensure the license key is not empty
@@ -252,8 +252,8 @@ class QuickPick
             return false;
         }
 
-        // Validate the response data
-        if ( isset( $data['success'] ) && $data['success'] === true ) {
+// Validate the response data
+        if ( isset( $data['success'] ) && $data['success'] === true && isset($data['data']) && is_array($data['data']) && count($data['data']) > 0 ) {
             Util::logDebug( "License key valid: " . $usernameKey );
 
             return true;
