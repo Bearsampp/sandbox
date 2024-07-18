@@ -125,6 +125,16 @@ class Config
     }
 
     /**
+     * Retrieves the license key from the configuration.
+     *
+     * @return string The license key.
+     */
+    public function getLicenseKey()
+    {
+        return $this->raw[self::LICENSE_KEY];
+    }
+
+    /**
      * Checks if the application is set to be online.
      *
      * @return bool True if online, false otherwise.
@@ -202,16 +212,5 @@ class Config
     public function getMaxLogsArchives()
     {
         return intval($this->raw[self::CFG_MAX_LOGS_ARCHIVES]);
-    }
-
-
-    /**
-     * Retrieves the license key from the configuration.
-     *
-     * @return string The license key.
-     */
-    public function getLicenseKey()
-    {
-        return $this->raw[self::LICENSE_KEY];
     }
 }

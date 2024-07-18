@@ -50,6 +50,9 @@ class QuickPick
         'Yarn'        => ['type' => 'tools']
     ];
 
+    const API_KEY = "4abe15e5-95f2-4663-ad12-eadb245b28b4";
+    const API_URL = "https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=";
+
     /**
      * Retrieves the list of available modules.
      *
@@ -202,14 +205,57 @@ class QuickPick
      *
      * @return bool True if the license key is valid, false otherwise.
      */
-    public static function isLicenseKeyValid()
+    public function isLicenseKeyValid()
     {
         global $bearsamppConfig;
-        $licenseKey = $bearsamppConfig->getLicenseKey();
 
-        // Implement your validation logic here
-        // For example, check if the license key matches a specific pattern
-        if ( preg_match( '/^[A-Z0-9]{16}$/', $licenseKey ) ) {
+        Util::logError( 'isLicenseKeyValid method called.' );
+
+        // Ensure the global config is available
+        if ( !isset( $bearsamppConfig ) ) {
+            Util::logError( 'Global configuration is not set.' );
+
+            return false;
+        }
+
+        $licenseKey = $bearsamppConfig->getLicenseKey();
+        Util::logDebug( 'LicenseKey is: ' . $licenseKey );
+
+        // Ensure the license key is not empty
+        if ( empty( $licenseKey ) ) {
+            Util::logError( 'License key is empty.' );
+
+            return false;
+        }
+
+        $url = self::API_URL . self::API_KEY . '&username=' . $licenseKey;
+        Util::logDebug( 'API URL: ' . $url );
+
+        $response = @file_get_contents( $url );
+
+        // Check if the response is false
+        if ( $response === false ) {
+            $error = error_get_last();
+            Util::logError( 'Error fetching API response: ' . $error['message'] );
+
+            return false;
+        }
+
+        Util::logDebug( 'API response: ' . $response );
+
+        $data = json_decode( $response, true );
+
+        // Check if the JSON decoding was successful
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            Util::logError( 'Error decoding JSON response: ' . json_last_error_msg() );
+
+            return false;
+        }
+
+        // Validate the response data
+        if ( isset( $data['success'] ) && $data['success'] === true ) {
+            Util::logDebug( "License key valid: " . $licenseKey );
+
             return true;
         }
 

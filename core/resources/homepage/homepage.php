@@ -163,7 +163,15 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                 </div>
             <?php endforeach; ?>
         </div>
+    <?php else: ?>
+        <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
+            <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
+                <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">
+                Subscribe to QuickPick now
+            </a>
+        </div>
     <?php endif; ?>
+
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
             <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
