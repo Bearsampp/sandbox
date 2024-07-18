@@ -201,15 +201,15 @@ class QuickPick
     /**
      * Validates the format of a given license key.
      *
-     * @param   string  $licenseKey  The license key to validate.
+     * @param   string  $usernameKey  The username key to validate.
      *
-     * @return bool True if the license key is valid, false otherwise.
+     * @return bool True if the username key is valid, false otherwise.
      */
-    public function isLicenseKeyValid()
+    public function isUsernameKeyValid()
     {
         global $bearsamppConfig;
 
-        Util::logError( 'isLicenseKeyValid method called.' );
+        Util::logError( 'isusernameKeyValid method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -218,17 +218,17 @@ class QuickPick
             return false;
         }
 
-        $licenseKey = $bearsamppConfig->getLicenseKey();
-        Util::logDebug( 'LicenseKey is: ' . $licenseKey );
+        $usernameKey = $bearsamppConfig->getusernameKey();
+        Util::logDebug( 'usernameKey is: ' . $usernameKey );
 
         // Ensure the license key is not empty
-        if ( empty( $licenseKey ) ) {
+        if ( empty( $usernameKey ) ) {
             Util::logError( 'License key is empty.' );
 
             return false;
         }
 
-        $url = self::API_URL . self::API_KEY . '&username=' . $licenseKey;
+        $url = self::API_URL . self::API_KEY . '&username=' . $usernameKey;
         Util::logDebug( 'API URL: ' . $url );
 
         $response = @file_get_contents( $url );
@@ -254,12 +254,12 @@ class QuickPick
 
         // Validate the response data
         if ( isset( $data['success'] ) && $data['success'] === true ) {
-            Util::logDebug( "License key valid: " . $licenseKey );
+            Util::logDebug( "License key valid: " . $usernameKey );
 
             return true;
         }
 
-        Util::logError( 'Invalid license key: ' . $licenseKey );
+        Util::logError( 'Invalid license key: ' . $usernameKey );
 
         return false;
     }

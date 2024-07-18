@@ -138,7 +138,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     <?php
 
     // Check if the license key is valid
-    if ( $QuickPick->isLicenseKeyValid() ): ?>
+    if ( $QuickPick->isUsernameKeyValid() ): ?>
         <div id = 'quickPickContainer'>
             <div class = 'quickpick me-5'>
                 <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>

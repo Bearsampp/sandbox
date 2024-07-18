@@ -21,7 +21,7 @@ class Config
     const CFG_TIMEZONE = 'timezone';
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
-    const LICENSE_KEY = 'licenseKey';
+    const USERNAME_KEY = 'usernameKey';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -129,9 +129,9 @@ class Config
      *
      * @return string The license key.
      */
-    public function getLicenseKey()
+    public function getusernameKey()
     {
-        return $this->raw[self::LICENSE_KEY];
+        return $this->raw[self::USERNAME_KEY];
     }
 
     /**
