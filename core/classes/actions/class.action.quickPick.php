@@ -328,6 +328,7 @@ class QuickPick
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
      *
      * @param   string  $moduleUrl  The URL of the module to fetch.
+     * @param   string  $module     The name of the module.
      *
      * @return array An array containing the status and message.
      */
@@ -393,6 +394,14 @@ class QuickPick
         return ['success' => 'Module fetched and unzipped successfully'];
     }
 
+    /**
+     * Loads the QuickPick interface with the available modules and their versions.
+     *
+     * @param   array   $modules     An array of available modules.
+     * @param   string  $imagesPath  The path to the images directory.
+     *
+     * @return string The HTML content of the QuickPick interface.
+     */
     public function loadQuickpick($modules, $imagesPath)
     {
         ob_start();
