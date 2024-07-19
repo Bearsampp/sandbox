@@ -264,10 +264,3 @@ nav.navbar .svg-inline--fa.fa-discord {
     color: white;
     min-width: 165px;
     }
-/* set position */
-#quickPickContainer {
-    z-index: 9999;
-    position: fixed;
-    top: 32px;
-    right: 300px;
-    }

@@ -16,6 +16,9 @@
  */
 class QuickPick
 {
+    const API_KEY = '4abe15e5-95f2-4663-ad12-eadb245b28b4';
+    const API_URL = 'https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=';
+
     /**
      * @var array $modules
      *
@@ -50,8 +53,8 @@ class QuickPick
         'Yarn'        => ['type' => 'tools']
     ];
 
-    const API_KEY = "4abe15e5-95f2-4663-ad12-eadb245b28b4";
-    const API_URL = "https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=";
+    private $cacheDir = '/tmp';
+    private $cacheExpiry = 3600; // Cache expiry time in seconds
 
     /**
      * Retrieves the list of available modules.
@@ -72,46 +75,66 @@ class QuickPick
      */
     public function getModuleVersions($module)
     {
-        global $bearsamppCore;
-        Util::logDebug( "getModuleVersions called for module: " . $module );
+        $cacheFile = $this->cacheDir . '/' . strtolower( $module ) . '.json';
 
-        $url = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
-        Util::logDebug( "Fetching URL: " . $url );
+        // Check if cache file exists and is not expired
+        if ( file_exists( $cacheFile ) && (time() - filemtime( $cacheFile )) < $this->cacheExpiry ) {
+            $content = file_get_contents( $cacheFile );
 
+            return json_decode( $content, true );
+        }
+
+        // Fetch from remote repository
+        $url     = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
         $content = @file_get_contents( $url );
         if ( $content === false ) {
-            Util::logError( "Error fetching content from URL: " . $url );
+            Util::logError( 'Error fetching content from URL: ' . $url );
 
             return ['error' => 'Error fetching version'];
         }
 
-        Util::logDebug( "Fetched content: " . $content );
+        $versions = $this->parseVersions( $content );
 
-        $versions = []; // Initialize the versions array
-
-        if ( !empty( $content ) ) {
-            // Parse the content to get versions
-            $Versions = $this->getVersions( $content );
-            Util::logDebug( " versions: " . print_r( $Versions, true ) );
-
-            // Iterate over the $modules array and add the "version" key
-            foreach ( $this->modules as $moduleName => &$moduleType ) {
-                if ( strtolower( $moduleName ) === strtolower( $module ) ) {
-                    $moduleType['version'] = $Versions;
-                    $versions              = $Versions; // Populate the versions array
-                }
-            }
-        }
-        else {
-            Util::logError( "Error fetching version for module: " . $module );
-            $versions[$module] = 'Error fetching version';
-        }
-
-        Util::logDebug( "Returning versions: " . print_r( $versions, true ) );
-        Util::logDebug( 'Module info ' . print_r( $moduleType, true ) );
+        // Save to cache
+        file_put_contents( $cacheFile, json_encode( $versions ) );
 
         return $versions;
     }
+
+    /**
+     * Parses the content of a releases.properties file to extract version keys.
+     *
+     * This method processes the content of a releases.properties file, extracting
+     * only the version keys from each line. Each line is expected to be in the format
+     * "version=url". If a line does not contain an '=' character, it is logged as an error.
+     *
+     * @param   string  $content  The content of the releases.properties file.
+     *
+     * @return array An array of version keys.
+     */
+    private function parseVersions($content)
+    {
+        $lines    = explode( "\n", $content );
+        $versions = [];
+
+        foreach ( $lines as $line ) {
+            $line = trim( $line );
+            if ( !empty( $line ) ) {
+                $parts = explode( '=', $line, 2 );
+                if ( count( $parts ) == 2 ) {
+                    $versions[] = trim( $parts[0] );
+                }
+                else {
+                    Util::logError( 'Invalid line format: ' . $line );
+                }
+            }
+        }
+
+        Util::logDebug( 'Parsed versions: ' . print_r( $versions, true ) );
+
+        return $versions;
+    }
+
 
     /**
      * Fetches the URL of a specified module version from a remote repository.
@@ -252,8 +275,8 @@ class QuickPick
             return false;
         }
 
-// Validate the response data
-        if ( isset( $data['success'] ) && $data['success'] === true && isset($data['data']) && is_array($data['data']) && count($data['data']) > 0 ) {
+        // Validate the response data
+        if ( isset( $data['success'] ) && $data['success'] === true && isset( $data['data'] ) && is_array( $data['data'] ) && count( $data['data'] ) > 0 ) {
             Util::logDebug( "License key valid: " . $usernameKey );
 
             return true;
@@ -368,5 +391,51 @@ class QuickPick
         }
 
         return ['success' => 'Module fetched and unzipped successfully'];
+    }
+
+    public function loadQuickpick($modules, $imagesPath)
+    {
+        ob_start();
+        // Check if the license key is valid
+        if ( $this->isUsernameKeyValid() ): ?>
+            <div id = 'quickPickContainer'>
+                <div class = 'quickpick me-5'>
+                    <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
+                        <option value = '' disabled selected>Select a module</option>
+                        <?php foreach ( $modules as $module ): ?>
+                            <?php if ( is_string( $module ) ): ?>
+                                <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
+                                        id = "<?php echo htmlspecialchars( $module ); ?>">
+                                    <?php echo htmlspecialchars( $module ); ?>
+                                </option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <?php foreach ( $modules as $module ): ?>
+                    <?php if ( is_string( $module ) ): ?>
+                        <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
+                            <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
+                                    class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
+                                <option value = '' selected>Select a version</option> <!-- Modified line -->
+                                <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                    <option value = "<?php echo htmlspecialchars( $version ); ?>"
+                                            id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
+                <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
+                    <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">
+                    Subscribe to QuickPick now
+                </a>
+            </div>
+        <?php endif;
+
+        return ob_get_clean();
     }
 }

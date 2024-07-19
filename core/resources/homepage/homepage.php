@@ -17,25 +17,13 @@
  * Include the main root.php file which initializes the application environment.
  */
 include __DIR__ . '/../../root.php';
+include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
 
 /**
  * Declare global variables to access various parts of the application such as language settings,
  * core functionalities, homepage configurations, and more.
  */
 global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $bearsamppRoot;
-
-
-/**
- * Include the quickPick class which provides a 1-click installation of popular applications.
- */
-include __DIR__ . '/../../classes/actions/class.action.quickPick.php';
-
-// Instantiate the QuickPick class
-$QuickPick = new QuickPick();
-
-// Retrieve the list of modules
-$modules = $QuickPick->getModules();
-$ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
 
 /**
  * Set the base path for resources, ensuring there is a trailing slash.
@@ -47,6 +35,14 @@ $resourcesPath = rtrim( $bearsamppHomepage->getResourcesPath(), '/' ) . '/';
  */
 $iconsPath  = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
+
+// Instantiate the QuickPick class
+$quickPick = new QuickPick();
+
+// Retrieve the list of modules
+$modules = $quickPick->getModules();
+$ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
+
 
 /**
  * Retrieve and store the localized string for the 'Download More' label.
@@ -135,42 +131,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <?php
-
-    // Check if the license key is valid
-    if ( $QuickPick->isUsernameKeyValid() ): ?>
-        <div id = 'quickPickContainer'>
-            <div class = 'quickpick me-5'>
-                <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
-                    <option value = '' disabled selected>Select a module</option>
-                    <?php foreach ( $modules as $module ): ?>
-                        <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
-                                id = "<?php echo htmlspecialchars( $module ); ?>">
-                            <?php echo htmlspecialchars( $module ); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <?php foreach ( $modules as $module ): ?>
-                <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
-                    <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
-                            class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
-                        <?php foreach ( $QuickPick->getModuleVersions( $module ) as $version ): ?>
-                            <option value = "<?php echo htmlspecialchars( $version ); ?>"
-                                    id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
-            <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
-                <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">
-                Subscribe to QuickPick now
-            </a>
-        </div>
-    <?php endif; ?>
+    <?php echo $quickPick->loadQuickpick( $modules, $imagesPath ); ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
@@ -197,5 +158,6 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     <?php include 'tpls/hp.latestversion.html'; ?>
     <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.html'; ?>
 </div>
+
 </body>
 </html>
