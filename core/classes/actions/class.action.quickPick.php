@@ -75,6 +75,7 @@ class QuickPick
      */
     public function getModuleVersions($module)
     {
+        //TODO: Change this to read one central file for all modules, this will speed up site load. MF.
         $cacheFile = $this->cacheDir . '/' . strtolower( $module ) . '.json';
 
         // Check if cache file exists and is not expired
@@ -410,18 +411,28 @@ class QuickPick
             <div id = 'quickPickContainer'>
                 <div class = 'quickpick me-5'>
                     <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
-                        <option value = '' disabled selected>Select a module</option>
+                        <option value = 'disabled' selected>Select a module and version</option>
                         <?php foreach ( $modules as $module ): ?>
                             <?php if ( is_string( $module ) ): ?>
-                                <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
+                            <optgroup label="<?php echo htmlspecialchars( $module ); ?>">
+
+                                <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                    <option value = "<?php echo htmlspecialchars( $version ); ?>"
+                                            id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
+                                            data-module = "<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                            <?php   /* <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
                                         id = "<?php echo htmlspecialchars( $module ); ?>">
                                     <?php echo htmlspecialchars( $module ); ?>
-                                </option>
+                                </option>*/ ?>
+
+
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <?php foreach ( $modules as $module ): ?>
+                <?php /* foreach ( $modules as $module ): ?>
                     <?php if ( is_string( $module ) ): ?>
                         <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
                             <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
@@ -434,7 +445,7 @@ class QuickPick
                             </select>
                         </div>
                     <?php endif; ?>
-                <?php endforeach; ?>
+                <?php endforeach;*/ ?>
             </div>
         <?php else: ?>
             <div id = "subscribeContainer" class = "text-center mt-3 pe-3">

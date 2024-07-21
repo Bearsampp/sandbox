@@ -7,23 +7,13 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
+
     var selects = document.querySelectorAll('select');
     selects.forEach(function (select) {
         select.addEventListener('change', function () {
             var selectedOption = select.options[select.selectedIndex];
-            var target = selectedOption.getAttribute('data-target');
-            var id = select.id;
-            var divs = document.querySelectorAll("div[id^='" + id + "']");
-            divs.forEach(function (div) {
-                div.style.display = 'none';
-            });
-            var targetDiv = document.getElementById(id + "-" + target);
-            if (targetDiv) {
-                targetDiv.style.display = 'block';
-            }
-
             // New code to handle module installation
-            var moduleName = select.getAttribute('data-module');
+            var moduleName = selectedOption.getAttribute('data-module');
             var version = selectedOption.value;
             if (moduleName && version) {
                 installModule(moduleName, version);
