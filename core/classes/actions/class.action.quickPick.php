@@ -518,6 +518,7 @@ class QuickPick
      */
     public function createQuickpickJson()
     {
+        global $bearsamppCore;
         $combinedData = [];
 
         foreach ( $this->urls as $url ) {
@@ -548,7 +549,7 @@ class QuickPick
             }
         }
 
-        $jsonFilePath = __DIR__ . '/../../resources/quickpick-releases.json';
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
         if ( file_put_contents( $jsonFilePath, json_encode( $combinedData, JSON_PRETTY_PRINT ) ) === false ) {
             Util::logError( 'Error saving combined data to ' . $jsonFilePath );
         }
