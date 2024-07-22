@@ -22,6 +22,7 @@ class Config
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
     const USERNAME_KEY = 'usernameKey';
+    const CACHE_TIME = 'cacheTime';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -132,6 +133,10 @@ class Config
     public function getUsernameKey()
     {
         return $this->raw[self::USERNAME_KEY];
+    }
+
+    public function getCacheTime() {
+        return $this->raw[self::CACHE_TIME];
     }
 
     /**
