@@ -593,37 +593,163 @@ class QuickPick
     {
         ob_start();
         // Check if the license key is valid
-        if ( $this->isUsernameKeyValid() ): ?>
-            <div id = 'quickPickContainer'>
-                <div class = 'quickpick me-5'>
-                    <select class = 'modules' id = 'modules' aria-label = 'Quick Pick Modules'>
-                        <option value = '' disabled selected>Select a module</option>
-                        <?php foreach ( $modules as $module ): ?>
-                            <?php if ( is_string( $module ) ): ?>
-                                <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
-                                        id = "<?php echo htmlspecialchars( $module ); ?>">
-                                    <?php echo htmlspecialchars( $module ); ?>
-                                </option>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </select>
+        if ( $this->isUsernameKeyValid() ):
+      //  if (1 == 1): ?>
+            <style>
+
+                .custom-select {
+                    position: relative;
+                    width: 100%;
+                    max-width: 100%;
+                    font-size: 1.15rem;
+                    color: #000;
+                    margin-top: 3rem;
+                }
+
+                .custom-select .select-button {
+                    width: 100%;
+                    font-size: 16px;
+                    background-color: #fff;
+                    padding: 0.675em 1em;
+                    border: 1px solid #caced1;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    white-space: nowrap;
+                    font-weight: normal !important;
+                }
+
+                .custom-select .selected-value {
+                    text-align: left;
+                    padding-right:5px;
+                    font-weight:bold
+                }
+
+                .custom-select .arrow {
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 6px solid #000;
+                    transition: transform ease-in-out 0.3s;
+
+                }
+                .custom-select.active .select-dropdown {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: scaleY(1);
+                }
+                .select-dropdown {
+                    position: absolute;
+                    list-style: none;
+                    width: 100%;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                    box-sizing: border-box;
+                    background-color: #fff;
+                    border: 1px solid #caced1;
+                    border-radius: 4px;
+                    padding: 10px;
+                    margin-top: 10px;
+                    max-height: 200px;
+                    overflow-y: auto;
+                    transition: 0.5s ease;
+                    transform: scaleY(0);
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                .select-dropdown:focus-within {
+                    box-shadow: 0 10px 25px rgba(94, 108, 233, 0.6);
+                }
+
+                .select-dropdown li {
+                    position: relative;
+                    cursor: pointer;
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                }
+
+                .select-dropdown li label {
+                    width: 100%;
+                    padding: 8px 10px;
+                    cursor: pointer;
+                }
+
+                .select-dropdown::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                .select-dropdown::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 25px;
+                }
+
+                .select-dropdown::-webkit-scrollbar-thumb {
+                    background: #ccc;
+                    border-radius: 25px;
+                }
+
+                .select-dropdown li:hover,
+                .select-dropdown input:checked ~ label {
+                    background-color: #f2f2f2;
+                }
+
+                .select-dropdown input:focus ~ label {
+                    background-color: #dfdfdf;
+                }
+                .select-dropdown input[type="radio"] {
+                    position: absolute;
+                    left: 0;
+                    opacity: 0;
+                }
+                .moduleheader {font-weight:bold};
+            </style>
+            <div id='quickPickContainer'>
+                <div class='quickpick me-5'>
+
+                    <div class="custom-select">
+                        <button class="select-button" role="combobox"
+                                aria-label="select button"
+                                aria-haspopup="listbox"
+                                aria-expanded="false"
+                                aria-controls="select-dropdown">
+                            <span class="selected-value">Select a module and version</span>
+                            <span class="arrow"></span>
+                        </button>
+                        <ul class="select-dropdown" role="listbox" id="select-dropdown">
+
+                            <?php
+                            foreach ( $modules as $module ): ?>
+                                <?php if ( is_string( $module ) ): ?>
+                                    <li role="option" class="moduleheader">
+                                        <!-- <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>" name="module"/>
+                                    <label for="<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></label> -->
+                                        <?php echo htmlspecialchars( $module ); ?>
+                                    </li>
+
+
+
+                                    <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                        <li role="option" class="moduleoption" id="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>-li">
+                                            <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>" name="module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
+                                                   data-value="<?php echo htmlspecialchars( $version ); ?>">
+                                            <label for="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
+                                        </li>
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+
+
+
+
+                        </ul>
+
+                    </div>
                 </div>
-                <?php foreach ( $modules as $module ): ?>
-                    <?php if ( is_string( $module ) ): ?>
-                        <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
-                            <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
-                                    class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
-                                <option value = '' selected>Select a version</option>
-                                <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
-                                    <option value = "<?php echo htmlspecialchars( $version ); ?>"
-                                            id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
             </div>
-        <?php else: ?>
+        <?php else:  ?>
             <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
                 <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
                     <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">

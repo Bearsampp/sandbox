@@ -8,23 +8,112 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    var selects = document.querySelectorAll('select');
+    let selectedHeader = null; // Store which module has been selected to allow open/close of versions
+
+    const customSelect = document.querySelector(".custom-select"); // parent div of quickpick select
+    const selectBtn = document.querySelector(".select-button"); // trigger button to pop down ul
+
+    // add a click event to select button
+    selectBtn.addEventListener("click", () => {
+        // add/remove active class on the container element to show/hide
+        customSelect.classList.toggle("active");
+        // update the aria-expanded attribute based on the current state
+        selectBtn.setAttribute(
+            "aria-expanded",
+            selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+        );
+        scrolltoview();
+    });
+
+
+    const selectedValue = document.querySelector(".selected-value"); // changes the title in the select button
+
+    const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
+
+    optionsList.forEach((option) => {
+        function handler(e) {
+            console.log(e);
+            // Click Events
+            if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
+
+                if (selectedHeader != e.target.innerText) {
+                    showModule(e.target.innerText);
+                    selectedHeader = e.target.innerText;
+
+                } else {
+                    hideall();
+                    selectedHeader = null;
+
+                }
+
+            }
+            // Key Events
+            if (e.key === "Enter") {
+                // selectedValue.textContent = e.textContent;
+                if (selectedHeader != e.target.innerText) {
+                    showModule(e.target.innerText);
+                    selectedHeader = e.target.innerText;
+
+                } else {
+                    hideall();
+                    selectedHeader = null;
+                }
+
+            }
+        }
+
+        option.addEventListener("keyup", handler);
+        option.addEventListener("click", handler);
+    });
+
+    hideall();
+
+    let selects = document.querySelectorAll('.select-dropdown li.moduleoption');
     selects.forEach(function (select) {
-        select.addEventListener('change', function () {
-            var selectedOption = select.options[select.selectedIndex];
+        select.addEventListener('change', function (e) {
+            console.log(e);
+            let selectedOption = e.target;
             // New code to handle module installation
-            var moduleName = selectedOption.getAttribute('data-module');
-            var version = selectedOption.value;
+            let moduleName = selectedOption.getAttribute('data-module');
+            let version = selectedOption.getAttribute('data-value');
+            window.alert('Attempting to install '.concat(moduleName).concat(' version ').concat(version));
             if (moduleName && version) {
                 installModule(moduleName, version);
             }
+            hideall()
+            customSelect.classList.toggle("active", false);
         });
+
     });
+    scrolltoview();
 });
+
+function scrolltoview() {
+    let e = document.getElementById('select-dropdown');
+    e.scrollIntoView(true);
+}
+
+function showModule(modName) {
+    hideall();
+    let options = document.querySelectorAll('li[id^='.concat(modName).concat(']'));
+    options.forEach(function (option) {
+        option.hidden = false;
+        option.removeAttribute('hidden');
+    });
+}
+
+function hideall() {
+    let options = document.querySelectorAll('.moduleoption');
+    options.forEach(function (option) {
+        option.hidden = true;
+    });
+
+}
 
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
+    window.alert('Installing '.concat(moduleName).concat(' ').concat(version));
     senddata.append('module', moduleName);
     senddata.append('version', version);
     senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
@@ -58,4 +147,5 @@ async function installModule(moduleName, version) {
     } catch (error) {
         console.error('Failed to install module:', error);
     }
+    hideall();
 }
