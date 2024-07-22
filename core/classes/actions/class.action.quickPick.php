@@ -53,8 +53,41 @@ class QuickPick
         'Yarn'        => ['type' => 'tools']
     ];
 
-    private $cacheDir = '/tmp';
-    private $cacheExpiry = 3600; // Cache expiry time in seconds
+    private $urls = [
+        'https://raw.githubusercontent.com/Bearsampp/module-adminer/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-apache/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-composer/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-consolez/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-filezilla/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ghostscript/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-git/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-gitlist/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mailhog/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mariadb/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-memcached/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mysql/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ngrok/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-nodejs/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-perl/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-php/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phpmemadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phpmyadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phppgadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-postgresql/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-python/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ruby/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-webgrind/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-xdc/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-xlight/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-yarn/main/releases.properties'
+    ];
+
+    private function extractModuleNameFromUrl($url)
+    {
+        preg_match( '/module-([a-zA-Z0-9]+)\//', $url, $matches );
+
+        return isset( $matches[1] ) ? ucfirst( $matches[1] ) : 'Unknown';
+    }
 
     /**
      * Retrieves the list of available modules.
@@ -75,15 +108,6 @@ class QuickPick
      */
     public function getModuleVersions($module)
     {
-        $cacheFile = $this->cacheDir . '/' . strtolower( $module ) . '.json';
-
-        // Check if cache file exists and is not expired
-        if ( file_exists( $cacheFile ) && (time() - filemtime( $cacheFile )) < $this->cacheExpiry ) {
-            $content = file_get_contents( $cacheFile );
-
-            return json_decode( $content, true );
-        }
-
         // Fetch from remote repository
         $url     = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
         $content = @file_get_contents( $url );
@@ -93,12 +117,7 @@ class QuickPick
             return ['error' => 'Error fetching version'];
         }
 
-        $versions = $this->parseVersions( $content );
-
-        // Save to cache
-        file_put_contents( $cacheFile, json_encode( $versions ) );
-
-        return $versions;
+        return $this->parseVersions( $content );
     }
 
     /**
@@ -426,7 +445,7 @@ class QuickPick
                         <div id = "modules-<?php echo htmlspecialchars( $module ); ?>" class = "modules-<?php echo htmlspecialchars( $module ); ?>" style = "display: none;">
                             <select name = "modules-<?php echo htmlspecialchars( $module ); ?>" id = "modules-<?php echo htmlspecialchars( $module ); ?>"
                                     class = "<?php echo htmlspecialchars( $module ); ?>" data-module = "<?php echo htmlspecialchars( $module ); ?>">
-                                <option value = '' selected>Select a version</option> <!-- Modified line -->
+                                <option value = '' selected>Select a version</option>
                                 <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
                                     <option value = "<?php echo htmlspecialchars( $version ); ?>"
                                             id = "version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
@@ -446,5 +465,82 @@ class QuickPick
         <?php endif;
 
         return ob_get_clean();
+    }
+
+    /**
+     * Checks if the QuickPick releases JSON file exists locally. If it exists, it loads the QuickPick interface.
+     * If it does not exist, it combines URLs to create the JSON file and logs an error.
+     *
+     * @param   array   $modules     An array of available modules.
+     * @param   string  $imagesPath  The path to the images directory.
+     *
+     * @return string The HTML content of the QuickPick interface or an empty string if the JSON file is missing.
+     */
+    public function checkQuickpickLocal($modules, $imagesPath): string
+    {
+        global $bearsamppCore;
+        $json = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+
+        // Debug statement to print the path being checked
+        Util::logDebug( 'Checking path: ' . $json );
+
+        if ( file_exists( $json ) ) {
+            Util::logDebug( 'Quickpick Releases json file exists' );
+
+// TODO Change this to where loadQuickpick is the default and then it call's the functions in order.  Move the html to a "renderHtml()" function.
+            return $this->loadQuickpick( $modules, $imagesPath );
+        }
+        else {
+            $this->combineUrlsToJson();
+            Util::logError( 'Quickpick Releases json file missing' );
+        }
+
+        return '';
+    }
+
+    /**
+     * Combines the content from multiple URLs into a single JSON file.
+     * Each URL is expected to contain lines in the format "version=url".
+     * The combined data is saved to the 'quickpick-releases.json' file.
+     */
+    public function combineUrlsToJson()
+    {
+        $combinedData = [];
+
+        foreach ( $this->urls as $url ) {
+            $content = @file_get_contents( $url );
+            if ( $content === false ) {
+                Util::logError( 'Error fetching content from URL: ' . $url );
+                continue;
+            }
+
+            $lines = explode( "\n", $content );
+            foreach ( $lines as $line ) {
+                $line = trim( $line );
+                if ( !empty( $line ) ) {
+                    $parts = explode( '=', $line, 2 );
+                    if ( count( $parts ) == 2 ) {
+                        list( $version, $versionUrl ) = $parts;
+                        $moduleName     = $this->extractModuleNameFromUrl( $url );
+                        $combinedData[] = [
+                            'module'  => $moduleName,
+                            'version' => trim( $version ),
+                            'url'     => trim( $versionUrl )
+                        ];
+                    }
+                    else {
+                        Util::logError( 'Invalid line format: ' . $line );
+                    }
+                }
+            }
+        }
+
+        $jsonFilePath = __DIR__ . '/../../resources/quickpick-releases.json';
+        if ( file_put_contents( $jsonFilePath, json_encode( $combinedData, JSON_PRETTY_PRINT ) ) === false ) {
+            Util::logError( 'Error saving combined data to ' . $jsonFilePath );
+        }
+        else {
+            Util::logDebug( 'Combined data saved to ' . $jsonFilePath );
+        }
     }
 }

@@ -131,7 +131,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <?php echo $quickPick->loadQuickpick( $modules, $imagesPath ); ?>
+    <?php echo $quickPick->checkQuickpickLocal( $modules, $imagesPath ); ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
