@@ -53,8 +53,34 @@ class QuickPick
         'Yarn'        => ['type' => 'tools']
     ];
 
-    private $cacheDir = '/tmp';
-    private $cacheExpiry = 3600; // Cache expiry time in seconds
+    private $urls = [
+        'https://raw.githubusercontent.com/Bearsampp/module-adminer/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-apache/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-composer/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-consolez/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-filezilla/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ghostscript/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-git/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-gitlist/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mailhog/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mariadb/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-memcached/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-mysql/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ngrok/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-nodejs/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-perl/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-php/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phpmemadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phpmyadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-phppgadmin/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-postgresql/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-python/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-ruby/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-webgrind/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-xdc/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-xlight/main/releases.properties',
+        'https://raw.githubusercontent.com/Bearsampp/module-yarn/main/releases.properties'
+    ];
 
     /**
      * Retrieves the list of available modules.
@@ -75,16 +101,6 @@ class QuickPick
      */
     public function getModuleVersions($module)
     {
-        //TODO: Change this to read one central file for all modules, this will speed up site load. MF.
-        $cacheFile = $this->cacheDir . '/' . strtolower( $module ) . '.json';
-
-        // Check if cache file exists and is not expired
-        if ( file_exists( $cacheFile ) && (time() - filemtime( $cacheFile )) < $this->cacheExpiry ) {
-            $content = file_get_contents( $cacheFile );
-
-            return json_decode( $content, true );
-        }
-
         // Fetch from remote repository
         $url     = 'https://raw.githubusercontent.com/Bearsampp/module-' . strtolower( $module ) . '/main/releases.properties';
         $content = @file_get_contents( $url );
@@ -94,12 +110,7 @@ class QuickPick
             return ['error' => 'Error fetching version'];
         }
 
-        $versions = $this->parseVersions( $content );
-
-        // Save to cache
-        file_put_contents( $cacheFile, json_encode( $versions ) );
-
-        return $versions;
+        return $this->parseVersions( $content );
     }
 
     /**
@@ -414,15 +425,15 @@ class QuickPick
                         <option value = 'disabled' selected>Select a module and version</option>
                         <?php foreach ( $modules as $module ): ?>
                             <?php if ( is_string( $module ) ): ?>
-                            <optgroup label="<?php echo htmlspecialchars( $module ); ?>">
+                                <optgroup label = "<?php echo htmlspecialchars( $module ); ?>">
 
-                                <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
-                                    <option value = "<?php echo htmlspecialchars( $version ); ?>"
-                                            id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
-                                            data-module = "<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
-                                <?php endforeach; ?>
-                            </optgroup>
-                            <?php   /* <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
+                                    <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                        <option value = "<?php echo htmlspecialchars( $version ); ?>"
+                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
+                                                data-module = "<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $version ); ?></option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                                <?php /* <option value = "<?php echo htmlspecialchars( $module ); ?>" data-target = "<?php echo htmlspecialchars( $module ); ?>"
                                         id = "<?php echo htmlspecialchars( $module ); ?>">
                                     <?php echo htmlspecialchars( $module ); ?>
                                 </option>*/ ?>
