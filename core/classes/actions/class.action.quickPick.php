@@ -577,6 +577,18 @@ class QuickPick
         return isset( $matches[1] ) ? ucfirst( $matches[1] ) : 'Unknown';
     }
 
+    /**
+     * Generates the HTML content for the QuickPick menu.
+     *
+     * This method creates the HTML structure for the QuickPick interface, including a dropdown
+     * for selecting modules and their respective versions. It checks if the license key is valid
+     * before displaying the modules. If the license key is invalid, it displays a subscription prompt.
+     *
+     * @param array  $modules    An array of available modules.
+     * @param string $imagesPath The path to the images directory.
+     *
+     * @return string The HTML content of the QuickPick menu.
+     */
     public function getQuickpickMenu($modules, $imagesPath)
     {
         ob_start();
