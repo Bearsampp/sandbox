@@ -12,80 +12,81 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const customSelect = document.querySelector(".custom-select"); // parent div of quickpick select
     const selectBtn = document.querySelector(".select-button"); // trigger button to pop down ul
-
-    // add a click event to select button
-    selectBtn.addEventListener("click", () => {
-        // add/remove active class on the container element to show/hide
-        customSelect.classList.toggle("active");
-        // update the aria-expanded attribute based on the current state
-        selectBtn.setAttribute(
-            "aria-expanded",
-            selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
-        );
-        scrolltoview();
-    });
-
-
-    const selectedValue = document.querySelector(".selected-value"); // changes the title in the select button
-
-    const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
-
-    optionsList.forEach((option) => {
-        function handler(e) {
-            console.log(e);
-            // Click Events
-            if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
-
-                if (selectedHeader != e.target.innerText) {
-                    showModule(e.target.innerText);
-                    selectedHeader = e.target.innerText;
-
-                } else {
-                    hideall();
-                    selectedHeader = null;
-
-                }
-
-            }
-            // Key Events
-            if (e.key === "Enter") {
-                // selectedValue.textContent = e.textContent;
-                if (selectedHeader != e.target.innerText) {
-                    showModule(e.target.innerText);
-                    selectedHeader = e.target.innerText;
-
-                } else {
-                    hideall();
-                    selectedHeader = null;
-                }
-
-            }
-        }
-
-        option.addEventListener("keyup", handler);
-        option.addEventListener("click", handler);
-    });
-
-    hideall();
-
-    let selects = document.querySelectorAll('.select-dropdown li.moduleoption');
-    selects.forEach(function (select) {
-        select.addEventListener('change', function (e) {
-            console.log(e);
-            let selectedOption = e.target;
-            // New code to handle module installation
-            let moduleName = selectedOption.getAttribute('data-module');
-            let version = selectedOption.getAttribute('data-value');
-            window.alert('Attempting to install '.concat(moduleName).concat(' version ').concat(version));
-            if (moduleName && version) {
-                installModule(moduleName, version);
-            }
-            hideall()
-            customSelect.classList.toggle("active", false);
+    if(selectBtn !== null ) {
+        // add a click event to select button
+        selectBtn.addEventListener("click", () => {
+            // add/remove active class on the container element to show/hide
+            customSelect.classList.toggle("active");
+            // update the aria-expanded attribute based on the current state
+            selectBtn.setAttribute(
+                "aria-expanded",
+                selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+            );
+            scrolltoview();
         });
 
-    });
-    scrolltoview();
+
+        const selectedValue = document.querySelector(".selected-value"); // changes the title in the select button
+
+        const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
+
+        optionsList.forEach((option) => {
+            function handler(e) {
+                console.log(e);
+                // Click Events
+                if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
+
+                    if (selectedHeader != e.target.innerText) {
+                        showModule(e.target.innerText);
+                        selectedHeader = e.target.innerText;
+
+                    } else {
+                        hideall();
+                        selectedHeader = null;
+
+                    }
+
+                }
+                // Key Events
+                if (e.key === "Enter") {
+                    // selectedValue.textContent = e.textContent;
+                    if (selectedHeader != e.target.innerText) {
+                        showModule(e.target.innerText);
+                        selectedHeader = e.target.innerText;
+
+                    } else {
+                        hideall();
+                        selectedHeader = null;
+                    }
+
+                }
+            }
+
+            option.addEventListener("keyup", handler);
+            option.addEventListener("click", handler);
+        });
+
+        hideall();
+
+        let selects = document.querySelectorAll('.select-dropdown li.moduleoption');
+        selects.forEach(function (select) {
+            select.addEventListener('change', function (e) {
+                console.log(e);
+                let selectedOption = e.target;
+                // New code to handle module installation
+                let moduleName = selectedOption.getAttribute('data-module');
+                let version = selectedOption.getAttribute('data-value');
+                window.alert('Attempting to install '.concat(moduleName).concat(' version ').concat(version));
+                if (moduleName && version) {
+                    installModule(moduleName, version);
+                }
+                hideall()
+                customSelect.classList.toggle("active", false);
+            });
+
+        });
+        scrolltoview();
+    }
 });
 
 function scrolltoview() {
