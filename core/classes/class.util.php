@@ -2044,19 +2044,21 @@ class Util
     /**
      * Checks the current state of the internet connection.
      *
-     * This method uses the `connection_status` function to determine the state of the internet connection.
-     * It returns `true` if the connection is normal, otherwise it returns `false`.
+     * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
+     * It returns `true` if the connection is successful, otherwise it returns `false`.
      *
-     * @return bool True if the internet connection is normal, false otherwise.
+     * @return bool True if the internet connection is active, false otherwise.
      */
     public static function checkInternetState()
     {
-        $state = connection_status();
-        if ( $state === CONNECTION_NORMAL ) {
-            return true;
+        $connected = @fsockopen( "www.google.com", 80 );
+        if ( $connected ) {
+            fclose( $connected );
+
+            return true; // Internet connection is active
         }
         else {
-            return false;
+            return false; // Internet connection is not active
         }
     }
 }

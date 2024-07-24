@@ -16,8 +16,12 @@
  */
 class QuickPick
 {
+    // Membership Pro api key & url
     const API_KEY = '4abe15e5-95f2-4663-ad12-eadb245b28b4';
     const API_URL = 'https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=';
+
+    // URL where quickpick-releases.json lives.
+    const JSON_URL = 'https://raw.githubusercontent.com/Bearsampp/Bearsampp/main/core/resources/quickpick-releases.json';
 
     /**
      * @var array $modules
@@ -54,39 +58,11 @@ class QuickPick
     ];
 
     /**
-     * A list of URLs pointing to the release properties files for various Bearsampp modules.
-     * These URLs are used to fetch the latest release information for each module.
+     * @var string $jsonFilePath
      *
-     * @var array $urls An array of URLs for the release properties files.
+     * The file path to the local quickpick-releases.json file.
      */
-    private $urls = [
-        'https://raw.githubusercontent.com/Bearsampp/module-adminer/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-apache/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-composer/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-consolez/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-filezilla/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ghostscript/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-git/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-gitlist/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mailhog/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mariadb/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-memcached/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mysql/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ngrok/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-nodejs/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-perl/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-php/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phpmemadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phpmyadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phppgadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-postgresql/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-python/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ruby/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-webgrind/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-xdc/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-xlight/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-yarn/main/releases.properties'
-    ];
+    private $jsonFilePath;
 
     /**
      * Retrieves the list of available modules.
@@ -101,115 +77,65 @@ class QuickPick
     /**
      * Loads the QuickPick interface with the available modules and their versions.
      *
-     * @param   array   $modules     An array of available modules.
      * @param   string  $imagesPath  The path to the images directory.
      *
-     * @return string The HTML content of the QuickPick interface.
+     * @return string|bool The HTML content of the QuickPick interface or false if the JSON file is not found.
      */
-    public function loadQuickpick($modules, $imagesPath)
+    public function loadQuickpick($imagesPath)
     {
-        $test     = $this->checkQuickpickLocal();
-        $versions = $this->getModuleVersions( $modules );
+        global $bearsamppCore;
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+
+        $this->checkQuickpickJson( $jsonFilePath );
+
+        $modules = $this->getModules();
 
         return $this->getQuickpickMenu( $modules, $imagesPath );
     }
 
     /**
-     * Retrieves the list of available versions for a specified module.
+     * Checks if the local `quickpick-releases.json` file is up-to-date with the remote version.
      *
-     * This method fetches the QuickPick JSON data and iterates through the entries to find
-     * all versions associated with the specified module. If no versions are found, an error
-     * message is logged and returned.
+     * This method compares the creation time of the local JSON file with the remote file's last modified time.
+     * If the remote file is newer or the local file does not exist, it fetches the latest JSON data.
      *
-     * @param   string  $module        The name of the module for which to retrieve versions.
+     * @param   string  $JSON_URL  The URL of the remote `quickpick-releases.json` file.
      *
-     * @return array An array of version strings for the specified module, or an error message if no versions are found.
-     * @global object   $bearsamppCore The core object providing access to application resources.
-     *
+     * @return mixed Returns the JSON data if the remote file is newer or the local file does not exist,
+     *               otherwise returns false.
      */
-    public function getModuleVersions($module)
+    public function checkQuickpickJson($jsonFilePath)
     {
-        global $bearsamppCore;
+        // Initialize variables
+        $localFileCreationTime  = 0;
+        $remoteFileCreationTime = 0;
 
-        Util::logDebug( 'getModuleVersions called for module: ' . $module );
-
-        $data = $this->getQuickpickJson();
-
-        $versions = [];
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( (string) $module ) ) {
-                $versions[] = $entry['version'];
-            }
+        // Get the creation time of the local file if it exists
+        if ( file_exists( $jsonFilePath ) ) {
+            $localFileCreationTime = filectime( $jsonFilePath );
         }
 
-        if ( empty( $versions ) ) {
-            Util::logError( 'No versions found for module: ' . $module );
-
-            return ['error' => 'No versions found'];
+        // Get the creation time of the remote file
+        $headers = get_headers( self::JSON_URL, 1 );
+        if ( $headers === false || !isset( $headers['Last-Modified'] ) ) {
+            // If we cannot get the headers or Last-Modified is not set, assume no update is needed
+            return false;
         }
+        $remoteFileCreationTime = strtotime( $headers['Last-Modified'] );
 
-        Util::logDebug( 'Found versions for module: ' . $module . ' Versions: ' . implode( ', ', $versions ) );
-
-        return $versions;
-    }
-
-
-    /**
-     * Fetches the URL of a specified module version from the local quickpick-releases.json file.
-     *
-     * This method reads the quickpick-releases.json file to find the URL associated with the given module
-     * and version. It logs the process and returns the URL if found, or an error message if not.
-     *
-     * @param   string  $module        The name of the module.
-     * @param   string  $version       The version of the module.
-     *
-     * @return string|array The URL of the specified module version or an error message if the version is not found.
-     * @global object   $bearsamppCore The core object providing access to application resources.
-     */
-    public function getModuleUrl($module, $version)
-    {
-        global $bearsamppCore;
-
-        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-
-        $data = $this->getQuickpickJson();
-
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
-                isset( $entry['version'] ) && $entry['version'] === $version ) {
-                Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $entry['url'] );
-
-                return (string) trim( $entry['url'] );
-            }
+        // Compare the creation times
+        if ( $remoteFileCreationTime > $localFileCreationTime || $localFileCreationTime === 0 ) {
+            return $this->rebuildQuickpickJson();
         }
-
-        Util::logError( 'Version not found: ' . $version );
-
-        return ['error' => 'Version not found'];
     }
 
     /**
-     * Retrieves the QuickPick JSON data.
+     * Retrieves the QuickPick JSON data from the local file.
      *
-     * This method fetches the QuickPick JSON file from the resources path, logs the process,
-     * and handles any errors that may occur during the file operations or JSON decoding.
-     *
-     * @return array The decoded JSON data as an associative array, or an error message if an issue occurs.
-     * @global object $bearsamppCore The core object providing access to application resources.
-     *
+     * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded.
      */
-    public function getQuickpickJson()
+    public function getQuickpickJson($jsonFilePath)
     {
-        global $bearsamppCore;
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-        Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
-
-        if ( !file_exists( $jsonFilePath ) ) {
-            Util::logError( 'JSON file not found: ' . $jsonFilePath );
-
-            return ['error' => 'JSON file not found'];
-        }
-
         $content = @file_get_contents( $jsonFilePath );
         if ( $content === false ) {
             Util::logError( 'Error fetching content from JSON file: ' . $jsonFilePath );
@@ -228,6 +154,123 @@ class QuickPick
     }
 
     /**
+     * Rebuilds the local quickpick-releases.json file by fetching the latest data from the remote URL.
+     *
+     * @throws Exception If the JSON content cannot be fetched or saved.
+     */
+    public function rebuildQuickpickJson($jsonFilePath)
+    {
+        Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
+
+        // Define the URL of the remote JSON file
+        $url = self::JSON_URL;
+
+        // Fetch the JSON content from the URL
+        $jsonContent = file_get_contents( $url );
+
+        if ( $jsonContent === false ) {
+            // Handle error if the file could not be fetched
+            throw new Exception( 'Failed to fetch JSON content from the URL.' );
+        }
+
+        // Save the JSON content to the specified path
+        $result = file_put_contents( $jsonFilePath, $jsonContent );
+
+        if ( $result === false ) {
+            // Handle error if the file could not be saved
+            throw new Exception( 'Failed to save JSON content to the specified path.' );
+        }
+    }
+
+    /**
+     * Retrieves the list of available versions for a specified module.
+     *
+     * This method fetches the QuickPick JSON data and iterates through the entries to find
+     * all versions associated with the specified module. If no versions are found, an error
+     * message is logged and returned.
+     *
+     * @param   string  $module  The name of the module for which to retrieve versions.
+     *
+     * @return array An array of version strings for the specified module, or an error message if no versions are found.
+     */
+    public function getModuleVersions($module)
+    {
+        global $bearsamppCore;
+        Util::logDebug( 'getModuleVersions called for module: ' . (is_string( $module ) ? $module : 'Invalid module type') );
+
+        // Check if $module is a string
+        if ( !is_string( $module ) ) {
+            Util::logError( 'Invalid module type: ' . gettype( $module ) );
+
+            return ['error' => 'Invalid module type'];
+        }
+
+        $versions = [];
+
+        // convert $module to lowercase
+        $module       = strtolower( $module );
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+        $jsonData     = $this->getQuickpickJson( $jsonFilePath );
+
+        foreach ( $jsonData as $entry ) {
+            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
+                if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
+                    foreach ( $entry['versions'] as $versionEntry ) {
+                        if ( isset( $versionEntry['version'] ) && is_string( $versionEntry['version'] ) ) {
+                            $versions[] = $versionEntry['version'];
+                        }
+                    }
+                }
+            }
+        }
+
+        if ( empty( $versions ) ) {
+            Util::logError( 'No versions found for module: ' . $module );
+
+            return ['error' => 'No versions found'];
+        }
+
+        Util::logDebug( 'Found versions for module: ' . $module . ' Versions: ' . implode( ', ', $versions ) );
+
+        return $versions;
+    }
+
+    /**
+     * Fetches the URL of a specified module version from the local quickpick-releases.json file.
+     *
+     * This method reads the quickpick-releases.json file to find the URL associated with the given module
+     * and version. It logs the process and returns the URL if found, or an error message if not.
+     *
+     * @param   string  $module   The name of the module.
+     * @param   string  $version  The version of the module.
+     *
+     * @return string|array The URL of the specified module version or an error message if the version is not found.
+     */
+    public function getModuleUrl($module, $version)
+    {
+        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
+
+        $data = $this->getQuickpickJson();
+
+        foreach ( $data as $entry ) {
+            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
+                isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
+                foreach ( $entry['versions'] as $versionEntry ) {
+                    if ( isset( $versionEntry['version'] ) && $versionEntry['version'] === $version ) {
+                        Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $versionEntry['url'] );
+
+                        return (string) trim( $versionEntry['url'] );
+                    }
+                }
+            }
+        }
+
+        Util::logError( 'Version not found: ' . $version );
+
+        return ['error' => 'Version not found'];
+    }
+
+    /**
      * Validates the format of a given username key by checking it against an external API.
      *
      * This method performs several checks to ensure the validity of the username key:
@@ -241,14 +284,12 @@ class QuickPick
      * 8. Validates the response data.
      *
      * @return bool True if the username key is valid, false otherwise.
-     * @global object $bearsamppConfig The global configuration object.
-     *
      */
-    public function isUsernameKeyValid()
+    public function checkDownloadId()
     {
         global $bearsamppConfig;
 
-        Util::logError( 'isusernameKeyValid method called.' );
+        Util::logError( 'checkDownloadId method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -257,17 +298,17 @@ class QuickPick
             return false;
         }
 
-        $usernameKey = $bearsamppConfig->getUsernameKey();
-        Util::logDebug( 'usernameKey is: ' . $usernameKey );
+        $DownloadId = $bearsamppConfig->getDownloadId();
+        Util::logDebug( 'DownloadId is: ' . $DownloadId );
 
         // Ensure the license key is not empty
-        if ( empty( $usernameKey ) ) {
+        if ( empty( $DownloadId ) ) {
             Util::logError( 'License key is empty.' );
 
             return false;
         }
 
-        $url = self::API_URL . self::API_KEY . '&username=' . $usernameKey;
+        $url = self::API_URL . self::API_KEY . '&download_id=' . $DownloadId;
         Util::logDebug( 'API URL: ' . $url );
 
         $response = @file_get_contents( $url );
@@ -293,12 +334,12 @@ class QuickPick
 
         // Validate the response data
         if ( isset( $data['success'] ) && $data['success'] === true && isset( $data['data'] ) && is_array( $data['data'] ) && count( $data['data'] ) > 0 ) {
-            Util::logDebug( "License key valid: " . $usernameKey );
+            Util::logDebug( 'License key valid: ' . $DownloadId );
 
             return true;
         }
 
-        Util::logError( 'Invalid license key: ' . $usernameKey );
+        Util::logError( 'Invalid license key: ' . $DownloadId );
 
         return false;
     }
@@ -316,9 +357,6 @@ class QuickPick
      * @return array An array containing the status and message of the installation process.
      *               If successful, it returns the response from the fetchAndUnzipModule method.
      *               If unsuccessful, it returns an error message indicating the issue.
-     *
-     * @see QuickPick::getQuickpickJson() For retrieving the QuickPick JSON data.
-     * @see QuickPick::fetchAndUnzipModule() For fetching and unzipping the module.
      */
     public function installModule($module, $version)
     {
@@ -326,12 +364,12 @@ class QuickPick
 
         // Find the module URL and module name from the data
         $moduleUrl = '';
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
-                isset( $entry['version'] ) && $entry['version'] === $version ) {
-                $moduleUrl = (string) trim( $entry['url'] );
-                break;
-            }
+        $moduleUrl = $this->getModuleUrl( $module, $version );
+
+        if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
+            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+
+            return ['error' => 'Module URL not found'];
         }
 
         if ( empty( $moduleUrl ) ) {
@@ -342,15 +380,12 @@ class QuickPick
 
         $state = Util::checkInternetState();
         if ( $state ) {
-
             $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
-            Util::logDebug( "Response is: " . print_r( $response, true ) );
+            Util::logDebug( 'Response is: ' . print_r( $response, true ) );
 
             return $response;
         }
     }
-
-    // Assuming other methods and properties are defined here
 
     /**
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
@@ -366,17 +401,16 @@ class QuickPick
         $tmpDir     = $bearsamppRoot->getTmpPath();
         $fileName   = basename( $moduleUrl );
         $filePath   = $tmpDir . '/' . $fileName;
-        $moduleName = strtolower( $module );;
+        $moduleName = strtolower( $module );
         $moduleType = $this->modules[$module]['type'];
 
-
-        if ( $moduleType === "application" ) {
+        if ( $moduleType === 'application' ) {
             $destination = $bearsamppRoot->getAppsPath() . '/' . $moduleName . '/';
         }
-        elseif ( $moduleType === "binary" ) {
+        elseif ( $moduleType === 'binary' ) {
             $destination = $bearsamppRoot->getBinPath() . '/' . $moduleName . '/';
         }
-        elseif ( $moduleType === "tools" ) {
+        elseif ( $moduleType === 'tools' ) {
             $destination = $bearsamppRoot->getToolsPath() . '/' . $moduleName . '/';
         }
         else {
@@ -423,341 +457,206 @@ class QuickPick
     }
 
     /**
-     * Checks if the QuickPick JSON file exists and is up to date.
-     *
-     * This method verifies the existence of the QuickPick JSON file and checks its modification time.
-     * If the file is older than 24 hours, it recreates the file. If the file does not exist, it also
-     * recreates the file.
-     *
-     * @return bool True if the JSON file exists and is up to date, or was successfully recreated. False otherwise.
-     * @global object $bearsamppCore The core object providing access to application resources.
-     *
-     */
-    public function checkQuickpickLocal(): bool
-    {
-        global $bearsamppCore, $bearsamppConfig;
-        $json = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-
-        // Debug statement to print the path being checked
-        Util::logDebug( 'Checking path: ' . $json );
-
-        if ( $this->isQuickpickJsonExists( $json ) ) {
-            // Check the file modification time
-            $fileModTime = filemtime( $json );
-            $currentTime = time();
-            $timeDiff    = $currentTime - $fileModTime;
-
-            // If the file is older than the configured cache time, recreate it
-            if ( $timeDiff > $bearsamppConfig->getCacheTime() ) {
-                Util::logDebug( 'Quickpick Releases json file is older than 24 hours, recreating it.' );
-
-                return $this->recreateQuickpickJson( $json );
-            }
-
-            Util::logDebug( 'Quickpick Releases json file exists and is up to date.' );
-
-            return true;
-        }
-        else {
-            Util::logError( 'Quickpick Releases json file missing at path: ' . $json );
-
-            return $this->recreateQuickpickJson( $json );
-        }
-    }
-
-    /**
-     * Recreates the QuickPick JSON file.
-     *
-     * This method attempts to recreate the QuickPick JSON file by calling the createQuickpickJson method.
-     * It checks if the file was successfully created and logs the appropriate messages.
-     *
-     * @param   string  $json  The path to the JSON file to be recreated.
-     *
-     * @return bool True if the JSON file was successfully created, false otherwise.
-     */
-    private function recreateQuickpickJson($json): bool
-    {
-        try {
-            $this->createQuickpickJson();
-            if ( $this->isQuickpickJsonExists( $json ) ) {
-                Util::logDebug( 'Quickpick Releases json file created successfully' );
-
-                return true;
-            }
-            else {
-                Util::logError( 'Quickpick Releases json file could not be created' );
-
-                return false;
-            }
-        }
-        catch ( Exception $e ) {
-            Util::logError( 'Error creating Quickpick JSON file: ' . $e->getMessage() );
-
-            return false;
-        }
-    }
-
-    /**
-     * Checks if the specified QuickPick JSON file exists.
-     *
-     * This method verifies the existence of a JSON file at the given path.
-     *
-     * @param   string  $json  The path to the JSON file to check.
-     *
-     * @return bool True if the JSON file exists, false otherwise.
-     */
-    private function isQuickpickJsonExists($json)
-    {
-        return file_exists( $json );
-    }
-
-    /**
-     * Combines the content from multiple URLs into a single JSON file.
-     * Each URL is expected to contain lines in the format "version=url".
-     * The combined data is saved to the 'quickpick-releases.json' file.
-     */
-    public function createQuickpickJson()
-    {
-        global $bearsamppCore;
-        $combinedData = [];
-
-        foreach ( $this->urls as $url ) {
-            $content = @file_get_contents( $url );
-            if ( $content === false ) {
-                Util::logError( 'Error fetching content from URL: ' . $url );
-                continue;
-            }
-
-            $lines = explode( "\n", $content );
-            foreach ( $lines as $line ) {
-                $line = trim( $line );
-                if ( !empty( $line ) ) {
-                    $parts = explode( '=', $line, 2 );
-                    if ( count( $parts ) == 2 ) {
-                        list( $version, $versionUrl ) = $parts;
-                        $moduleName     = $this->extractModuleNameFromUrl( $url );
-                        $combinedData[] = [
-                            'module'  => $moduleName,
-                            'version' => trim( $version ),
-                            'url'     => trim( $versionUrl )
-                        ];
-                    }
-                    else {
-                        Util::logError( 'Invalid line format: ' . $line );
-                    }
-                }
-            }
-        }
-
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-        if ( file_put_contents( $jsonFilePath, json_encode( $combinedData, JSON_PRETTY_PRINT ) ) === false ) {
-            Util::logError( 'Error saving combined data to ' . $jsonFilePath );
-        }
-        else {
-            Util::logDebug( 'Combined data saved to ' . $jsonFilePath );
-        }
-    }
-
-    /**
-     * Extracts the module name from a given URL.
-     *
-     * This method uses a regular expression to match and extract the module name
-     * from the provided URL. The module name is expected to be in the format
-     * 'module-{moduleName}/'. If the module name is found, it is returned with
-     * the first letter capitalized. If not found, 'Unknown' is returned.
-     *
-     * @param   string  $url  The URL from which to extract the module name.
-     *
-     * @return string The extracted module name with the first letter capitalized, or 'Unknown' if not found.
-     */
-    private function extractModuleNameFromUrl($url)
-    {
-        preg_match( '/module-([a-zA-Z0-9]+)\//', $url, $matches );
-
-        return isset( $matches[1] ) ? ucfirst( $matches[1] ) : 'Unknown';
-    }
-
-    /**
      * Generates the HTML content for the QuickPick menu.
      *
      * This method creates the HTML structure for the QuickPick interface, including a dropdown
      * for selecting modules and their respective versions. It checks if the license key is valid
      * before displaying the modules. If the license key is invalid, it displays a subscription prompt.
      *
-     * @param array  $modules    An array of available modules.
-     * @param string $imagesPath The path to the images directory.
+     * @param   array   $modules     An array of available modules.
+     * @param   string  $imagesPath  The path to the images directory.
      *
      * @return string The HTML content of the QuickPick menu.
      */
     public function getQuickpickMenu($modules, $imagesPath)
     {
-        ob_start();
-        // Check if the license key is valid
-        if ( $this->isUsernameKeyValid() ):
-      //  if (1 == 1): ?>
-            <style>
+        if ( Util::checkInternetState() ) {
 
-                .custom-select {
-                    position: relative;
-                    width: 100%;
-                    max-width: 100%;
-                    font-size: 1.15rem;
-                    color: #000;
-                    margin-top: 3rem;
-                }
+            ob_start();
+            // Check if the license key is valid
+            if ( $this->checkDownloadId() ):
+                //  if (1 == 1):
+                ?>
+                <style>
 
-                .custom-select .select-button {
-                    width: 100%;
-                    font-size: 16px;
-                    background-color: #fff;
-                    padding: 0.675em 1em;
-                    border: 1px solid #caced1;
-                    border-radius: 0.25rem;
-                    cursor: pointer;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    white-space: nowrap;
-                    font-weight: normal !important;
-                }
+                    .custom-select {
+                        position: relative;
+                        width: 100%;
+                        max-width: 100%;
+                        font-size: 1.15rem;
+                        color: #000;
+                        }
 
-                .custom-select .selected-value {
-                    text-align: left;
-                    padding-right:5px;
-                    font-weight:bold
-                }
+                    .custom-select .select-button {
+                        width: 100%;
+                        font-size: 16px;
+                        background-color: #fff;
+                        padding: 0.675em 1em;
+                        border: 1px solid #caced1;
+                        border-radius: 0.25rem;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        white-space: nowrap;
+                        font-weight: normal !important;
+                        }
 
-                .custom-select .arrow {
-                    border-left: 5px solid transparent;
-                    border-right: 5px solid transparent;
-                    border-top: 6px solid #000;
-                    transition: transform ease-in-out 0.3s;
+                    .custom-select .selected-value {
+                        text-align: left;
+                        padding-right: 5px;
+                        font-weight: bold
+                        }
 
-                }
-                .custom-select.active .select-dropdown {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: scaleY(1);
-                }
-                .select-dropdown {
-                    position: absolute;
-                    list-style: none;
-                    width: 100%;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                    box-sizing: border-box;
-                    background-color: #fff;
-                    border: 1px solid #caced1;
-                    border-radius: 4px;
-                    padding: 10px;
-                    margin-top: 10px;
-                    max-height: 200px;
-                    overflow-y: auto;
-                    transition: 0.5s ease;
-                    transform: scaleY(0);
-                    opacity: 0;
-                    visibility: hidden;
-                }
+                    .custom-select .arrow {
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 6px solid #000;
+                        transition: transform ease-in-out 0.3s;
 
-                .select-dropdown:focus-within {
-                    box-shadow: 0 10px 25px rgba(94, 108, 233, 0.6);
-                }
+                        }
 
-                .select-dropdown li {
-                    position: relative;
-                    cursor: pointer;
-                    display: flex;
-                    gap: 1rem;
-                    align-items: center;
-                }
+                    .custom-select.active .select-dropdown {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scaleY(1);
+                        }
 
-                .select-dropdown li label {
-                    width: 100%;
-                    padding: 8px 10px;
-                    cursor: pointer;
-                }
+                    .select-dropdown {
+                        position: absolute;
+                        list-style: none;
+                        width: 100%;
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                        box-sizing: border-box;
+                        background-color: #fff;
+                        border: 1px solid #caced1;
+                        border-radius: 4px;
+                        padding: 10px;
+                        margin-top: 10px;
+                        max-height: 200px;
+                        overflow-y: auto;
+                        transition: 0.5s ease;
+                        transform: scaleY(0);
+                        opacity: 0;
+                        visibility: hidden;
+                        }
 
-                .select-dropdown::-webkit-scrollbar {
-                    width: 7px;
-                }
+                    .select-dropdown:focus-within {
+                        box-shadow: 0 10px 25px rgba(94, 108, 233, 0.6);
+                        }
 
-                .select-dropdown::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                    border-radius: 25px;
-                }
+                    .select-dropdown li {
+                        position: relative;
+                        cursor: pointer;
+                        display: flex;
+                        gap: 1rem;
+                        align-items: center;
+                        }
 
-                .select-dropdown::-webkit-scrollbar-thumb {
-                    background: #ccc;
-                    border-radius: 25px;
-                }
+                    .select-dropdown li label {
+                        width: 100%;
+                        padding: 8px 10px;
+                        cursor: pointer;
+                        }
 
-                .select-dropdown li:hover,
-                .select-dropdown input:checked ~ label {
-                    background-color: #f2f2f2;
-                }
+                    .select-dropdown::-webkit-scrollbar {
+                        width: 7px;
+                        }
 
-                .select-dropdown input:focus ~ label {
-                    background-color: #dfdfdf;
-                }
-                .select-dropdown input[type="radio"] {
-                    position: absolute;
-                    left: 0;
-                    opacity: 0;
-                }
-                .moduleheader {font-weight:bold};
-            </style>
-            <div id='quickPickContainer'>
-                <div class='quickpick me-5'>
+                    .select-dropdown::-webkit-scrollbar-track {
+                        background: #f1f1f1;
+                        border-radius: 25px;
+                        }
 
-                    <div class="custom-select">
-                        <button class="select-button" role="combobox"
-                                aria-label="select button"
-                                aria-haspopup="listbox"
-                                aria-expanded="false"
-                                aria-controls="select-dropdown">
-                            <span class="selected-value">Select a module and version</span>
-                            <span class="arrow"></span>
-                        </button>
-                        <ul class="select-dropdown" role="listbox" id="select-dropdown">
+                    .select-dropdown::-webkit-scrollbar-thumb {
+                        background: #ccc;
+                        border-radius: 25px;
+                        }
 
-                            <?php
-                            foreach ( $modules as $module ): ?>
-                                <?php if ( is_string( $module ) ): ?>
-                                    <li role="option" class="moduleheader">
-                                        <!-- <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>" name="module"/>
+                    .select-dropdown li:hover,
+                    .select-dropdown input:checked ~ label {
+                        background-color: #f2f2f2;
+                        }
+
+                    .select-dropdown input:focus ~ label {
+                        background-color: #dfdfdf;
+                        }
+
+                    .select-dropdown input[type="radio"] {
+                        position: absolute;
+                        left: 0;
+                        opacity: 0;
+                        }
+
+                    .moduleheader {
+                        font-weight: bold
+                        }
+
+                    ;
+                </style>
+                <div id = 'quickPickContainer'>
+                    <div class = 'quickpick me-5'>
+
+                        <div class = "custom-select">
+                            <button class = "select-button" role = "combobox"
+                                    aria-label = "select button"
+                                    aria-haspopup = "listbox"
+                                    aria-expanded = "false"
+                                    aria-controls = "select-dropdown">
+                                <span class = "selected-value">Select a module and version</span>
+                                <span class = "arrow"></span>
+                            </button>
+                            <ul class = "select-dropdown" role = "listbox" id = "select-dropdown">
+
+                                <?php
+                                foreach ( $modules as $module ): ?>
+                                    <?php if ( is_string( $module ) ): ?>
+                                        <li role = "option" class = "moduleheader">
+                                            <!-- <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>" name="module"/>
                                     <label for="<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></label> -->
-                                        <?php echo htmlspecialchars( $module ); ?>
-                                    </li>
-
-
-
-                                    <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
-                                        <li role="option" class="moduleoption" id="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>-li">
-                                            <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>" name="module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
-                                                   data-value="<?php echo htmlspecialchars( $version ); ?>">
-                                            <label for="<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
+                                            <?php echo htmlspecialchars( $module ); ?>
                                         </li>
-                                    <?php endforeach; ?>
-
-                                <?php endif; ?>
-                            <?php endforeach; ?>
 
 
+                                        <?php
+                                        foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                            <li role = "option" class = "moduleoption"
+                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>-li">
+                                                <input type = "radio" id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
+                                                       name = "module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
+                                                       data-value = "<?php echo htmlspecialchars( $version ); ?>">
+                                                <label
+                                                    for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
+                                            </li>
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
 
 
-                        </ul>
+                            </ul>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php else:  ?>
-            <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
-                <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
-                    <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">
-                    Subscribe to QuickPick now
-                </a>
-            </div>
-        <?php endif;
+            <?php else: ?>
+                <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
+                    <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
+                        <img src = "<?php echo $imagesPath . 'subscribe.svg'; ?>" alt = "Subscribe Icon" class = "me-2">
+                        Subscribe to QuickPick now
+                    </a>
+                </div>
+            <?php endif;
 
-        return ob_get_clean();
+            return ob_get_clean();
+        }
+        else {
+            ?>
+            <div id = "InternetState" class = "text-center mt-3 pe-3">
+                <img src = "<?php echo $imagesPath . 'no-wifi-icon.svg'; ?>" alt = "No Wifi Icon" class = "me-2">
+                <span>No internet present</span>
+            </div>
+            <?php
+        }
     }
 }

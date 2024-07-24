@@ -264,3 +264,15 @@ nav.navbar .svg-inline--fa.fa-discord {
     color: white;
     min-width: 165px;
     }
+div#InternetState {
+    color: white;
+    display: inline-flex;
+    margin-right: 50px;
+    padding: 0;
+    }
+#InternetState img.me-2 {
+    margin-top: -14px;
+    }
+#InternetState span {
+    margin-top: -9px;
+    }
