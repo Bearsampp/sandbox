@@ -39,8 +39,6 @@ $imagesPath = $bearsamppHomepage->getImagesPath();
 // Instantiate the QuickPick class
 $quickPick = new QuickPick();
 
-// Retrieve the list of modules
-$modules = $quickPick->getModules();
 $ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
 
 
@@ -131,7 +129,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <?php echo $quickPick->loadQuickpick( $modules, $imagesPath ); ?>
+    <?php echo $quickPick->loadQuickpick($imagesPath ); ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">

@@ -16,8 +16,12 @@
  */
 class QuickPick
 {
+    // Membership Pro api key & url
     const API_KEY = '4abe15e5-95f2-4663-ad12-eadb245b28b4';
     const API_URL = 'https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=';
+
+    // URL where quickpick-releases.json lives.
+    const JSON_URL = 'https://raw.githubusercontent.com/Bearsampp/Bearsampp/main/core/resources/quickpick-releases.json';
 
     /**
      * @var array $modules
@@ -54,39 +58,11 @@ class QuickPick
     ];
 
     /**
-     * A list of URLs pointing to the release properties files for various Bearsampp modules.
-     * These URLs are used to fetch the latest release information for each module.
+     * @var string $jsonFilePath
      *
-     * @var array $urls An array of URLs for the release properties files.
+     * The file path to the local quickpick-releases.json file.
      */
-    private $urls = [
-        'https://raw.githubusercontent.com/Bearsampp/module-adminer/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-apache/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-composer/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-consolez/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-filezilla/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ghostscript/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-git/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-gitlist/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mailhog/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mariadb/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-memcached/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-mysql/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ngrok/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-nodejs/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-perl/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-php/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phpmemadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phpmyadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-phppgadmin/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-postgresql/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-python/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-ruby/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-webgrind/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-xdc/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-xlight/main/releases.properties',
-        'https://raw.githubusercontent.com/Bearsampp/module-yarn/main/releases.properties'
-    ];
+    private $jsonFilePath;
 
     /**
      * Retrieves the list of available modules.
@@ -101,137 +77,65 @@ class QuickPick
     /**
      * Loads the QuickPick interface with the available modules and their versions.
      *
-     * @param   array   $modules     An array of available modules.
      * @param   string  $imagesPath  The path to the images directory.
      *
-     * @return string The HTML content of the QuickPick interface.
+     * @return string|bool The HTML content of the QuickPick interface or false if the JSON file is not found.
      */
-    public function loadQuickpick($modules, $imagesPath)
+    public function loadQuickpick($imagesPath)
     {
-        $json     = $this->getQuickpickJson();
-        $versions = $this->getModuleVersions( $modules );
+        global $bearsamppCore;
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+
+        $this->checkQuickpickJson( $jsonFilePath );
+
+        $modules = $this->getModules();
 
         return $this->getQuickpickMenu( $modules, $imagesPath );
     }
 
     /**
-     * Retrieves the list of available versions for a specified module.
+     * Checks if the local `quickpick-releases.json` file is up-to-date with the remote version.
      *
-     * This method fetches the QuickPick JSON data and iterates through the entries to find
-     * all versions associated with the specified module. If no versions are found, an error
-     * message is logged and returned.
+     * This method compares the creation time of the local JSON file with the remote file's last modified time.
+     * If the remote file is newer or the local file does not exist, it fetches the latest JSON data.
      *
-     * @param   string  $module        The name of the module for which to retrieve versions.
+     * @param   string  $JSON_URL  The URL of the remote `quickpick-releases.json` file.
      *
-     * @return array An array of version strings for the specified module, or an error message if no versions are found.
-     * @global object   $bearsamppCore The core object providing access to application resources.
-     *
+     * @return mixed Returns the JSON data if the remote file is newer or the local file does not exist,
+     *               otherwise returns false.
      */
-    public function getModuleVersions($module)
+    public function checkQuickpickJson($jsonFilePath)
     {
-        global $bearsamppCore;
+        // Initialize variables
+        $localFileCreationTime  = 0;
+        $remoteFileCreationTime = 0;
 
-        Util::logDebug( 'getModuleVersions called for module: ' . $module );
-
-        $data = $this->getQuickpickJson();
-
-        $versions = [];
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( (string) $module ) ) {
-                $versions[] = $entry['version'];
-            }
+        // Get the creation time of the local file if it exists
+        if ( file_exists( $jsonFilePath ) ) {
+            $localFileCreationTime = filectime( $jsonFilePath );
         }
 
-        if ( empty( $versions ) ) {
-            Util::logError( 'No versions found for module: ' . $module );
-
-            return ['error' => 'No versions found'];
+        // Get the creation time of the remote file
+        $headers = get_headers( self::JSON_URL, 1 );
+        if ( $headers === false || !isset( $headers['Last-Modified'] ) ) {
+            // If we cannot get the headers or Last-Modified is not set, assume no update is needed
+            return false;
         }
+        $remoteFileCreationTime = strtotime( $headers['Last-Modified'] );
 
-        Util::logDebug( 'Found versions for module: ' . $module . ' Versions: ' . implode( ', ', $versions ) );
-
-        return $versions;
-    }
-
-
-    /**
-     * Fetches the URL of a specified module version from the local quickpick-releases.json file.
-     *
-     * This method reads the quickpick-releases.json file to find the URL associated with the given module
-     * and version. It logs the process and returns the URL if found, or an error message if not.
-     *
-     * @param   string  $module        The name of the module.
-     * @param   string  $version       The version of the module.
-     *
-     * @return string|array The URL of the specified module version or an error message if the version is not found.
-     * @global object   $bearsamppCore The core object providing access to application resources.
-     */
-    public function getModuleUrl($module, $version)
-    {
-        global $bearsamppCore;
-
-        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-
-        $data = $this->getQuickpickJson();
-
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
-                isset( $entry['version'] ) && $entry['version'] === $version ) {
-                Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $entry['url'] );
-
-                return (string) trim( $entry['url'] );
-            }
+        // Compare the creation times
+        if ( $remoteFileCreationTime > $localFileCreationTime || $localFileCreationTime === 0 ) {
+            return $this->rebuildQuickpickJson();
         }
-
-        Util::logError( 'Version not found: ' . $version );
-
-        return ['error' => 'Version not found'];
     }
 
     /**
-     * Retrieves the QuickPick JSON data.
+     * Retrieves the QuickPick JSON data from the local file.
      *
-     * This method fetches the QuickPick JSON file from the resources path, logs the process,
-     * and handles any errors that may occur during the file operations or JSON decoding.
-     *
-     * @return array The decoded JSON data as an associative array, or an error message if an issue occurs.
-     * @global object $bearsamppCore The core object providing access to application resources.
-     *
+     * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded.
      */
-    public function getQuickpickJson()
+    public function getQuickpickJson($jsonFilePath)
     {
-        global $bearsamppCore;
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-        Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
-
-        if ( !file_exists( $jsonFilePath ) && Util::checkInternetState() === FALSE ) {
-            Util::logError( 'JSON file not found: ' . $jsonFilePath );
-
-            return ['error' => 'JSON file not found'];
-        } else {
-            // Define the URL of the JSON file
-            $url = 'https://raw.githubusercontent.com/Bearsampp/Bearsampp/main/core/resources/quickpick-releases.json';
-
-            // Fetch the JSON content from the URL
-            $jsonContent = file_get_contents($url);
-
-            if ($jsonContent === FALSE) {
-                // Handle error if the file could not be fetched
-                throw new Exception('Failed to fetch JSON content from the URL.');
-            }
-
-            // Define the path where the JSON file should be saved
-            $savePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-
-            // Save the JSON content to the specified path
-            $result = file_put_contents($savePath, $jsonContent);
-
-            if ($result === FALSE) {
-                // Handle error if the file could not be saved
-                throw new Exception('Failed to save JSON content to the specified path.');
-            }
-        }
-
         $content = @file_get_contents( $jsonFilePath );
         if ( $content === false ) {
             Util::logError( 'Error fetching content from JSON file: ' . $jsonFilePath );
@@ -250,6 +154,123 @@ class QuickPick
     }
 
     /**
+     * Rebuilds the local quickpick-releases.json file by fetching the latest data from the remote URL.
+     *
+     * @throws Exception If the JSON content cannot be fetched or saved.
+     */
+    public function rebuildQuickpickJson($jsonFilePath)
+    {
+        Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
+
+        // Define the URL of the remote JSON file
+        $url = self::JSON_URL;
+
+        // Fetch the JSON content from the URL
+        $jsonContent = file_get_contents( $url );
+
+        if ( $jsonContent === false ) {
+            // Handle error if the file could not be fetched
+            throw new Exception( 'Failed to fetch JSON content from the URL.' );
+        }
+
+        // Save the JSON content to the specified path
+        $result = file_put_contents( $jsonFilePath, $jsonContent );
+
+        if ( $result === false ) {
+            // Handle error if the file could not be saved
+            throw new Exception( 'Failed to save JSON content to the specified path.' );
+        }
+    }
+
+    /**
+     * Retrieves the list of available versions for a specified module.
+     *
+     * This method fetches the QuickPick JSON data and iterates through the entries to find
+     * all versions associated with the specified module. If no versions are found, an error
+     * message is logged and returned.
+     *
+     * @param   string  $module  The name of the module for which to retrieve versions.
+     *
+     * @return array An array of version strings for the specified module, or an error message if no versions are found.
+     */
+    public function getModuleVersions($module)
+    {
+        global $bearsamppCore;
+        Util::logDebug( 'getModuleVersions called for module: ' . (is_string( $module ) ? $module : 'Invalid module type') );
+
+        // Check if $module is a string
+        if ( !is_string( $module ) ) {
+            Util::logError( 'Invalid module type: ' . gettype( $module ) );
+
+            return ['error' => 'Invalid module type'];
+        }
+
+        $versions = [];
+
+        // convert $module to lowercase
+        $module       = strtolower( $module );
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+        $jsonData     = $this->getQuickpickJson( $jsonFilePath );
+
+        foreach ( $jsonData as $entry ) {
+            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
+                if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
+                    foreach ( $entry['versions'] as $versionEntry ) {
+                        if ( isset( $versionEntry['version'] ) && is_string( $versionEntry['version'] ) ) {
+                            $versions[] = $versionEntry['version'];
+                        }
+                    }
+                }
+            }
+        }
+
+        if ( empty( $versions ) ) {
+            Util::logError( 'No versions found for module: ' . $module );
+
+            return ['error' => 'No versions found'];
+        }
+
+        Util::logDebug( 'Found versions for module: ' . $module . ' Versions: ' . implode( ', ', $versions ) );
+
+        return $versions;
+    }
+
+    /**
+     * Fetches the URL of a specified module version from the local quickpick-releases.json file.
+     *
+     * This method reads the quickpick-releases.json file to find the URL associated with the given module
+     * and version. It logs the process and returns the URL if found, or an error message if not.
+     *
+     * @param   string  $module   The name of the module.
+     * @param   string  $version  The version of the module.
+     *
+     * @return string|array The URL of the specified module version or an error message if the version is not found.
+     */
+    public function getModuleUrl($module, $version)
+    {
+        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
+
+        $data = $this->getQuickpickJson();
+
+        foreach ( $data as $entry ) {
+            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
+                isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
+                foreach ( $entry['versions'] as $versionEntry ) {
+                    if ( isset( $versionEntry['version'] ) && $versionEntry['version'] === $version ) {
+                        Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $versionEntry['url'] );
+
+                        return (string) trim( $versionEntry['url'] );
+                    }
+                }
+            }
+        }
+
+        Util::logError( 'Version not found: ' . $version );
+
+        return ['error' => 'Version not found'];
+    }
+
+    /**
      * Validates the format of a given username key by checking it against an external API.
      *
      * This method performs several checks to ensure the validity of the username key:
@@ -263,14 +284,12 @@ class QuickPick
      * 8. Validates the response data.
      *
      * @return bool True if the username key is valid, false otherwise.
-     * @global object $bearsamppConfig The global configuration object.
-     *
      */
     public function isUsernameKeyValid()
     {
         global $bearsamppConfig;
 
-        Util::logError( 'isusernameKeyValid method called.' );
+        Util::logError( 'isUsernameKeyValid method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -315,7 +334,7 @@ class QuickPick
 
         // Validate the response data
         if ( isset( $data['success'] ) && $data['success'] === true && isset( $data['data'] ) && is_array( $data['data'] ) && count( $data['data'] ) > 0 ) {
-            Util::logDebug( "License key valid: " . $usernameKey );
+            Util::logDebug( 'License key valid: ' . $usernameKey );
 
             return true;
         }
@@ -338,9 +357,6 @@ class QuickPick
      * @return array An array containing the status and message of the installation process.
      *               If successful, it returns the response from the fetchAndUnzipModule method.
      *               If unsuccessful, it returns an error message indicating the issue.
-     *
-     * @see QuickPick::getQuickpickJson() For retrieving the QuickPick JSON data.
-     * @see QuickPick::fetchAndUnzipModule() For fetching and unzipping the module.
      */
     public function installModule($module, $version)
     {
@@ -348,12 +364,12 @@ class QuickPick
 
         // Find the module URL and module name from the data
         $moduleUrl = '';
-        foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
-                isset( $entry['version'] ) && $entry['version'] === $version ) {
-                $moduleUrl = (string) trim( $entry['url'] );
-                break;
-            }
+        $moduleUrl = $this->getModuleUrl( $module, $version );
+
+        if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
+            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+
+            return ['error' => 'Module URL not found'];
         }
 
         if ( empty( $moduleUrl ) ) {
@@ -364,15 +380,12 @@ class QuickPick
 
         $state = Util::checkInternetState();
         if ( $state ) {
-
             $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
-            Util::logDebug( "Response is: " . print_r( $response, true ) );
+            Util::logDebug( 'Response is: ' . print_r( $response, true ) );
 
             return $response;
         }
     }
-
-    // Assuming other methods and properties are defined here
 
     /**
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
@@ -388,17 +401,16 @@ class QuickPick
         $tmpDir     = $bearsamppRoot->getTmpPath();
         $fileName   = basename( $moduleUrl );
         $filePath   = $tmpDir . '/' . $fileName;
-        $moduleName = strtolower( $module );;
+        $moduleName = strtolower( $module );
         $moduleType = $this->modules[$module]['type'];
 
-
-        if ( $moduleType === "application" ) {
+        if ( $moduleType === 'application' ) {
             $destination = $bearsamppRoot->getAppsPath() . '/' . $moduleName . '/';
         }
-        elseif ( $moduleType === "binary" ) {
+        elseif ( $moduleType === 'binary' ) {
             $destination = $bearsamppRoot->getBinPath() . '/' . $moduleName . '/';
         }
-        elseif ( $moduleType === "tools" ) {
+        elseif ( $moduleType === 'tools' ) {
             $destination = $bearsamppRoot->getToolsPath() . '/' . $moduleName . '/';
         }
         else {
@@ -473,7 +485,6 @@ class QuickPick
                         max-width: 100%;
                         font-size: 1.15rem;
                         color: #000;
-                        margin-top: 3rem;
                         }
 
                     .custom-select .select-button {
@@ -607,7 +618,8 @@ class QuickPick
                                         </li>
 
 
-                                        <?php foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                        <?php
+                                        foreach ( $this->getModuleVersions( $module ) as $version ): ?>
                                             <li role = "option" class = "moduleoption"
                                                 id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>-li">
                                                 <input type = "radio" id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
