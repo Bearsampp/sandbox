@@ -2051,7 +2051,7 @@ class Util
      */
     public static function checkInternetState()
     {
-        $connected = @fsockopen( "bearsampp.com", 80 );
+        $connected = @fsockopen( "www.google.com", 80 );
         if ( $connected ) {
             fclose( $connected );
 

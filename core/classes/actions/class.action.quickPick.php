@@ -108,7 +108,7 @@ class QuickPick
      */
     public function loadQuickpick($modules, $imagesPath)
     {
-        $test     = $this->checkQuickpickLocal();
+        $json     = $this->getQuickpickJson();
         $versions = $this->getModuleVersions( $modules );
 
         return $this->getQuickpickMenu( $modules, $imagesPath );
@@ -204,10 +204,12 @@ class QuickPick
         $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
         Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
 
-        if ( !file_exists( $jsonFilePath ) ) {
+        if ( !file_exists( $jsonFilePath ) && Util::checkInternetState() === FALSE ) {
             Util::logError( 'JSON file not found: ' . $jsonFilePath );
 
             return ['error' => 'JSON file not found'];
+        } else {
+            // TODO fetch json
         }
 
         $content = @file_get_contents( $jsonFilePath );
@@ -420,161 +422,6 @@ class QuickPick
         }
 
         return ['success' => 'Module fetched and unzipped successfully'];
-    }
-
-    /**
-     * Checks if the QuickPick JSON file exists and is up to date.
-     *
-     * This method verifies the existence of the QuickPick JSON file and checks its modification time.
-     * If the file is older than 24 hours, it recreates the file. If the file does not exist, it also
-     * recreates the file.
-     *
-     * @return bool True if the JSON file exists and is up to date, or was successfully recreated. False otherwise.
-     * @global object $bearsamppCore The core object providing access to application resources.
-     *
-     */
-    public function checkQuickpickLocal(): bool
-    {
-        global $bearsamppCore, $bearsamppConfig;
-        $json = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-
-        // Debug statement to print the path being checked
-        Util::logDebug( 'Checking path: ' . $json );
-
-        if ( $this->isQuickpickJsonExists( $json ) ) {
-            // Check the file modification time
-            $fileModTime = filemtime( $json );
-            $currentTime = time();
-            $timeDiff    = $currentTime - $fileModTime;
-
-            // If the file is older than the configured cache time, recreate it
-            if ( $timeDiff > $bearsamppConfig->getCacheTime() ) {
-                Util::logDebug( 'Quickpick Releases json file is older than 24 hours, recreating it.' );
-
-                return $this->recreateQuickpickJson( $json );
-            }
-
-            Util::logDebug( 'Quickpick Releases json file exists and is up to date.' );
-
-            return true;
-        }
-        else {
-            Util::logError( 'Quickpick Releases json file missing at path: ' . $json );
-
-            return $this->recreateQuickpickJson( $json );
-        }
-    }
-
-    /**
-     * Recreates the QuickPick JSON file.
-     *
-     * This method attempts to recreate the QuickPick JSON file by calling the createQuickpickJson method.
-     * It checks if the file was successfully created and logs the appropriate messages.
-     *
-     * @param   string  $json  The path to the JSON file to be recreated.
-     *
-     * @return bool True if the JSON file was successfully created, false otherwise.
-     */
-    private function recreateQuickpickJson($json): bool
-    {
-        try {
-            $this->createQuickpickJson();
-            if ( $this->isQuickpickJsonExists( $json ) ) {
-                Util::logDebug( 'Quickpick Releases json file created successfully' );
-
-                return true;
-            }
-            else {
-                Util::logError( 'Quickpick Releases json file could not be created' );
-
-                return false;
-            }
-        }
-        catch ( Exception $e ) {
-            Util::logError( 'Error creating Quickpick JSON file: ' . $e->getMessage() );
-
-            return false;
-        }
-    }
-
-    /**
-     * Checks if the specified QuickPick JSON file exists.
-     *
-     * This method verifies the existence of a JSON file at the given path.
-     *
-     * @param   string  $json  The path to the JSON file to check.
-     *
-     * @return bool True if the JSON file exists, false otherwise.
-     */
-    private function isQuickpickJsonExists($json)
-    {
-        return file_exists( $json );
-    }
-
-    /**
-     * Combines the content from multiple URLs into a single JSON file.
-     * Each URL is expected to contain lines in the format "version=url".
-     * The combined data is saved to the 'quickpick-releases.json' file.
-     */
-    public function createQuickpickJson()
-    {
-        global $bearsamppCore;
-        $combinedData = [];
-
-        foreach ( $this->urls as $url ) {
-            $content = @file_get_contents( $url );
-            if ( $content === false ) {
-                Util::logError( 'Error fetching content from URL: ' . $url );
-                continue;
-            }
-
-            $lines = explode( "\n", $content );
-            foreach ( $lines as $line ) {
-                $line = trim( $line );
-                if ( !empty( $line ) ) {
-                    $parts = explode( '=', $line, 2 );
-                    if ( count( $parts ) == 2 ) {
-                        list( $version, $versionUrl ) = $parts;
-                        $moduleName     = $this->extractModuleNameFromUrl( $url );
-                        $combinedData[] = [
-                            'module'  => $moduleName,
-                            'version' => trim( $version ),
-                            'url'     => trim( $versionUrl )
-                        ];
-                    }
-                    else {
-                        Util::logError( 'Invalid line format: ' . $line );
-                    }
-                }
-            }
-        }
-
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-        if ( file_put_contents( $jsonFilePath, json_encode( $combinedData, JSON_PRETTY_PRINT ) ) === false ) {
-            Util::logError( 'Error saving combined data to ' . $jsonFilePath );
-        }
-        else {
-            Util::logDebug( 'Combined data saved to ' . $jsonFilePath );
-        }
-    }
-
-    /**
-     * Extracts the module name from a given URL.
-     *
-     * This method uses a regular expression to match and extract the module name
-     * from the provided URL. The module name is expected to be in the format
-     * 'module-{moduleName}/'. If the module name is found, it is returned with
-     * the first letter capitalized. If not found, 'Unknown' is returned.
-     *
-     * @param   string  $url  The URL from which to extract the module name.
-     *
-     * @return string The extracted module name with the first letter capitalized, or 'Unknown' if not found.
-     */
-    private function extractModuleNameFromUrl($url)
-    {
-        preg_match( '/module-([a-zA-Z0-9]+)\//', $url, $matches );
-
-        return isset( $matches[1] ) ? ucfirst( $matches[1] ) : 'Unknown';
     }
 
     /**
