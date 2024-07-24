@@ -208,7 +208,7 @@ class QuickPick
         $versions = [];
 
         // convert $module to lowercase
-        $module       = strtolower( $module );
+        $module       = 'module-'.strtolower( $module );
         $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
         $jsonData     = $this->getQuickpickJson( $jsonFilePath );
 
