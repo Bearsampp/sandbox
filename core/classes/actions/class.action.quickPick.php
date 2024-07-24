@@ -209,7 +209,27 @@ class QuickPick
 
             return ['error' => 'JSON file not found'];
         } else {
-            // TODO fetch json
+            // Define the URL of the JSON file
+            $url = 'https://raw.githubusercontent.com/Bearsampp/Bearsampp/main/core/resources/quickpick-releases.json';
+
+            // Fetch the JSON content from the URL
+            $jsonContent = file_get_contents($url);
+
+            if ($jsonContent === FALSE) {
+                // Handle error if the file could not be fetched
+                throw new Exception('Failed to fetch JSON content from the URL.');
+            }
+
+            // Define the path where the JSON file should be saved
+            $savePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+
+            // Save the JSON content to the specified path
+            $result = file_put_contents($savePath, $jsonContent);
+
+            if ($result === FALSE) {
+                // Handle error if the file could not be saved
+                throw new Exception('Failed to save JSON content to the specified path.');
+            }
         }
 
         $content = @file_get_contents( $jsonFilePath );
