@@ -21,7 +21,7 @@ class Config
     const CFG_TIMEZONE = 'timezone';
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
-    const USERNAME_KEY = 'usernameKey';
+    const DOWNLOAD_ID = 'DownloadId';
     const CACHE_TIME = 'cacheTime';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
@@ -130,9 +130,9 @@ class Config
      *
      * @return string The license key.
      */
-    public function getUsernameKey()
+    public function getDownloadId()
     {
-        return $this->raw[self::USERNAME_KEY];
+        return $this->raw[self::DOWNLOAD_ID];
     }
 
     public function getCacheTime() {

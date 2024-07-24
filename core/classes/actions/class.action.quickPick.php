@@ -285,11 +285,11 @@ class QuickPick
      *
      * @return bool True if the username key is valid, false otherwise.
      */
-    public function isUsernameKeyValid()
+    public function checkDownloadId()
     {
         global $bearsamppConfig;
 
-        Util::logError( 'isUsernameKeyValid method called.' );
+        Util::logError( 'checkDownloadId method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -298,17 +298,17 @@ class QuickPick
             return false;
         }
 
-        $usernameKey = $bearsamppConfig->getUsernameKey();
-        Util::logDebug( 'usernameKey is: ' . $usernameKey );
+        $DownloadId = $bearsamppConfig->getDownloadId();
+        Util::logDebug( 'DownloadId is: ' . $DownloadId );
 
         // Ensure the license key is not empty
-        if ( empty( $usernameKey ) ) {
+        if ( empty( $DownloadId ) ) {
             Util::logError( 'License key is empty.' );
 
             return false;
         }
 
-        $url = self::API_URL . self::API_KEY . '&username=' . $usernameKey;
+        $url = self::API_URL . self::API_KEY . '&download_id=' . $DownloadId;
         Util::logDebug( 'API URL: ' . $url );
 
         $response = @file_get_contents( $url );
@@ -334,12 +334,12 @@ class QuickPick
 
         // Validate the response data
         if ( isset( $data['success'] ) && $data['success'] === true && isset( $data['data'] ) && is_array( $data['data'] ) && count( $data['data'] ) > 0 ) {
-            Util::logDebug( 'License key valid: ' . $usernameKey );
+            Util::logDebug( 'License key valid: ' . $DownloadId );
 
             return true;
         }
 
-        Util::logError( 'Invalid license key: ' . $usernameKey );
+        Util::logError( 'Invalid license key: ' . $DownloadId );
 
         return false;
     }
@@ -474,7 +474,7 @@ class QuickPick
 
             ob_start();
             // Check if the license key is valid
-            if ( $this->isUsernameKeyValid() ):
+            if ( $this->checkDownloadId() ):
                 //  if (1 == 1):
                 ?>
                 <style>
