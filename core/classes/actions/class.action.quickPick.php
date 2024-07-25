@@ -208,7 +208,6 @@ class QuickPick
      */
     public function getModuleVersions(string $module): array
     {
-        global $bearsamppCore;
         Util::logDebug( 'getModuleVersions called for module: ' . (is_string( $module ) ? $module : 'Invalid module type') );
 
         // Check if $module is a string
@@ -225,7 +224,7 @@ class QuickPick
         $jsonData = $this->getQuickpickJson();
 
         foreach ( $jsonData as $entry ) {
-            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
+            if ( is_array( $entry ) && isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
                 if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
                     foreach ( $entry['versions'] as $versionEntry ) {
                         if ( isset( $versionEntry['version'] ) && is_string( $versionEntry['version'] ) ) {
@@ -265,7 +264,7 @@ class QuickPick
         $data = $this->getQuickpickJson();
 
         foreach ( $data as $entry ) {
-            if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
+            if ( is_array( $entry ) && isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
                 isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
                 foreach ( $entry['versions'] as $versionEntry ) {
                     if ( isset( $versionEntry['version'] ) && $versionEntry['version'] === $version ) {
@@ -404,7 +403,8 @@ class QuickPick
             return ['error' => 'No internet connection'];
         }
     }
-/**
+
+    /**
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
      *
      * @param   string  $moduleUrl  The URL of the module to fetch.
