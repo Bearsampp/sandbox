@@ -65,6 +65,15 @@ class QuickPick
     private $jsonFilePath;
 
     /**
+     * Constructor to initialize the jsonFilePath.
+     */
+    public function __construct()
+    {
+        global $bearsamppCore;
+        $this->jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+    }
+
+    /**
      * Retrieves the list of available modules.
      *
      * @return array An array of module names.
@@ -84,9 +93,8 @@ class QuickPick
     public function loadQuickpick($imagesPath)
     {
         global $bearsamppCore;
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
 
-        $this->checkQuickpickJson( $jsonFilePath );
+        $this->checkQuickpickJson();
 
         $modules = $this->getModules();
 
@@ -104,15 +112,15 @@ class QuickPick
      * @return mixed Returns the JSON data if the remote file is newer or the local file does not exist,
      *               otherwise returns false.
      */
-    public function checkQuickpickJson($jsonFilePath)
+    public function checkQuickpickJson()
     {
         // Initialize variables
         $localFileCreationTime  = 0;
         $remoteFileCreationTime = 0;
 
         // Get the creation time of the local file if it exists
-        if ( file_exists( $jsonFilePath ) ) {
-            $localFileCreationTime = filectime( $jsonFilePath );
+        if ( file_exists( $this->jsonFilePath ) ) {
+            $localFileCreationTime = filectime( $this->jsonFilePath );
         }
 
         // Get the creation time of the remote file
@@ -134,11 +142,11 @@ class QuickPick
      *
      * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded.
      */
-    public function getQuickpickJson($jsonFilePath)
+    public function getQuickpickJson()
     {
-        $content = @file_get_contents( $jsonFilePath );
+        $content = @file_get_contents( $this->jsonFilePath );
         if ( $content === false ) {
-            Util::logError( 'Error fetching content from JSON file: ' . $jsonFilePath );
+            Util::logError( 'Error fetching content from JSON file: ' . $this->jsonFilePath );
 
             return ['error' => 'Error fetching JSON file'];
         }
@@ -158,9 +166,9 @@ class QuickPick
      *
      * @throws Exception If the JSON content cannot be fetched or saved.
      */
-    public function rebuildQuickpickJson($jsonFilePath)
+    public function rebuildQuickpickJson()
     {
-        Util::logDebug( 'Fetching JSON file: ' . $jsonFilePath );
+        Util::logDebug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
         // Define the URL of the remote JSON file
         $url = self::JSON_URL;
@@ -174,7 +182,7 @@ class QuickPick
         }
 
         // Save the JSON content to the specified path
-        $result = file_put_contents( $jsonFilePath, $jsonContent );
+        $result = file_put_contents( $this->jsonFilePath, $jsonContent );
 
         if ( $result === false ) {
             // Handle error if the file could not be saved
@@ -208,9 +216,8 @@ class QuickPick
         $versions = [];
 
         // convert $module to lowercase
-        $module       = 'module-'.strtolower( $module );
-        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-        $jsonData     = $this->getQuickpickJson( $jsonFilePath );
+        $module   = 'module-' . strtolower( $module );
+        $jsonData = $this->getQuickpickJson();
 
         foreach ( $jsonData as $entry ) {
             if ( isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
@@ -289,7 +296,7 @@ class QuickPick
     {
         global $bearsamppConfig;
 
-        Util::logError( 'checkDownloadId method called.' );
+        Util::logDebug( 'checkDownloadId method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -363,17 +370,18 @@ class QuickPick
         $data = $this->getQuickpickJson();
 
         // Find the module URL and module name from the data
-        $moduleUrl = '';
-        $moduleUrl = $this->getModuleUrl( $module, $version );
+        $moduleUrl    = '';
+        $moduleKey    = "module-" . strtolower( $module );
+        $moduleUrl = $this->getModuleUrl( $moduleKey, $version );
 
         if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
-            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+            Util::logError( 'Module URL not found for module: ' . $moduleKey . ' version: ' . $version );
 
             return ['error' => 'Module URL not found'];
         }
 
         if ( empty( $moduleUrl ) ) {
-            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+            Util::logError( 'Module URL not found for module: ' . $moduleKey . ' version: ' . $version );
 
             return ['error' => 'Module URL not found'];
         }
@@ -397,13 +405,25 @@ class QuickPick
      */
     public function fetchAndUnzipModule($moduleUrl, $module)
     {
-        global $bearsamppRoot, $bearsamppCore;
-        $tmpDir     = $bearsamppRoot->getTmpPath();
-        $fileName   = basename( $moduleUrl );
-        $filePath   = $tmpDir . '/' . $fileName;
-        $moduleName = strtolower( $module );
-        $moduleType = $this->modules[$module]['type'];
+        Util::logDebug( "$module is: " . $module );
 
+        global $bearsamppRoot, $bearsamppCore;
+        $tmpDir = $bearsamppRoot->getTmpPath();
+        Util::logDebug( 'Temporary Directory: ' . $tmpDir );
+
+        $fileName = basename( $moduleUrl );
+        Util::logDebug( 'File Name: ' . $fileName );
+
+        $filePath = $tmpDir . '/' . $fileName;
+        Util::logDebug( 'File Path: ' . $filePath );
+
+        $moduleName = str_replace( 'module-', '', $module );
+        Util::logDebug( 'Module Name: ' . $moduleName );
+
+        $moduleType = $this->modules[$module]['type'];
+        Util::logDebug( 'Module Type: ' . $moduleType );
+
+        // Get path to write module to.
         if ( $moduleType === 'application' ) {
             $destination = $bearsamppRoot->getAppsPath() . '/' . $moduleName . '/';
         }
@@ -439,7 +459,7 @@ class QuickPick
         Util::logDebug( 'File extension: ' . $fileExtension );
         if ( $fileExtension === '7z' ) {
             if ( !$bearsamppCore->unzip7zFile( $filePath, $destination ) ) {
-                return ['error' => 'Failed to unzip .7z file'];
+                return ['error' => 'Failed to unzip .7z file.  File: ' . $filePath . ' could not be unzipped', 'Destination: ' . $destination];
             }
         }
         elseif ( $fileExtension === 'zip' ) {
