@@ -208,7 +208,7 @@ class QuickPick
         $versions = [];
 
         // convert $module to lowercase
-        $module       = 'module-'.strtolower( $module );
+        $module       = 'module-' . strtolower( $module );
         $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
         $jsonData     = $this->getQuickpickJson( $jsonFilePath );
 
@@ -248,9 +248,12 @@ class QuickPick
      */
     public function getModuleUrl($module, $version)
     {
+        global $bearsamppCore;
         Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
 
-        $data = $this->getQuickpickJson();
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+        $module = "module-" . strtolower( $module );
+        $data = $this->getQuickpickJson($jsonFilePath);
 
         foreach ( $data as $entry ) {
             if ( isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
@@ -289,7 +292,7 @@ class QuickPick
     {
         global $bearsamppConfig;
 
-        Util::logError( 'checkDownloadId method called.' );
+        Util::Debug( 'checkDownloadId method called.' );
 
         // Ensure the global config is available
         if ( !isset( $bearsamppConfig ) ) {
@@ -360,7 +363,10 @@ class QuickPick
      */
     public function installModule($module, $version)
     {
-        $data = $this->getQuickpickJson();
+        global $bearsamppCore;
+        $module = "module-" . strtolower( $module );
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+        $data         = $this->getQuickpickJson($jsonFilePath);
 
         // Find the module URL and module name from the data
         $moduleUrl = '';
@@ -473,7 +479,6 @@ class QuickPick
         if ( Util::checkInternetState() ) {
 
             ob_start();
-            // Check if the license key is valid
             if ( $this->checkDownloadId() ):
                 //  if (1 == 1):
                 ?>
@@ -617,7 +622,6 @@ class QuickPick
                                             <?php echo htmlspecialchars( $module ); ?>
                                         </li>
 
-
                                         <?php
                                         foreach ( $this->getModuleVersions( $module ) as $version ): ?>
                                             <li role = "option" class = "moduleoption"
@@ -629,13 +633,9 @@ class QuickPick
                                                     for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
                                             </li>
                                         <?php endforeach; ?>
-
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-
-
                             </ul>
-
                         </div>
                     </div>
                 </div>
