@@ -57,6 +57,7 @@ class QuickPick
         'Yarn'        => ['type' => 'tools']
     ];
 
+    private $versions = [];
     /**
      * @var string $jsonFilePath
      *
@@ -89,6 +90,7 @@ class QuickPick
      * @param   string  $imagesPath  The path to the images directory.
      *
      * @return string The HTML content of the QuickPick interface.
+     *
      * @throws Exception
      */
     public function loadQuickpick(string $imagesPath): string
@@ -96,8 +98,8 @@ class QuickPick
         $this->checkQuickpickJson();
 
         $modules = $this->getModules();
-
-        return $this->getQuickpickMenu( $modules, $imagesPath );
+        $versions = $this->getVersions();
+        return $this->getQuickpickMenu( $modules, $versions, $imagesPath );
     }
 
     /**
@@ -195,56 +197,46 @@ class QuickPick
         return ['success' => 'JSON content fetched and saved successfully'];
     }
 
-    /**
-     * Retrieves the list of available versions for a specified module.
+  /**
+     * Retrieves the list of available versions for all modules.
      *
-     * This method fetches the QuickPick JSON data and iterates through the entries to find
-     * all versions associated with the specified module. If no versions are found, an error
+     * This method fetches the QuickPick JSON data and returns an array of versions or If no versions are found, an error
      * message is logged and returned.
      *
-     * @param   string  $module  The name of the module for which to retrieve versions.
+     *
      *
      * @return array An array of version strings for the specified module, or an error message if no versions are found.
      */
-    public function getModuleVersions(string $module): array
+    public function getVersions()
     {
-        Util::logDebug( 'getModuleVersions called for module: ' . (is_string( $module ) ? $module : 'Invalid module type') );
-
-        // Check if $module is a string
-        if ( !is_string( $module ) ) {
-            Util::logError( 'Invalid module type: ' . gettype( $module ) );
-
-            return ['error' => 'Invalid module type'];
-        }
+        global $bearsamppCore;
+        Util::logDebug( 'Versions called');
 
         $versions = [];
 
-        // convert $module to lowercase
-        $module   = 'module-' . strtolower( $module );
-        $jsonData = $this->getQuickpickJson();
+        $jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
+        $jsonData     = $this->getQuickpickJson( $jsonFilePath );
 
         foreach ( $jsonData as $entry ) {
-            if ( is_array( $entry ) && isset( $entry['module'] ) && is_string( $entry['module'] ) && strtolower( $entry['module'] ) === $module ) {
+
+            if ( isset( $entry['module'] ) && is_string( $entry['module'] ) ) {
                 if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
-                    foreach ( $entry['versions'] as $versionEntry ) {
-                        if ( isset( $versionEntry['version'] ) && is_string( $versionEntry['version'] ) ) {
-                            $versions[] = $versionEntry['version'];
-                        }
-                    }
+                   $versions[$entry['module']] = array_column($entry['versions'],null,'version');
                 }
             }
         }
 
         if ( empty( $versions ) ) {
-            Util::logError( 'No versions found for module: ' . $module );
+            Util::logError( 'No versions found');
 
             return ['error' => 'No versions found'];
         }
 
-        Util::logDebug( 'Found versions for module: ' . $module . ' Versions: ' . implode( ', ', $versions ) );
-
+        Util::logDebug( 'Found versions' );
+        $this->versions = $versions;
         return $versions;
     }
+
 
     /**
      * Fetches the URL of a specified module version from the local quickpick-releases.json file.
@@ -261,24 +253,18 @@ class QuickPick
     {
         Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
 
-        $data = $this->getQuickpickJson();
+        $url = trim($this->versions['module-'.strtolower( $module )][$version]['url']);
+        if($url <> '')
+        {
+            Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $url );
 
-        foreach ( $data as $entry ) {
-            if ( is_array( $entry ) && isset( $entry['module'] ) && strtolower( $entry['module'] ) === strtolower( $module ) &&
-                isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
-                foreach ( $entry['versions'] as $versionEntry ) {
-                    if ( isset( $versionEntry['version'] ) && $versionEntry['version'] === $version ) {
-                        Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $versionEntry['url'] );
-
-                        return (string) trim( $versionEntry['url'] );
+            return $url;
                     }
-                }
-            }
-        }
-
+        else {
         Util::logError( 'Version not found: ' . $version );
 
         return ['error' => 'Version not found'];
+    }
     }
 
     /**
@@ -374,18 +360,16 @@ class QuickPick
         $data = $this->getQuickpickJson();
 
         // Find the module URL and module name from the data
-        $moduleUrl = '';
-        $moduleKey = 'module-' . strtolower( $module );
-        $moduleUrl = $this->getModuleUrl( $moduleKey, $version );
+        $moduleUrl = $this->getModuleUrl( $module, $version );
 
         if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
-            Util::logError( 'Module URL not found for module: ' . $moduleKey . ' version: ' . $version );
+            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
 
             return ['error' => 'Module URL not found'];
         }
 
         if ( empty( $moduleUrl ) ) {
-            Util::logError( 'Module URL not found for module: ' . $moduleKey . ' version: ' . $version );
+            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
 
             return ['error' => 'Module URL not found'];
         }
@@ -498,11 +482,12 @@ class QuickPick
      *
      * @return string The HTML content of the QuickPick menu.
      */
-    public function getQuickpickMenu($modules, $imagesPath): string
+    public function getQuickpickMenu($modules, $versions, $imagesPath): string
     {
+        ob_start();
         if ( Util::checkInternetState() ) {
 
-            ob_start();
+
             // Check if the license key is valid
             if ( $this->checkDownloadId() ):
                 //  if (1 == 1):
@@ -642,28 +627,32 @@ class QuickPick
                                 foreach ( $modules as $module ): ?>
                                     <?php if ( is_string( $module ) ): ?>
                                         <li role = "option" class = "moduleheader">
-                                            <!-- <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>" name="module"/>
-                                <label for="<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></label> -->
                                             <?php echo htmlspecialchars( $module ); ?>
                                         </li>
 
+
                                         <?php
-                                        foreach ( $this->getModuleVersions( $module ) as $version ): ?>
+                                        foreach ( $versions['module-'.strtolower($module)]  as $version_array ): ?>
                                             <li role = "option" class = "moduleoption"
-                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>-li">
-                                                <input type = "radio" id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"
+                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li">
+                                                <input type = "radio" id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"
                                                        name = "module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
-                                                       data-value = "<?php echo htmlspecialchars( $version ); ?>">
+                                                       data-value = "<?php echo htmlspecialchars( $version_array['version'] ); ?>">
                                                 <label
-                                                    for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
+                                                    for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"><?php echo htmlspecialchars( $version_array['version'] ); ?></label>
                                             </li>
                                         <?php endforeach; ?>
+
                                     <?php endif; ?>
                                 <?php endforeach; ?>
+
+
                             </ul>
+
                         </div>
                     </div>
                 </div>
+
             <?php else: ?>
                 <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
                     <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">
@@ -673,17 +662,16 @@ class QuickPick
                 </div>
             <?php endif;
 
-            return ob_get_clean();
+
         }
         else {
-            ob_start();
             ?>
             <div id = "InternetState" class = "text-center mt-3 pe-3">
                 <img src = "<?php echo $imagesPath . 'no-wifi-icon.svg'; ?>" alt = "No Wifi Icon" class = "me-2">
                 <span>No internet present</span>
             </div>
             <?php
+        }
             return ob_get_clean();
         }
     }
-}

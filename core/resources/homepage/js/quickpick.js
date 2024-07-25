@@ -25,18 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
             scrolltoview();
         });
 
-
-        const selectedValue = document.querySelector(".selected-value"); // changes the title in the select button
-
         const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
 
         optionsList.forEach((option) => {
             function handler(e) {
-                console.log(e);
                 // Click Events
                 if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
 
-                    if (selectedHeader != e.target.innerText) {
+                    if (selectedHeader !== e.target.innerText) {
                         showModule(e.target.innerText);
                         selectedHeader = e.target.innerText;
 
@@ -49,8 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 // Key Events
                 if (e.key === "Enter") {
-                    // selectedValue.textContent = e.textContent;
-                    if (selectedHeader != e.target.innerText) {
+                    if (selectedHeader !== e.target.innerText) {
                         showModule(e.target.innerText);
                         selectedHeader = e.target.innerText;
 
@@ -73,10 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
             select.addEventListener('change', function (e) {
                 console.log(e);
                 let selectedOption = e.target;
-                // New code to handle module installation
+
                 let moduleName = selectedOption.getAttribute('data-module');
                 let version = selectedOption.getAttribute('data-value');
-                window.alert('Attempting to install '.concat(moduleName).concat(' version ').concat(version));
                 if (moduleName && version) {
                     installModule(moduleName, version);
                 }
@@ -114,7 +108,7 @@ function hideall() {
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
-    window.alert('Installing '.concat(moduleName).concat(' ').concat(version));
+
     senddata.append('module', moduleName);
     senddata.append('version', version);
     senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
