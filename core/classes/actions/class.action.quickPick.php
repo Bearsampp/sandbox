@@ -99,6 +99,7 @@ class QuickPick
 
         $modules = $this->getModules();
         $versions = $this->getVersions();
+
         return $this->getQuickpickMenu( $modules, $versions, $imagesPath );
     }
 
@@ -153,8 +154,12 @@ class QuickPick
 
             return ['error' => 'Error fetching JSON file'];
         }
+        // file has extra spaces in key data, time to sanitise the data
 
-        $data = json_decode( $content, true );
+        $j = $content;
+        $j = str_replace("\" ","\"",$j); // remove "<space>data
+        $j = str_replace(" \"","\"",$j); // remove data<space>"
+        $data = json_decode( $j, true );
         if ( json_last_error() !== JSON_ERROR_NONE ) {
             Util::logError( 'Error decoding JSON content: ' . json_last_error_msg() );
 
@@ -221,6 +226,7 @@ class QuickPick
 
             if ( isset( $entry['module'] ) && is_string( $entry['module'] ) ) {
                 if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
+
                    $versions[$entry['module']] = array_column($entry['versions'],null,'version');
                 }
             }
@@ -233,6 +239,7 @@ class QuickPick
         }
 
         Util::logDebug( 'Found versions' );
+
         $this->versions = $versions;
         return $versions;
     }
@@ -251,8 +258,8 @@ class QuickPick
      */
     public function getModuleUrl(string $module, string $version)
     {
+        $this->getVersions();
         Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-
         $url = trim($this->versions['module-'.strtolower( $module )][$version]['url']);
         if($url <> '')
         {
@@ -357,7 +364,7 @@ class QuickPick
      */
     public function installModule(string $module, string $version): array
     {
-        $data = $this->getQuickpickJson();
+       // $data = $this->getQuickpickJson();
 
         // Find the module URL and module name from the data
         $moduleUrl = $this->getModuleUrl( $module, $version );
@@ -607,7 +614,27 @@ class QuickPick
                         font-weight: bold
                         }
 
-                    ;
+                    .waitloader {
+                        border: 16px solid #f3f3f3;
+                        border-radius: 50%;
+                        border-top: 16px solid blue;
+                        border-right: 16px solid green;
+                        border-bottom: 16px solid red;
+                        width: 120px;
+                        height: 120px;
+                        -webkit-animation: spin 2s linear infinite;
+                        animation: spin 2s linear infinite;
+                    }
+
+                    @-webkit-keyframes spin {
+                        0% { -webkit-transform: rotate(0deg); }
+                        100% { -webkit-transform: rotate(360deg); }
+                    }
+
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
                 </style>
                 <div id = 'quickPickContainer'>
                     <div class = 'quickpick me-5'>
@@ -652,7 +679,24 @@ class QuickPick
                         </div>
                     </div>
                 </div>
+                <div class="modal" id="myModal" tabindex="-1"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Installing, please wait...</h5>
+                                <button type="button" class="closeModalBtn" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
 
+                            </div>
+                            <div class="modal-body"> <div class="waitloader"></div> </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php else: ?>
                 <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
                     <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">

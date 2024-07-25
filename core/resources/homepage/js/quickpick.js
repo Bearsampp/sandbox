@@ -104,11 +104,11 @@ function hideall() {
     });
 
 }
-
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
-
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {  keyboard: false });
+    myModal.show();
     senddata.append('module', moduleName);
     senddata.append('version', version);
     senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
@@ -134,6 +134,9 @@ async function installModule(moduleName, version) {
                 console.error('Error:', data.error);
             } else {
                 console.log(data);
+
+                Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
+                window.alert(data.message);
                 // Handle the response if needed
             }
         } catch (error) {
@@ -143,4 +146,5 @@ async function installModule(moduleName, version) {
         console.error('Failed to install module:', error);
     }
     hideall();
+    Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
 }
