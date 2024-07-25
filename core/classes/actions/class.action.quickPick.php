@@ -107,8 +107,6 @@ class QuickPick
      * This method compares the creation time of the local JSON file with the remote file's last modified time.
      * If the remote file is newer or the local file does not exist, it fetches the latest JSON data.
      *
-     * @param   string  $JSON_URL  The URL of the remote `quickpick-releases.json` file.
-     *
      * @return mixed Returns the JSON data if the remote file is newer or the local file does not exist,
      *               otherwise returns false.
      */
@@ -135,6 +133,9 @@ class QuickPick
         if ( $remoteFileCreationTime > $localFileCreationTime || $localFileCreationTime === 0 ) {
             return $this->rebuildQuickpickJson();
         }
+
+        // Return false if the local file is up-to-date
+        return false;
     }
 
     /**
@@ -188,6 +189,9 @@ class QuickPick
             // Handle error if the file could not be saved
             throw new Exception( 'Failed to save JSON content to the specified path.' );
         }
+
+        // Return success message
+        return ['success' => 'JSON content fetched and saved successfully'];
     }
 
     /**
@@ -370,8 +374,8 @@ class QuickPick
         $data = $this->getQuickpickJson();
 
         // Find the module URL and module name from the data
-        $moduleUrl    = '';
-        $moduleKey    = "module-" . strtolower( $module );
+        $moduleUrl = '';
+        $moduleKey = "module-" . strtolower( $module );
         $moduleUrl = $this->getModuleUrl( $moduleKey, $version );
 
         if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
@@ -392,6 +396,11 @@ class QuickPick
             Util::logDebug( 'Response is: ' . print_r( $response, true ) );
 
             return $response;
+        }
+        else {
+            Util::logError( 'No internet connection available.' );
+
+            return ['error' => 'No internet connection'];
         }
     }
 
@@ -482,6 +491,7 @@ class QuickPick
      * This method creates the HTML structure for the QuickPick interface, including a dropdown
      * for selecting modules and their respective versions. It checks if the license key is valid
      * before displaying the modules. If the license key is invalid, it displays a subscription prompt.
+     * If there is no internet connection, it displays a message indicating the lack of internet.
      *
      * @param   array   $modules     An array of available modules.
      * @param   string  $imagesPath  The path to the images directory.
@@ -633,10 +643,9 @@ class QuickPick
                                     <?php if ( is_string( $module ) ): ?>
                                         <li role = "option" class = "moduleheader">
                                             <!-- <input type="radio" id="<?php echo htmlspecialchars( $module ); ?>" name="module"/>
-                                    <label for="<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></label> -->
+                                <label for="<?php echo htmlspecialchars( $module ); ?>"><?php echo htmlspecialchars( $module ); ?></label> -->
                                             <?php echo htmlspecialchars( $module ); ?>
                                         </li>
-
 
                                         <?php
                                         foreach ( $this->getModuleVersions( $module ) as $version ): ?>
@@ -649,13 +658,9 @@ class QuickPick
                                                     for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version ); ?>"><?php echo htmlspecialchars( $version ); ?></label>
                                             </li>
                                         <?php endforeach; ?>
-
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-
-
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -671,12 +676,14 @@ class QuickPick
             return ob_get_clean();
         }
         else {
+            ob_start();
             ?>
             <div id = "InternetState" class = "text-center mt-3 pe-3">
                 <img src = "<?php echo $imagesPath . 'no-wifi-icon.svg'; ?>" alt = "No Wifi Icon" class = "me-2">
                 <span>No internet present</span>
             </div>
             <?php
+            return ob_get_clean();
         }
     }
 }
