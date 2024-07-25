@@ -78,7 +78,7 @@ class QuickPick
      *
      * @return array An array of module names.
      */
-    public function getModules()
+    public function getModules(): array
     {
         return array_keys( $this->modules );
     }
@@ -88,12 +88,11 @@ class QuickPick
      *
      * @param   string  $imagesPath  The path to the images directory.
      *
-     * @return string|bool The HTML content of the QuickPick interface or false if the JSON file is not found.
+     * @return string The HTML content of the QuickPick interface.
+     * @throws Exception
      */
-    public function loadQuickpick($imagesPath)
+    public function loadQuickpick(string $imagesPath): string
     {
-        global $bearsamppCore;
-
         $this->checkQuickpickJson();
 
         $modules = $this->getModules();
@@ -105,16 +104,17 @@ class QuickPick
      * Checks if the local `quickpick-releases.json` file is up-to-date with the remote version.
      *
      * This method compares the creation time of the local JSON file with the remote file's last modified time.
-     * If the remote file is newer or the local file does not exist, it fetches the latest JSON data.
+     * If the remote file is newer or the local file does not exist, it fetches the latest JSON data by calling
+     * the `rebuildQuickpickJson` method.
      *
-     * @return mixed Returns the JSON data if the remote file is newer or the local file does not exist,
-     *               otherwise returns false.
+     * @return array|false Returns the JSON data if the remote file is newer or the local file does not exist,
+     *                     otherwise returns false.
+     * @throws Exception
      */
     public function checkQuickpickJson()
     {
         // Initialize variables
-        $localFileCreationTime  = 0;
-        $remoteFileCreationTime = 0;
+        $localFileCreationTime = 0;
 
         // Get the creation time of the local file if it exists
         if ( file_exists( $this->jsonFilePath ) ) {
@@ -143,7 +143,7 @@ class QuickPick
      *
      * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded.
      */
-    public function getQuickpickJson()
+    public function getQuickpickJson(): array
     {
         $content = @file_get_contents( $this->jsonFilePath );
         if ( $content === false ) {
@@ -165,9 +165,10 @@ class QuickPick
     /**
      * Rebuilds the local quickpick-releases.json file by fetching the latest data from the remote URL.
      *
+     * @return array An array containing the status and message of the rebuild process.
      * @throws Exception If the JSON content cannot be fetched or saved.
      */
-    public function rebuildQuickpickJson()
+    public function rebuildQuickpickJson(): array
     {
         Util::logDebug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
@@ -205,7 +206,7 @@ class QuickPick
      *
      * @return array An array of version strings for the specified module, or an error message if no versions are found.
      */
-    public function getModuleVersions($module)
+    public function getModuleVersions(string $module): array
     {
         global $bearsamppCore;
         Util::logDebug( 'getModuleVersions called for module: ' . (is_string( $module ) ? $module : 'Invalid module type') );
@@ -257,7 +258,7 @@ class QuickPick
      *
      * @return string|array The URL of the specified module version or an error message if the version is not found.
      */
-    public function getModuleUrl($module, $version)
+    public function getModuleUrl(string $module, string $version)
     {
         Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
 
@@ -296,7 +297,7 @@ class QuickPick
      *
      * @return bool True if the username key is valid, false otherwise.
      */
-    public function checkDownloadId()
+    public function checkDownloadId(): bool
     {
         global $bearsamppConfig;
 
@@ -369,13 +370,13 @@ class QuickPick
      *               If successful, it returns the response from the fetchAndUnzipModule method.
      *               If unsuccessful, it returns an error message indicating the issue.
      */
-    public function installModule($module, $version)
+    public function installModule(string $module, string $version): array
     {
         $data = $this->getQuickpickJson();
 
         // Find the module URL and module name from the data
         $moduleUrl = '';
-        $moduleKey = "module-" . strtolower( $module );
+        $moduleKey = 'module-' . strtolower( $module );
         $moduleUrl = $this->getModuleUrl( $moduleKey, $version );
 
         if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
@@ -403,8 +404,7 @@ class QuickPick
             return ['error' => 'No internet connection'];
         }
     }
-
-    /**
+/**
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
      *
      * @param   string  $moduleUrl  The URL of the module to fetch.
@@ -412,7 +412,7 @@ class QuickPick
      *
      * @return array An array containing the status and message.
      */
-    public function fetchAndUnzipModule($moduleUrl, $module)
+    public function fetchAndUnzipModule($moduleUrl, $module): array
     {
         Util::logDebug( "$module is: " . $module );
 
@@ -498,7 +498,7 @@ class QuickPick
      *
      * @return string The HTML content of the QuickPick menu.
      */
-    public function getQuickpickMenu($modules, $imagesPath)
+    public function getQuickpickMenu($modules, $imagesPath): string
     {
         if ( Util::checkInternetState() ) {
 
