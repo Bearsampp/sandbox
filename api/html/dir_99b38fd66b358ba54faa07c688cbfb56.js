@@ -19,6 +19,7 @@ var dir_99b38fd66b358ba54faa07c688cbfb56 =
     [ "ajax.nodejs.php", "d8/ded/ajax_8nodejs_8php.html", "d8/ded/ajax_8nodejs_8php" ],
     [ "ajax.php.php", "d2/d8f/ajax_8php_8php.html", "d2/d8f/ajax_8php_8php" ],
     [ "ajax.postgresql.php", "da/dea/ajax_8postgresql_8php.html", "da/dea/ajax_8postgresql_8php" ],
+    [ "ajax.quickpick.php", "d5/d7d/ajax_8quickpick_8php.html", "d5/d7d/ajax_8quickpick_8php" ],
     [ "ajax.summary.php", "d1/dc6/ajax_8summary_8php.html", "d1/dc6/ajax_8summary_8php" ],
     [ "ajax.xlight.php", "d2/de1/ajax_8xlight_8php.html", "d2/de1/ajax_8xlight_8php" ]
 ];

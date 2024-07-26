@@ -38,16 +38,16 @@ var NAVTREEINDEX =
 "d1/db8/classActionStartup.html#a198e31dd1b8ae7457eb18959a04a2748",
 "d3/d93/classNssm.html#aa32df80b96119003df6133155b5a6610",
 "d4/ddb/classHomepage.html#aec4d136c91a567b0470a2d363e65e6d0",
-"d6/d88/classBinMysql.html#af3216fb20d1d2f235b17b66d5e882b21",
-"d8/d73/classRoot.html#ab5d7ed743b7131977e4ccde6bd58a7de",
-"d9/d6c/class_8action_8about_8php_source.html",
-"da/d23/classBinFilezilla.html#aae2a025e3cd9cde21340dae236692167",
-"da/d49/classLang.html#ac21c2216cec4a6dbd6a09d6bde00b6a5",
-"db/d0d/classRegistry.html#a5936f182b778b24d86ff9f02d676d39d",
-"db/df2/classBinMailhog.html#a9d85abbc5c9a8189757323aa22772b75",
-"dc/db9/classBinPostgresql.html#ae1b66728d186a0041f5fc23026ea4a88",
-"de/def/wb__windows_8inc_8php.html#aebb63985212caa4f6d8b8f254a075d66",
-"globals.html"
+"d6/d88/classBinMysql.html#ad377417812af2aa74b69a685696a5374",
+"d8/d73/classRoot.html#a78641c68e89fe1c705f6981fc87efa57",
+"d9/d6c/classBinApache.html#ac7c60dca8f6fcafab8f5b42c630c71bd",
+"da/d23/classBinFilezilla.html#a5603cd8439db27c142af45dddd8b3745",
+"da/d49/classLang.html#aafd761b672ad469a07ed7a38c1fc07aa",
+"db/d09/classAction.html#abe5aab4ed2289032fd94a5d7dee1cebc",
+"db/df2/classBinMailhog.html",
+"dc/db9/classBinPostgresql.html#aa42c69532f092e14c0e1905570c5e1e8",
+"de/db3/classSymlinks.html#aa291a5f38bf5259eb47ade923216fe08",
+"functions_vars_f.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

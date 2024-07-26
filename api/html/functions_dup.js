@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
+ */
+
 var functions_dup =
 [
     [ "$", "functions.html", null ],
@@ -11,6 +19,7 @@ var functions_dup =
     [ "g", "functions_g.html", null ],
     [ "h", "functions_h.html", null ],
     [ "i", "functions_i.html", null ],
+    [ "j", "functions_j.html", null ],
     [ "k", "functions_k.html", null ],
     [ "l", "functions_l.html", null ],
     [ "m", "functions_m.html", null ],

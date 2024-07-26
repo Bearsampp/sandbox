@@ -80,9 +80,10 @@ var searchData=
   ['donate_69',['DONATE',['../da/d49/classLang.html#abff7b80a94e3ab7b8f2a9f650b5954e7',1,'Lang']]],
   ['donate_5fvia_70',['DONATE_VIA',['../da/d49/classLang.html#aa8835c87109678e152d9bf9d86b1ec7b',1,'Lang']]],
   ['download_71',['DOWNLOAD',['../da/d49/classLang.html#a0f1c4a7a4d3bb8dc780cfbbb76d1218d',1,'Lang']]],
-  ['download_5fmore_72',['DOWNLOAD_MORE',['../da/d49/classLang.html#aa1aa376c263360ce1eea2d22bba28ad9',1,'Lang']]],
-  ['drawimage_73',['drawImage',['../db/da5/classWinBinder.html#a8437c7c1b8ccc1c2fa1bd3d76ead9f07',1,'WinBinder']]],
-  ['drawline_74',['drawLine',['../db/da5/classWinBinder.html#a340e4bd7ee188bcbe6a4cf55ba7f3a90',1,'WinBinder']]],
-  ['drawrect_75',['drawRect',['../db/da5/classWinBinder.html#ae1b209ce8e3b245df1cdf86f867e2c28',1,'WinBinder']]],
-  ['drawtext_76',['drawText',['../db/da5/classWinBinder.html#a8da4084d282032fad8f4ebe725a11030',1,'WinBinder']]]
+  ['download_5fid_72',['DOWNLOAD_ID',['../d9/df9/classConfig.html#ab1a18bd2c9411dc8bfa2b399998d1c8a',1,'Config']]],
+  ['download_5fmore_73',['DOWNLOAD_MORE',['../da/d49/classLang.html#aa1aa376c263360ce1eea2d22bba28ad9',1,'Lang']]],
+  ['drawimage_74',['drawImage',['../db/da5/classWinBinder.html#a8437c7c1b8ccc1c2fa1bd3d76ead9f07',1,'WinBinder']]],
+  ['drawline_75',['drawLine',['../db/da5/classWinBinder.html#a340e4bd7ee188bcbe6a4cf55ba7f3a90',1,'WinBinder']]],
+  ['drawrect_76',['drawRect',['../db/da5/classWinBinder.html#ae1b209ce8e3b245df1cdf86f867e2c28',1,'WinBinder']]],
+  ['drawtext_77',['drawText',['../db/da5/classWinBinder.html#a8da4084d282032fad8f4ebe725a11030',1,'WinBinder']]]
 ];

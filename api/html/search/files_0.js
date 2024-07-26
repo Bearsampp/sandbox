@@ -20,6 +20,7 @@ var searchData=
   ['ajax_2ephp_9',['ajax.php',['../de/dae/ajax_8php.html',1,'']]],
   ['ajax_2ephp_2ephp_10',['ajax.php.php',['../d2/d8f/ajax_8php_8php.html',1,'']]],
   ['ajax_2epostgresql_2ephp_11',['ajax.postgresql.php',['../da/dea/ajax_8postgresql_8php.html',1,'']]],
-  ['ajax_2esummary_2ephp_12',['ajax.summary.php',['../d1/dc6/ajax_8summary_8php.html',1,'']]],
-  ['ajax_2exlight_2ephp_13',['ajax.xlight.php',['../d2/de1/ajax_8xlight_8php.html',1,'']]]
+  ['ajax_2equickpick_2ephp_12',['ajax.quickpick.php',['../d5/d7d/ajax_8quickpick_8php.html',1,'']]],
+  ['ajax_2esummary_2ephp_13',['ajax.summary.php',['../d1/dc6/ajax_8summary_8php.html',1,'']]],
+  ['ajax_2exlight_2ephp_14',['ajax.xlight.php',['../d2/de1/ajax_8xlight_8php.html',1,'']]]
 ];

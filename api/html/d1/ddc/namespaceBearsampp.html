@@ -44,7 +44,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname"><!-- My Project --><span id="projectnumber">&#160;2024.7.8</span>
+   <div id="projectname"><!-- My Project --><span id="projectnumber">&#160;2024.7.26</span>
    </div>
   </td>
  </tr>
@@ -118,7 +118,21 @@ $(function(){initNavTree('d1/ddc/namespaceBearsampp.html','../../'); initResizab
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="../../da/d27/classActionCheckVersion.html">ActionCheckVersion</a></p>
-<p>This class is responsible for checking the current version of the application and displaying a window with the latest version information if an update is available. It also handles the user interaction with the window, such as clicking on links or buttons. </p>
+<p>This class is responsible for checking the current version of the application and displaying a window with the latest version information if an update is available. It also handles the user interaction with the window, such as clicking on links or buttons.</p>
+<p>This script handles AJAX requests for installing modules in the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It expects a POST request with 'module' and 'version' parameters.</p>
+<p>The script performs the following actions:</p><ul>
+<li>Includes the <a class="el" href="../../d7/dcf/classQuickPick.html">QuickPick</a> class.</li>
+<li>Logs the file access.</li>
+<li>Creates an instance of the <a class="el" href="../../d7/dcf/classQuickPick.html">QuickPick</a> class.</li>
+<li>Sets the response header to JSON.</li>
+<li>Initializes an empty response array.</li>
+<li>Checks if the request method is POST.</li>
+<li>Validates the 'module' and 'version' parameters.</li>
+<li>Calls the installModule method of the <a class="el" href="../../d7/dcf/classQuickPick.html">QuickPick</a> class.</li>
+<li>Constructs a response message based on the installation result.</li>
+<li>Returns the response as a JSON object.</li>
+</ul>
+<p>@subpackage <a class="el" href="../../db/d6d/classCore.html">Core</a> </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
