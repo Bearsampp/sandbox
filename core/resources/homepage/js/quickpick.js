@@ -6,6 +6,27 @@
  * Github: https://github.com/Bearsampp
  */
 
+/**
+ * This script handles the dynamic behavior of the QuickPick module selection on the homepage.
+ * It includes the following functionalities:
+ * - Toggles the visibility of the module selection dropdown.
+ * - Handles click and key events for module headers and options.
+ * - Installs the selected module version via an AJAX request.
+ * - Displays a modal during the installation process and handles the response.
+ * - Closes the modal and reloads the page after the installation process.
+ *
+ * Functions:
+ * - scrolltoview(): Scrolls the module selection dropdown into view.
+ * - showModule(modName): Displays the options for the selected module.
+ * - hideall(): Hides all module options.
+ * - installModule(moduleName, version): Sends an AJAX request to install the selected module version.
+ * - closeModalAndReload(): Closes the modal and reloads the page.
+ *
+ * Event Listeners:
+ * - DOMContentLoaded: Initializes the event listeners for the module selection dropdown and options.
+ * - click: Toggles the visibility of the module selection dropdown and handles module option selection.
+ * - keyup: Handles key events for module headers.
+ */
 document.addEventListener("DOMContentLoaded", function () {
 
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
@@ -107,7 +128,7 @@ function hideall() {
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'), {  keyboard: false });
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'), { keyboard: false });
     myModal.show();
     senddata.append('module', moduleName);
     senddata.append('version', version);
@@ -132,23 +153,26 @@ async function installModule(moduleName, version) {
             let data = JSON.parse(responseText);
             if (data.error) {
                 console.error('Error:', data.error);
+                window.alert(`Error: ${data.error}`);
             } else {
                 console.log(data);
-
-                Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
                 window.alert(data.message);
-
-                // Handle the response if needed
             }
         } catch (error) {
             console.error('Failed to parse response:', error);
+            window.alert('Failed to parse response: ' + error.message);
         }
     } catch (error) {
         console.error('Failed to install module:', error);
-        window.alert('Failed to install module:', error);
+        window.alert('Failed to install module: ' + error.message);
+    } finally {
+        closeModalAndReload();
     }
-    hideall();
-    Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
-    window.alert('Click to reload localhost');
+}
+
+function closeModalAndReload() {
+    Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element) {
+        element.click();
+    });
     location.reload();
 }
