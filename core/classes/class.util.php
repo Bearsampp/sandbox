@@ -1638,8 +1638,14 @@ class Util
      */
     public static function isPortInUse($port)
     {
-        //TODO: Change to check config for localhost ip else use 127.0.0.1 as this assumes 127.0.0.1 will always be localhost.
-        $connection = @fsockopen( '127.0.0.1', $port );
+        // Declaring a variable to hold the IP
+        // address getHostName() gets the name
+        // of the local machine getHostByName()
+        // gets the corresponding IP
+        $localIP = getHostByName( getHostName() );
+
+        $connection = @fsockopen( $localIP, $port );
+
         if ( is_resource( $connection ) ) {
             fclose( $connection );
             $process = Batch::getProcessUsingPort( $port );
