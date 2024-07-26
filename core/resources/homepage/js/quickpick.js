@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let selects = document.querySelectorAll('.select-dropdown li.moduleoption');
         selects.forEach(function (select) {
-            select.addEventListener('change', function (e) {
+            select.addEventListener('click', function (e) {
                 console.log(e);
                 let selectedOption = e.target;
 
@@ -107,7 +107,7 @@ function hideall() {
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
-    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {  keyboard: false });
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'), {  keyboard: false });
     myModal.show();
     senddata.append('module', moduleName);
     senddata.append('version', version);
@@ -137,6 +137,7 @@ async function installModule(moduleName, version) {
 
                 Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
                 window.alert(data.message);
+
                 // Handle the response if needed
             }
         } catch (error) {
@@ -144,7 +145,10 @@ async function installModule(moduleName, version) {
         }
     } catch (error) {
         console.error('Failed to install module:', error);
+        window.alert('Failed to install module:', error);
     }
     hideall();
     Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element){element.click();})
+    window.alert('Click to reload localhost');
+    location.reload();
 }
