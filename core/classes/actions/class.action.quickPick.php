@@ -58,6 +58,7 @@ class QuickPick
     ];
 
     private $versions = [];
+
     /**
      * @var string $jsonFilePath
      *
@@ -97,7 +98,7 @@ class QuickPick
     {
         $this->checkQuickpickJson();
 
-        $modules = $this->getModules();
+        $modules  = $this->getModules();
         $versions = $this->getVersions();
 
         return $this->getQuickpickMenu( $modules, $versions, $imagesPath );
@@ -156,9 +157,9 @@ class QuickPick
         }
         // file has extra spaces in key data, time to sanitise the data
 
-        $j = $content;
-        $j = str_replace("\" ","\"",$j); // remove "<space>data
-        $j = str_replace(" \"","\"",$j); // remove data<space>"
+        $j    = $content;
+        $j    = str_replace( "\" ", "\"", $j ); // remove "<space>data
+        $j    = str_replace( " \"", "\"", $j ); // remove data<space>"
         $data = json_decode( $j, true );
         if ( json_last_error() !== JSON_ERROR_NONE ) {
             Util::logError( 'Error decoding JSON content: ' . json_last_error_msg() );
@@ -202,20 +203,18 @@ class QuickPick
         return ['success' => 'JSON content fetched and saved successfully'];
     }
 
-  /**
+    /**
      * Retrieves the list of available versions for all modules.
      *
      * This method fetches the QuickPick JSON data and returns an array of versions or If no versions are found, an error
      * message is logged and returned.
-     *
-     *
      *
      * @return array An array of version strings for the specified module, or an error message if no versions are found.
      */
     public function getVersions()
     {
         global $bearsamppCore;
-        Util::logDebug( 'Versions called');
+        Util::logDebug( 'Versions called' );
 
         $versions = [];
 
@@ -227,13 +226,13 @@ class QuickPick
             if ( isset( $entry['module'] ) && is_string( $entry['module'] ) ) {
                 if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
 
-                   $versions[$entry['module']] = array_column($entry['versions'],null,'version');
+                    $versions[$entry['module']] = array_column( $entry['versions'], null, 'version' );
                 }
             }
         }
 
         if ( empty( $versions ) ) {
-            Util::logError( 'No versions found');
+            Util::logError( 'No versions found' );
 
             return ['error' => 'No versions found'];
         }
@@ -241,6 +240,7 @@ class QuickPick
         Util::logDebug( 'Found versions' );
 
         $this->versions = $versions;
+
         return $versions;
     }
 
@@ -260,18 +260,17 @@ class QuickPick
     {
         $this->getVersions();
         Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-        $url = trim($this->versions['module-'.strtolower( $module )][$version]['url']);
-        if($url <> '')
-        {
+        $url = trim( $this->versions['module-' . strtolower( $module )][$version]['url'] );
+        if ( $url <> '' ) {
             Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $url );
 
             return $url;
-                    }
+        }
         else {
-        Util::logError( 'Version not found: ' . $version );
+            Util::logError( 'Version not found: ' . $version );
 
-        return ['error' => 'Version not found'];
-    }
+            return ['error' => 'Version not found'];
+        }
     }
 
     /**
@@ -364,8 +363,6 @@ class QuickPick
      */
     public function installModule(string $module, string $version): array
     {
-       // $data = $this->getQuickpickJson();
-
         // Find the module URL and module name from the data
         $moduleUrl = $this->getModuleUrl( $module, $version );
 
@@ -494,148 +491,8 @@ class QuickPick
         ob_start();
         if ( Util::checkInternetState() ) {
 
-
             // Check if the license key is valid
-            if ( $this->checkDownloadId() ):
-                //  if (1 == 1):
-                ?>
-                <style>
-
-                    .custom-select {
-                        position: relative;
-                        width: 100%;
-                        max-width: 100%;
-                        font-size: 1.15rem;
-                        color: #000;
-                        }
-
-                    .custom-select .select-button {
-                        width: 100%;
-                        font-size: 16px;
-                        background-color: #fff;
-                        padding: 0.675em 1em;
-                        border: 1px solid #caced1;
-                        border-radius: 0.25rem;
-                        cursor: pointer;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        white-space: nowrap;
-                        font-weight: normal !important;
-                        }
-
-                    .custom-select .selected-value {
-                        text-align: left;
-                        padding-right: 5px;
-                        font-weight: bold
-                        }
-
-                    .custom-select .arrow {
-                        border-left: 5px solid transparent;
-                        border-right: 5px solid transparent;
-                        border-top: 6px solid #000;
-                        transition: transform ease-in-out 0.3s;
-
-                        }
-
-                    .custom-select.active .select-dropdown {
-                        opacity: 1;
-                        visibility: visible;
-                        transform: scaleY(1);
-                        }
-
-                    .select-dropdown {
-                        position: absolute;
-                        list-style: none;
-                        width: 100%;
-                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                        box-sizing: border-box;
-                        background-color: #fff;
-                        border: 1px solid #caced1;
-                        border-radius: 4px;
-                        padding: 10px;
-                        margin-top: 10px;
-                        max-height: 200px;
-                        overflow-y: auto;
-                        transition: 0.5s ease;
-                        transform: scaleY(0);
-                        opacity: 0;
-                        visibility: hidden;
-                        }
-
-                    .select-dropdown:focus-within {
-                        box-shadow: 0 10px 25px rgba(94, 108, 233, 0.6);
-                        }
-
-                    .select-dropdown li {
-                        position: relative;
-                        cursor: pointer;
-                        display: flex;
-                        gap: 1rem;
-                        align-items: center;
-                        }
-
-                    .select-dropdown li label {
-                        width: 100%;
-                        padding: 8px 10px;
-                        cursor: pointer;
-                        }
-
-                    .select-dropdown::-webkit-scrollbar {
-                        width: 7px;
-                        }
-
-                    .select-dropdown::-webkit-scrollbar-track {
-                        background: #f1f1f1;
-                        border-radius: 25px;
-                        }
-
-                    .select-dropdown::-webkit-scrollbar-thumb {
-                        background: #ccc;
-                        border-radius: 25px;
-                        }
-
-                    .select-dropdown li:hover,
-                    .select-dropdown input:checked ~ label {
-                        background-color: #f2f2f2;
-                        }
-
-                    .select-dropdown input:focus ~ label {
-                        background-color: #dfdfdf;
-                        }
-
-                    .select-dropdown input[type="radio"] {
-                        position: absolute;
-                        left: 0;
-                        opacity: 0;
-                        }
-
-                    .moduleheader {
-                        font-weight: bold
-                        }
-
-                    .waitloader {
-                        border: 16px solid #f3f3f3;
-                        border-radius: 50%;
-                        border-top: 16px solid blue;
-                        border-right: 16px solid green;
-                        border-bottom: 16px solid red;
-                        width: 120px;
-                        height: 120px;
-                        -webkit-animation: spin 2s linear infinite;
-                        animation: spin 2s linear infinite;
-                    }
-
-                    @-webkit-keyframes spin {
-                        0% { -webkit-transform: rotate(0deg); }
-                        100% { -webkit-transform: rotate(360deg); }
-                    }
-
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                </style>
+            if ( $this->checkDownloadId() ): ?>
                 <div id = 'quickPickContainer'>
                     <div class = 'quickpick me-5'>
 
@@ -657,42 +514,37 @@ class QuickPick
                                             <?php echo htmlspecialchars( $module ); ?>
                                         </li>
 
-
                                         <?php
-                                        foreach ( $versions['module-'.strtolower($module)]  as $version_array ): ?>
+                                        foreach ( $versions['module-' . strtolower( $module )] as $version_array ): ?>
                                             <li role = "option" class = "moduleoption"
                                                 id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li">
-                                                <input type = "radio" id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"
+                                                <input type = "radio"
+                                                       id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"
                                                        name = "module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
                                                        data-value = "<?php echo htmlspecialchars( $version_array['version'] ); ?>">
                                                 <label
                                                     for = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"><?php echo htmlspecialchars( $version_array['version'] ); ?></label>
                                             </li>
                                         <?php endforeach; ?>
-
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-
-
                             </ul>
-
                         </div>
                     </div>
                 </div>
-                <div class="modal" id="myModal" tabindex="-1"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Installing, please wait...</h5>
-                                <button type="button" class="closeModalBtn" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-
+                <div class = "modal" id = "myModal" tabindex = "-1"
+                     aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+                            <div class = "modal-header">
+                                <h5 class = "modal-title" id = "exampleModalLabel">Installing, please wait...</h5>
+                                <button type = "button" class = "closeModalBtn" data-bs-dismiss = "modal" aria-label = "Close"></button>
                             </div>
-                            <div class="modal-body"> <div class="waitloader"></div> </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
+                            <div class = "modal-body">
+                                <div class = "waitloader"></div>
+                            </div>
+                            <div class = "modal-footer">
+                                <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -705,8 +557,6 @@ class QuickPick
                     </a>
                 </div>
             <?php endif;
-
-
         }
         else {
             ?>
@@ -716,6 +566,7 @@ class QuickPick
             </div>
             <?php
         }
-            return ob_get_clean();
-        }
+
+        return ob_get_clean();
     }
+}
