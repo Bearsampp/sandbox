@@ -129,9 +129,6 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-
-    <progress id="progressBar" value="0" max="100"></progress>
-
     <?php echo $quickPick->loadQuickpick($imagesPath ); ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
