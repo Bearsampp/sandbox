@@ -13,7 +13,7 @@
 /apps/
 /bin/
 /cgi-bin/
-/img/
+/img/*
 /logs/*
 /ssl/
 /tmp/*
@@ -34,7 +34,9 @@ bearsampp.conf
 /core/resources/homepage/img/bearsampp.bmp
 /core/resources/homepage/img/header-logo.png
 /core/resources/homepage/img/icons/app.ico
-/core/resources/homepage/img/icons/favicon.ico
+/core/resources/homepage/img/icons/bearsampp.ico
+/core/resources/homepage/img/Bearsampp-orange-logo-for-bearsampp-sandbox-32x32.bmp
+/core/resources/quickpick-releases.json
 
 # Visual Studio
 .vscode/
