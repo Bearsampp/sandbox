@@ -128,8 +128,16 @@ function hideall() {
 async function installModule(moduleName, version) {
     const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
     const senddata = new URLSearchParams();
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'), { keyboard: false });
-    myModal.show();
+    const progress = document.getElementById('progress');
+    const progressbar = document.getElementById('progress-bar');
+
+    const downloadmodule = document.getElementById('download-module');
+    const downloadversion = document.getElementById('download-version');
+
+    progressbar.innerText="Downloading ".concat(moduleName).concat(' ').concat(version)
+    progress.style.display="block";
+    downloadmodule.innerText=moduleName;
+    downloadversion.innerText=version;
     senddata.append('module', moduleName);
     senddata.append('version', version);
     senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
@@ -166,13 +174,18 @@ async function installModule(moduleName, version) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
-        closeModalAndReload();
+        location.reload();
     }
 }
 
-function closeModalAndReload() {
-    Array.from(document.getElementsByClassName('closeModalBtn')).forEach(function(element) {
-        element.click();
-    });
-    location.reload();
+
+function setProgress(progpercent) {
+    const progress = document.getElementById('progress');
+    const progressbar = document.getElementById('progress-bar');
+    const downloadmodule = document.getElementById('download-module');
+    const downloadversion = document.getElementById('download-version');
+
+    progressbar.innerText="Downloading ".concat(downloadmodule.innerText).concat(' ').concat(downloadversion.innerText).concat(' - ').concat(progpercent).concat('%');
+    progressbar.ariaValueNow=progpercent;
+    progress.style.display="block";
 }

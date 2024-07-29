@@ -404,8 +404,8 @@ class QuickPick
      */
     public function fetchAndUnzipModule(string $moduleUrl, string $module): array
     {
-        Util::logDebug( "$module is: " . $module );
-
+        Util::logDebug("module is: " . $module);
+        Util::logDebug("moduleUrl is: " . $moduleUrl);
         global $bearsamppRoot, $bearsamppCore;
         $tmpDir = $bearsamppRoot->getTmpPath();
         Util::logDebug( 'Temporary Directory: ' . $tmpDir );
@@ -436,20 +436,32 @@ class QuickPick
             $destination = '';
         }
 
-        // Fetch the file from the URL
-        $fileContent = @file_get_contents( $moduleUrl );
-        if ( $fileContent === false ) {
-            Util::logError( 'Error fetching content from URL: ' . $moduleUrl );
+// Fetch the file from the URL using cURL
+        $ch = curl_init();
+        $fp = fopen($filePath, 'w+');
+        curl_setopt($ch, CURLOPT_URL,$moduleUrl);
+        curl_setopt($ch,CURLOPT_TIMEOUT,1000);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
 
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION,
+            static function ($channel,$download_size, $downloaded, $upload_size, $uploaded){
+            $progress = 5; //round(((0+$downloaded) / (0+$download_size)) * 100);
+            Util::logDebug('progress - '.$download_size . ' - ' . $downloaded. ' - ' . $upload_size. ' - ' . $uploaded);
+            echo '<script>setProgress('.$progress.'); </script>';
+        });
+
+
+        $result = curl_exec($ch);
+
+        if ($result === false) {
+            Util::logError('Error fetching content from URL: ' . $moduleUrl);
             return ['error' => 'Error fetching module'];
         }
 
-        // Save the file to /tmp
-        if ( file_put_contents( $filePath, $fileContent ) === false ) {
-            Util::logError( 'Error saving file to: ' . $filePath );
-
-            return ['error' => 'Error saving module'];
-        }
+        curl_close($ch);
+        fclose($fp);
 
         Util::logDebug( 'File saved to: ' . $filePath );
 
@@ -474,6 +486,8 @@ class QuickPick
 
         return ['success' => 'Module fetched and unzipped successfully'];
     }
+
+
 
    /**
      * Generates the HTML content for the QuickPick menu.
@@ -518,6 +532,7 @@ class QuickPick
                                         </li>
 
                                         <?php
+                                        if(isset($versions['module-' . strtolower( $module )] )):
                                         foreach ( $versions['module-' . strtolower( $module )] as $version_array ): ?>
                                             <li role = "option" class = "moduleoption"
                                                 id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li">
@@ -530,26 +545,16 @@ class QuickPick
                                             </li>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class = "modal" id = "myModal" tabindex = "-1"
-                     aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-                    <div class = "modal-dialog">
-                        <div class = "modal-content">
-                            <div class = "modal-header">
-                                <h5 class = "modal-title" id = "exampleModalLabel">Installing, please wait...</h5>
-                                <button type = "button" class = "closeModalBtn" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                            </div>
-                            <div class = "modal-body">
-                                <div class = "waitloader"></div>
-                            </div>
-                            <div class = "modal-footer">
-                                <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
-                            </div>
-                        </div>
+                    <div class = "progress" id = "progress" tabindex = "-1" style="width:260px;display:none"
+                         aria-labelledby = "progressbar" aria-hidden = "true">
+                        <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-module = "Module" data-version="0.0.0" width="0">0%</div>
+                        <div id="download-module" style="display: none">ModuleName</div>
+                        <div id="download-version" style="display: none">Version</div>
                     </div>
                 </div>
             <?php else: ?>
