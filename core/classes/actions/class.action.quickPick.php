@@ -193,15 +193,15 @@ class QuickPick
 
         if ( $jsonContent === false ) {
             // Handle error if the file could not be fetched
-            throw new Exception( 'Failed to fetch JSON content from the URL.' );
+            throw new Exception('Failed to fetch JSON content from the URL.');
         }
 
         // Save the JSON content to the specified path
-        $result = file_put_contents( $this->jsonFilePath, $jsonContent );
+        $result = file_put_contents($this->jsonFilePath, $jsonContent);
 
-        if ( $result === false ) {
+        if ($result === false) {
             // Handle error if the file could not be saved
-            throw new Exception( 'Failed to save JSON content to the specified path.' );
+            throw new Exception('Failed to save JSON content to the specified path.');
         }
 
         // Return success message
@@ -218,32 +218,31 @@ class QuickPick
      */
     public function getVersions(): array
     {
-        Util::logDebug( 'Versions called' );
+        Util::logDebug('Versions called');
 
         $versions = [];
 
         $jsonData = $this->getQuickpickJson();
 
-        foreach ( $jsonData as $entry ) {
-            if ( is_array( $entry ) ) {
-                if ( isset( $entry['module'] ) && is_string( $entry['module'] ) ) {
-                    if ( isset( $entry['versions'] ) && is_array( $entry['versions'] ) ) {
-                        $versions[$entry['module']] = array_column( $entry['versions'], null, 'version' );
+        foreach ($jsonData as $entry) {
+            if (is_array($entry)) {
+                if (isset($entry['module']) && is_string($entry['module'])) {
+                    if (isset($entry['versions']) && is_array($entry['versions'])) {
+                        $versions[$entry['module']] = array_column($entry['versions'], null, 'version');
                     }
                 }
-            }
-            else {
-                Util::logError( 'Invalid entry format in JSON data' );
+            } else {
+                Util::logError('Invalid entry format in JSON data');
             }
         }
 
-        if ( empty( $versions ) ) {
-            Util::logError( 'No versions found' );
+        if (empty($versions)) {
+            Util::logError('No versions found');
 
             return ['error' => 'No versions found'];
         }
 
-        Util::logDebug( 'Found versions' );
+        Util::logDebug('Found versions');
 
         $this->versions = $versions;
 
@@ -256,23 +255,22 @@ class QuickPick
      * This method reads the quickpick-releases.json file to find the URL associated with the given module
      * and version. It logs the process and returns the URL if found, or an error message if not.
      *
-     * @param   string  $module   The name of the module.
-     * @param   string  $version  The version of the module.
+     * @param string $module The name of the module.
+     * @param string $version The version of the module.
      *
      * @return string|array The URL of the specified module version or an error message if the version is not found.
      */
     public function getModuleUrl(string $module, string $version)
     {
         $this->getVersions();
-        Util::logDebug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-        $url = trim( $this->versions['module-' . strtolower( $module )][$version]['url'] );
-        if ( $url <> '' ) {
-            Util::logDebug( 'Found URL for version: ' . $version . ' URL: ' . $url );
+        Util::logDebug('getModuleUrl called for module: ' . $module . ' version: ' . $version);
+        $url = trim($this->versions['module-' . strtolower($module)][$version]['url']);
+        if ($url <> '') {
+            Util::logDebug('Found URL for version: ' . $version . ' URL: ' . $url);
 
             return $url;
-        }
-        else {
-            Util::logError( 'Version not found: ' . $version );
+        } else {
+            Util::logError('Version not found: ' . $version);
 
             return ['error' => 'Version not found'];
         }
@@ -297,57 +295,57 @@ class QuickPick
     {
         global $bearsamppConfig;
 
-        Util::logDebug( 'checkDownloadId method called.' );
+        Util::logDebug('checkDownloadId method called.');
 
         // Ensure the global config is available
-        if ( !isset( $bearsamppConfig ) ) {
-            Util::logError( 'Global configuration is not set.' );
+        if (!isset($bearsamppConfig)) {
+            Util::logError('Global configuration is not set.');
 
             return false;
         }
 
         $DownloadId = $bearsamppConfig->getDownloadId();
-        Util::logDebug( 'DownloadId is: ' . $DownloadId );
+        Util::logDebug('DownloadId is: ' . $DownloadId);
 
         // Ensure the license key is not empty
-        if ( empty( $DownloadId ) ) {
-            Util::logError( 'License key is empty.' );
+        if (empty($DownloadId)) {
+            Util::logError('License key is empty.');
 
             return false;
         }
 
         $url = self::API_URL . self::API_KEY . '&download_id=' . $DownloadId;
-        Util::logDebug( 'API URL: ' . $url );
+        Util::logDebug('API URL: ' . $url);
 
-        $response = @file_get_contents( $url );
+        $response = @file_get_contents($url);
 
         // Check if the response is false
-        if ( $response === false ) {
+        if ($response === false) {
             $error = error_get_last();
-            Util::logError( 'Error fetching API response: ' . $error['message'] );
+            Util::logError('Error fetching API response: ' . $error['message']);
 
             return false;
         }
 
-        Util::logDebug( 'API response: ' . $response );
+        Util::logDebug('API response: ' . $response);
 
-        $data = json_decode( $response, true );
+        $data = json_decode($response, true);
 
         // Check if the JSON decoding was successful
-        if ( json_last_error() !== JSON_ERROR_NONE ) {
-            Util::logError( 'Error decoding JSON response: ' . json_last_error_msg() );
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Util::logError('Error decoding JSON response: ' . json_last_error_msg());
 
             return false;
         }
 
         // Validate the response data
-        if ( isset( $data['success'] ) && $data['success'] === true && isset( $data['data'] ) && is_array( $data['data'] ) && count( $data['data'] ) > 0 ) {
-            Util::logDebug( 'License key valid: ' . $DownloadId );
+        if (isset($data['success']) && $data['success'] === true && isset($data['data']) && is_array($data['data']) && count($data['data']) > 0) {
+            Util::logDebug('License key valid: ' . $DownloadId);
 
             return true;
         }
 
-        Util::logError( 'Invalid license key: ' . $DownloadId );
+        Util::logError('Invalid license key: ' . $DownloadId);
 
         return false;
     }
@@ -359,8 +357,8 @@ class QuickPick
      * If the URL is found, it fetches and unzips the module. If the URL is not found, it logs an error
      * and returns an error message.
      *
-     * @param   string  $module   The name of the module to install.
-     * @param   string  $version  The version of the module to install.
+     * @param string $module The name of the module to install.
+     * @param string $version The version of the module to install.
      *
      * @return array An array containing the status and message of the installation process.
      *               If successful, it returns the response from the fetchAndUnzipModule method.
@@ -369,29 +367,28 @@ class QuickPick
     public function installModule(string $module, string $version): array
     {
         // Find the module URL and module name from the data
-        $moduleUrl = $this->getModuleUrl( $module, $version );
+        $moduleUrl = $this->getModuleUrl($module, $version);
 
-        if ( is_array( $moduleUrl ) && isset( $moduleUrl['error'] ) ) {
-            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+        if (is_array($moduleUrl) && isset($moduleUrl['error'])) {
+            Util::logError('Module URL not found for module: ' . $module . ' version: ' . $version);
 
             return ['error' => 'Module URL not found'];
         }
 
-        if ( empty( $moduleUrl ) ) {
-            Util::logError( 'Module URL not found for module: ' . $module . ' version: ' . $version );
+        if (empty($moduleUrl)) {
+            Util::logError('Module URL not found for module: ' . $module . ' version: ' . $version);
 
             return ['error' => 'Module URL not found'];
         }
 
         $state = Util::checkInternetState();
-        if ( $state ) {
-            $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
-            Util::logDebug( 'Response is: ' . print_r( $response, true ) );
+        if ($state) {
+            $response = $this->fetchAndUnzipModule($moduleUrl, $module);
+            Util::logDebug('Response is: ' . print_r($response, true));
 
             return $response;
-        }
-        else {
-            Util::logError( 'No internet connection available.' );
+        } else {
+            Util::logError('No internet connection available.');
 
             return ['error' => 'No internet connection'];
         }
@@ -400,8 +397,8 @@ class QuickPick
     /**
      * Fetches the module URL and stores it in /tmp, then unzips the file based on its extension.
      *
-     * @param   string  $moduleUrl  The URL of the module to fetch.
-     * @param   string  $module     The name of the module.
+     * @param string $moduleUrl The URL of the module to fetch.
+     * @param string $module The name of the module.
      *
      * @return array An array containing the status and message.
      */
@@ -546,22 +543,11 @@ class QuickPick
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class = "modal" id = "myModal" tabindex = "-1"
-                     aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-                    <div class = "modal-dialog">
-                        <div class = "modal-content">
-                            <div class = "modal-header">
-                                <h5 class = "modal-title" id = "exampleModalLabel">Installing, please wait...</h5>
-                                <button type = "button" class = "closeModalBtn" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                            </div>
-                            <div class = "modal-body">
-                                <div class = "waitloader"></div>
-                            </div>
-                            <div class = "modal-footer">
-                                <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
-                            </div>
-                        </div>
+                    <div class = "progress" id = "progress" tabindex = "-1" style="width:260px;display:none"
+                         aria-labelledby = "progressbar" aria-hidden = "true">
+                        <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-module = "Module" data-version="0.0.0" width="0">0%</div>
+                        <div id="download-module" style="display: none">ModuleName</div>
+                        <div id="download-version" style="display: none">Version</div>
                     </div>
                 </div>
             <?php else: ?>
