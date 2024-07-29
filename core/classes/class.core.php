@@ -531,4 +531,65 @@ class Core
 
         return true;
     }
+
+    /**
+     * Fetches a file from a given URL and saves it to a specified file path.
+     *
+     * This method attempts to retrieve the content from the provided URL and save it to the specified file path.
+     * If any error occurs during fetching or saving, it logs the error and returns an error message.
+     * If the operation is successful, it returns the file path.
+     *
+     * @param   string  $moduleUrl  The URL from which to fetch the file content.
+     * @param   string  $filePath   The path where the file content should be saved.
+     *
+     * @return array|string Returns the file path if successful, or an array with an error message if an error occurs.
+     */
+    public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
+    {
+        // Open the URL for reading
+        $inputStream = @fopen( $moduleUrl, 'rb' );
+        if ( $inputStream === false ) {
+            Util::logError( 'Error fetching content from URL: ' . $moduleUrl );
+
+            return ['error' => 'Error fetching module'];
+        }
+
+        // Open the file for writing
+        $outputStream = @fopen( $filePath, 'wb' );
+        if ( $outputStream === false ) {
+            Util::logError( 'Error opening file for writing: ' . $filePath );
+            fclose( $inputStream );
+
+            return ['error' => 'Error saving module'];
+        }
+
+        // Read and write in chunks to avoid memory overload
+        $bufferSize = 32768; // 8KB
+        while ( !feof( $inputStream ) ) {
+            $buffer = fread( $inputStream, $bufferSize );
+            if ( $buffer === false ) {
+                Util::logError( 'Error reading from URL: ' . $moduleUrl );
+                fclose( $inputStream );
+                fclose( $outputStream );
+
+                return ['error' => 'Error reading module'];
+            }
+
+            if ( fwrite( $outputStream, $buffer ) === false ) {
+                Util::logError( 'Error writing to file: ' . $filePath );
+                fclose( $inputStream );
+                fclose( $outputStream );
+
+                return ['error' => 'Error saving module'];
+            }
+        }
+
+        // Close the streams
+        fclose( $inputStream );
+        fclose( $outputStream );
+
+        Util::logDebug( 'File saved to: ' . $filePath );
+
+        return $filePath;
+    }
 }
