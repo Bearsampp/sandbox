@@ -432,19 +432,19 @@ class QuickPick
 
         // Retrieve the file path from the URL using the bearsamppCore module,
         // passing the module URL and temporary file path, with the use Progress Bar parameter set to true.
-        $filePath = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
+        $result = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
 
         // Determine the file extension and call the appropriate unzipping function
-        $fileExtension = pathinfo( $filePath, PATHINFO_EXTENSION );
+        $fileExtension = pathinfo( $tmpFilePath, PATHINFO_EXTENSION );
         Util::logDebug( 'File extension: ' . $fileExtension );
         if ( $fileExtension === '7z' ) {
-            if ( !$bearsamppCore->unzip7zFile( $filePath, $destination ) ) {
-                return ['error' => 'Failed to unzip .7z file.  File: ' . $filePath . ' could not be unzipped', 'Destination: ' . $destination];
+            if ( !$bearsamppCore->unzip7zFile( $tmpFilePath, $destination ) ) {
+                return ['error' => 'Failed to unzip .7z file.  File: ' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
             }
         }
         elseif ( $fileExtension === 'zip' ) {
-            if ( !$bearsamppCore->unzipFile( $filePath, $destination ) ) {
-                return ['error' => 'Failed to unzip .zip file' . $filePath . ' could not be unzipped', 'Destination: ' . $destination];
+            if ( !$bearsamppCore->unzipFile( $tmpFilePath, $destination ) ) {
+                return ['error' => 'Failed to unzip .zip file' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
             }
         }
         else {

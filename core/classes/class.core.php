@@ -564,44 +564,37 @@ class Core
         }
 
         // Ensure $inputStream is a valid file resource
-        if (is_resource($inputStream)) {
+        if ( is_resource( $inputStream ) ) {
             // Get file statistics
-            $fileStats = fstat($inputStream);
-
+            $fileStats = fstat( $inputStream );
             // Extract the file size
             $fileSize = $fileStats['size'];
-
             // Output the file size
             Util::logError( 'File size: ' . $fileSize . ' bytes' );
         }
 
         // Read and write in chunks to avoid memory overload
         $bufferSize = 32768; // 32KB
+        $steps      = $fileSize / $bufferSize;
+        $bytesRead  = 0;
+
         while ( !feof( $inputStream ) ) {
             $buffer = fread( $inputStream, $bufferSize );
-            if ( $buffer === false ) {
-                Util::logError( 'Error reading from URL: ' . $moduleUrl );
-                fclose( $inputStream );
-                fclose( $outputStream );
+            fwrite( $outputStream, $buffer );
+            $bytesRead += strlen( $buffer );
 
-                return ['error' => 'Error reading module'];
-            }
-
-            if ( fwrite( $outputStream, $buffer ) === false ) {
-                Util::logError( 'Error writing to file: ' . $filePath );
-                fclose( $inputStream );
-                fclose( $outputStream );
-
-                return ['error' => 'Error saving module'];
+            // Send progress update
+            if ( $progressBar ) {
+                $progress = min( 100, ($bytesRead / $fileSize) * 100 );
+                echo json_encode( ['progress' => $progress] );
+                ob_flush();
+                flush();
             }
         }
 
-        // Close the streams
         fclose( $inputStream );
         fclose( $outputStream );
 
-        Util::logDebug( 'File saved to: ' . $filePath );
-
-        return $filePath;
+        return ['success' => true];
     }
 }

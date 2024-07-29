@@ -39,29 +39,25 @@ header( 'Content-Type: application/json' );
 
 $response = array();
 
-if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-	$module  = isset( $_POST['module'] ) ? $_POST['module'] : null;
-	$version = isset( $_POST['version'] ) ? $_POST['version'] : null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $module  = isset($_POST['module']) ? $_POST['module'] : null;
+    $version = isset($_POST['version']) ? $_POST['version'] : null;
 
-	if ( $module && $version ) {
-		$response = $QuickPick->installModule( $module, $version );
-		if ( !isset( $response['error'] ) ) {
-			$response['message'] = "Module $module version $version installed successfully.";
-			if ( isset( $QuickPick->modules[$module] ) && $QuickPick->modules[$module]['type'] === "binary" ) {
-				$response['message'] .= "\nReload needed... Right click on menu and choose reload.";
-			}
-			else {
-				$response['message'] .= "\nEdit Bearsampp.conf to use new version then";
-				$response['message'] .= "\nRight click on menu and choose reload.";
-			}
-		}
-	}
-	else {
-		$response['error'] = "Invalid module or version.";
-	}
+    if ($module && $version) {
+        $response = $QuickPick->installModule($module, $version);
+        if (!isset($response['error'])) {
+            $response['message'] = "Module $module version $version installed successfully.";
+            if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
+                $response['message'] .= "\nReload needed... Right click on menu and choose reload.";
+            } else {
+                $response['message'] .= "\nEdit Bearsampp.conf to use new version then";
+                $response['message'] .= "\nRight click on menu and choose reload.";
+            }
+        }
+        echo json_encode($response);
+    } else {
+        echo json_encode(['error' => 'Invalid module or version.']);
+    }
+} else {
+    echo json_encode(['error' => 'Invalid request method.']);
 }
-else {
-	$response['error'] = "Invalid request method.";
-}
-
-echo json_encode( $response );

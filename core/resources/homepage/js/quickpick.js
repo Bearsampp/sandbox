@@ -134,10 +134,10 @@ async function installModule(moduleName, version) {
     const downloadmodule = document.getElementById('download-module');
     const downloadversion = document.getElementById('download-version');
 
-    progressbar.innerText="Downloading ".concat(moduleName).concat(' ').concat(version)
-    progress.style.display="block";
-    downloadmodule.innerText=moduleName;
-    downloadversion.innerText=version;
+    progressbar.innerText = "Downloading ".concat(moduleName).concat(' ').concat(version);
+    progress.style.display = "block";
+    downloadmodule.innerText = moduleName;
+    downloadversion.innerText = version;
     senddata.append('module', moduleName);
     senddata.append('version', version);
     senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
@@ -151,14 +151,34 @@ async function installModule(moduleName, version) {
     };
 
     try {
-        let response = await fetch(url, options);
+        const response = await fetch(url, options);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        let responseText = await response.text();
+
+        const reader = response.body.getReader();
+        const contentLength = +response.headers.get('Content-Length');
+        let receivedLength = 0;
+        let chunks = [];
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+                break;
+            }
+            chunks.push(value);
+            receivedLength += value.length;
+
+            const progress = (receivedLength / contentLength) * 100;
+            progressbar.style.width = progress + '%';
+            progressbar.innerText = `Downloading ${moduleName} ${version} (${Math.round(progress)}%)`;
+        }
+
+        const responseText = new TextDecoder("utf-8").decode(new Uint8Array(chunks.flat()));
         console.log('Response Text:', responseText); // Log the response text
+
         try {
-            let data = JSON.parse(responseText);
+            const data = JSON.parse(responseText);
             if (data.error) {
                 console.error('Error:', data.error);
                 window.alert(`Error: ${data.error}`);
@@ -177,7 +197,6 @@ async function installModule(moduleName, version) {
         location.reload();
     }
 }
-
 
 function setProgress(progpercent) {
     const progress = document.getElementById('progress');
