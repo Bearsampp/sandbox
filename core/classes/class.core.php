@@ -563,8 +563,20 @@ class Core
             return ['error' => 'Error saving module'];
         }
 
+        // Ensure $inputStream is a valid file resource
+        if (is_resource($inputStream)) {
+            // Get file statistics
+            $fileStats = fstat($inputStream);
+
+            // Extract the file size
+            $fileSize = $fileStats['size'];
+
+            // Output the file size
+            Util::logError( 'File size: ' . $fileSize . ' bytes' );
+        }
+
         // Read and write in chunks to avoid memory overload
-        $bufferSize = 32768; // 8KB
+        $bufferSize = 32768; // 32KB
         while ( !feof( $inputStream ) ) {
             $buffer = fread( $inputStream, $bufferSize );
             if ( $buffer === false ) {
