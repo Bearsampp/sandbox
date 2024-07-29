@@ -429,10 +429,10 @@ class QuickPick
         $destination = $this->getModuleDestinationPath( $moduleType, $moduleName );
         Util::logDebug( 'Destination: ' . $destination );
 
-        // Use progressBar
-        $progressBar = true;
 
-        $filePath = $bearsamppCore->getFileFromUrl( $moduleUrl, $tmpFilePath, $progressBar );
+        // Retrieve the file path from the URL using the bearsamppCore module,
+        // passing the module URL and temporary file path, with the use Progress Bar parameter set to true.
+        $filePath = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
 
         // Determine the file extension and call the appropriate unzipping function
         $fileExtension = pathinfo( $filePath, PATHINFO_EXTENSION );
