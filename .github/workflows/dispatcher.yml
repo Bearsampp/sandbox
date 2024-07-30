@@ -6,7 +6,7 @@ on:
             - closed
         branches:
             - 'main'
-
+    workflow_dispatch:
 jobs:
     if_merged:
         if: github.event.pull_request.merged == true
