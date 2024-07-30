@@ -1,8 +1,6 @@
 name: Combine Releases Properties
 
 on:
-    schedule:
-        -   cron: '0 */6 * * *'  # Runs every 6 hours
     workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -19,11 +17,9 @@ jobs:
                     git clone https://github.com/Bearsampp/module-apache.git
                     git clone https://github.com/Bearsampp/module-composer.git
                     git clone https://github.com/Bearsampp/module-consolez.git
-                    git clone https://github.com/Bearsampp/module-filezilla.git
                     git clone https://github.com/Bearsampp/module-ghostscript.git
                     git clone https://github.com/Bearsampp/module-git.git
                     git clone https://github.com/Bearsampp/module-gitlist.git
-                    git clone https://github.com/Bearsampp/module-mailhog.git
                     git clone https://github.com/Bearsampp/module-mariadb.git
                     git clone https://github.com/Bearsampp/module-memcached.git
                     git clone https://github.com/Bearsampp/module-mysql.git
@@ -65,7 +61,7 @@ jobs:
                 run: |
                     git config --global user.name "github-actions[bot]"
                     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                    git add core/resources/quickpick.releases
+                    git add core/resources/quickpick-releases.json
                     git commit -m "Update quickpick.releases"
                     git push origin main
 
