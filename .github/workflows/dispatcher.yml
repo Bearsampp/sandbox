@@ -15,7 +15,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Invoke workflow in another repo with inputs
+            - name: Invoke workflow in another repo
               uses: benc-uk/workflow-dispatch@v1
               with:
                   workflow: automerge.yml
