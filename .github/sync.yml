@@ -20,7 +20,7 @@ group:
         dest: nssmEnvPaths.dat
       - source: sprites.dat
         dest: sprites.dat
-      - source: bearsampp.conf
-        dest: base/bearsampp.conf
+      - source: /bearsampp.conf
+        dest: /base/bearsampp.conf
     repos: |
         Bearsampp/Bearsampp
