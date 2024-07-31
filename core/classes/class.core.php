@@ -497,6 +497,9 @@ class Core
     {
         global $bearsamppRoot;
 
+        // Destination must be lowercase
+        $destination = strtolower($destination);
+
         // Path to 7za.exe
         $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
@@ -547,17 +550,18 @@ class Core
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
     {
 
-        $fileSize = filesize( $filePath );
         // Read and write in chunks to avoid memory overload
-        $bufferSize = 32768; // 32KB
+        $bufferSize = 8196; // 8KB
         $bytesRead  = 0;
 
-        if ( $fileSize === false ) {
+        $fileSize = filesize( $filePath );
+        if ( $fileSize == 0 ) {
             // Handle the error, e.g., log it and exit the function
-            Util::logError( 'Failed to get file size for ' . $filePath );
+            Util::logError( 'Failed to get file size for ' . $filePath . ' or file size is zero.' );
 
-            return;
+            return ['error' => 'Invalid file size'];
         }
+            Util::logDebug('File size: ' . $fileSize . ' bytes. For ' . $filePath);
 
         // Open the URL for reading
         $inputStream = @fopen( $moduleUrl, 'rb' );
@@ -593,6 +597,7 @@ class Core
             }
         }
 
+        // Close the streams
         fclose( $inputStream );
         fclose( $outputStream );
 
