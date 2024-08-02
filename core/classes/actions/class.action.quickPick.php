@@ -128,7 +128,8 @@ class QuickPick
         // Get the creation time of the local file if it exists
         if ( file_exists( $this->jsonFilePath ) ) {
             $localFileCreationTime = filectime( $this->jsonFilePath );
-        } else {
+        }
+        else {
             $this->rebuildQuickpickJson();
         }
 
@@ -428,13 +429,13 @@ class QuickPick
         Util::logDebug( 'Module Type: ' . $moduleType );
 
         // Get module type
-        $destination = $this->getModuleDestinationPath( $moduleType, $moduleName );
+        $destination = $this->getModuleDestinationPath( $moduleType, strtolower( $moduleName ) );
         Util::logDebug( 'Destination: ' . $destination );
 
 
         // Retrieve the file path from the URL using the bearsamppCore module,
         // passing the module URL and temporary file path, with the use Progress Bar parameter set to true.
-        $result = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
+        $result = $bearsamppCore->getFileFromUrl( $moduleUrl, $tmpFilePath, true );
 
         // Determine the file extension and call the appropriate unzipping function
         $fileExtension = pathinfo( $tmpFilePath, PATHINFO_EXTENSION );

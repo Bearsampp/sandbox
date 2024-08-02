@@ -549,19 +549,22 @@ class Core
      */
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
     {
+        // Set allowed memory size to 2GB
+        ini_set('memory_limit', '2G');
 
         // Read and write in chunks to avoid memory overload
         $bufferSize = 8196; // 8KB
         $bytesRead  = 0;
 
-        $fileSize = filesize( $filePath );
+        // Attempt to get filesize from header content-length
+        $fileSize = filesize( $moduleUrl );
         if ( $fileSize == 0 ) {
             // Handle the error, e.g., log it and exit the function
-            Util::logError( 'Failed to get file size for ' . $filePath . ' or file size is zero.' );
+            Util::logError( 'Failed to get file size for ' . $moduleUrl . ' or file size is zero.' );
 
             return ['error' => 'Invalid file size'];
         }
-            Util::logDebug('File size: ' . $fileSize . ' bytes. For ' . $filePath);
+        Util::logDebug('File size: ' . $fileSize . ' bytes. For ' . $moduleUrl);
 
         // Open the URL for reading
         $inputStream = @fopen( $moduleUrl, 'rb' );
