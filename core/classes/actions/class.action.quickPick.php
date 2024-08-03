@@ -128,6 +128,8 @@ class QuickPick
         // Get the creation time of the local file if it exists
         if ( file_exists( $this->jsonFilePath ) ) {
             $localFileCreationTime = filectime( $this->jsonFilePath );
+        } else {
+            $result = $this->rebuildQuickpickJson();
         }
 
         // Get the creation time of the remote file
@@ -160,12 +162,8 @@ class QuickPick
 
             return ['error' => 'Error fetching JSON file'];
         }
-        // file has extra spaces in key data, time to sanitise the data
 
-        $j    = $content;
-        $j    = str_replace( "\" ", "\"", $j ); // remove "<space>data
-        $j    = str_replace( " \"", "\"", $j ); // remove data<space>"
-        $data = json_decode( $j, true );
+        $data = json_decode( $content, true );
         if ( json_last_error() !== JSON_ERROR_NONE ) {
             Util::logError( 'Error decoding JSON content: ' . json_last_error_msg() );
 
@@ -549,7 +547,7 @@ class QuickPick
                     <div class = "progress" id = "progress" tabindex = "-1" style = "width:260px;display:none"
                          aria-labelledby = "progressbar" aria-hidden = "true">
                         <div class = "progress-bar" id = "progress-bar" role = "progressbar" aria-valuenow = "0" aria-valuemin = "0" aria-valuemax = "100" data-module = "Module"
-                             data-version = "0.0.0" width = "0">0%
+                             data-version = "0.0.0">0%
                         </div>
                         <div id = "download-module" style = "display: none">ModuleName</div>
                         <div id = "download-version" style = "display: none">Version</div>
