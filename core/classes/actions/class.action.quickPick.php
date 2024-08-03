@@ -128,8 +128,6 @@ class QuickPick
         // Get the creation time of the local file if it exists
         if ( file_exists( $this->jsonFilePath ) ) {
             $localFileCreationTime = filectime( $this->jsonFilePath );
-        } else {
-            $this->rebuildQuickpickJson();
         }
 
         // Get the creation time of the remote file

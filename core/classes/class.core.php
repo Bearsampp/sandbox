@@ -546,19 +546,6 @@ class Core
      */
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
     {
-
-        $fileSize = filesize( $filePath );
-        // Read and write in chunks to avoid memory overload
-        $bufferSize = 32768; // 32KB
-        $bytesRead  = 0;
-
-        if ( $fileSize === false ) {
-            // Handle the error, e.g., log it and exit the function
-            Util::logError( 'Failed to get file size for ' . $filePath );
-
-            return;
-        }
-
         // Open the URL for reading
         $inputStream = @fopen( $moduleUrl, 'rb' );
         if ( $inputStream === false ) {
@@ -576,13 +563,25 @@ class Core
             return ['error' => 'Error saving module'];
         }
 
+        // Ensure $inputStream is a valid file resource
+        if ( is_resource( $inputStream ) ) {
+            // Get file statistics
+            $fileStats = fstat( $inputStream );
+            // Extract the file size
+            $fileSize = $fileStats['size'];
+            // Output the file size
+            Util::logError( 'File size: ' . $fileSize . ' bytes' );
+        }
+
+        // Read and write in chunks to avoid memory overload
+        $bufferSize = 32768; // 32KB
+        $steps      = $fileSize / $bufferSize;
+        $bytesRead  = 0;
+
         while ( !feof( $inputStream ) ) {
             $buffer = fread( $inputStream, $bufferSize );
             fwrite( $outputStream, $buffer );
             $bytesRead += strlen( $buffer );
-
-            // Start output buffering
-            ob_start();
 
             // Send progress update
             if ( $progressBar ) {
