@@ -567,16 +567,16 @@ class Core
 
         // Read and write in chunks to avoid memory overload
         $bufferSize = 8096; // 8KB
-        $bytesRead  = 0;
+        $chunksRead = 0;
 
         while ( !feof( $inputStream ) ) {
             $buffer = fread( $inputStream, $bufferSize );
             fwrite( $outputStream, $buffer );
-            $bytesRead += strlen( $buffer );
+            $chunksRead++;
 
             // Send progress update
             if ( $progressBar ) {
-                $progress = $bytesRead;
+                $progress = $chunksRead;
                 echo json_encode( ['progress' => $progress] );
                 ob_flush();
                 flush();

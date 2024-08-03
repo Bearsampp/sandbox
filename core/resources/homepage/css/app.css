@@ -401,19 +401,6 @@ div#InternetState {
     animation: spin 2s linear infinite;
     }
 
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #000;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    position: absolute;
-    right: 10px; /* Adjust as needed */
-    top: 50%;
-    transform: translateY(-50%);
-    }
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);

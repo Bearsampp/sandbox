@@ -198,6 +198,6 @@ async function installModule(moduleName, version) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
-        //location.reload();
+        location.reload();
     }
 }
