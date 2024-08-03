@@ -578,7 +578,11 @@ class Core
             if ( $progressBar ) {
                 $progress = $chunksRead;
                 echo json_encode( ['progress' => $progress] );
-                ob_flush();
+
+                // Check if output buffering is active before calling ob_flush()
+                if ( ob_get_length() !== false ) {
+                    ob_flush();
+                }
                 flush();
             }
         }
