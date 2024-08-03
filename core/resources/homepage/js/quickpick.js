@@ -126,7 +126,7 @@ function hideall() {
 
 }
 async function installModule(moduleName, version) {
-    const url = AJAX_URL; // Ensure this variable is defined and points to your server-side script handling the AJAX requests.
+    const url = AJAX_URL;
     const senddata = new URLSearchParams();
     const progress = document.getElementById('progress');
     const progressbar = document.getElementById('progress-bar');
@@ -140,7 +140,7 @@ async function installModule(moduleName, version) {
     downloadversion.innerText = version;
     senddata.append('module', moduleName);
     senddata.append('version', version);
-    senddata.append('proc', 'quickpick'); // Setting 'proc' to 'quickpick'
+    senddata.append('proc', 'quickpick');
 
     const options = {
         method: 'POST',
@@ -157,54 +157,47 @@ async function installModule(moduleName, version) {
         }
 
         const reader = response.body.getReader();
-        const contentLength = +response.headers.get('Content-Length');
-        let receivedLength = 0;
-        let chunks = [];
+        const decoder = new TextDecoder();
+        let responseText = '';
 
         while (true) {
             const { done, value } = await reader.read();
-            if (done) {
-                break;
+            if (done) break;
+            responseText += decoder.decode(value, { stream: true });
+
+            // Process each JSON object separately
+            const parts = responseText.split('}{').map((part, index, arr) => {
+                if (index === 0) return part + '}';
+                if (index === arr.length - 1) return '{' + part;
+                return '{' + part + '}';
+            });
+
+            for (const part of parts) {
+                try {
+                    const data = JSON.parse(part);
+                    if (data.progress) {
+                        console.log('Progress:', data.progress);
+                        // Update progress bar or other UI elements here
+                        const progressValue = data.progress;
+                        progressbar.style.width = progressValue + '%';
+                        progressbar.setAttribute('aria-valuenow', progressValue);
+                        progressbar.innerText = progressValue + '%';
+                    } else if (data.success) {
+                        console.log(data);
+                        window.alert(data.message);
+                    } else if (data.error) {
+                        console.error('Error:', data.error);
+                        window.alert(`Error: ${data.error}`);
+                    }
+                } catch (error) {
+                    // Ignore JSON parse errors for incomplete parts
+                }
             }
-            chunks.push(value);
-            receivedLength += value.length;
-
-            const progress = (receivedLength / contentLength) * 100;
-            progressbar.style.width = progress + '%';
-            progressbar.innerText = `Downloading ${moduleName} ${version} (${Math.round(progress)}%)`;
-        }
-
-        const responseText = new TextDecoder("utf-8").decode(new Uint8Array(chunks.flat()));
-        console.log('Response Text:', responseText); // Log the response text
-
-        try {
-            const data = JSON.parse(responseText);
-            if (data.error) {
-                console.error('Error:', data.error);
-                window.alert(`Error: ${data.error}`);
-            } else {
-                console.log(data);
-                window.alert(data.message);
-            }
-        } catch (error) {
-            console.error('Failed to parse response:', error);
-            window.alert('Failed to parse response: ' + error.message);
         }
     } catch (error) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
-        location.reload();
+        //location.reload();
     }
-}
-
-function setProgress(progpercent) {
-    const progress = document.getElementById('progress');
-    const progressbar = document.getElementById('progress-bar');
-    const downloadmodule = document.getElementById('download-module');
-    const downloadversion = document.getElementById('download-version');
-
-    progressbar.innerText="Downloading ".concat(downloadmodule.innerText).concat(' ').concat(downloadversion.innerText).concat(' - ').concat(progpercent).concat('%');
-    progressbar.ariaValueNow=progpercent;
-    progress.style.display="block";
 }

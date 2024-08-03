@@ -128,7 +128,8 @@ class QuickPick
         // Get the creation time of the local file if it exists
         if ( file_exists( $this->jsonFilePath ) ) {
             $localFileCreationTime = filectime( $this->jsonFilePath );
-        } else {
+        }
+        else {
             $result = $this->rebuildQuickpickJson();
         }
 
@@ -424,17 +425,24 @@ class QuickPick
         Util::logDebug( 'Module Type: ' . $moduleType );
 
         // Get module type
-        $destination = $this->getModuleDestinationPath( $moduleType, $moduleName );
+        $destination = $this->getModuleDestinationPath( $moduleType,  $moduleName );
         Util::logDebug( 'Destination: ' . $destination );
-
 
         // Retrieve the file path from the URL using the bearsamppCore module,
         // passing the module URL and temporary file path, with the use Progress Bar parameter set to true.
-        $result = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
+        $result = $bearsamppCore->getFileFromUrl( $moduleUrl, $tmpFilePath, true );
+
+        // Check if $result is false
+        if ( $result === false ) {
+            Util::logError( 'Failed to retrieve file from URL: ' . $moduleUrl );
+
+            return ['error' => 'Failed to retrieve file from URL'];
+        }
 
         // Determine the file extension and call the appropriate unzipping function
         $fileExtension = pathinfo( $tmpFilePath, PATHINFO_EXTENSION );
         Util::logDebug( 'File extension: ' . $fileExtension );
+
         if ( $fileExtension === '7z' ) {
             if ( !$bearsamppCore->unzip7zFile( $tmpFilePath, $destination ) ) {
                 return ['error' => 'Failed to unzip .7z file.  File: ' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
@@ -451,7 +459,7 @@ class QuickPick
             return ['error' => 'Unsupported file extension'];
         }
 
-        return ['success' => 'Module fetched and unzipped successfully'];
+        return ['success' => 'Module installed successfully'];
     }
 
     /**
@@ -470,13 +478,13 @@ class QuickPick
     {
         global $bearsamppRoot;
         if ( $moduleType === 'application' ) {
-            $destination = $bearsamppRoot->getAppsPath() . '/' . $moduleName . '/';
+            $destination = $bearsamppRoot->getAppsPath() . '/' . strtolower( $moduleName ) . '/';
         }
         elseif ( $moduleType === 'binary' ) {
-            $destination = $bearsamppRoot->getBinPath() . '/' . $moduleName . '/';
+            $destination = $bearsamppRoot->getBinPath() . '/' . strtolower( $moduleName ) . '/';
         }
         elseif ( $moduleType === 'tools' ) {
-            $destination = $bearsamppRoot->getToolsPath() . '/' . $moduleName . '/';
+            $destination = $bearsamppRoot->getToolsPath() . '/' . strtolower( $moduleName ) . '/';
         }
         else {
             $destination = '';

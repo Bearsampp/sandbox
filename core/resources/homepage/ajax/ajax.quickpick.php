@@ -39,6 +39,8 @@ header( 'Content-Type: application/json' );
 
 $response = array();
 
+$response = array();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $module  = isset($_POST['module']) ? $_POST['module'] : null;
     $version = isset($_POST['version']) ? $_POST['version'] : null;
@@ -53,11 +55,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $response['message'] .= "\nEdit Bearsampp.conf to use new version then";
                 $response['message'] .= "\nRight click on menu and choose reload.";
             }
+        } else {
+            error_log('Error in response: ' . json_encode($response));
         }
-        echo json_encode($response);
+        error_log('Response: ' . json_encode($response));
     } else {
-        echo json_encode(['error' => 'Invalid module or version.']);
+        $response = ['error' => 'Invalid module or version.'];
     }
 } else {
-    echo json_encode(['error' => 'Invalid request method.']);
+    $response = ['error' => 'Invalid request method.'];
+}
+
+echo json_encode($response);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    error_log('JSON encoding error: ' . json_last_error_msg());
 }
