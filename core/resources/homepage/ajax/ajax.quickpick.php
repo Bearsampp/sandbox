@@ -48,10 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['message'] = "Module $module version $version installed successfully.";
             if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
                 $response['message'] .= "\nReload needed... Right click on menu and choose reload.";
-                // Trigger the reload action
-                $reloadAction = TplAppReload::getActionReload();
-                // Execute the reload action (this is a simplified example)
-                exec($reloadAction);
             } else {
                 $response['message'] .= "\nEdit Bearsampp.conf to use new version then";
                 $response['message'] .= "\nRight click on menu and choose reload.";
