@@ -26,18 +26,15 @@
  * @package    Bearsampp
  * @subpackage Core
  * @category   AJAX
- * @author     Bear
  * @license    GNU General Public License version 3 or later; see LICENSE.txt
  * @link       https://bearsampp.com
  */
 
 include __DIR__ . '/../../../classes/actions/class.action.quickPick.php';
-Util::logDebug( 'File accessed successfully.' );
+Util::logDebug('File accessed successfully.');
 $QuickPick = new QuickPick();
 
-header( 'Content-Type: application/json' );
-
-$response = array();
+header('Content-Type: application/json');
 
 $response = array();
 
@@ -51,6 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['message'] = "Module $module version $version installed successfully.";
             if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
                 $response['message'] .= "\nReload needed... Right click on menu and choose reload.";
+                // Trigger the reload action
+                $reloadAction = TplAppReload::getActionReload();
+                // Execute the reload action (this is a simplified example)
+                exec($reloadAction);
             } else {
                 $response['message'] .= "\nEdit Bearsampp.conf to use new version then";
                 $response['message'] .= "\nRight click on menu and choose reload.";
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             error_log('Error in response: ' . json_encode($response));
         }
-        error_log('Response: ' . json_encode($response));
+        Util::logDebug('Response: ' . json_encode($response));
     } else {
         $response = ['error' => 'Invalid module or version.'];
     }
@@ -67,6 +68,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 echo json_encode($response);
-if (json_last_error() !== JSON_ERROR_NONE) {
-    error_log('JSON encoding error: ' . json_last_error_msg());
-}
