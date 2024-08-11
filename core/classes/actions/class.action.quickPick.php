@@ -552,9 +552,9 @@ class QuickPick
                             </ul>
                         </div>
                     </div>
-                    <div class = "progress" id = "progress" tabindex = "-1" style = "width:260px;display:none"
+                    <div class = "progress " id = "progress" tabindex = "-1" style = "width:260px;display:none"
                          aria-labelledby = "progressbar" aria-hidden = "true">
-                        <div class = "progress-bar" id = "progress-bar" role = "progressbar" aria-valuenow = "0" aria-valuemin = "0" aria-valuemax = "100" data-module = "Module"
+                        <div class = "progress-bar progress-bar-striped progress-bar-animated" id = "progress-bar" role = "progressbar" aria-valuenow = "0" aria-valuemin = "0" aria-valuemax = "100" data-module = "Module"
                              data-version = "0.0.0">0%
                         </div>
                         <div id = "download-module" style = "display: none">ModuleName</div>
