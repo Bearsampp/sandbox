@@ -9,7 +9,7 @@
 
 /**
  * This script handles AJAX requests for installing modules in the Bearsampp application.
- * It expects a POST request with 'module' and 'version' parameters.
+ * It expects a POST request with 'module', 'version', and optionally 'filesize' parameters.
  *
  * The script performs the following actions:
  * - Includes the QuickPick class.
@@ -41,6 +41,7 @@ $response = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $module  = isset($_POST['module']) ? $_POST['module'] : null;
     $version = isset($_POST['version']) ? $_POST['version'] : null;
+    $filesize = isset($_POST['filesize']) ? $_POST['filesize'] : null;
 
     if ($module && $version) {
         $response = $QuickPick->installModule($module, $version);

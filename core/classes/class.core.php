@@ -507,6 +507,10 @@ class Core
             return false;
         }
 
+        // Calculate the file size
+        $fileSize = filesize($filePath);
+        Util::logDebug('Filesize is: ' . $fileSize);
+
         // Command to unzip the .7z file using 7za.exe
         $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -o" . escapeshellarg( $destination );
 

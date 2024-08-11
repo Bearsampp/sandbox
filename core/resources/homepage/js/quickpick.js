@@ -28,12 +28,12 @@
  * - keyup: Handles key events for module headers.
  */
 document.addEventListener("DOMContentLoaded", function () {
-
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
+    let progressValue = 0; // Initialize progressValue as a number
 
     const customSelect = document.querySelector(".custom-select"); // parent div of quickpick select
     const selectBtn = document.querySelector(".select-button"); // trigger button to pop down ul
-    if(selectBtn !== null ) {
+    if (selectBtn !== null) {
         // add a click event to select button
         selectBtn.addEventListener("click", () => {
             // add/remove active class on the container element to show/hide
@@ -52,29 +52,23 @@ document.addEventListener("DOMContentLoaded", function () {
             function handler(e) {
                 // Click Events
                 if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
-
                     if (selectedHeader !== e.target.innerText) {
                         showModule(e.target.innerText);
                         selectedHeader = e.target.innerText;
-
                     } else {
                         hideall();
                         selectedHeader = null;
-
                     }
-
                 }
                 // Key Events
                 if (e.key === "Enter") {
                     if (selectedHeader !== e.target.innerText) {
                         showModule(e.target.innerText);
                         selectedHeader = e.target.innerText;
-
                     } else {
                         hideall();
                         selectedHeader = null;
                     }
-
                 }
             }
 
@@ -98,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideall()
                 customSelect.classList.toggle("active", false);
             });
-
         });
         scrolltoview();
     }
@@ -125,6 +118,7 @@ function hideall() {
     });
 
 }
+
 async function installModule(moduleName, version) {
     const url = AJAX_URL;
     const senddata = new URLSearchParams();
@@ -161,9 +155,9 @@ async function installModule(moduleName, version) {
         let responseText = '';
 
         while (true) {
-            const { done, value } = await reader.read();
+            const {done, value} = await reader.read();
             if (done) break;
-            responseText += decoder.decode(value, { stream: true });
+            responseText += decoder.decode(value, {stream: true});
 
             // Process each JSON object separately
             const parts = responseText.split('}{').map((part, index, arr) => {
@@ -179,9 +173,9 @@ async function installModule(moduleName, version) {
                         console.log('Progress:', data.progress);
                         // Update progress bar or other UI elements here
                         const progressValue = data.progress;
-                        progressbar.style.width = progressValue + '%';
+                        progressbar.style.width = '100%';
                         progressbar.setAttribute('aria-valuenow', progressValue);
-                        progressbar.innerText = progressValue + '%';
+                        progressbar.innerText = progressValue + ' Bytes extracted';
                     } else if (data.success) {
                         console.log(data);
                         window.alert(data.message);

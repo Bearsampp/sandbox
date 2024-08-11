@@ -401,11 +401,20 @@ div#InternetState {
     animation: spin 2s linear infinite;
     }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
+#progress-bar {
+    position: relative;
+    color: white; /* Ensure text color contrasts with background */
+    text-align: center; /* Center the text */
+    line-height: 1rem; /* Adjust based on your progress bar height */
+    font-weight: bold;
+}
+
+/* Keyframes for the striped animation */
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
         }
-    100% {
-        transform: rotate(360deg);
+    to {
+        background-position: 0 0;
         }
     }

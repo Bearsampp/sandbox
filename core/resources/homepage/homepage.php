@@ -156,6 +156,5 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     <?php include 'tpls/hp.latestversion.html'; ?>
     <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.html'; ?>
 </div>
-
 </body>
 </html>
