@@ -175,7 +175,7 @@ async function installModule(moduleName, version) {
                         const progressValue = data.progress;
                         progressbar.style.width = '100%';
                         progressbar.setAttribute('aria-valuenow', progressValue);
-                        progressbar.innerText = progressValue + ' KBytes extracted';
+                        progressbar.innerText = 'Extracting please be patient...';
                     } else if (data.success) {
                         console.log(data);
                         window.alert(data.message);
