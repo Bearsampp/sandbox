@@ -494,61 +494,47 @@ class Core
      * @return bool True on success, false on failure.
      */
     public function unzip7zFile($filePath, $destination)
-{
-    global $bearsamppRoot;
+    {
+        global $bearsamppRoot;
 
-    // Path to 7za.exe
-    $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
+        // Path to 7za.exe
+        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-    // Check if 7za.exe exists
-    if (!file_exists($sevenZipPath)) {
-        Util::logError('7za.exe not found at: ' . $sevenZipPath);
-        return false;
-    }
+        // Check if 7za.exe exists
+        if ( !file_exists( $sevenZipPath ) ) {
+            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
 
-    // Calculate the file size
-    $fileSize = filesize($filePath);
-    Util::logDebug('Filesize is: ' . $fileSize);
-
-    // Command to unzip the .7z file using 7za.exe
-    $command = escapeshellarg($sevenZipPath) . " x " . escapeshellarg($filePath) . " -y -o" . escapeshellarg($destination);
-
-    // Log the command for debugging
-    Util::logDebug('Executing command: ' . $command);
-
-    // Execute the command using popen
-    $process = popen($command, 'r');
-    if (is_resource($process)) {
-        while (!feof($process)) {
-            $line = fgets($process);
-            if ($line !== false) {
-                // Extract progress information from the line
-                if (preg_match('/(\d+)%/', $line, $matches)) {
-                    $progress = $matches[1];
-                    echo "data: {\"progress\": $progress}\n\n";
-                    ob_flush();
-                    flush();
-                }
-            }
-        }
-        $returnVar = pclose($process);
-
-        // Log the output and return value
-        Util::logDebug('Command return value: ' . $returnVar);
-
-        // Check if the command was successful
-        if ($returnVar !== 0) {
-            Util::logError('Failed to unzip .7z file');
             return false;
         }
 
-        Util::logDebug('Successfully unzipped .7z file to: ' . $destination);
+        // Calculate the file size
+        $fileSize = filesize($filePath);
+        Util::logDebug('Filesize is: ' . $fileSize);
+
+        // Command to unzip the .7z file using 7za.exe
+        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -o" . escapeshellarg( $destination );
+
+        // Log the command for debugging
+        Util::logDebug( 'Executing command: ' . $command );
+
+        // Execute the command
+        exec( $command, $output, $returnVar );
+
+        // Log the output and return value
+        Util::logDebug( 'Command output: ' . implode( "\n", $output ) );
+        Util::logDebug( 'Command return value: ' . $returnVar );
+
+        // Check if the command was successful
+        if ( $returnVar !== 0 ) {
+            Util::logError( 'Failed to unzip .7z file: ' . implode( "\n", $output ) );
+
+            return false;
+        }
+
+        Util::logDebug( 'Successfully unzipped .7z file to: ' . $destination );
+
         return true;
-    } else {
-        Util::logError('Failed to execute command: ' . $command);
-        return false;
     }
-}
 
     /**
      * Fetches a file from a given URL and saves it to a specified file path.
