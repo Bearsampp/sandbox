@@ -1,3 +1,17 @@
+/**
+ * This script extracts files from a specified archive to a destination directory.
+ * It uses the `node-7z-archive` module for extraction and `cli-progress` for displaying progress.
+ *
+ * Command-line arguments:
+ * - filePath: The path to the archive file to be extracted.
+ * - destination: The directory where the files will be extracted.
+ *
+ * Example usage:
+ * node cli.js /path/to/archive.7z /path/to/destination
+ *
+ * The script logs progress and errors in JSON format for better integration with other tools.
+ */
+
 const path = require('path');
 const fs = require('fs');
 const cliProgress = require('cli-progress');

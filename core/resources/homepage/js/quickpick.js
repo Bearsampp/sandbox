@@ -1,3 +1,7 @@
+/**
+ * Initializes event listeners and handles the UI interactions for the custom select dropdown.
+ * This function is executed when the DOM content is fully loaded.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
     let progressValue = 0; // Initialize progressValue as a number
@@ -19,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
         optionsList.forEach((option) => {
+            /**
+             * Handles click and keyup events for module headers.
+             * @param {Event} e - The event object.
+             */
             function handler(e) {
                 // Click Events
                 if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
@@ -49,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let selects = document.querySelectorAll('.select-dropdown li.moduleoption');
         selects.forEach(function (select) {
+            /**
+             * Handles click events for module options.
+             * @param {Event} e - The event object.
+             */
             select.addEventListener('click', function (e) {
                 console.log(e);
                 let selectedOption = e.target;
@@ -66,11 +78,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+/**
+ * Scrolls the select dropdown into view.
+ */
 function scrolltoview() {
     let e = document.getElementById('select-dropdown');
     e.scrollIntoView(true);
 }
 
+/**
+ * Shows the module options for the specified module name.
+ * @param {string} modName - The name of the module to show.
+ */
 function showModule(modName) {
     hideall();
     let options = document.querySelectorAll('li[id^='.concat(modName).concat(']'));
@@ -80,6 +99,9 @@ function showModule(modName) {
     });
 }
 
+/**
+ * Hides all module options.
+ */
 function hideall() {
     let options = document.querySelectorAll('.moduleoption');
     options.forEach(function (option) {
@@ -87,6 +109,11 @@ function hideall() {
     });
 }
 
+/**
+ * Installs the specified module and version.
+ * @param {string} moduleName - The name of the module to install.
+ * @param {string} version - The version of the module to install.
+ */
 async function installModule(moduleName, version) {
     const url = AJAX_URL;
     const senddata = new URLSearchParams();
@@ -171,6 +198,6 @@ async function installModule(moduleName, version) {
     } finally {
         setTimeout(() => {
             location.reload();
-        }, 100); // Delay of 100 milliseconds
+        }, 150); // Delay of 150 milliseconds
     }
 }

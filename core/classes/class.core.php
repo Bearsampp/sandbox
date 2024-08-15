@@ -459,41 +459,17 @@ class Core
     }
 
     /**
-     * Unzips a file to a specified destination.
+     * Extracts a 7z file to the specified destination.
      *
-     * @param   string  $filePath     The path to the zip file.
-     * @param   string  $destination  The path where the contents should be extracted.
+     * This function uses the `node-7z-archive` library to extract the contents of a 7z file.
+     * It also updates a progress bar to show the extraction progress.
      *
+     * @param string $filePath The path to the 7z file.
+     * @param string $destination The destination directory.
      * @return bool True on success, false on failure.
+     * @throws Exception If the extraction fails.
      */
-    public function unzipFile($filePath, $destination)
-    {
-        $zip = new ZipArchive;
-        if ( $zip->open( $filePath ) === true ) {
-            $zip->extractTo( $destination );
-            $zip->close();
-
-            Util::logError( "source: {$filePath}" );
-            Util::logError( "destination: {$destination}" );
-
-            return true;
-        }
-        else {
-            Util::logError( 'Failed to open zip file: ' . $filePath );
-
-            return false;
-        }
-    }
-
-    /**
-     * Unzips a .7z file to the specified directory.
-     *
-     * @param   string  $filePath     The path to the .7z file.
-     * @param   string  $destination  The directory to extract the files to.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function unzip7zFile($filePath, $destination, $progressCallback = null)
+    public function unzipFile($filePath, $destination, $progressCallback = null)
     {
         global $bearsamppRoot;
 
