@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['wb_5fkx_5fscreen_0',['WB_KX_SCREEN',['../d9/d82/wb__resources_8inc_8php.html#a20132b135397ead0e6076a0f4e89c4ba',1,'wb_resources.inc.php']]],

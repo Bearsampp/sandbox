@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolGit =
 [
     [ "__construct", "d3/dc0/classToolGit.html#af65324d2b48326eaa85ead71a7db6c46", null ],

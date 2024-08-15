@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classConfig =
 [
     [ "__construct", "d9/df9/classConfig.html#ac1c75b1b53a17a028629ba8127e06f82", null ],

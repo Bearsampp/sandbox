@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionChangeBrowser =
 [
     [ "__construct", "db/d91/classActionChangeBrowser.html#af9e69c72b691978f51e2ae5de05faa5d", null ],

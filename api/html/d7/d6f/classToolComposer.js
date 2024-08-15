@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolComposer =
 [
     [ "__construct", "d7/d6f/classToolComposer.html#ac5b4effc37789a264dd39fe60a86fe1f", null ],

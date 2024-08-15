@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['page_5findex_0',['PAGE_INDEX',['../d4/ddb/classHomepage.html#a7251d39903ea15c948a9f24cb201e3ed',1,'Homepage']]],

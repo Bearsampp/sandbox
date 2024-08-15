@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classSymlinks =
 [
     [ "__construct", "de/db3/classSymlinks.html#aa291a5f38bf5259eb47ade923216fe08", null ],

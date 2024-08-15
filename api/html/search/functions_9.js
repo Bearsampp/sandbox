@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['kill_0',['kill',['../dc/ddb/classWin32Ps.html#a8c0952657a6a635ab2da52ac4d3c0f2b',1,'Win32Ps']]],

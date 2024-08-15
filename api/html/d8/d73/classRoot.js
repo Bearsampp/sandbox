@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classRoot =
 [
     [ "__construct", "d8/d73/classRoot.html#adeeb16dce24cb937d7fdd19c3df754fb", null ],

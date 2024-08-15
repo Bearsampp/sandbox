@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['mailhog_0',['MAILHOG',['../da/d49/classLang.html#a93ad05e51443e2470c60e3d57c7860aa',1,'Lang']]],

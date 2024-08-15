@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['read_5fchangelog_0',['READ_CHANGELOG',['../da/d49/classLang.html#a9b6c6ee7d1854ec2b9bd6c35503f06d5',1,'Lang']]],

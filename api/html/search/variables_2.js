@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['bearsampp_5fconf_5fmalformed_5ferror_0',['BEARSAMPP_CONF_MALFORMED_ERROR',['../da/d49/classLang.html#afa4c917d1f302c7091914e3e2a122e22',1,'Lang']]],

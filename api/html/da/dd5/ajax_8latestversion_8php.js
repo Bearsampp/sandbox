@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var ajax_8latestversion_8php =
 [
     [ "$bearsamppCore", "da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198", null ],

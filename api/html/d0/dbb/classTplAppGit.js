@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppGit =
 [
     [ "getActionRefreshGitRepos", "d0/dbb/classTplAppGit.html#a296acf11122f3221a2a1c13f5200f068", null ],

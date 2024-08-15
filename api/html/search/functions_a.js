@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['load_0',['load',['../df/d3d/classAutoloader.html#a492b488b33147d2f84b687c01110a175',1,'Autoloader\load()'],['../da/df6/classLangProc.html#aa397e9ef589b2d2ac31e70d105472fca',1,'LangProc\load()']]],

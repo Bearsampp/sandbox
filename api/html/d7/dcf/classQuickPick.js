@@ -1,17 +1,10 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classQuickPick =
 [
     [ "__construct", "d7/dcf/classQuickPick.html#a0ef35c08c7f510bb95a8bd33018dddbc", null ],
     [ "checkDownloadId", "d7/dcf/classQuickPick.html#a63bdd5d37bd0c8e59413161d9fc2c806", null ],
     [ "checkQuickpickJson", "d7/dcf/classQuickPick.html#aa5243ce9c1e5a2fd02f4c60ecbcd3a55", null ],
     [ "fetchAndUnzipModule", "d7/dcf/classQuickPick.html#a68eaa4bdcecea6ed2906b40fdcfc797e", null ],
+    [ "getModuleDestinationPath", "d7/dcf/classQuickPick.html#a5be0774ade4da9766736a37081baa717", null ],
     [ "getModules", "d7/dcf/classQuickPick.html#ae31f8538d1519a3713f621eb972cf4ef", null ],
     [ "getModuleUrl", "d7/dcf/classQuickPick.html#ad61c517a41e99989d50e354fa29bdf8e", null ],
     [ "getQuickpickJson", "d7/dcf/classQuickPick.html#aa36769bf86f0cb87708fb4c76fe1ebc6", null ],

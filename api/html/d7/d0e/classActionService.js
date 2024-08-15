@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionService =
 [
     [ "__construct", "d7/d0e/classActionService.html#a4440ed18ce314e66ba30932864b5584b", null ],

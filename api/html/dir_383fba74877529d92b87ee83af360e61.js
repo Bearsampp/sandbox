@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_383fba74877529d92b87ee83af360e61 =
 [
     [ "class.action.about.php", "d9/d6c/class_8action_8about_8php.html", "d9/d6c/class_8action_8about_8php" ],

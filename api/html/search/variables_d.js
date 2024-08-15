@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['name_0',['NAME',['../da/d49/classLang.html#ab3d94af4ad5dce49cebc699a453715d7',1,'Lang\NAME'],['../dc/ddb/classWin32Ps.html#aa03c112223847095fbc90a5b57b49d45',1,'Win32Ps\NAME']]],

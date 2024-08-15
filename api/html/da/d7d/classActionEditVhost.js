@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionEditVhost =
 [
     [ "__construct", "da/d7d/classActionEditVhost.html#a5e3a222c3dcc2a8a77dc80dde1657bff", null ],

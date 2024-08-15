@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classWinBinder =
 [
     [ "__construct", "db/da5/classWinBinder.html#a38c16a4e3f8fb9fd1117f9494a9e1ab5", null ],

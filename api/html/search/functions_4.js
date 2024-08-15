@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['enablelaunchstartup_0',['enableLaunchStartup',['../d6/de4/classUtil.html#a9b64e35b8dd40090371f1710d3e3e22b',1,'Util']]],
