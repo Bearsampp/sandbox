@@ -198,6 +198,6 @@ async function installModule(moduleName, version) {
     } finally {
         setTimeout(() => {
             location.reload();
-        }, 150); // Delay of 150 milliseconds
+        }, 100); // Delay of 100 milliseconds
     }
 }

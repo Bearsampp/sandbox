@@ -469,72 +469,81 @@ class Core
      * @return bool True on success, false on failure.
      * @throws Exception If the extraction fails.
      */
-    public function unzipFile($filePath, $destination, $progressCallback = null)
-    {
-        global $bearsamppRoot;
+  public function unzipFile($filePath, $destination, $progressCallback = null)
+{
+    global $bearsamppRoot;
 
-        $nodePath        = $this->getLibsPath() . '/nodejs/node.exe'; // Ensure 'node' is in your PATH
-        $unzipScriptPath = $this->getLibsPath() . '/nodejs/unzip.js';
+    $nodePath        = $this->getLibsPath() . '/nodejs/node.exe'; // Ensure 'node' is in your PATH
+    $unzipScriptPath = $this->getLibsPath() . '/nodejs/unzip.js';
 
-        if ( !file_exists( $unzipScriptPath ) ) {
-            Util::logError( 'unzip.js not found at: ' . $unzipScriptPath );
+    if (!file_exists($unzipScriptPath)) {
+        Util::logError('unzip.js not found at: ' . $unzipScriptPath);
+        return false;
+    }
 
-            return false;
-        }
+    $command = escapeshellarg($nodePath) . ' ' . escapeshellarg($unzipScriptPath) . ' ' . escapeshellarg($filePath) . ' ' . escapeshellarg($destination);
+    Util::logDebug('Executing command: ' . $command);
 
-        $command = escapeshellarg( $nodePath ) . ' ' . escapeshellarg( $unzipScriptPath ) . ' ' . escapeshellarg( $filePath ) . ' ' . escapeshellarg( $destination );
-        Util::logDebug( 'Executing command: ' . $command );
+    $descriptorspec = [
+        1 => ['pipe', 'w'],
+        2 => ['pipe', 'w']
+    ];
 
-        $descriptorspec = [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w']
-        ];
+    $process = proc_open($command, $descriptorspec, $pipes);
 
-        $process = proc_open( $command, $descriptorspec, $pipes );
+    if (is_resource($process)) {
+        $lastProgress = 0;
+        while ($line = fgets($pipes[1])) {
+            Util::logDebug('Command output: ' . $line);
 
-        if ( is_resource( $process ) ) {
-            $lastProgress = 0;
-            while ( $line = fgets( $pipes[1] ) ) {
-                Util::logDebug( 'Command output: ' . $line );
+            if ($progressCallback) {
+                $data = json_decode($line, true);
+                if (isset($data['progress'])) {
+                    $progress = (int) $data['progress'];
+                    Util::logDebug('Parsed progress: ' . $progress);
+                    if ($progress > $lastProgress) {
+                        $lastProgress = $progress;
+                        call_user_func($progressCallback, $progress);
 
-                if ( $progressCallback ) {
-                    $data = json_decode( $line, true );
-                    if ( isset( $data['progress'] ) ) {
-                        $progress = (int) $data['progress'];
-                        Util::logDebug( 'Parsed progress: ' . $progress );
-                        if ( $progress > $lastProgress ) {
-                            $lastProgress = $progress;
-                            call_user_func( $progressCallback, $progress );
-
-                            if ( ob_get_length() ) {
-                                ob_flush();
-                            }
-                            flush();
+                        if (ob_get_length()) {
+                            ob_flush();
                         }
+                        flush();
                     }
-                    elseif ( isset( $data['success'] ) ) {
-                        Util::logDebug( 'Successfully unzipped file to: ' . $destination );
-                        fclose( $pipes[1] );
-                        fclose( $pipes[2] );
-                        proc_close( $process );
-                        // Verify the contents of the destination directory
-                        $files = scandir( $destination );
-                        Util::logDebug( 'Files in destination directory: ' . json_encode( $files ) );
-
-                        return true;
-                    }
-                    elseif ( isset( $data['error'] ) ) {
-                        Util::logError( 'Failed to unzip file. Error: ' . $data['error'] );
-                        fclose( $pipes[1] );
-                        fclose( $pipes[2] );
-                        proc_close( $process );
-
-                        return false;
-                    }
+                } elseif (isset($data['success'])) {
+                    Util::logDebug('Successfully unzipped file to: ' . $destination);
+                    fclose($pipes[1]);
+                    fclose($pipes[2]);
+                    proc_close($process);
+                    return true;
+                } elseif (isset($data['error'])) {
+                    Util::logError('Failed to unzip file. Error: ' . $data['error']);
+                    fclose($pipes[1]);
+                    fclose($pipes[2]);
+                    proc_close($process);
+                    return false;
                 }
             }
         }
+
+        // Check if the process terminated unexpectedly
+        $status = proc_get_status($process);
+        if (!$status['running']) {
+            Util::logError('Process terminated unexpectedly.');
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            proc_close($process);
+            return false;
+        }
+
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        proc_close($process);
+    } else {
+        Util::logError('Failed to open process.');
+        return false;
     }
+}
 
     /**
      * Fetches a file from a given URL and saves it to a specified file path.
