@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionSwitchPhpParam =
 [
     [ "__construct", "d4/db7/classActionSwitchPhpParam.html#a4e38abc6f92c1be87dcfa3d58b6c706b", null ],

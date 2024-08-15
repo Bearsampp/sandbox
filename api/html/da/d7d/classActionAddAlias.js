@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionAddAlias =
 [
     [ "__construct", "da/d7d/classActionAddAlias.html#a5af88ce44fb93e8fcb9165abdbf4e215", null ],

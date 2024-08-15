@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classBatch =
 [
     [ "__construct", "da/dbb/classBatch.html#a3cf2fbc5f8644826584d2013287daad3", null ],

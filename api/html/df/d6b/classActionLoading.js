@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionLoading =
 [
     [ "__construct", "df/d6b/classActionLoading.html#af434607e7cff5f88bd90ab31d5d82fbb", null ],

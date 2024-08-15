@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppMemcached =
 [
     [ "getActionChangeMemcachedPort", "d8/dff/classTplAppMemcached.html#a83e64f8e4168e3d78dd021e961f330a6", null ],

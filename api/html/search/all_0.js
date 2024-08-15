@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['_24_5fmainpath_0',['$_mainpath',['../d9/d92/db__common_8inc_8php.html#a1f2cbc875a889e2ec2fc74373e694f8f',1,'$_mainpath:&#160;db_common.inc.php'],['../da/dbf/winbinder_8php.html#a1f2cbc875a889e2ec2fc74373e694f8f',1,'$_mainpath:&#160;winbinder.php']]],

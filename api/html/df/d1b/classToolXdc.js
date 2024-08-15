@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolXdc =
 [
     [ "__construct", "df/d1b/classToolXdc.html#a9bdb243af760d32f93099c5c3a2a2f20", null ],

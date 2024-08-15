@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['lang_0',['LANG',['../da/d49/classLang.html#ae1ce2383ee976a3a42c360bbf0f11802',1,'Lang']]],

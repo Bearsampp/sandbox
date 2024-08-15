@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['cache_5ftime_0',['CACHE_TIME',['../d9/df9/classConfig.html#ad5312bdd2571770df8c13b901101523a',1,'Config']]],

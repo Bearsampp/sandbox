@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classBinMailpit =
 [
     [ "__construct", "d9/ddd/classBinMailpit.html#a82f1643d6bb2a9fcdf6e064d76017ebb", null ],

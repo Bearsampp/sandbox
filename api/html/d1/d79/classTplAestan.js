@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAestan =
 [
     [ "getActionService", "d1/d79/classTplAestan.html#a55a87e9605a0794c95fb1052f962b1bd", null ],

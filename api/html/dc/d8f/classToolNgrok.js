@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolNgrok =
 [
     [ "__construct", "dc/d8f/classToolNgrok.html#a9acd6610c7d5d80472f99f01e9bdf60b", null ],

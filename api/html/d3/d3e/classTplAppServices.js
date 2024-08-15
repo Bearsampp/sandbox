@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppServices =
 [
     [ "getActionRestartServices", "d3/d3e/classTplAppServices.html#a47ef245180c0d44d8d4df85b709caba7", null ],

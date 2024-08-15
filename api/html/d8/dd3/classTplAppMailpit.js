@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppMailpit =
 [
     [ "getActionChangeMailpitPort", "d8/dd3/classTplAppMailpit.html#a6409b87ddd99412a0cb03719fe6c5575", null ],

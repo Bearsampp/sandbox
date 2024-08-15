@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classVbs =
 [
     [ "__construct", "dd/de9/classVbs.html#a9afd761022bd6c17665d1d29548df9d7", null ],

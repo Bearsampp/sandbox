@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classAutoloader =
 [
     [ "__construct", "df/d3d/classAutoloader.html#ab04eb2e0cb60c3018fcd71444df8e4df", null ],

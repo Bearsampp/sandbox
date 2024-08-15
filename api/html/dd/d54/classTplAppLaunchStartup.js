@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppLaunchStartup =
 [
     [ "getActionLaunchStartup", "dd/d54/classTplAppLaunchStartup.html#a2a27441f4251fe5e3aaa3825efd06ba9", null ],

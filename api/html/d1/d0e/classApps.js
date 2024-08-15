@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classApps =
 [
     [ "__construct", "d1/d0e/classApps.html#a4cfa6006ae628aff45ef592787c4a5f0", null ],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppTools =
 [
     [ "getActionGenSslCertificate", "dc/dd8/classTplAppTools.html#af58da33c80e4dcea5b7c986d6c5bc796", null ],

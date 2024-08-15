@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['savepath_0',['savePath',['../d1/db8/classActionStartup.html#aad04cc485baf72c8fff49a1c39c7f7c8',1,'ActionStartup']]],

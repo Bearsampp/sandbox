@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classAppPhpmyadmin =
 [
     [ "__construct", "dd/dec/classAppPhpmyadmin.html#a40805dbd949eb9da437ff1a292c18792", null ],
