@@ -141,7 +141,7 @@ async function installModule(moduleName, version) {
                         console.log('Progress:', data.progress);
                         const progressValue = data.progress;
                         if (isDownloading) {
-                            progressbar.style.width = `100%`;
+                            progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
                             progressbar.innerText = `${progressValue}% Downloaded`;
                         } else {
@@ -157,7 +157,7 @@ async function installModule(moduleName, version) {
                         window.alert(`Error: ${data.error}`);
                     } else if (data.phase === 'extracting') {
                         isDownloading = false;
-                        progressbar.style.width = '0%';
+                        progressbar.style.width = '100%';
                         progressbar.innerText = '0% Extracted';
                     }
                 } catch (error) {
