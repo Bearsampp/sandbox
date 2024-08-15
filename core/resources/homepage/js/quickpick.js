@@ -1,32 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
-/**
- * This script handles the dynamic behavior of the QuickPick module selection on the homepage.
- * It includes the following functionalities:
- * - Toggles the visibility of the module selection dropdown.
- * - Handles click and key events for module headers and options.
- * - Installs the selected module version via an AJAX request.
- * - Displays a modal during the installation process and handles the response.
- * - Closes the modal and reloads the page after the installation process.
- *
- * Functions:
- * - scrolltoview(): Scrolls the module selection dropdown into view.
- * - showModule(modName): Displays the options for the selected module.
- * - hideall(): Hides all module options.
- * - installModule(moduleName, version): Sends an AJAX request to install the selected module version.
- * - closeModalAndReload(): Closes the modal and reloads the page.
- *
- * Event Listeners:
- * - DOMContentLoaded: Initializes the event listeners for the module selection dropdown and options.
- * - click: Toggles the visibility of the module selection dropdown and handles module option selection.
- * - keyup: Handles key events for module headers.
- */
 document.addEventListener("DOMContentLoaded", function () {
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
     let progressValue = 0; // Initialize progressValue as a number
@@ -47,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const optionsList = document.querySelectorAll(".select-dropdown li.moduleheader");
-
         optionsList.forEach((option) => {
             function handler(e) {
                 // Click Events
@@ -71,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
             }
-
             option.addEventListener("keyup", handler);
             option.addEventListener("click", handler);
         });
@@ -116,7 +85,6 @@ function hideall() {
     options.forEach(function (option) {
         option.hidden = true;
     });
-
 }
 
 async function installModule(moduleName, version) {
@@ -128,7 +96,7 @@ async function installModule(moduleName, version) {
     const downloadmodule = document.getElementById('download-module');
     const downloadversion = document.getElementById('download-version');
 
-    progressbar.innerText = "Downloading ".concat(moduleName).concat(' ').concat(version);
+    progressbar.innerText = `Downloading ${moduleName} ${version}`;
     progress.style.display = "block";
     downloadmodule.innerText = moduleName;
     downloadversion.innerText = version;
@@ -153,13 +121,13 @@ async function installModule(moduleName, version) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let responseText = '';
+        let isDownloading = true;
 
         while (true) {
             const {done, value} = await reader.read();
             if (done) break;
             responseText += decoder.decode(value, {stream: true});
 
-            // Process each JSON object separately
             const parts = responseText.split('}{').map((part, index, arr) => {
                 if (index === 0) return part + '}';
                 if (index === arr.length - 1) return '{' + part;
@@ -171,17 +139,26 @@ async function installModule(moduleName, version) {
                     const data = JSON.parse(part);
                     if (data.progress) {
                         console.log('Progress:', data.progress);
-                        // Update progress bar or other UI elements here
                         const progressValue = data.progress;
-                        progressbar.style.width = '100%';
-                        progressbar.setAttribute('aria-valuenow', progressValue);
-                        progressbar.innerText = progressValue + ' KBytes extracted';
+                        if (isDownloading) {
+                            progressbar.style.width = `100%`;
+                            progressbar.setAttribute('aria-valuenow', progressValue);
+                            progressbar.innerText = `${progressValue}% Downloaded`;
+                        } else {
+                            progressbar.style.width = '100%';
+                            progressbar.setAttribute('aria-valuenow', progressValue);
+                            progressbar.innerText = `${progressValue}% Extracted`;
+                        }
                     } else if (data.success) {
                         console.log(data);
                         window.alert(data.message);
                     } else if (data.error) {
                         console.error('Error:', data.error);
                         window.alert(`Error: ${data.error}`);
+                    } else if (data.phase === 'extracting') {
+                        isDownloading = false;
+                        progressbar.style.width = '0%';
+                        progressbar.innerText = '0% Extracted';
                     }
                 } catch (error) {
                     // Ignore JSON parse errors for incomplete parts

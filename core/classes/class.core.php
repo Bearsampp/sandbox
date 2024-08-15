@@ -493,47 +493,77 @@ class Core
      *
      * @return bool True on success, false on failure.
      */
-    public function unzip7zFile($filePath, $destination)
+    public function unzip7zFile($filePath, $destination, $progressCallback = null)
     {
         global $bearsamppRoot;
 
-        // Path to 7za.exe
         $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-        // Check if 7za.exe exists
         if ( !file_exists( $sevenZipPath ) ) {
             Util::logError( '7za.exe not found at: ' . $sevenZipPath );
 
             return false;
         }
 
-        // Calculate the file size
-        $fileSize = filesize($filePath);
-        Util::logDebug('Filesize is: ' . $fileSize);
+        $fileSize = filesize( $filePath );
+        Util::logDebug( 'Filesize is: ' . $fileSize );
 
-        // Command to unzip the .7z file using 7za.exe
-        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -o" . escapeshellarg( $destination );
-
-        // Log the command for debugging
+        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -bsp1 -o" . escapeshellarg( $destination );
         Util::logDebug( 'Executing command: ' . $command );
 
-        // Execute the command
-        exec( $command, $output, $returnVar );
+        $descriptorspec = [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w']
+        ];
 
-        // Log the output and return value
-        Util::logDebug( 'Command output: ' . implode( "\n", $output ) );
-        Util::logDebug( 'Command return value: ' . $returnVar );
+        $process = proc_open( $command, $descriptorspec, $pipes );
 
-        // Check if the command was successful
-        if ( $returnVar !== 0 ) {
-            Util::logError( 'Failed to unzip .7z file: ' . implode( "\n", $output ) );
+        if ( is_resource( $process ) ) {
+            $lastProgress = 0;
+            while ( $line = fgets( $pipes[1] ) ) {
+                Util::logDebug( 'Command output: ' . $line );
+
+                if ( $progressCallback ) {
+                    // Adjusted pattern to capture progress percentage correctly
+                    preg_match( '/(\d+)%/', $line, $matches );
+                    if ( isset( $matches[1] ) ) {
+                        $progress = (int) $matches[1];
+                        Util::logDebug( 'Parsed progress: ' . $progress );
+                        if ( $progress > $lastProgress ) {
+                            $lastProgress = $progress;
+                            call_user_func( $progressCallback, $progress );
+
+                            if ( ob_get_length() ) {
+                                ob_flush();
+                            }
+                            flush();
+                        }
+                    }
+                }
+            }
+
+            fclose( $pipes[1] );
+            fclose( $pipes[2] );
+
+            $returnVar = proc_close( $process );
+            Util::logDebug( 'Command return value: ' . $returnVar );
+
+            if ( $returnVar === 0 ) {
+                Util::logDebug( 'Successfully unzipped file to: ' . $destination );
+
+                return true;
+            }
+            else {
+                Util::logError( 'Failed to unzip file. Command return value: ' . $returnVar );
+
+                return false;
+            }
+        }
+        else {
+            Util::logError( 'Failed to open process for command: ' . $command );
 
             return false;
         }
-
-        Util::logDebug( 'Successfully unzipped .7z file to: ' . $destination );
-
-        return true;
     }
 
     /**
