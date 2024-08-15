@@ -497,18 +497,16 @@ class Core
     {
         global $bearsamppRoot;
 
-        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
+        $nodePath        = $this->getLibsPath() . '/nodejs/node.exe'; // Ensure 'node' is in your PATH
+        $unzipScriptPath = $this->getLibsPath() . '/nodejs/unzip.js';
 
-        if ( !file_exists( $sevenZipPath ) ) {
-            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
+        if ( !file_exists( $unzipScriptPath ) ) {
+            Util::logError( 'unzip.js not found at: ' . $unzipScriptPath );
 
             return false;
         }
 
-        $fileSize = filesize( $filePath );
-        Util::logDebug( 'Filesize is: ' . $fileSize );
-
-        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -bsp1 -o" . escapeshellarg( $destination );
+        $command = escapeshellarg( $nodePath ) . ' ' . escapeshellarg( $unzipScriptPath ) . ' ' . escapeshellarg( $filePath ) . ' ' . escapeshellarg( $destination );
         Util::logDebug( 'Executing command: ' . $command );
 
         $descriptorspec = [
@@ -524,10 +522,9 @@ class Core
                 Util::logDebug( 'Command output: ' . $line );
 
                 if ( $progressCallback ) {
-                    // Adjusted pattern to capture progress percentage correctly
-                    preg_match( '/(\d+)%/', $line, $matches );
-                    if ( isset( $matches[1] ) ) {
-                        $progress = (int) $matches[1];
+                    $data = json_decode( $line, true );
+                    if ( isset( $data['progress'] ) ) {
+                        $progress = (int) $data['progress'];
                         Util::logDebug( 'Parsed progress: ' . $progress );
                         if ( $progress > $lastProgress ) {
                             $lastProgress = $progress;
@@ -539,30 +536,27 @@ class Core
                             flush();
                         }
                     }
+                    elseif ( isset( $data['success'] ) ) {
+                        Util::logDebug( 'Successfully unzipped file to: ' . $destination );
+                        fclose( $pipes[1] );
+                        fclose( $pipes[2] );
+                        proc_close( $process );
+                        // Verify the contents of the destination directory
+                        $files = scandir( $destination );
+                        Util::logDebug( 'Files in destination directory: ' . json_encode( $files ) );
+
+                        return true;
+                    }
+                    elseif ( isset( $data['error'] ) ) {
+                        Util::logError( 'Failed to unzip file. Error: ' . $data['error'] );
+                        fclose( $pipes[1] );
+                        fclose( $pipes[2] );
+                        proc_close( $process );
+
+                        return false;
+                    }
                 }
             }
-
-            fclose( $pipes[1] );
-            fclose( $pipes[2] );
-
-            $returnVar = proc_close( $process );
-            Util::logDebug( 'Command return value: ' . $returnVar );
-
-            if ( $returnVar === 0 ) {
-                Util::logDebug( 'Successfully unzipped file to: ' . $destination );
-
-                return true;
-            }
-            else {
-                Util::logError( 'Failed to unzip file. Command return value: ' . $returnVar );
-
-                return false;
-            }
-        }
-        else {
-            Util::logError( 'Failed to open process for command: ' . $command );
-
-            return false;
         }
     }
 

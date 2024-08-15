@@ -143,7 +143,7 @@ async function installModule(moduleName, version) {
                         if (isDownloading) {
                             progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
-                            progressbar.innerText = `${progressValue}% Downloaded`;
+                            progressbar.innerText = `${progressValue} Kbytes Downloaded`;
                         } else {
                             progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
@@ -169,6 +169,8 @@ async function installModule(moduleName, version) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 100); // Delay of 100 milliseconds
     }
 }

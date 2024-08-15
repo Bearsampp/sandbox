@@ -29,7 +29,6 @@
  * @license    GNU General Public License version 3 or later; see LICENSE.txt
  * @link       https://bearsampp.com
  */
-
 include __DIR__ . '/../../../classes/actions/class.action.quickPick.php';
 Util::logDebug('File accessed successfully.');
 $QuickPick = new QuickPick();

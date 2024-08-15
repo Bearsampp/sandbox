@@ -404,7 +404,7 @@ class QuickPick
      *
      * @return array An array containing the status and message.
      */
-  public function fetchAndUnzipModule(string $moduleUrl, string $module): array
+ public function fetchAndUnzipModule(string $moduleUrl, string $module): array
 {
     Util::logDebug("$module is: " . $module);
 
@@ -424,26 +424,20 @@ class QuickPick
     $moduleType = $this->modules[$module]['type'];
     Util::logDebug('Module Type: ' . $moduleType);
 
-    // Get module type
     $destination = $this->getModuleDestinationPath($moduleType, $moduleName);
     Util::logDebug('Destination: ' . $destination);
 
-    // Retrieve the file path from the URL using the bearsamppCore module,
-    // passing the module URL and temporary file path, with the use Progress Bar parameter set to true.
     $result = $bearsamppCore->getFileFromUrl($moduleUrl, $tmpFilePath, true);
 
-    // Check if $result is false
     if ($result === false) {
         Util::logError('Failed to retrieve file from URL: ' . $moduleUrl);
         return ['error' => 'Failed to retrieve file from URL'];
     }
 
-    // Determine the file extension and call the appropriate unzipping function
     $fileExtension = pathinfo($tmpFilePath, PATHINFO_EXTENSION);
     Util::logDebug('File extension: ' . $fileExtension);
 
     if ($fileExtension === '7z' || $fileExtension === 'zip') {
-        // Send phase indicator for extraction
         echo json_encode(['phase' => 'extracting']);
         if (ob_get_length()) {
             ob_flush();
