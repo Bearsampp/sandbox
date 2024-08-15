@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "My Project", "index.html", [
+  [ "Bearsampp", "index.html", [
     [ "Node.js Changelog", "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html", [
       [ "Notes", "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#notes", null ],
       [ "2016-05-06, Version 0.12.14 (Maintenance), @rvagg", "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md2016-05-06-version-01214-maintenance-rvagg", null ],
@@ -342,14 +342,14 @@ var NAVTREE =
       [ "2009.06.11, Version 0.0.3", "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20090611-version-003", null ]
     ] ],
     [ "Installation", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html", [
-      [ "Summary", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#summary-1", null ],
-      [ "Details", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#details-1", null ],
-      [ "Credits", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#credits-1", null ]
+      [ "Summary", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#summary", null ],
+      [ "Details", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#details", null ],
+      [ "Credits", "d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#credits", null ]
     ] ],
     [ "Installation", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html", [
-      [ "Summary", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#summary", null ],
-      [ "Details", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#details", null ],
-      [ "Credits", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#credits", null ]
+      [ "Summary", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#summary-1", null ],
+      [ "Details", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#details-1", null ],
+      [ "Credits", "d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#credits-1", null ]
     ] ],
     [ "ansi-regex", "d9/dd7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ansi-regex_2readme.html", [
       [ "Install", "d9/dd7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ansi-regex_2readme.html#install", null ],
@@ -454,7 +454,7 @@ var NAVTREE =
         ] ],
         [ "Compatibility", "df/d5b/readme.html#compatibility", null ],
         [ "Any Questions ? Report a Bug ? Enhancements ?", "df/d5b/readme.html#any-questions--report-a-bug--enhancements-", null ],
-        [ "License", "df/d5b/readme.html#license-2", null ]
+        [ "License", "df/d5b/readme.html#license-1", null ]
       ] ]
     ] ],
     [ "debug", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html", [
@@ -477,17 +477,17 @@ var NAVTREE =
       [ "Authors", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#authors", null ],
       [ "Backers", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#backers", null ],
       [ "Sponsors", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#sponsors", null ],
-      [ "License", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#license-5", null ]
+      [ "License", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#license-3", null ]
     ] ],
     [ "emoji-regex <a href=\"https://travis-ci.org/mathiasbynens/emoji-regex\" ><img src=\"https://travis-ci.org/mathiasbynens/emoji-regex.svg?branch=master\" alt=\"Build status\"/></a>", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html", [
       [ "Installation", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#installation-2", null ],
       [ "Author", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#author", null ],
-      [ "License", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-1", null ]
+      [ "License", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-2", null ]
     ] ],
     [ "Node.js: fs-extra", "dd/d19/nodejs-fs-extra.html", [
       [ "Why?", "dd/d19/nodejs-fs-extra.html#why", null ],
       [ "Installation", "dd/d19/nodejs-fs-extra.html#installation-4", null ],
-      [ "Usage", "dd/d19/nodejs-fs-extra.html#usage-4", null ],
+      [ "Usage", "dd/d19/nodejs-fs-extra.html#usage-3", null ],
       [ "Sync vs Async vs Async/Await", "dd/d19/nodejs-fs-extra.html#sync-vs-async-vs-asyncawait", null ],
       [ "Methods", "dd/d19/nodejs-fs-extra.html#methods", [
         [ "Async", "dd/d19/nodejs-fs-extra.html#async", null ],
@@ -511,7 +511,7 @@ var NAVTREE =
     ] ],
     [ "graceful-fs", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html", [
       [ "Improvements over fs module", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#improvements-over-fs-modulehttpsnodejsorgapifshtml", null ],
-      [ "USAGE", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#usage-5", null ],
+      [ "USAGE", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#usage-4", null ],
       [ "Sync methods", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#sync-methods", null ],
       [ "Global Patching", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#global-patching", null ],
       [ "Changes", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#changes", [
@@ -525,13 +525,13 @@ var NAVTREE =
     ] ],
     [ "is-fullwidth-code-point <a href=\"https://travis-ci.org/sindresorhus/is-fullwidth-code-point\" ><img src=\"https://travis-ci.org/sindresorhus/is-fullwidth-code-point.svg?branch=master\" alt=\"Build Status\"/></a>", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html", [
       [ "Install", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#install-2", null ],
-      [ "Usage", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#usage-3", null ],
+      [ "Usage", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#usage-5", null ],
       [ "API", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#api-1", [
         [ "isFullwidthCodePoint(codePoint)", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#isfullwidthcodepointcodepoint", [
           [ "codePoint", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#codepoint", null ]
         ] ]
       ] ],
-      [ "License", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#license-3", null ]
+      [ "License", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#license-5", null ]
     ] ],
     [ "isexe", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html", [
       [ "USAGE", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#usage-6", null ],
@@ -571,7 +571,7 @@ var NAVTREE =
     ] ],
     [ "Node.js - jsonfile", "d2/d2f/nodejs---jsonfile.html", [
       [ "Why?", "d2/d2f/nodejs---jsonfile.html#why-1", null ],
-      [ "Installation", "d2/d2f/nodejs---jsonfile.html#installation-7", null ],
+      [ "Installation", "d2/d2f/nodejs---jsonfile.html#installation-6", null ],
       [ "API", "d2/d2f/nodejs---jsonfile.html#api-3", [
         [ "readFile(filename, [options], callback)", "d2/d2f/nodejs---jsonfile.html#readfilefilename-options-callback", null ],
         [ "readFileSync(filename, [options])", "d2/d2f/nodejs---jsonfile.html#readfilesyncfilename-options", null ],
@@ -584,7 +584,7 @@ var NAVTREE =
       [ "Installation", "d1/d1a/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultsdeep_2README.html#installation-5", null ]
     ] ],
     [ "lodash.defaultto v4.14.0", "d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html", [
-      [ "Installation", "d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html#installation-6", null ]
+      [ "Installation", "d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html#installation-7", null ]
     ] ],
     [ "lodash.flattendeep v4.4.0", "da/d6d/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8flattendeep_2README.html", [
       [ "Installation", "da/d6d/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8flattendeep_2README.html#installation-8", null ]
@@ -756,7 +756,7 @@ var NAVTREE =
       [ "Motivation", "d0/dd8/node-fetch.html#motivation", null ],
       [ "Features", "d0/dd8/node-fetch.html#features-2", null ],
       [ "Difference from client-side fetch", "d0/dd8/node-fetch.html#difference-from-client-side-fetch", null ],
-      [ "Installation", "d0/dd8/node-fetch.html#installation-13", null ],
+      [ "Installation", "d0/dd8/node-fetch.html#installation-14", null ],
       [ "Loading and configuring the module", "d0/dd8/node-fetch.html#loading-and-configuring-the-module", null ],
       [ "Common Usage", "d0/dd8/node-fetch.html#common-usage", null ],
       [ "Advanced Usage", "d0/dd8/node-fetch.html#advanced-usage-1", null ],
@@ -791,7 +791,7 @@ var NAVTREE =
       [ "License", "d0/dd8/node-fetch.html#license-10", null ]
     ] ],
     [ "node-stream-zip <img src=\"https://github.com/antelle/node-stream-zip/workflows/CI%20Checks/badge.svg\" alt=\"CI Checks\"/>", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html", [
-      [ "Installation", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-14", null ],
+      [ "Installation", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-13", null ],
       [ "Usage", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#usage-9", [
         [ "Async API", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#async-api", null ],
         [ "Callback API", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#callback-api", null ]
@@ -974,8 +974,8 @@ var NAVTREE =
       [ "License", "d2/d88/nodejs-fs-extra-1.html#license-12", null ]
     ] ],
     [ "node-unar", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html", [
-      [ "Usage", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#usage-12", [
-        [ "Examples", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#examples-2", [
+      [ "Usage", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#usage-13", [
+        [ "Examples", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#examples-3", [
           [ "Example: unpack file", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#example-unpack-file", null ],
           [ "Example: list content", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#example-list-content", null ]
         ] ],
@@ -989,8 +989,8 @@ var NAVTREE =
         [ "For simply submitting body data", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#for-simply-submitting-body-data", null ]
       ] ],
       [ "Bring in or access node-fetch directly", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#bring-in-or-access-node-fetchhttpswwwnpmjscompackagenode-fetch-directly", null ],
-      [ "Usage", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#usage-13", null ],
-      [ "Examples", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#examples-3", null ],
+      [ "Usage", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#usage-12", null ],
+      [ "Examples", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#examples-2", null ],
       [ "CLI", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#cli-3", null ],
       [ "License: MIT", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#license-mit", null ]
     ] ],

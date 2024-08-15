@@ -143,7 +143,7 @@ var searchData=
   ['add_5fvhost_140',['ADD_VHOST',['../db/d09/classAction.html#a370d7e5452c73bbc74021080027c8572',1,'Action']]],
   ['add_5fvhost_5ftitle_141',['ADD_VHOST_TITLE',['../da/d49/classLang.html#a660447f0460f10b33d97869f20dd4ea3',1,'Lang']]],
   ['added_142',['Added',['../d0/da5/autotoc_md910--2021-01-19.html#added',1,'Added'],['../d0/da5/autotoc_md910--2021-01-19.html#added-1',1,'Added'],['../d0/da5/autotoc_md910--2021-01-19.html#added-2',1,'Added']]],
-  ['additional_20details_143',['Additional Details',['../d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#additional-details',1,'Additional Details'],['../d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#additional-details-1',1,'Additional Details']]],
+  ['additional_20details_143',['Additional Details',['../d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#additional-details-1',1,'Additional Details'],['../d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#additional-details',1,'Additional Details']]],
   ['addloadingpid_144',['addLoadingPid',['../db/d6d/classCore.html#a02955a6ecc7a47aec50da90fd4de366f',1,'Core']]],
   ['addlog_145',['addLog',['../d1/d42/classActionExt.html#a00df5b1470955b1f267f6cc84c120b74',1,'ActionExt']]],
   ['adminer_146',['ADMINER',['../da/d49/classLang.html#a60ba5ed00b63ec7b4a9b4d96b5167c76',1,'Lang']]],

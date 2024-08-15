@@ -365,7 +365,7 @@ var searchData=
   ['createtimer_362',['createTimer',['../db/da5/classWinBinder.html#a61fa7e7f68b92adc86c4f3a6d52c9239',1,'WinBinder']]],
   ['createwindow_363',['createWindow',['../db/da5/classWinBinder.html#ad4015e4849d84451ad5875327c9927d8',1,'WinBinder']]],
   ['credit_364',['Credit',['../dd/d19/nodejs-fs-extra.html#credit',1,'Credit'],['../d2/d88/nodejs-fs-extra-1.html#credit-1',1,'Credit']]],
-  ['credits_365',['Credits',['../d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#credits',1,'Credits'],['../d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#credits-1',1,'Credits']]],
+  ['credits_365',['Credits',['../d4/d8b/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2when_2README.html#credits-1',1,'Credits'],['../d1/d50/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2_0dtypes_2node_2README.html#credits',1,'Credits']]],
   ['ctrl_5fid_366',['CTRL_ID',['../db/da5/classWinBinder.html#ab0d5a52dfce4f13e631209468a6b3e8a',1,'WinBinder']]],
   ['ctrl_5fobj_367',['CTRL_OBJ',['../db/da5/classWinBinder.html#a1c29e9bd8c4c95a3d2e7f7edf0140a24',1,'WinBinder']]],
   ['current_20and_20lts_20releases_368',['Current and LTS releases',['../d8/d51/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2README.html#current-and-lts-releases',1,'']]],

@@ -63,7 +63,7 @@ var NAVTREEINDEX7 =
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#global-patching":[11,3],
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#improvements-over-fs-modulehttpsnodejsorgapifshtml":[11,0],
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#sync-methods":[11,2],
-"d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#usage-5":[11,1],
+"d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#usage-4":[11,1],
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#v11":[11,4,4],
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#v20":[11,4,3],
 "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#v210":[11,4,2],

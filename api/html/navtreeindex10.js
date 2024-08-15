@@ -221,7 +221,7 @@ var NAVTREEINDEX10 =
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html":[9],
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#author":[9,1],
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#installation-2":[9,0],
-"db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-1":[9,2],
+"db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-2":[9,2],
 "db/d6d/classCore.html":[53,0,58],
 "db/d6d/classCore.html#a01df5d62bfabdab1f9adebb6f2b72ac2":[53,0,58,59],
 "db/d6d/classCore.html#a02955a6ecc7a47aec50da90fd4de366f":[53,0,58,2],

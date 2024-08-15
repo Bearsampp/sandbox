@@ -178,7 +178,7 @@ var NAVTREEINDEX5 =
 "d7/d2f/class_8action_8switchLogsVerbose_8php.html":[54,0,0,0,0,0,0,34],
 "d7/d2f/class_8action_8switchLogsVerbose_8php_source.html":[54,0,0,0,0,0,0,34],
 "d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html":[17],
-"d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html#installation-6":[17,0],
+"d7/d36/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8defaultto_2README.html#installation-7":[17,0],
 "d7/d51/class_8action_8checkVersion_8php.html":[54,0,0,0,0,0,0,7],
 "d7/d51/class_8action_8checkVersion_8php_source.html":[54,0,0,0,0,0,0,7],
 "d7/d51/class_8tpl_8service_8php.html":[54,0,0,0,0,0,4,4],

@@ -24,7 +24,7 @@ var NAVTREEINDEX16 =
 "df/d5b/readme.html#features":[7,0,1],
 "df/d5b/readme.html#increment":[7,0,3,4],
 "df/d5b/readme.html#install-1":[7,0,0],
-"df/d5b/readme.html#license-2":[7,0,13],
+"df/d5b/readme.html#license-1":[7,0,13],
 "df/d5b/readme.html#log":[7,0,4,5],
 "df/d5b/readme.html#multi-bar-mode":[7,0,4],
 "df/d5b/readme.html#options-1":[7,0,3,1,0],

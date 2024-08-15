@@ -95,7 +95,7 @@ var NAVTREEINDEX14 =
 "dd/d19/nodejs-fs-extra.html#sync-vs-async-vs-asyncawait":[10,3],
 "dd/d19/nodejs-fs-extra.html#third-party":[10,5],
 "dd/d19/nodejs-fs-extra.html#typescript":[10,5,1],
-"dd/d19/nodejs-fs-extra.html#usage-4":[10,2],
+"dd/d19/nodejs-fs-extra.html#usage-3":[10,2],
 "dd/d19/nodejs-fs-extra.html#what-happened-to-walk-and-walksync":[10,4,2],
 "dd/d19/nodejs-fs-extra.html#why":[10,0],
 "dd/d19/nodejs-fs-extra.html#windows":[10,6,1],

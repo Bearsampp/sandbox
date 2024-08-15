@@ -59,7 +59,7 @@ var NAVTREEINDEX11 =
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#building":[30,4],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#callback-api":[30,1,1],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#contributors":[30,7],
-"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-14":[30,0],
+"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-13":[30,0],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#known-issues":[30,5],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#methods-2":[30,3],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#options-5":[30,2],
