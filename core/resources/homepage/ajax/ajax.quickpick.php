@@ -47,9 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!isset($response['error'])) {
             $response['message'] = "Module $module version $version installed successfully.";
             if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
-                $response['message'] .= "\nReload needed... Right click on menu and choose reload.";
+                $response['message'] .= "\nReload needed...";
+                $response['message'] .= "\nWhen you are done installing modules then";
+                $response['message'] .= "\nRight click on menu and choose reload.";
             } else {
-                $response['message'] .= "\nEdit Bearsampp.conf to use new version then";
+                $response['message'] .= "\nEdit Bearsampp.conf to use new version(s) then";
+                $response['message'] .= "\nWhen you are done installing modules";
                 $response['message'] .= "\nRight click on menu and choose reload.";
             }
         } else {
