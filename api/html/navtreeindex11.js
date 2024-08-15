@@ -1,7 +1,5 @@
 var NAVTREEINDEX11 =
 {
-"db/d6d/classCore.html#a7c7f57258f27fed34689ff63ed54f12f":[53,0,58,45],
-"db/d6d/classCore.html#a821b09862a017a158b4126d0677df57b":[53,0,58,33],
 "db/d6d/classCore.html#a840b79980f468e326e9f64b996cc41f0":[53,0,58,35],
 "db/d6d/classCore.html#a89b8f605f0254eaca1a29af4b6fc6df5":[53,0,58,38],
 "db/d6d/classCore.html#a8eeb6f913390e473b4ba5f9ca47facfa":[53,0,58,10],
@@ -59,12 +57,12 @@ var NAVTREEINDEX11 =
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#building":[30,4],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#callback-api":[30,1,1],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#contributors":[30,7],
-"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-13":[30,0],
+"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-12":[30,0],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#known-issues":[30,5],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#methods-2":[30,3],
-"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#options-5":[30,2],
+"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#options-4":[30,2],
 "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#out-of-scope":[30,6],
-"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#usage-9":[30,1],
+"db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#usage-8":[30,1],
 "db/d99/ajax_8mailpit_8php.html":[54,0,0,0,0,2,0,0,4],
 "db/d99/ajax_8mailpit_8php.html#a112ef069ddc0454086e3d1e6d8d55d07":[54,0,0,0,0,2,0,0,4,2],
 "db/d99/ajax_8mailpit_8php.html#a362b05f439c1dd04d0524c75c43bb8cd":[54,0,0,0,0,2,0,0,4,8],
@@ -249,5 +247,7 @@ var NAVTREEINDEX11 =
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110719-version-0410-stable":[0,240],
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110722-version-052-unstable":[0,235],
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110801-version-053-unstable":[0,234],
-"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110812-version-054-unstable":[0,233]
+"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110812-version-054-unstable":[0,233],
+"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110817-version-0411-stable":[0,239],
+"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110826-version-055-unstable":[0,232]
 };

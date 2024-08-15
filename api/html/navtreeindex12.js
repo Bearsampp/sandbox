@@ -1,7 +1,5 @@
 var NAVTREEINDEX12 =
 {
-"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110817-version-0411-stable":[0,239],
-"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110826-version-055-unstable":[0,232],
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110908-version-056-unstable":[0,231],
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110915-version-0412-stable":[0,238],
 "db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110916-version-057-unstable":[0,230],
@@ -249,5 +247,7 @@ var NAVTREEINDEX12 =
 "db/dc8/classTplService.html#ae2ac9f05d6ed5b157275aabfe57a384f":[53,0,111,2],
 "db/dc8/classTplService.html#ae8127b75fbd7abc1027721e3d0bdcb35":[53,0,111,1],
 "db/de4/class_8action_8enable_8php.html":[54,0,0,0,0,0,0,15],
-"db/de4/class_8action_8enable_8php_source.html":[54,0,0,0,0,0,0,15]
+"db/de4/class_8action_8enable_8php_source.html":[54,0,0,0,0,0,0,15],
+"db/df2/classBinMailhog.html":[53,0,47],
+"db/df2/classBinMailhog.html#a01ef85da0fe7d0fb611c03682dd34896":[53,0,47,32]
 };

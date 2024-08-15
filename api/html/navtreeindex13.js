@@ -1,7 +1,5 @@
 var NAVTREEINDEX13 =
 {
-"db/df2/classBinMailhog.html":[53,0,47],
-"db/df2/classBinMailhog.html#a01ef85da0fe7d0fb611c03682dd34896":[53,0,47,32],
 "db/df2/classBinMailhog.html#a03964e6b09aefe8338a86fc5c1e58ec9":[53,0,47,11],
 "db/df2/classBinMailhog.html#a04295eec0431e43862d99161de64b7b2":[53,0,47,2],
 "db/df2/classBinMailhog.html#a0e18d1c3a65a0783575ca96cce80f914":[53,0,47,9],
@@ -249,5 +247,7 @@ var NAVTREEINDEX13 =
 "dc/db9/classBinPostgresql.html#a7bdca809f2957b9abc697010bec33d43":[53,0,54,6],
 "dc/db9/classBinPostgresql.html#a86fa4c606dcd1d90f7cffd971ba7437b":[53,0,54,40],
 "dc/db9/classBinPostgresql.html#a88d1157962c915cd66b822a0ad8b5cf7":[53,0,54,18],
-"dc/db9/classBinPostgresql.html#a997761c0afb103430fb69f915826e9f1":[53,0,54,45]
+"dc/db9/classBinPostgresql.html#a997761c0afb103430fb69f915826e9f1":[53,0,54,45],
+"dc/db9/classBinPostgresql.html#a9a883b86a78409fa14dba93ac6a0df5d":[53,0,54,31],
+"dc/db9/classBinPostgresql.html#a9e72368426862c7e2faa6055047c3da0":[53,0,54,48]
 };

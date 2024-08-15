@@ -454,12 +454,12 @@ var NAVTREE =
         ] ],
         [ "Compatibility", "df/d5b/readme.html#compatibility", null ],
         [ "Any Questions ? Report a Bug ? Enhancements ?", "df/d5b/readme.html#any-questions--report-a-bug--enhancements-", null ],
-        [ "License", "df/d5b/readme.html#license-1", null ]
+        [ "License", "df/d5b/readme.html#license-2", null ]
       ] ]
     ] ],
     [ "debug", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html", [
-      [ "Installation", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#installation-3", null ],
-      [ "Usage", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#usage-2", null ],
+      [ "Installation", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#installation-4", null ],
+      [ "Usage", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#usage-3", null ],
       [ "Namespace Colors", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#namespace-colors", null ],
       [ "Millisecond diff", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#millisecond-diff", null ],
       [ "Conventions", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#conventions", null ],
@@ -477,17 +477,17 @@ var NAVTREE =
       [ "Authors", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#authors", null ],
       [ "Backers", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#backers", null ],
       [ "Sponsors", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#sponsors", null ],
-      [ "License", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#license-3", null ]
+      [ "License", "d4/d11/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2debug_2README.html#license-4", null ]
     ] ],
     [ "emoji-regex <a href=\"https://travis-ci.org/mathiasbynens/emoji-regex\" ><img src=\"https://travis-ci.org/mathiasbynens/emoji-regex.svg?branch=master\" alt=\"Build status\"/></a>", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html", [
       [ "Installation", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#installation-2", null ],
       [ "Author", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#author", null ],
-      [ "License", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-2", null ]
+      [ "License", "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-1", null ]
     ] ],
     [ "Node.js: fs-extra", "dd/d19/nodejs-fs-extra.html", [
       [ "Why?", "dd/d19/nodejs-fs-extra.html#why", null ],
-      [ "Installation", "dd/d19/nodejs-fs-extra.html#installation-4", null ],
-      [ "Usage", "dd/d19/nodejs-fs-extra.html#usage-3", null ],
+      [ "Installation", "dd/d19/nodejs-fs-extra.html#installation-3", null ],
+      [ "Usage", "dd/d19/nodejs-fs-extra.html#usage-2", null ],
       [ "Sync vs Async vs Async/Await", "dd/d19/nodejs-fs-extra.html#sync-vs-async-vs-asyncawait", null ],
       [ "Methods", "dd/d19/nodejs-fs-extra.html#methods", [
         [ "Async", "dd/d19/nodejs-fs-extra.html#async", null ],
@@ -507,7 +507,7 @@ var NAVTREE =
       ] ],
       [ "Naming", "dd/d19/nodejs-fs-extra.html#naming", null ],
       [ "Credit", "dd/d19/nodejs-fs-extra.html#credit", null ],
-      [ "License", "dd/d19/nodejs-fs-extra.html#license-4", null ]
+      [ "License", "dd/d19/nodejs-fs-extra.html#license-3", null ]
     ] ],
     [ "graceful-fs", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html", [
       [ "Improvements over fs module", "d9/d66/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2graceful-fs_2README.html#improvements-over-fs-modulehttpsnodejsorgapifshtml", null ],
@@ -525,8 +525,8 @@ var NAVTREE =
     ] ],
     [ "is-fullwidth-code-point <a href=\"https://travis-ci.org/sindresorhus/is-fullwidth-code-point\" ><img src=\"https://travis-ci.org/sindresorhus/is-fullwidth-code-point.svg?branch=master\" alt=\"Build Status\"/></a>", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html", [
       [ "Install", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#install-2", null ],
-      [ "Usage", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#usage-5", null ],
-      [ "API", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#api-1", [
+      [ "Usage", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#usage-6", null ],
+      [ "API", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#api-2", [
         [ "isFullwidthCodePoint(codePoint)", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#isfullwidthcodepointcodepoint", [
           [ "codePoint", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#codepoint", null ]
         ] ]
@@ -534,8 +534,8 @@ var NAVTREE =
       [ "License", "d6/d79/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2is-fullwidth-code-point_2readme.html#license-5", null ]
     ] ],
     [ "isexe", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html", [
-      [ "USAGE", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#usage-6", null ],
-      [ "API", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#api-2", [
+      [ "USAGE", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#usage-5", null ],
+      [ "API", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#api-1", [
         [ "isexe(path, [options], [callback])", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#isexepath-options-callback", null ],
         [ "isexe.sync(path, [options])", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#isexesyncpath-options", null ],
         [ "Options", "d1/dae/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2isexe_2README.html#options-3", null ]
@@ -590,10 +590,10 @@ var NAVTREE =
       [ "Installation", "da/d6d/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8flattendeep_2README.html#installation-8", null ]
     ] ],
     [ "lodash.isempty v4.4.0", "d3/de8/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8isempty_2README.html", [
-      [ "Installation", "d3/de8/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8isempty_2README.html#installation-9", null ]
+      [ "Installation", "d3/de8/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8isempty_2README.html#installation-10", null ]
     ] ],
     [ "lodash.negate v3.0.2", "dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html", [
-      [ "Installation", "dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html#installation-10", null ]
+      [ "Installation", "dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html#installation-9", null ]
     ] ],
     [ "Changelog", "df/d31/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2CHANGELOG.html", [
       [ "v1.2.8 - 2023-02-09", "df/d31/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2CHANGELOG.html#v128httpsgithubcomminimistjsminimistcomparev127v128---2023-02-09", [
@@ -693,9 +693,9 @@ var NAVTREE =
         [ "var argv = parseArgs(args, opts={})", "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#var-argv--parseargsargs-opts", null ]
       ] ],
       [ "install", "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#install-3", null ],
-      [ "license", "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#license-7", null ]
+      [ "license", "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#license-8", null ]
     ] ],
-    [ "license", "d2/d94/license-8.html", null ],
+    [ "license", "d4/dcb/license-7.html", null ],
     [ "ms", "d0/dee/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ms_2readme.html", [
       [ "Examples", "d0/dee/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ms_2readme.html#examples-1", [
         [ "Convert from Milliseconds", "d0/dee/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ms_2readme.html#convert-from-milliseconds", null ],
@@ -759,7 +759,7 @@ var NAVTREE =
       [ "Installation", "d0/dd8/node-fetch.html#installation-14", null ],
       [ "Loading and configuring the module", "d0/dd8/node-fetch.html#loading-and-configuring-the-module", null ],
       [ "Common Usage", "d0/dd8/node-fetch.html#common-usage", null ],
-      [ "Advanced Usage", "d0/dd8/node-fetch.html#advanced-usage-1", null ],
+      [ "Advanced Usage", "d0/dd8/node-fetch.html#advanced-usage-2", null ],
       [ "API", "d0/dd8/node-fetch.html#api-6", [
         [ "fetch(url[, options])", "d0/dd8/node-fetch.html#fetchurl-options", null ],
         [ "Options", "d0/dd8/node-fetch.html#options-6", null ],
@@ -788,15 +788,15 @@ var NAVTREE =
         [ "class-aborterror", "d0/dd8/node-fetch.html#class-aborterror", null ]
       ] ],
       [ "Acknowledgement", "d0/dd8/node-fetch.html#acknowledgement", null ],
-      [ "License", "d0/dd8/node-fetch.html#license-10", null ]
+      [ "License", "d0/dd8/node-fetch.html#license-11", null ]
     ] ],
     [ "node-stream-zip <img src=\"https://github.com/antelle/node-stream-zip/workflows/CI%20Checks/badge.svg\" alt=\"CI Checks\"/>", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html", [
-      [ "Installation", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-13", null ],
-      [ "Usage", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#usage-9", [
+      [ "Installation", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#installation-12", null ],
+      [ "Usage", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#usage-8", [
         [ "Async API", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#async-api", null ],
         [ "Callback API", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#callback-api", null ]
       ] ],
-      [ "Options", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#options-5", null ],
+      [ "Options", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#options-4", null ],
       [ "Methods", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#methods-2", null ],
       [ "Building", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#building", null ],
       [ "Known issues", "db/d98/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-stream-zip_2README.html#known-issues", null ],
@@ -810,7 +810,7 @@ var NAVTREE =
         [ "var argv = parseArgs(args, opts={})", "d1/dbe/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2node__modules_2minimist_2readme.html#var-argv--parseargsargs-opts-1", null ]
       ] ],
       [ "install", "d1/dbe/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2node__modules_2minimist_2readme.html#install-4", null ],
-      [ "license", "d1/dbe/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2node__modules_2minimist_2readme.html#license-11", null ]
+      [ "license", "d1/dbe/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2node__modules_2minimist_2readme.html#license-10", null ]
     ] ],
     [ "node-sys", "d2/da1/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2README.html", [
       [ "Install", "d2/da1/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2README.html#install-5", null ],
@@ -974,8 +974,8 @@ var NAVTREE =
       [ "License", "d2/d88/nodejs-fs-extra-1.html#license-12", null ]
     ] ],
     [ "node-unar", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html", [
-      [ "Usage", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#usage-13", [
-        [ "Examples", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#examples-3", [
+      [ "Usage", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#usage-12", [
+        [ "Examples", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#examples-2", [
           [ "Example: unpack file", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#example-unpack-file", null ],
           [ "Example: list content", "d5/dce/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-unar_2README.html#example-list-content", null ]
         ] ],
@@ -989,14 +989,14 @@ var NAVTREE =
         [ "For simply submitting body data", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#for-simply-submitting-body-data", null ]
       ] ],
       [ "Bring in or access node-fetch directly", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#bring-in-or-access-node-fetchhttpswwwnpmjscompackagenode-fetch-directly", null ],
-      [ "Usage", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#usage-12", null ],
-      [ "Examples", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#examples-2", null ],
+      [ "Usage", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#usage-13", null ],
+      [ "Examples", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#examples-3", null ],
       [ "CLI", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#cli-3", null ],
       [ "License: MIT", "d0/d15/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-wget-fetch_2README.html#license-mit", null ]
     ] ],
     [ "normalize-path <a href=\"https://www.npmjs.com/package/normalize-path\" ><img src=\"https://img.shields.io/npm/v/normalize-path.svg?style=flat\" alt=\"NPM version\"/></a> <a href=\"https://npmjs.org/package/normalize-path\" ><img src=\"https://img.shields.io/npm/dm/normalize-path.svg?style=flat\" alt=\"NPM monthly downloads\"/></a> <a href=\"https://npmjs.org/package/normalize-path\" ><img src=\"https://img.shields.io/npm/dt/normalize-path.svg?style=flat\" alt=\"NPM total downloads\"/></a> <a href=\"https://travis-ci.org/jonschlinkert/normalize-path\" ><img src=\"https://img.shields.io/travis/jonschlinkert/normalize-path.svg?style=flat&label=Travis\" alt=\"Linux Build Status\"/></a>", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html", [
-      [ "Install", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#install-7", null ],
-      [ "Usage", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#usage-14", [
+      [ "Install", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#install-8", null ],
+      [ "Usage", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#usage-15", [
         [ "Trailing slashes", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#trailing-slashes", null ]
       ] ],
       [ "Release history", "d4/d17/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2normalize-path_2README.html#release-history", [
@@ -1010,8 +1010,8 @@ var NAVTREE =
       ] ]
     ] ],
     [ "string-width", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html", [
-      [ "Install", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html#install-8", null ],
-      [ "Usage", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html#usage-15", null ],
+      [ "Install", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html#install-7", null ],
+      [ "Usage", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html#usage-14", null ],
       [ "Related", "d0/d20/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2string-width_2readme.html#related", null ]
     ] ],
     [ "strip-ansi <a href=\"https://travis-ci.org/chalk/strip-ansi\" ><img src=\"https://travis-ci.org/chalk/strip-ansi.svg?branch=master\" alt=\"Build Status\"/></a>", "d8/daf/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2strip-ansi_2readme.html", [
@@ -1152,21 +1152,21 @@ var NAVTREEINDEX =
 "annotated.html",
 "d0/dee/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ms_2readme.html#examples-1",
 "d1/dc6/ajax_8summary_8php.html#a8a0c7a4c61f6c2f6a1659ca97b61d177",
-"d3/d93/classNssm.html#acc103a88cc1c430d6d8ecba78e75c410",
-"d4/dae/db__mysql_8inc_8php.html#aab90de61690f8cff6faef90d221daa38",
+"d3/d93/classNssm.html#acc82a337584c43cb8e7b2aa9dea8a04e",
+"d4/dae/db__mysql_8inc_8php.html#add40311d1c1024feafdbeca9bcd4c78f",
 "d6/d7e/class_8root_8php_source.html",
 "d7/dcf/classQuickPick.html#aa36769bf86f0cb87708fb4c76fe1ebc6",
 "d9/d06/node-7z-archive.html#raw-inputs",
 "d9/dd7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ansi-regex_2readme.html#options",
-"da/d49/classLang.html#a3a4741a7fb478497ba16d389ada0c3c6",
-"da/d7d/classActionEditVhost.html#a5e3a222c3dcc2a8a77dc80dde1657bff",
-"db/d6d/classCore.html#a7c7f57258f27fed34689ff63ed54f12f",
-"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110817-version-0411-stable",
-"db/df2/classBinMailhog.html",
-"dc/db9/classBinPostgresql.html#a9a883b86a78409fa14dba93ac6a0df5d",
-"de/d54/classBins.html#af285ea7b7467fad58e323bc201ed60dc",
-"df/d54/classAppAdminer.html#ab36ac06e3bfa0227815808a449ca0e3d",
-"functions_r.html"
+"da/d49/classLang.html#a3b2ae313d7d60ad15a487654f3ad9b3e",
+"da/d7d/classActionEditVhost.html#a85a73b37088549f931044a19550cb0ea",
+"db/d6d/classCore.html#a840b79980f468e326e9f64b996cc41f0",
+"db/db9/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2CHANGELOG.html#autotoc_md20110908-version-056-unstable",
+"db/df2/classBinMailhog.html#a03964e6b09aefe8338a86fc5c1e58ec9",
+"dc/db9/classBinPostgresql.html#a9f4c58b0efb1bd8a2e1e7802fa0040d2",
+"de/d7e/license.html",
+"df/d5b/readme.html",
+"functions_t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

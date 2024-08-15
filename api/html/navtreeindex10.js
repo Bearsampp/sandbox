@@ -1,7 +1,5 @@
 var NAVTREEINDEX10 =
 {
-"da/d7d/classActionEditVhost.html#a5e3a222c3dcc2a8a77dc80dde1657bff":[53,0,15,0],
-"da/d7d/classActionEditVhost.html#a7c1e649cbaa45d7c8bb477cfb4031643":[53,0,15,9],
 "da/d7d/classActionEditVhost.html#a85a73b37088549f931044a19550cb0ea":[53,0,15,7],
 "da/d7d/classActionEditVhost.html#aae60c7bb0dd70156ffb622b154fc8e76":[53,0,15,13],
 "da/d7d/classActionEditVhost.html#ab35514b5ee6d87fdaea924b7323a03b4":[53,0,15,11],
@@ -221,7 +219,7 @@ var NAVTREEINDEX10 =
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html":[9],
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#author":[9,1],
 "db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#installation-2":[9,0],
-"db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-2":[9,2],
+"db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html#license-1":[9,2],
 "db/d6d/classCore.html":[53,0,58],
 "db/d6d/classCore.html#a01df5d62bfabdab1f9adebb6f2b72ac2":[53,0,58,59],
 "db/d6d/classCore.html#a02955a6ecc7a47aec50da90fd4de366f":[53,0,58,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX10 =
 "db/d6d/classCore.html#a64abe3e9775e0be6d256a8e0f073b95f":[53,0,58,53],
 "db/d6d/classCore.html#a70fbc806f06cc9bb89185615b55c749b":[53,0,58,34],
 "db/d6d/classCore.html#a74322acdd9baf46c21f141e7d945fb4b":[53,0,58,32],
-"db/d6d/classCore.html#a798da75c484b51aebc6c0db891eb2b85":[53,0,58,43]
+"db/d6d/classCore.html#a798da75c484b51aebc6c0db891eb2b85":[53,0,58,43],
+"db/d6d/classCore.html#a7c7f57258f27fed34689ff63ed54f12f":[53,0,58,45],
+"db/d6d/classCore.html#a821b09862a017a158b4126d0677df57b":[53,0,58,33]
 };

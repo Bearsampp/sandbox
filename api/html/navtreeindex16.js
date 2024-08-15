@@ -1,7 +1,5 @@
 var NAVTREEINDEX16 =
 {
-"df/d54/classAppAdminer.html#ab36ac06e3bfa0227815808a449ca0e3d":[53,0,38,3],
-"df/d54/classAppAdminer.html#af1e7474dffee9c0a10592c303c803349":[53,0,38,1],
 "df/d5b/readme.html":[7],
 "df/d5b/readme.html#any-questions--report-a-bug--enhancements-":[7,0,12],
 "df/d5b/readme.html#bar-formatting":[7,0,7],
@@ -24,7 +22,7 @@ var NAVTREEINDEX16 =
 "df/d5b/readme.html#features":[7,0,1],
 "df/d5b/readme.html#increment":[7,0,3,4],
 "df/d5b/readme.html#install-1":[7,0,0],
-"df/d5b/readme.html#license-1":[7,0,13],
+"df/d5b/readme.html#license-2":[7,0,13],
 "df/d5b/readme.html#log":[7,0,4,5],
 "df/d5b/readme.html#multi-bar-mode":[7,0,4],
 "df/d5b/readme.html#options-1":[7,0,3,1,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX16 =
 "functions_n.html":[53,3,0,15],
 "functions_o.html":[53,3,0,16],
 "functions_p.html":[53,3,0,17],
-"functions_q.html":[53,3,0,18]
+"functions_q.html":[53,3,0,18],
+"functions_r.html":[53,3,0,19],
+"functions_s.html":[53,3,0,20]
 };

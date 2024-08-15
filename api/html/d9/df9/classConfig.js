@@ -2,7 +2,6 @@ var classConfig =
 [
     [ "__construct", "d9/df9/classConfig.html#ac1c75b1b53a17a028629ba8127e06f82", null ],
     [ "getBrowser", "d9/df9/classConfig.html#a3f8fa6fb0fe439c16d0bcf2b0d3ab17e", null ],
-    [ "getCacheTime", "d9/df9/classConfig.html#a0e15106265e37eb8fff60b09f0547b1f", null ],
     [ "getDefaultLang", "d9/df9/classConfig.html#aebf9e698dfbe9cea63da7c66db26885a", null ],
     [ "getDownloadId", "d9/df9/classConfig.html#ae056a5c1dcd0cadafd9532b9ea78cd0a", null ],
     [ "getHostname", "d9/df9/classConfig.html#a63b1ba35aa0e4547fbd8d7d555142164", null ],
@@ -18,7 +17,6 @@ var classConfig =
     [ "replace", "d9/df9/classConfig.html#aa56e8bcd1e2c463ab3fc349e81c9413c", null ],
     [ "replaceAll", "d9/df9/classConfig.html#ad36fe591d802379bfa4793e2c21cc02d", null ],
     [ "$raw", "d9/df9/classConfig.html#ae8682ccab292822d58ba637f5af2df45", null ],
-    [ "CACHE_TIME", "d9/df9/classConfig.html#ad5312bdd2571770df8c13b901101523a", null ],
     [ "CFG_BROWSER", "d9/df9/classConfig.html#ae21f9f40f1fc3cf752c5c188b3dbdef4", null ],
     [ "CFG_DEFAULT_LANG", "d9/df9/classConfig.html#a9f01f5e2d68c04382824fbcf850e362b", null ],
     [ "CFG_HOSTNAME", "d9/df9/classConfig.html#a9dd47c6276b05ff446f6e83b3efb0abd", null ],

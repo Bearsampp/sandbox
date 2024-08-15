@@ -1,7 +1,5 @@
 var NAVTREEINDEX14 =
 {
-"dc/db9/classBinPostgresql.html#a9a883b86a78409fa14dba93ac6a0df5d":[53,0,54,31],
-"dc/db9/classBinPostgresql.html#a9e72368426862c7e2faa6055047c3da0":[53,0,54,48],
 "dc/db9/classBinPostgresql.html#a9f4c58b0efb1bd8a2e1e7802fa0040d2":[53,0,54,23],
 "dc/db9/classBinPostgresql.html#aa42c69532f092e14c0e1905570c5e1e8":[53,0,54,25],
 "dc/db9/classBinPostgresql.html#aa4bc3e55b1e6852925ba1bd343a82ff7":[53,0,54,28],
@@ -65,7 +63,7 @@ var NAVTREEINDEX14 =
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html":[22],
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#example-3":[22,0],
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#install-3":[22,3],
-"dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#license-7":[22,4],
+"dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#license-8":[22,4],
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#methods-1":[22,2],
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#security":[22,1],
 "dc/ddb/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2minimist_2README.html#var-argv--parseargsargs-opts":[22,2,0],
@@ -84,8 +82,8 @@ var NAVTREEINDEX14 =
 "dd/d19/nodejs-fs-extra.html#credit":[10,8],
 "dd/d19/nodejs-fs-extra.html#file--directory-watching":[10,5,2],
 "dd/d19/nodejs-fs-extra.html#hacking-on-fs-extra":[10,6],
-"dd/d19/nodejs-fs-extra.html#installation-4":[10,1],
-"dd/d19/nodejs-fs-extra.html#license-4":[10,9],
+"dd/d19/nodejs-fs-extra.html#installation-3":[10,1],
+"dd/d19/nodejs-fs-extra.html#license-3":[10,9],
 "dd/d19/nodejs-fs-extra.html#methods":[10,4],
 "dd/d19/nodejs-fs-extra.html#misc":[10,5,4],
 "dd/d19/nodejs-fs-extra.html#naming":[10,7],
@@ -95,7 +93,7 @@ var NAVTREEINDEX14 =
 "dd/d19/nodejs-fs-extra.html#sync-vs-async-vs-asyncawait":[10,3],
 "dd/d19/nodejs-fs-extra.html#third-party":[10,5],
 "dd/d19/nodejs-fs-extra.html#typescript":[10,5,1],
-"dd/d19/nodejs-fs-extra.html#usage-3":[10,2],
+"dd/d19/nodejs-fs-extra.html#usage-2":[10,2],
 "dd/d19/nodejs-fs-extra.html#what-happened-to-walk-and-walksync":[10,4,2],
 "dd/d19/nodejs-fs-extra.html#why":[10,0],
 "dd/d19/nodejs-fs-extra.html#windows":[10,6,1],
@@ -123,7 +121,7 @@ var NAVTREEINDEX14 =
 "dd/db7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2whatwg-url_2README.html#low-level-url-standard-api":[44,1,1],
 "dd/db7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2whatwg-url_2README.html#the-url-constructor":[44,1,0],
 "dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html":[20],
-"dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html#installation-10":[20,0],
+"dd/dd5/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2lodash_8negate_2README.html#installation-9":[20,0],
 "dd/de4/class_8tpl_8app_8services_8php.html":[54,0,0,0,0,0,4,0,24],
 "dd/de4/class_8tpl_8app_8services_8php_source.html":[54,0,0,0,0,0,4,0,24],
 "dd/de9/classVbs.html":[53,0,113],
@@ -249,5 +247,7 @@ var NAVTREEINDEX14 =
 "de/d54/classBins.html#ac94bcb58f2c291f26fdf22e0ea4bf530":[53,0,55,3],
 "de/d54/classBins.html#ae38e011b9915da1df87dca3599b2740a":[53,0,55,14],
 "de/d54/classBins.html#af0fc4bbac7357dac1b0d5fb3f2cc8445":[53,0,55,23],
-"de/d54/classBins.html#af1b1018d56d89d699f9099f9bb79b056":[53,0,55,0]
+"de/d54/classBins.html#af1b1018d56d89d699f9099f9bb79b056":[53,0,55,0],
+"de/d54/classBins.html#af285ea7b7467fad58e323bc201ed60dc":[53,0,55,8],
+"de/d54/classBins.html#afafa11d1af28a858281f624f83a0f1ea":[53,0,55,9]
 };

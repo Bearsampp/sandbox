@@ -88,7 +88,6 @@ var NAVTREEINDEX2 =
 "d2/d90/ajax_8mysql_8php_source.html":[54,0,0,0,0,2,0,0,7],
 "d2/d93/class_8action_8refreshReposStartup_8php.html":[54,0,0,0,0,0,0,27],
 "d2/d93/class_8action_8refreshReposStartup_8php_source.html":[54,0,0,0,0,0,0,27],
-"d2/d94/license-8.html":[23],
 "d2/d97/class_8tpl_8app_8xlight_8php.html":[54,0,0,0,0,0,4,0,26],
 "d2/d97/class_8tpl_8app_8xlight_8php_source.html":[54,0,0,0,0,0,4,0,26],
 "d2/da1/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2node-sys_2README.html":[32],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "d3/d93/classNssm.html#ac44f26dd8a1872919c763d0a1705171b":[53,0,63,8],
 "d3/d93/classNssm.html#ac5054f8e1872cb8d2611f019f4866a65":[53,0,63,35],
 "d3/d93/classNssm.html#ac5399de1900043e37bf2a67aaa9f9180":[53,0,63,36],
-"d3/d93/classNssm.html#ac770fcb11dd537108ab421e679e8ac4e":[53,0,63,39]
+"d3/d93/classNssm.html#ac770fcb11dd537108ab421e679e8ac4e":[53,0,63,39],
+"d3/d93/classNssm.html#acc103a88cc1c430d6d8ecba78e75c410":[53,0,63,14]
 };

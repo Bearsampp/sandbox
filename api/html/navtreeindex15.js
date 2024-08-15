@@ -1,7 +1,5 @@
 var NAVTREEINDEX15 =
 {
-"de/d54/classBins.html#af285ea7b7467fad58e323bc201ed60dc":[53,0,55,8],
-"de/d54/classBins.html#afafa11d1af28a858281f624f83a0f1ea":[53,0,55,9],
 "de/d7e/license.html":[6],
 "de/d86/classActionQuit.html":[53,0,23],
 "de/d86/classActionQuit.html#a156e3d26bda8ca425f28f58427d6c579":[53,0,23,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX15 =
 "df/d54/classAppAdminer.html#a21d4f19f407b6d453ed8feccc4e75a65":[53,0,38,4],
 "df/d54/classAppAdminer.html#a32f851b7c859b7c922683eda3ed17d28":[53,0,38,5],
 "df/d54/classAppAdminer.html#a7463642ab7bb00cdf02097ce59489e1b":[53,0,38,0],
-"df/d54/classAppAdminer.html#a78eea9c2b9f4896e1b11938e08f66855":[53,0,38,2]
+"df/d54/classAppAdminer.html#a78eea9c2b9f4896e1b11938e08f66855":[53,0,38,2],
+"df/d54/classAppAdminer.html#ab36ac06e3bfa0227815808a449ca0e3d":[53,0,38,3],
+"df/d54/classAppAdminer.html#af1e7474dffee9c0a10592c303c803349":[53,0,38,1]
 };
