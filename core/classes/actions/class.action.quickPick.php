@@ -409,14 +409,12 @@ class QuickPick
     Util::logDebug("$module is: " . $module);
 
     global $bearsamppRoot, $bearsamppCore;
-    $tmpDir = $bearsamppRoot->getTmpPath();
-    Util::logDebug('Temporary Directory: ' . $tmpDir);
 
     $fileName = basename($moduleUrl);
     Util::logDebug('File Name: ' . $fileName);
 
-    $tmpFilePath = $tmpDir . '/' . $fileName;
-    Util::logDebug('File Path: ' . $tmpFilePath);
+    $tmpFilePath = $bearsamppRoot->getTmpPath() . '/' . $fileName;
+    Util::logDebug('Temporary file Path: ' . $tmpFilePath);
 
     $moduleName = str_replace('module-', '', $module);
     Util::logDebug('Module Name: ' . $moduleName);
