@@ -36,7 +36,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.15</span>
+   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.17</span>
    </div>
   </td>
  </tr>
@@ -287,7 +287,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>, <a class="el" href="../../d5/d7d/ajax_8quickpick_8php_source.html#l00038">$response</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00511">getQuickpickMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00520">getQuickpickMenu()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -396,68 +396,77 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>array An array containing the status and message. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00407">407</a> of file <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html">class.action.quickPick.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  407</span>                                                                       : array</div>
-<div class="line"><span class="lineno">  408</span>{</div>
-<div class="line"><span class="lineno">  409</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&quot;$module is: &quot;</span> . $module);</div>
+<div class="fragment"><div class="line"><span class="lineno">  407</span>                                                                          : array</div>
+<div class="line"><span class="lineno">  408</span>    {</div>
+<div class="line"><span class="lineno">  409</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&quot;$module is: &quot;</span> . $module );</div>
 <div class="line"><span class="lineno">  410</span> </div>
-<div class="line"><span class="lineno">  411</span>    global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  412</span>    $tmpDir = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getTmpPath();</div>
-<div class="line"><span class="lineno">  413</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Temporary Directory: &#39;</span> . $tmpDir);</div>
+<div class="line"><span class="lineno">  411</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>, <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  412</span>        $tmpDir = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getTmpPath();</div>
+<div class="line"><span class="lineno">  413</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;Temporary Directory: &#39;</span> . $tmpDir );</div>
 <div class="line"><span class="lineno">  414</span> </div>
-<div class="line"><span class="lineno">  415</span>    $fileName = basename($moduleUrl);</div>
-<div class="line"><span class="lineno">  416</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;File Name: &#39;</span> . $fileName);</div>
+<div class="line"><span class="lineno">  415</span>        $fileName = basename( $moduleUrl );</div>
+<div class="line"><span class="lineno">  416</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;File Name: &#39;</span> . $fileName );</div>
 <div class="line"><span class="lineno">  417</span> </div>
-<div class="line"><span class="lineno">  418</span>    $tmpFilePath = $tmpDir . <span class="charliteral">&#39;/&#39;</span> . $fileName;</div>
-<div class="line"><span class="lineno">  419</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;File Path: &#39;</span> . $tmpFilePath);</div>
+<div class="line"><span class="lineno">  418</span>        $tmpFilePath = $tmpDir . <span class="charliteral">&#39;/&#39;</span> . $fileName;</div>
+<div class="line"><span class="lineno">  419</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;File Path: &#39;</span> . $tmpFilePath );</div>
 <div class="line"><span class="lineno">  420</span> </div>
-<div class="line"><span class="lineno">  421</span>    $moduleName = str_replace(<span class="stringliteral">&#39;module-&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $module);</div>
-<div class="line"><span class="lineno">  422</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Module Name: &#39;</span> . $moduleName);</div>
+<div class="line"><span class="lineno">  421</span>        $moduleName = str_replace( <span class="stringliteral">&#39;module-&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $module );</div>
+<div class="line"><span class="lineno">  422</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;Module Name: &#39;</span> . $moduleName );</div>
 <div class="line"><span class="lineno">  423</span> </div>
-<div class="line"><span class="lineno">  424</span>    $moduleType = $this-&gt;modules[$module][<span class="stringliteral">&#39;type&#39;</span>];</div>
-<div class="line"><span class="lineno">  425</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Module Type: &#39;</span> . $moduleType);</div>
+<div class="line"><span class="lineno">  424</span>        $moduleType = $this-&gt;modules[$module][<span class="stringliteral">&#39;type&#39;</span>];</div>
+<div class="line"><span class="lineno">  425</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;Module Type: &#39;</span> . $moduleType );</div>
 <div class="line"><span class="lineno">  426</span> </div>
-<div class="line"><span class="lineno">  427</span>    $destination = $this-&gt;<a class="code hl_function" href="#a5be0774ade4da9766736a37081baa717">getModuleDestinationPath</a>($moduleType, $moduleName);</div>
-<div class="line"><span class="lineno">  428</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Destination: &#39;</span> . $destination);</div>
-<div class="line"><span class="lineno">  429</span> </div>
-<div class="line"><span class="lineno">  430</span>    <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getFileFromUrl($moduleUrl, $tmpFilePath, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  431</span> </div>
-<div class="line"><span class="lineno">  432</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> === <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">  433</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;Failed to retrieve file from URL: &#39;</span> . $moduleUrl);</div>
-<div class="line"><span class="lineno">  434</span>        <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Failed to retrieve file from URL&#39;</span>];</div>
-<div class="line"><span class="lineno">  435</span>    }</div>
-<div class="line"><span class="lineno">  436</span> </div>
-<div class="line"><span class="lineno">  437</span>    $fileExtension = pathinfo($tmpFilePath, PATHINFO_EXTENSION);</div>
-<div class="line"><span class="lineno">  438</span>    <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;File extension: &#39;</span> . $fileExtension);</div>
-<div class="line"><span class="lineno">  439</span> </div>
-<div class="line"><span class="lineno">  440</span>    <span class="keywordflow">if</span> ($fileExtension === <span class="stringliteral">&#39;7z&#39;</span> || $fileExtension === <span class="stringliteral">&#39;zip&#39;</span>) {</div>
-<div class="line"><span class="lineno">  441</span>        echo json_encode([<span class="stringliteral">&#39;phase&#39;</span> =&gt; <span class="stringliteral">&#39;extracting&#39;</span>]);</div>
-<div class="line"><span class="lineno">  442</span>        <span class="keywordflow">if</span> (ob_get_length()) {</div>
-<div class="line"><span class="lineno">  443</span>            ob_flush();</div>
-<div class="line"><span class="lineno">  444</span>        }</div>
-<div class="line"><span class="lineno">  445</span>        flush();</div>
-<div class="line"><span class="lineno">  446</span> </div>
-<div class="line"><span class="lineno">  447</span>        $unzipResult = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;unzipFile($tmpFilePath, $destination, <span class="keyword">function</span> ($progress) {</div>
-<div class="line"><span class="lineno">  448</span>            echo json_encode([<span class="stringliteral">&#39;progress&#39;</span> =&gt; $progress]);</div>
-<div class="line"><span class="lineno">  449</span>            <span class="keywordflow">if</span> (ob_get_length()) {</div>
+<div class="line"><span class="lineno">  427</span>        <span class="comment">// Get module type</span></div>
+<div class="line"><span class="lineno">  428</span>        $destination = $this-&gt;<a class="code hl_function" href="#a5be0774ade4da9766736a37081baa717">getModuleDestinationPath</a>( $moduleType, $moduleName );</div>
+<div class="line"><span class="lineno">  429</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;Destination: &#39;</span> . $destination );</div>
+<div class="line"><span class="lineno">  430</span> </div>
+<div class="line"><span class="lineno">  431</span>        <span class="comment">// Retrieve the file path from the URL using the bearsamppCore module,</span></div>
+<div class="line"><span class="lineno">  432</span>        <span class="comment">// passing the module URL and temporary file path, with the use Progress Bar parameter set to true.</span></div>
+<div class="line"><span class="lineno">  433</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;getFileFromUrl( $moduleUrl, $tmpFilePath, <span class="keyword">true</span> );</div>
+<div class="line"><span class="lineno">  434</span> </div>
+<div class="line"><span class="lineno">  435</span>        <span class="comment">// Check if $result is false</span></div>
+<div class="line"><span class="lineno">  436</span>        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a> === <span class="keyword">false</span> ) {</div>
+<div class="line"><span class="lineno">  437</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>( <span class="stringliteral">&#39;Failed to retrieve file from URL: &#39;</span> . $moduleUrl );</div>
+<div class="line"><span class="lineno">  438</span> </div>
+<div class="line"><span class="lineno">  439</span>            <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Failed to retrieve file from URL&#39;</span>];</div>
+<div class="line"><span class="lineno">  440</span>        }</div>
+<div class="line"><span class="lineno">  441</span> </div>
+<div class="line"><span class="lineno">  442</span>        <span class="comment">// Determine the file extension and call the appropriate unzipping function</span></div>
+<div class="line"><span class="lineno">  443</span>        $fileExtension = pathinfo( $tmpFilePath, PATHINFO_EXTENSION );</div>
+<div class="line"><span class="lineno">  444</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>( <span class="stringliteral">&#39;File extension: &#39;</span> . $fileExtension );</div>
+<div class="line"><span class="lineno">  445</span> </div>
+<div class="line"><span class="lineno">  446</span>        <span class="keywordflow">if</span> ( $fileExtension === <span class="stringliteral">&#39;7z&#39;</span> || $fileExtension === <span class="stringliteral">&#39;zip&#39;</span> ) {</div>
+<div class="line"><span class="lineno">  447</span>            <span class="comment">// Send phase indicator for extraction</span></div>
+<div class="line"><span class="lineno">  448</span>            echo json_encode( [<span class="stringliteral">&#39;phase&#39;</span> =&gt; <span class="stringliteral">&#39;extracting&#39;</span>] );</div>
+<div class="line"><span class="lineno">  449</span>            <span class="keywordflow">if</span> ( ob_get_length() ) {</div>
 <div class="line"><span class="lineno">  450</span>                ob_flush();</div>
 <div class="line"><span class="lineno">  451</span>            }</div>
 <div class="line"><span class="lineno">  452</span>            flush();</div>
-<div class="line"><span class="lineno">  453</span>        });</div>
-<div class="line"><span class="lineno">  454</span> </div>
-<div class="line"><span class="lineno">  455</span>        <span class="keywordflow">if</span> ($unzipResult === <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">  456</span>            <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Failed to unzip file. File: &#39;</span> . $tmpFilePath . <span class="stringliteral">&#39; could not be unzipped&#39;</span>, <span class="stringliteral">&#39;Destination: &#39;</span> . $destination];</div>
-<div class="line"><span class="lineno">  457</span>        }</div>
-<div class="line"><span class="lineno">  458</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  459</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;Unsupported file extension: &#39;</span> . $fileExtension);</div>
-<div class="line"><span class="lineno">  460</span>        <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Unsupported file extension&#39;</span>];</div>
-<div class="line"><span class="lineno">  461</span>    }</div>
-<div class="line"><span class="lineno">  462</span> </div>
-<div class="line"><span class="lineno">  463</span>    <span class="keywordflow">return</span> [<span class="stringliteral">&#39;success&#39;</span> =&gt; <span class="stringliteral">&#39;Module installed successfully&#39;</span>];</div>
-<div class="line"><span class="lineno">  464</span>}</div>
+<div class="line"><span class="lineno">  453</span> </div>
+<div class="line"><span class="lineno">  454</span>            $unzipResult = <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>-&gt;unzipFile( $tmpFilePath, $destination, <span class="keyword">function</span> ($currentFile, $totalFiles) {</div>
+<div class="line"><span class="lineno">  455</span>                echo json_encode( [<span class="stringliteral">&#39;progress&#39;</span> =&gt; <span class="stringliteral">&quot;$currentFile of $totalFiles&quot;</span>] );</div>
+<div class="line"><span class="lineno">  456</span>                <span class="keywordflow">if</span> ( ob_get_length() ) {</div>
+<div class="line"><span class="lineno">  457</span>                    ob_flush();</div>
+<div class="line"><span class="lineno">  458</span>                }</div>
+<div class="line"><span class="lineno">  459</span>                flush();</div>
+<div class="line"><span class="lineno">  460</span>            } );</div>
+<div class="line"><span class="lineno">  461</span> </div>
+<div class="line"><span class="lineno">  462</span>            <span class="keywordflow">if</span> ( $unzipResult === <span class="keyword">false</span> ) {</div>
+<div class="line"><span class="lineno">  463</span>                <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Failed to unzip file. File: &#39;</span> . $tmpFilePath . <span class="stringliteral">&#39; could not be unzipped&#39;</span>, <span class="stringliteral">&#39;Destination: &#39;</span> . $destination];</div>
+<div class="line"><span class="lineno">  464</span>            }</div>
+<div class="line"><span class="lineno">  465</span>        }</div>
+<div class="line"><span class="lineno">  466</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  467</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>( <span class="stringliteral">&#39;Unsupported file extension: &#39;</span> . $fileExtension );</div>
+<div class="line"><span class="lineno">  468</span> </div>
+<div class="line"><span class="lineno">  469</span>            <span class="keywordflow">return</span> [<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Unsupported file extension&#39;</span>];</div>
+<div class="line"><span class="lineno">  470</span>        }</div>
+<div class="line"><span class="lineno">  471</span> </div>
+<div class="line"><span class="lineno">  472</span>        <span class="keywordflow">return</span> [<span class="stringliteral">&#39;success&#39;</span> =&gt; <span class="stringliteral">&#39;Module installed successfully&#39;</span>];</div>
+<div class="line"><span class="lineno">  473</span>    }</div>
 <div class="ttc" id="aajax_8apache_8php_html_a9f1773c8b2e8f420b90fe4cce25ff9cf"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a></div><div class="ttdeci">global $bearsamppRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
-<div class="ttc" id="aclassQuickPick_html_a5be0774ade4da9766736a37081baa717"><div class="ttname"><a href="#a5be0774ade4da9766736a37081baa717">QuickPick\getModuleDestinationPath</a></div><div class="ttdeci">getModuleDestinationPath(string $moduleType, string $moduleName)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00478">class.action.quickPick.php:478</a></div></div>
+<div class="ttc" id="aclassQuickPick_html_a5be0774ade4da9766736a37081baa717"><div class="ttname"><a href="#a5be0774ade4da9766736a37081baa717">QuickPick\getModuleDestinationPath</a></div><div class="ttdeci">getModuleDestinationPath(string $moduleType, string $moduleName)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00487">class.action.quickPick.php:487</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00478">getModuleDestinationPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00019">$result</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00487">getModuleDestinationPath()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00368">installModule()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -499,24 +508,24 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The constructed destination path for the module. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00478">478</a> of file <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html">class.action.quickPick.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  479</span>    {</div>
-<div class="line"><span class="lineno">  480</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
-<div class="line"><span class="lineno">  481</span>        <span class="keywordflow">if</span> ( $moduleType === <span class="stringliteral">&#39;application&#39;</span> ) {</div>
-<div class="line"><span class="lineno">  482</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
-<div class="line"><span class="lineno">  483</span>        }</div>
-<div class="line"><span class="lineno">  484</span>        elseif ( $moduleType === <span class="stringliteral">&#39;binary&#39;</span> ) {</div>
-<div class="line"><span class="lineno">  485</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
-<div class="line"><span class="lineno">  486</span>        }</div>
-<div class="line"><span class="lineno">  487</span>        elseif ( $moduleType === <span class="stringliteral">&#39;tools&#39;</span> ) {</div>
-<div class="line"><span class="lineno">  488</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
-<div class="line"><span class="lineno">  489</span>        }</div>
-<div class="line"><span class="lineno">  490</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  491</span>            $destination = <span class="stringliteral">&#39;&#39;</span>;</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00487">487</a> of file <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html">class.action.quickPick.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  488</span>    {</div>
+<div class="line"><span class="lineno">  489</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>;</div>
+<div class="line"><span class="lineno">  490</span>        <span class="keywordflow">if</span> ( $moduleType === <span class="stringliteral">&#39;application&#39;</span> ) {</div>
+<div class="line"><span class="lineno">  491</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getAppsPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
 <div class="line"><span class="lineno">  492</span>        }</div>
-<div class="line"><span class="lineno">  493</span> </div>
-<div class="line"><span class="lineno">  494</span>        <span class="keywordflow">return</span> $destination;</div>
-<div class="line"><span class="lineno">  495</span>    }</div>
+<div class="line"><span class="lineno">  493</span>        elseif ( $moduleType === <span class="stringliteral">&#39;binary&#39;</span> ) {</div>
+<div class="line"><span class="lineno">  494</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getBinPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
+<div class="line"><span class="lineno">  495</span>        }</div>
+<div class="line"><span class="lineno">  496</span>        elseif ( $moduleType === <span class="stringliteral">&#39;tools&#39;</span> ) {</div>
+<div class="line"><span class="lineno">  497</span>            $destination = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a9f1773c8b2e8f420b90fe4cce25ff9cf">$bearsamppRoot</a>-&gt;getToolsPath() . <span class="charliteral">&#39;/&#39;</span> . strtolower( $moduleName ) . <span class="charliteral">&#39;/&#39;</span>;</div>
+<div class="line"><span class="lineno">  498</span>        }</div>
+<div class="line"><span class="lineno">  499</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  500</span>            $destination = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><span class="lineno">  501</span>        }</div>
+<div class="line"><span class="lineno">  502</span> </div>
+<div class="line"><span class="lineno">  503</span>        <span class="keywordflow">return</span> $destination;</div>
+<div class="line"><span class="lineno">  504</span>    }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppRoot</a>.</p>
 
@@ -710,82 +719,82 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The HTML content of the <a class="el" href="../../d7/dcf/classQuickPick.html">QuickPick</a> menu. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00511">511</a> of file <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html">class.action.quickPick.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  511</span>                                                                                         : <span class="keywordtype">string</span></div>
-<div class="line"><span class="lineno">  512</span>    {</div>
-<div class="line"><span class="lineno">  513</span>        ob_start();</div>
-<div class="line"><span class="lineno">  514</span>        <span class="keywordflow">if</span> ( <a class="code hl_function" href="../../d6/de4/classUtil.html#aee47b8a8338560fa2549f0caf263302e">Util::checkInternetState</a>() ) {</div>
-<div class="line"><span class="lineno">  515</span> </div>
-<div class="line"><span class="lineno">  516</span>            <span class="comment">// Check if the license key is valid</span></div>
-<div class="line"><span class="lineno">  517</span>            <span class="keywordflow">if</span> ( $this-&gt;<a class="code hl_function" href="#a63bdd5d37bd0c8e59413161d9fc2c806">checkDownloadId</a>() ): ?&gt;</div>
-<div class="line"><span class="lineno">  518</span>                &lt;div <span class="keywordtype">id</span> = <span class="stringliteral">&#39;quickPickContainer&#39;</span>&gt;</div>
-<div class="line"><span class="lineno">  519</span>                    &lt;div <span class="keyword">class </span>= &#39;quickpick me-5&#39;&gt;</div>
-<div class="line"><span class="lineno">  520</span> </div>
-<div class="line"><span class="lineno">  521</span>                        &lt;div class = <span class="stringliteral">&quot;custom-select&quot;</span>&gt;</div>
-<div class="line"><span class="lineno">  522</span>                            &lt;button <span class="keyword">class </span>= &quot;select-button<span class="stringliteral">&quot; role = &quot;</span>combobox<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  523</span><span class="stringliteral">                                    aria-label = &quot;</span>select button<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  524</span><span class="stringliteral">                                    aria-haspopup = &quot;</span>listbox<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  525</span><span class="stringliteral">                                    aria-expanded = &quot;</span>false<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  526</span><span class="stringliteral">                                    aria-controls = &quot;</span>select-dropdown<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  527</span><span class="stringliteral">                                &lt;span class = &quot;</span>selected-value<span class="stringliteral">&quot;&gt;Select a module and version&lt;/span&gt;</span></div>
-<div class="line"><span class="lineno">  528</span><span class="stringliteral">                                &lt;span class = &quot;</span>arrow<span class="stringliteral">&quot;&gt;&lt;/span&gt;</span></div>
-<div class="line"><span class="lineno">  529</span><span class="stringliteral">                            &lt;/button&gt;</span></div>
-<div class="line"><span class="lineno">  530</span><span class="stringliteral">                            &lt;ul class = &quot;</span>select-dropdown<span class="stringliteral">&quot; role = &quot;</span>listbox<span class="stringliteral">&quot; id = &quot;</span>select-dropdown<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  531</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  532</span><span class="stringliteral">                                &lt;?php</span></div>
-<div class="line"><span class="lineno">  533</span><span class="stringliteral">                                foreach ( $modules as $module ): ?&gt;</span></div>
-<div class="line"><span class="lineno">  534</span><span class="stringliteral">                                    &lt;?php if ( is_string( $module ) ): ?&gt;</span></div>
-<div class="line"><span class="lineno">  535</span><span class="stringliteral">                                        &lt;li role = &quot;</span>option<span class="stringliteral">&quot; class = &quot;</span>moduleheader<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  536</span><span class="stringliteral">                                            &lt;?php echo htmlspecialchars( $module ); ?&gt;</span></div>
-<div class="line"><span class="lineno">  537</span><span class="stringliteral">                                        &lt;/li&gt;</span></div>
-<div class="line"><span class="lineno">  538</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  539</span><span class="stringliteral">                                        &lt;?php</span></div>
-<div class="line"><span class="lineno">  540</span><span class="stringliteral">                                        foreach ( $versions[&#39;module-&#39; . strtolower( $module )] as $version_array ): ?&gt;</span></div>
-<div class="line"><span class="lineno">  541</span><span class="stringliteral">                                            &lt;li role = &quot;</span>option<span class="stringliteral">&quot; class = &quot;</span>moduleoption<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  542</span><span class="stringliteral">                                                id = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;-li<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  543</span><span class="stringliteral">                                                &lt;input type = &quot;</span>radio<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  544</span><span class="stringliteral">                                                       id = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  545</span><span class="stringliteral">                                                       name = &quot;</span>module<span class="stringliteral">&quot; data-module = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  546</span><span class="stringliteral">                                                       data-value = &quot;</span>&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  547</span><span class="stringliteral">                                                &lt;label</span></div>
-<div class="line"><span class="lineno">  548</span><span class="stringliteral">                                                    for = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;&gt;&lt;?php echo htmlspecialchars( $version_array[&#39;version&#39;] ); ?&gt;&lt;/label&gt;</span></div>
-<div class="line"><span class="lineno">  549</span><span class="stringliteral">                                            &lt;/li&gt;</span></div>
-<div class="line"><span class="lineno">  550</span><span class="stringliteral">                                        &lt;?php endforeach; ?&gt;</span></div>
-<div class="line"><span class="lineno">  551</span><span class="stringliteral">                                    &lt;?php endif; ?&gt;</span></div>
-<div class="line"><span class="lineno">  552</span><span class="stringliteral">                                &lt;?php endforeach; ?&gt;</span></div>
-<div class="line"><span class="lineno">  553</span><span class="stringliteral">                            &lt;/ul&gt;</span></div>
-<div class="line"><span class="lineno">  554</span><span class="stringliteral">                        &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  555</span><span class="stringliteral">                    &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  556</span><span class="stringliteral">                    &lt;div class = &quot;</span>progress <span class="stringliteral">&quot; id = &quot;</span>progress<span class="stringliteral">&quot; tabindex = &quot;</span>-1<span class="stringliteral">&quot; style = &quot;</span>width:260px;display:none<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  557</span><span class="stringliteral">                         aria-labelledby = &quot;</span>progressbar<span class="stringliteral">&quot; aria-hidden = &quot;</span><span class="keyword">true</span><span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  558</span><span class="stringliteral">                        &lt;div class = &quot;</span>progress-bar progress-bar-striped progress-bar-animated<span class="stringliteral">&quot; id = &quot;</span>progress-bar<span class="stringliteral">&quot; role = &quot;</span>progressbar<span class="stringliteral">&quot; aria-valuenow = &quot;</span>0<span class="stringliteral">&quot; aria-valuemin = &quot;</span>0<span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  559</span><span class="stringliteral">                             aria-valuemax = &quot;</span>100<span class="stringliteral">&quot; data-module = &quot;</span><a class="code hl_class" href="../../d3/d9c/classModule.html">Module</a><span class="stringliteral">&quot;</span></div>
-<div class="line"><span class="lineno">  560</span><span class="stringliteral">                             data-version = &quot;</span>0.0.0<span class="stringliteral">&quot;&gt;0%</span></div>
-<div class="line"><span class="lineno">  561</span><span class="stringliteral">                        &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  562</span><span class="stringliteral">                        &lt;div id = &quot;</span>download-module<span class="stringliteral">&quot; style = &quot;</span>display: none<span class="stringliteral">&quot;&gt;ModuleName&lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  563</span><span class="stringliteral">                        &lt;div id = &quot;</span>download-version<span class="stringliteral">&quot; style = &quot;</span>display: none<span class="stringliteral">&quot;&gt;Version&lt;/div&gt;</span></div>
+<p class="definition">Definition at line <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00520">520</a> of file <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html">class.action.quickPick.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  520</span>                                                                                         : <span class="keywordtype">string</span></div>
+<div class="line"><span class="lineno">  521</span>    {</div>
+<div class="line"><span class="lineno">  522</span>        ob_start();</div>
+<div class="line"><span class="lineno">  523</span>        <span class="keywordflow">if</span> ( <a class="code hl_function" href="../../d6/de4/classUtil.html#aee47b8a8338560fa2549f0caf263302e">Util::checkInternetState</a>() ) {</div>
+<div class="line"><span class="lineno">  524</span> </div>
+<div class="line"><span class="lineno">  525</span>            <span class="comment">// Check if the license key is valid</span></div>
+<div class="line"><span class="lineno">  526</span>            <span class="keywordflow">if</span> ( $this-&gt;<a class="code hl_function" href="#a63bdd5d37bd0c8e59413161d9fc2c806">checkDownloadId</a>() ): ?&gt;</div>
+<div class="line"><span class="lineno">  527</span>                &lt;div <span class="keywordtype">id</span> = <span class="stringliteral">&#39;quickPickContainer&#39;</span>&gt;</div>
+<div class="line"><span class="lineno">  528</span>                    &lt;div <span class="keyword">class </span>= &#39;quickpick me-5&#39;&gt;</div>
+<div class="line"><span class="lineno">  529</span> </div>
+<div class="line"><span class="lineno">  530</span>                        &lt;div class = <span class="stringliteral">&quot;custom-select&quot;</span>&gt;</div>
+<div class="line"><span class="lineno">  531</span>                            &lt;button <span class="keyword">class </span>= &quot;select-button<span class="stringliteral">&quot; role = &quot;</span>combobox<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  532</span><span class="stringliteral">                                    aria-label = &quot;</span>select button<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  533</span><span class="stringliteral">                                    aria-haspopup = &quot;</span>listbox<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  534</span><span class="stringliteral">                                    aria-expanded = &quot;</span>false<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  535</span><span class="stringliteral">                                    aria-controls = &quot;</span>select-dropdown<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  536</span><span class="stringliteral">                                &lt;span class = &quot;</span>selected-value<span class="stringliteral">&quot;&gt;Select a module and version&lt;/span&gt;</span></div>
+<div class="line"><span class="lineno">  537</span><span class="stringliteral">                                &lt;span class = &quot;</span>arrow<span class="stringliteral">&quot;&gt;&lt;/span&gt;</span></div>
+<div class="line"><span class="lineno">  538</span><span class="stringliteral">                            &lt;/button&gt;</span></div>
+<div class="line"><span class="lineno">  539</span><span class="stringliteral">                            &lt;ul class = &quot;</span>select-dropdown<span class="stringliteral">&quot; role = &quot;</span>listbox<span class="stringliteral">&quot; id = &quot;</span>select-dropdown<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  540</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  541</span><span class="stringliteral">                                &lt;?php</span></div>
+<div class="line"><span class="lineno">  542</span><span class="stringliteral">                                foreach ( $modules as $module ): ?&gt;</span></div>
+<div class="line"><span class="lineno">  543</span><span class="stringliteral">                                    &lt;?php if ( is_string( $module ) ): ?&gt;</span></div>
+<div class="line"><span class="lineno">  544</span><span class="stringliteral">                                        &lt;li role = &quot;</span>option<span class="stringliteral">&quot; class = &quot;</span>moduleheader<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  545</span><span class="stringliteral">                                            &lt;?php echo htmlspecialchars( $module ); ?&gt;</span></div>
+<div class="line"><span class="lineno">  546</span><span class="stringliteral">                                        &lt;/li&gt;</span></div>
+<div class="line"><span class="lineno">  547</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  548</span><span class="stringliteral">                                        &lt;?php</span></div>
+<div class="line"><span class="lineno">  549</span><span class="stringliteral">                                        foreach ( $versions[&#39;module-&#39; . strtolower( $module )] as $version_array ): ?&gt;</span></div>
+<div class="line"><span class="lineno">  550</span><span class="stringliteral">                                            &lt;li role = &quot;</span>option<span class="stringliteral">&quot; class = &quot;</span>moduleoption<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  551</span><span class="stringliteral">                                                id = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;-li<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  552</span><span class="stringliteral">                                                &lt;input type = &quot;</span>radio<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  553</span><span class="stringliteral">                                                       id = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  554</span><span class="stringliteral">                                                       name = &quot;</span>module<span class="stringliteral">&quot; data-module = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  555</span><span class="stringliteral">                                                       data-value = &quot;</span>&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  556</span><span class="stringliteral">                                                &lt;label</span></div>
+<div class="line"><span class="lineno">  557</span><span class="stringliteral">                                                    for = &quot;</span>&lt;?php echo htmlspecialchars( $module ); ?&gt;-version-&lt;?php echo htmlspecialchars( $version_array[<span class="stringliteral">&#39;version&#39;</span>] ); ?&gt;<span class="stringliteral">&quot;&gt;&lt;?php echo htmlspecialchars( $version_array[&#39;version&#39;] ); ?&gt;&lt;/label&gt;</span></div>
+<div class="line"><span class="lineno">  558</span><span class="stringliteral">                                            &lt;/li&gt;</span></div>
+<div class="line"><span class="lineno">  559</span><span class="stringliteral">                                        &lt;?php endforeach; ?&gt;</span></div>
+<div class="line"><span class="lineno">  560</span><span class="stringliteral">                                    &lt;?php endif; ?&gt;</span></div>
+<div class="line"><span class="lineno">  561</span><span class="stringliteral">                                &lt;?php endforeach; ?&gt;</span></div>
+<div class="line"><span class="lineno">  562</span><span class="stringliteral">                            &lt;/ul&gt;</span></div>
+<div class="line"><span class="lineno">  563</span><span class="stringliteral">                        &lt;/div&gt;</span></div>
 <div class="line"><span class="lineno">  564</span><span class="stringliteral">                    &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  565</span><span class="stringliteral">                &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  566</span><span class="stringliteral">            &lt;?php else: ?&gt;</span></div>
-<div class="line"><span class="lineno">  567</span><span class="stringliteral">                &lt;div id = &quot;</span>subscribeContainer<span class="stringliteral">&quot; class = &quot;</span>text-center mt-3 pe-3<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  568</span><span class="stringliteral">                    &lt;a href = &quot;</span>&lt;?php echo <a class="code hl_function" href="../../d6/de4/classUtil.html#aa555da1931bacfa8f71de15afd78e79d">Util::getWebsiteUrl</a>( <span class="stringliteral">&#39;subscribe&#39;</span> ); ?&gt;<span class="stringliteral">&quot; class = &quot;</span>btn btn-dark d-<span class="keyword">inline</span>-flex align-items-center<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  569</span><span class="stringliteral">                        &lt;img src = &quot;</span>&lt;?php echo <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#ab8d2e8c2d3097a6577ed92da71b9dc31">$imagesPath</a> . <span class="stringliteral">&#39;subscribe.svg&#39;</span>; ?&gt;<span class="stringliteral">&quot; alt = &quot;</span>Subscribe Icon<span class="stringliteral">&quot; class = &quot;</span>me-2<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  570</span><span class="stringliteral">                        Subscribe to QuickPick now</span></div>
-<div class="line"><span class="lineno">  571</span><span class="stringliteral">                    &lt;/a&gt;</span></div>
-<div class="line"><span class="lineno">  572</span><span class="stringliteral">                &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  573</span><span class="stringliteral">            &lt;?php endif;</span></div>
-<div class="line"><span class="lineno">  574</span><span class="stringliteral">        }</span></div>
-<div class="line"><span class="lineno">  575</span><span class="stringliteral">        else {</span></div>
-<div class="line"><span class="lineno">  576</span><span class="stringliteral">            ?&gt;</span></div>
-<div class="line"><span class="lineno">  577</span><span class="stringliteral">            &lt;div id = &quot;</span>InternetState<span class="stringliteral">&quot; class = &quot;</span>text-center mt-3 pe-3<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  578</span><span class="stringliteral">                &lt;img src = &quot;</span>&lt;?php echo <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#ab8d2e8c2d3097a6577ed92da71b9dc31">$imagesPath</a> . <span class="stringliteral">&#39;no-wifi-icon.svg&#39;</span>; ?&gt;<span class="stringliteral">&quot; alt = &quot;</span>No Wifi Icon<span class="stringliteral">&quot; class = &quot;</span>me-2<span class="stringliteral">&quot;&gt;</span></div>
-<div class="line"><span class="lineno">  579</span><span class="stringliteral">                &lt;span&gt;No internet present&lt;/span&gt;</span></div>
-<div class="line"><span class="lineno">  580</span><span class="stringliteral">            &lt;/div&gt;</span></div>
-<div class="line"><span class="lineno">  581</span><span class="stringliteral">            &lt;?php</span></div>
-<div class="line"><span class="lineno">  582</span><span class="stringliteral">        }</span></div>
-<div class="line"><span class="lineno">  583</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  584</span><span class="stringliteral">        return ob_get_clean();</span></div>
-<div class="line"><span class="lineno">  585</span><span class="stringliteral">    }</span></div>
+<div class="line"><span class="lineno">  565</span><span class="stringliteral">                    &lt;div class = &quot;</span>progress <span class="stringliteral">&quot; id = &quot;</span>progress<span class="stringliteral">&quot; tabindex = &quot;</span>-1<span class="stringliteral">&quot; style = &quot;</span>width:260px;display:none<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  566</span><span class="stringliteral">                         aria-labelledby = &quot;</span>progressbar<span class="stringliteral">&quot; aria-hidden = &quot;</span><span class="keyword">true</span><span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  567</span><span class="stringliteral">                        &lt;div class = &quot;</span>progress-bar progress-bar-striped progress-bar-animated<span class="stringliteral">&quot; id = &quot;</span>progress-bar<span class="stringliteral">&quot; role = &quot;</span>progressbar<span class="stringliteral">&quot; aria-valuenow = &quot;</span>0<span class="stringliteral">&quot; aria-valuemin = &quot;</span>0<span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  568</span><span class="stringliteral">                             aria-valuemax = &quot;</span>100<span class="stringliteral">&quot; data-module = &quot;</span><a class="code hl_class" href="../../d3/d9c/classModule.html">Module</a><span class="stringliteral">&quot;</span></div>
+<div class="line"><span class="lineno">  569</span><span class="stringliteral">                             data-version = &quot;</span>0.0.0<span class="stringliteral">&quot;&gt;0%</span></div>
+<div class="line"><span class="lineno">  570</span><span class="stringliteral">                        &lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  571</span><span class="stringliteral">                        &lt;div id = &quot;</span>download-module<span class="stringliteral">&quot; style = &quot;</span>display: none<span class="stringliteral">&quot;&gt;ModuleName&lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  572</span><span class="stringliteral">                        &lt;div id = &quot;</span>download-version<span class="stringliteral">&quot; style = &quot;</span>display: none<span class="stringliteral">&quot;&gt;Version&lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  573</span><span class="stringliteral">                    &lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  574</span><span class="stringliteral">                &lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  575</span><span class="stringliteral">            &lt;?php else: ?&gt;</span></div>
+<div class="line"><span class="lineno">  576</span><span class="stringliteral">                &lt;div id = &quot;</span>subscribeContainer<span class="stringliteral">&quot; class = &quot;</span>text-center mt-3 pe-3<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  577</span><span class="stringliteral">                    &lt;a href = &quot;</span>&lt;?php echo <a class="code hl_function" href="../../d6/de4/classUtil.html#aa555da1931bacfa8f71de15afd78e79d">Util::getWebsiteUrl</a>( <span class="stringliteral">&#39;subscribe&#39;</span> ); ?&gt;<span class="stringliteral">&quot; class = &quot;</span>btn btn-dark d-<span class="keyword">inline</span>-flex align-items-center<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  578</span><span class="stringliteral">                        &lt;img src = &quot;</span>&lt;?php echo <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#ab8d2e8c2d3097a6577ed92da71b9dc31">$imagesPath</a> . <span class="stringliteral">&#39;subscribe.svg&#39;</span>; ?&gt;<span class="stringliteral">&quot; alt = &quot;</span>Subscribe Icon<span class="stringliteral">&quot; class = &quot;</span>me-2<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  579</span><span class="stringliteral">                        Subscribe to QuickPick now</span></div>
+<div class="line"><span class="lineno">  580</span><span class="stringliteral">                    &lt;/a&gt;</span></div>
+<div class="line"><span class="lineno">  581</span><span class="stringliteral">                &lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  582</span><span class="stringliteral">            &lt;?php endif;</span></div>
+<div class="line"><span class="lineno">  583</span><span class="stringliteral">        }</span></div>
+<div class="line"><span class="lineno">  584</span><span class="stringliteral">        else {</span></div>
+<div class="line"><span class="lineno">  585</span><span class="stringliteral">            ?&gt;</span></div>
+<div class="line"><span class="lineno">  586</span><span class="stringliteral">            &lt;div id = &quot;</span>InternetState<span class="stringliteral">&quot; class = &quot;</span>text-center mt-3 pe-3<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  587</span><span class="stringliteral">                &lt;img src = &quot;</span>&lt;?php echo <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#ab8d2e8c2d3097a6577ed92da71b9dc31">$imagesPath</a> . <span class="stringliteral">&#39;no-wifi-icon.svg&#39;</span>; ?&gt;<span class="stringliteral">&quot; alt = &quot;</span>No Wifi Icon<span class="stringliteral">&quot; class = &quot;</span>me-2<span class="stringliteral">&quot;&gt;</span></div>
+<div class="line"><span class="lineno">  588</span><span class="stringliteral">                &lt;span&gt;No internet present&lt;/span&gt;</span></div>
+<div class="line"><span class="lineno">  589</span><span class="stringliteral">            &lt;/div&gt;</span></div>
+<div class="line"><span class="lineno">  590</span><span class="stringliteral">            &lt;?php</span></div>
+<div class="line"><span class="lineno">  591</span><span class="stringliteral">        }</span></div>
+<div class="line"><span class="lineno">  592</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  593</span><span class="stringliteral">        return ob_get_clean();</span></div>
+<div class="line"><span class="lineno">  594</span><span class="stringliteral">    }</span></div>
 <div class="ttc" id="aclassModule_html"><div class="ttname"><a href="../../d3/d9c/classModule.html">Module</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00014">class.module.php:15</a></div></div>
 <div class="ttc" id="aclassQuickPick_html_a63bdd5d37bd0c8e59413161d9fc2c806"><div class="ttname"><a href="#a63bdd5d37bd0c8e59413161d9fc2c806">QuickPick\checkDownloadId</a></div><div class="ttdeci">checkDownloadId()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00295">class.action.quickPick.php:295</a></div></div>
 <div class="ttc" id="aclassUtil_html_aa555da1931bacfa8f71de15afd78e79d"><div class="ttname"><a href="../../d6/de4/classUtil.html#aa555da1931bacfa8f71de15afd78e79d">Util\getWebsiteUrl</a></div><div class="ttdeci">static getWebsiteUrl($path='', $fragment='', $utmSource=true)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l01365">class.util.php:1365</a></div></div>
@@ -979,12 +988,12 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  108</span> </div>
 <div class="line"><span class="lineno">  109</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a1ce22bffccae06cf6e817842c9dc829f">getQuickpickMenu</a>( <a class="code hl_variable" href="#ac65de48746ba6be0ed6ee67ae2ac0c91">$modules</a>, <a class="code hl_variable" href="#a24d8fc9531b0e27efac4985dd44aa9d8">$versions</a>, <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#ab8d2e8c2d3097a6577ed92da71b9dc31">$imagesPath</a> );</div>
 <div class="line"><span class="lineno">  110</span>    }</div>
-<div class="ttc" id="aclassQuickPick_html_a1ce22bffccae06cf6e817842c9dc829f"><div class="ttname"><a href="#a1ce22bffccae06cf6e817842c9dc829f">QuickPick\getQuickpickMenu</a></div><div class="ttdeci">getQuickpickMenu(array $modules, array $versions, string $imagesPath)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00511">class.action.quickPick.php:511</a></div></div>
+<div class="ttc" id="aclassQuickPick_html_a1ce22bffccae06cf6e817842c9dc829f"><div class="ttname"><a href="#a1ce22bffccae06cf6e817842c9dc829f">QuickPick\getQuickpickMenu</a></div><div class="ttdeci">getQuickpickMenu(array $modules, array $versions, string $imagesPath)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00520">class.action.quickPick.php:520</a></div></div>
 <div class="ttc" id="aclassQuickPick_html_aa5243ce9c1e5a2fd02f4c60ecbcd3a55"><div class="ttname"><a href="#aa5243ce9c1e5a2fd02f4c60ecbcd3a55">QuickPick\checkQuickpickJson</a></div><div class="ttdeci">checkQuickpickJson()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00123">class.action.quickPick.php:123</a></div></div>
 <div class="ttc" id="aclassQuickPick_html_ac65de48746ba6be0ed6ee67ae2ac0c91"><div class="ttname"><a href="#ac65de48746ba6be0ed6ee67ae2ac0c91">QuickPick\$modules</a></div><div class="ttdeci">$modules</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00035">class.action.quickPick.php:35</a></div></div>
 <div class="ttc" id="aclassQuickPick_html_ae31f8538d1519a3713f621eb972cf4ef"><div class="ttname"><a href="#ae31f8538d1519a3713f621eb972cf4ef">QuickPick\getModules</a></div><div class="ttdeci">getModules()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00088">class.action.quickPick.php:88</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00035">$modules</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00065">$versions</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00123">checkQuickpickJson()</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00088">getModules()</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00511">getQuickpickMenu()</a>, and <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00218">getVersions()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00035">$modules</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00065">$versions</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00123">checkQuickpickJson()</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00088">getModules()</a>, <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00520">getQuickpickMenu()</a>, and <a class="el" href="../../d5/d16/class_8action_8quickPick_8php_source.html#l00218">getVersions()</a>.</p>
 
 </div>
 </div>
