@@ -451,7 +451,7 @@ class QuickPick
             }
             flush();
 
-            $unzipResult = $bearsamppCore->unzip7zFile( $tmpFilePath, $destination, function ($currentFile, $totalFiles) {
+            $unzipResult = $bearsamppCore->unzipFile( $tmpFilePath, $destination, function ($currentFile, $totalFiles) {
                 echo json_encode( ['progress' => "$currentFile of $totalFiles"] );
                 if ( ob_get_length() ) {
                     ob_flush();
