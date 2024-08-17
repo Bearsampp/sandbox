@@ -504,15 +504,12 @@ public function unzip7zFile($filePath, $destination, $progressCallback = null)
         return false;
     }
 
-    $fileSize = filesize($filePath);
-    Util::logDebug('Filesize is: ' . $fileSize);
-
     // Command to test the archive and get the number of files
     $testCommand = escapeshellarg($sevenZipPath) . " t " . escapeshellarg($filePath) . " -y -bsp1";
-    Util::logDebug('Executing test command: ' . $testCommand);
+    Util::logTrace('Executing test command: ' . $testCommand);
 
     $testOutput = shell_exec($testCommand);
-    Util::logDebug('Test command output: ' . $testOutput);
+    Util::logTrace('Test command output: ' . $testOutput);
 
     // Extract the number of files from the test command output
     preg_match('/Files: (\d+)/', $testOutput, $matches);
@@ -521,7 +518,7 @@ public function unzip7zFile($filePath, $destination, $progressCallback = null)
 
     // Command to extract the archive
     $command = escapeshellarg($sevenZipPath) . " x " . escapeshellarg($filePath) . " -y -bb1 -o" . escapeshellarg($destination);
-    Util::logDebug('Executing command: ' . $command);
+    Util::logTrace('Executing command: ' . $command);
 
     $descriptorspec = [
         1 => ['pipe', 'w'],
@@ -543,13 +540,15 @@ public function unzip7zFile($filePath, $destination, $progressCallback = null)
                     // Check if the extracted item is a file and not a directory
                     if (substr($fileName, -1) !== '\\') {
                         $filesExtracted++;
-                        Util::logDebug('Extracted file: ' . $fileName . ' Progress: ' . $filesExtracted . ' of ' . $numFiles);
-                        call_user_func($progressCallback, $filesExtracted, $numFiles);
+                        if ($filesExtracted <= $numFiles) {
+                            Util::logTrace('Extracted file: ' . $fileName . ' Progress: ' . $filesExtracted . ' of ' . $numFiles);
+                            call_user_func($progressCallback, $filesExtracted, $numFiles);
 
-                        if (ob_get_length()) {
-                            ob_flush();
+                            if (ob_get_length()) {
+                                ob_flush();
+                            }
+                            flush();
                         }
-                        flush();
                     }
                 }
             }
