@@ -111,6 +111,10 @@ function hideall() {
 
 /**
  * Installs the specified module and version.
+ *
+ * This function sends an AJAX request to install a module with the specified name and version.
+ * It updates the UI to show the download and extraction progress and handles any errors that occur during the process.
+ *
  * @param {string} moduleName - The name of the module to install.
  * @param {string} version - The version of the module to install.
  */
