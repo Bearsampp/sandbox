@@ -442,29 +442,29 @@ class QuickPick
     $fileExtension = pathinfo($tmpFilePath, PATHINFO_EXTENSION);
     Util::logDebug('File extension: ' . $fileExtension);
 
-    if ($fileExtension === '7z' || $fileExtension === 'zip') {
-        // Send phase indicator for extraction
-        echo json_encode(['phase' => 'extracting']);
+if ($fileExtension === '7z' || $fileExtension === 'zip') {
+    // Send phase indicator for extraction
+    echo json_encode(['phase' => 'extracting']);
+    if (ob_get_length()) {
+        ob_flush();
+    }
+    flush();
+
+    $unzipResult = $bearsamppCore->unzip7zFile($tmpFilePath, $destination, function ($currentFile, $totalFiles) {
+        echo json_encode(['progress' => "$currentFile of $totalFiles"]);
         if (ob_get_length()) {
             ob_flush();
         }
         flush();
+    });
 
-        $unzipResult = $bearsamppCore->unzip7zFile($tmpFilePath, $destination, function ($progress) {
-            echo json_encode(['progress' => $progress]);
-            if (ob_get_length()) {
-                ob_flush();
-            }
-            flush();
-        });
-
-        if ($unzipResult === false) {
-            return ['error' => 'Failed to unzip file. File: ' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
-        }
-    } else {
-        Util::logError('Unsupported file extension: ' . $fileExtension);
-        return ['error' => 'Unsupported file extension'];
+    if ($unzipResult === false) {
+        return ['error' => 'Failed to unzip file. File: ' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
     }
+} else {
+    Util::logError('Unsupported file extension: ' . $fileExtension);
+    return ['error' => 'Unsupported file extension'];
+}
 
     return ['success' => 'Module installed successfully'];
 }

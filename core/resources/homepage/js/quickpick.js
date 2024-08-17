@@ -143,11 +143,11 @@ async function installModule(moduleName, version) {
                         if (isDownloading) {
                             progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
-                            progressbar.innerText = `${progressValue}% Downloaded`;
+                            progressbar.innerText = `${progressValue} Kbytes Downloaded`;
                         } else {
                             progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
-                            progressbar.innerText = `${progressValue}% Extracted`;
+                            progressbar.innerText = `${progressValue} Extracted`;
                         }
                     } else if (data.success) {
                         console.log(data);
