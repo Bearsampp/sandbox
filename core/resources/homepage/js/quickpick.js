@@ -126,7 +126,8 @@ async function installModule(moduleName, version) {
 
     const downloadmodule = document.getElementById('download-module');
     const downloadversion = document.getElementById('download-version');
-
+    let isCompleted = false;
+    let messageData = '';
     progressbar.innerText = `Downloading ${moduleName} ${version}`;
     progress.style.display = "block";
     downloadmodule.innerText = moduleName;
@@ -154,6 +155,7 @@ async function installModule(moduleName, version) {
         let responseText = '';
         let isDownloading = true;
 
+
         while (true) {
             const {done, value} = await reader.read();
             if (done) break;
@@ -180,8 +182,12 @@ async function installModule(moduleName, version) {
                             progressbar.innerText = `${progressValue} Extracted`;
                         }
                     } else if (data.success) {
+
                         console.log(data);
-                        window.alert(data.message);
+                        isCompleted = true;
+                        messageData = data.message;
+//                        window.alert(data.message);
+
                     } else if (data.error) {
                         console.error('Error:', data.error);
                         window.alert(`Error: ${data.error}`);
@@ -197,6 +203,10 @@ async function installModule(moduleName, version) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
+        if (isCompleted === true)
+        {
+            confirm(messageData);
+        }
         setTimeout(() => {
             location.reload();
         }, 100); // Delay of 100 milliseconds
