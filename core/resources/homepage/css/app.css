@@ -372,11 +372,11 @@ div#InternetState {
 
 .select-dropdown li:hover,
 .select-dropdown input:checked ~ label {
-    background-color: #f2f2f2;
+    background-color: #efefef;
     }
 
 .select-dropdown input:focus ~ label {
-    background-color: #dfdfdf;
+    background-color: #efefef;
     }
 
 .select-dropdown input[type="radio"] {
