@@ -171,12 +171,11 @@ async function installModule(moduleName, version) {
                     if (data.progress) {
                         console.log('Progress:', data.progress);
                         const progressValue = data.progress;
+                        progressbar.style.width = '100%';
                         if (isDownloading) {
-                            progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
-                            progressbar.innerText = `${progressValue} Kbytes Downloaded`;
+                            progressbar.innerText = `${progressValue} KBytes Downloaded`;
                         } else {
-                            progressbar.style.width = '100%';
                             progressbar.setAttribute('aria-valuenow', progressValue);
                             progressbar.innerText = `${progressValue} Extracted`;
                         }
@@ -188,8 +187,6 @@ async function installModule(moduleName, version) {
                         window.alert(`Error: ${data.error}`);
                     } else if (data.phase === 'extracting') {
                         isDownloading = false;
-                        progressbar.style.width = '100%';
-                        progressbar.innerText = '0% Extracted';
                     }
                 } catch (error) {
                     // Ignore JSON parse errors for incomplete parts

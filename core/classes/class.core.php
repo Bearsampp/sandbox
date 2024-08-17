@@ -489,10 +489,7 @@ class Core
 
         // Command to test the archive and get the number of files
         $testCommand = escapeshellarg( $sevenZipPath ) . " t " . escapeshellarg( $filePath ) . " -y -bsp1";
-        Util::logTrace( 'Executing test command: ' . $testCommand );
-
-        $testOutput = shell_exec( $testCommand );
-        Util::logTrace( 'Test command output: ' . $testOutput );
+        $testOutput  = shell_exec( $testCommand );
 
         // Extract the number of files from the test command output
         preg_match( '/Files: (\d+)/', $testOutput, $matches );
@@ -513,7 +510,6 @@ class Core
         if ( is_resource( $process ) ) {
             $filesExtracted = 0;
             while ( $line = fgets( $pipes[1] ) ) {
-                Util::logDebug( 'Command output: ' . $line );
 
                 if ( $progressCallback ) {
                     // Adjusted pattern to capture file extraction correctly
