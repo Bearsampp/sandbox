@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionQuit =
 [
     [ "__construct", "de/d86/classActionQuit.html#a156e3d26bda8ca425f28f58427d6c579", null ],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classBinMariadb =
 [
     [ "__construct", "d4/d8f/classBinMariadb.html#a556e8ccea62d307894e335d1b332850d", null ],

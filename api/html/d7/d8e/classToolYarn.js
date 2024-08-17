@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolYarn =
 [
     [ "__construct", "d7/d8e/classToolYarn.html#ad822c8b683bc5820e51e6aca5b9be09a", null ],

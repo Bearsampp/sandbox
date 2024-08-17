@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classBinMemcached =
 [
     [ "__construct", "da/d10/classBinMemcached.html#ae499cddf960db523f908daf1f519f4ae", null ],

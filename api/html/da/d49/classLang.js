@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classLang =
 [
     [ "getKeys", "da/d49/classLang.html#a20ec86aaaf470cd84dc0fbba158bad86", null ],

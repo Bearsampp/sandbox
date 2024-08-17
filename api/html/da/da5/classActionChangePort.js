@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionChangePort =
 [
     [ "__construct", "da/da5/classActionChangePort.html#a7fa3c26a68bcb84d71e37f1adb004ce8", null ],

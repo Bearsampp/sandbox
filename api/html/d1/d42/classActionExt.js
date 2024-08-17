@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionExt =
 [
     [ "__construct", "d1/d42/classActionExt.html#a95dbe38feca167c565707d22db5388b8", null ],

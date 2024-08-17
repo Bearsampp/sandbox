@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classAppAdminer =
 [
     [ "__construct", "df/d54/classAppAdminer.html#a7463642ab7bb00cdf02097ce59489e1b", null ],

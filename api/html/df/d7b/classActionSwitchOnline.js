@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionSwitchOnline =
 [
     [ "__construct", "df/d7b/classActionSwitchOnline.html#a01990938d61622ee216f8d269ae3dbfb", null ],

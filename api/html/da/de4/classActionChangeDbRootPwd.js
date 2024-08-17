@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionChangeDbRootPwd =
 [
     [ "__construct", "da/de4/classActionChangeDbRootPwd.html#aca8fe71bf2b6d9a3faf5b27c8ee5e7de", null ],

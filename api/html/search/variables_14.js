@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['vbs_5fdescription_0',['VBS_DESCRIPTION',['../df/d28/classWin32Service.html#a2f8c54d620add59c4002f463b339e7fd',1,'Win32Service']]],

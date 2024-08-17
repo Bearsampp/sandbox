@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['tag_5fend_5fswitchonline_0',['TAG_END_SWITCHONLINE',['../d9/d6c/classBinApache.html#a96584e515f5f3062836c70837c0369b9',1,'BinApache']]],

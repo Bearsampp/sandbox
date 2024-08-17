@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['db_5fmysql_5fwrap_0',['DB_MYSQL_WRAP',['../d4/dae/db__mysql_8inc_8php.html#aedc4920d35a256589bc515a68731710c',1,'db_mysql.inc.php']]],

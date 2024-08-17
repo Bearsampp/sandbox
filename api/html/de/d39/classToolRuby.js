@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolRuby =
 [
     [ "__construct", "de/d39/classToolRuby.html#a3035496f2c7a72f97d692ec809599f4f", null ],

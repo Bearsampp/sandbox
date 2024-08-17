@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classLangProc =
 [
     [ "__construct", "da/df6/classLangProc.html#a7bb63445c91bf3d46be3f9867c3d20ef", null ],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classBinApache =
 [
     [ "__construct", "d9/d6c/classBinApache.html#ad151c63555c4aa954d051c51e601512f", null ],

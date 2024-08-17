@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classActionStartup =
 [
     [ "__construct", "d1/db8/classActionStartup.html#a285cd2c8807b4ae4b622fe384ac98672", null ],

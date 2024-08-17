@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['mainloop_0',['mainLoop',['../db/da5/classWinBinder.html#a533fadd859911e585a99e93cdacc7835',1,'WinBinder']]],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['_5f_5falter_5ftable_0',['__alter_table',['../d3/d41/db__sqlite_8inc_8php.html#a70f3f8e6329c7954fe746f7384813578',1,'db_sqlite.inc.php']]],

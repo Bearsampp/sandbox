@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplService =
 [
     [ "getActionCreate", "db/dc8/classTplService.html#ad6a46ed792d30b19e3afd5870987def5", null ],

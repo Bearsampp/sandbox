@@ -22,7 +22,6 @@ class Config
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
     const DOWNLOAD_ID = 'DownloadId';
-    const CACHE_TIME = 'cacheTime';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -133,10 +132,6 @@ class Config
     public function getDownloadId()
     {
         return $this->raw[self::DOWNLOAD_ID];
-    }
-
-    public function getCacheTime() {
-        return $this->raw[self::CACHE_TIME];
     }
 
     /**

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['fetchandunzipmodule_0',['fetchAndUnzipModule',['../d7/dcf/classQuickPick.html#a68eaa4bdcecea6ed2906b40fdcfc797e',1,'QuickPick']]],
