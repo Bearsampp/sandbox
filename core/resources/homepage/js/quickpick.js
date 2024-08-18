@@ -155,7 +155,6 @@ async function installModule(moduleName, version) {
         let responseText = '';
         let isDownloading = true;
 
-
         while (true) {
             const {done, value} = await reader.read();
             if (done) break;
