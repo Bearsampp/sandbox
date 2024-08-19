@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['e_5fuser_5ferror_0',['E_USER_ERROR',['../da/dbf/winbinder_8php.html#af05301c7865c6bae066cb0add14dc6ec',1,'winbinder.php']]],
@@ -13,7 +5,7 @@ var searchData=
   ['edit_5falias_5ftitle_2',['EDIT_ALIAS_TITLE',['../da/d49/classLang.html#a74c4c0b3c6af2f2f849712b6334b9415',1,'Lang']]],
   ['edit_5fvhost_3',['EDIT_VHOST',['../db/d09/classAction.html#a5aea28d6dd2dc9d9d36d0ec65d1f77c9',1,'Action']]],
   ['edit_5fvhost_5ftitle_4',['EDIT_VHOST_TITLE',['../da/d49/classLang.html#a6f1303ca65aa8ff3541c5c63da972a05',1,'Lang']]],
-  ['else_5',['else',['../de/dae/ajax_8php.html#a2d5f75233d615d7905386776f5b3eb0c',1,'else:&#160;ajax.php'],['../d4/d44/ajax_8apache_8php.html#aa45b0c5608aa5467bd4681642b0c0b81',1,'else:&#160;ajax.apache.php'],['../d5/daf/ajax_8filezilla_8php.html#aa578b194a36c8722d1e265dd791ca16e',1,'else:&#160;ajax.filezilla.php'],['../da/dd5/ajax_8latestversion_8php.html#a289beb24b800a6ed9033045992fe61c5',1,'else:&#160;ajax.latestversion.php'],['../d8/d31/ajax_8mailhog_8php.html#a30aad632ca2958ed907b91d0be10be3f',1,'else:&#160;ajax.mailhog.php'],['../db/d99/ajax_8mailpit_8php.html#a8bc0d8be7358b108a391398e9fd0fa1f',1,'else:&#160;ajax.mailpit.php'],['../d2/dde/ajax_8mariadb_8php.html#a5e06559177c070b469a6d19e0ea82bb7',1,'else:&#160;ajax.mariadb.php'],['../d5/d8c/ajax_8memcached_8php.html#aa708fbdc2a60aae9646357af35e3d1a7',1,'else:&#160;ajax.memcached.php'],['../d2/d90/ajax_8mysql_8php.html#acf5b0428aa8c349f0f3c90ddf54205d1',1,'else:&#160;ajax.mysql.php'],['../d8/ded/ajax_8nodejs_8php.html#a2d7f92f781ea558aeb52851ee9e8d814',1,'else:&#160;ajax.nodejs.php'],['../d2/d8f/ajax_8php_8php.html#a43ffc9c771eda433709cfc6a522b13d8',1,'else:&#160;ajax.php.php'],['../da/dea/ajax_8postgresql_8php.html#abf64240d8af8f716882d16773b7a3034',1,'else:&#160;ajax.postgresql.php'],['../d2/de1/ajax_8xlight_8php.html#ac07ba5973ac99d4fe274927229fb0d9f',1,'else:&#160;ajax.xlight.php']]],
+  ['else_5',['else',['../de/dae/ajax_8php.html#a2d5f75233d615d7905386776f5b3eb0c',1,'else:&#160;ajax.php'],['../d4/d44/ajax_8apache_8php.html#aa45b0c5608aa5467bd4681642b0c0b81',1,'else:&#160;ajax.apache.php'],['../d5/daf/ajax_8filezilla_8php.html#aa578b194a36c8722d1e265dd791ca16e',1,'else:&#160;ajax.filezilla.php'],['../da/dd5/ajax_8latestversion_8php.html#a289beb24b800a6ed9033045992fe61c5',1,'else:&#160;ajax.latestversion.php'],['../d8/d31/ajax_8mailhog_8php.html#a30aad632ca2958ed907b91d0be10be3f',1,'else:&#160;ajax.mailhog.php'],['../db/d99/ajax_8mailpit_8php.html#a8bc0d8be7358b108a391398e9fd0fa1f',1,'else:&#160;ajax.mailpit.php'],['../d2/dde/ajax_8mariadb_8php.html#a5e06559177c070b469a6d19e0ea82bb7',1,'else:&#160;ajax.mariadb.php'],['../d5/d8c/ajax_8memcached_8php.html#aa708fbdc2a60aae9646357af35e3d1a7',1,'else:&#160;ajax.memcached.php'],['../d2/d90/ajax_8mysql_8php.html#acf5b0428aa8c349f0f3c90ddf54205d1',1,'else:&#160;ajax.mysql.php'],['../d8/ded/ajax_8nodejs_8php.html#a2d7f92f781ea558aeb52851ee9e8d814',1,'else:&#160;ajax.nodejs.php'],['../d2/d8f/ajax_8php_8php.html#a43ffc9c771eda433709cfc6a522b13d8',1,'else:&#160;ajax.php.php'],['../da/dea/ajax_8postgresql_8php.html#abf64240d8af8f716882d16773b7a3034',1,'else:&#160;ajax.postgresql.php'],['../d5/d7d/ajax_8quickpick_8php.html#ad6d6fff117fd0a3f7e5893e8d2785c4e',1,'else:&#160;ajax.quickpick.php'],['../d2/de1/ajax_8xlight_8php.html#ac07ba5973ac99d4fe274927229fb0d9f',1,'else:&#160;ajax.xlight.php']]],
   ['enable_6',['ENABLE',['../db/d09/classAction.html#a7050632df7e9ff72deb0dc31e03520cf',1,'Action']]],
   ['enable_5fbundle_5fnot_5fexist_7',['ENABLE_BUNDLE_NOT_EXIST',['../da/d49/classLang.html#abbdba3143d33c3223bf4fa922214de77',1,'Lang']]],
   ['enable_5ftitle_8',['ENABLE_TITLE',['../da/d49/classLang.html#a18f6fff31531f3a3a815a87a1ba3a9ef',1,'Lang']]],

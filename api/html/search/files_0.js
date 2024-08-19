@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['ajax_2eapache_2ephp_0',['ajax.apache.php',['../d4/d44/ajax_8apache_8php.html',1,'']]],
@@ -20,6 +12,7 @@ var searchData=
   ['ajax_2ephp_9',['ajax.php',['../de/dae/ajax_8php.html',1,'']]],
   ['ajax_2ephp_2ephp_10',['ajax.php.php',['../d2/d8f/ajax_8php_8php.html',1,'']]],
   ['ajax_2epostgresql_2ephp_11',['ajax.postgresql.php',['../da/dea/ajax_8postgresql_8php.html',1,'']]],
-  ['ajax_2esummary_2ephp_12',['ajax.summary.php',['../d1/dc6/ajax_8summary_8php.html',1,'']]],
-  ['ajax_2exlight_2ephp_13',['ajax.xlight.php',['../d2/de1/ajax_8xlight_8php.html',1,'']]]
+  ['ajax_2equickpick_2ephp_12',['ajax.quickpick.php',['../d5/d7d/ajax_8quickpick_8php.html',1,'']]],
+  ['ajax_2esummary_2ephp_13',['ajax.summary.php',['../d1/dc6/ajax_8summary_8php.html',1,'']]],
+  ['ajax_2exlight_2ephp_14',['ajax.xlight.php',['../d2/de1/ajax_8xlight_8php.html',1,'']]]
 ];

@@ -1,11 +1,3 @@
-<!--
-  ~ Copyright (c) 2021-2024 Bearsampp
-  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
-  ~ Author: Bear
-  ~ Website: https://bearsampp.com
-  ~ Github: https://github.com/Bearsampp
-  -->
-
 <!-- HTML header for doxygen 1.9.7-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
@@ -18,6 +10,11 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+        <!-- ... other metadata & script includes ... -->
+        <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeDarkModeToggle.init()
+        </script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -39,7 +36,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.6.30&#160;</span>
+   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.19</span>
    </div>
   </td>
  </tr>
@@ -76,7 +73,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;"
+  <div id="splitbar" style="-moz-user-select:none;" 
        class="ui-resizable-handle">
   </div>
 </div>
@@ -169,6 +166,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>$isRoot&#160;:&#160;<a class="el" href="d8/d73/classRoot.html#adb2d346f4e2325331964090cd00e9127">Root</a></li>
 <li>$itfConf&#160;:&#160;<a class="el" href="da/d23/classBinFilezilla.html#ada670a660089c17c0093c0940c42c25e">BinFilezilla</a></li>
 <li>$itfExe&#160;:&#160;<a class="el" href="da/d23/classBinFilezilla.html#ae3cc9ba6307ccdb4adc6c0a8e9065487">BinFilezilla</a></li>
+<li>$jsonFilePath&#160;:&#160;<a class="el" href="d7/dcf/classQuickPick.html#abc9923ae894c36887a49efd27589ec2b">QuickPick</a></li>
 <li>$latestError&#160;:&#160;<a class="el" href="d3/d93/classNssm.html#a9543af77bec2e4e3e7ac94e2fa38aa4a">Nssm</a>, <a class="el" href="db/d0d/classRegistry.html#ad9396dc6235b74d25aa126ef33a4f97d">Registry</a>, <a class="el" href="df/d28/classWin32Service.html#a2fe404e88d0e3f9e3fc65e064371a458">Win32Service</a></li>
 <li>$latestStatus&#160;:&#160;<a class="el" href="d3/d93/classNssm.html#af1c6c689690f2ae3eb7ebc7c73bdfced">Nssm</a>, <a class="el" href="df/d28/classWin32Service.html#a15393eb9b0ff49cfc480d0ae14384a18">Win32Service</a></li>
 <li>$latestVersion&#160;:&#160;<a class="el" href="da/d27/classActionCheckVersion.html#a28bf293def5186f185525ebbe67728bd">ActionCheckVersion</a></li>
@@ -185,6 +183,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>$mariadb&#160;:&#160;<a class="el" href="de/d54/classBins.html#aaa53171a066e76b3af39a28dfd4b5f77">Bins</a></li>
 <li>$memcached&#160;:&#160;<a class="el" href="de/d54/classBins.html#a32db03a935a58a906ca60c6549cf5bd8">Bins</a></li>
 <li>$memory&#160;:&#160;<a class="el" href="da/d10/classBinMemcached.html#ada3c7c564b9b2326b8868a18254d17a3">BinMemcached</a></li>
+<li>$modules&#160;:&#160;<a class="el" href="d7/dcf/classQuickPick.html#ac65de48746ba6be0ed6ee67ae2ac0c91">QuickPick</a></li>
 <li>$modulesPath&#160;:&#160;<a class="el" href="d9/d6c/classBinApache.html#a251e06309eccd0431ab6800cc2c831b6">BinApache</a></li>
 <li>$mysql&#160;:&#160;<a class="el" href="de/d54/classBins.html#af0fc4bbac7357dac1b0d5fb3f2cc8445">Bins</a></li>
 <li>$name&#160;:&#160;<a class="el" href="d3/d9c/classModule.html#add68be3906e8c442c5e91d0bdeb887d5">Module</a>, <a class="el" href="d3/d93/classNssm.html#a960b93fc64248ab8f54817b3b209060f">Nssm</a>, <a class="el" href="df/d28/classWin32Service.html#a306b73b3054e0eb61a98e415e67bea76">Win32Service</a></li>
@@ -238,6 +237,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>$uiPort&#160;:&#160;<a class="el" href="db/df2/classBinMailhog.html#ae9c49edb758c0ab6e635389d8d42a539">BinMailhog</a>, <a class="el" href="d9/ddd/classBinMailpit.html#ac2d7fd96f3bf9c30fb2ba0d19075ebfa">BinMailpit</a></li>
 <li>$vars&#160;:&#160;<a class="el" href="d8/d9c/classBinNodejs.html#a7e7e2983f026af713e0e7ab8dda1adc2">BinNodejs</a></li>
 <li>$version&#160;:&#160;<a class="el" href="d6/dff/classActionSwitchVersion.html#ac5dd9fa3fe0309c4c6af721952c4cca5">ActionSwitchVersion</a>, <a class="el" href="d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">Module</a></li>
+<li>$versions&#160;:&#160;<a class="el" href="d7/dcf/classQuickPick.html#a24d8fc9531b0e27efac4985dd44aa9d8">QuickPick</a></li>
 <li>$wbBtnBrowse&#160;:&#160;<a class="el" href="db/d91/classActionChangeBrowser.html#acc8db002f58f1da90ac6f4cc94689870">ActionChangeBrowser</a></li>
 <li>$wbBtnCancel&#160;:&#160;<a class="el" href="da/d7d/classActionAddAlias.html#a572ad4508c3c5087ce99dbee79acea3f">ActionAddAlias</a>, <a class="el" href="dc/d14/classActionAddVhost.html#a3c11c04ceb9a87efceb0ba46e3eb3294">ActionAddVhost</a>, <a class="el" href="db/d91/classActionChangeBrowser.html#a3b73077f318b6cb2b59925a46f8c31f6">ActionChangeBrowser</a>, <a class="el" href="da/de4/classActionChangeDbRootPwd.html#af32dafb65f8969da2f8c9448c40405ff">ActionChangeDbRootPwd</a>, <a class="el" href="da/da5/classActionChangePort.html#ad6626941728bae804e60f541e9596105">ActionChangePort</a>, <a class="el" href="d5/d4e/classActionEditAlias.html#a626550eb549dfcf63aad4682f8f64601">ActionEditAlias</a>, <a class="el" href="da/d7d/classActionEditVhost.html#ae74ff4044f873b81571511572b62ffe3">ActionEditVhost</a>, <a class="el" href="d1/d43/classActionGenSslCertificate.html#a9c126ecd9f610f79598f90eaa768b5a4">ActionGenSslCertificate</a></li>
 <li>$wbBtnDelete&#160;:&#160;<a class="el" href="d5/d4e/classActionEditAlias.html#a65d47e14c9fba79585373fe7394b4604">ActionEditAlias</a>, <a class="el" href="da/d7d/classActionEditVhost.html#a24f371ad9007880bd74df13e9cf5094d">ActionEditVhost</a></li>

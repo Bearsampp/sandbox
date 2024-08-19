@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classNssm =
 [
     [ "__construct", "d3/d93/classNssm.html#a293131d5ba622f4dbb14b22b4701a03d", null ],

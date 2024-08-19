@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppMysql =
 [
     [ "getActionChangeMysqlPort", "d6/d19/classTplAppMysql.html#aa2499840b8e416674aa1d5105558c890", null ],

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppLogsVerbose =
 [
     [ "getActionSwitchLogsVerbose", "d9/d3f/classTplAppLogsVerbose.html#a86a8bd2485c2cb2f3d98642859625d7c", null ],

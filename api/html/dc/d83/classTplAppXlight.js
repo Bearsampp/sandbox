@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppXlight =
 [
     [ "getActionChangeXlightPort", "dc/d83/classTplAppXlight.html#a95f6b0309938dd2911a286985ca2d935", null ],

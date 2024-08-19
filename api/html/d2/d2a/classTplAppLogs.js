@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppLogs =
 [
     [ "getMenuLogs", "d2/d2a/classTplAppLogs.html#ad550f3529a4860bcf91ab334bac9ae80", null ],

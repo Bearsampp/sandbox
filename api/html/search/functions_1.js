@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['addloadingpid_0',['addLoadingPid',['../db/d6d/classCore.html#a02955a6ecc7a47aec50da90fd4de366f',1,'Core']]],

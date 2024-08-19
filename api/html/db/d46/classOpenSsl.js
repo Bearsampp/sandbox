@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classOpenSsl =
 [
     [ "createCrt", "db/d46/classOpenSsl.html#a3058e0aefcf7801cc1cb49e1b28b6fd1", null ],

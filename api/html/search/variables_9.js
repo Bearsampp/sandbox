@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['icon_5fapp_0',['ICON_APP',['../d6/d32/classTplConsoleZ.html#ab81c5f21626eaf381276bebf41585368',1,'TplConsoleZ']]],

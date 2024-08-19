@@ -1,14 +1,7 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classUtil =
 [
     [ "changePath", "d6/de4/classUtil.html#a84c7124029d8691b6ca839191bf39e65", null ],
+    [ "checkInternetState", "d6/de4/classUtil.html#aee47b8a8338560fa2549f0caf263302e", null ],
     [ "cleanArgv", "d6/de4/classUtil.html#ab0465aec36d70aa81c88dab14a25a7bf", null ],
     [ "cleanGetVar", "d6/de4/classUtil.html#a4e2cfa868de4b7863f827e972b50dc86", null ],
     [ "cleanPostVar", "d6/de4/classUtil.html#adcb17285fdb98bef537fdea44f7f18b2", null ],
@@ -72,7 +65,6 @@ var classUtil =
     [ "logWarning", "d6/de4/classUtil.html#ac64c6c9351f7d06baeb7c31c4cd797d2", null ],
     [ "openFileContent", "d6/de4/classUtil.html#a339abf1f44bf2f7bacc4363fca0f8d8c", null ],
     [ "random", "d6/de4/classUtil.html#a5c497004c50c164a382f502569ba47f8", null ],
-    [ "rebuildIni", "d6/de4/classUtil.html#abf2bd12b52e93797846a5636616dab91", null ],
     [ "removeService", "d6/de4/classUtil.html#aa1f32ffa07ee38ff62bec865b343da62", null ],
     [ "replaceDefine", "d6/de4/classUtil.html#ac1860c28e1d6603ec520cc2668f06a1b", null ],
     [ "replaceInFile", "d6/de4/classUtil.html#a492fee0e6859b7891725b82153425443", null ],

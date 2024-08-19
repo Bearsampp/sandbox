@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolGhostscript =
 [
     [ "__construct", "d3/df9/classToolGhostscript.html#aeca0ac85e5332f874450f38eb08c5dc9", null ],

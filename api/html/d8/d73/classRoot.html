@@ -1,11 +1,3 @@
-<!--
-  ~ Copyright (c) 2021-2024 Bearsampp
-  ~ License:  GNU General Public License version 3 or later; see LICENSE.txt
-  ~ Author: Bear
-  ~ Website: https://bearsampp.com
-  ~ Github: https://github.com/Bearsampp
-  -->
-
 <!-- HTML header for doxygen 1.9.7-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
@@ -18,6 +10,11 @@
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
+        <!-- ... other metadata & script includes ... -->
+        <script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeDarkModeToggle.init()
+        </script>
 <link href="../../navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../navtreedata.js"></script>
 <script type="text/javascript" src="../../navtree.js"></script>
@@ -39,7 +36,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.6.30&#160;</span>
+   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.19</span>
    </div>
   </td>
  </tr>
@@ -76,7 +73,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;"
+  <div id="splitbar" style="-moz-user-select:none;" 
        class="ui-resizable-handle">
   </div>
 </div>
@@ -243,7 +240,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Class <a class="el" href="../../d8/d73/classRoot.html">Root</a></p>
 <p>This class represents the root of the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It handles the initialization, configuration, and management of various components and settings within the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00010">10</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00016">16</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adeeb16dce24cb937d7fdd19c3df754fb" name="adeeb16dce24cb937d7fdd19c3df754fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adeeb16dce24cb937d7fdd19c3df754fb">&#9670;&#160;</a></span>__construct()</h2>
@@ -267,14 +264,14 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00023">23</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   24</span>    {</div>
-<div class="line"><span class="lineno">   25</span>        $this-&gt;path = str_replace(<span class="charliteral">&#39;\\&#39;</span>, <span class="charliteral">&#39;/&#39;</span>, rtrim($rootPath, <span class="stringliteral">&#39;/\\&#39;</span>));</div>
-<div class="line"><span class="lineno">   26</span>        $this-&gt;<a class="code hl_function" href="#ab62015debc85ae32d551495a1ca86d8e">isRoot</a> = $_SERVER[<span class="stringliteral">&#39;PHP_SELF&#39;</span>] == <span class="stringliteral">&#39;root.php&#39;</span>;</div>
-<div class="line"><span class="lineno">   27</span>    }</div>
-<div class="ttc" id="aclassRoot_html_ab62015debc85ae32d551495a1ca86d8e"><div class="ttname"><a href="#ab62015debc85ae32d551495a1ca86d8e">Root\isRoot</a></div><div class="ttdeci">isRoot()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00105">class.root.php:105</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00029">29</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
+<div class="line"><span class="lineno">   31</span>        $this-&gt;path = str_replace(<span class="charliteral">&#39;\\&#39;</span>, <span class="charliteral">&#39;/&#39;</span>, rtrim($rootPath, <span class="stringliteral">&#39;/\\&#39;</span>));</div>
+<div class="line"><span class="lineno">   32</span>        $this-&gt;<a class="code hl_function" href="#ab62015debc85ae32d551495a1ca86d8e">isRoot</a> = $_SERVER[<span class="stringliteral">&#39;PHP_SELF&#39;</span>] == <span class="stringliteral">&#39;root.php&#39;</span>;</div>
+<div class="line"><span class="lineno">   33</span>    }</div>
+<div class="ttc" id="aclassRoot_html_ab62015debc85ae32d551495a1ca86d8e"><div class="ttname"><a href="#ab62015debc85ae32d551495a1ca86d8e">Root\isRoot</a></div><div class="ttdeci">isRoot()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00111">class.root.php:111</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00105">isRoot()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00111">isRoot()</a>.</p>
 
 </div>
 </div>
@@ -310,17 +307,17 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The formatted path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00128">128</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>    {</div>
-<div class="line"><span class="lineno">  130</span>        <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a> = str_replace($this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>(), <span class="stringliteral">&#39;&#39;</span>, <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>);</div>
-<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;%AeTrayMenuPath%&#39;</span> . substr(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>, 1, strlen(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>));</div>
-<div class="line"><span class="lineno">  132</span>    }</div>
-<div class="ttc" id="aclassRoot_html_a5a41c73079d7ae565ea16b67d3344a22"><div class="ttname"><a href="#a5a41c73079d7ae565ea16b67d3344a22">Root\$path</a></div><div class="ttdeci">$path</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00014">class.root.php:14</a></div></div>
-<div class="ttc" id="aclassRoot_html_ab5d7ed743b7131977e4ccde6bd58a7de"><div class="ttname"><a href="#ab5d7ed743b7131977e4ccde6bd58a7de">Root\getRootPath</a></div><div class="ttdeci">getRootPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00116">class.root.php:116</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00134">134</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  135</span>    {</div>
+<div class="line"><span class="lineno">  136</span>        <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a> = str_replace($this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>(), <span class="stringliteral">&#39;&#39;</span>, <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>);</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;%AeTrayMenuPath%&#39;</span> . substr(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>, 1, strlen(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>));</div>
+<div class="line"><span class="lineno">  138</span>    }</div>
+<div class="ttc" id="aclassRoot_html_a5a41c73079d7ae565ea16b67d3344a22"><div class="ttname"><a href="#a5a41c73079d7ae565ea16b67d3344a22">Root\$path</a></div><div class="ttdeci">$path</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00020">class.root.php:20</a></div></div>
+<div class="ttc" id="aclassRoot_html_ab5d7ed743b7131977e4ccde6bd58a7de"><div class="ttname"><a href="#ab5d7ed743b7131977e4ccde6bd58a7de">Root\getRootPath</a></div><div class="ttdeci">getRootPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00122">class.root.php:122</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00014">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00020">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00173">getCorePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00179">getCorePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -356,20 +353,20 @@ Private Attributes</h2></td></tr>
 <p>Generates a debug backtrace string.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The debug backtrace. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00578">578</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  579</span>    {</div>
-<div class="line"><span class="lineno">  580</span>        ob_start();</div>
-<div class="line"><span class="lineno">  581</span>        debug_print_backtrace();</div>
-<div class="line"><span class="lineno">  582</span>        $trace = ob_get_contents();</div>
-<div class="line"><span class="lineno">  583</span>        ob_end_clean();</div>
-<div class="line"><span class="lineno">  584</span> </div>
-<div class="line"><span class="lineno">  585</span>        $trace = preg_replace(<span class="stringliteral">&#39;/^#0\s+Root::debugStringBacktrace[^\n]*\n/&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $trace, 1);</div>
-<div class="line"><span class="lineno">  586</span>        $trace = preg_replace(<span class="stringliteral">&#39;/^#1\s+isRoot-&gt;errorHandler[^\n]*\n/&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $trace, 1);</div>
-<div class="line"><span class="lineno">  587</span>        $trace = preg_replace_callback(<span class="stringliteral">&#39;/^#(\d+)/m&#39;</span>, <span class="stringliteral">&#39;debugStringPregReplace&#39;</span>, $trace);</div>
-<div class="line"><span class="lineno">  588</span>        <span class="keywordflow">return</span> $trace;</div>
-<div class="line"><span class="lineno">  589</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00584">584</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  585</span>    {</div>
+<div class="line"><span class="lineno">  586</span>        ob_start();</div>
+<div class="line"><span class="lineno">  587</span>        debug_print_backtrace();</div>
+<div class="line"><span class="lineno">  588</span>        $trace = ob_get_contents();</div>
+<div class="line"><span class="lineno">  589</span>        ob_end_clean();</div>
+<div class="line"><span class="lineno">  590</span> </div>
+<div class="line"><span class="lineno">  591</span>        $trace = preg_replace(<span class="stringliteral">&#39;/^#0\s+Root::debugStringBacktrace[^\n]*\n/&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $trace, 1);</div>
+<div class="line"><span class="lineno">  592</span>        $trace = preg_replace(<span class="stringliteral">&#39;/^#1\s+isRoot-&gt;errorHandler[^\n]*\n/&#39;</span>, <span class="stringliteral">&#39;&#39;</span>, $trace, 1);</div>
+<div class="line"><span class="lineno">  593</span>        $trace = preg_replace_callback(<span class="stringliteral">&#39;/^#(\d+)/m&#39;</span>, <span class="stringliteral">&#39;debugStringPregReplace&#39;</span>, $trace);</div>
+<div class="line"><span class="lineno">  594</span>        <span class="keywordflow">return</span> $trace;</div>
+<div class="line"><span class="lineno">  595</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00534">errorHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00540">errorHandler()</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -419,50 +416,50 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00534">534</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  535</span>    {</div>
-<div class="line"><span class="lineno">  536</span>        <span class="keywordflow">if</span> (error_reporting() === 0) {</div>
-<div class="line"><span class="lineno">  537</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  538</span>        }</div>
-<div class="line"><span class="lineno">  539</span> </div>
-<div class="line"><span class="lineno">  540</span>        $errfile = <a class="code hl_function" href="../../d6/de4/classUtil.html#a7e1d6744781147aa7676da79f53b4db7">Util::formatUnixPath</a>($errfile);</div>
-<div class="line"><span class="lineno">  541</span>        $errfile = str_replace($this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>(), <span class="stringliteral">&#39;&#39;</span>, $errfile);</div>
-<div class="line"><span class="lineno">  542</span> </div>
-<div class="line"><span class="lineno">  543</span>        <span class="keywordflow">if</span> (!defined(<span class="stringliteral">&#39;E_DEPRECATED&#39;</span>)) {</div>
-<div class="line"><span class="lineno">  544</span>            define(<span class="stringliteral">&#39;E_DEPRECATED&#39;</span>, 8192);</div>
-<div class="line"><span class="lineno">  545</span>        }</div>
-<div class="line"><span class="lineno">  546</span> </div>
-<div class="line"><span class="lineno">  547</span>        $errNames = array(</div>
-<div class="line"><span class="lineno">  548</span>            E_ERROR             =&gt; <span class="stringliteral">&#39;E_ERROR&#39;</span>,</div>
-<div class="line"><span class="lineno">  549</span>            E_WARNING           =&gt; <span class="stringliteral">&#39;E_WARNING&#39;</span>,</div>
-<div class="line"><span class="lineno">  550</span>            E_PARSE             =&gt; <span class="stringliteral">&#39;E_PARSE&#39;</span>,</div>
-<div class="line"><span class="lineno">  551</span>            E_NOTICE            =&gt; <span class="stringliteral">&#39;E_NOTICE&#39;</span>,</div>
-<div class="line"><span class="lineno">  552</span>            E_CORE_ERROR        =&gt; <span class="stringliteral">&#39;E_CORE_ERROR&#39;</span>,</div>
-<div class="line"><span class="lineno">  553</span>            E_CORE_WARNING      =&gt; <span class="stringliteral">&#39;E_CORE_WARNING&#39;</span>,</div>
-<div class="line"><span class="lineno">  554</span>            E_COMPILE_ERROR     =&gt; <span class="stringliteral">&#39;E_COMPILE_ERROR&#39;</span>,</div>
-<div class="line"><span class="lineno">  555</span>            E_COMPILE_WARNING   =&gt; <span class="stringliteral">&#39;E_COMPILE_WARNING&#39;</span>,</div>
-<div class="line"><span class="lineno">  556</span>            <a class="code hl_variable" href="../../da/dbf/winbinder_8php.html#af05301c7865c6bae066cb0add14dc6ec">E_USER_ERROR</a>        =&gt; <span class="stringliteral">&#39;E_USER_ERROR&#39;</span>,</div>
-<div class="line"><span class="lineno">  557</span>            E_USER_WARNING      =&gt; <span class="stringliteral">&#39;E_USER_WARNING&#39;</span>,</div>
-<div class="line"><span class="lineno">  558</span>            E_USER_NOTICE       =&gt; <span class="stringliteral">&#39;E_USER_NOTICE&#39;</span>,</div>
-<div class="line"><span class="lineno">  559</span>            E_STRICT            =&gt; <span class="stringliteral">&#39;E_STRICT&#39;</span>,</div>
-<div class="line"><span class="lineno">  560</span>            E_RECOVERABLE_ERROR =&gt; <span class="stringliteral">&#39;E_RECOVERABLE_ERROR&#39;</span>,</div>
-<div class="line"><span class="lineno">  561</span>            E_DEPRECATED        =&gt; <span class="stringliteral">&#39;E_DEPRECATED&#39;</span>,</div>
-<div class="line"><span class="lineno">  562</span>        );</div>
-<div class="line"><span class="lineno">  563</span> </div>
-<div class="line"><span class="lineno">  564</span>        $content = <span class="charliteral">&#39;[&#39;</span> . date(<span class="stringliteral">&#39;Y-m-d H:i:s&#39;</span>, time()) . <span class="stringliteral">&#39;] &#39;</span>;</div>
-<div class="line"><span class="lineno">  565</span>        $content .= $errNames[$errno] . <span class="charliteral">&#39; &#39;</span>;</div>
-<div class="line"><span class="lineno">  566</span>        $content .= $errstr . <span class="stringliteral">&#39; in &#39;</span> .  $errfile;</div>
-<div class="line"><span class="lineno">  567</span>        $content .= <span class="stringliteral">&#39; on line &#39;</span> . $errline . PHP_EOL;</div>
-<div class="line"><span class="lineno">  568</span>        $content .= <a class="code hl_function" href="#acdaa9952e54b0960d289e1511be757f6">self::debugStringBacktrace</a>() . PHP_EOL;</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00540">540</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  541</span>    {</div>
+<div class="line"><span class="lineno">  542</span>        <span class="keywordflow">if</span> (error_reporting() === 0) {</div>
+<div class="line"><span class="lineno">  543</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  544</span>        }</div>
+<div class="line"><span class="lineno">  545</span> </div>
+<div class="line"><span class="lineno">  546</span>        $errfile = <a class="code hl_function" href="../../d6/de4/classUtil.html#a7e1d6744781147aa7676da79f53b4db7">Util::formatUnixPath</a>($errfile);</div>
+<div class="line"><span class="lineno">  547</span>        $errfile = str_replace($this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>(), <span class="stringliteral">&#39;&#39;</span>, $errfile);</div>
+<div class="line"><span class="lineno">  548</span> </div>
+<div class="line"><span class="lineno">  549</span>        <span class="keywordflow">if</span> (!defined(<span class="stringliteral">&#39;E_DEPRECATED&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  550</span>            define(<span class="stringliteral">&#39;E_DEPRECATED&#39;</span>, 8192);</div>
+<div class="line"><span class="lineno">  551</span>        }</div>
+<div class="line"><span class="lineno">  552</span> </div>
+<div class="line"><span class="lineno">  553</span>        $errNames = array(</div>
+<div class="line"><span class="lineno">  554</span>            E_ERROR             =&gt; <span class="stringliteral">&#39;E_ERROR&#39;</span>,</div>
+<div class="line"><span class="lineno">  555</span>            E_WARNING           =&gt; <span class="stringliteral">&#39;E_WARNING&#39;</span>,</div>
+<div class="line"><span class="lineno">  556</span>            E_PARSE             =&gt; <span class="stringliteral">&#39;E_PARSE&#39;</span>,</div>
+<div class="line"><span class="lineno">  557</span>            E_NOTICE            =&gt; <span class="stringliteral">&#39;E_NOTICE&#39;</span>,</div>
+<div class="line"><span class="lineno">  558</span>            E_CORE_ERROR        =&gt; <span class="stringliteral">&#39;E_CORE_ERROR&#39;</span>,</div>
+<div class="line"><span class="lineno">  559</span>            E_CORE_WARNING      =&gt; <span class="stringliteral">&#39;E_CORE_WARNING&#39;</span>,</div>
+<div class="line"><span class="lineno">  560</span>            E_COMPILE_ERROR     =&gt; <span class="stringliteral">&#39;E_COMPILE_ERROR&#39;</span>,</div>
+<div class="line"><span class="lineno">  561</span>            E_COMPILE_WARNING   =&gt; <span class="stringliteral">&#39;E_COMPILE_WARNING&#39;</span>,</div>
+<div class="line"><span class="lineno">  562</span>            <a class="code hl_variable" href="../../da/dbf/winbinder_8php.html#af05301c7865c6bae066cb0add14dc6ec">E_USER_ERROR</a>        =&gt; <span class="stringliteral">&#39;E_USER_ERROR&#39;</span>,</div>
+<div class="line"><span class="lineno">  563</span>            E_USER_WARNING      =&gt; <span class="stringliteral">&#39;E_USER_WARNING&#39;</span>,</div>
+<div class="line"><span class="lineno">  564</span>            E_USER_NOTICE       =&gt; <span class="stringliteral">&#39;E_USER_NOTICE&#39;</span>,</div>
+<div class="line"><span class="lineno">  565</span>            E_STRICT            =&gt; <span class="stringliteral">&#39;E_STRICT&#39;</span>,</div>
+<div class="line"><span class="lineno">  566</span>            E_RECOVERABLE_ERROR =&gt; <span class="stringliteral">&#39;E_RECOVERABLE_ERROR&#39;</span>,</div>
+<div class="line"><span class="lineno">  567</span>            E_DEPRECATED        =&gt; <span class="stringliteral">&#39;E_DEPRECATED&#39;</span>,</div>
+<div class="line"><span class="lineno">  568</span>        );</div>
 <div class="line"><span class="lineno">  569</span> </div>
-<div class="line"><span class="lineno">  570</span>        file_put_contents($this-&gt;<a class="code hl_function" href="#a8bb760deeee837213b506e45baf184c6">getErrorLogFilePath</a>(), $content, FILE_APPEND);</div>
-<div class="line"><span class="lineno">  571</span>    }</div>
-<div class="ttc" id="aclassRoot_html_a8bb760deeee837213b506e45baf184c6"><div class="ttname"><a href="#a8bb760deeee837213b506e45baf184c6">Root\getErrorLogFilePath</a></div><div class="ttdeci">getErrorLogFilePath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00305">class.root.php:305</a></div></div>
-<div class="ttc" id="aclassRoot_html_acdaa9952e54b0960d289e1511be757f6"><div class="ttname"><a href="#acdaa9952e54b0960d289e1511be757f6">Root\debugStringBacktrace</a></div><div class="ttdeci">static debugStringBacktrace()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00578">class.root.php:578</a></div></div>
-<div class="ttc" id="aclassUtil_html_a7e1d6744781147aa7676da79f53b4db7"><div class="ttname"><a href="../../d6/de4/classUtil.html#a7e1d6744781147aa7676da79f53b4db7">Util\formatUnixPath</a></div><div class="ttdeci">static formatUnixPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00843">class.util.php:843</a></div></div>
+<div class="line"><span class="lineno">  570</span>        $content = <span class="charliteral">&#39;[&#39;</span> . date(<span class="stringliteral">&#39;Y-m-d H:i:s&#39;</span>, time()) . <span class="stringliteral">&#39;] &#39;</span>;</div>
+<div class="line"><span class="lineno">  571</span>        $content .= $errNames[$errno] . <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><span class="lineno">  572</span>        $content .= $errstr . <span class="stringliteral">&#39; in &#39;</span> .  $errfile;</div>
+<div class="line"><span class="lineno">  573</span>        $content .= <span class="stringliteral">&#39; on line &#39;</span> . $errline . PHP_EOL;</div>
+<div class="line"><span class="lineno">  574</span>        $content .= <a class="code hl_function" href="#acdaa9952e54b0960d289e1511be757f6">self::debugStringBacktrace</a>() . PHP_EOL;</div>
+<div class="line"><span class="lineno">  575</span> </div>
+<div class="line"><span class="lineno">  576</span>        file_put_contents($this-&gt;<a class="code hl_function" href="#a8bb760deeee837213b506e45baf184c6">getErrorLogFilePath</a>(), $content, FILE_APPEND);</div>
+<div class="line"><span class="lineno">  577</span>    }</div>
+<div class="ttc" id="aclassRoot_html_a8bb760deeee837213b506e45baf184c6"><div class="ttname"><a href="#a8bb760deeee837213b506e45baf184c6">Root\getErrorLogFilePath</a></div><div class="ttdeci">getErrorLogFilePath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00311">class.root.php:311</a></div></div>
+<div class="ttc" id="aclassRoot_html_acdaa9952e54b0960d289e1511be757f6"><div class="ttname"><a href="#acdaa9952e54b0960d289e1511be757f6">Root\debugStringBacktrace</a></div><div class="ttdeci">static debugStringBacktrace()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00584">class.root.php:584</a></div></div>
+<div class="ttc" id="aclassUtil_html_a7e1d6744781147aa7676da79f53b4db7"><div class="ttname"><a href="../../d6/de4/classUtil.html#a7e1d6744781147aa7676da79f53b4db7">Util\formatUnixPath</a></div><div class="ttdeci">static formatUnixPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00900">class.util.php:900</a></div></div>
 <div class="ttc" id="awinbinder_8php_html_af05301c7865c6bae066cb0add14dc6ec"><div class="ttname"><a href="../../da/dbf/winbinder_8php.html#af05301c7865c6bae066cb0add14dc6ec">E_USER_ERROR</a></div><div class="ttdeci">if(!extension_loaded('winbinder')) if(!dl('php_winbinder.dll')) trigger_error(&quot;WinBinder extension could not be loaded.\n&quot; E_USER_ERROR</div><div class="ttdef"><b>Definition</b> <a href="../../da/dbf/winbinder_8php_source.html#l00016">winbinder.php:14</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00578">debugStringBacktrace()</a>, <a class="el" href="../../da/dbf/winbinder_8php_source.html#l00014">E_USER_ERROR</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00843">Util\formatUnixPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00305">getErrorLogFilePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00584">debugStringBacktrace()</a>, <a class="el" href="../../da/dbf/winbinder_8php_source.html#l00014">E_USER_ERROR</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00900">Util\formatUnixPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00311">getErrorLogFilePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -489,12 +486,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The alias path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00140">140</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  141</span>    {</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/alias&#39;</span>;</div>
-<div class="line"><span class="lineno">  143</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00146">146</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  147</span>    {</div>
+<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/alias&#39;</span>;</div>
+<div class="line"><span class="lineno">  149</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -521,12 +518,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The apps path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00151">151</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  152</span>    {</div>
-<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/apps&#39;</span>;</div>
-<div class="line"><span class="lineno">  154</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00157">157</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>    {</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/apps&#39;</span>;</div>
+<div class="line"><span class="lineno">  160</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -553,13 +550,13 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The batch log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00360">360</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  361</span>    {</div>
-<div class="line"><span class="lineno">  362</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-batch.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  363</span>    }</div>
-<div class="ttc" id="aclassRoot_html_ad4495349d6188d3563649076d9cedca5"><div class="ttname"><a href="#ad4495349d6188d3563649076d9cedca5">Root\getLogsPath</a></div><div class="ttdeci">getLogsPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00184">class.root.php:184</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00366">366</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  367</span>    {</div>
+<div class="line"><span class="lineno">  368</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-batch.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  369</span>    }</div>
+<div class="ttc" id="aclassRoot_html_ad4495349d6188d3563649076d9cedca5"><div class="ttname"><a href="#ad4495349d6188d3563649076d9cedca5">Root\getLogsPath</a></div><div class="ttdeci">getLogsPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00190">class.root.php:190</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -586,12 +583,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The bin path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00162">162</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  163</span>    {</div>
-<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bin&#39;</span>;</div>
-<div class="line"><span class="lineno">  165</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00168">168</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>    {</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bin&#39;</span>;</div>
+<div class="line"><span class="lineno">  171</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -618,12 +615,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The configuration file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00261">261</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  262</span>    {</div>
-<div class="line"><span class="lineno">  263</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.conf&#39;</span>;</div>
-<div class="line"><span class="lineno">  264</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00267">267</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  268</span>    {</div>
+<div class="line"><span class="lineno">  269</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.conf&#39;</span>;</div>
+<div class="line"><span class="lineno">  270</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -650,15 +647,15 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The core path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00173">173</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  174</span>    {</div>
-<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">return</span> $aetrayPath ? $this-&gt;<a class="code hl_function" href="#ac294db39924512d49a7a4b5b2870883e">aetrayPath</a>($this-&gt;path) : $this-&gt;path;</div>
-<div class="line"><span class="lineno">  176</span>    }</div>
-<div class="ttc" id="aclassRoot_html_ac294db39924512d49a7a4b5b2870883e"><div class="ttname"><a href="#ac294db39924512d49a7a4b5b2870883e">Root\aetrayPath</a></div><div class="ttdeci">aetrayPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00128">class.root.php:128</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00179">179</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  180</span>    {</div>
+<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">return</span> $aetrayPath ? $this-&gt;<a class="code hl_function" href="#ac294db39924512d49a7a4b5b2870883e">aetrayPath</a>($this-&gt;path) : $this-&gt;path;</div>
+<div class="line"><span class="lineno">  182</span>    }</div>
+<div class="ttc" id="aclassRoot_html_ac294db39924512d49a7a4b5b2870883e"><div class="ttname"><a href="#ac294db39924512d49a7a4b5b2870883e">Root\aetrayPath</a></div><div class="ttdeci">aetrayPath($path)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00134">class.root.php:134</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00014">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00128">aetrayPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00020">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00134">aetrayPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -692,14 +689,14 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The error log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00305">305</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  306</span>    {</div>
-<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-error.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  308</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00311">311</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  312</span>    {</div>
+<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-error.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  314</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00534">errorHandler()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00071">initErrorHandling()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00540">errorHandler()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00077">initErrorHandling()</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -733,12 +730,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The executable file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00250">250</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  251</span>    {</div>
-<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.exe&#39;</span>;</div>
-<div class="line"><span class="lineno">  253</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00256">256</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  257</span>    {</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.exe&#39;</span>;</div>
+<div class="line"><span class="lineno">  259</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -765,13 +762,13 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The homepage file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00404">404</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  405</span>    {</div>
-<div class="line"><span class="lineno">  406</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a7a4cacb869137dd8cbe7072a1afc3e44">getWwwPath</a>($aetrayPath) . <span class="stringliteral">&#39;/index.php&#39;</span>;</div>
-<div class="line"><span class="lineno">  407</span>    }</div>
-<div class="ttc" id="aclassRoot_html_a7a4cacb869137dd8cbe7072a1afc3e44"><div class="ttname"><a href="#a7a4cacb869137dd8cbe7072a1afc3e44">Root\getWwwPath</a></div><div class="ttdeci">getWwwPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00239">class.root.php:239</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00410">410</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  411</span>    {</div>
+<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a7a4cacb869137dd8cbe7072a1afc3e44">getWwwPath</a>($aetrayPath) . <span class="stringliteral">&#39;/index.php&#39;</span>;</div>
+<div class="line"><span class="lineno">  413</span>    }</div>
+<div class="ttc" id="aclassRoot_html_a7a4cacb869137dd8cbe7072a1afc3e44"><div class="ttname"><a href="#a7a4cacb869137dd8cbe7072a1afc3e44">Root\getWwwPath</a></div><div class="ttdeci">getWwwPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00245">class.root.php:245</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00239">getWwwPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00245">getWwwPath()</a>.</p>
 
 </div>
 </div>
@@ -798,12 +795,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The homepage log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00316">316</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  317</span>    {</div>
-<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-homepage.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  319</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00322">322</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  323</span>    {</div>
+<div class="line"><span class="lineno">  324</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-homepage.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  325</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -830,12 +827,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The INI file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00272">272</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  273</span>    {</div>
-<div class="line"><span class="lineno">  274</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.ini&#39;</span>;</div>
-<div class="line"><span class="lineno">  275</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00278">278</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  279</span>    {</div>
+<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.ini&#39;</span>;</div>
+<div class="line"><span class="lineno">  281</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -862,14 +859,14 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The constructed local URL. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00425">425</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  426</span>    {</div>
-<div class="line"><span class="lineno">  427</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  428</span>        <span class="keywordflow">return</span> (isset($_SERVER[<span class="stringliteral">&#39;HTTPS&#39;</span>]) ? <span class="stringliteral">&#39;https://&#39;</span> : <span class="stringliteral">&#39;http://&#39;</span>) .</div>
-<div class="line"><span class="lineno">  429</span>            (isset($_SERVER[<span class="stringliteral">&#39;SERVER_NAME&#39;</span>]) ? $_SERVER[<span class="stringliteral">&#39;SERVER_NAME&#39;</span>] : <span class="stringliteral">&#39;localhost&#39;</span>) .</div>
-<div class="line"><span class="lineno">  430</span>            (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getPort() != 80 &amp;&amp; !isset($_SERVER[<span class="stringliteral">&#39;HTTPS&#39;</span>]) ? <span class="stringliteral">&#39;:&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getPort() : <span class="stringliteral">&#39;&#39;</span>) .</div>
-<div class="line"><span class="lineno">  431</span>            (!empty($request) ? <span class="stringliteral">&#39;/&#39;</span> . $request : <span class="stringliteral">&#39;&#39;</span>);</div>
-<div class="line"><span class="lineno">  432</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00431">431</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  432</span>    {</div>
+<div class="line"><span class="lineno">  433</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  434</span>        <span class="keywordflow">return</span> (isset($_SERVER[<span class="stringliteral">&#39;HTTPS&#39;</span>]) ? <span class="stringliteral">&#39;https://&#39;</span> : <span class="stringliteral">&#39;http://&#39;</span>) .</div>
+<div class="line"><span class="lineno">  435</span>            (isset($_SERVER[<span class="stringliteral">&#39;SERVER_NAME&#39;</span>]) ? $_SERVER[<span class="stringliteral">&#39;SERVER_NAME&#39;</span>] : <span class="stringliteral">&#39;localhost&#39;</span>) .</div>
+<div class="line"><span class="lineno">  436</span>            (<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getPort() != 80 &amp;&amp; !isset($_SERVER[<span class="stringliteral">&#39;HTTPS&#39;</span>]) ? <span class="stringliteral">&#39;:&#39;</span> . <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>-&gt;getApache()-&gt;getPort() : <span class="stringliteral">&#39;&#39;</span>) .</div>
+<div class="line"><span class="lineno">  437</span>            (!empty($request) ? <span class="stringliteral">&#39;/&#39;</span> . $request : <span class="stringliteral">&#39;&#39;</span>);</div>
+<div class="line"><span class="lineno">  438</span>    }</div>
 <div class="ttc" id="aajax_8apache_8php_html_a682f09b349e25300b21585300a71d17c"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a></div><div class="ttdeci">global $bearsamppBins</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>.</p>
@@ -899,12 +896,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00294">294</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  295</span>    {</div>
-<div class="line"><span class="lineno">  296</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  297</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00300">300</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  301</span>    {</div>
+<div class="line"><span class="lineno">  302</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  303</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -931,14 +928,14 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The logs path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">184</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  185</span>    {</div>
-<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/logs&#39;</span>;</div>
-<div class="line"><span class="lineno">  187</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">190</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>    {</div>
+<div class="line"><span class="lineno">  192</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/logs&#39;</span>;</div>
+<div class="line"><span class="lineno">  193</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00360">getBatchLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00305">getErrorLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00316">getHomepageLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00294">getLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00393">getNssmLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00338">getRegistryLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00327">getServicesLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00349">getStartupLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00371">getVbsLogFilePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00382">getWinbinderLogFilePath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00366">getBatchLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00311">getErrorLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00322">getHomepageLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00300">getLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00399">getNssmLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00344">getRegistryLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00333">getServicesLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00355">getStartupLogFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00377">getVbsLogFilePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00388">getWinbinderLogFilePath()</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -972,12 +969,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The NSSM log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00393">393</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  394</span>    {</div>
-<div class="line"><span class="lineno">  395</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-nssm.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  396</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00399">399</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  400</span>    {</div>
+<div class="line"><span class="lineno">  401</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-nssm.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  402</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -998,10 +995,10 @@ Private Attributes</h2></td></tr>
 <p>Gets the name of the process.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The process name. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00414">414</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  415</span>    {</div>
-<div class="line"><span class="lineno">  416</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;bearsampp&#39;</span>;</div>
-<div class="line"><span class="lineno">  417</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00420">420</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  421</span>    {</div>
+<div class="line"><span class="lineno">  422</span>        <span class="keywordflow">return</span> <span class="stringliteral">&#39;bearsampp&#39;</span>;</div>
+<div class="line"><span class="lineno">  423</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1022,13 +1019,13 @@ Private Attributes</h2></td></tr>
 <p>Retrieves the list of processes.</p>
 <dl class="section return"><dt>Returns</dt><dd>array The list of processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00095">95</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   96</span>    {</div>
-<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae6012f5bdb7b2424f58c4fbe31163067">$this-&gt;procs</a>;</div>
-<div class="line"><span class="lineno">   98</span>    }</div>
-<div class="ttc" id="aclassRoot_html_ae6012f5bdb7b2424f58c4fbe31163067"><div class="ttname"><a href="#ae6012f5bdb7b2424f58c4fbe31163067">Root\$procs</a></div><div class="ttdeci">$procs</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00015">class.root.php:15</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00101">101</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>    {</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae6012f5bdb7b2424f58c4fbe31163067">$this-&gt;procs</a>;</div>
+<div class="line"><span class="lineno">  104</span>    }</div>
+<div class="ttc" id="aclassRoot_html_ae6012f5bdb7b2424f58c4fbe31163067"><div class="ttname"><a href="#ae6012f5bdb7b2424f58c4fbe31163067">Root\$procs</a></div><div class="ttdeci">$procs</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00021">class.root.php:21</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00015">$procs</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00021">$procs</a>.</p>
 
 </div>
 </div>
@@ -1055,12 +1052,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The registry log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00338">338</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  339</span>    {</div>
-<div class="line"><span class="lineno">  340</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-registry.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  341</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00344">344</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  345</span>    {</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-registry.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  347</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -1087,15 +1084,15 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The root path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">116</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  117</span>    {</div>
-<div class="line"><span class="lineno">  118</span>        <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a> = dirname($this-&gt;path);</div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> $aetrayPath ? $this-&gt;<a class="code hl_function" href="#ac294db39924512d49a7a4b5b2870883e">aetrayPath</a>(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>) : <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>;</div>
-<div class="line"><span class="lineno">  120</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">122</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  123</span>    {</div>
+<div class="line"><span class="lineno">  124</span>        <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a> = dirname($this-&gt;path);</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">return</span> $aetrayPath ? $this-&gt;<a class="code hl_function" href="#ac294db39924512d49a7a4b5b2870883e">aetrayPath</a>(<a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>) : <a class="code hl_variable" href="#a5a41c73079d7ae565ea16b67d3344a22">$path</a>;</div>
+<div class="line"><span class="lineno">  126</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00014">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00128">aetrayPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00020">$path</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00134">aetrayPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00128">aetrayPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00534">errorHandler()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00140">getAliasPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00151">getAppsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00162">getBinPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00261">getConfigFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00250">getExeFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00272">getIniFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00195">getSslPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00206">getTmpPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00217">getToolsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00228">getVhostsPath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00239">getWwwPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00134">aetrayPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00540">errorHandler()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00146">getAliasPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00157">getAppsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00168">getBinPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00267">getConfigFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00256">getExeFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00278">getIniFilePath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00201">getSslPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00212">getTmpPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00223">getToolsPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00234">getVhostsPath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00245">getWwwPath()</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -1129,12 +1126,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The services log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00327">327</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  328</span>    {</div>
-<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-services.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  330</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00333">333</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  334</span>    {</div>
+<div class="line"><span class="lineno">  335</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-services.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  336</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -1161,13 +1158,13 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The SSL configuration file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00283">283</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  284</span>    {</div>
-<div class="line"><span class="lineno">  285</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#abdf2f4c3b7f9cfea945250de064a111e">getSslPath</a>($aetrayPath) . <span class="stringliteral">&#39;/openssl.cnf&#39;</span>;</div>
-<div class="line"><span class="lineno">  286</span>    }</div>
-<div class="ttc" id="aclassRoot_html_abdf2f4c3b7f9cfea945250de064a111e"><div class="ttname"><a href="#abdf2f4c3b7f9cfea945250de064a111e">Root\getSslPath</a></div><div class="ttdeci">getSslPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00195">class.root.php:195</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00289">289</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  290</span>    {</div>
+<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#abdf2f4c3b7f9cfea945250de064a111e">getSslPath</a>($aetrayPath) . <span class="stringliteral">&#39;/openssl.cnf&#39;</span>;</div>
+<div class="line"><span class="lineno">  292</span>    }</div>
+<div class="ttc" id="aclassRoot_html_abdf2f4c3b7f9cfea945250de064a111e"><div class="ttname"><a href="#abdf2f4c3b7f9cfea945250de064a111e">Root\getSslPath</a></div><div class="ttdeci">getSslPath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00201">class.root.php:201</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00195">getSslPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00201">getSslPath()</a>.</p>
 
 </div>
 </div>
@@ -1194,14 +1191,14 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The SSL path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00195">195</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  196</span>    {</div>
-<div class="line"><span class="lineno">  197</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/ssl&#39;</span>;</div>
-<div class="line"><span class="lineno">  198</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00201">201</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  202</span>    {</div>
+<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/ssl&#39;</span>;</div>
+<div class="line"><span class="lineno">  204</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00283">getSslConfPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00289">getSslConfPath()</a>.</p>
 <div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1235,12 +1232,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The startup log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00349">349</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  350</span>    {</div>
-<div class="line"><span class="lineno">  351</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-startup.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  352</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00355">355</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  356</span>    {</div>
+<div class="line"><span class="lineno">  357</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-startup.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  358</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -1267,12 +1264,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The temporary path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00206">206</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  207</span>    {</div>
-<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/tmp&#39;</span>;</div>
-<div class="line"><span class="lineno">  209</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00212">212</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  213</span>    {</div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/tmp&#39;</span>;</div>
+<div class="line"><span class="lineno">  215</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -1299,12 +1296,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The tools path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00217">217</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  218</span>    {</div>
-<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/tools&#39;</span>;</div>
-<div class="line"><span class="lineno">  220</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00223">223</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  224</span>    {</div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/tools&#39;</span>;</div>
+<div class="line"><span class="lineno">  226</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -1331,12 +1328,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The VBS log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00371">371</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  372</span>    {</div>
-<div class="line"><span class="lineno">  373</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-vbs.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  374</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00377">377</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  378</span>    {</div>
+<div class="line"><span class="lineno">  379</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-vbs.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  380</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -1363,12 +1360,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The virtual hosts path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00228">228</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  229</span>    {</div>
-<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/vhosts&#39;</span>;</div>
-<div class="line"><span class="lineno">  231</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00234">234</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  235</span>    {</div>
+<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/vhosts&#39;</span>;</div>
+<div class="line"><span class="lineno">  237</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -1395,12 +1392,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The Winbinder log file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00382">382</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  383</span>    {</div>
-<div class="line"><span class="lineno">  384</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-winbinder.log&#39;</span>;</div>
-<div class="line"><span class="lineno">  385</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00388">388</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  389</span>    {</div>
+<div class="line"><span class="lineno">  390</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ad4495349d6188d3563649076d9cedca5">getLogsPath</a>($aetrayPath) . <span class="stringliteral">&#39;/bearsampp-winbinder.log&#39;</span>;</div>
+<div class="line"><span class="lineno">  391</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00184">getLogsPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00190">getLogsPath()</a>.</p>
 
 </div>
 </div>
@@ -1427,14 +1424,14 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string The WWW path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00239">239</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  240</span>    {</div>
-<div class="line"><span class="lineno">  241</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/www&#39;</span>;</div>
-<div class="line"><span class="lineno">  242</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00245">245</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  246</span>    {</div>
+<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#ab5d7ed743b7131977e4ccde6bd58a7de">getRootPath</a>($aetrayPath) . <span class="stringliteral">&#39;/www&#39;</span>;</div>
+<div class="line"><span class="lineno">  248</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00404">getHomepageFilePath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00410">getHomepageFilePath()</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1461,17 +1458,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Initializes error handling settings for the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00071">71</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
-<div class="line"><span class="lineno">   73</span>        error_reporting(-1);</div>
-<div class="line"><span class="lineno">   74</span>        ini_set(<span class="stringliteral">&#39;error_log&#39;</span>, $this-&gt;<a class="code hl_function" href="#a8bb760deeee837213b506e45baf184c6">getErrorLogFilePath</a>());</div>
-<div class="line"><span class="lineno">   75</span>        ini_set(<span class="stringliteral">&#39;display_errors&#39;</span>, <span class="charliteral">&#39;1&#39;</span>);</div>
-<div class="line"><span class="lineno">   76</span>        set_error_handler(array($this, self::ERROR_HANDLER));</div>
-<div class="line"><span class="lineno">   77</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00077">77</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
+<div class="line"><span class="lineno">   79</span>        error_reporting(-1);</div>
+<div class="line"><span class="lineno">   80</span>        ini_set(<span class="stringliteral">&#39;error_log&#39;</span>, $this-&gt;<a class="code hl_function" href="#a8bb760deeee837213b506e45baf184c6">getErrorLogFilePath</a>());</div>
+<div class="line"><span class="lineno">   81</span>        ini_set(<span class="stringliteral">&#39;display_errors&#39;</span>, <span class="charliteral">&#39;1&#39;</span>);</div>
+<div class="line"><span class="lineno">   82</span>        set_error_handler(array($this, self::ERROR_HANDLER));</div>
+<div class="line"><span class="lineno">   83</span>    }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00305">getErrorLogFilePath()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00311">getErrorLogFilePath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1499,15 +1496,15 @@ Private Attributes</h2></td></tr>
 <p>Checks if the current script is executed from the root path.</p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if executed from the root, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00105">105</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>    {</div>
-<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#adb2d346f4e2325331964090cd00e9127">$this-&gt;isRoot</a>;</div>
-<div class="line"><span class="lineno">  108</span>    }</div>
-<div class="ttc" id="aclassRoot_html_adb2d346f4e2325331964090cd00e9127"><div class="ttname"><a href="#adb2d346f4e2325331964090cd00e9127">Root\$isRoot</a></div><div class="ttdeci">$isRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00016">class.root.php:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00111">111</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  112</span>    {</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#adb2d346f4e2325331964090cd00e9127">$this-&gt;isRoot</a>;</div>
+<div class="line"><span class="lineno">  114</span>    }</div>
+<div class="ttc" id="aclassRoot_html_adb2d346f4e2325331964090cd00e9127"><div class="ttname"><a href="#adb2d346f4e2325331964090cd00e9127">Root\$isRoot</a></div><div class="ttdeci">$isRoot</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00022">class.root.php:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00016">$isRoot</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00022">$isRoot</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00023">__construct()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00029">__construct()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1542,14 +1539,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the apps components of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00491">491</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  492</span>    {</div>
-<div class="line"><span class="lineno">  493</span>        global $bearsamppApps;</div>
-<div class="line"><span class="lineno">  494</span>        $bearsamppApps = <span class="keyword">new</span> <a class="code hl_class" href="../../d1/d0e/classApps.html">Apps</a>();</div>
-<div class="line"><span class="lineno">  495</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00497">497</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  498</span>    {</div>
+<div class="line"><span class="lineno">  499</span>        global $bearsamppApps;</div>
+<div class="line"><span class="lineno">  500</span>        $bearsamppApps = <span class="keyword">new</span> <a class="code hl_class" href="../../d1/d0e/classApps.html">Apps</a>();</div>
+<div class="line"><span class="lineno">  501</span>    }</div>
 <div class="ttc" id="aclassApps_html"><div class="ttname"><a href="../../d1/d0e/classApps.html">Apps</a></div><div class="ttdef"><b>Definition</b> <a href="../../d1/dd3/class_8apps_8php_source.html#l00016">class.apps.php:17</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1584,16 +1581,16 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the binary components of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00473">473</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  474</span>    {</div>
-<div class="line"><span class="lineno">  475</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
-<div class="line"><span class="lineno">  476</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../de/d54/classBins.html">Bins</a>();</div>
-<div class="line"><span class="lineno">  477</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00479">479</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  480</span>    {</div>
+<div class="line"><span class="lineno">  481</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a>;</div>
+<div class="line"><span class="lineno">  482</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a682f09b349e25300b21585300a71d17c">$bearsamppBins</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../de/d54/classBins.html">Bins</a>();</div>
+<div class="line"><span class="lineno">  483</span>    }</div>
 <div class="ttc" id="aclassBins_html"><div class="ttname"><a href="../../de/d54/classBins.html">Bins</a></div><div class="ttdef"><b>Definition</b> <a href="../../dc/d48/class_8bins_8php_source.html#l00010">class.bins.php:11</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppBins</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1628,17 +1625,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the configuration settings of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00446">446</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  447</span>    {</div>
-<div class="line"><span class="lineno">  448</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">  449</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../d9/df9/classConfig.html">Config</a>();</div>
-<div class="line"><span class="lineno">  450</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00452">452</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  453</span>    {</div>
+<div class="line"><span class="lineno">  454</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">  455</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../d9/df9/classConfig.html">Config</a>();</div>
+<div class="line"><span class="lineno">  456</span>    }</div>
 <div class="ttc" id="aclassConfig_html"><div class="ttname"><a href="../../d9/df9/classConfig.html">Config</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00016">class.config.php:17</a></div></div>
-<div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
+<div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00026">homepage.php:26</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppConfig</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d4b/class_8action_8switchVersion_8php_source.html#l00169">ActionSwitchVersion\processWindow()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d4b/class_8action_8switchVersion_8php_source.html#l00169">ActionSwitchVersion\processWindow()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1673,17 +1670,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the core components of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00437">437</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  438</span>    {</div>
-<div class="line"><span class="lineno">  439</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
-<div class="line"><span class="lineno">  440</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d6d/classCore.html">Core</a>();</div>
-<div class="line"><span class="lineno">  441</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00443">443</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  444</span>    {</div>
+<div class="line"><span class="lineno">  445</span>        global <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a>;</div>
+<div class="line"><span class="lineno">  446</span>        <a class="code hl_variable" href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d6d/classCore.html">Core</a>();</div>
+<div class="line"><span class="lineno">  447</span>    }</div>
 <div class="ttc" id="aajax_8latestversion_8php_html_adbfa2152f4bc29f5de1967eb55b09198"><div class="ttname"><a href="../../da/dd5/ajax_8latestversion_8php.html#adbfa2152f4bc29f5de1967eb55b09198">$bearsamppCore</a></div><div class="ttdeci">global $bearsamppCore</div><div class="ttdef"><b>Definition</b> <a href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">ajax.latestversion.php:24</a></div></div>
 <div class="ttc" id="aclassCore_html"><div class="ttname"><a href="../../db/d6d/classCore.html">Core</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/d0e/class_8core_8php_source.html#l00017">class.core.php:18</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../da/dd5/ajax_8latestversion_8php_source.html#l00024">$bearsamppCore</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1718,17 +1715,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the homepage settings of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00520">520</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  521</span>    {</div>
-<div class="line"><span class="lineno">  522</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>;</div>
-<div class="line"><span class="lineno">  523</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../d4/ddb/classHomepage.html">Homepage</a>();</div>
-<div class="line"><span class="lineno">  524</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00526">526</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  527</span>    {</div>
+<div class="line"><span class="lineno">  528</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a>;</div>
+<div class="line"><span class="lineno">  529</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../d4/ddb/classHomepage.html">Homepage</a>();</div>
+<div class="line"><span class="lineno">  530</span>    }</div>
 <div class="ttc" id="aclassHomepage_html"><div class="ttname"><a href="../../d4/ddb/classHomepage.html">Homepage</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/d2b/class_8homepage_8php_source.html#l00016">class.homepage.php:17</a></div></div>
-<div class="ttc" id="ahomepage_8php_html_a565b46ef3900acf8acf4a0e06e824f77"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a></div><div class="ttdeci">global $bearsamppHomepage</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00024">homepage.php:24</a></div></div>
+<div class="ttc" id="ahomepage_8php_html_a565b46ef3900acf8acf4a0e06e824f77"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a565b46ef3900acf8acf4a0e06e824f77">$bearsamppHomepage</a></div><div class="ttdeci">global $bearsamppHomepage</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00026">homepage.php:26</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00024">$bearsamppHomepage</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppHomepage</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1763,17 +1760,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the language settings of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00455">455</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  456</span>    {</div>
-<div class="line"><span class="lineno">  457</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
-<div class="line"><span class="lineno">  458</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../da/df6/classLangProc.html">LangProc</a>();</div>
-<div class="line"><span class="lineno">  459</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00461">461</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  462</span>    {</div>
+<div class="line"><span class="lineno">  463</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">  464</span>        <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../da/df6/classLangProc.html">LangProc</a>();</div>
+<div class="line"><span class="lineno">  465</span>    }</div>
 <div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
 <div class="ttc" id="aclassLangProc_html"><div class="ttname"><a href="../../da/df6/classLangProc.html">LangProc</a></div><div class="ttdef"><b>Definition</b> <a href="../../d6/d2a/class_8langproc_8php_source.html#l00016">class.langproc.php:17</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1808,14 +1805,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the OpenSSL settings of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00464">464</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  465</span>    {</div>
-<div class="line"><span class="lineno">  466</span>        global $bearsamppOpenSsl;</div>
-<div class="line"><span class="lineno">  467</span>        $bearsamppOpenSsl = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d46/classOpenSsl.html">OpenSsl</a>();</div>
-<div class="line"><span class="lineno">  468</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00470">470</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  471</span>    {</div>
+<div class="line"><span class="lineno">  472</span>        global $bearsamppOpenSsl;</div>
+<div class="line"><span class="lineno">  473</span>        $bearsamppOpenSsl = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d46/classOpenSsl.html">OpenSsl</a>();</div>
+<div class="line"><span class="lineno">  474</span>    }</div>
 <div class="ttc" id="aclassOpenSsl_html"><div class="ttname"><a href="../../db/d46/classOpenSsl.html">OpenSsl</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/d7d/class_8openssl_8php_source.html#l00010">class.openssl.php:11</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1850,14 +1847,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the registry settings of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00511">511</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  512</span>    {</div>
-<div class="line"><span class="lineno">  513</span>        global $bearsamppRegistry;</div>
-<div class="line"><span class="lineno">  514</span>        $bearsamppRegistry = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d0d/classRegistry.html">Registry</a>();</div>
-<div class="line"><span class="lineno">  515</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00517">517</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  518</span>    {</div>
+<div class="line"><span class="lineno">  519</span>        global $bearsamppRegistry;</div>
+<div class="line"><span class="lineno">  520</span>        $bearsamppRegistry = <span class="keyword">new</span> <a class="code hl_class" href="../../db/d0d/classRegistry.html">Registry</a>();</div>
+<div class="line"><span class="lineno">  521</span>    }</div>
 <div class="ttc" id="aclassRegistry_html"><div class="ttname"><a href="../../db/d0d/classRegistry.html">Registry</a></div><div class="ttdef"><b>Definition</b> <a href="../../d7/dbf/class_8registry_8php_source.html#l00017">class.registry.php:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1892,14 +1889,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the tools components of the application. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00482">482</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  483</span>    {</div>
-<div class="line"><span class="lineno">  484</span>        global $bearsamppTools;</div>
-<div class="line"><span class="lineno">  485</span>        $bearsamppTools = <span class="keyword">new</span> <a class="code hl_class" href="../../de/db2/classTools.html">Tools</a>();</div>
-<div class="line"><span class="lineno">  486</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00488">488</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  489</span>    {</div>
+<div class="line"><span class="lineno">  490</span>        global $bearsamppTools;</div>
+<div class="line"><span class="lineno">  491</span>        $bearsamppTools = <span class="keyword">new</span> <a class="code hl_class" href="../../de/db2/classTools.html">Tools</a>();</div>
+<div class="line"><span class="lineno">  492</span>    }</div>
 <div class="ttc" id="aclassTools_html"><div class="ttname"><a href="../../de/db2/classTools.html">Tools</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/d61/class_8tools_8php_source.html#l00016">class.tools.php:17</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1934,16 +1931,16 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the Winbinder extension if available. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00500">500</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  501</span>    {</div>
-<div class="line"><span class="lineno">  502</span>        global $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">  503</span>        <span class="keywordflow">if</span> (extension_loaded(<span class="stringliteral">&#39;winbinder&#39;</span>)) {</div>
-<div class="line"><span class="lineno">  504</span>            $bearsamppWinbinder = <span class="keyword">new</span> <a class="code hl_class" href="../../db/da5/classWinBinder.html">WinBinder</a>();</div>
-<div class="line"><span class="lineno">  505</span>        }</div>
-<div class="line"><span class="lineno">  506</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00506">506</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  507</span>    {</div>
+<div class="line"><span class="lineno">  508</span>        global $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  509</span>        <span class="keywordflow">if</span> (extension_loaded(<span class="stringliteral">&#39;winbinder&#39;</span>)) {</div>
+<div class="line"><span class="lineno">  510</span>            $bearsamppWinbinder = <span class="keyword">new</span> <a class="code hl_class" href="../../db/da5/classWinBinder.html">WinBinder</a>();</div>
+<div class="line"><span class="lineno">  511</span>        }</div>
+<div class="line"><span class="lineno">  512</span>    }</div>
 <div class="ttc" id="aclassWinBinder_html"><div class="ttname"><a href="../../db/da5/classWinBinder.html">WinBinder</a></div><div class="ttdef"><b>Definition</b> <a href="../../d0/d9c/class_8winbinder_8php_source.html#l00017">class.winbinder.php:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">register()</a>.</p>
 <div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -1970,58 +1967,58 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Registers the application components and initializes error handling. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00032">32</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>    {</div>
-<div class="line"><span class="lineno">   34</span>        <span class="comment">// Params</span></div>
-<div class="line"><span class="lineno">   35</span>        set_time_limit(0);</div>
-<div class="line"><span class="lineno">   36</span>        clearstatcache();</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>        <span class="comment">// Error log</span></div>
-<div class="line"><span class="lineno">   39</span>        $this-&gt;<a class="code hl_function" href="#a3ab3bb71b33fd517d5a60bd8568849f4">initErrorHandling</a>();</div>
-<div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>        <span class="comment">// External classes</span></div>
-<div class="line"><span class="lineno">   42</span>        require_once $this-&gt;<a class="code hl_function" href="#a774cac1645c02419b1991d0692ceed17">getCorePath</a>() . <span class="stringliteral">&#39;/classes/class.util.php&#39;</span>;</div>
-<div class="line"><span class="lineno">   43</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a2bbde5625aa6eac91cd943f492ddcd68">Util::logSeparator</a>();</div>
-<div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span>        <span class="comment">// Autoloader</span></div>
-<div class="line"><span class="lineno">   46</span>        require_once $this-&gt;<a class="code hl_function" href="#a774cac1645c02419b1991d0692ceed17">getCorePath</a>() . <span class="stringliteral">&#39;/classes/class.autoloader.php&#39;</span>;</div>
-<div class="line"><span class="lineno">   47</span>        $bearsamppAutoloader = <span class="keyword">new</span> <a class="code hl_class" href="../../df/d3d/classAutoloader.html">Autoloader</a>();</div>
-<div class="line"><span class="lineno">   48</span>        $bearsamppAutoloader-&gt;register();</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>        <span class="comment">// Load</span></div>
-<div class="line"><span class="lineno">   51</span>        <a class="code hl_function" href="#ae23c747945424477047fe76727c5862f">self::loadCore</a>();</div>
-<div class="line"><span class="lineno">   52</span>        <a class="code hl_function" href="#a086e36dab510c22eecf5c3c737e454f6">self::loadConfig</a>();</div>
-<div class="line"><span class="lineno">   53</span>        <a class="code hl_function" href="#aa2103d7e7d03199ddaf1a50862be28d2">self::loadLang</a>();</div>
-<div class="line"><span class="lineno">   54</span>        <a class="code hl_function" href="#a8d3a79e13c5bd8385d915701e4db2e56">self::loadOpenSsl</a>();</div>
-<div class="line"><span class="lineno">   55</span>        <a class="code hl_function" href="#a41c3fa925e8e8f9fa887915d426d1781">self::loadBins</a>();</div>
-<div class="line"><span class="lineno">   56</span>        <a class="code hl_function" href="#a8ddf4707f46659ed9e7f64463755877d">self::loadTools</a>();</div>
-<div class="line"><span class="lineno">   57</span>        <a class="code hl_function" href="#aef34347d182b98358d9416ed319dbe1f">self::loadApps</a>();</div>
-<div class="line"><span class="lineno">   58</span>        <a class="code hl_function" href="#a9943f5e7c00921cc8738d855029c48c1">self::loadWinbinder</a>();</div>
-<div class="line"><span class="lineno">   59</span>        <a class="code hl_function" href="#a930000ebec5c989c50a231f2be4467b0">self::loadRegistry</a>();</div>
-<div class="line"><span class="lineno">   60</span>        <a class="code hl_function" href="#ae90fecb17b764da47318b9c3984b769a">self::loadHomepage</a>();</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>        <span class="comment">// Init</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="#ab62015debc85ae32d551495a1ca86d8e">isRoot</a>) {</div>
-<div class="line"><span class="lineno">   64</span>            $this-&gt;procs = <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#afea33a59c09d4c9e2fe1bdf0d5b1d406">Win32Ps::getListProcs</a>();</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="line"><span class="lineno">   66</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00038">38</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>        <span class="comment">// Params</span></div>
+<div class="line"><span class="lineno">   41</span>        set_time_limit(0);</div>
+<div class="line"><span class="lineno">   42</span>        clearstatcache();</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>        <span class="comment">// Error log</span></div>
+<div class="line"><span class="lineno">   45</span>        $this-&gt;<a class="code hl_function" href="#a3ab3bb71b33fd517d5a60bd8568849f4">initErrorHandling</a>();</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>        <span class="comment">// External classes</span></div>
+<div class="line"><span class="lineno">   48</span>        require_once $this-&gt;<a class="code hl_function" href="#a774cac1645c02419b1991d0692ceed17">getCorePath</a>() . <span class="stringliteral">&#39;/classes/class.util.php&#39;</span>;</div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a2bbde5625aa6eac91cd943f492ddcd68">Util::logSeparator</a>();</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>        <span class="comment">// Autoloader</span></div>
+<div class="line"><span class="lineno">   52</span>        require_once $this-&gt;<a class="code hl_function" href="#a774cac1645c02419b1991d0692ceed17">getCorePath</a>() . <span class="stringliteral">&#39;/classes/class.autoloader.php&#39;</span>;</div>
+<div class="line"><span class="lineno">   53</span>        $bearsamppAutoloader = <span class="keyword">new</span> <a class="code hl_class" href="../../df/d3d/classAutoloader.html">Autoloader</a>();</div>
+<div class="line"><span class="lineno">   54</span>        $bearsamppAutoloader-&gt;register();</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        <span class="comment">// Load</span></div>
+<div class="line"><span class="lineno">   57</span>        <a class="code hl_function" href="#ae23c747945424477047fe76727c5862f">self::loadCore</a>();</div>
+<div class="line"><span class="lineno">   58</span>        <a class="code hl_function" href="#a086e36dab510c22eecf5c3c737e454f6">self::loadConfig</a>();</div>
+<div class="line"><span class="lineno">   59</span>        <a class="code hl_function" href="#aa2103d7e7d03199ddaf1a50862be28d2">self::loadLang</a>();</div>
+<div class="line"><span class="lineno">   60</span>        <a class="code hl_function" href="#a8d3a79e13c5bd8385d915701e4db2e56">self::loadOpenSsl</a>();</div>
+<div class="line"><span class="lineno">   61</span>        <a class="code hl_function" href="#a41c3fa925e8e8f9fa887915d426d1781">self::loadBins</a>();</div>
+<div class="line"><span class="lineno">   62</span>        <a class="code hl_function" href="#a8ddf4707f46659ed9e7f64463755877d">self::loadTools</a>();</div>
+<div class="line"><span class="lineno">   63</span>        <a class="code hl_function" href="#aef34347d182b98358d9416ed319dbe1f">self::loadApps</a>();</div>
+<div class="line"><span class="lineno">   64</span>        <a class="code hl_function" href="#a9943f5e7c00921cc8738d855029c48c1">self::loadWinbinder</a>();</div>
+<div class="line"><span class="lineno">   65</span>        <a class="code hl_function" href="#a930000ebec5c989c50a231f2be4467b0">self::loadRegistry</a>();</div>
+<div class="line"><span class="lineno">   66</span>        <a class="code hl_function" href="#ae90fecb17b764da47318b9c3984b769a">self::loadHomepage</a>();</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>        <span class="comment">// Init</span></div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="#ab62015debc85ae32d551495a1ca86d8e">isRoot</a>) {</div>
+<div class="line"><span class="lineno">   70</span>            $this-&gt;procs = <a class="code hl_function" href="../../dc/ddb/classWin32Ps.html#afea33a59c09d4c9e2fe1bdf0d5b1d406">Win32Ps::getListProcs</a>();</div>
+<div class="line"><span class="lineno">   71</span>        }</div>
+<div class="line"><span class="lineno">   72</span>    }</div>
 <div class="ttc" id="aclassAutoloader_html"><div class="ttname"><a href="../../df/d3d/classAutoloader.html">Autoloader</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/d40/class_8autoloader_8php_source.html#l00016">class.autoloader.php:17</a></div></div>
-<div class="ttc" id="aclassRoot_html_a086e36dab510c22eecf5c3c737e454f6"><div class="ttname"><a href="#a086e36dab510c22eecf5c3c737e454f6">Root\loadConfig</a></div><div class="ttdeci">static loadConfig()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00446">class.root.php:446</a></div></div>
-<div class="ttc" id="aclassRoot_html_a3ab3bb71b33fd517d5a60bd8568849f4"><div class="ttname"><a href="#a3ab3bb71b33fd517d5a60bd8568849f4">Root\initErrorHandling</a></div><div class="ttdeci">initErrorHandling()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00071">class.root.php:71</a></div></div>
-<div class="ttc" id="aclassRoot_html_a41c3fa925e8e8f9fa887915d426d1781"><div class="ttname"><a href="#a41c3fa925e8e8f9fa887915d426d1781">Root\loadBins</a></div><div class="ttdeci">static loadBins()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00473">class.root.php:473</a></div></div>
-<div class="ttc" id="aclassRoot_html_a774cac1645c02419b1991d0692ceed17"><div class="ttname"><a href="#a774cac1645c02419b1991d0692ceed17">Root\getCorePath</a></div><div class="ttdeci">getCorePath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00173">class.root.php:173</a></div></div>
-<div class="ttc" id="aclassRoot_html_a8d3a79e13c5bd8385d915701e4db2e56"><div class="ttname"><a href="#a8d3a79e13c5bd8385d915701e4db2e56">Root\loadOpenSsl</a></div><div class="ttdeci">static loadOpenSsl()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00464">class.root.php:464</a></div></div>
-<div class="ttc" id="aclassRoot_html_a8ddf4707f46659ed9e7f64463755877d"><div class="ttname"><a href="#a8ddf4707f46659ed9e7f64463755877d">Root\loadTools</a></div><div class="ttdeci">static loadTools()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00482">class.root.php:482</a></div></div>
-<div class="ttc" id="aclassRoot_html_a930000ebec5c989c50a231f2be4467b0"><div class="ttname"><a href="#a930000ebec5c989c50a231f2be4467b0">Root\loadRegistry</a></div><div class="ttdeci">static loadRegistry()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00511">class.root.php:511</a></div></div>
-<div class="ttc" id="aclassRoot_html_a9943f5e7c00921cc8738d855029c48c1"><div class="ttname"><a href="#a9943f5e7c00921cc8738d855029c48c1">Root\loadWinbinder</a></div><div class="ttdeci">static loadWinbinder()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00500">class.root.php:500</a></div></div>
-<div class="ttc" id="aclassRoot_html_aa2103d7e7d03199ddaf1a50862be28d2"><div class="ttname"><a href="#aa2103d7e7d03199ddaf1a50862be28d2">Root\loadLang</a></div><div class="ttdeci">static loadLang()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00455">class.root.php:455</a></div></div>
-<div class="ttc" id="aclassRoot_html_ae23c747945424477047fe76727c5862f"><div class="ttname"><a href="#ae23c747945424477047fe76727c5862f">Root\loadCore</a></div><div class="ttdeci">static loadCore()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00437">class.root.php:437</a></div></div>
-<div class="ttc" id="aclassRoot_html_ae90fecb17b764da47318b9c3984b769a"><div class="ttname"><a href="#ae90fecb17b764da47318b9c3984b769a">Root\loadHomepage</a></div><div class="ttdeci">static loadHomepage()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00520">class.root.php:520</a></div></div>
-<div class="ttc" id="aclassRoot_html_aef34347d182b98358d9416ed319dbe1f"><div class="ttname"><a href="#aef34347d182b98358d9416ed319dbe1f">Root\loadApps</a></div><div class="ttdeci">static loadApps()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00491">class.root.php:491</a></div></div>
-<div class="ttc" id="aclassUtil_html_a2bbde5625aa6eac91cd943f492ddcd68"><div class="ttname"><a href="../../d6/de4/classUtil.html#a2bbde5625aa6eac91cd943f492ddcd68">Util\logSeparator</a></div><div class="ttdeci">static logSeparator()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00669">class.util.php:669</a></div></div>
+<div class="ttc" id="aclassRoot_html_a086e36dab510c22eecf5c3c737e454f6"><div class="ttname"><a href="#a086e36dab510c22eecf5c3c737e454f6">Root\loadConfig</a></div><div class="ttdeci">static loadConfig()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00452">class.root.php:452</a></div></div>
+<div class="ttc" id="aclassRoot_html_a3ab3bb71b33fd517d5a60bd8568849f4"><div class="ttname"><a href="#a3ab3bb71b33fd517d5a60bd8568849f4">Root\initErrorHandling</a></div><div class="ttdeci">initErrorHandling()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00077">class.root.php:77</a></div></div>
+<div class="ttc" id="aclassRoot_html_a41c3fa925e8e8f9fa887915d426d1781"><div class="ttname"><a href="#a41c3fa925e8e8f9fa887915d426d1781">Root\loadBins</a></div><div class="ttdeci">static loadBins()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00479">class.root.php:479</a></div></div>
+<div class="ttc" id="aclassRoot_html_a774cac1645c02419b1991d0692ceed17"><div class="ttname"><a href="#a774cac1645c02419b1991d0692ceed17">Root\getCorePath</a></div><div class="ttdeci">getCorePath($aetrayPath=false)</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00179">class.root.php:179</a></div></div>
+<div class="ttc" id="aclassRoot_html_a8d3a79e13c5bd8385d915701e4db2e56"><div class="ttname"><a href="#a8d3a79e13c5bd8385d915701e4db2e56">Root\loadOpenSsl</a></div><div class="ttdeci">static loadOpenSsl()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00470">class.root.php:470</a></div></div>
+<div class="ttc" id="aclassRoot_html_a8ddf4707f46659ed9e7f64463755877d"><div class="ttname"><a href="#a8ddf4707f46659ed9e7f64463755877d">Root\loadTools</a></div><div class="ttdeci">static loadTools()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00488">class.root.php:488</a></div></div>
+<div class="ttc" id="aclassRoot_html_a930000ebec5c989c50a231f2be4467b0"><div class="ttname"><a href="#a930000ebec5c989c50a231f2be4467b0">Root\loadRegistry</a></div><div class="ttdeci">static loadRegistry()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00517">class.root.php:517</a></div></div>
+<div class="ttc" id="aclassRoot_html_a9943f5e7c00921cc8738d855029c48c1"><div class="ttname"><a href="#a9943f5e7c00921cc8738d855029c48c1">Root\loadWinbinder</a></div><div class="ttdeci">static loadWinbinder()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00506">class.root.php:506</a></div></div>
+<div class="ttc" id="aclassRoot_html_aa2103d7e7d03199ddaf1a50862be28d2"><div class="ttname"><a href="#aa2103d7e7d03199ddaf1a50862be28d2">Root\loadLang</a></div><div class="ttdeci">static loadLang()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00461">class.root.php:461</a></div></div>
+<div class="ttc" id="aclassRoot_html_ae23c747945424477047fe76727c5862f"><div class="ttname"><a href="#ae23c747945424477047fe76727c5862f">Root\loadCore</a></div><div class="ttdeci">static loadCore()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00443">class.root.php:443</a></div></div>
+<div class="ttc" id="aclassRoot_html_ae90fecb17b764da47318b9c3984b769a"><div class="ttname"><a href="#ae90fecb17b764da47318b9c3984b769a">Root\loadHomepage</a></div><div class="ttdeci">static loadHomepage()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00526">class.root.php:526</a></div></div>
+<div class="ttc" id="aclassRoot_html_aef34347d182b98358d9416ed319dbe1f"><div class="ttname"><a href="#aef34347d182b98358d9416ed319dbe1f">Root\loadApps</a></div><div class="ttdeci">static loadApps()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d7e/class_8root_8php_source.html#l00497">class.root.php:497</a></div></div>
+<div class="ttc" id="aclassUtil_html_a2bbde5625aa6eac91cd943f492ddcd68"><div class="ttname"><a href="../../d6/de4/classUtil.html#a2bbde5625aa6eac91cd943f492ddcd68">Util\logSeparator</a></div><div class="ttdeci">static logSeparator()</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00720">class.util.php:720</a></div></div>
 <div class="ttc" id="aclassWin32Ps_html_afea33a59c09d4c9e2fe1bdf0d5b1d406"><div class="ttname"><a href="../../dc/ddb/classWin32Ps.html#afea33a59c09d4c9e2fe1bdf0d5b1d406">Win32Ps\getListProcs</a></div><div class="ttdeci">static getListProcs()</div><div class="ttdef"><b>Definition</b> <a href="../../d6/daa/class_8win32ps_8php_source.html#l00078">class.win32ps.php:78</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00173">getCorePath()</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00078">Win32Ps\getListProcs()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00071">initErrorHandling()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00105">isRoot()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00491">loadApps()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00473">loadBins()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00446">loadConfig()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00437">loadCore()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00520">loadHomepage()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00455">loadLang()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00464">loadOpenSsl()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00511">loadRegistry()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00482">loadTools()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00500">loadWinbinder()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00669">Util\logSeparator()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00179">getCorePath()</a>, <a class="el" href="../../d6/daa/class_8win32ps_8php_source.html#l00078">Win32Ps\getListProcs()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00077">initErrorHandling()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00111">isRoot()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00497">loadApps()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00479">loadBins()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00452">loadConfig()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00443">loadCore()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00526">loadHomepage()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00461">loadLang()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00470">loadOpenSsl()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00517">loadRegistry()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00488">loadTools()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00506">loadWinbinder()</a>, and <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00720">Util\logSeparator()</a>.</p>
 
 </div>
 </div>
@@ -2041,13 +2038,13 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Removes the custom error handling, reverting to the default PHP error handling. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00082">82</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   83</span>    {</div>
-<div class="line"><span class="lineno">   84</span>        error_reporting(0);</div>
-<div class="line"><span class="lineno">   85</span>        ini_set(<span class="stringliteral">&#39;error_log&#39;</span>, <span class="keyword">null</span>);</div>
-<div class="line"><span class="lineno">   86</span>        ini_set(<span class="stringliteral">&#39;display_errors&#39;</span>, <span class="charliteral">&#39;0&#39;</span>);</div>
-<div class="line"><span class="lineno">   87</span>        restore_error_handler();</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00088">88</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
+<div class="line"><span class="lineno">   90</span>        error_reporting(0);</div>
+<div class="line"><span class="lineno">   91</span>        ini_set(<span class="stringliteral">&#39;error_log&#39;</span>, <span class="keyword">null</span>);</div>
+<div class="line"><span class="lineno">   92</span>        ini_set(<span class="stringliteral">&#39;display_errors&#39;</span>, <span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><span class="lineno">   93</span>        restore_error_handler();</div>
+<div class="line"><span class="lineno">   94</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2072,9 +2069,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00016">16</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00022">22</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00105">isRoot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00111">isRoot()</a>.</p>
 
 </div>
 </div>
@@ -2090,9 +2087,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00014">14</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00020">20</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00128">aetrayPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00173">getCorePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00116">getRootPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00134">aetrayPath()</a>, <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00179">getCorePath()</a>, and <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00122">getRootPath()</a>.</p>
 
 </div>
 </div>
@@ -2116,9 +2113,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00015">15</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00021">21</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00095">getProcs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00101">getProcs()</a>.</p>
 
 </div>
 </div>
@@ -2134,7 +2131,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00012">12</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d7e/class_8root_8php_source.html#l00018">18</a> of file <a class="el" href="../../d6/d7e/class_8root_8php_source.html">class.root.php</a>.</p>
 
 </div>
 </div>

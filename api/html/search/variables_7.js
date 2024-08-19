@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['gauge_0',['GAUGE',['../df/d6b/classActionLoading.html#a46e436287cc445a81a3817f9aaf217ba',1,'ActionLoading']]],

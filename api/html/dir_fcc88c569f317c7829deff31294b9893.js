@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var dir_fcc88c569f317c7829deff31294b9893 =
 [
     [ "class.tpl.app.apache.php", "d1/d77/class_8tpl_8app_8apache_8php.html", "d1/d77/class_8tpl_8app_8apache_8php" ],

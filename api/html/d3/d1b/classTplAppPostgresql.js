@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppPostgresql =
 [
     [ "getActionChangePostgresqlPort", "d3/d1b/classTplAppPostgresql.html#a3a57a18d47d635d2cd3101c023062e1a", null ],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['splash_0',['Splash',['../d1/d56/classSplash.html',1,'']]],
-  ['symlinks_1',['Symlinks',['../de/db3/classSymlinks.html',1,'']]]
+  ['registry_0',['Registry',['../db/d0d/classRegistry.html',1,'']]],
+  ['root_1',['Root',['../d8/d73/classRoot.html',1,'']]]
 ];

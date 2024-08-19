@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppApache =
 [
     [ "getActionAddAlias", "d9/d51/classTplAppApache.html#a338416ba347208cfc022691337f5944b", null ],

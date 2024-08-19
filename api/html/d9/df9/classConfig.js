@@ -1,16 +1,9 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classConfig =
 [
     [ "__construct", "d9/df9/classConfig.html#ac1c75b1b53a17a028629ba8127e06f82", null ],
     [ "getBrowser", "d9/df9/classConfig.html#a3f8fa6fb0fe439c16d0bcf2b0d3ab17e", null ],
     [ "getDefaultLang", "d9/df9/classConfig.html#aebf9e698dfbe9cea63da7c66db26885a", null ],
+    [ "getDownloadId", "d9/df9/classConfig.html#ae056a5c1dcd0cadafd9532b9ea78cd0a", null ],
     [ "getHostname", "d9/df9/classConfig.html#a63b1ba35aa0e4547fbd8d7d555142164", null ],
     [ "getLang", "d9/df9/classConfig.html#a4ccdb6c2c3f2d890a82a6daf1587d88e", null ],
     [ "getLogsVerbose", "d9/df9/classConfig.html#aa5107c423b7e094ef4ab15144f055c16", null ],
@@ -36,6 +29,7 @@ var classConfig =
     [ "CFG_SCRIPTS_TIMEOUT", "d9/df9/classConfig.html#a26157945f30d3107116408f4a6bb0ee2", null ],
     [ "CFG_TIMEZONE", "d9/df9/classConfig.html#aa7b9b23d1238c75f87700727dc35172c", null ],
     [ "DISABLED", "d9/df9/classConfig.html#a087afa0912f03194a296536d0c5ac116", null ],
+    [ "DOWNLOAD_ID", "d9/df9/classConfig.html#ab1a18bd2c9411dc8bfa2b399998d1c8a", null ],
     [ "ENABLED", "d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e", null ],
     [ "VERBOSE_DEBUG", "d9/df9/classConfig.html#a4dfe9137d841568beafeddf816d5e590", null ],
     [ "VERBOSE_REPORT", "d9/df9/classConfig.html#a23e155bb98b2f48a8f83adb32047e6a9", null ],

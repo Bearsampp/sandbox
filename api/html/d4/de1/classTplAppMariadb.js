@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppMariadb =
 [
     [ "getActionChangeMariadbPort", "d4/de1/classTplAppMariadb.html#ad6d562bb65f362c571d0dc9c6f9d13be", null ],

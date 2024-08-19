@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var annotated_dup =
 [
     [ "Action", "db/d09/classAction.html", "db/d09/classAction" ],
@@ -73,6 +65,7 @@ var annotated_dup =
     [ "Module", "d3/d9c/classModule.html", "d3/d9c/classModule" ],
     [ "Nssm", "d3/d93/classNssm.html", "d3/d93/classNssm" ],
     [ "OpenSsl", "db/d46/classOpenSsl.html", "db/d46/classOpenSsl" ],
+    [ "QuickPick", "d7/dcf/classQuickPick.html", "d7/dcf/classQuickPick" ],
     [ "Registry", "db/d0d/classRegistry.html", "db/d0d/classRegistry" ],
     [ "Root", "d8/d73/classRoot.html", "d8/d73/classRoot" ],
     [ "Splash", "d1/d56/classSplash.html", "d1/d56/classSplash" ],

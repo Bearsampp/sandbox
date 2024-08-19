@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
   ['db_5fmysql_5fwrap_0',['DB_MYSQL_WRAP',['../d4/dae/db__mysql_8inc_8php.html#aedc4920d35a256589bc515a68731710c',1,'db_mysql.inc.php']]],
@@ -41,5 +33,6 @@ var searchData=
   ['donate_30',['DONATE',['../da/d49/classLang.html#abff7b80a94e3ab7b8f2a9f650b5954e7',1,'Lang']]],
   ['donate_5fvia_31',['DONATE_VIA',['../da/d49/classLang.html#aa8835c87109678e152d9bf9d86b1ec7b',1,'Lang']]],
   ['download_32',['DOWNLOAD',['../da/d49/classLang.html#a0f1c4a7a4d3bb8dc780cfbbb76d1218d',1,'Lang']]],
-  ['download_5fmore_33',['DOWNLOAD_MORE',['../da/d49/classLang.html#aa1aa376c263360ce1eea2d22bba28ad9',1,'Lang']]]
+  ['download_5fid_33',['DOWNLOAD_ID',['../d9/df9/classConfig.html#ab1a18bd2c9411dc8bfa2b399998d1c8a',1,'Config']]],
+  ['download_5fmore_34',['DOWNLOAD_MORE',['../da/d49/classLang.html#aa1aa376c263360ce1eea2d22bba28ad9',1,'Lang']]]
 ];

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classToolConsoleZ =
 [
     [ "__construct", "d6/d0c/classToolConsoleZ.html#afbdd86039bed79d20d190ab12ffde7a6", null ],

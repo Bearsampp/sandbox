@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var classTplAppPhp =
 [
     [ "getActionEnablePhp", "d0/d1a/classTplAppPhp.html#add56feac3b0b5d2cf56c82fe378f1a35", null ],

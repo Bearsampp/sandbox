@@ -1,35 +1,11 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var searchData=
 [
-  ['vbs_0',['Vbs',['../dd/de9/classVbs.html',1,'']]],
-  ['vbs_5fdescription_1',['VBS_DESCRIPTION',['../df/d28/classWin32Service.html#a2f8c54d620add59c4002f463b339e7fd',1,'Win32Service']]],
-  ['vbs_5fdisplay_5fname_2',['VBS_DISPLAY_NAME',['../df/d28/classWin32Service.html#ab34506ee0fd8bf7d85f5c58876949fc1',1,'Win32Service']]],
-  ['vbs_5fname_3',['VBS_NAME',['../df/d28/classWin32Service.html#add706b6fa68ce37865451ac1ef79a5eb',1,'Win32Service']]],
-  ['vbs_5fpath_5fname_4',['VBS_PATH_NAME',['../df/d28/classWin32Service.html#a2512f78ed3d50382705611f80c90ca23',1,'Win32Service']]],
-  ['vbs_5fstate_5',['VBS_STATE',['../df/d28/classWin32Service.html#ac96ae9f1488660a73aca2d3d4780cecc',1,'Win32Service']]],
-  ['verbose_5fdebug_6',['VERBOSE_DEBUG',['../d9/df9/classConfig.html#a4dfe9137d841568beafeddf816d5e590',1,'Config\VERBOSE_DEBUG'],['../da/d49/classLang.html#a6995b99b1562a4790c9b402485e7ab0f',1,'Lang\VERBOSE_DEBUG']]],
-  ['verbose_5freport_7',['VERBOSE_REPORT',['../d9/df9/classConfig.html#a23e155bb98b2f48a8f83adb32047e6a9',1,'Config\VERBOSE_REPORT'],['../da/d49/classLang.html#a6f0e8ee064852c221c29573dbf20b60f',1,'Lang\VERBOSE_REPORT']]],
-  ['verbose_5fsimple_8',['VERBOSE_SIMPLE',['../d9/df9/classConfig.html#a51eac551ee3a935607c817aa8163b0e4',1,'Config\VERBOSE_SIMPLE'],['../da/d49/classLang.html#a95036866a7975000465f771f44f1500f',1,'Lang\VERBOSE_SIMPLE']]],
-  ['verbose_5ftrace_9',['VERBOSE_TRACE',['../d9/df9/classConfig.html#a540b8ac0eeb3f209728726ef74e9ab22',1,'Config\VERBOSE_TRACE'],['../da/d49/classLang.html#ade3def1be9e9ae9ec3f77901cfc8e114',1,'Lang\VERBOSE_TRACE']]],
-  ['version_10',['VERSION',['../da/d49/classLang.html#a6680c31b6804bb3dff1a8e461f89dfd8',1,'Lang']]],
-  ['version_5furl_11',['VERSION_URL',['../da/d49/classLang.html#a526a3574a82449e9b0df66d77a674c40',1,'Lang']]],
-  ['versions_12',['VERSIONS',['../da/d49/classLang.html#a437812550098d9ba58950e0981cefa48',1,'Lang']]],
-  ['vhost_5falready_5fexists_13',['VHOST_ALREADY_EXISTS',['../da/d49/classLang.html#adc99f8a16fe02f9b08442117150a35e2',1,'Lang']]],
-  ['vhost_5fcreated_14',['VHOST_CREATED',['../da/d49/classLang.html#ac2cd6bb34dc7bf9e31cb200af98d9c20',1,'Lang']]],
-  ['vhost_5fcreated_5ferror_15',['VHOST_CREATED_ERROR',['../da/d49/classLang.html#a23b9443c1f714167d75691b2a7cc2640',1,'Lang']]],
-  ['vhost_5fdoc_5froot_5fpath_16',['VHOST_DOC_ROOT_PATH',['../da/d49/classLang.html#a2de509614e958e4459c6fe5cccfa634a',1,'Lang']]],
-  ['vhost_5fdocument_5froot_5flabel_17',['VHOST_DOCUMENT_ROOT_LABEL',['../da/d49/classLang.html#a0e3f50fee3758f67e4d0df0b9b7864fb',1,'Lang']]],
-  ['vhost_5fexp_5flabel_18',['VHOST_EXP_LABEL',['../da/d49/classLang.html#a02b15a62a70d8df5e3d4ee603fffc371',1,'Lang']]],
-  ['vhost_5fnot_5fvalid_5fdomain_19',['VHOST_NOT_VALID_DOMAIN',['../da/d49/classLang.html#a1307cbc384e886c178105f49cc7e1439',1,'Lang']]],
-  ['vhost_5fremove_5ferror_20',['VHOST_REMOVE_ERROR',['../da/d49/classLang.html#a103aab61bfa19776d4b3cb973cb03509',1,'Lang']]],
-  ['vhost_5fremoved_21',['VHOST_REMOVED',['../da/d49/classLang.html#a35684437d663996b3f6897b6650ed1d1',1,'Lang']]],
-  ['vhost_5fserver_5fname_5flabel_22',['VHOST_SERVER_NAME_LABEL',['../da/d49/classLang.html#aa483edde431f246fbbb4afb322f01552',1,'Lang']]],
-  ['virtual_5fhosts_23',['VIRTUAL_HOSTS',['../da/d49/classLang.html#a63009f00a93acb0f5897747893cd5fa1',1,'Lang']]]
+  ['uninstallfilezillaservice_0',['uninstallFilezillaService',['../da/dbb/classBatch.html#a8cf4761e050a889328b1e5b25a185c62',1,'Batch']]],
+  ['uninstallpostgresqlservice_1',['uninstallPostgresqlService',['../da/dbb/classBatch.html#aa4def941303390e6e957d2814023e17f',1,'Batch']]],
+  ['unregister_2',['unregister',['../df/d3d/classAutoloader.html#aded46eaaabba97ef4c324e48956a62e3',1,'Autoloader']]],
+  ['unzipfile_3',['unzipFile',['../db/d6d/classCore.html#a840b79980f468e326e9f64b996cc41f0',1,'Core']]],
+  ['update_4',['update',['../d1/d0e/classApps.html#afb30387c12a07775919a22a9ba587a7e',1,'Apps\update()'],['../de/d54/classBins.html#aae91a19ced3436e43eb5a05c84079076',1,'Bins\update()'],['../d3/d9c/classModule.html#a47f387037148c9ad87aea328f6439127',1,'Module\update()'],['../de/db2/classTools.html#aa27d11a0be62818336a268d8e17666d5',1,'Tools\update()']]],
+  ['updateconfig_5',['updateConfig',['../d1/db8/classActionStartup.html#abed5064974e386885e590b8e568b7203',1,'ActionStartup\updateConfig()'],['../df/d54/classAppAdminer.html#a21d4f19f407b6d453ed8feccc4e75a65',1,'AppAdminer\updateConfig()'],['../dd/dec/classAppPhpmyadmin.html#a78f1cd4b9a3ab52d45ca05da77c56bba',1,'AppPhpmyadmin\updateConfig()'],['../dc/d53/classAppPhppgadmin.html#a9e408f7f1ec703bc7aa472c01b53c3af',1,'AppPhppgadmin\updateConfig()'],['../dc/df4/classAppWebgrind.html#a3069eed867a1598db3d2d27b4f726ffe',1,'AppWebgrind\updateConfig()'],['../d9/d6c/classBinApache.html#a568adc920f3c2722c4fec4c86df88b54',1,'BinApache\updateConfig()'],['../da/d23/classBinFilezilla.html#a66353a5a6f70047b44e22789823082bf',1,'BinFilezilla\updateConfig()'],['../db/df2/classBinMailhog.html#af54594fb0d8e4114e09efc9d6d984f72',1,'BinMailhog\updateConfig()'],['../d9/ddd/classBinMailpit.html#a9c590e2101f6ee220c101ebed2feed76',1,'BinMailpit\updateConfig()'],['../d4/d8f/classBinMariadb.html#a5761bf237034a02d4f7b11d048c44a3c',1,'BinMariadb\updateConfig()'],['../da/d10/classBinMemcached.html#a9f3d2973395fca97e1bd29b48019cbb3',1,'BinMemcached\updateConfig()'],['../d6/d88/classBinMysql.html#ab584c3d562f8f0c12c94c16d571398fb',1,'BinMysql\updateConfig()'],['../d8/d9c/classBinNodejs.html#a7e05048d9ec4cee6fa7b07fcf8461474',1,'BinNodejs\updateConfig()'],['../dc/db3/classBinPhp.html#a9b92767dc6a36f70a22985c54c9c6808',1,'BinPhp\updateConfig()'],['../dc/db9/classBinPostgresql.html#ab9521e473ea9de96409472e01cd215a6',1,'BinPostgresql\updateConfig()'],['../d8/ddb/classBinXlight.html#a1dde5a86a2d03cb7e9eee7b0061fe183',1,'BinXlight\updateConfig()'],['../d3/d9c/classModule.html#a675bb2654622fddf7b65e53308455caf',1,'Module\updateConfig()'],['../d3/dc0/classToolGit.html#ac463f968089166b32e648b5e2d7b8d88',1,'ToolGit\updateConfig()']]],
+  ['utf8tocp1252_6',['utf8ToCp1252',['../d6/de4/classUtil.html#ac189827c62241620ff7810d81639cb6e',1,'Util']]],
+  ['util_7',['Util',['../d6/de4/classUtil.html',1,'']]]
 ];

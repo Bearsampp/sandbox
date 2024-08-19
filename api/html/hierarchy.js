@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
-
 var hierarchy =
 [
     [ "Action", "db/d09/classAction.html", null ],
@@ -84,6 +76,7 @@ var hierarchy =
     ] ],
     [ "Nssm", "d3/d93/classNssm.html", null ],
     [ "OpenSsl", "db/d46/classOpenSsl.html", null ],
+    [ "QuickPick", "d7/dcf/classQuickPick.html", null ],
     [ "Registry", "db/d0d/classRegistry.html", null ],
     [ "Root", "d8/d73/classRoot.html", null ],
     [ "Splash", "d1/d56/classSplash.html", null ],
