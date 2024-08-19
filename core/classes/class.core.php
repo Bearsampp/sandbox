@@ -506,7 +506,7 @@ class Core
         $buffer = '';
 
         while (!feof($process)) {
-            $buffer .= fread($process, 1048576); // Read in smaller chunks of 64KB
+            $buffer .= fread($process, 524288); // Read in smaller chunks of 64KB
 
             while (($newlinePos = strpos($buffer, "\n")) !== false) {
                 $line = substr($buffer, 0, $newlinePos + 1);
@@ -526,7 +526,7 @@ class Core
             }
 
             // Clear the buffer periodically to release memory ( 128k chunks )
-            if (strlen($buffer) > 2097152) {
+            if (strlen($buffer) > 1048576) {
                 $buffer = '';
             }
         }
