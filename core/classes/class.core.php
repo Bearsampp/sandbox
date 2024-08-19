@@ -475,87 +475,77 @@ class Core
      *               - 'success' => true and 'numFiles' => int on success.
      *               - 'error' => string and 'numFiles' => int on failure.
      */
-    public function unzipFile($filePath, $destination, $progressCallback = null)
-    {
-        global $bearsamppRoot;
+   public function unzipFile($filePath, $destination, $progressCallback = null)
+{
+    global $bearsamppRoot;
 
-        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
+    $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-        if ( !file_exists( $sevenZipPath ) ) {
-            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
+    if (!file_exists($sevenZipPath)) {
+        Util::logError('7za.exe not found at: ' . $sevenZipPath);
+        return false;
+    }
 
-            return false;
-        }
+    // Command to test the archive and get the number of files
+    $testCommand = escapeshellarg($sevenZipPath) . " t " . escapeshellarg($filePath) . " -y -bsp1";
+    $testOutput = shell_exec($testCommand);
 
-        // Command to test the archive and get the number of files
-        $testCommand = escapeshellarg( $sevenZipPath ) . " t " . escapeshellarg( $filePath ) . " -y -bsp1";
-        $testOutput  = shell_exec( $testCommand );
+    // Extract the number of files from the test command output
+    preg_match('/Files: (\d+)/', $testOutput, $matches);
+    $numFiles = isset($matches[1]) ? (int)$matches[1] : 0;
+    Util::logDebug('Number of files to be extracted: ' . $numFiles);
 
-        // Extract the number of files from the test command output
-        preg_match( '/Files: (\d+)/', $testOutput, $matches );
-        $numFiles = isset( $matches[1] ) ? (int) $matches[1] : 0;
-        Util::logDebug( 'Number of files to be extracted: ' . $numFiles );
+    // Command to extract the archive
+    $command = escapeshellarg($sevenZipPath) . " x " . escapeshellarg($filePath) . " -y -bb1 -o" . escapeshellarg($destination);
+    Util::logTrace('Executing command: ' . $command);
 
-        // Command to extract the archive
-        $command = escapeshellarg( $sevenZipPath ) . " x " . escapeshellarg( $filePath ) . " -y -bb1 -o" . escapeshellarg( $destination );
-        Util::logTrace( 'Executing command: ' . $command );
+    $process = popen($command, 'r');
 
-        $descriptorspec = [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w']
-        ];
+    if ($process) {
+        $filesExtracted = 0;
+        $buffer = '';
 
-        $process = proc_open( $command, $descriptorspec, $pipes );
+        while (!feof($process)) {
+            $buffer .= fread($process, 1048576); // Read in smaller chunks of 64KB
 
-        if ( is_resource( $process ) ) {
-            $filesExtracted = 0;
-            while ( $line = fgets( $pipes[1] ) ) {
+            while (($newlinePos = strpos($buffer, "\n")) !== false) {
+                $line = substr($buffer, 0, $newlinePos + 1);
+                $buffer = substr($buffer, $newlinePos + 1);
 
-                if ( $progressCallback ) {
-                    // Adjusted pattern to capture file extraction correctly
-                    if ( preg_match( '/^- (.+)$/', $line, $matches ) ) {
-                        $fileName = trim( $matches[1] );
+                if ($progressCallback && preg_match('/^- (.+)$/', $line, $matches)) {
+                    $fileName = trim($matches[1]);
 
-                        // Check if the extracted item is a file and not a directory
-                        if ( substr( $fileName, -1 ) !== '\\' ) {
-                            $filesExtracted++;
-                            if ( $filesExtracted <= $numFiles ) {
-                                Util::logTrace( 'Extracted file: ' . $fileName . ' Progress: ' . $filesExtracted . ' of ' . $numFiles );
-                                call_user_func( $progressCallback, $filesExtracted, $numFiles );
-
-                                if ( ob_get_length() ) {
-                                    ob_flush();
-                                }
-                                flush();
-                            }
+                    // Check if the extracted item is a file and not a directory
+                    if (substr($fileName, -1) !== '\\') {
+                        $filesExtracted++;
+                        if ($filesExtracted <= $numFiles) {
+                            call_user_func($progressCallback, $filesExtracted, $numFiles);
                         }
                     }
                 }
             }
 
-            fclose( $pipes[1] );
-            fclose( $pipes[2] );
-
-            $returnVar = proc_close( $process );
-            Util::logDebug( 'Command return value: ' . $returnVar );
-
-            if ( $returnVar === 0 ) {
-                Util::logDebug( 'Successfully unzipped file to: ' . $destination );
-
-                return ['success' => true, 'numFiles' => $numFiles];
-            }
-            else {
-                Util::logError( 'Failed to unzip file. Command return value: ' . $returnVar );
-
-                return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
+            // Clear the buffer periodically to release memory ( 128k chunks )
+            if (strlen($buffer) > 2097152) {
+                $buffer = '';
             }
         }
-        else {
-            Util::logError( 'Failed to open process for command: ' . $command );
 
-            return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
+        $returnVar = pclose($process);
+        Util::logDebug('Command return value: ' . $returnVar);
+
+        if ($returnVar === 0) {
+            Util::logDebug('Successfully unzipped file to: ' . $destination);
+            return ['success' => true, 'numFiles' => $numFiles];
+        } else {
+            Util::logError('Failed to unzip file. Command return value: ' . $returnVar);
+            return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
         }
+    } else {
+        Util::logError('Failed to open process for command: ' . $command);
+        return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
     }
+}
 
     /**
      * Fetches a file from a given URL and saves it to a specified file path.
