@@ -1,8 +1,8 @@
 group:
   # Bearsampp repo unique things
   - files:
-      - source: /core/
-        dest: /core/
+      - source: core/
+        dest: core/
         exclude: |
             /homepage/img/about.bmp
             /homepage/img/bearsampp.bmp
