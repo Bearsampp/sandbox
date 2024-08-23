@@ -1,3 +1,12 @@
+<!--
+  ~ /*
+  ~  * Copyright (c) 2021-2024 Bearsampp
+  ~  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+  ~  * Website: https://bearsampp.com
+  ~  * Github: https://github.com/Bearsampp
+  ~  */
+  -->
+
 <!-- HTML header for doxygen 1.9.7-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
@@ -36,7 +45,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../header-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.19</span>
+   <div id="projectname"><!-- Bearsampp --><span id="projectnumber">&#160;2024.8.23</span>
    </div>
   </td>
  </tr>
@@ -73,7 +82,7 @@ $(function() {
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -244,8 +253,39 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a7b3670c899102455a2d46abd4750c33f inherit pro_attribs_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00010">10</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="../../d8/d9c/classBinNodejs.html">BinNodejs</a></p>
+<p>The <code><a class="el" href="../../d8/d9c/classBinNodejs.html">BinNodejs</a></code> class extends the <code><a class="el" href="../../d3/d9c/classModule.html">Module</a></code> class and provides functionalities specific to managing the Node.js module within the <a class="el" href="../../d1/ddc/namespaceBearsampp.html">Bearsampp</a> application. It includes methods for reloading the module configuration, switching versions, enabling/disabling the module, and retrieving various configuration paths such as the executable, configuration file, variables file, npm executable, and launch script.</p>
+<p>Constants:</p><ul>
+<li><code>ROOT_CFG_ENABLE</code>: Configuration key for enabling the Node.js module.</li>
+<li><code>ROOT_CFG_VERSION</code>: Configuration key for the Node.js version.</li>
+<li><code>LOCAL_CFG_EXE</code>: Configuration key for the Node.js executable.</li>
+<li><code>LOCAL_CFG_VARS</code>: Configuration key for the Node.js variables.</li>
+<li><code>LOCAL_CFG_NPM</code>: Configuration key for the npm executable.</li>
+<li><code>LOCAL_CFG_LAUNCH</code>: Configuration key for the Node.js launch script.</li>
+<li><code>LOCAL_CFG_CONF</code>: Configuration key for the Node.js configuration file.</li>
+</ul>
+<p>Properties:</p><ul>
+<li><code>exe</code>: Path to the Node.js executable.</li>
+<li><code>conf</code>: Path to the Node.js configuration file.</li>
+<li><code>vars</code>: Path to the Node.js variables file.</li>
+<li><code>npm</code>: Path to the npm executable.</li>
+<li><code>launch</code>: Path to the Node.js launch script.</li>
+</ul>
+<p>Methods:</p><ul>
+<li><code>__construct($id, $type)</code>: Constructs a <code><a class="el" href="../../d8/d9c/classBinNodejs.html">BinNodejs</a></code> object and initializes the module with the given ID and type.</li>
+<li><code>reload($id = null, $type = null)</code>: Reloads the module configuration based on the provided ID and type.</li>
+<li><code>switchVersion($version, $showWindow = false)</code>: Switches the Node.js version to the specified version.</li>
+<li><code>updateConfig($version = null, $sub = 0, $showWindow = false)</code>: Updates the module configuration with a specific version.</li>
+<li><code>setVersion($version)</code>: Sets the version of the module.</li>
+<li><code>setEnable($enabled, $showWindow = false)</code>: Enables or disables the module.</li>
+<li><code><a class="el" href="#a792e9443b04ef4a0f610a191b5762391">getExe()</a></code>: Retrieves the executable path for Node.js.</li>
+<li><code><a class="el" href="#ac75e1c7c559a2fe11600359e96ea0a92">getConf()</a></code>: Retrieves the configuration file path for Node.js.</li>
+<li><code><a class="el" href="#a2b31e21c6ad11cd0b7d47dc4144eaef6">getVars()</a></code>: Retrieves the variables file path for Node.js.</li>
+<li><code><a class="el" href="#a7cb5721d62ce6e5bd885d0ea7861616e">getNpm()</a></code>: Retrieves the npm executable path for Node.js.</li>
+<li><code><a class="el" href="#a9d9c23895e926123d26c9dd593d27c65">getLaunch()</a></code>: Retrieves the launch script path for Node.js. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00048">48</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6b318e5149cf52b3a6bdaca425d162f0" name="a6b318e5149cf52b3a6bdaca425d162f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b318e5149cf52b3a6bdaca425d162f0">&#9670;&#160;</a></span>__construct()</h2>
@@ -274,17 +314,17 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00033">33</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>                                            {</div>
-<div class="line"><span class="lineno">   34</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aad0ddfac5415751b2ba93898ee532abd">Util::logInitClass</a>($this);</div>
-<div class="line"><span class="lineno">   35</span>        $this-&gt;<a class="code hl_function" href="#ac3b6b7cbe6147b26b153b1ce851a7f01">reload</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f">$id</a>, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04">$type</a>);</div>
-<div class="line"><span class="lineno">   36</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_ac3b6b7cbe6147b26b153b1ce851a7f01"><div class="ttname"><a href="#ac3b6b7cbe6147b26b153b1ce851a7f01">BinNodejs\reload</a></div><div class="ttdeci">reload($id=null, $type=null)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">class.bin.nodejs.php:44</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00071">71</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>                                            {</div>
+<div class="line"><span class="lineno">   72</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aad0ddfac5415751b2ba93898ee532abd">Util::logInitClass</a>($this);</div>
+<div class="line"><span class="lineno">   73</span>        $this-&gt;<a class="code hl_function" href="#ac3b6b7cbe6147b26b153b1ce851a7f01">reload</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f">$id</a>, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04">$type</a>);</div>
+<div class="line"><span class="lineno">   74</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_ac3b6b7cbe6147b26b153b1ce851a7f01"><div class="ttname"><a href="#ac3b6b7cbe6147b26b153b1ce851a7f01">BinNodejs\reload</a></div><div class="ttdeci">reload($id=null, $type=null)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">class.bin.nodejs.php:82</a></div></div>
 <div class="ttc" id="aclassModule_html_a11be288274e7a3443f031cfff587bb04"><div class="ttname"><a href="../../d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04">Module\$type</a></div><div class="ttdeci">$type</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00018">class.module.php:18</a></div></div>
 <div class="ttc" id="aclassModule_html_ac16e163a2dbe7e62ac7cdf6db72ca96f"><div class="ttname"><a href="../../d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f">Module\$id</a></div><div class="ttdeci">$id</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00019">class.module.php:19</a></div></div>
 <div class="ttc" id="aclassUtil_html_aad0ddfac5415751b2ba93898ee532abd"><div class="ttname"><a href="../../d6/de4/classUtil.html#aad0ddfac5415751b2ba93898ee532abd">Util\logInitClass</a></div><div class="ttdeci">static logInitClass($classInstance)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00812">class.util.php:812</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$type</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00812">Util\logInitClass()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$type</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00812">Util\logInitClass()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -306,15 +346,15 @@ Additional Inherited Members</h2></td></tr>
 <p>Retrieves the configuration file path for Node.js.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The configuration file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00210">210</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  210</span>                              {</div>
-<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$this-&gt;conf</a>;</div>
-<div class="line"><span class="lineno">  212</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_a95745ad52cddb833ca43df1d510c0fed"><div class="ttname"><a href="#a95745ad52cddb833ca43df1d510c0fed">BinNodejs\$conf</a></div><div class="ttdeci">$conf</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00022">class.bin.nodejs.php:22</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00248">248</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>                              {</div>
+<div class="line"><span class="lineno">  249</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$this-&gt;conf</a>;</div>
+<div class="line"><span class="lineno">  250</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_a95745ad52cddb833ca43df1d510c0fed"><div class="ttname"><a href="#a95745ad52cddb833ca43df1d510c0fed">BinNodejs\$conf</a></div><div class="ttdeci">$conf</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00060">class.bin.nodejs.php:60</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00022">$conf</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00060">$conf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">updateConfig()</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -342,13 +382,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Retrieves the executable path for Node.js.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The executable path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00201">201</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  201</span>                             {</div>
-<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#acf6a3fd1ae79ebd0960d1906e98bb73f">$this-&gt;exe</a>;</div>
-<div class="line"><span class="lineno">  203</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_acf6a3fd1ae79ebd0960d1906e98bb73f"><div class="ttname"><a href="#acf6a3fd1ae79ebd0960d1906e98bb73f">BinNodejs\$exe</a></div><div class="ttdeci">$exe</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00021">class.bin.nodejs.php:21</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00239">239</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  239</span>                             {</div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#acf6a3fd1ae79ebd0960d1906e98bb73f">$this-&gt;exe</a>;</div>
+<div class="line"><span class="lineno">  241</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_acf6a3fd1ae79ebd0960d1906e98bb73f"><div class="ttname"><a href="#acf6a3fd1ae79ebd0960d1906e98bb73f">BinNodejs\$exe</a></div><div class="ttdeci">$exe</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00059">class.bin.nodejs.php:59</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00021">$exe</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00059">$exe</a>.</p>
 
 </div>
 </div>
@@ -369,13 +409,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Retrieves the launch script path for Node.js.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The launch script path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00237">237</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  237</span>                                {</div>
-<div class="line"><span class="lineno">  238</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a512f007165e15f9e96641c7583c6f30b">$this-&gt;launch</a>;</div>
-<div class="line"><span class="lineno">  239</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_a512f007165e15f9e96641c7583c6f30b"><div class="ttname"><a href="#a512f007165e15f9e96641c7583c6f30b">BinNodejs\$launch</a></div><div class="ttdeci">$launch</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">class.bin.nodejs.php:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00275">275</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  275</span>                                {</div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a512f007165e15f9e96641c7583c6f30b">$this-&gt;launch</a>;</div>
+<div class="line"><span class="lineno">  277</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_a512f007165e15f9e96641c7583c6f30b"><div class="ttname"><a href="#a512f007165e15f9e96641c7583c6f30b">BinNodejs\$launch</a></div><div class="ttdeci">$launch</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00063">class.bin.nodejs.php:63</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">$launch</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00063">$launch</a>.</p>
 
 </div>
 </div>
@@ -396,13 +436,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Retrieves the npm executable path for Node.js.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The npm executable path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00228">228</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  228</span>                             {</div>
-<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a39363fafda039eeadf0335abca12dff2">$this-&gt;npm</a>;</div>
-<div class="line"><span class="lineno">  230</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_a39363fafda039eeadf0335abca12dff2"><div class="ttname"><a href="#a39363fafda039eeadf0335abca12dff2">BinNodejs\$npm</a></div><div class="ttdeci">$npm</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00024">class.bin.nodejs.php:24</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00266">266</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  266</span>                             {</div>
+<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a39363fafda039eeadf0335abca12dff2">$this-&gt;npm</a>;</div>
+<div class="line"><span class="lineno">  268</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_a39363fafda039eeadf0335abca12dff2"><div class="ttname"><a href="#a39363fafda039eeadf0335abca12dff2">BinNodejs\$npm</a></div><div class="ttdeci">$npm</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00062">class.bin.nodejs.php:62</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00024">$npm</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00062">$npm</a>.</p>
 
 </div>
 </div>
@@ -423,13 +463,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Retrieves the variables file path for Node.js.</p>
 <dl class="section return"><dt>Returns</dt><dd>string The variables file path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00219">219</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  219</span>                              {</div>
-<div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a7e7e2983f026af713e0e7ab8dda1adc2">$this-&gt;vars</a>;</div>
-<div class="line"><span class="lineno">  221</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_a7e7e2983f026af713e0e7ab8dda1adc2"><div class="ttname"><a href="#a7e7e2983f026af713e0e7ab8dda1adc2">BinNodejs\$vars</a></div><div class="ttdeci">$vars</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00023">class.bin.nodejs.php:23</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00257">257</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  257</span>                              {</div>
+<div class="line"><span class="lineno">  258</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="#a7e7e2983f026af713e0e7ab8dda1adc2">$this-&gt;vars</a>;</div>
+<div class="line"><span class="lineno">  259</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_a7e7e2983f026af713e0e7ab8dda1adc2"><div class="ttname"><a href="#a7e7e2983f026af713e0e7ab8dda1adc2">BinNodejs\$vars</a></div><div class="ttdeci">$vars</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00061">class.bin.nodejs.php:61</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00023">$vars</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00061">$vars</a>.</p>
 
 </div>
 </div>
@@ -462,63 +502,63 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d3/d9c/classModule.html#a3697b7a9b8437458ecbdf3de9e345d01">Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">44</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   44</span>                                                     {</div>
-<div class="line"><span class="lineno">   45</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
-<div class="line"><span class="lineno">   46</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a1f2f58994381e42d59ae66bf04dcf66c">Util::logReloadClass</a>($this);</div>
-<div class="line"><span class="lineno">   47</span> </div>
-<div class="line"><span class="lineno">   48</span>        $this-&gt;name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a53e361e655e38164a6ed2ebda844fbc4">Lang::NODEJS</a>);</div>
-<div class="line"><span class="lineno">   49</span>        $this-&gt;version = <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_VERSION);</div>
-<div class="line"><span class="lineno">   50</span>        parent::reload(<a class="code hl_variable" href="../../d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f">$id</a>, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04">$type</a>);</div>
-<div class="line"><span class="lineno">   51</span> </div>
-<div class="line"><span class="lineno">   52</span>        $this-&gt;enable = $this-&gt;enable &amp;&amp; <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_ENABLE);</div>
-<div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">if</span> ($this-&gt;bearsamppConfRaw !== <span class="keyword">false</span>) {</div>
-<div class="line"><span class="lineno">   55</span>            $this-&gt;exe = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a2c693495774394447c1b6db816e760a7">self::LOCAL_CFG_EXE</a>];</div>
-<div class="line"><span class="lineno">   56</span>            $this-&gt;conf = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#ad084839db55d091181a5184099d7e357">self::LOCAL_CFG_CONF</a>];</div>
-<div class="line"><span class="lineno">   57</span>            $this-&gt;vars = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a3e8c068959b5100d6ca4f08be61ce922">self::LOCAL_CFG_VARS</a>];</div>
-<div class="line"><span class="lineno">   58</span>            $this-&gt;npm = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#afcf4d71c01fd66a5df7d428b43eb7d04">self::LOCAL_CFG_NPM</a>];</div>
-<div class="line"><span class="lineno">   59</span>            $this-&gt;launch = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a4dfbd3230540ee6776441e39f8be29e1">self::LOCAL_CFG_LAUNCH</a>];</div>
-<div class="line"><span class="lineno">   60</span>        }</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
-<div class="line"><span class="lineno">   63</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#ac1d2fb681cc49b15b830120af43984ea">Util::logInfo</a>($this-&gt;name . <span class="stringliteral">&#39; is not enabled!&#39;</span>);</div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   65</span>        }</div>
-<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;currentPath)) {</div>
-<div class="line"><span class="lineno">   67</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a3071994d6444fb1bf8b56076ad09e843">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;currentPath));</div>
-<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   69</span>        }</div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;symlinkPath)) {</div>
-<div class="line"><span class="lineno">   71</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a3071994d6444fb1bf8b56076ad09e843">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;symlinkPath));</div>
-<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   73</span>        }</div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;bearsamppConf)) {</div>
-<div class="line"><span class="lineno">   75</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abeabe433be52776dbec3c769aaba92e3">Lang::ERROR_CONF_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;bearsamppConf));</div>
-<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;exe)) {</div>
-<div class="line"><span class="lineno">   79</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;exe));</div>
-<div class="line"><span class="lineno">   80</span>        }</div>
-<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;conf)) {</div>
-<div class="line"><span class="lineno">   82</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abeabe433be52776dbec3c769aaba92e3">Lang::ERROR_CONF_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;conf));</div>
-<div class="line"><span class="lineno">   83</span>        }</div>
-<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;vars)) {</div>
-<div class="line"><span class="lineno">   85</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;vars));</div>
-<div class="line"><span class="lineno">   86</span>        }</div>
-<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;npm)) {</div>
-<div class="line"><span class="lineno">   88</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;npm));</div>
-<div class="line"><span class="lineno">   89</span>        }</div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;launch)) {</div>
-<div class="line"><span class="lineno">   91</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;launch));</div>
-<div class="line"><span class="lineno">   92</span>        }</div>
-<div class="line"><span class="lineno">   93</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">82</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   82</span>                                                     {</div>
+<div class="line"><span class="lineno">   83</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>;</div>
+<div class="line"><span class="lineno">   84</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#a1f2f58994381e42d59ae66bf04dcf66c">Util::logReloadClass</a>($this);</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>        $this-&gt;name = <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a53e361e655e38164a6ed2ebda844fbc4">Lang::NODEJS</a>);</div>
+<div class="line"><span class="lineno">   87</span>        $this-&gt;version = <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_VERSION);</div>
+<div class="line"><span class="lineno">   88</span>        parent::reload(<a class="code hl_variable" href="../../d3/d9c/classModule.html#ac16e163a2dbe7e62ac7cdf6db72ca96f">$id</a>, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a11be288274e7a3443f031cfff587bb04">$type</a>);</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        $this-&gt;enable = $this-&gt;enable &amp;&amp; <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;getRaw(self::ROOT_CFG_ENABLE);</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span> ($this-&gt;bearsamppConfRaw !== <span class="keyword">false</span>) {</div>
+<div class="line"><span class="lineno">   93</span>            $this-&gt;exe = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a2c693495774394447c1b6db816e760a7">self::LOCAL_CFG_EXE</a>];</div>
+<div class="line"><span class="lineno">   94</span>            $this-&gt;conf = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#ad084839db55d091181a5184099d7e357">self::LOCAL_CFG_CONF</a>];</div>
+<div class="line"><span class="lineno">   95</span>            $this-&gt;vars = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a3e8c068959b5100d6ca4f08be61ce922">self::LOCAL_CFG_VARS</a>];</div>
+<div class="line"><span class="lineno">   96</span>            $this-&gt;npm = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#afcf4d71c01fd66a5df7d428b43eb7d04">self::LOCAL_CFG_NPM</a>];</div>
+<div class="line"><span class="lineno">   97</span>            $this-&gt;launch = $this-&gt;symlinkPath . <span class="charliteral">&#39;/&#39;</span> . $this-&gt;bearsamppConfRaw[<a class="code hl_variable" href="#a4dfbd3230540ee6776441e39f8be29e1">self::LOCAL_CFG_LAUNCH</a>];</div>
+<div class="line"><span class="lineno">   98</span>        }</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
+<div class="line"><span class="lineno">  101</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#ac1d2fb681cc49b15b830120af43984ea">Util::logInfo</a>($this-&gt;name . <span class="stringliteral">&#39; is not enabled!&#39;</span>);</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  103</span>        }</div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;currentPath)) {</div>
+<div class="line"><span class="lineno">  105</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a3071994d6444fb1bf8b56076ad09e843">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;currentPath));</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  107</span>        }</div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (!is_dir($this-&gt;symlinkPath)) {</div>
+<div class="line"><span class="lineno">  109</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a3071994d6444fb1bf8b56076ad09e843">Lang::ERROR_FILE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;symlinkPath));</div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;bearsamppConf)) {</div>
+<div class="line"><span class="lineno">  113</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abeabe433be52776dbec3c769aaba92e3">Lang::ERROR_CONF_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;bearsamppConf));</div>
+<div class="line"><span class="lineno">  114</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;exe)) {</div>
+<div class="line"><span class="lineno">  117</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;exe));</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;conf)) {</div>
+<div class="line"><span class="lineno">  120</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abeabe433be52776dbec3c769aaba92e3">Lang::ERROR_CONF_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;conf));</div>
+<div class="line"><span class="lineno">  121</span>        }</div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;vars)) {</div>
+<div class="line"><span class="lineno">  123</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;vars));</div>
+<div class="line"><span class="lineno">  124</span>        }</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;npm)) {</div>
+<div class="line"><span class="lineno">  126</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;npm));</div>
+<div class="line"><span class="lineno">  127</span>        }</div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (!is_file($this-&gt;launch)) {</div>
+<div class="line"><span class="lineno">  129</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#acd59156593620ae23eebb2e2adefb7d3">Lang::ERROR_EXE_NOT_FOUND</a>), $this-&gt;name . <span class="charliteral">&#39; &#39;</span> . $this-&gt;version, $this-&gt;launch));</div>
+<div class="line"><span class="lineno">  130</span>        }</div>
+<div class="line"><span class="lineno">  131</span>    }</div>
 <div class="ttc" id="aajax_8apache_8php_html_a8fcee43f6a0dbe1e8fba5e0f5b66b21a"><div class="ttname"><a href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a></div><div class="ttdeci">global $bearsamppLang</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d44/ajax_8apache_8php_source.html#l00016">ajax.apache.php:16</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_a2c693495774394447c1b6db816e760a7"><div class="ttname"><a href="#a2c693495774394447c1b6db816e760a7">BinNodejs\LOCAL_CFG_EXE</a></div><div class="ttdeci">const LOCAL_CFG_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00015">class.bin.nodejs.php:15</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_a3e8c068959b5100d6ca4f08be61ce922"><div class="ttname"><a href="#a3e8c068959b5100d6ca4f08be61ce922">BinNodejs\LOCAL_CFG_VARS</a></div><div class="ttdeci">const LOCAL_CFG_VARS</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00016">class.bin.nodejs.php:16</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_a4dfbd3230540ee6776441e39f8be29e1"><div class="ttname"><a href="#a4dfbd3230540ee6776441e39f8be29e1">BinNodejs\LOCAL_CFG_LAUNCH</a></div><div class="ttdeci">const LOCAL_CFG_LAUNCH</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00018">class.bin.nodejs.php:18</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_ad084839db55d091181a5184099d7e357"><div class="ttname"><a href="#ad084839db55d091181a5184099d7e357">BinNodejs\LOCAL_CFG_CONF</a></div><div class="ttdeci">const LOCAL_CFG_CONF</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00019">class.bin.nodejs.php:19</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_afcf4d71c01fd66a5df7d428b43eb7d04"><div class="ttname"><a href="#afcf4d71c01fd66a5df7d428b43eb7d04">BinNodejs\LOCAL_CFG_NPM</a></div><div class="ttdeci">const LOCAL_CFG_NPM</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00017">class.bin.nodejs.php:17</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_a2c693495774394447c1b6db816e760a7"><div class="ttname"><a href="#a2c693495774394447c1b6db816e760a7">BinNodejs\LOCAL_CFG_EXE</a></div><div class="ttdeci">const LOCAL_CFG_EXE</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00053">class.bin.nodejs.php:53</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_a3e8c068959b5100d6ca4f08be61ce922"><div class="ttname"><a href="#a3e8c068959b5100d6ca4f08be61ce922">BinNodejs\LOCAL_CFG_VARS</a></div><div class="ttdeci">const LOCAL_CFG_VARS</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00054">class.bin.nodejs.php:54</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_a4dfbd3230540ee6776441e39f8be29e1"><div class="ttname"><a href="#a4dfbd3230540ee6776441e39f8be29e1">BinNodejs\LOCAL_CFG_LAUNCH</a></div><div class="ttdeci">const LOCAL_CFG_LAUNCH</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00056">class.bin.nodejs.php:56</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_ad084839db55d091181a5184099d7e357"><div class="ttname"><a href="#ad084839db55d091181a5184099d7e357">BinNodejs\LOCAL_CFG_CONF</a></div><div class="ttdeci">const LOCAL_CFG_CONF</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00057">class.bin.nodejs.php:57</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_afcf4d71c01fd66a5df7d428b43eb7d04"><div class="ttname"><a href="#afcf4d71c01fd66a5df7d428b43eb7d04">BinNodejs\LOCAL_CFG_NPM</a></div><div class="ttdeci">const LOCAL_CFG_NPM</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00055">class.bin.nodejs.php:55</a></div></div>
 <div class="ttc" id="aclassLang_html_a3071994d6444fb1bf8b56076ad09e843"><div class="ttname"><a href="../../da/d49/classLang.html#a3071994d6444fb1bf8b56076ad09e843">Lang\ERROR_FILE_NOT_FOUND</a></div><div class="ttdeci">const ERROR_FILE_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00160">class.lang.php:160</a></div></div>
 <div class="ttc" id="aclassLang_html_a53e361e655e38164a6ed2ebda844fbc4"><div class="ttname"><a href="../../da/d49/classLang.html#a53e361e655e38164a6ed2ebda844fbc4">Lang\NODEJS</a></div><div class="ttdeci">const NODEJS</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00135">class.lang.php:135</a></div></div>
 <div class="ttc" id="aclassLang_html_abeabe433be52776dbec3c769aaba92e3"><div class="ttname"><a href="../../da/d49/classLang.html#abeabe433be52776dbec3c769aaba92e3">Lang\ERROR_CONF_NOT_FOUND</a></div><div class="ttdeci">const ERROR_CONF_NOT_FOUND</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00158">class.lang.php:158</a></div></div>
@@ -528,9 +568,9 @@ Additional Inherited Members</h2></td></tr>
 <div class="ttc" id="aclassUtil_html_ac1d2fb681cc49b15b830120af43984ea"><div class="ttname"><a href="../../d6/de4/classUtil.html#ac1d2fb681cc49b15b830120af43984ea">Util\logInfo</a></div><div class="ttdeci">static logInfo($data, $file=null)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d12/class_8util_8php_source.html#l00778">class.util.php:778</a></div></div>
 <div class="ttc" id="ahomepage_8php_html_a51fdddae876fe5f26d09f816e6612414"><div class="ttname"><a href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a></div><div class="ttdeci">global $bearsamppConfig</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dbf/homepage_8php_source.html#l00026">homepage.php:26</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$type</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00158">Lang\ERROR_CONF_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00159">Lang\ERROR_EXE_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00160">Lang\ERROR_FILE_NOT_FOUND</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00019">LOCAL_CFG_CONF</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00015">LOCAL_CFG_EXE</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00018">LOCAL_CFG_LAUNCH</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00017">LOCAL_CFG_NPM</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00016">LOCAL_CFG_VARS</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00778">Util\logInfo()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00822">Util\logReloadClass()</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00135">Lang\NODEJS</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00019">Module\$id</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00018">Module\$type</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00158">Lang\ERROR_CONF_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00159">Lang\ERROR_EXE_NOT_FOUND</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00160">Lang\ERROR_FILE_NOT_FOUND</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00057">LOCAL_CFG_CONF</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00053">LOCAL_CFG_EXE</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00056">LOCAL_CFG_LAUNCH</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00055">LOCAL_CFG_NPM</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00054">LOCAL_CFG_VARS</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00778">Util\logInfo()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00822">Util\logReloadClass()</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00135">Lang\NODEJS</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00033">__construct()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00164">setVersion()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00071">__construct()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00202">setVersion()</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -568,25 +608,25 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00177">177</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  177</span>                                                             {</div>
-<div class="line"><span class="lineno">  178</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">  179</span> </div>
-<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">if</span> ($enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a> &amp;&amp; !is_dir($this-&gt;currentPath)) {</div>
-<div class="line"><span class="lineno">  181</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="stringliteral">&#39; cannot be enabled because bundle &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>() . <span class="stringliteral">&#39; does not exist in &#39;</span> . $this-&gt;currentPath);</div>
-<div class="line"><span class="lineno">  182</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
-<div class="line"><span class="lineno">  183</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
-<div class="line"><span class="lineno">  184</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abbdba3143d33c3223bf4fa922214de77">Lang::ENABLE_BUNDLE_NOT_EXIST</a>), $this-&gt;getName(), $this-&gt;getVersion(), $this-&gt;currentPath),</div>
-<div class="line"><span class="lineno">  185</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a18f6fff31531f3a3a815a87a1ba3a9ef">Lang::ENABLE_TITLE</a>), $this-&gt;getName())</div>
-<div class="line"><span class="lineno">  186</span>                );</div>
-<div class="line"><span class="lineno">  187</span>            }</div>
-<div class="line"><span class="lineno">  188</span>            $enabled = <a class="code hl_variable" href="../../d9/df9/classConfig.html#a087afa0912f03194a296536d0c5ac116">Config::DISABLED</a>;</div>
-<div class="line"><span class="lineno">  189</span>        }</div>
-<div class="line"><span class="lineno">  190</span> </div>
-<div class="line"><span class="lineno">  191</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#ac1d2fb681cc49b15b830120af43984ea">Util::logInfo</a>($this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="stringliteral">&#39; switched to &#39;</span> . ($enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a> ? <span class="stringliteral">&#39;enabled&#39;</span> : <span class="stringliteral">&#39;disabled&#39;</span>));</div>
-<div class="line"><span class="lineno">  192</span>        $this-&gt;enable = $enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a>;</div>
-<div class="line"><span class="lineno">  193</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_ENABLE, $enabled);</div>
-<div class="line"><span class="lineno">  194</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00215">215</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  215</span>                                                             {</div>
+<div class="line"><span class="lineno">  216</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>, <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>        <span class="keywordflow">if</span> ($enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a> &amp;&amp; !is_dir($this-&gt;currentPath)) {</div>
+<div class="line"><span class="lineno">  219</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>($this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="stringliteral">&#39; cannot be enabled because bundle &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>() . <span class="stringliteral">&#39; does not exist in &#39;</span> . $this-&gt;currentPath);</div>
+<div class="line"><span class="lineno">  220</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  221</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  222</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#abbdba3143d33c3223bf4fa922214de77">Lang::ENABLE_BUNDLE_NOT_EXIST</a>), $this-&gt;getName(), $this-&gt;getVersion(), $this-&gt;currentPath),</div>
+<div class="line"><span class="lineno">  223</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a18f6fff31531f3a3a815a87a1ba3a9ef">Lang::ENABLE_TITLE</a>), $this-&gt;getName())</div>
+<div class="line"><span class="lineno">  224</span>                );</div>
+<div class="line"><span class="lineno">  225</span>            }</div>
+<div class="line"><span class="lineno">  226</span>            $enabled = <a class="code hl_variable" href="../../d9/df9/classConfig.html#a087afa0912f03194a296536d0c5ac116">Config::DISABLED</a>;</div>
+<div class="line"><span class="lineno">  227</span>        }</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#ac1d2fb681cc49b15b830120af43984ea">Util::logInfo</a>($this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="stringliteral">&#39; switched to &#39;</span> . ($enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a> ? <span class="stringliteral">&#39;enabled&#39;</span> : <span class="stringliteral">&#39;disabled&#39;</span>));</div>
+<div class="line"><span class="lineno">  230</span>        $this-&gt;enable = $enabled == <a class="code hl_variable" href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config::ENABLED</a>;</div>
+<div class="line"><span class="lineno">  231</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_ENABLE, $enabled);</div>
+<div class="line"><span class="lineno">  232</span>    }</div>
 <div class="ttc" id="aclassConfig_html_a087afa0912f03194a296536d0c5ac116"><div class="ttname"><a href="../../d9/df9/classConfig.html#a087afa0912f03194a296536d0c5ac116">Config\DISABLED</a></div><div class="ttdeci">const DISABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00033">class.config.php:33</a></div></div>
 <div class="ttc" id="aclassConfig_html_a3f84a676daec435728678aa5f8ff234e"><div class="ttname"><a href="../../d9/df9/classConfig.html#a3f84a676daec435728678aa5f8ff234e">Config\ENABLED</a></div><div class="ttdeci">const ENABLED</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d4d/class_8config_8php_source.html#l00032">class.config.php:32</a></div></div>
 <div class="ttc" id="aclassLang_html_a18f6fff31531f3a3a815a87a1ba3a9ef"><div class="ttname"><a href="../../da/d49/classLang.html#a18f6fff31531f3a3a815a87a1ba3a9ef">Lang\ENABLE_TITLE</a></div><div class="ttdeci">const ENABLE_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00351">class.lang.php:351</a></div></div>
@@ -623,18 +663,18 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d3/d9c/classModule.html#a6d1c58d459ce05e331a9c76e2d977d02">Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00164">164</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  164</span>                                         {</div>
-<div class="line"><span class="lineno">  165</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
-<div class="line"><span class="lineno">  166</span>        $this-&gt;version = <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>;</div>
-<div class="line"><span class="lineno">  167</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_VERSION, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
-<div class="line"><span class="lineno">  168</span>        $this-&gt;<a class="code hl_function" href="#ac3b6b7cbe6147b26b153b1ce851a7f01">reload</a>();</div>
-<div class="line"><span class="lineno">  169</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00202">202</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  202</span>                                         {</div>
+<div class="line"><span class="lineno">  203</span>        global <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>;</div>
+<div class="line"><span class="lineno">  204</span>        $this-&gt;version = <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>;</div>
+<div class="line"><span class="lineno">  205</span>        <a class="code hl_variable" href="../../d9/dbf/homepage_8php.html#a51fdddae876fe5f26d09f816e6612414">$bearsamppConfig</a>-&gt;replace(self::ROOT_CFG_VERSION, <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  206</span>        $this-&gt;<a class="code hl_function" href="#ac3b6b7cbe6147b26b153b1ce851a7f01">reload</a>();</div>
+<div class="line"><span class="lineno">  207</span>    }</div>
 <div class="ttc" id="aclassModule_html_a7b3670c899102455a2d46abd4750c33f"><div class="ttname"><a href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">Module\$version</a></div><div class="ttdeci">$version</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00022">class.module.php:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/dbf/homepage_8php_source.html#l00026">$bearsamppConfig</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">updateConfig()</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -673,14 +713,14 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool True if the switch was successful, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00102">102</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  102</span>                                                                 {</div>
-<div class="line"><span class="lineno">  103</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Switch &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; version to &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
-<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a7e05048d9ec4cee6fa7b07fcf8461474">updateConfig</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, 0, $showWindow);</div>
-<div class="line"><span class="lineno">  105</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_a7e05048d9ec4cee6fa7b07fcf8461474"><div class="ttname"><a href="#a7e05048d9ec4cee6fa7b07fcf8461474">BinNodejs\updateConfig</a></div><div class="ttdeci">updateConfig($version=null, $sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">class.bin.nodejs.php:115</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00140">140</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>                                                                 {</div>
+<div class="line"><span class="lineno">  141</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(<span class="stringliteral">&#39;Switch &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; version to &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="#a7e05048d9ec4cee6fa7b07fcf8461474">updateConfig</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, 0, $showWindow);</div>
+<div class="line"><span class="lineno">  143</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_a7e05048d9ec4cee6fa7b07fcf8461474"><div class="ttname"><a href="#a7e05048d9ec4cee6fa7b07fcf8461474">BinNodejs\updateConfig</a></div><div class="ttdeci">updateConfig($version=null, $sub=0, $showWindow=false)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">class.bin.nodejs.php:153</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">updateConfig()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">updateConfig()</a>.</p>
 
 </div>
 </div>
@@ -728,61 +768,61 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d3/d9c/classModule.html#a675bb2654622fddf7b65e53308455caf">Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">115</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  115</span>                                                                                    {</div>
-<div class="line"><span class="lineno">  116</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
-<div class="line"><span class="lineno">  117</span> </div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
-<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  120</span>        }</div>
-<div class="line"><span class="lineno">  121</span> </div>
-<div class="line"><span class="lineno">  122</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> = <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> == <span class="keyword">null</span> ? $this-&gt;version : <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>;</div>
-<div class="line"><span class="lineno">  123</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(($sub &gt; 0 ? str_repeat(<span class="charliteral">&#39; &#39;</span>, 2 * $sub) : <span class="stringliteral">&#39;&#39;</span>) . <span class="stringliteral">&#39;Update &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> . <span class="stringliteral">&#39; config&#39;</span>);</div>
-<div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>        $boxTitle = sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#ac5bdbb4c23d062429acc1a1bf92c6ba2">Lang::SWITCH_VERSION_TITLE</a>), $this-&gt;getName(), <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
-<div class="line"><span class="lineno">  126</span> </div>
-<div class="line"><span class="lineno">  127</span>        <a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$conf</a> = str_replace(<span class="stringliteral">&#39;nodejs&#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>(), <span class="stringliteral">&#39;nodejs&#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, $this-&gt;<a class="code hl_function" href="#ac75e1c7c559a2fe11600359e96ea0a92">getConf</a>());</div>
-<div class="line"><span class="lineno">  128</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a> = str_replace(<span class="stringliteral">&#39;nodejs&#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>(), <span class="stringliteral">&#39;nodejs&#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, $this-&gt;bearsamppConf);</div>
-<div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">if</span> (!file_exists(<a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$conf</a>) || !file_exists(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a>)) {</div>
-<div class="line"><span class="lineno">  131</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config files not found for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
-<div class="line"><span class="lineno">  132</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
-<div class="line"><span class="lineno">  133</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
-<div class="line"><span class="lineno">  134</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a7c10029a48c2b458e48accb140bf388e">Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>),</div>
-<div class="line"><span class="lineno">  135</span>                    $boxTitle</div>
-<div class="line"><span class="lineno">  136</span>                );</div>
-<div class="line"><span class="lineno">  137</span>            }</div>
-<div class="line"><span class="lineno">  138</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  139</span>        }</div>
-<div class="line"><span class="lineno">  140</span> </div>
-<div class="line"><span class="lineno">  141</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a> = parse_ini_file(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a>);</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a> === <span class="keyword">false</span> || !isset(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION]) || <a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION] != <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>) {</div>
-<div class="line"><span class="lineno">  143</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config file malformed for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
-<div class="line"><span class="lineno">  144</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
-<div class="line"><span class="lineno">  145</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
-<div class="line"><span class="lineno">  146</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#afa4c917d1f302c7091914e3e2a122e22">Lang::BEARSAMPP_CONF_MALFORMED_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>),</div>
-<div class="line"><span class="lineno">  147</span>                    $boxTitle</div>
-<div class="line"><span class="lineno">  148</span>                );</div>
-<div class="line"><span class="lineno">  149</span>            }</div>
-<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  151</span>        }</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>        <span class="comment">// bearsampp.conf</span></div>
-<div class="line"><span class="lineno">  154</span>        $this-&gt;<a class="code hl_function" href="#ae267b2e0458d42532bb0d0cafaf7ac96">setVersion</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">153</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  153</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  154</span>        global <a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>, $bearsamppWinbinder;</div>
 <div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  157</span>    }</div>
-<div class="ttc" id="aclassBinNodejs_html_ac75e1c7c559a2fe11600359e96ea0a92"><div class="ttname"><a href="#ac75e1c7c559a2fe11600359e96ea0a92">BinNodejs\getConf</a></div><div class="ttdeci">getConf()</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00210">class.bin.nodejs.php:210</a></div></div>
-<div class="ttc" id="aclassBinNodejs_html_ae267b2e0458d42532bb0d0cafaf7ac96"><div class="ttname"><a href="#ae267b2e0458d42532bb0d0cafaf7ac96">BinNodejs\setVersion</a></div><div class="ttdeci">setVersion($version)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00164">class.bin.nodejs.php:164</a></div></div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">if</span> (!$this-&gt;enable) {</div>
+<div class="line"><span class="lineno">  157</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  158</span>        }</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> = <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> == <span class="keyword">null</span> ? $this-&gt;version : <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>;</div>
+<div class="line"><span class="lineno">  161</span>        <a class="code hl_function" href="../../d6/de4/classUtil.html#aa603c2633c6da8fd095876d47852d0f4">Util::logDebug</a>(($sub &gt; 0 ? str_repeat(<span class="charliteral">&#39; &#39;</span>, 2 * $sub) : <span class="stringliteral">&#39;&#39;</span>) . <span class="stringliteral">&#39;Update &#39;</span> . $this-&gt;name . <span class="stringliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a> . <span class="stringliteral">&#39; config&#39;</span>);</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>        $boxTitle = sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#ac5bdbb4c23d062429acc1a1bf92c6ba2">Lang::SWITCH_VERSION_TITLE</a>), $this-&gt;getName(), <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>        <a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$conf</a> = str_replace(<span class="stringliteral">&#39;nodejs&#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>(), <span class="stringliteral">&#39;nodejs&#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, $this-&gt;<a class="code hl_function" href="#ac75e1c7c559a2fe11600359e96ea0a92">getConf</a>());</div>
+<div class="line"><span class="lineno">  166</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a> = str_replace(<span class="stringliteral">&#39;nodejs&#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a91cb13e8b5803fcac9649aab180e5964">getVersion</a>(), <span class="stringliteral">&#39;nodejs&#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>, $this-&gt;bearsamppConf);</div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">if</span> (!file_exists(<a class="code hl_variable" href="#a95745ad52cddb833ca43df1d510c0fed">$conf</a>) || !file_exists(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a>)) {</div>
+<div class="line"><span class="lineno">  169</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config files not found for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  170</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  171</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  172</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#a7c10029a48c2b458e48accb140bf388e">Lang::BEARSAMPP_CONF_NOT_FOUND_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>),</div>
+<div class="line"><span class="lineno">  173</span>                    $boxTitle</div>
+<div class="line"><span class="lineno">  174</span>                );</div>
+<div class="line"><span class="lineno">  175</span>            }</div>
+<div class="line"><span class="lineno">  176</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  177</span>        }</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>        <a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a> = parse_ini_file(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">$bearsamppConf</a>);</div>
+<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a> === <span class="keyword">false</span> || !isset(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION]) || <a class="code hl_variable" href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">$bearsamppConfRaw</a>[self::ROOT_CFG_VERSION] != <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>) {</div>
+<div class="line"><span class="lineno">  181</span>            <a class="code hl_function" href="../../d6/de4/classUtil.html#a54cf5e7a5b2c182431e80410a8c3c8c7">Util::logError</a>(<span class="stringliteral">&#39;bearsampp config file malformed for &#39;</span> . $this-&gt;<a class="code hl_function" href="../../d3/d9c/classModule.html#a4708855b554a347551e479379f845d65">getName</a>() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  182</span>            <span class="keywordflow">if</span> ($showWindow) {</div>
+<div class="line"><span class="lineno">  183</span>                $bearsamppWinbinder-&gt;messageBoxError(</div>
+<div class="line"><span class="lineno">  184</span>                    sprintf(<a class="code hl_variable" href="../../d4/d44/ajax_8apache_8php.html#a8fcee43f6a0dbe1e8fba5e0f5b66b21a">$bearsamppLang</a>-&gt;getValue(<a class="code hl_variable" href="../../da/d49/classLang.html#afa4c917d1f302c7091914e3e2a122e22">Lang::BEARSAMPP_CONF_MALFORMED_ERROR</a>), $this-&gt;getName() . <span class="charliteral">&#39; &#39;</span> . <a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>),</div>
+<div class="line"><span class="lineno">  185</span>                    $boxTitle</div>
+<div class="line"><span class="lineno">  186</span>                );</div>
+<div class="line"><span class="lineno">  187</span>            }</div>
+<div class="line"><span class="lineno">  188</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  189</span>        }</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>        <span class="comment">// bearsampp.conf</span></div>
+<div class="line"><span class="lineno">  192</span>        $this-&gt;<a class="code hl_function" href="#ae267b2e0458d42532bb0d0cafaf7ac96">setVersion</a>(<a class="code hl_variable" href="../../d3/d9c/classModule.html#a7b3670c899102455a2d46abd4750c33f">$version</a>);</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  195</span>    }</div>
+<div class="ttc" id="aclassBinNodejs_html_ac75e1c7c559a2fe11600359e96ea0a92"><div class="ttname"><a href="#ac75e1c7c559a2fe11600359e96ea0a92">BinNodejs\getConf</a></div><div class="ttdeci">getConf()</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00248">class.bin.nodejs.php:248</a></div></div>
+<div class="ttc" id="aclassBinNodejs_html_ae267b2e0458d42532bb0d0cafaf7ac96"><div class="ttname"><a href="#ae267b2e0458d42532bb0d0cafaf7ac96">BinNodejs\setVersion</a></div><div class="ttdeci">setVersion($version)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00202">class.bin.nodejs.php:202</a></div></div>
 <div class="ttc" id="aclassLang_html_a7c10029a48c2b458e48accb140bf388e"><div class="ttname"><a href="../../da/d49/classLang.html#a7c10029a48c2b458e48accb140bf388e">Lang\BEARSAMPP_CONF_NOT_FOUND_ERROR</a></div><div class="ttdeci">const BEARSAMPP_CONF_NOT_FOUND_ERROR</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00174">class.lang.php:174</a></div></div>
 <div class="ttc" id="aclassLang_html_ac5bdbb4c23d062429acc1a1bf92c6ba2"><div class="ttname"><a href="../../da/d49/classLang.html#ac5bdbb4c23d062429acc1a1bf92c6ba2">Lang\SWITCH_VERSION_TITLE</a></div><div class="ttdeci">const SWITCH_VERSION_TITLE</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00164">class.lang.php:164</a></div></div>
 <div class="ttc" id="aclassLang_html_afa4c917d1f302c7091914e3e2a122e22"><div class="ttname"><a href="../../da/d49/classLang.html#afa4c917d1f302c7091914e3e2a122e22">Lang\BEARSAMPP_CONF_MALFORMED_ERROR</a></div><div class="ttdeci">const BEARSAMPP_CONF_MALFORMED_ERROR</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/class_8lang_8php_source.html#l00175">class.lang.php:175</a></div></div>
 <div class="ttc" id="aclassModule_html_a3c69429d8725f3e3fd9ea067c8514d06"><div class="ttname"><a href="../../d3/d9c/classModule.html#a3c69429d8725f3e3fd9ea067c8514d06">Module\$bearsamppConf</a></div><div class="ttdeci">$bearsamppConf</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00029">class.module.php:29</a></div></div>
 <div class="ttc" id="aclassModule_html_a93e4606bd941892fcaf8e948c15a5675"><div class="ttname"><a href="../../d3/d9c/classModule.html#a93e4606bd941892fcaf8e948c15a5675">Module\$bearsamppConfRaw</a></div><div class="ttdeci">$bearsamppConfRaw</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1b/class_8module_8php_source.html#l00030">class.module.php:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00029">Module\$bearsamppConf</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00030">Module\$bearsamppConfRaw</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00022">$conf</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00175">Lang\BEARSAMPP_CONF_MALFORMED_ERROR</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00174">Lang\BEARSAMPP_CONF_NOT_FOUND_ERROR</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00210">getConf()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00189">Module\getName()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00198">Module\getVersion()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00164">setVersion()</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00164">Lang\SWITCH_VERSION_TITLE</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00029">Module\$bearsamppConf</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00030">Module\$bearsamppConfRaw</a>, <a class="el" href="../../d4/d44/ajax_8apache_8php_source.html#l00016">$bearsamppLang</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00060">$conf</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00022">Module\$version</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00175">Lang\BEARSAMPP_CONF_MALFORMED_ERROR</a>, <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00174">Lang\BEARSAMPP_CONF_NOT_FOUND_ERROR</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00248">getConf()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00189">Module\getName()</a>, <a class="el" href="../../de/d1b/class_8module_8php_source.html#l00198">Module\getVersion()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00766">Util\logDebug()</a>, <a class="el" href="../../d5/d12/class_8util_8php_source.html#l00802">Util\logError()</a>, <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00202">setVersion()</a>, and <a class="el" href="../../df/dab/class_8lang_8php_source.html#l00164">Lang\SWITCH_VERSION_TITLE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00102">switchVersion()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00140">switchVersion()</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -814,9 +854,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00022">22</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00060">60</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00210">getConf()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00115">updateConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00248">getConf()</a>, and <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00153">updateConfig()</a>.</p>
 
 </div>
 </div>
@@ -840,9 +880,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00021">21</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00059">59</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00201">getExe()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00239">getExe()</a>.</p>
 
 </div>
 </div>
@@ -866,9 +906,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00025">25</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00063">63</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00237">getLaunch()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00275">getLaunch()</a>.</p>
 
 </div>
 </div>
@@ -892,9 +932,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00024">24</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00062">62</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00228">getNpm()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00266">getNpm()</a>.</p>
 
 </div>
 </div>
@@ -918,9 +958,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00023">23</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00061">61</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00219">getVars()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00257">getVars()</a>.</p>
 
 </div>
 </div>
@@ -936,9 +976,9 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00019">19</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00057">57</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -954,9 +994,9 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00015">15</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00053">53</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -972,9 +1012,9 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00018">18</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00056">56</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -990,9 +1030,9 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00017">17</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00055">55</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -1008,9 +1048,9 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00016">16</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00054">54</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00044">reload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00082">reload()</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1066,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00012">12</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00050">50</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1082,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00013">13</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html#l00051">51</a> of file <a class="el" href="../../df/d92/class_8bin_8nodejs_8php_source.html">class.bin.nodejs.php</a>.</p>
 
 </div>
 </div>
