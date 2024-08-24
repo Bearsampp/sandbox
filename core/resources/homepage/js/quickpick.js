@@ -1,3 +1,12 @@
+/*
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
+ */
+
 /**
  * Initializes event listeners and handles the UI interactions for the custom select dropdown.
  * This function is executed when the DOM content is fully loaded.
@@ -173,11 +182,10 @@ async function installModule(moduleName, version) {
                         console.log('Progress:', data.progress);
                         const progressValue = data.progress;
                         progressbar.style.width = '100%';
+                        progressbar.setAttribute('aria-valuenow', progressValue);
                         if (isDownloading) {
-                            progressbar.setAttribute('aria-valuenow', progressValue);
                             progressbar.innerText = `${progressValue} KBytes Downloaded`;
                         } else {
-                            progressbar.setAttribute('aria-valuenow', progressValue);
                             progressbar.innerText = `${progressValue} Extracted`;
                         }
                     } else if (data.success) {
