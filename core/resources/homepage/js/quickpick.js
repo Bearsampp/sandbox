@@ -182,7 +182,7 @@ async function installModule(moduleName, version) {
                         console.log('Progress:', data.progress);
                         const progressValue = data.progress;
                         progressbar.style.width = '100%';
-                        progressbar.setAttribute('aria-valuenow', progressValue);
+                        //progressbar.setAttribute('aria-valuenow', progressValue);
                         if (isDownloading) {
                             progressbar.innerText = `${progressValue} KBytes Downloaded`;
                         } else {
