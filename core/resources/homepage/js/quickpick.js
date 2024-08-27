@@ -126,6 +126,7 @@ function hideall() {
  *
  * @param {string} moduleName - The name of the module to install.
  * @param {string} version - The version of the module to install.
+ * @returns {Promise<void>} - A promise that resolves when the installation is complete.
  */
 async function installModule(moduleName, version) {
     const url = AJAX_URL;
@@ -182,19 +183,15 @@ async function installModule(moduleName, version) {
                         console.log('Progress:', data.progress);
                         const progressValue = data.progress;
                         progressbar.style.width = '100%';
-                        //progressbar.setAttribute('aria-valuenow', progressValue);
                         if (isDownloading) {
                             progressbar.innerText = `${progressValue} KBytes Downloaded`;
                         } else {
                             progressbar.innerText = `${progressValue} Extracted`;
                         }
                     } else if (data.success) {
-
                         console.log(data);
                         isCompleted = true;
                         messageData = data.message;
-//                        window.alert(data.message);
-
                     } else if (data.error) {
                         console.error('Error:', data.error);
                         window.alert(`Error: ${data.error}`);
@@ -205,13 +202,15 @@ async function installModule(moduleName, version) {
                     // Ignore JSON parse errors for incomplete parts
                 }
             }
+
+            // Clear responseText to keep only the unprocessed part
+            responseText = parts[parts.length - 1].startsWith('{') ? parts[parts.length - 1] : '';
         }
     } catch (error) {
         console.error('Failed to install module:', error);
         window.alert('Failed to install module: ' + error.message);
     } finally {
-        if (isCompleted === true)
-        {
+        if (isCompleted === true) {
             confirm(messageData);
         }
         setTimeout(() => {

@@ -459,7 +459,7 @@ class Core
         return 'core object';
     }
 
-    /**
+/**
      * Unzips a file to the specified directory and provides progress updates.
      *
      * This method uses the 7-Zip command-line tool to extract the contents of a zip file.
@@ -472,88 +472,124 @@ class Core
      *                                            - int $currentFile: The current file number being extracted.
      *                                            - int $totalFiles: The total number of files to be extracted.
      *
-     * @return array An array containing the result of the extraction:
-     *               - 'success' => true and 'numFiles' => int on success.
-     *               - 'error' => string and 'numFiles' => int on failure.
+     * @global  object         $bearsamppRoot     Global object to get core paths.
+     *
+     * @return array|false An array containing the result of the extraction on success or failure:
+     *                     - On success: ['success' => true, 'numFiles' => int]
+     *                     - On failure: ['error' => string, 'numFiles' => int]
+     *                     - Returns false if the 7-Zip executable is not found.
      */
-public function unzipFile($filePath, $destination, $progressCallback = null)
-{
-    global $bearsamppRoot;
+    public function unzipFile($filePath, $destination, $progressCallback = null)
+    {
+        global $bearsamppRoot;
 
-    $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
+        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-    if (!file_exists($sevenZipPath)) {
-        Util::logError('7za.exe not found at: ' . $sevenZipPath);
-        return false;
-    }
+        if ( !file_exists( $sevenZipPath ) ) {
+            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
 
-    // Command to test the archive and get the number of files
-    $testCommand = escapeshellarg($sevenZipPath) . ' t ' . escapeshellarg($filePath) . ' -y -bsp1';
-    $testOutput = shell_exec($testCommand);
+            return false;
+        }
 
-    // Extract the number of files from the test command output
-    preg_match('/Files: (\d+)/', $testOutput, $matches);
-    $numFiles = isset($matches[1]) ? (int)$matches[1] : 0;
-    Util::logTrace('Number of files to be extracted: ' . $numFiles);
+        // Command to test the archive and get the number of files
+        $testCommand = escapeshellarg( $sevenZipPath ) . ' t ' . escapeshellarg( $filePath ) . ' -y -bsp1';
+        $testOutput  = shell_exec( $testCommand );
 
-    // Command to extract the archive
-    $command = escapeshellarg($sevenZipPath) . ' x ' . escapeshellarg($filePath) . ' -y -bsp1 -bb0 -o' . escapeshellarg($destination);
-    Util::logTrace('Executing command: ' . $command);
+        // Extract the number of files from the test command output
+        preg_match( '/Files: (\d+)/', $testOutput, $matches );
+        $numFiles = isset( $matches[1] ) ? (int) $matches[1] : 0;
+        Util::logTrace( 'Number of files to be extracted: ' . $numFiles );
 
-    $process = popen($command, 'rb');
+        // Command to extract the archive
+        $command = escapeshellarg( $sevenZipPath ) . ' x ' . escapeshellarg( $filePath ) . ' -y -bsp1 -bb0 -o' . escapeshellarg( $destination );
+        Util::logTrace( 'Executing command: ' . $command );
 
-    if ($process) {
-        $buffer = '';
-        while (!feof($process)) {
-            $buffer .= fread($process, 8192); // Read in chunks of 8KB
-            while (($pos = strpos($buffer, "\r")) !== false) {
-                $line = substr($buffer, 0, $pos);
-                $buffer = substr($buffer, $pos + 1);
-                $line = trim($line); // Remove any leading/trailing whitespace
-                Util::logTrace("Processing line: $line");
+        $process = popen( $command, 'rb' );
 
-                // Adjusted preg_match pattern to match the percentage preceded by a space or at the start of the line
-                if ($progressCallback && preg_match('/(?:^|\s)(\d+)%/', $line, $matches)) {
-                    $currentPercentage = intval($matches[1]);
-                    Util::logTrace("Extraction progress: $currentPercentage%");
-                    call_user_func($progressCallback, $currentPercentage);
-                    Util::logTrace("Progress callback called with percentage: $currentPercentage");
-                } else {
-                    Util::logTrace("Line did not match pattern: $line");
+        if ( $process ) {
+            $buffer = '';
+            while ( !feof( $process ) ) {
+                $buffer .= fread( $process, 8192 ); // Read in chunks of 8KB
+                while ( ($pos = strpos( $buffer, "\r" )) !== false ) {
+                    $line   = substr( $buffer, 0, $pos );
+                    $buffer = substr( $buffer, $pos + 1 );
+                    $line   = trim( $line ); // Remove any leading/trailing whitespace
+                    Util::logTrace( "Processing line: $line" );
+
+                    // Check if the line indicates everything is okay
+                    if ( $line === "Everything is Ok" ) {
+                        if ( $progressCallback ) {
+                            Util::logTrace( "Extraction progress: 100%" );
+                            call_user_func( $progressCallback, 100 );
+                            Util::logTrace( "Progress callback called with percentage: 100" );
+                        }
+                    }
+                    else if ( $progressCallback && preg_match( '/(?:^|\s)(\d+)%/', $line, $matches ) ) {
+                        $currentPercentage = intval( $matches[1] );
+                        Util::logTrace( "Extraction progress: $currentPercentage%" );
+                        call_user_func( $progressCallback, $currentPercentage );
+                        Util::logTrace( "Progress callback called with percentage: $currentPercentage" );
+                    }
+                    else {
+                        Util::logTrace( "Line did not match pattern: $line" );
+                    }
                 }
             }
-        }
 
-        // Process any remaining data in the buffer
-        if (!empty($buffer)) {
-            $line = trim($buffer);
-            Util::logTrace("Processing remaining line: $line");
+            // Process any remaining data in the buffer
+            if ( !empty( $buffer ) ) {
+                $line = trim( $buffer );
+                Util::logTrace( "Processing remaining line: $line" );
 
-            if ($progressCallback && preg_match('/(?:^|\s)(\d+)%/', $line, $matches)) {
-                $currentPercentage = intval($matches[1]);
-                Util::logTrace("Extraction progress: $currentPercentage%");
-                call_user_func($progressCallback, $currentPercentage);
-                Util::logTrace("Progress callback called with percentage: $currentPercentage");
-            } else {
-                Util::logTrace("Remaining line did not match pattern: $line");
+                // Check if the remaining line indicates everything is okay
+                if ( $line === "Everything is Ok" ) {
+                    if ( $progressCallback ) {
+                        Util::logTrace( "Extraction progress: 100%" );
+                        call_user_func( $progressCallback, 100 );
+                        Util::logTrace( "Progress callback called with percentage: 100" );
+                    }
+                }
+                else if ( $progressCallback && preg_match( '/(?:^|\s)(\d+)%/', $line, $matches ) ) {
+                    $currentPercentage = intval( $matches[1] );
+                    Util::logTrace( "Extraction progress: $currentPercentage%" );
+                    call_user_func( $progressCallback, $currentPercentage );
+                    Util::logTrace( "Progress callback called with percentage: $currentPercentage" );
+                }
+                else {
+                    Util::logTrace( "Remaining line did not match pattern: $line" );
+                }
+            }
+
+            $returnVar = pclose( $process );
+            Util::logTrace( 'Command return value: ' . $returnVar );
+
+            // Set progress to 100% if the command was successful
+            if ( $returnVar === 0 && $progressCallback ) {
+                Util::logTrace( "Extraction completed successfully. Setting progress to 100%" );
+                call_user_func( $progressCallback, 100 );
+                Util::logTrace( "Progress callback called with percentage: 100" );
+
+                // Adding a small delay to ensure the progress bar update is processed
+                usleep( 100000 ); // 100 milliseconds
+            }
+
+            if ( $returnVar === 0 ) {
+                Util::logDebug( 'Successfully unzipped file to: ' . $destination );
+
+                return ['success' => true, 'numFiles' => $numFiles];
+            }
+            else {
+                Util::logError( 'Failed to unzip file. Command return value: ' . $returnVar );
+
+                return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
             }
         }
+        else {
+            Util::logError( 'Failed to open process for command: ' . $command );
 
-        $returnVar = pclose($process);
-        Util::logTrace('Command return value: ' . $returnVar);
-
-        if ($returnVar === 0) {
-            Util::logDebug('Successfully unzipped file to: ' . $destination);
-            return ['success' => true, 'numFiles' => $numFiles];
-        } else {
-            Util::logError('Failed to unzip file. Command return value: ' . $returnVar);
-            return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
+            return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
         }
-    } else {
-        Util::logError('Failed to open process for command: ' . $command);
-        return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
     }
-}
 
     /**
      * Fetches a file from a given URL and saves it to a specified file path.
