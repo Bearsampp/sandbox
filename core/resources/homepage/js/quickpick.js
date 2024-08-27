@@ -186,7 +186,7 @@ async function installModule(moduleName, version) {
                         if (isDownloading) {
                             progressbar.innerText = `${progressValue} KBytes Downloaded`;
                         } else {
-                            progressbar.innerText = `${progressValue} Files Extracted`;
+                            progressbar.innerText = `${progressValue} Extracted`;
                         }
                     } else if (data.success) {
 

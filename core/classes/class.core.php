@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -475,78 +476,84 @@ class Core
      *               - 'success' => true and 'numFiles' => int on success.
      *               - 'error' => string and 'numFiles' => int on failure.
      */
-    public function unzipFile($filePath, $destination, $progressCallback = null)
-    {
-        global $bearsamppRoot;
+public function unzipFile($filePath, $destination, $progressCallback = null)
+{
+    global $bearsamppRoot;
 
-        $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
+    $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
-        if ( !file_exists( $sevenZipPath ) ) {
-            Util::logError( '7za.exe not found at: ' . $sevenZipPath );
+    if (!file_exists($sevenZipPath)) {
+        Util::logError('7za.exe not found at: ' . $sevenZipPath);
+        return false;
+    }
 
-            return false;
-        }
+    // Command to test the archive and get the number of files
+    $testCommand = escapeshellarg($sevenZipPath) . ' t ' . escapeshellarg($filePath) . ' -y -bsp1';
+    $testOutput = shell_exec($testCommand);
 
-        // Command to test the archive and get the number of files
-        $testCommand = escapeshellarg( $sevenZipPath ) . ' t ' . escapeshellarg( $filePath ) . ' -y -bsp1';
-        $testOutput  = shell_exec( $testCommand );
+    // Extract the number of files from the test command output
+    preg_match('/Files: (\d+)/', $testOutput, $matches);
+    $numFiles = isset($matches[1]) ? (int)$matches[1] : 0;
+    Util::logTrace('Number of files to be extracted: ' . $numFiles);
 
-        // Extract the number of files from the test command output
-        preg_match( '/Files: (\d+)/', $testOutput, $matches );
-        $numFiles = isset( $matches[1] ) ? (int) $matches[1] : 0;
-        Util::logDebug( 'Number of files to be extracted: ' . $numFiles );
+    // Command to extract the archive
+    $command = escapeshellarg($sevenZipPath) . ' x ' . escapeshellarg($filePath) . ' -y -bsp1 -bb0 -o' . escapeshellarg($destination);
+    Util::logTrace('Executing command: ' . $command);
 
-        // Command to extract the archive
-        $command = escapeshellarg( $sevenZipPath ) . ' x ' . escapeshellarg( $filePath ) . ' -y -bb1 -o' . escapeshellarg( $destination );
-        Util::logTrace( 'Executing command: ' . $command );
+    $process = popen($command, 'rb');
 
-        $process = popen( $command, 'rb' );
+    if ($process) {
+        $buffer = '';
+        while (!feof($process)) {
+            $buffer .= fread($process, 8192); // Read in chunks of 8KB
+            while (($pos = strpos($buffer, "\r")) !== false) {
+                $line = substr($buffer, 0, $pos);
+                $buffer = substr($buffer, $pos + 1);
+                $line = trim($line); // Remove any leading/trailing whitespace
+                Util::logTrace("Processing line: $line");
 
-        if ( $process ) {
-            $filesExtracted = 0;
-            $buffer         = '';
-
-            while ( !feof( $process ) ) {
-                $buffer .= fread( $process, 8192 ); // Read in smaller chunks of 4KB
-
-                while ( ($newlinePos = strpos( $buffer, "\n" )) !== false ) {
-                    $line   = substr( $buffer, 0, $newlinePos + 1 );
-                    $buffer = substr( $buffer, $newlinePos + 1 );
-
-                    if ( $progressCallback && preg_match( '/^- (.+)$/', $line, $matches ) ) {
-                        $fileName = trim( $matches[1] );
-
-                        // Check if the extracted item is a file and not a directory
-                        if ( substr( $fileName, -1 ) !== '\\' ) {
-                            $filesExtracted++;
-                            if ( $filesExtracted <= $numFiles ) {
-                                call_user_func( $progressCallback, $filesExtracted, $numFiles );
-                            }
-                        }
-                    }
+                // Adjusted preg_match pattern to match the percentage preceded by a space or at the start of the line
+                if ($progressCallback && preg_match('/(?:^|\s)(\d+)%/', $line, $matches)) {
+                    $currentPercentage = intval($matches[1]);
+                    Util::logTrace("Extraction progress: $currentPercentage%");
+                    call_user_func($progressCallback, $currentPercentage);
+                    Util::logTrace("Progress callback called with percentage: $currentPercentage");
+                } else {
+                    Util::logTrace("Line did not match pattern: $line");
                 }
             }
+        }
 
-            $returnVar = pclose( $process );
-            Util::logDebug( 'Command return value: ' . $returnVar );
+        // Process any remaining data in the buffer
+        if (!empty($buffer)) {
+            $line = trim($buffer);
+            Util::logTrace("Processing remaining line: $line");
 
-            if ( $returnVar === 0 ) {
-                Util::logDebug( 'Successfully unzipped file to: ' . $destination );
-
-                return ['success' => true, 'numFiles' => $numFiles];
-            }
-            else {
-                Util::logError( 'Failed to unzip file. Command return value: ' . $returnVar );
-
-                return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
+            if ($progressCallback && preg_match('/(?:^|\s)(\d+)%/', $line, $matches)) {
+                $currentPercentage = intval($matches[1]);
+                Util::logTrace("Extraction progress: $currentPercentage%");
+                call_user_func($progressCallback, $currentPercentage);
+                Util::logTrace("Progress callback called with percentage: $currentPercentage");
+            } else {
+                Util::logTrace("Remaining line did not match pattern: $line");
             }
         }
-        else {
-            Util::logError( 'Failed to open process for command: ' . $command );
 
-            return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
+        $returnVar = pclose($process);
+        Util::logTrace('Command return value: ' . $returnVar);
+
+        if ($returnVar === 0) {
+            Util::logDebug('Successfully unzipped file to: ' . $destination);
+            return ['success' => true, 'numFiles' => $numFiles];
+        } else {
+            Util::logError('Failed to unzip file. Command return value: ' . $returnVar);
+            return ['error' => 'Failed to unzip file', 'numFiles' => $numFiles];
         }
+    } else {
+        Util::logError('Failed to open process for command: ' . $command);
+        return ['error' => 'Failed to open process', 'numFiles' => $numFiles];
     }
+}
 
     /**
      * Fetches a file from a given URL and saves it to a specified file path.
