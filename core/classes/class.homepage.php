@@ -57,18 +57,16 @@ class Homepage
      * @param string $query The query string to construct.
      * @return string The constructed page query string.
      */
-    public function getPageQuery($query)
-    {
-        $request = '';
-        if (!empty($query) && in_array($query, $this->pageList) && $query != self::PAGE_INDEX) {
-            $request = '?p=' . $query;
-        } elseif (!empty($query) && in_array($query, $this->pageStdl)) {
-            $request = $query;
-        } elseif (!empty($query) && self::PAGE_INDEX) {
-            $request = "index.php";
-        }
-        return $request;
+public function getPageQuery($query)
+{
+    $request = '';
+    if (!empty($query) && in_array($query, $this->pageList) && $query != self::PAGE_INDEX) {
+        $request = '?p=' . $query;
+    } elseif (!empty($query) && $query == self::PAGE_INDEX) {
+        $request = "index.php";
     }
+    return $request;
+}
 
     /**
      * Constructs the full URL for the given page query.
