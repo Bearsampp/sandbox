@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 /**
  * Include the root configuration file.
@@ -40,7 +41,7 @@ $procs = array(
  *
  * @var string $proc The cleaned 'proc' parameter from the POST request.
  */
-$proc = Util::cleanPostVar('proc', 'text');  // Ensure 'proc' is cleaned and read correctly
+$proc = Util::cleanPostVar('proc');  // Ensure 'proc' is cleaned and read correctly
 
 /**
  * Check if the cleaned 'proc' parameter is in the list of valid processes.
