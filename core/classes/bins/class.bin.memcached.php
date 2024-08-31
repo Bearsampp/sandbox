@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -209,7 +210,7 @@ class BinMemcached extends Module
         }
 
         if (function_exists('memcache_connect')) {
-            $memcache = @memcache_connect('127.0.0.1', $port);
+            $memcache = @memcache_connect('localhost', $port);
             if ($memcache) {
                 $memcacheVersion = memcache_get_version($memcache);
                 Util::logDebug($this->getName() . ' port ' . $port . ' is used by: ' . $this->getName() . ' ' . $memcacheVersion);
@@ -223,7 +224,7 @@ class BinMemcached extends Module
                 return true;
             }
         } else {
-            $fp = @fsockopen('127.0.0.1', $port, $errno, $errstr, 3);
+            $fp = @fsockopen('localhost', $port, $errno, $errstr, 3);
             if (!$fp) {
                 Util::logDebug($this->getName() . ' port ' . $port . ' is used by another application');
                 if ($showWindow) {

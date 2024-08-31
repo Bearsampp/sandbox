@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -229,14 +230,9 @@ class BinMariadb extends Module
             return false;
         }
 
-        $fp = @fsockopen( '127.0.0.1', $port, $errno, $errstr, 5 );
+        $fp = @fsockopen( 'localhost', $port, $errno, $errstr, 5 );
         if ( $fp ) {
-            if ( version_compare( phpversion(), '5.3' ) === -1 ) {
-                $dbLink = mysqli_connect( '127.0.0.1', $this->rootUser, $this->rootPwd, '', $port );
-            }
-            else {
-                $dbLink = mysqli_connect( '127.0.0.1:' . $port, $this->rootUser, $this->rootPwd );
-            }
+            $dbLink = mysqli_connect( '127.0.0.1:' . $port, $this->rootUser, $this->rootPwd );
             $isMariadb = false;
             $version   = false;
 
@@ -317,7 +313,7 @@ class BinMariadb extends Module
 
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
         if ( version_compare( phpversion(), '5.3' ) === -1 ) {
-            $dbLink = @mysqli_connect( '127.0.0.1', $this->rootUser, $currentPwd, '', $this->port );
+            $dbLink = @mysqli_connect( 'localhost', $this->rootUser, $currentPwd, '', $this->port );
         }
         else {
             $dbLink = @mysqli_connect( '127.0.0.1:' . $this->port, $this->rootUser, $currentPwd );
@@ -388,7 +384,7 @@ class BinMariadb extends Module
 
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
         if ( version_compare( phpversion(), '5.3' ) === -1 ) {
-            $dbLink = @mysqli_connect( '127.0.0.1', $this->rootUser, $currentPwd, '', $this->port );
+            $dbLink = @mysqli_connect( 'localhost', $this->rootUser, $currentPwd, '', $this->port );
         }
         else {
             $dbLink = @mysqli_connect( '127.0.0.1:' . $this->port, $this->rootUser, $currentPwd );

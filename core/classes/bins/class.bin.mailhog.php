@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -239,7 +240,7 @@ class BinMailhog extends Module
             return false;
         }
 
-        $headers = Util::getHeaders( '127.0.0.1', $port );
+        $headers = Util::getHeaders( 'localhost', $port );
         if ( !empty( $headers ) ) {
             if ( Util::contains( $headers[0], 'MailHog' ) ) {
                 Util::logDebug( $this->getName() . ' port ' . $port . ' is used by: ' . str_replace( '220 ', '', $headers[0] ) );
