@@ -20,7 +20,7 @@
 /core/tmp/*
 /tools/
 /vhosts/
-/www/.htaccess
+/www/
 /**/post-install/
 /bearsampp.ini
 /bearsampp.exe
