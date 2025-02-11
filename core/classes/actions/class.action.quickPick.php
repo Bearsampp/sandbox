@@ -117,6 +117,8 @@ class QuickPick
      */
     public function checkQuickpickJson()
     {
+		global $bearsamppConfig;
+
         // Initialize variables
         $localFileCreationTime = 0;
 
@@ -130,11 +132,17 @@ class QuickPick
 
         // Get the creation time of the remote file
         $headers = get_headers( QUICKPICK_JSON_URL, 1 );
-        if ( $headers === false || !isset( $headers['Last-Modified'] ) ) {
-            // If we cannot get the headers or Last-Modified is not set, assume no update is needed
+
+		// Log the headers for debugging purposes
+        if ( $bearsamppConfig->getLogsVerbose() === 2) {
+            Util::logDebug('Headers: ' . print_r($headers, true));
+        }
+
+        if ( $headers === false || !isset( $headers['Date'] ) ) {
+            // If we cannot get the headers or Date is not set, assume no update is needed
             return false;
         }
-        $remoteFileCreationTime = strtotime( $headers['Last-Modified'] );
+        $remoteFileCreationTime = strtotime( $headers['Date'] );
 
         // Compare the creation times
         if ( $remoteFileCreationTime > $localFileCreationTime || $localFileCreationTime === 0 ) {
