@@ -133,10 +133,8 @@ class QuickPick
         $this->logHeaders($headers);
 
         // Compare the creation times (remote vs. local)
-        $remoteFileCreationTime = strtotime($headers['Date'] ?? '');
-        if ($remoteFileCreationTime > $localFileCreationTime) {
-            return $this->rebuildQuickpickJson();
-        }
+        $remoteFileCreationTime = strtotime(isset($headers['Date']) ? $headers['Date'] : '');
+		if ($remoteFileCreationTime > $localFileCreationTime) { return $this->rebuildQuickpickJson(); }
 
         // Return false if local file is already up-to-date
         return false;
