@@ -131,7 +131,6 @@ perl = "Perl"
 python = "Python"
 ruby = "Ruby"
 xdc = "XDebugClient"
-yarn = "Yarn"
 
 ; Errores
 errorConfNotFound = "Archivo de configuración %s no encontrado en %s"

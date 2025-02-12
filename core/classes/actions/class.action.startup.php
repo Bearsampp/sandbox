@@ -278,7 +278,7 @@ class ActionStartup
         $this->splash->incrProgressBar();
 
         $this->writeLog( 'Clear tmp folders' );
-        Util::clearFolder( $bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'yarn', '.gitignore') );
+        Util::clearFolder( $bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', '.gitignore') );
         Util::clearFolder( $bearsamppCore->getTmpPath(), array('.gitignore') );
     }
 

@@ -511,10 +511,6 @@ class Util
             if ( $bearsamppTools->getRuby()->isEnable() ) {
                 $value .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
             }
-            if ( $bearsamppTools->getYarn()->isEnable() ) {
-                $value .= $bearsamppTools->getYarn()->getSymlinkPath() . ';';
-                $value .= $bearsamppTools->getYarn()->getSymlinkPath() . '/global/bin;';
-            }
             $value = self::formatWindowsPath( $value );
             self::logDebug( 'Generated app bins reg key: ' . $value );
         }

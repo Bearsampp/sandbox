@@ -130,8 +130,6 @@ ngrok = "ngrok"
 perl = "Perl"
 python = "Python"
 ruby = "Ruby"
-xdc = "XDebugClient"
-yarn = "Yarn"
 
 ; Errors
 errorConfNotFound = "Fichier de configuration %s introuvable dans %s"

@@ -149,8 +149,6 @@ class Lang
     const PERL = 'perl';
     const PYTHON = 'python';
     const RUBY = 'ruby';
-    const XDC = 'xdc';
-    const YARN = 'yarn';
 
     // Errors
     const ERROR_CONF_NOT_FOUND = 'errorConfNotFound';
@@ -510,8 +508,6 @@ class Lang
             self::PERL,
             self::PYTHON,
             self::RUBY,
-            self::XDC,
-            self::YARN,
 
             // Errors
             self::ERROR_CONF_NOT_FOUND,
