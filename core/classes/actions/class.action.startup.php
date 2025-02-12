@@ -263,7 +263,6 @@ class ActionStartup
         closedir( $handle );
 
         // Purge logs
-        Util::clearFolders( $bearsamppBins->getLogsPath() );
         Util::clearFolder( $bearsamppRoot->getLogsPath(), array('archives', '.gitignore') );
     }
 

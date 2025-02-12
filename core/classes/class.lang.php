@@ -135,7 +135,6 @@ class Lang
 
     // Apps
     const PHPMYADMIN = 'phpmyadmin';
-    const WEBGRIND = 'webgrind';
     const ADMINER = 'adminer';
     const PHPPGADMIN = 'phppgadmin';
 
@@ -495,7 +494,6 @@ class Lang
 
             // Apps
             self::PHPMYADMIN,
-            self::WEBGRIND,
             self::ADMINER,
             self::PHPPGADMIN,
 
