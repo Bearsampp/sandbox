@@ -108,6 +108,9 @@ class TplAppTools
             $bearsamppTools->getConsoleZ()->getTabTitleRuby()
         ) . PHP_EOL;
 
+        // Line Separator
+        $resultItems .= TplAestan::getItemSeparator() . PHP_EOL;
+
         // Console
         $resultItems .= TplAestan::getItemConsoleZ(
             $bearsamppLang->getValue(Lang::CONSOLE),
