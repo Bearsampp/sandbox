@@ -381,11 +381,11 @@ class TplApp
             // Actions
             PHP_EOL . $tplApache[self::SECTION_CONTENT] .
             PHP_EOL . $tplFilezilla[self::SECTION_CONTENT] .
-            PHP_EOL . $tplMysql[self::SECTION_CONTENT] .
-            PHP_EOL . $tplMariadb[self::SECTION_CONTENT] .
             PHP_EOL . $tplMailhog[self::SECTION_CONTENT] .
             PHP_EOL . $tplMailpit[self::SECTION_CONTENT] .
+            PHP_EOL . $tplMariadb[self::SECTION_CONTENT] .
             PHP_EOL . $tplMemcached[self::SECTION_CONTENT] .
+            PHP_EOL . $tplMysql[self::SECTION_CONTENT] .
             PHP_EOL . $tplNodejs[self::SECTION_CONTENT] .
             PHP_EOL . $tplPhp[self::SECTION_CONTENT] .
             PHP_EOL . $tplPostgresql[self::SECTION_CONTENT] .
