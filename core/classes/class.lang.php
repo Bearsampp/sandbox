@@ -123,11 +123,9 @@ class Lang
 
     // Bins
     const APACHE = 'apache';
-    const FILEZILLA = 'filezilla';
     const PHP = 'php';
     const PEAR = 'pear';
     const MEMCACHED = 'memcached';
-    const MAILHOG = 'mailhog';
     const MAILPIT = 'mailpit';
     const MARIADB = 'mariadb';
     const MYSQL = 'mysql';
@@ -488,11 +486,9 @@ class Lang
 
             // Bins
             self::APACHE,
-            self::FILEZILLA,
             self::PHP,
             self::PEAR,
             self::MEMCACHED,
-            self::MAILHOG,
             self::MAILPIT,
             self::MARIADB,
             self::MYSQL,

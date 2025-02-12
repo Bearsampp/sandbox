@@ -54,8 +54,6 @@ class Symlinks
             '3'  => Util::formatWindowsPath($appsPath . '/phppgadmin/current'),
             '4'  => Util::formatWindowsPath($appsPath . '/webgrind/current'),
             '5'  => Util::formatWindowsPath($binPath . '/apache/current'),
-            '6'  => Util::formatWindowsPath($binPath . '/filezilla/current'),
-            '7'  => Util::formatWindowsPath($binPath . '/mailhog/current'),
             '8'  => Util::formatWindowsPath($binPath . '/mariadb/current'),
             '9'  => Util::formatWindowsPath($binPath . '/memcached/current'),
             '10' => Util::formatWindowsPath($binPath . '/mysql/current'),
