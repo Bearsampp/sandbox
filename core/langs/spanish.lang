@@ -130,7 +130,6 @@ ngrok = "ngrok"
 perl = "Perl"
 python = "Python"
 ruby = "Ruby"
-xdc = "XDebugClient"
 
 ; Errores
 errorConfNotFound = "Archivo de configuración %s no encontrado en %s"
