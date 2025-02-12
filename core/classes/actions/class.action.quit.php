@@ -78,9 +78,6 @@ class ActionQuit
             elseif ( $sName == BinPostgresql::SERVICE_NAME ) {
                 $name = $bearsamppBins->getPostgresql()->getName() . ' ' . $bearsamppBins->getPostgresql()->getVersion();
             }
-            elseif ( $sName == BinMailhog::SERVICE_NAME ) {
-                $name = $bearsamppBins->getPostgresql()->getName() . ' ' . $bearsamppBins->getPostgresql()->getVersion();
-            }
             elseif ( $sName == BinMemcached::SERVICE_NAME ) {
                 $name = $bearsamppBins->getMemcached()->getName() . ' ' . $bearsamppBins->getMemcached()->getVersion();
             }
