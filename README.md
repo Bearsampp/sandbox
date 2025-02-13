@@ -12,8 +12,11 @@
 
 **Bearsampp** is a fully portable WAMP software stack involving useful binaries, tools and applications for your development projects.
 
-![image](http://bearsampp.com/images/Docs/screenshots/menu-left.png) ![image](http://bearsampp.com/images/Docs/screenshots/menu-right.png)  
-![image](http://bearsampp.com/images/Docs/screenshots/menu-tools.png)
+![menu-right](https://github.com/user-attachments/assets/f58b3104-7732-402e-8599-0be47aab47c0)
+![menu-left](https://github.com/user-attachments/assets/e235fdf4-dab2-4771-80dc-fb70519728b1)
+![menu-tools](https://github.com/user-attachments/assets/2f18ea8c-373e-4064-b0eb-a6c70bf7468b)
+
+
 
 It also offers several versions of the various [modules](https://bearsampp.com/module) for download on the  
 [official website](https://bearsampp.com) and many other features.<br />
@@ -38,7 +41,6 @@ For those who wish to contribute, have an issue or questions, read the [Document
 | ![Deprecated](https://img.shields.io/badge/Deprecated-red?style=flat-square&color=red)               | [Filezilla](https://bearsampp.com/module/filezilla): a FTP server application.                                                                  |  
 | ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Ghostscript](https://bearsampp.com/module/ghostscript): an interpreter for the PostScript language and for PDF.                                |  
 | ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Git](https://bearsampp.com/module/git): a widely used version control system for software development.                                         |  
-| ![Deprecated](https://img.shields.io/badge/Deprecated-red?style=flat-square&color=red)               | [MailHog](https://bearsampp.com/module/mailhog): a Web and API based SMTP testing.                                                              |
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [MailPit](https://bearsampp.com/module/mailpit): a Web and API based SMTP testing.                                                              |
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [MariaDB](https://bearsampp.com/module/mariadb): a community-developed fork of the MySQL relational database management system.                 |  
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Memcached](https://bearsampp.com/module/memcached): a distributed memory object caching system.                                                |  
@@ -51,11 +53,9 @@ For those who wish to contribute, have an issue or questions, read the [Document
 | ![Application](https://img.shields.io/badge/Application-%23f89406?style=flat-square&color=%23f89406) | [phpPgAdmin](https://bearsampp.com/module/phppgadmin): a web-based administration tool for PostgreSQL.                                          |  
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [PostgreSQL](https://bearsampp.com/module/postgresql): an object-relational database management system (ORDBMS).                                |  
 | ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Python](https://bearsampp.com/module/python): a widely used high-level, general-purpose, interpreted, dynamic programming language.            |  
-| ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Ruby](https://bearsampp.com/module/ruby): a dynamic, reflective, object-oriented, general-purpose programming language.                        |  
-| ![Application](https://img.shields.io/badge/Application-%23f89406?style=flat-square&color=%23f89406) | [Webgrind](https://bearsampp.com/module/webgrind): the Xdebug Profiling Web Frontend in PHP.                                                    |
+| ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Ruby](https://bearsampp.com/module/ruby): a dynamic, reflective, object-oriented, general-purpose programming language.                        |
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Xlight](https://bearsampp.com/module/xlight): a lightweight & robust FTP server.                                                               |
-| ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [XDebugClient](https://bearsampp.com/module/xdc): a simple frontend for XDebug.                                                                 |  
-| ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Yarn](https://bearsampp.com/module/yarn): a fast, reliable, and secure dependency management.                                                  |  
+  
 
 ## Documentation
 
@@ -84,14 +84,14 @@ Thanks again for your support, it is much appreciated! :pray:
 We would like to thank the following for supporting our project:
 
 
-| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://www.jetbrains.com/">Jetbrains<br> <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" height="100px"></a> | <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a> |  <a href="https://codium.ai">Codium ai<br><img src="https://www.codium.ai/wp-content/uploads/2023/01/codium-logo.svg" height="100px" /></a> |
-|------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
+| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://www.jetbrains.com/">Jetbrains<br> <img src="https://github.com/user-attachments/assets/20e6941a-1db6-4b88-a84b-c9df6749e210" height="100px"></a> |   <a href="https://codium.ai">Codium ai<br><img src="https://www.codium.ai/wp-content/uploads/2023/01/codium-logo.svg" height="100px" /></a> |
+|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
 
-|<a href="https://foss.abivia.com/">Abivia.com<br><img src="https://github.com/Bearsampp/Bearsampp/assets/1850089/725323c2-8217-4a4c-ad20-a11225a696d6" height="100px"/></a>|<a href="https://www.am-graphix.com/">AMGraphix<br><img src="https://github.com/Bearsampp/Bearsampp/assets/1850089/189797db-4292-467d-9de0-898cde9338bc" height="100px"/></a>    |  
-|:---:|:--:|  
+|<a href="https://foss.abivia.com/">Abivia.com<br><img src="https://github.com/Bearsampp/Bearsampp/assets/1850089/725323c2-8217-4a4c-ad20-a11225a696d6" height="100px"/></a>|<a href="https://www.am-graphix.com/">AMGraphix<br><img src="https://github.com/Bearsampp/Bearsampp/assets/1850089/189797db-4292-467d-9de0-898cde9338bc" height="100px"/></a>    | <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>  |  
+|:---:|:--:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|  
 
 ## Statistics
-![Alt](https://repobeats.axiom.co/api/embed/b55320efbba77b140919f38e278a95526035901a.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/c9ce2387f701a98fffe723eb85b330a440d56a63.svg "Repobeats analytics image")
 
 ## License
 
