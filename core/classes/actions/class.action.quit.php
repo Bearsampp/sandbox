@@ -84,9 +84,6 @@ class ActionQuit
             elseif ($sName == BinXlight::SERVICE_NAME) {
                 $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();
             }
-            elseif ( $sName == BinXlight::SERVICE_NAME ) {
-                $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();
-            }
             $name .= ' (' . $service->getName() . ')';
 
             $this->splash->incrProgressBar();
