@@ -15,11 +15,9 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Invoke workflow in another repo
-              uses: adityakar/workflow-dispatcher@v1.0
+              uses: benc-uk/workflow-dispatch@v1
               with:
                   workflow: automerge.yml
                   repo: Bearsampp/Bearsampp
                   # Required when using the `repo` option. Either a PAT or a token generated from the GitHub app or CLI
                   token: "${{ secrets.GH_PAT }}"
-                  owner: Bearsampp
-                  event_type: 'if_merged'
