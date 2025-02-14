@@ -21,5 +21,5 @@ jobs:
                   repo: Bearsampp/Bearsampp
                   # Required when using the `repo` option. Either a PAT or a token generated from the GitHub app or CLI
                   token: "${{ secrets.GH_PAT }}"
-                  owner: ''
-                  event_type: ''
+                  owner: 'Bearsampp'
+                  event_type: 'if_merged'
