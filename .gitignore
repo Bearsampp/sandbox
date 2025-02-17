@@ -39,6 +39,7 @@
 /core/resources/homepage/img/icons/app.ico
 /core/resources/homepage/img/icons/bearsampp.ico
 /core/resources/quickpick-releases.json
+/fix-icon.bat
 
 # Visual Studio
 .vscode/
