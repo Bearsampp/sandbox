@@ -1,24 +1,21 @@
 name: Quickpick Dispatcher
 
-
 on:
     pull_request:
         types:
             - closed
         branches:
             - 'main'
-    workflow_dispatch:
-
 jobs:
     if_merged:
-        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
             - name: Invoke workflow in another repo
-              uses: benc-uk/workflow-dispatch@v1.2.4
+              uses: adityakar/workflow-dispatcher@v1.0
               with:
                   workflow: automerge.yml
                   repo: Bearsampp/Bearsampp
