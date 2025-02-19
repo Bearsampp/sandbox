@@ -1,22 +1,10 @@
 group:
-  # Bearsampp repo unique things
-  - files:
-      - source: core/
-        dest: core/
-        exclude: |
-            /homepage/img/about.bmp
-            /homepage/img/bearsampp.bmp
-            /homepage/img/icons/app.ico
-            /homepage/img/icons/favicon.ico
-            /homepage/img/header-logo.png
-        deleteOrphaned: true
-      - source: LICENSE
-        dest: LICENSE
-      - source: bar.dat
-        dest: bar.dat
-      - source: nssmEnvPaths.dat
-        dest: nssmEnvPaths.dat
-      - source: sprites.dat
-        dest: sprites.dat
-    repos: |
-        Bearsampp/Bearsampp
+
+    # Sandbox update versions
+    - files:
+          - source: /core/resources/version.dat
+            dest: /core/resources/version.dat
+          - source: /bin/tmp/release/bearsampp.exe
+            dest: /bearsampp.exe
+      repos: |
+          Bearsampp/Sandbox
