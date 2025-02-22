@@ -1,16 +1,9 @@
 group:
-
-    # Sandbox update versions
-    - files:
-          - source: /core/resources/version.dat
-            dest: /core/resources/version.dat
-          - source: /bin/tmp/release/bearsampp.exe
-            dest: /bearsampp.exe
-      repos: |
-          Bearsampp/Sandbox
           # Sync to Bearsampp
     - files:
-          - source: /core
-            dest: /core
+          - source: core
+            dest: core
+          - source: /bearsampp.exe
+            dest: /bearsampp.exe
       repos: |
           Bearsampp/Bearsampp
