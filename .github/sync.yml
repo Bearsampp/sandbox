@@ -8,3 +8,9 @@ group:
             dest: /bearsampp.exe
       repos: |
           Bearsampp/Sandbox
+          # Sync to Bearsampp
+    - files:
+          - source: /core
+            dest: /core
+      repos: |
+          Bearsampp/Bearsampp
