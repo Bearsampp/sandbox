@@ -58,9 +58,9 @@ if ($bearsamppBins->getApache()->isEnable()) {
  */
 foreach ($bearsamppBins->getApache()->getVersionList() as $version) {
     if ($version != $bearsamppBins->getApache()->getVersion()) {
-        $result['versions'] .= '<span class="m-1 badge float-end text-bg-secondary">' . $version . '</span>';
+        $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
     } else {
-        $result['versions'] .= '<span class="m-1 badge float-end text-bg-primary">' . $bearsamppBins->getApache()->getVersion() . '</span>';
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getApache()->getVersion() . '</span>';
     }
 }
 
