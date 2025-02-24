@@ -31,7 +31,7 @@ async function getApacheStatus() {
     ql.remove();
     q.insertAdjacentHTML('beforeend', data.checkport);
 
-    q = document.querySelector('.apache-versions');
+    q = document.querySelector('.apache-versions .apache-version-list');
     ql = q.querySelector('.loader');
     ql.remove();
     q.insertAdjacentHTML('beforeend', data.versions);
