@@ -653,15 +653,22 @@ class Util
         return Vbs::createShortcut( self::getStartupLnkPath() );
     }
 
-    /**
-     * Disables launching the application at startup by removing the shortcut from the startup folder.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public static function disableLaunchStartup()
-    {
-        return @unlink( self::getStartupLnkPath() );
+/**
+ * Disables launching the application at startup by removing the shortcut from the startup folder.
+ *
+ * @return bool True on success, false on failure.
+ */
+public static function disableLaunchStartup()
+{
+    $startupLnkPath = self::getStartupLnkPath();
+    if (file_exists($startupLnkPath)) {
+        return unlink($startupLnkPath);
+    } else {
+        // Log the absence of the file if necessary
+        error_log("Startup link file does not exist: " . $startupLnkPath);
+        return false;
     }
+}
 
     /**
      * Logs a message to a specified file or default log file based on the log type.

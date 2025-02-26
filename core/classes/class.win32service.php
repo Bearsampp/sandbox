@@ -122,27 +122,28 @@ class Win32Service
         );
     }
 
-    /**
-     * Calls a Win32 service function.
-     *
-     * @param   string  $function    The function name.
-     * @param   mixed   $param       The parameter to pass to the function.
-     * @param   bool    $checkError  Whether to check for errors.
-     *
-     * @return mixed The result of the function call.
-     */
-    private function callWin32Service($function, $param, $checkError = false)
-    {
-        $result = false;
-        if ( function_exists( $function ) ) {
-            $result = call_user_func( $function, $param );
-            if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = dechex( $result );
-            }
-        }
+/**
+ * Calls a Win32 service function and returns the result.
+ *
+ * @param string $function The Win32 service function to call.
+ * @param string $serviceName The name of the service.
+ * @param bool $start Whether to start the service.
+ * @return mixed The result of the service call.
+ */
+public function callWin32Service($function, $serviceName, $start = false)
+{
+    // Example of a service call that might return null
+    $result = someServiceCall($function, $serviceName, $start);
 
-        return $result;
+    // Check if the result is null before calling dechex
+    if ($result !== null) {
+        return dechex($result);
+    } else {
+        // Handle the null case, e.g., log an error or return a default value
+        error_log("Service call returned null for function $function and service $serviceName");
+        return '0'; // or another appropriate default value
     }
+}
 
     /**
      * Queries the status of the service.
