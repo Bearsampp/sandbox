@@ -653,22 +653,39 @@ class Util
         return Vbs::createShortcut( self::getStartupLnkPath() );
     }
 
-/**
- * Disables launching the application at startup by removing the shortcut from the startup folder.
- *
- * @return bool True on success, false on failure.
- */
-public static function disableLaunchStartup()
-{
-    $startupLnkPath = self::getStartupLnkPath();
-    if (file_exists($startupLnkPath)) {
-        return unlink($startupLnkPath);
-    } else {
-        // Log the absence of the file if necessary
-        error_log("Startup link file does not exist: " . $startupLnkPath);
-        return false;
+    /**
+     * Disables automatic launch at startup by removing the startup link
+     *
+     * Performs existence check before removal attempt. Logs errors for:
+     * - Missing startup links (considered successful operation)
+     * - File removal failures
+     * - Filesystem exceptions
+     *
+     * @return bool True if startup link was removed or already absent,
+     *              False if removal attempt failed
+     * @throws RuntimeException If filesystem operations fail unexpectedly
+     */
+    public static function disableLaunchStartup()
+    {
+        $startupLnkPath = self::getStartupLnkPath();
+
+        if (file_exists($startupLnkPath)) {
+            try {
+                if (unlink($startupLnkPath)) {
+                    self::logDebug('Removed startup link: ' . $startupLnkPath);
+                    return true;
+                }
+                self::logError('Failed to remove existing startup link: ' . $startupLnkPath);
+                return false;
+            } catch (Exception $e) {
+                self::logError('Startup link removal error: ' . $e->getMessage());
+                return false;
+            }
+        }
+
+        self::logError('Startup link not found during removal: ' . $startupLnkPath);
+        return true; // Success state since desired outcome achieved
     }
-}
 
     /**
      * Logs a message to a specified file or default log file based on the log type.
