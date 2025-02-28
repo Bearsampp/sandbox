@@ -1572,7 +1572,7 @@ class Util
     public static function isPortInUse($port)
     {
         // Using 'localhost' directly as the IP address
-        $localIP = 'localhost';
+        $localIP = getHostbyname('localhost');
 
         $connection = @fsockopen($localIP, $port);
 

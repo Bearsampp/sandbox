@@ -91,8 +91,10 @@ class Win32Service
      */
     public function __construct($name)
     {
-        Util::logInitClass( $this );
-        $this->name = $name;
+        Util::logInitClass($this);
+        $this->name         = $name;
+        $this->latestError  = self::WIN32_NO_ERROR;  // Initialize with default error state
+        $this->latestStatus = self::WIN32_SERVICE_NA; // Initialize with default status
     }
 
     /**
@@ -103,7 +105,7 @@ class Win32Service
     private function writeLog($log)
     {
         global $bearsamppRoot;
-        Util::logDebug( $log, $bearsamppRoot->getServicesLogFilePath() );
+        Util::logDebug($log, $bearsamppRoot->getServicesLogFilePath());
     }
 
     /**
@@ -134,10 +136,10 @@ class Win32Service
     private function callWin32Service($function, $param, $checkError = false)
     {
         $result = false;
-        if ( function_exists( $function ) ) {
-            $result = call_user_func( $function, $param );
-            if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = dechex( $result );
+        if (function_exists($function)) {
+            $result = call_user_func($function, $param);
+            if ($checkError && dechex($result) != self::WIN32_NO_ERROR) {
+                $this->latestError = dechex($result);
             }
         }
 
@@ -153,25 +155,24 @@ class Win32Service
      */
     public function status($timeout = true)
     {
-        usleep( self::SLEEP_TIME );
+        usleep(self::SLEEP_TIME);
 
         $this->latestStatus = self::WIN32_SERVICE_NA;
         $maxtime            = time() + self::PENDING_TIMEOUT;
 
-        while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
-            $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
-            if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( $this->latestStatus['CurrentState'] );
+        while ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus)) {
+            $this->latestStatus = $this->callWin32Service('win32_query_service_status', $this->getName());
+            if (is_array($this->latestStatus) && isset($this->latestStatus['CurrentState'])) {
+                $this->latestStatus = dechex($this->latestStatus['CurrentState']);
+            } elseif (dechex($this->latestStatus) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+                $this->latestStatus = dechex($this->latestStatus);
             }
-            elseif ( dechex( $this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( $this->latestStatus );
-            }
-            if ( $timeout && $maxtime < time() ) {
+            if ($timeout && $maxtime < time()) {
                 break;
             }
         }
 
-        if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+        if ($this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
             $this->latestError  = $this->latestStatus;
             $this->latestStatus = self::WIN32_SERVICE_NA;
         }
@@ -188,25 +189,25 @@ class Win32Service
     {
         global $bearsamppBins;
 
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
             $bearsamppBins->getPostgresql()->rebuildConf();
             $bearsamppBins->getPostgresql()->initData();
 
             return Batch::installPostgresqlService();
         }
-        if ( $this->getNssm() instanceof Nssm ) {
-            $nssmEnvPath = Util::getAppBinsRegKey( false );
+        if ($this->getNssm() instanceof Nssm) {
+            $nssmEnvPath = Util::getAppBinsRegKey(false);
             $nssmEnvPath .= Util::getNssmEnvPaths();
             $nssmEnvPath .= '%SystemRoot%/system32;';
             $nssmEnvPath .= '%SystemRoot%;';
             $nssmEnvPath .= '%SystemRoot%/system32/Wbem;';
             $nssmEnvPath .= '%SystemRoot%/system32/WindowsPowerShell/v1.0';
-            $this->getNssm()->setEnvironmentExtra( 'PATH=' . $nssmEnvPath );
+            $this->getNssm()->setEnvironmentExtra('PATH=' . $nssmEnvPath);
 
             return $this->getNssm()->create();
         }
 
-        $create = dechex( $this->callWin32Service( 'win32_create_service', array(
+        $create = dechex($this->callWin32Service('win32_create_service', array(
             'service'       => $this->getName(),
             'display'       => $this->getDisplayName(),
             'description'   => $this->getDisplayName(),
@@ -214,21 +215,20 @@ class Win32Service
             'params'        => $this->getParams(),
             'start_type'    => $this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START,
             'error_control' => $this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL,
-        ),                                         true ) );
+        ), true));
 
-        $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
-        $this->writeLog( '-> service: ' . $this->getName() );
-        $this->writeLog( '-> display: ' . $this->getDisplayName() );
-        $this->writeLog( '-> description: ' . $this->getDisplayName() );
-        $this->writeLog( '-> path: ' . $this->getBinPath() );
-        $this->writeLog( '-> params: ' . $this->getParams() );
-        $this->writeLog( '-> start_type: ' . ($this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START) );
-        $this->writeLog( '-> service: ' . ($this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL) );
+        $this->writeLog('Create service: ' . $create . ' (status: ' . $this->status() . ')');
+        $this->writeLog('-> service: ' . $this->getName());
+        $this->writeLog('-> display: ' . $this->getDisplayName());
+        $this->writeLog('-> description: ' . $this->getDisplayName());
+        $this->writeLog('-> path: ' . $this->getBinPath());
+        $this->writeLog('-> params: ' . $this->getParams());
+        $this->writeLog('-> start_type: ' . ($this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START));
+        $this->writeLog('-> service: ' . ($this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL));
 
-        if ( $create != self::WIN32_NO_ERROR ) {
+        if ($create != self::WIN32_NO_ERROR) {
             return false;
-        }
-        elseif ( !$this->isInstalled() ) {
+        } elseif (!$this->isInstalled()) {
             $this->latestError = self::WIN32_NO_ERROR;
 
             return false;
@@ -244,23 +244,22 @@ class Win32Service
      */
     public function delete()
     {
-        if ( !$this->isInstalled() ) {
+        if (!$this->isInstalled()) {
             return true;
         }
 
         $this->stop();
 
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
             return Batch::uninstallPostgresqlService();
         }
 
-        $delete = dechex( $this->callWin32Service( 'win32_delete_service', $this->getName(), true ) );
-        $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
+        $delete = dechex($this->callWin32Service('win32_delete_service', $this->getName(), true));
+        $this->writeLog('Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')');
 
-        if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+        if ($delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
             return false;
-        }
-        elseif ( $this->isInstalled() ) {
+        } elseif ($this->isInstalled()) {
             $this->latestError = self::WIN32_NO_ERROR;
 
             return false;
@@ -276,8 +275,8 @@ class Win32Service
      */
     public function reset()
     {
-        if ( $this->delete() ) {
-            usleep( self::SLEEP_TIME );
+        if ($this->delete()) {
+            usleep(self::SLEEP_TIME);
 
             return $this->create();
         }
@@ -296,73 +295,67 @@ class Win32Service
 
         Util::logInfo('Attempting to start service: ' . $this->getName());
 
-        if ( $this->getName() == BinMysql::SERVICE_NAME ) {
+        if ($this->getName() == BinMysql::SERVICE_NAME) {
             $bearsamppBins->getMysql()->initData();
-        }
-        elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
+        } elseif ($this->getName() == BinMailpit::SERVICE_NAME) {
             $bearsamppBins->getMailpit()->rebuildConf();
-        }
-        elseif ( $this->getName() == BinMemcached::SERVICE_NAME ) {
+        } elseif ($this->getName() == BinMemcached::SERVICE_NAME) {
             $bearsamppBins->getMemcached()->rebuildConf();
-        }
-        elseif ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        } elseif ($this->getName() == BinPostgresql::SERVICE_NAME) {
             $bearsamppBins->getPostgresql()->rebuildConf();
             $bearsamppBins->getPostgresql()->initData();
-        }
-        elseif ( $this->getName() == BinXlight::SERVICE_NAME ) {
+        } elseif ($this->getName() == BinXlight::SERVICE_NAME) {
             $bearsamppBins->getXlight()->rebuildConf();
         }
 
 
-        $start = dechex( $this->callWin32Service( 'win32_start_service', $this->getName(), true ) );
-        Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
+        $start = dechex($this->callWin32Service('win32_start_service', $this->getName(), true));
+        Util::logDebug('Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')');
 
-        if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
-
+        if ($start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING) {
             // Write error to log
             Util::logError('Failed to start service: ' . $this->getName() . ' with error code: ' . $start);
 
-            if ( $this->getName() == BinApache::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput( BinApache::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            if ($this->getName() == BinApache::SERVICE_NAME) {
+                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput(BinApache::CMD_SYNTAX_CHECK);
+                if (!$cmdOutput['syntaxOk']) {
                     file_put_contents(
                         $bearsamppBins->getApache()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
-            }
-            elseif ( $this->getName() == BinMysql::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput( BinMysql::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            } elseif ($this->getName() == BinMysql::SERVICE_NAME) {
+                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput(BinMysql::CMD_SYNTAX_CHECK);
+                if (!$cmdOutput['syntaxOk']) {
                     file_put_contents(
                         $bearsamppBins->getMysql()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
-            }
-            elseif ( $this->getName() == BinMariadb::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput( BinMariadb::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            } elseif ($this->getName() == BinMariadb::SERVICE_NAME) {
+                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput(BinMariadb::CMD_SYNTAX_CHECK);
+                if (!$cmdOutput['syntaxOk']) {
                     file_put_contents(
                         $bearsamppBins->getMariadb()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
             }
 
             return false;
-        }
-        elseif ( !$this->isRunning() ) {
+        } elseif (!$this->isRunning()) {
             $this->latestError = self::WIN32_NO_ERROR;
             Util::logError('Service ' . $this->getName() . ' is not running after start attempt.');
             $this->latestError = null;
+
             return false;
         }
 
         Util::logInfo('Service ' . $this->getName() . ' started successfully.');
+
         return true;
     }
 
@@ -373,13 +366,12 @@ class Win32Service
      */
     public function stop()
     {
-        $stop = dechex( $this->callWin32Service( 'win32_stop_service', $this->getName(), true ) );
-        $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
+        $stop = dechex($this->callWin32Service('win32_stop_service', $this->getName(), true));
+        $this->writeLog('Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')');
 
-        if ( $stop != self::WIN32_NO_ERROR ) {
+        if ($stop != self::WIN32_NO_ERROR) {
             return false;
-        }
-        elseif ( !$this->isStopped() ) {
+        } elseif (!$this->isStopped()) {
             $this->latestError = self::WIN32_NO_ERROR;
 
             return false;
@@ -395,7 +387,7 @@ class Win32Service
      */
     public function restart()
     {
-        if ( $this->stop() ) {
+        if ($this->stop()) {
             return $this->start();
         }
 
@@ -409,11 +401,11 @@ class Win32Service
      */
     public function infos()
     {
-        if ( $this->getNssm() instanceof Nssm ) {
+        if ($this->getNssm() instanceof Nssm) {
             return $this->getNssm()->infos();
         }
 
-        return Vbs::getServiceInfos( $this->getName() );
+        return Vbs::getServiceInfos($this->getName());
     }
 
     /**
@@ -424,7 +416,7 @@ class Win32Service
     public function isInstalled()
     {
         $status = $this->status();
-        $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $this->writeLog('isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
         return $status != self::WIN32_SERVICE_NA;
     }
@@ -437,7 +429,7 @@ class Win32Service
     public function isRunning()
     {
         $status = $this->status();
-        $this->writeLog( 'isRunning ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_RUNNING ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $this->writeLog('isRunning ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_RUNNING ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
         return $status == self::WIN32_SERVICE_RUNNING;
     }
@@ -450,7 +442,7 @@ class Win32Service
     public function isStopped()
     {
         $status = $this->status();
-        $this->writeLog( 'isStopped ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_STOPPED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $this->writeLog('isStopped ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_STOPPED ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
         return $status == self::WIN32_SERVICE_STOPPED;
     }
@@ -463,7 +455,7 @@ class Win32Service
     public function isPaused()
     {
         $status = $this->status();
-        $this->writeLog( 'isPaused ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_PAUSED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $this->writeLog('isPaused ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_PAUSED ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
         return $status == self::WIN32_SERVICE_PAUSED;
     }
@@ -490,7 +482,7 @@ class Win32Service
      */
     private function getWin32ServiceStatusDesc($status)
     {
-        switch ( $status ) {
+        switch ($status) {
             case self::WIN32_SERVICE_CONTINUE_PENDING:
                 return 'The service continue is pending.';
                 break;
@@ -538,7 +530,7 @@ class Win32Service
      */
     private function getWin32ErrorCodeDesc($code)
     {
-        switch ( $code ) {
+        switch ($code) {
             case self::WIN32_ERROR_ACCESS_DENIED:
                 return 'The handle to the SCM database does not have the appropriate access rights.';
             // ... other cases ...
@@ -604,7 +596,7 @@ class Win32Service
      */
     public function setBinPath($binPath)
     {
-        $this->binPath = str_replace( '"', '', Util::formatWindowsPath( $binPath ) );
+        $this->binPath = str_replace('"', '', Util::formatWindowsPath($binPath));
     }
 
     /**
@@ -648,13 +640,54 @@ class Win32Service
     }
 
     /**
-     * Gets the error control setting of the service.
+     * Retrieves the latest error or status information for the service.
      *
-     * @return string The error control setting of the service.
+     * This method checks both the latest error code and status code of the service.
+     * If an error is present, it returns a formatted string containing the error code,
+     * its hexadecimal representation, and a descriptive message.
+     * If no error is found but a status code is present, it returns a formatted string
+     * with the status code, its hexadecimal representation, and a descriptive message.
+     * If neither an error nor a status is present, it returns null.
+     *
+     * @return string|null A formatted string with error or status information, or null if no error or status is present.
+     *
+     * @example
+     * // Example 1: When an error is present
+     * $service = new Win32Service('MyService');
+     * $service->latestError = '5';
+     * echo $service->getError();
+     * // Output: "error 5 (5 : The handle to the SCM database does not have the appropriate access rights.)"
+     *
+     * // Example 2: When a status is present
+     * $service = new Win32Service('MyService');
+     * $service->latestStatus = '4';
+     * echo $service->getError();
+     * // Output: "status 4 (4 : The service is running.)"
+     *
+     * // Example 3: When no error or status is present
+     * $service = new Win32Service('MyService');
+     * echo $service->getError();
+     * // Output: null
      */
-    public function getErrorControl()
+    public function getError()
     {
-        return $this->errorControl;
+        global $bearsamppLang;
+
+        // Ensure values are always strings
+        $errorCode  = (string)$this->latestError;
+        $statusCode = (string)$this->latestStatus;
+
+        if ($errorCode != self::WIN32_NO_ERROR) {
+            return $bearsamppLang->getValue(Lang::ERROR) . ' ' .
+                $errorCode . ' (' . hexdec($errorCode) . ' : ' .
+                $this->getWin32ErrorCodeDesc($errorCode) . ')';
+        } elseif ($statusCode != self::WIN32_SERVICE_NA) {
+            return $bearsamppLang->getValue(Lang::STATUS) . ' ' .
+                $statusCode . ' (' . hexdec($statusCode) . ' : ' .
+                $this->getWin32ServiceStatusDesc($statusCode) . ')';
+        }
+
+        return null;
     }
 
     /**
@@ -684,11 +717,11 @@ class Win32Service
      */
     public function setNssm($nssm)
     {
-        if ( $nssm instanceof Nssm ) {
-            $this->setDisplayName( $nssm->getDisplayName() );
-            $this->setBinPath( $nssm->getBinPath() );
-            $this->setParams( $nssm->getParams() );
-            $this->setStartType( $nssm->getStart() );
+        if ($nssm instanceof Nssm) {
+            $this->setDisplayName($nssm->getDisplayName());
+            $this->setBinPath($nssm->getBinPath());
+            $this->setParams($nssm->getParams());
+            $this->setStartType($nssm->getStart());
             $this->nssm = $nssm;
         }
     }
@@ -711,25 +744,5 @@ class Win32Service
     public function getLatestError()
     {
         return $this->latestError;
-    }
-
-    /**
-     * Gets a detailed error message for the latest error encountered by the service.
-     *
-     * @return string|null The detailed error message, or null if no error.
-     */
-    public function getError()
-    {
-        global $bearsamppLang;
-        if ( $this->latestError != self::WIN32_NO_ERROR ) {
-            return $bearsamppLang->getValue( Lang::ERROR ) . ' ' .
-                $this->latestError . ' (' . hexdec( $this->latestError ) . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
-        }
-        elseif ( $this->latestStatus != self::WIN32_SERVICE_NA ) {
-            return $bearsamppLang->getValue( Lang::STATUS ) . ' ' .
-                $this->latestStatus . ' (' . hexdec( $this->latestStatus ) . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
-        }
-
-        return null;
     }
 }
