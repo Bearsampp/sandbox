@@ -19,58 +19,132 @@ define("WB_KX_SCREEN", 1.498); // Determined through trial and error
 define("WB_KY_SCREEN", 1.625); // Determined through trial and error
 
 //------------------------------------------------- WINDOWS CONSTANTS FROM WIN.H
+// Windows resource definitions
 
-define("WS_VISIBLE",			0x10000000);
-define("WS_DISABLED",			0x08000000);
-define("WS_GROUP",				0x00020000);
-define("WS_EX_STATICEDGE",		0x00020000);
+// Window styles
+if (!defined('WS_VISIBLE')) {
+    define("WS_VISIBLE",            0x10000000);
+}
+if (!defined('WS_DISABLED')) {
+    define("WS_DISABLED",           0x08000000);
+}
+if (!defined('WS_GROUP')) {
+    define("WS_GROUP",              0x00020000);
+}
+if (!defined('WS_EX_STATICEDGE')) {
+    define("WS_EX_STATICEDGE",      0x00000200);
+}
 
 // Button styles
-
-define("BS_PUSHBUTTON",			0x00);
-define("BS_CHECKBOX",			0x02);
-define("BS_AUTOCHECKBOX",		0x03);
-define("BS_RADIOBUTTON",		0x04);
-define("BS_GROUPBOX",			0x07);
-define("BS_AUTORADIOBUTTON",	0x09);
-define("BS_ICON",				0x40);
-define("BS_BITMAP",				0x80);
+if (!defined('BS_PUSHBUTTON')) {
+    define("BS_PUSHBUTTON",         0x00000000);
+}
+if (!defined('BS_CHECKBOX')) {
+    define("BS_CHECKBOX",           0x00000002);
+}
+if (!defined('BS_AUTOCHECKBOX')) {
+    define("BS_AUTOCHECKBOX",       0x00000003);
+}
+if (!defined('BS_RADIOBUTTON')) {
+    define("BS_RADIOBUTTON",        0x00000004);
+}
+if (!defined('BS_GROUPBOX')) {
+    define("BS_GROUPBOX",           0x00000007);
+}
+if (!defined('BS_AUTORADIOBUTTON')) {
+    define("BS_AUTORADIOBUTTON",    0x00000008);
+}
+if (!defined('BS_ICON')) {
+    define("BS_ICON",               0x00000009);
+}
+if (!defined('BS_BITMAP')) {
+    define("BS_BITMAP",             0x0000000A);
+}
 
 // Edit control styles
+if (!defined('ES_NUMBER')) {
+    define("ES_NUMBER",             0x2000);
+}
+if (!defined('ES_PASSWORD')) {
+    define("ES_PASSWORD",           0x0001);
+}
+if (!defined('ES_READONLY')) {
+    define("ES_READONLY",           0x0002);
+}
+if (!defined('ES_UPPERCASE')) {
+    define("ES_UPPERCASE",          0x0004);
+}
+if (!defined('ES_LEFT')) {
+    define("ES_LEFT",               0x0000);
+}
+if (!defined('ES_CENTER')) {
+    define("ES_CENTER",             0x0005);
+}
+if (!defined('ES_RIGHT')) {
+    define("ES_RIGHT",              0x0006);
+}
+if (!defined('ES_MULTILINE')) {
+    define("ES_MULTILINE",          0x0008);
+}
 
-define("ES_NUMBER",				0x2000);
-define("ES_PASSWORD",			0x20);
-define("ES_READONLY",			0x0800);
-define("ES_UPPERCASE",			0x08);
-define("ES_LEFT",				0x0);
-define("ES_CENTER",				0x01);
-define("ES_RIGHT",				0x02);
-define("ES_MULTILINE",			0x04);
+// Static control styles
+if (!defined('SS_LEFT')) {
+    define("SS_LEFT",               0x00000000);
+}
+if (!defined('SS_CENTER')) {
+    define("SS_CENTER",             0x00000001);
+}
+if (!defined('SS_RIGHT')) {
+    define("SS_RIGHT",              0x00000002);
+}
+if (!defined('SS_ETCHEDHORZ')) {
+    define("SS_ETCHEDHORZ",         0x00000004);
+}
+if (!defined('SS_ETCHEDVERT')) {
+    define("SS_ETCHEDVERT",         0x00000005);
+}
+if (!defined('SS_ETCHEDFRAME')) {
+    define("SS_ETCHEDFRAME",        0x00000006);
+}
+if (!defined('SS_ICON')) {
+    define("SS_ICON",               0x00000008);
+}
+if (!defined('SS_BITMAP')) {
+    define("SS_BITMAP",             0x0000000A);
+}
+if (!defined('SS_LEFTNOWORDWRAP')) {
+    define("SS_LEFTNOWORDWRAP",     0x00000010);
+}
+if (!defined('SS_WORDELLIPSIS')) {
+    define("SS_WORDELLIPSIS",       0x00000020);
+}
 
-// Static styles
+// Combo box styles
+if (!defined('CBS_SORT')) {
+    define("CBS_SORT",              0x0002);
+}
+if (!defined('CBS_DROPDOWNLIST')) {
+    define("CBS_DROPDOWNLIST",      0x0003);
+}
 
-define("SS_LEFT",				0x00);
-define("SS_CENTER",				0x01);
-define("SS_RIGHT",				0x02);
-define("SS_ETCHEDHORZ",			0x10);
-define("SS_ETCHEDVERT",			0x11);
-define("SS_ETCHEDFRAME",		0x12);
-define("SS_ICON",				0x03);
-define("SS_BITMAP",				0x0E);
-define("SS_LEFTNOWORDWRAP",		0x0C);
-define("SS_WORDELLIPSIS",		0xC000);
+// List view styles
+if (!defined('LVS_NOSORTHEADER')) {
+    define("LVS_NOSORTHEADER",      0x00000004);
+}
+if (!defined('LVS_GRIDLINES')) {
+    define("LVS_GRIDLINES",         0x00000008);
+}
+if (!defined('LVS_CHECKBOXES')) {
+    define("LVS_CHECKBOXES",        0x00000040);
+}
+if (!defined('LVS_SINGLESEL')) {
+    define("LVS_SINGLESEL",         0x00000080);
+}
 
-// Other styles
-
-define("CBS_SORT",				0x100);
-define("CBS_DROPDOWNLIST",		3);
-
-define("LBS_SORT",				2);
-define("LVS_NOSORTHEADER",		0x00008000);
-define("LVS_GRIDLINES",			0x00800000);	// Actually WS_BORDER
-define("LVS_CHECKBOXES",		0x00000800);	// Actually LVS_ALIGNLEFT
-define("LVS_SINGLESEL",			0x00000004);
-define("TBS_AUTOTICKS",			1);
+// Trackbar styles
+if (!defined('TBS_AUTOTICKS')) {
+    define("TBS_AUTOTICKS",         0x00000001);
+}
 
 //-------------------------------------------------------------------- FUNCTIONS
 

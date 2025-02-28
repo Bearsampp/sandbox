@@ -139,6 +139,9 @@ class WinBinder
     {
         global $bearsamppCore;
 
+        // Ensure parent is an integer
+        $parent = $parent !== null ? (int)$parent : 0;
+
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
         $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
