@@ -1598,17 +1598,14 @@ class Util
      */
     public static function isPortInUse($port)
     {
-        // Declaring a variable to hold the IP
-        // address getHostName() gets the name
-        // of the local machine getHostByName()
-        // gets the corresponding IP
-        $localIP = getHostByName( getHostName() );
+        // Using 'localhost' directly as the IP address
+        $localIP = 'localhost';
 
-        $connection = @fsockopen( $localIP, $port );
+        $connection = @fsockopen($localIP, $port);
 
-        if ( is_resource( $connection ) ) {
-            fclose( $connection );
-            $process = Batch::getProcessUsingPort( $port );
+        if (is_resource($connection)) {
+            fclose($connection);
+            $process = Batch::getProcessUsingPort($port);
 
             return $process != null ? $process : 'N/A';
         }
