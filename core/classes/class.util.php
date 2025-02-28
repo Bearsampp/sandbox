@@ -1647,12 +1647,12 @@ class Util
      *
      * @return bool Returns true if the domain name is valid, false otherwise.
      */
-    public static function isValidDomainName($domainName)
-    {
-        return preg_match( '/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i', $domainName )
-            && preg_match( '/^.{1,253}$/', $domainName )
-            && preg_match( '/^[^\.]{1,63}(\.[^\.]{1,63})*$/', $domainName );
-    }
+public static function isValidDomainName($domainName)
+{
+    return preg_match('/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i', $domainName)
+        && preg_match('/^.{1,253}$/', $domainName)
+        && preg_match('/^[^.]{1,63}(\.[^.]{1,63})*$/', $domainName);
+}
 
     /**
      * Checks if a string is alphanumeric.
@@ -1738,7 +1738,7 @@ class Util
             return true;
         }
         else {
-            self::logError( sprintf( 'Port %s is used by an other application : %s', $name ) );
+            self::logError( sprintf( 'Port %s is used by an other application : ', $name ) );
             if ( $showWindow ) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf( $bearsamppLang->getValue( Lang::PORT_NOT_USED_BY ), $port, $isPortInUse ),
