@@ -20,9 +20,9 @@ $_mainpath = $_mainpath["dirname"] . "/";
 
 // WinBinder PHP functions
 
-include $_mainpath . "wb_windows.inc.php";
-include $_mainpath . "wb_generic.inc.php";
-include $_mainpath . "wb_resources.inc.php";
+include_once $_mainpath . "wb_windows.inc.php";
+include_once $_mainpath . "wb_generic.inc.php";
+include_once $_mainpath . "wb_resources.inc.php";
 
 //------------------------------------------------------------------ END OF FILE
 
