@@ -4,13 +4,14 @@
 
  WINBINDER - The native Windows binding for PHP for PHP
 
- Copyright � Hypervisual - see LICENSE.TXT for details
- Author: Rubem Pechansky (http://winbinder.org/contact.php)
+ Copyright Hypervisual - see LICENSE.TXT for details
+ Author: Rubem Pechansky (https://github.com/crispy-computing-machine/Winbinder)
 
  RC file parser: convert Windows resource file to WinBinder commands
 
 *******************************************************************************/
 
+// TODO: These functions will be replaced by the visual layout editor
 // so this file will not be necessary in the future
 
 //-------------------------------------------------------------------- CONSTANTS
@@ -79,11 +80,12 @@ define("TBS_AUTOTICKS",			1);
   Returns the WinBinder code that results from the resource text $rc, usually
    read from a RC (Windows resource) file.
 
+TODO: Extend support to several RC generators (currently supports WinAsm Studio only)
 NOTE: Caption is not used, it's taken from the resource instead. The parameter is kept
       here just to be compatible with wb_create_window()
 */
 
-function parse_rc($rc, $winvar='$mainwin', $parent=null, $type="AppWindow", $caption=null,
+function parse_rc($rc, $winvar='$mainwin', $parent=0, $type="AppWindow", $caption="",
   $x=WBC_CENTER, $y=WBC_CENTER, $width=WBC_CENTER, $height=WBC_CENTER, $style=0, $lparam=0,
   $respath=PATH_RES)
 {
@@ -144,7 +146,7 @@ function parse_rc($rc, $winvar='$mainwin', $parent=null, $type="AppWindow", $cap
 	// Replace variable names
 
 	$rc = str_replace("%WINVAR%", $winvar, $rc);
-	$rc = str_replace("%PARENT%", $parent? $parent : "NULL", $rc);
+	$rc = str_replace("%PARENT%", $parent? $parent : "0", $rc);
 	$rc = str_replace("%STYLE%",  $style, $rc);
 	$rc = str_replace("%LPARAM%", $lparam, $rc);
 
@@ -160,7 +162,7 @@ function _scale_dialog($c)
 	if($_winclass == "TabControl") {
 
 		$_tabN++;
-		$code = "wbtemp_create_item(%PARENT%, ". $c[6] . ");\n";
+		$code = "wb_create_item(%PARENT%, ". $c[6] . ");\n";
 
 	} else {
 
@@ -437,7 +439,7 @@ function _scale_controls($c)
 
 	// Convert Windows style to WinBinder style
 
-	$str = "wb_create_control(" .
+	$str = "_create_control(" .
 		"%WINVAR%, " .								// Parent
 		$class . ", " . 							// Class
 		$c[1] . ", " .								// Caption
