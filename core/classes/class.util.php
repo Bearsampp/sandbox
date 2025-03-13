@@ -1592,27 +1592,71 @@ class Util
     /**
      * Checks if a specific port on localhost is in use and returns the process using it if available.
      *
-     * @param   int  $port  The port number to check.
+     * This improved implementation uses socket functions for more reliable port checking
+     * and supports both IPv4 and IPv6 connections.
      *
-     * @return mixed Returns the process using the port if in use, 'N/A' if the port is open but no specific process can be identified, or false if the port is not in use.
+     * @param   int     $port       The port number to check.
+     * @param   string  $host       The host to check, defaults to 'localhost'.
+     * @param   bool    $checkBoth  Whether to check both TCP and UDP protocols.
+     *
+     * @return  mixed   Returns the process using the port if in use, 'N/A' if the port is open but 
+     *                  no specific process can be identified, or false if the port is not in use.
      */
-    public static function isPortInUse($port)
+    public static function isPortInUse($port, $host = 'localhost', $checkBoth = false)
     {
-        // Declaring a variable to hold the IP
-        // address getHostName() gets the name
-        // of the local machine getHostByName()
-        // gets the corresponding IP
-        $localIP = getHostByName( getHostName() );
-
-        $connection = @fsockopen( $localIP, $port );
-
-        if ( is_resource( $connection ) ) {
-            fclose( $connection );
-            $process = Batch::getProcessUsingPort( $port );
-
-            return $process != null ? $process : 'N/A';
+        // Validate port
+        if (!self::isValidPort($port)) {
+            return false;
         }
-
+        
+        // TCP check
+        $inUse = false;
+        
+        // Check using socket extension (more reliable)
+        if (function_exists('socket_create') && function_exists('socket_connect')) {
+            // Try with IPv4
+            $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            if ($socket !== false) {
+                // Set socket options to prevent connection from hanging
+                socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, ['sec' => 1, 'usec' => 0]);
+                socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, ['sec' => 1, 'usec' => 0]);
+                
+                // Try to connect 
+                $result = @socket_connect($socket, $host, $port);
+                if ($result) {
+                    $inUse = true;
+                }
+                socket_close($socket);
+            }
+            
+            // If still not found and checkBoth is true, try UDP
+            if (!$inUse && $checkBoth) {
+                $socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+                if ($socket !== false) {
+                    // For UDP, we try to bind since connect doesn't really establish a connection
+                    $result = @socket_bind($socket, $host, $port);
+                    if (!$result) {
+                        $inUse = true;
+                    }
+                    socket_close($socket);
+                }
+            }
+        } 
+        // Fallback to fsockopen if socket functions aren't available
+        else {
+            $connection = @fsockopen($host, $port, $errno, $errstr, 1);
+            if (is_resource($connection)) {
+                fclose($connection);
+                $inUse = true;
+            }
+        }
+        
+        // If the port is in use, get the process information
+        if ($inUse) {
+            $process = Batch::getProcessUsingPort($port);
+            return $process !== null ? $process : 'N/A';
+        }
+        
         return false;
     }
 
