@@ -36,28 +36,61 @@ class ActionLoading
      *
      * @param array $args The arguments passed to the constructor.
      */
-    public function __construct($args)
+    public function __construct($args = [])
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
 
-        $bearsamppWinbinder->reset();
-        $bearsamppCore->addLoadingPid(Win32Ps::getCurrentPid());
+        try {
+            $bearsamppWinbinder->reset();
+            $bearsamppCore->addLoadingPid(Win32Ps::getCurrentPid());
 
-        // Screen information
-        $screenArea = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
-        $screenWidth = intval($screenArea[2]);
-        $screenHeight = intval($screenArea[3]);
-        $xPos = $screenWidth - self::WINDOW_WIDTH;
-        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
+            // Screen information
+            $screenArea = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
+            $screenWidth = intval($screenArea[2] ?? 1024);
+            $screenHeight = intval($screenArea[3] ?? 768);
+            $xPos = $screenWidth - self::WINDOW_WIDTH;
+            $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
 
-        // Create the window and progress bar
-        $this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, null, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, null);
-        $bearsamppWinbinder->createLabel($this->wbWindow, $bearsamppLang->getValue(Lang::LOADING), 42, 2, 295, null, WBC_LEFT);
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, self::GAUGE, 42, 20, 290, 15);
+            // Set default caption
+            $caption = 'Loading...';
+            if (isset($bearsamppLang) && method_exists($bearsamppLang, 'getValue')) {
+                $langValue = $bearsamppLang->getValue(Lang::LOADING);
+                if (!empty($langValue)) {
+                    $caption = $langValue;
+                }
+            }
+            
+            // Create the window and progress bar
+            // Use 0 instead of null for the parent window parameter
+            $this->wbWindow = $bearsamppWinbinder->createWindow(0, ToolDialog, $caption, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, null);
+            
+            if (!$this->wbWindow) {
+                throw new Exception("Failed to create loading window");
+            }
+            
+            $bearsamppWinbinder->createLabel($this->wbWindow, $caption, 42, 2, 295, null, WBC_LEFT);
+            $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, self::GAUGE, 42, 20, 290, 15);
 
-        // Set the handler and start the main loop
-        $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processLoading', 10);
-        $bearsamppWinbinder->mainLoop();
+            if (!$this->wbProgressBar) {
+                throw new Exception("Failed to create progress bar");
+            }
+
+            // Set the handler and start the main loop
+            $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processLoading', 10);
+            $bearsamppWinbinder->mainLoop();
+        } catch (Exception $e) {
+            // Log the error
+            if (isset($bearsamppCore) && method_exists($bearsamppCore, 'addLog')) {
+                $bearsamppCore->addLog('ActionLoading error: ' . $e->getMessage());
+            }
+            
+            // Terminate gracefully
+            if (function_exists('Win32Ps::kill')) {
+                Win32Ps::kill(Win32Ps::getCurrentPid());
+            } else {
+                exit(1);
+            }
+        }
     }
 
     /**
@@ -69,13 +102,29 @@ class ActionLoading
     {
         global $bearsamppCore, $bearsamppWinbinder;
 
-        for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
-            $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp', 4, 2, 32, 32);
+        if (!$this->wbProgressBar || !$this->wbWindow) {
+            return false;
         }
 
-        $bearsamppWinbinder->wait();
-        $bearsamppWinbinder->wait($this->wbWindow);
+        try {
+            for ($i = 0; $i < $nb; $i++) {
+                $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+                
+                $imagePath = $bearsamppCore->getResourcesPath() . '/homepage/img/bearsampp.bmp';
+                if (file_exists($imagePath)) {
+                    $bearsamppWinbinder->drawImage($this->wbWindow, $imagePath, 4, 2, 32, 32);
+                }
+            }
+
+            $bearsamppWinbinder->wait();
+            $bearsamppWinbinder->wait($this->wbWindow);
+            return true;
+        } catch (Exception $e) {
+            if (isset($bearsamppCore) && method_exists($bearsamppCore, 'addLog')) {
+                $bearsamppCore->addLog('Progress bar error: ' . $e->getMessage());
+            }
+            return false;
+        }
     }
 
     /**
@@ -89,21 +138,38 @@ class ActionLoading
      */
     public function processLoading($window, $id, $ctrl, $param1, $param2)
     {
-        global $bearsamppRoot, $bearsamppWinbinder;
+        global $bearsamppRoot, $bearsamppWinbinder, $bearsamppCore;
 
         switch ($id) {
             case IDCLOSE:
-                Win32Ps::kill(Win32Ps::getCurrentPid());
+                if (function_exists('Win32Ps::kill')) {
+                    Win32Ps::kill(Win32Ps::getCurrentPid());
+                } else {
+                    exit(0);
+                }
                 break;
         }
 
-        while (true) {
-            $bearsamppRoot->removeErrorHandling();
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-            usleep(100000);
-            for ($i = 0; $i < self::GAUGE; $i++) {
-                $this->incrProgressBar();
+        try {
+            while (true) {
+                if (method_exists($bearsamppRoot, 'removeErrorHandling')) {
+                    $bearsamppRoot->removeErrorHandling();
+                }
+                
+                if ($this->wbProgressBar) {
+                    $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
+                }
+                
                 usleep(100000);
+                
+                for ($i = 0; $i < self::GAUGE; $i++) {
+                    $this->incrProgressBar();
+                    usleep(100000);
+                }
+            }
+        } catch (Exception $e) {
+            if (isset($bearsamppCore) && method_exists($bearsamppCore, 'addLog')) {
+                $bearsamppCore->addLog('Process loading error: ' . $e->getMessage());
             }
         }
     }

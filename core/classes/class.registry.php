@@ -1,69 +1,48 @@
 <?php
-/*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
- */
 
-/**
- * Class Registry
- *
- * This class provides methods to interact with the Windows Registry using VBScript.
- * It includes functionalities to check the existence of registry keys, get and set values,
- * and delete registry entries. The class also logs operations and errors.
- */
 class Registry
 {
-    const END_PROCESS_STR = 'FINISHED!';
-
+    // Registry constants
     const HKEY_CLASSES_ROOT = 'HKCR';
     const HKEY_CURRENT_USER = 'HKCU';
     const HKEY_LOCAL_MACHINE = 'HKLM';
-    const HKEY_USERS = 'HKEY_USERS';
+    const HKEY_USERS = 'HKU';
+    const HKEY_CURRENT_CONFIG = 'HKCC';
 
+    // Registry environment keys
+    const ENV_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment';
+    const PROCESSOR_REG_SUBKEY = 'HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0';
+    const PROCESSOR_REG_ENTRY = 'Identifier';
+    const SYSPATH_REG_ENTRY = 'Path';
+    const APP_PATH_REG_ENTRY = 'BEARSAMPP_PATH';
+    const APP_BINS_REG_ENTRY = 'BEARSAMPP_BINS';
+
+    // Registry error codes
+    const REG_NO_ERROR = 0;
+    const REG_ERROR = 1;
+
+    // Registry value types
     const REG_SZ = 'REG_SZ';
     const REG_EXPAND_SZ = 'REG_EXPAND_SZ';
     const REG_BINARY = 'REG_BINARY';
     const REG_DWORD = 'REG_DWORD';
     const REG_MULTI_SZ = 'REG_MULTI_SZ';
 
-    const REG_ERROR_ENTRY = 'REG_ERROR_ENTRY';
-    const REG_ERROR_SET = 'REG_ERROR_SET';
-    const REG_NO_ERROR = 'REG_NO_ERROR';
-
-    const ENV_KEY = 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment';
-
-    // App bins entry
-    const APP_BINS_REG_ENTRY = 'BEARSAMPP_BINS';
-
-    // App path entry
-    const APP_PATH_REG_ENTRY = 'BEARSAMPP_PATH';
-
-    // System path entry
-    const SYSPATH_REG_ENTRY = 'Path';
-
-    // Processor architecture
-    const PROCESSOR_REG_SUBKEY = 'HARDWARE\DESCRIPTION\System\CentralProcessor\0';
-    const PROCESSOR_REG_ENTRY = 'Identifier';
-
-    private $latestError;
+    // Timeout for registry operations (in seconds)
+    const REGISTRY_TIMEOUT = 10;
 
     /**
-     * Registry constructor.
-     * Initializes the Registry class and logs the initialization.
+     * Constructor
      */
     public function __construct()
     {
         Util::logInitClass($this);
-        $this->latestError = null;
     }
 
     /**
      * Writes a log entry.
      *
-     * @param string $log The log message to write.
+     * @param   string  $log  The log message.
      */
     private function writeLog($log)
     {
@@ -72,244 +51,592 @@ class Registry
     }
 
     /**
-     * Checks if a registry key or entry exists.
+     * Checks if a registry key exists.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string|null $entry The entry name (optional).
-     * @return bool True if the key or entry exists, false otherwise.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     *
+     * @return bool True if the key exists, false otherwise.
      */
-    public function exists($key, $subkey, $entry = null)
+    public function keyExists($hKey, $subKey, $valueName)
     {
-        $basename = 'registryExists';
-        $resultFile = Vbs::getResultFile($basename);
+        $this->writeLog('keyExists: ' . $hKey . '\\' . $subKey . '\\' . $valueName);
 
-        $scriptContent = 'On Error Resume Next' . PHP_EOL;
-        $scriptContent .= 'Err.Clear' . PHP_EOL . PHP_EOL;
+        // Use direct PowerShell command for faster and more reliable registry check
+        $ps_command = "powershell -NoProfile -ExecutionPolicy Bypass -Command \"";
+        $ps_command .= 'try { ';
+        $ps_command .= "if (Test-Path 'Registry::" . $hKey . "\\" . $subKey . "') { ";
+        $ps_command .= "if (Get-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -ErrorAction Stop) { ";
+        $ps_command .= "Write-Output 'EXISTS' } else { Write-Output 'NOT_EXISTS' }";
+        $ps_command .= "} else { Write-Output 'NOT_EXISTS' }";
+        $ps_command .= "} catch { Write-Output 'NOT_EXISTS' }\"";
 
-        $scriptContent .= 'Dim objShell, objFso, objFile, outFile, bExists' . PHP_EOL . PHP_EOL;
+        // Execute the command with a timeout
+        $descriptorspec = array(
+            0 => array('pipe', 'r'),  // stdin
+            1 => array('pipe', 'w'),  // stdout
+            2 => array('pipe', 'w')   // stderr
+        );
 
-        $scriptContent .= 'outFile = "' . $resultFile . '"' . PHP_EOL;
-        $scriptContent .= 'Set objShell = WScript.CreateObject("WScript.Shell")' . PHP_EOL;
-        $scriptContent .= 'Set objFso = CreateObject("Scripting.FileSystemObject")' . PHP_EOL;
-        $scriptContent .= 'Set objFile = objFso.CreateTextFile(outFile, True)' . PHP_EOL . PHP_EOL;
+        $process = proc_open($ps_command, $descriptorspec, $pipes);
 
-        $scriptContent .= 'strKey = "' . $key . '\\' . $subkey . '\\' . $entry . '"' . PHP_EOL;
-        $scriptContent .= 'entryValue = objShell.RegRead(strKey)' . PHP_EOL;
-        $scriptContent .= 'If Err.Number <> 0 Then' . PHP_EOL;
-        $scriptContent .= '    If Right(strKey,1) = "\" Then' . PHP_EOL;
-        $scriptContent .= '        If Instr(1, Err.Description, ssig, 1) <> 0 Then' . PHP_EOL;
-        $scriptContent .= '            bExists = true' . PHP_EOL;
-        $scriptContent .= '        Else' . PHP_EOL;
-        $scriptContent .= '            bExists = false' . PHP_EOL;
-        $scriptContent .= '        End If' . PHP_EOL;
-        $scriptContent .= '    Else' . PHP_EOL;
-        $scriptContent .= '        bExists = false' . PHP_EOL;
-        $scriptContent .= '    End If' . PHP_EOL;
-        $scriptContent .= '    Err.Clear' . PHP_EOL;
-        $scriptContent .= 'Else' . PHP_EOL;
-        $scriptContent .= '    bExists = true' . PHP_EOL;
-        $scriptContent .= 'End If' . PHP_EOL . PHP_EOL;
+        if (is_resource($process)) {
+            // Set non-blocking mode on the stdout pipe
+            stream_set_blocking($pipes[1], 0);
 
-        $scriptContent .= 'On Error Goto 0' . PHP_EOL;
-        $scriptContent .= 'If bExists = vbFalse Then' . PHP_EOL;
-        $scriptContent .= '    objFile.Write "0"' . PHP_EOL;
-        $scriptContent .= 'Else' . PHP_EOL;
-        $scriptContent .= '    objFile.Write "1"' . PHP_EOL;
-        $scriptContent .= 'End If' . PHP_EOL;
-        $scriptContent .= 'objFile.Close' . PHP_EOL;
+            // Set a timeout
+            $startTime = time();
+            $output    = '';
 
-        $result = Vbs::exec($basename, $resultFile, $scriptContent);
-        $result = isset($result[0]) ? $result[0] : null;
+            // Read from the pipe with timeout
+            while (time() - $startTime < self::REGISTRY_TIMEOUT) {
+                $read   = array($pipes[1]);
+                $write  = null;
+                $except = null;
 
-        $this->writeLog('Exists ' . $key . '\\' . $subkey . '\\' . $entry);
-        $this->writeLog('-> result: ' . $result);
+                // Wait for data with a short timeout
+                if (stream_select($read, $write, $except, 1)) {
+                    $output .= stream_get_contents($pipes[1]);
 
-        return !empty($result) && intval($result) == 1;
+                    // If we have a complete response, break
+                    if (strpos($output, 'EXISTS') !== false || strpos($output, 'NOT_EXISTS') !== false) {
+                        break;
+                    }
+                }
+            }
+
+            // Close pipes and process
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            // Terminate the process if it's still running
+            $status = proc_get_status($process);
+            if ($status['running']) {
+                proc_terminate($process);
+            }
+
+            proc_close($process);
+
+            // Check the result
+            $exists = (strpos($output, 'EXISTS') !== false);
+            $this->writeLog('keyExists result: ' . ($exists ? 'true' : 'false'));
+
+            return $exists;
+        }
+
+        // Fallback to VBS if PowerShell fails
+        $this->writeLog('Falling back to VBS for keyExists');
+        $resultFile = Vbs::getTmpFile();
+        $content    = 'On Error Resume Next' . PHP_EOL;
+        $content    .= 'Dim WshShell, value' . PHP_EOL;
+        $content    .= 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+        $content    .= 'value = WshShell.RegRead("' . $hKey . '\\' . $subKey . '\\' . $valueName . '")' . PHP_EOL;
+        $content    .= 'If Err.Number = 0 Then' . PHP_EOL;
+        $content    .= '    WScript.Echo "EXISTS"' . PHP_EOL;
+        $content    .= 'Else' . PHP_EOL;
+        $content    .= '    WScript.Echo "NOT_EXISTS"' . PHP_EOL;
+        $content    .= 'End If' . PHP_EOL;
+
+        $result = Vbs::exec('keyExists', $resultFile, $content, 5);
+        $exists = !empty($result) && trim($result[0]) == 'EXISTS';
+
+        $this->writeLog('keyExists result (VBS): ' . ($exists ? 'true' : 'false'));
+
+        return $exists;
     }
 
     /**
-     * Retrieves the value of a registry entry.
+     * Gets a registry value.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string|null $entry The entry name (optional).
-     * @return mixed The value of the registry entry, or false on error.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     *
+     * @return mixed The registry value or false on error.
      */
-    public function getValue($key, $subkey, $entry = null)
+    public function getValue($hKey, $subKey, $valueName)
     {
-        global $bearsamppLang;
+        $this->writeLog('getValue: ' . $hKey . '\\' . $subKey . '\\' . $valueName);
 
-        $basename = 'registryGetValue';
-        $resultFile = Vbs::getResultFile($basename);
-        $this->latestError = null;
+        // Use PowerShell for faster and more reliable registry access
+        $ps_command = "powershell -NoProfile -ExecutionPolicy Bypass -Command \"";
+        $ps_command .= 'try { ';
+        $ps_command .= "if (Test-Path 'Registry::" . $hKey . "\\" . $subKey . "') { ";
+        $ps_command .= "Get-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -ErrorAction Stop | ";
+        $ps_command .= "Select-Object -ExpandProperty '" . $valueName . "' ";
+        $ps_command .= "} else { Write-Output 'NOT_EXISTS' }";
+        $ps_command .= "} catch { Write-Output 'ERROR: ' + $_.Exception.Message }\"";
 
-        $scriptContent = 'On Error Resume Next' . PHP_EOL;
-        $scriptContent .= 'Err.Clear' . PHP_EOL . PHP_EOL;
+        // Execute the command with a timeout
+        $descriptorspec = array(
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w')
+        );
 
-        $scriptContent .= 'Dim objShell, objFso, objFile, outFile, entryValue' . PHP_EOL . PHP_EOL;
+        $process = proc_open($ps_command, $descriptorspec, $pipes);
 
-        $scriptContent .= 'outFile = "' . $resultFile . '"' . PHP_EOL;
-        $scriptContent .= 'Set objShell = WScript.CreateObject("WScript.Shell")' . PHP_EOL;
-        $scriptContent .= 'Set objFso = CreateObject("Scripting.FileSystemObject")' . PHP_EOL;
-        $scriptContent .= 'Set objFile = objFso.CreateTextFile(outFile, True)' . PHP_EOL . PHP_EOL;
+        if (is_resource($process)) {
+            // Set non-blocking mode on the stdout pipe
+            stream_set_blocking($pipes[1], 0);
 
-        $scriptContent .= 'entryValue = objShell.RegRead("' . $key . '\\' . $subkey . '\\' . $entry . '")' . PHP_EOL;
-        $scriptContent .= 'If Err.Number <> 0 Then' . PHP_EOL;
-        $scriptContent .= '    objFile.Write "' . self::REG_ERROR_ENTRY . '" & Err.Number & ": " & Err.Description' . PHP_EOL;
-        $scriptContent .= 'Else' . PHP_EOL;
-        $scriptContent .= '    objFile.Write entryValue' . PHP_EOL;
-        $scriptContent .= 'End If' . PHP_EOL;
-        $scriptContent .= 'objFile.Close' . PHP_EOL;
+            // Set a timeout
+            $startTime = time();
+            $output    = '';
 
-        $result = Vbs::exec($basename, $resultFile, $scriptContent);
-        $result = isset($result[0]) ? $result[0] : null;
-        $this->writeLog('GetValue ' . $key . '\\' . $subkey . '\\' . $entry);
-        $this->writeLog('-> result: ' . $result);
-        if (Util::startWith($result, self::REG_ERROR_ENTRY)) {
-            $this->latestError = $bearsamppLang->getValue(Lang::ERROR) . ' ' . str_replace(self::REG_ERROR_ENTRY, '', $result);
+            // Read from the pipe with timeout
+            while (time() - $startTime < self::REGISTRY_TIMEOUT) {
+                $read   = array($pipes[1]);
+                $write  = null;
+                $except = null;
+
+                // Wait for data with a short timeout
+                if (stream_select($read, $write, $except, 1)) {
+                    $output .= stream_get_contents($pipes[1]);
+
+                    // If we have a complete response, break
+                    if (!empty($output) && strpos($output, 'NOT_EXISTS') === false && strpos($output, 'ERROR:') === false) {
+                        break;
+                    }
+                }
+            }
+
+            // Close pipes and process
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            // Terminate the process if it's still running
+            $status = proc_get_status($process);
+            if ($status['running']) {
+                proc_terminate($process);
+            }
+
+            proc_close($process);
+
+            // Check the result
+            if (strpos($output, 'NOT_EXISTS') !== false || strpos($output, 'ERROR:') !== false) {
+                $this->writeLog('getValue result: false (key not found or error)');
+
+                return false;
+            }
+
+            $value = trim($output);
+            $this->writeLog('getValue result: ' . $value);
+
+            return $value;
+        }
+
+        // Fallback to VBS if PowerShell fails
+        $this->writeLog('Falling back to VBS for getValue');
+        $resultFile = Vbs::getTmpFile();
+        $content    = 'On Error Resume Next' . PHP_EOL;
+        $content    .= 'Dim WshShell, value' . PHP_EOL;
+        $content    .= 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+        $content    .= 'value = WshShell.RegRead("' . $hKey . '\\' . $subKey . '\\' . $valueName . '")' . PHP_EOL;
+        $content    .= 'If Err.Number = 0 Then' . PHP_EOL;
+        $content    .= '    WScript.Echo value' . PHP_EOL;
+        $content    .= 'Else' . PHP_EOL;
+        $content    .= '    WScript.Echo "ERROR: " & Err.Description' . PHP_EOL;
+        $content    .= 'End If' . PHP_EOL;
+
+        $result = Vbs::exec('getValue', $resultFile, $content, 5);
+
+        if (empty($result) || strpos($result[0], 'ERROR:') === 0) {
+            $this->writeLog('getValue result (VBS): false');
+
             return false;
         }
 
-        return $result;
+        $value = trim($result[0]);
+        $this->writeLog('getValue result (VBS): ' . $value);
+
+        return $value;
     }
 
     /**
      * Sets a string value in the registry.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string $entry The entry name.
-     * @param string $value The value to set.
-     * @return bool True if the value was set successfully, false otherwise.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     * @param   string  $value      The value to set.
+     *
+     * @return bool True on success, false on failure.
      */
-    public function setStringValue($key, $subkey, $entry, $value)
+    public function setStringValue($hKey, $subKey, $valueName, $value)
     {
-        return $this->setValue($key, $subkey, $entry, $value, 'SetStringValue');
+        return $this->setValue($hKey, $subKey, $valueName, $value, self::REG_SZ);
     }
 
     /**
-     * Sets an expanded string value in the registry.
+     * Sets an expandable string value in the registry.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string $entry The entry name.
-     * @param string $value The value to set.
-     * @return bool True if the value was set successfully, false otherwise.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     * @param   string  $value      The value to set.
+     *
+     * @return bool True on success, false on failure.
      */
-    public function setExpandStringValue($key, $subkey, $entry, $value)
+    public function setExpandStringValue($hKey, $subKey, $valueName, $value)
     {
-        return $this->setValue($key, $subkey, $entry, $value, 'SetExpandedStringValue');
+        return $this->setValue($hKey, $subKey, $valueName, $value, self::REG_EXPAND_SZ);
     }
 
     /**
-     * Deletes a registry entry.
+     * Sets a registry value.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string $entry The entry name.
-     * @return bool True if the entry was deleted successfully, false otherwise.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     * @param   mixed   $value      The value to set.
+     * @param   string  $type       The registry value type.
+     *
+     * @return bool True on success, false on failure.
      */
-    public function deleteValue($key, $subkey, $entry)
+    private function setValue($hKey, $subKey, $valueName, $value, $type)
     {
-        $this->writeLog('delete');
-        return $this->setValue($key, $subkey, $entry, null, 'DeleteValue');
+        $this->writeLog('setValue: ' . $hKey . '\\' . $subKey . '\\' . $valueName . ' = ' . $value . ' (' . $type . ')');
+
+        // Use PowerShell for faster and more reliable registry access
+        $ps_command = "powershell -NoProfile -ExecutionPolicy Bypass -Command \"";
+        $ps_command .= 'try { ';
+        $ps_command .= "if (!(Test-Path 'Registry::" . $hKey . "\\" . $subKey . "')) { ";
+        $ps_command .= "New-Item -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Force | Out-Null ";
+        $ps_command .= '} ';
+
+        // Handle different registry types
+        switch ($type) {
+            case self::REG_SZ:
+                $ps_command .= "Set-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -Value '" . str_replace(
+                        "'",
+                        "''",
+                        $value
+                    ) . "' -Type String -Force ";
+                break;
+            case self::REG_EXPAND_SZ:
+                $ps_command .= "Set-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -Value '" . str_replace(
+                        "'",
+                        "''",
+                        $value
+                    ) . "' -Type ExpandString -Force ";
+                break;
+            case self::REG_DWORD:
+                $ps_command .= "Set-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -Value " . intval($value) . ' -Type DWord -Force ';
+                break;
+            default:
+                $ps_command .= "Set-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -Value '" . str_replace(
+                        "'",
+                        "''",
+                        $value
+                    ) . "' -Type String -Force ";
+        }
+
+        $ps_command .= "Write-Output 'SUCCESS' ";
+        $ps_command .= "} catch { Write-Output 'ERROR: ' + $_.Exception.Message }\"";
+
+        // Execute the command with a timeout
+        $descriptorspec = array(
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w')
+        );
+
+        $process = proc_open($ps_command, $descriptorspec, $pipes);
+
+        if (is_resource($process)) {
+            // Set non-blocking mode on the stdout pipe
+            stream_set_blocking($pipes[1], 0);
+
+            // Set a timeout
+            $startTime = time();
+            $output    = '';
+
+            // Read from the pipe with timeout
+            while (time() - $startTime < self::REGISTRY_TIMEOUT) {
+                $read   = array($pipes[1]);
+                $write  = null;
+                $except = null;
+
+                // Wait for data with a short timeout
+                if (stream_select($read, $write, $except, 1)) {
+                    $output .= stream_get_contents($pipes[1]);
+
+                    // If we have a complete response, break
+                    if (strpos($output, 'SUCCESS') !== false || strpos($output, 'ERROR:') !== false) {
+                        break;
+                    }
+                }
+            }
+
+            // Close pipes and process
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            // Terminate the process if it's still running
+            $status = proc_get_status($process);
+            if ($status['running']) {
+                proc_terminate($process);
+            }
+
+            proc_close($process);
+
+            // Check the result
+            $success = (strpos($output, 'SUCCESS') !== false);
+            $this->writeLog('setValue result: ' . ($success ? 'true' : 'false'));
+
+            return $success;
+        }
+
+        // Fallback to VBS if PowerShell fails
+        $this->writeLog('Falling back to VBS for setValue');
+        $resultFile = Vbs::getTmpFile();
+        $content    = 'On Error Resume Next' . PHP_EOL;
+        $content    .= 'Dim WshShell' . PHP_EOL;
+        $content    .= 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+
+        // Handle different registry types
+        switch ($type) {
+            case self::REG_SZ:
+                $content .= 'WshShell.RegWrite "' . $hKey . '\\' . $subKey . '\\' . $valueName . '", "' . str_replace('"', '""', $value) . '", "REG_SZ"' . PHP_EOL;
+                break;
+            case self::REG_EXPAND_SZ:
+                $content .= 'WshShell.RegWrite "' . $hKey . '\\' . $subKey . '\\' . $valueName . '", "' . str_replace('"', '""', $value) . '", "REG_EXPAND_SZ"' . PHP_EOL;
+                break;
+            case self::REG_DWORD:
+                $content .= 'WshShell.RegWrite "' . $hKey . '\\' . $subKey . '\\' . $valueName . '", ' . intval($value) . ', "REG_DWORD"' . PHP_EOL;
+                break;
+            default:
+                $content .= 'WshShell.RegWrite "' . $hKey . '\\' . $subKey . '\\' . $valueName . '", "' . str_replace('"', '""', $value) . '", "REG_SZ"' . PHP_EOL;
+        }
+
+        $content .= 'If Err.Number = 0 Then' . PHP_EOL;
+        $content .= '    WScript.Echo "' . self::REG_NO_ERROR . '"' . PHP_EOL;
+        $content .= 'Else' . PHP_EOL;
+        $content .= '    WScript.Echo "' . self::REG_ERROR . '"' . PHP_EOL;
+        $content .= 'End If' . PHP_EOL;
+
+        $result = Vbs::exec('setValue', $resultFile, $content, 5);
+
+        $success = !empty($result) && trim($result[0]) == self::REG_NO_ERROR;
+        $this->writeLog('setValue result (VBS): ' . ($success ? 'true' : 'false'));
+
+        return $success;
     }
 
     /**
-     * Sets a value in the registry.
+     * Deletes a registry value.
      *
-     * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
-     * @param string $subkey The subkey path.
-     * @param string $entry The entry name.
-     * @param string|null $value The value to set (optional).
-     * @param string $type The type of value to set (e.g., SetStringValue).
-     * @return bool True if the value was set successfully, false otherwise.
+     * @param   string  $hKey       The registry hive.
+     * @param   string  $subKey     The registry subkey.
+     * @param   string  $valueName  The registry value name.
+     *
+     * @return bool True on success, false on failure.
      */
-    private function setValue($key, $subkey, $entry, $value, $type)
+    public function deleteValue($hKey, $subKey, $valueName)
     {
-        global $bearsamppLang;
+        $this->writeLog('deleteValue: ' . $hKey . '\\' . $subKey . '\\' . $valueName);
+        
+        // Use direct REG command for reliable registry deletion
+        $regCmd = 'reg delete "' . $hKey . '\\' . $subKey . '" /v "' . $valueName . '" /f 2>nul';
+        $output = [];
+        $returnCode = 0;
+        exec($regCmd, $output, $returnCode);
+        
+        // Check if deletion was successful (return code 0 means success)
+        // Return code 1 often means the key doesn't exist, which is fine for deletion
+        $success = ($returnCode === 0 || $returnCode === 1);
+        
+        // Log the result
+        $this->writeLog('deleteValue result: ' . ($success ? 'true' : 'false') . ' (return code: ' . $returnCode . ')');
+        
+        // If direct REG command failed, try PowerShell as first fallback
+        if (!$success) {
+            $this->writeLog('REG command failed, trying PowerShell for deleteValue');
+            
+            $ps_command = "powershell -NoProfile -ExecutionPolicy Bypass -Command \"";
+            $ps_command .= 'try { ';
+            $ps_command .= "if (Test-Path 'Registry::" . $hKey . "\\" . $subKey . "') { ";
+            $ps_command .= "Remove-ItemProperty -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Name '" . $valueName . "' -Force -ErrorAction Stop ";
+            $ps_command .= "Write-Output 'SUCCESS' ";
+            $ps_command .= "} else { Write-Output 'SUCCESS' } "; // Consider it a success if the key doesn't exist
+            $ps_command .= "} catch { Write-Output 'ERROR: ' + $_.Exception.Message }\"";
 
-        $basename = 'registrySetValue';
-        $resultFile = Vbs::getResultFile($basename);
-        $this->latestError = null;
+            // Execute the command with a timeout
+            $descriptorspec = array(
+                0 => array('pipe', 'r'),
+                1 => array('pipe', 'w'),
+                2 => array('pipe', 'w')
+            );
 
-        $strKey = $key;
-        if ($key == self::HKEY_CLASSES_ROOT) {
-            $key = '&H80000000';
-        } elseif ($key == self::HKEY_CURRENT_USER) {
-            $key = '&H80000001';
-        } elseif ($key == self::HKEY_LOCAL_MACHINE) {
-            $key = '&H80000002';
-        } elseif ($key == self::HKEY_LOCAL_MACHINE) {
-            $key = '&H80000003';
+            $process = proc_open($ps_command, $descriptorspec, $pipes);
+            $output = '';
+
+            if (is_resource($process)) {
+                // Set non-blocking mode on the stdout pipe
+                stream_set_blocking($pipes[1], 0);
+
+                // Set a timeout
+                $startTime = time();
+                
+                // Read from the pipe with timeout
+                while (time() - $startTime < self::REGISTRY_TIMEOUT) {
+                    $read   = array($pipes[1]);
+                    $write  = null;
+                    $except = null;
+
+                    // Wait for data with a short timeout
+                    if (stream_select($read, $write, $except, 1)) {
+                        $output .= stream_get_contents($pipes[1]);
+
+                        // If we have a complete response, break
+                        if (strpos($output, 'SUCCESS') !== false || strpos($output, 'ERROR:') !== false) {
+                            break;
+                        }
+                    }
+                }
+
+                // Close pipes and process
+                fclose($pipes[0]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+
+                // Terminate the process if it's still running
+                $status = proc_get_status($process);
+                if ($status['running']) {
+                    proc_terminate($process);
+                }
+
+                proc_close($process);
+
+                // Check the result
+                $success = (strpos($output, 'SUCCESS') !== false);
+                $this->writeLog('deleteValue result (PowerShell): ' . ($success ? 'true' : 'false'));
+                
+                if ($success) {
+                    return true;
+                }
+            }
+            
+            // Fallback to VBS if PowerShell fails
+            $this->writeLog('PowerShell failed, trying VBS for deleteValue');
+            $resultFile = Vbs::getTmpFile();
+            $content    = 'On Error Resume Next' . PHP_EOL;
+            $content    .= 'Dim WshShell' . PHP_EOL;
+            $content    .= 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+            $content    .= 'WshShell.RegDelete "' . $hKey . '\\' . $subKey . '\\' . $valueName . '"' . PHP_EOL;
+            $content    .= 'If Err.Number = 0 Or Err.Number = 2 Then' . PHP_EOL; // 2 = File not found, which is fine for deletion
+            $content    .= '    WScript.Echo "' . self::REG_NO_ERROR . '"' . PHP_EOL;
+            $content    .= 'Else' . PHP_EOL;
+            $content    .= '    WScript.Echo "' . self::REG_ERROR . '"' . PHP_EOL;
+            $content    .= 'End If' . PHP_EOL;
+
+            $result = Vbs::exec('deleteValue', $resultFile, $content, 5);
+
+            $success = !empty($result) && trim($result[0]) == self::REG_NO_ERROR;
+            $this->writeLog('deleteValue result (VBS): ' . ($success ? 'true' : 'false'));
         }
 
-        $scriptContent = 'On Error Resume Next' . PHP_EOL;
-        $scriptContent .= 'Err.Clear' . PHP_EOL . PHP_EOL;
-
-        $scriptContent .= 'Const HKEY = ' . $key . PHP_EOL . PHP_EOL;
-
-        $scriptContent .= 'Dim objShell, objRegistry, objFso, objFile, outFile, entryValue, newValue' . PHP_EOL . PHP_EOL;
-
-        $scriptContent .= 'newValue = "' . (!empty($value) ? str_replace('"', '""', $value) : '') . '"' . PHP_EOL;
-        $scriptContent .= 'outFile = "' . $resultFile . '"' . PHP_EOL;
-        $scriptContent .= 'Set objShell = WScript.CreateObject("WScript.Shell")' . PHP_EOL;
-        $scriptContent .= 'Set objRegistry = GetObject("winmgmts://./root/default:StdRegProv")' . PHP_EOL;
-        $scriptContent .= 'Set objFso = CreateObject("Scripting.FileSystemObject")' . PHP_EOL;
-        $scriptContent .= 'Set objFile = objFso.CreateTextFile(outFile, True)' . PHP_EOL . PHP_EOL;
-
-        if (!empty($value)) {
-            $scriptContent .= 'objRegistry.' . $type . ' HKEY, "' . $subkey . '", "' . $entry . '", newValue' . PHP_EOL;
-        } elseif (!empty($entry)) {
-            $scriptContent .= 'objRegistry.' . $type . ' HKEY, "' . $subkey . '", "' . $entry . '"' . PHP_EOL;
-        } else {
-            $scriptContent .= 'objRegistry.' . $type . ' HKEY, "' . $subkey . '"' . PHP_EOL;
-        }
-        $scriptContent .= 'If Err.Number <> 0 Then' . PHP_EOL;
-        $scriptContent .= '    objFile.Write "' . self::REG_ERROR_ENTRY . '" & Err.Number & ": " & Err.Description' . PHP_EOL;
-        $scriptContent .= 'Else' . PHP_EOL;
-        if (!empty($value)) {
-            $scriptContent .= '    entryValue = objShell.RegRead("' . $strKey . '\\' . $subkey . '\\' . $entry . '")' . PHP_EOL;
-            $scriptContent .= '    If entryValue = newValue Then' . PHP_EOL;
-            $scriptContent .= '        objFile.Write "' . self::REG_NO_ERROR . '"' . PHP_EOL;
-            $scriptContent .= '    Else' . PHP_EOL;
-            $scriptContent .= '        objFile.Write "' . self::REG_ERROR_SET . '" & newValue' . PHP_EOL;
-            $scriptContent .= '    End If' . PHP_EOL;
-        } else {
-            $scriptContent .= '    objFile.Write "' . self::REG_NO_ERROR . '"' . PHP_EOL;
-        }
-        $scriptContent .= 'End If' . PHP_EOL;
-        $scriptContent .= 'objFile.Close' . PHP_EOL;
-
-        $result = Vbs::exec($basename, $resultFile, $scriptContent);
-        $result = isset($result[0]) ? $result[0] : null;
-
-        if ($subkey == self::ENV_KEY) {
-            Batch::refreshEnvVars();
-        }
-
-        $this->writeLog('SetValue ' . $strKey . '\\' . $subkey . '\\' . $entry);
-        $this->writeLog('-> value: ' . $value);
-        $this->writeLog('-> result: ' . $result);
-        if (Util::startWith($result, self::REG_ERROR_SET)) {
-            $this->latestError = sprintf($bearsamppLang->getValue(Lang::REGISTRY_SET_ERROR_TEXT), str_replace(self::REG_ERROR_SET, '', $result));
-            return false;
-        } elseif (Util::startWith($result, self::REG_ERROR_ENTRY)) {
-            $this->latestError = $bearsamppLang->getValue(Lang::ERROR) . ' ' . str_replace(self::REG_ERROR_ENTRY, '', $result);
-            return false;
-        }
-
-        return $result == self::REG_NO_ERROR;
+        return $success;
     }
 
     /**
-     * Retrieves the latest error message.
+     * Deletes a registry key.
      *
-     * @return string|null The latest error message, or null if no error occurred.
+     * @param   string  $hKey    The registry hive.
+     * @param   string  $subKey  The registry subkey.
+     *
+     * @return bool True on success, false on failure.
      */
-    public function getLatestError()
+    public function deleteKey($hKey, $subKey)
     {
-        return $this->latestError;
+        $this->writeLog('deleteKey: ' . $hKey . '\\' . $subKey);
+
+        // Use PowerShell for faster and more reliable registry access
+        $ps_command = "powershell -NoProfile -ExecutionPolicy Bypass -Command \"";
+        $ps_command .= 'try { ';
+        $ps_command .= "if (Test-Path 'Registry::" . $hKey . "\\" . $subKey . "') { ";
+        $ps_command .= "Remove-Item -Path 'Registry::" . $hKey . "\\" . $subKey . "' -Force -Recurse -ErrorAction Stop ";
+        $ps_command .= "Write-Output 'SUCCESS' ";
+        $ps_command .= "} else { Write-Output 'SUCCESS' } "; // Consider it a success if the key doesn't exist
+        $ps_command .= "} catch { Write-Output 'ERROR: ' + $_.Exception.Message }\"";
+
+        // Execute the command with a timeout
+        $descriptorspec = array(
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w')
+        );
+
+        $process = proc_open($ps_command, $descriptorspec, $pipes);
+
+        if (is_resource($process)) {
+            // Set non-blocking mode on the stdout pipe
+            stream_set_blocking($pipes[1], 0);
+
+            // Set a timeout
+            $startTime = time();
+            $output    = '';
+
+            // Read from the pipe with timeout
+            while (time() - $startTime < self::REGISTRY_TIMEOUT) {
+                $read   = array($pipes[1]);
+                $write  = null;
+                $except = null;
+
+                // Wait for data with a short timeout
+                if (stream_select($read, $write, $except, 1)) {
+                    $output .= stream_get_contents($pipes[1]);
+
+                    // If we have a complete response, break
+                    if (strpos($output, 'SUCCESS') !== false || strpos($output, 'ERROR:') !== false) {
+                        break;
+                    }
+                }
+            }
+
+            // Close pipes and process
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            // Terminate the process if it's still running
+            $status = proc_get_status($process);
+            if ($status['running']) {
+                proc_terminate($process);
+            }
+
+            proc_close($process);
+
+            // Check the result
+            $success = (strpos($output, 'SUCCESS') !== false);
+            $this->writeLog('deleteKey result: ' . ($success ? 'true' : 'false'));
+
+            return $success;
+        }
+
+        // Fallback to VBS if PowerShell fails
+        $this->writeLog('Falling back to VBS for deleteKey');
+        $resultFile = Vbs::getTmpFile();
+        $content    = 'On Error Resume Next' . PHP_EOL;
+        $content    .= 'Dim WshShell' . PHP_EOL;
+        $content    .= 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+        $content    .= 'WshShell.RegDelete "' . $hKey . '\\' . $subKey . '\\"' . PHP_EOL;
+        $content    .= 'If Err.Number = 0 Or Err.Number = 2 Then' . PHP_EOL; // 2 = File not found, which is fine for deletion
+        $content    .= '    WScript.Echo "' . self::REG_NO_ERROR . '"' . PHP_EOL;
+        $content    .= 'Else' . PHP_EOL;
+        $content    .= '    WScript.Echo "' . self::REG_ERROR . '"' . PHP_EOL;
+        $content    .= 'End If' . PHP_EOL;
+
+        $result = Vbs::exec('deleteKey', $resultFile, $content, 5);
+
+        $success = !empty($result) && trim($result[0]) == self::REG_NO_ERROR;
+        $this->writeLog('deleteKey result (VBS): ' . ($success ? 'true' : 'false'));
+
+        return $success;
     }
 }

@@ -163,18 +163,21 @@ class ActionStartup
             $this->splash->incrProgressBar( 2 );
         }
 
-        if ( $this->restart ) {
-            $this->writeLog( APP_TITLE . ' has to be restarted' );
+        if ($this->restart) {
+            $this->writeLog(APP_TITLE . ' has to be restarted');
             $this->splash->setTextLoading(
                 sprintf(
-                    $bearsamppLang->getValue( Lang::STARTUP_PREPARE_RESTART_TEXT ),
+                    $bearsamppLang->getValue(Lang::STARTUP_PREPARE_RESTART_TEXT),
                     APP_TITLE . ' ' . $bearsamppCore->getAppVersion()
                 )
             );
-            foreach ( $bearsamppBins->getServices() as $sName => $service ) {
-                $service->delete();
-            }
-            $bearsamppCore->setExec( ActionExec::RESTART );
+
+            // Set restart flag without trying to delete services
+            // Services will be properly handled during the next startup
+            $bearsamppCore->setExec(ActionExec::RESTART);
+
+            // Exit the main loop to allow restart to proceed
+            $bearsamppWinbinder->exitMainLoop();
         }
 
         if ( !empty( $this->error ) ) {
@@ -283,22 +286,31 @@ class ActionStartup
 
     /**
      * Cleans old behaviors by removing outdated registry entries.
+     * This method is simplified to avoid freezing.
      */
     private function cleanOldBehaviors()
     {
-        global $bearsamppLang, $bearsamppRegistry;
+        global $bearsamppLang;
 
-        $this->writeLog( 'Clean old behaviors' );
+        $this->writeLog('Clean old behaviors');
 
-        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_CLEAN_OLD_BEHAVIORS_TEXT ) );
+        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_CLEAN_OLD_BEHAVIORS_TEXT));
         $this->splash->incrProgressBar();
 
-        // App >= 1.0.13
-        $bearsamppRegistry->deleteValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            'SOFTWARE\Microsoft\Windows\CurrentVersion\Run',
-            APP_TITLE
-        );
+        try {
+            // Use direct REG command instead of VBS or PowerShell
+            // Redirect errors to nul to avoid issues if the key doesn't exist
+            $regCmd = 'reg delete "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run" /v "' . APP_TITLE . '" /f 2>nul';
+            exec($regCmd);
+            
+            $this->writeLog('Removed startup registry entry for ' . APP_TITLE);
+            
+            // Skip other registry operations that might cause freezing
+            $this->writeLog('Skipping other registry operations to prevent freezing');
+        } catch (Exception $e) {
+            $this->writeLog('Error in cleanOldBehaviors: ' . $e->getMessage());
+            // Continue execution even if there's an exception
+        }
     }
 
     /**
@@ -480,29 +492,58 @@ class ActionStartup
     }
 
     /**
-     * Checks and updates the application path registry key.
+     * Checks and updates the PATH registry key.
+     * This method uses direct registry access to prevent freezing.
      */
     private function checkPathRegKey()
     {
         global $bearsamppRoot, $bearsamppLang, $bearsamppRegistry;
 
-        $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::APP_PATH_REG_ENTRY ) );
+        $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_TEXT), Registry::APP_PATH_REG_ENTRY));
         $this->splash->incrProgressBar();
 
-        $currentAppPathRegKey = Util::getAppPathRegKey();
-        $genAppPathRegKey     = Util::formatWindowsPath( $bearsamppRoot->getRootPath() );
-        $this->writeLog( 'Current app path reg key: ' . $currentAppPathRegKey );
-        $this->writeLog( 'Gen app path reg key: ' . $genAppPathRegKey );
-        if ( $currentAppPathRegKey != $genAppPathRegKey ) {
-            if ( !Util::setAppPathRegKey( $genAppPathRegKey ) ) {
-                if ( !empty( $this->error ) ) {
+        // Use direct registry access via REG command instead of VBS or PowerShell
+        $regCmd = 'reg query "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::APP_PATH_REG_ENTRY . ' 2>nul';
+        $output = [];
+        exec($regCmd, $output);
+
+        $currentAppPathRegKey = '';
+        foreach ($output as $line) {
+            if (strpos($line, Registry::APP_PATH_REG_ENTRY) !== false) {
+                $parts = preg_split('/\s+/', $line, 4);
+                if (isset($parts[3])) {
+                    $currentAppPathRegKey = $parts[3];
+                }
+            }
+        }
+
+        $genAppPathRegKey = Util::formatWindowsPath($bearsamppRoot->getRootPath());
+        $this->writeLog('Current app path reg key: ' . $currentAppPathRegKey);
+        $this->writeLog('Gen app path reg key: ' . $genAppPathRegKey);
+
+        if ($currentAppPathRegKey != $genAppPathRegKey) {
+            // Use direct REG command to set the registry key
+            $regCmd = 'reg add "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::APP_PATH_REG_ENTRY . ' /t REG_SZ /d "' . $genAppPathRegKey . '" /f';
+            $output = [];
+            exec($regCmd, $output);
+
+            // Check if the command was successful
+            $success = false;
+            foreach ($output as $line) {
+                if (strpos($line, 'success') !== false) {
+                    $success = true;
+                    break;
+                }
+            }
+
+            if (!$success) {
+                if (!empty($this->error)) {
                     $this->error .= PHP_EOL . PHP_EOL;
                 }
-                $this->error .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_ERROR_TEXT ), Registry::APP_PATH_REG_ENTRY );
+                $this->error .= sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_ERROR_TEXT), Registry::APP_PATH_REG_ENTRY);
                 $this->error .= PHP_EOL . $bearsamppRegistry->getLatestError();
-            }
-            else {
-                $this->writeLog( 'Need restart: checkPathRegKey' );
+            } else {
+                $this->writeLog('Need restart: checkPathRegKey');
                 $this->restart = true;
             }
         }
@@ -514,28 +555,56 @@ class ActionStartup
      * Logs the current and generated registry keys.
      * Sets an error message if the registry key update fails.
      * Sets a restart flag if the registry key is updated.
+     * Includes a fallback mechanism to prevent freezing.
      */
     private function checkBinsRegKey()
     {
-        global $bearsamppLang, $bearsamppRegistry;
+        global $bearsamppRoot, $bearsamppLang, $bearsamppRegistry;
 
-        $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::APP_BINS_REG_ENTRY ) );
+        $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_TEXT), Registry::APP_BINS_REG_ENTRY));
         $this->splash->incrProgressBar();
 
-        $currentAppBinsRegKey = Util::getAppBinsRegKey();
-        $genAppBinsRegKey     = Util::getAppBinsRegKey( false );
-        $this->writeLog( 'Current app bins reg key: ' . $currentAppBinsRegKey );
-        $this->writeLog( 'Gen app bins reg key: ' . $genAppBinsRegKey );
-        if ( $currentAppBinsRegKey != $genAppBinsRegKey ) {
-            if ( !Util::setAppBinsRegKey( $genAppBinsRegKey ) ) {
-                if ( !empty( $this->error ) ) {
+        // Use direct registry access via REG command instead of VBS or PowerShell
+        $regCmd = 'reg query "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::APP_BINS_REG_ENTRY . ' 2>nul';
+        $output = [];
+        exec($regCmd, $output);
+
+        $currentAppBinsRegKey = '';
+        foreach ($output as $line) {
+            if (strpos($line, Registry::APP_BINS_REG_ENTRY) !== false) {
+                $parts = preg_split('/\s+/', $line, 4);
+                if (isset($parts[3])) {
+                    $currentAppBinsRegKey = $parts[3];
+                }
+            }
+        }
+
+        $genAppBinsRegKey = Util::formatWindowsPath($bearsamppRoot->getBinPath());
+        $this->writeLog('Current app bins reg key: ' . $currentAppBinsRegKey);
+        $this->writeLog('Gen app bins reg key: ' . $genAppBinsRegKey);
+
+        if ($currentAppBinsRegKey != $genAppBinsRegKey) {
+            // Use direct REG command to set the registry key
+            $regCmd = 'reg add "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::APP_BINS_REG_ENTRY . ' /t REG_SZ /d "' . $genAppBinsRegKey . '" /f';
+            $output = [];
+            exec($regCmd, $output);
+
+            // Check if the command was successful
+            $success = false;
+            foreach ($output as $line) {
+                if (strpos($line, 'success') !== false) {
+                    $success = true;
+                    break;
+                }
+            }
+
+            if (!$success) {
+                if (!empty($this->error)) {
                     $this->error .= PHP_EOL . PHP_EOL;
                 }
-                $this->error .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_ERROR_TEXT ), Registry::APP_BINS_REG_ENTRY );
-                $this->error .= PHP_EOL . $bearsamppRegistry->getLatestError();
-            }
-            else {
-                $this->writeLog( 'Need restart: checkBinsRegKey' );
+                $this->error .= sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_ERROR_TEXT), Registry::APP_BINS_REG_ENTRY);
+            } else {
+                $this->writeLog('Need restart: checkBinsRegKey');
                 $this->restart = true;
             }
         }
@@ -543,43 +612,87 @@ class ActionStartup
 
     /**
      * Checks and updates the system PATH registry key.
+     * Uses direct registry access to prevent freezing during startup.
      * Ensures the application bins registry entry is at the beginning of the system PATH.
-     * Logs the current and new system PATH.
-     * Sets an error message if the system PATH update fails.
-     * Sets a restart flag if the system PATH is updated.
+     * Properly handles portable installations by checking for both variable and actual path.
      */
     private function checkSystemPathRegKey()
     {
-        global $bearsamppLang, $bearsamppRegistry;
+        global $bearsamppLang, $bearsamppRegistry, $bearsamppRoot;
 
-        $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::SYSPATH_REG_ENTRY ) );
+        $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_TEXT), Registry::SYSPATH_REG_ENTRY));
         $this->splash->incrProgressBar();
 
-        $currentSysPathRegKey = Util::getSysPathRegKey();
-        $this->writeLog( 'Current system PATH: ' . $currentSysPathRegKey );
-
-        $newSysPathRegKey = str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%;', '', $currentSysPathRegKey );
-        $newSysPathRegKey = str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%', '', $newSysPathRegKey );
-        $newSysPathRegKey = '%' . Registry::APP_BINS_REG_ENTRY . '%;' . $newSysPathRegKey;
-        $this->writeLog( 'New system PATH: ' . $newSysPathRegKey );
-
-        if ( $currentSysPathRegKey != $newSysPathRegKey ) {
-            if ( !Util::setSysPathRegKey( $newSysPathRegKey ) ) {
-                if ( !empty( $this->error ) ) {
-                    $this->error .= PHP_EOL . PHP_EOL;
+        // Use direct registry access via REG command
+        $regCmd = 'reg query "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::SYSPATH_REG_ENTRY . ' 2>nul';
+        $output = [];
+        exec($regCmd, $output);
+        
+        $currentSysPathRegKey = '';
+        foreach ($output as $line) {
+            if (strpos($line, Registry::SYSPATH_REG_ENTRY) !== false) {
+                $parts = preg_split('/\s+/', $line, 4);
+                if (isset($parts[3])) {
+                    $currentSysPathRegKey = $parts[3];
                 }
-                $this->error .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_ERROR_TEXT ), Registry::SYSPATH_REG_ENTRY );
-                $this->error .= PHP_EOL . $bearsamppRegistry->getLatestError();
-            }
-            else {
-                $this->writeLog( 'Need restart: checkSystemPathRegKey' );
-                $this->restart = true;
             }
         }
-        else {
-            $this->writeLog( 'Refresh system PATH: ' . $currentSysPathRegKey );
-            Util::setSysPathRegKey( str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%', '', $currentSysPathRegKey ) );
-            Util::setSysPathRegKey( $currentSysPathRegKey );
+        
+        if (empty($currentSysPathRegKey)) {
+            $this->writeLog('Current system PATH is empty');
+            $currentSysPathRegKey = '';
+        }
+        
+        $this->writeLog('Current system PATH: ' . $currentSysPathRegKey);
+
+        // Get the actual bin path and the environment variable
+        $binPath = Util::formatWindowsPath($bearsamppRoot->getBinPath());
+        $binPathVar = '%' . Registry::APP_BINS_REG_ENTRY . '%';
+        
+        // Check if PATH starts with either the actual bin path or the variable
+        $pathStartsWithBin = (strpos($currentSysPathRegKey, $binPath . ';') === 0);
+        $pathStartsWithVar = (strpos($currentSysPathRegKey, $binPathVar . ';') === 0);
+        
+        // Also check if the bin path is already in the PATH (for portable installations)
+        $binPathInPath = (strpos($currentSysPathRegKey, ';' . $binPath . ';') !== false) || 
+                         (strpos($currentSysPathRegKey, $binPath . ';') === 0);
+        $varPathInPath = (strpos($currentSysPathRegKey, ';' . $binPathVar . ';') !== false) || 
+                         (strpos($currentSysPathRegKey, $binPathVar . ';') === 0);
+        
+        // Only modify PATH if it doesn't already contain what we need
+        if (!$pathStartsWithBin && !$pathStartsWithVar && !$binPathInPath && !$varPathInPath) {
+            // Create new system PATH with BEARSAMPP_BINS at the beginning
+            $newSysPathRegKey = str_replace('%' . Registry::APP_BINS_REG_ENTRY . '%;', '', $currentSysPathRegKey);
+            $newSysPathRegKey = str_replace('%' . Registry::APP_BINS_REG_ENTRY . '%', '', $newSysPathRegKey);
+            $newSysPathRegKey = '%' . Registry::APP_BINS_REG_ENTRY . '%;' . $newSysPathRegKey;
+            $this->writeLog('New system PATH: ' . $newSysPathRegKey);
+
+            // Use direct REG command to set the registry key
+            $regCmd = 'reg add "HKLM\\' . Registry::ENV_KEY . '" /v ' . Registry::SYSPATH_REG_ENTRY . ' /t REG_EXPAND_SZ /d "' . $newSysPathRegKey . '" /f';
+            $output = [];
+            exec($regCmd, $output);
+            
+            // Check if the command was successful
+            $success = false;
+            foreach ($output as $line) {
+                if (strpos($line, 'success') !== false) {
+                    $success = true;
+                    break;
+                }
+            }
+            
+            if (!$success) {
+                if (!empty($this->error)) {
+                    $this->error .= PHP_EOL . PHP_EOL;
+                }
+                $this->error .= sprintf($bearsamppLang->getValue(Lang::STARTUP_REGISTRY_ERROR_TEXT), Registry::SYSPATH_REG_ENTRY);
+                $this->error .= PHP_EOL . $bearsamppRegistry->getLatestError();
+            } else {
+                $this->writeLog('Need restart: checkSystemPathRegKey');
+                $this->restart = true;
+            }
+        } else {
+            $this->writeLog('System PATH already contains the bin path - no changes needed');
         }
     }
 
@@ -679,13 +792,34 @@ class ActionStartup
                     foreach ( $serviceInfos as $key => $value ) {
                         $this->writeLog( '-> ' . $key . ': ' . $value );
                     }
-                    $serviceGenPathName = trim( str_replace( '"', '', $service->getBinPath() . ($service->getParams() ? ' ' . $service->getParams() : '') ) );
-                    $serviceVbsPathName = trim( str_replace( '"', '', $serviceInfos[Win32Service::VBS_PATH_NAME] ) );
-                    if ( $serviceGenPathName != $serviceVbsPathName ) {
-                        $serviceToRemove = true;
-                        $this->writeLog( $name . ' service has to be removed' );
-                        $this->writeLog( '-> serviceGenPathName: ' . $serviceGenPathName );
-                        $this->writeLog( '-> serviceVbsPathName: ' . $serviceVbsPathName );
+                    // For all services, normalize the path strings before comparison
+                    $serviceGenPathName = trim(str_replace('"', '', $service->getBinPath() . ($service->getParams() ? ' ' . $service->getParams() : '')));
+                    $serviceVbsPathName = trim(str_replace('"', '', $serviceInfos[Win32Service::VBS_PATH_NAME]));
+
+                    // Normalize spaces (replace multiple spaces with single space)
+                    $serviceGenPathName = preg_replace('/\s+/', ' ', $serviceGenPathName);
+                    $serviceVbsPathName = preg_replace('/\s+/', ' ', $serviceVbsPathName);
+
+                    // Special handling for PostgreSQL which needs to compare only the executable path
+                    if ($sName == BinPostgresql::SERVICE_NAME) {
+                        // Extract just the executable path from both strings
+                        $serviceGenExePath = explode(' ', $serviceGenPathName)[0];
+                        $serviceVbsExePath = explode(' ', $serviceVbsPathName)[0];
+
+                        if ($serviceGenExePath != $serviceVbsExePath) {
+                            $serviceToRemove = true;
+                            $this->writeLog($name . ' service has to be removed');
+                            $this->writeLog('-> serviceGenPathName: ' . $serviceGenPathName);
+                            $this->writeLog('-> serviceVbsPathName: ' . $serviceVbsPathName);
+                        }
+                    } else {
+                        // For other services, compare the full normalized paths
+                        if ($serviceGenPathName != $serviceVbsPathName) {
+                            $serviceToRemove = true;
+                            $this->writeLog($name . ' service has to be removed');
+                            $this->writeLog('-> serviceGenPathName: ' . $serviceGenPathName);
+                            $this->writeLog('-> serviceVbsPathName: ' . $serviceVbsPathName);
+                        }
                     }
                 }
 
