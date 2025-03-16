@@ -660,7 +660,11 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        return @unlink( self::getStartupLnkPath() );
+        $startupLnkPath = self::getStartupLnkPath();
+        if (file_exists($startupLnkPath)) {
+            return @unlink($startupLnkPath);
+        }
+        return true; // Already removed or doesn't exist
     }
 
     /**

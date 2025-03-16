@@ -123,6 +123,20 @@ class Win32Service
     }
 
     /**
+     * Safely converts a value to hexadecimal, handling null values.
+     * 
+     * @param mixed $value The value to convert to hexadecimal
+     * @return string The hexadecimal representation or '0' for null values
+     */
+    private function safeHex($value)
+    {
+        if ($value === null) {
+            return self::WIN32_NO_ERROR; // Return '0' for null values
+        }
+        return dechex((int)$value);
+    }
+
+    /**
      * Calls a Win32 service function.
      *
      * @param   string  $function    The function name.
@@ -136,8 +150,11 @@ class Win32Service
         $result = false;
         if ( function_exists( $function ) ) {
             $result = call_user_func( $function, $param );
-            if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = dechex( $result );
+            if ( $checkError && $result !== null ) {
+                $hexResult = $this->safeHex($result);
+                if ($hexResult != self::WIN32_NO_ERROR) {
+                    $this->latestError = $hexResult;
+                }
             }
         }
 
@@ -159,12 +176,16 @@ class Win32Service
         $maxtime            = time() + self::PENDING_TIMEOUT;
 
         while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
-            $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
-            if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( $this->latestStatus['CurrentState'] );
+            $statusResult = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
+            $this->latestStatus = $statusResult;
+            if ( is_array( $statusResult ) && isset( $statusResult['CurrentState'] ) ) {
+                $this->latestStatus = $this->safeHex( $statusResult['CurrentState'] );
             }
-            elseif ( dechex( $this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( $this->latestStatus );
+            elseif ( $statusResult !== null ) {
+                $hexResult = $this->safeHex($statusResult);
+                if ($hexResult == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+                    $this->latestStatus = $hexResult;
+                }
             }
             if ( $timeout && $maxtime < time() ) {
                 break;
@@ -206,7 +227,7 @@ class Win32Service
             return $this->getNssm()->create();
         }
 
-        $create = dechex( $this->callWin32Service( 'win32_create_service', array(
+        $createResult = $this->callWin32Service( 'win32_create_service', array(
             'service'       => $this->getName(),
             'display'       => $this->getDisplayName(),
             'description'   => $this->getDisplayName(),
@@ -214,7 +235,9 @@ class Win32Service
             'params'        => $this->getParams(),
             'start_type'    => $this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START,
             'error_control' => $this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL,
-        ),                                         true ) );
+        ), true );
+        
+        $create = $createResult !== null ? $this->safeHex( $createResult ) : self::WIN32_NO_ERROR;
 
         $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
         $this->writeLog( '-> service: ' . $this->getName() );
@@ -254,7 +277,8 @@ class Win32Service
             return Batch::uninstallPostgresqlService();
         }
 
-        $delete = dechex( $this->callWin32Service( 'win32_delete_service', $this->getName(), true ) );
+        $deleteResult = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
+        $delete = $deleteResult !== null ? $this->safeHex( $deleteResult ) : self::WIN32_NO_ERROR;
         $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
 
         if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
@@ -314,7 +338,8 @@ class Win32Service
         }
 
 
-        $start = dechex( $this->callWin32Service( 'win32_start_service', $this->getName(), true ) );
+        $startResult = $this->callWin32Service( 'win32_start_service', $this->getName(), true );
+        $start = $startResult !== null ? $this->safeHex( $startResult ) : self::WIN32_NO_ERROR;
         Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
 
         if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
@@ -373,7 +398,8 @@ class Win32Service
      */
     public function stop()
     {
-        $stop = dechex( $this->callWin32Service( 'win32_stop_service', $this->getName(), true ) );
+        $stopResult = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
+        $stop = $stopResult !== null ? $this->safeHex( $stopResult ) : self::WIN32_NO_ERROR;
         $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
 
         if ( $stop != self::WIN32_NO_ERROR ) {
@@ -722,12 +748,14 @@ class Win32Service
     {
         global $bearsamppLang;
         if ( $this->latestError != self::WIN32_NO_ERROR ) {
+            $decError = $this->latestError !== null ? hexdec($this->latestError) : 0;
             return $bearsamppLang->getValue( Lang::ERROR ) . ' ' .
-                $this->latestError . ' (' . hexdec( $this->latestError ) . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
+                $this->latestError . ' (' . $decError . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
         }
         elseif ( $this->latestStatus != self::WIN32_SERVICE_NA ) {
+            $decStatus = $this->latestStatus !== null ? hexdec($this->latestStatus) : 0;
             return $bearsamppLang->getValue( Lang::STATUS ) . ' ' .
-                $this->latestStatus . ' (' . hexdec( $this->latestStatus ) . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
+                $this->latestStatus . ' (' . $decStatus . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
         }
 
         return null;
