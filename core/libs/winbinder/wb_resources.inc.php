@@ -16,62 +16,62 @@
 
 //-------------------------------------------------------------------- CONSTANTS
 
-define("WB_KX_SCREEN", 1.498); // Determined through trial and error
-define("WB_KY_SCREEN", 1.625); // Determined through trial and error
+defined('WB_KX_SCREEN') or define("WB_KX_SCREEN", 1.498); // Determined through trial and error
+defined('WB_KY_SCREEN') or define("WB_KY_SCREEN", 1.625); // Determined through trial and error
 
 //------------------------------------------------- WINDOWS CONSTANTS FROM WIN.H
 
-define("WS_VISIBLE",			0x10000000);
-define("WS_DISABLED",			0x08000000);
-define("WS_GROUP",				0x00020000);
-define("WS_EX_STATICEDGE",		0x00020000);
+defined('WS_VISIBLE') or define("WS_VISIBLE",			0x10000000);
+defined('WS_DISABLED') or define("WS_DISABLED",			0x08000000);
+defined('WS_GROUP') or define("WS_GROUP",				0x00020000);
+defined('WS_EX_STATICEDGE') or define("WS_EX_STATICEDGE",		0x00020000);
 
 // Button styles
 
-define("BS_PUSHBUTTON",			0x00);
-define("BS_CHECKBOX",			0x02);
-define("BS_AUTOCHECKBOX",		0x03);
-define("BS_RADIOBUTTON",		0x04);
-define("BS_GROUPBOX",			0x07);
-define("BS_AUTORADIOBUTTON",	0x09);
-define("BS_ICON",				0x40);
-define("BS_BITMAP",				0x80);
+defined('BS_PUSHBUTTON') or define("BS_PUSHBUTTON",			0x00);
+defined('BS_CHECKBOX') or define("BS_CHECKBOX",			0x02);
+defined('BS_AUTOCHECKBOX') or define("BS_AUTOCHECKBOX",		0x03);
+defined('BS_RADIOBUTTON') or define("BS_RADIOBUTTON",		0x04);
+defined('BS_GROUPBOX') or define("BS_GROUPBOX",			0x07);
+defined('BS_AUTORADIOBUTTON') or define("BS_AUTORADIOBUTTON",	0x09);
+defined('BS_ICON') or define("BS_ICON",				0x40);
+defined('BS_BITMAP') or define("BS_BITMAP",				0x80);
 
 // Edit control styles
 
-define("ES_NUMBER",				0x2000);
-define("ES_PASSWORD",			0x20);
-define("ES_READONLY",			0x0800);
-define("ES_UPPERCASE",			0x08);
-define("ES_LEFT",				0x0);
-define("ES_CENTER",				0x01);
-define("ES_RIGHT",				0x02);
-define("ES_MULTILINE",			0x04);
+defined('ES_NUMBER') or define("ES_NUMBER",				0x2000);
+defined('ES_PASSWORD') or define("ES_PASSWORD",			0x20);
+defined('ES_READONLY') or define("ES_READONLY",			0x0800);
+defined('ES_UPPERCASE') or define("ES_UPPERCASE",			0x08);
+defined('ES_LEFT') or define("ES_LEFT",				0x0);
+defined('ES_CENTER') or define("ES_CENTER",				0x01);
+defined('ES_RIGHT') or define("ES_RIGHT",				0x02);
+defined('ES_MULTILINE') or define("ES_MULTILINE",			0x04);
 
 // Static styles
 
-define("SS_LEFT",				0x00);
-define("SS_CENTER",				0x01);
-define("SS_RIGHT",				0x02);
-define("SS_ETCHEDHORZ",			0x10);
-define("SS_ETCHEDVERT",			0x11);
-define("SS_ETCHEDFRAME",		0x12);
-define("SS_ICON",				0x03);
-define("SS_BITMAP",				0x0E);
-define("SS_LEFTNOWORDWRAP",		0x0C);
-define("SS_WORDELLIPSIS",		0xC000);
+defined('SS_LEFT') or define("SS_LEFT",				0x00);
+defined('SS_CENTER') or define("SS_CENTER",				0x01);
+defined('SS_RIGHT') or define("SS_RIGHT",				0x02);
+defined('SS_ETCHEDHORZ') or define("SS_ETCHEDHORZ",			0x10);
+defined('SS_ETCHEDVERT') or define("SS_ETCHEDVERT",			0x11);
+defined('SS_ETCHEDFRAME') or define("SS_ETCHEDFRAME",		0x12);
+defined('SS_ICON') or define("SS_ICON",				0x03);
+defined('SS_BITMAP') or define("SS_BITMAP",				0x0E);
+defined('SS_LEFTNOWORDWRAP') or define("SS_LEFTNOWORDWRAP",		0x0C);
+defined('SS_WORDELLIPSIS') or define("SS_WORDELLIPSIS",		0xC000);
 
 // Other styles
 
-define("CBS_SORT",				0x100);
-define("CBS_DROPDOWNLIST",		3);
+defined('CBS_SORT') or define("CBS_SORT",				0x100);
+defined('CBS_DROPDOWNLIST') or define("CBS_DROPDOWNLIST",		3);
 
-define("LBS_SORT",				2);
-define("LVS_NOSORTHEADER",		0x00008000);
-define("LVS_GRIDLINES",			0x00800000);	// Actually WS_BORDER
-define("LVS_CHECKBOXES",		0x00000800);	// Actually LVS_ALIGNLEFT
-define("LVS_SINGLESEL",			0x00000004);
-define("TBS_AUTOTICKS",			1);
+defined('LBS_SORT') or define("LBS_SORT",				2);
+defined('LVS_NOSORTHEADER') or define("LVS_NOSORTHEADER",		0x00008000);
+defined('LVS_GRIDLINES') or define("LVS_GRIDLINES",			0x00800000);	// Actually WS_BORDER
+defined('LVS_CHECKBOXES') or define("LVS_CHECKBOXES",		0x00000800);	// Actually LVS_ALIGNLEFT
+defined('LVS_SINGLESEL') or define("LVS_SINGLESEL",			0x00000004);
+defined('TBS_AUTOTICKS') or define("TBS_AUTOTICKS",			1);
 
 //-------------------------------------------------------------------- FUNCTIONS
 

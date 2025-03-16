@@ -32,15 +32,13 @@ class Win32Ps
      * @param string $function The name of the function to call.
      * @return mixed The result of the function call, or false if the function does not exist.
      */
-    private static function callWin32Ps($function)
+    private static function callWin32Ps(string $function): mixed
     {
-        $result = false;
-
         if (function_exists($function)) {
-            $result = @call_user_func($function);
+            return @call_user_func($function);
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -48,15 +46,15 @@ class Win32Ps
      *
      * @return array An array of keys used for process information.
      */
-    public static function getKeys()
+    public static function getKeys(): array
     {
-        return array(
+        return [
             self::NAME,
             self::PROCESS_ID,
             self::EXECUTABLE_PATH,
             self::CAPTION,
             self::COMMAND_LINE
-        );
+        ];
     }
 
     /**
@@ -64,10 +62,10 @@ class Win32Ps
      *
      * @return int The current process ID, or 0 if not found.
      */
-    public static function getCurrentPid()
+    public static function getCurrentPid(): int
     {
         $procInfo = self::getStatProc();
-        return isset($procInfo[self::PROCESS_ID]) ? intval($procInfo[self::PROCESS_ID]) : 0;
+        return $procInfo[self::PROCESS_ID] ?? 0;
     }
 
     /**
@@ -75,7 +73,7 @@ class Win32Ps
      *
      * @return array|false An array of process information, or false on failure.
      */
-    public static function getListProcs()
+    public static function getListProcs(): array|false
     {
         return Vbs::getListProcs(self::getKeys());
     }
@@ -85,15 +83,15 @@ class Win32Ps
      *
      * @return array|null An array containing the process ID and executable path, or null on failure.
      */
-    public static function getStatProc()
+    public static function getStatProc(): ?array
     {
         $statProc = self::callWin32Ps('win32_ps_stat_proc');
 
         if ($statProc !== false) {
-            return array(
+            return [
                 self::PROCESS_ID => $statProc['pid'],
                 self::EXECUTABLE_PATH => $statProc['exe']
-            );
+            ];
         }
 
         return null;
@@ -105,7 +103,7 @@ class Win32Ps
      * @param int $pid The process ID to check.
      * @return bool True if the process exists, false otherwise.
      */
-    public static function exists($pid)
+    public static function exists(int $pid): bool
     {
         return self::findByPid($pid) !== false;
     }
@@ -116,7 +114,7 @@ class Win32Ps
      * @param int $pid The process ID to find.
      * @return array|false An array of process information, or false if not found.
      */
-    public static function findByPid($pid)
+    public static function findByPid(int $pid): array|false
     {
         if (!empty($pid)) {
             $procs = self::getListProcs();
@@ -138,7 +136,7 @@ class Win32Ps
      * @param string $path The path to the executable.
      * @return array|false An array of process information, or false if not found.
      */
-    public static function findByPath($path)
+    public static function findByPath(string $path): array|false
     {
         $path = Util::formatUnixPath($path);
         if (!empty($path) && is_file($path)) {
@@ -160,8 +158,9 @@ class Win32Ps
      * Terminates a process by its PID.
      *
      * @param int $pid The process ID to terminate.
+     * @return void
      */
-    public static function kill($pid)
+    public static function kill(int $pid): void
     {
         $pid = intval($pid);
         if (!empty($pid)) {
@@ -175,10 +174,10 @@ class Win32Ps
      * @param bool $refreshProcs Whether to refresh the list of processes before terminating.
      * @return array An array of terminated processes.
      */
-    public static function killBins($refreshProcs = false)
+    public static function killBins(bool $refreshProcs = false): array
     {
         global $bearsamppRoot;
-        $killed = array();
+        $killed = [];
 
         $procs = $bearsamppRoot->getProcs();
         if ($refreshProcs) {

@@ -150,6 +150,12 @@ class BinApache extends Module
         $nssm->setBinPath( $this->exe );
         $nssm->setStart( Nssm::SERVICE_DEMAND_START );
 
+        // Set service parameters if defined
+        $params = self::SERVICE_PARAMS;
+        if ($params !== null) {
+            $this->service->setParams($params);
+        }
+
         $this->service->setNssm( $nssm );
     }
 

@@ -1,3 +1,4 @@
+
 <?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
@@ -16,16 +17,17 @@
  */
 class Vbs
 {
-    const END_PROCESS_STR = 'FINISHED!';
-    const STR_SEPARATOR = ' || ';
+    public const END_PROCESS_STR = 'FINISHED!';
+    public const STR_SEPARATOR = ' || ';
 
-    const DESKTOP_PATH = 'objShell.SpecialFolders("Desktop")';
-    const ALL_DESKTOP_PATH = 'objShell.SpecialFolders("AllUsersDesktop")';
-    const STARTUP_PATH = 'objShell.SpecialFolders("Startup")';
-    const ALL_STARTUP_PATH = 'objShell.SpecialFolders("AllUsersStartup")';
+    public const DESKTOP_PATH = 'objShell.SpecialFolders("Desktop")';
+    public const ALL_DESKTOP_PATH = 'objShell.SpecialFolders("AllUsersDesktop")';
+    public const STARTUP_PATH = 'objShell.SpecialFolders("Startup")';
+    public const ALL_STARTUP_PATH = 'objShell.SpecialFolders("AllUsersStartup")';
 
     public function __construct()
     {
+        // Empty constructor
     }
 
     /**
@@ -33,10 +35,10 @@ class Vbs
      *
      * @param   string  $log  The log message to write.
      */
-    private static function writeLog($log)
+    private static function writeLog(string $log): void
     {
         global $bearsamppRoot;
-        Util::logDebug( $log, $bearsamppRoot->getVbsLogFilePath() );
+        Util::logDebug($log, $bearsamppRoot->getVbsLogFilePath());
     }
 
     /**
@@ -46,10 +48,10 @@ class Vbs
      *
      * @return int|false The count of files and folders, or false on failure.
      */
-    public static function countFilesFolders($path)
+    public static function countFilesFolders(string $path): int|false
     {
         $basename   = 'countFilesFolders';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'Dim objFso, objResultFile, objCheckFile' . PHP_EOL . PHP_EOL;
         $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
@@ -67,9 +69,9 @@ class Vbs
         $content .= 'objResultFile.Write count' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
+        $result = self::exec($basename, $resultFile, $content);
 
-        return isset( $result[0] ) && is_numeric( $result[0] ) ? intval( $result[0] ) : false;
+        return isset($result[0]) && is_numeric($result[0]) ? intval($result[0]) : false;
     }
 
     /**
@@ -77,10 +79,10 @@ class Vbs
      *
      * @return string|false The path to the default browser executable, or false on failure.
      */
-    public static function getDefaultBrowser()
+    public static function getDefaultBrowser(): string|false
     {
         $basename   = 'getDefaultBrowser';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'On Error Resume Next' . PHP_EOL;
         $content .= 'Err.Clear' . PHP_EOL . PHP_EOL;
@@ -91,18 +93,16 @@ class Vbs
         $content .= 'objFile.Write objShell.RegRead("HKLM\SOFTWARE\Classes\http\shell\open\command\")' . PHP_EOL;
         $content .= 'objFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( $result !== false && !empty( $result ) ) {
-            if ( preg_match( '/"([^"]+)"/', $result[0], $matches ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if ($result !== false && !empty($result)) {
+            if (preg_match('/"([^"]+)"/', $result[0], $matches)) {
                 return $matches[1];
             }
-            else {
-                return str_replace( '"', '', $result[0] );
-            }
+
+            return str_replace('"', '', $result[0]);
         }
-        else {
-            return false;
-        }
+
+        return false;
     }
 
     /**
@@ -110,10 +110,10 @@ class Vbs
      *
      * @return array|false An array of paths to installed browser executables, or false on failure.
      */
-    public static function getInstalledBrowsers()
+    public static function getInstalledBrowsers(): array|false
     {
         $basename   = 'getInstalledBrowsers';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'On Error Resume Next' . PHP_EOL;
         $content .= 'Err.Clear' . PHP_EOL . PHP_EOL;
@@ -141,11 +141,11 @@ class Vbs
         $content .= 'End If' . PHP_EOL;
         $content .= 'objFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( $result !== false && !empty( $result ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if ($result !== false && !empty($result)) {
             $rebuildResult = array();
-            foreach ( $result as $browser ) {
-                $rebuildResult[] = str_replace( '"', '', $browser );
+            foreach ($result as $browser) {
+                $rebuildResult[] = str_replace('"', '', $browser);
             }
             $result = $rebuildResult;
         }
@@ -160,10 +160,10 @@ class Vbs
      *
      * @return array|false An array of process information, or false on failure.
      */
-    public static function getListProcs($vbsKeys)
+    public static function getListProcs(array $vbsKeys): array|false
     {
         $basename   = 'getListProcs';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
         $sep        = ' & "' . self::STR_SEPARATOR . '" & _';
 
         $content = 'Dim objFso, objResultFile, objWMIService' . PHP_EOL . PHP_EOL;
@@ -175,34 +175,34 @@ class Vbs
         $content .= 'For Each process in listProcess' . PHP_EOL;
 
         $content .= '    objResultFile.WriteLine(_' . PHP_EOL;
-        foreach ( $vbsKeys as $vbsKey ) {
+        foreach ($vbsKeys as $vbsKey) {
             $content .= '        process.' . $vbsKey . $sep . PHP_EOL;
         }
-        $content = substr( $content, 0, strlen( $content ) - strlen( $sep ) - 1 ) . ')' . PHP_EOL;
+        $content = substr($content, 0, strlen($content) - strlen($sep) - 1) . ')' . PHP_EOL;
 
         $content .= 'Next' . PHP_EOL;
         $content .= 'objResultFile.WriteLine("' . self::END_PROCESS_STR . '")' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
         $content .= 'Err.Clear' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if (empty($result)) {
             return false;
         }
 
-        unset( $result[array_search( self::END_PROCESS_STR, $result )] );
-        if ( is_array( $result ) && count( $result ) > 0 ) {
-            $rebuildResult = array();
-            foreach ( $result as $row ) {
-                $row = explode( trim( self::STR_SEPARATOR ), $row );
-                if ( count( $row ) != count( $vbsKeys ) ) {
+        unset($result[array_search(self::END_PROCESS_STR, $result)]);
+        if (is_array($result) && count($result) > 0) {
+            $rebuildResult = [];
+            foreach ($result as $row) {
+                $row = explode(trim(self::STR_SEPARATOR), $row);
+                if (count($row) != count($vbsKeys)) {
                     continue;
                 }
-                $processInfo = array();
-                foreach ( $vbsKeys as $key => $vbsKey ) {
-                    $processInfo[$vbsKey] = trim( $row[$key] );
+                $processInfo = [];
+                foreach ($vbsKeys as $key => $vbsKey) {
+                    $processInfo[$vbsKey] = trim($row[$key]);
                 }
-                if ( !empty( $processInfo[Win32Ps::EXECUTABLE_PATH] ) ) {
+                if (!empty($processInfo[Win32Ps::EXECUTABLE_PATH])) {
                     $rebuildResult[] = $processInfo;
                 }
             }
@@ -220,10 +220,10 @@ class Vbs
      *
      * @return bool True on success, false on failure.
      */
-    public static function killProc($pid)
+    public static function killProc(int $pid): bool
     {
         $basename   = 'killProc';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'Dim objFso, objResultFile, objWMIService' . PHP_EOL . PHP_EOL;
         $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
@@ -238,16 +238,16 @@ class Vbs
         $content .= 'Next' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if (empty($result)) {
             return true;
         }
 
-        if ( is_array( $result ) && count( $result ) > 0 ) {
-            foreach ( $result as $row ) {
-                $row = explode( self::STR_SEPARATOR, $row );
-                if ( count( $row ) == 3 && !empty( $row[2] ) ) {
-                    Util::logDebug( 'Kill process ' . $row[2] . ' (PID ' . $row[1] . ')' );
+        if (is_array($result) && count($result) > 0) {
+            foreach ($result as $row) {
+                $row = explode(self::STR_SEPARATOR, $row);
+                if (count($row) == 3 && !empty($row[2])) {
+                    Util::logDebug('Kill process ' . $row[2] . ' (PID ' . $row[1] . ')');
                 }
             }
         }
@@ -262,10 +262,10 @@ class Vbs
      *
      * @return string|null The path to the special folder, or null on failure.
      */
-    private static function getSpecialPath($path)
+    private static function getSpecialPath(string $path): ?string
     {
         $basename   = 'getSpecialPath';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'Dim objShell, objFso, objResultFile' . PHP_EOL . PHP_EOL;
         $content .= 'Set objShell = Wscript.CreateObject("Wscript.Shell")' . PHP_EOL;
@@ -274,9 +274,9 @@ class Vbs
         $content .= 'objResultFile.WriteLine(' . $path . ')' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( !empty( $result ) && is_array( $result ) && count( $result ) == 1 ) {
-            return Util::formatUnixPath( $result[0] );
+        $result = self::exec($basename, $resultFile, $content);
+        if (!empty($result) && is_array($result) && count($result) == 1) {
+            return Util::formatUnixPath($result[0]);
         }
 
         return null;
@@ -287,11 +287,16 @@ class Vbs
      *
      * @param   string|null  $file  The file name to append to the startup path.
      *
-     * @return string The startup path.
+     * @return string|null The startup path with optional file name, or null on failure.
      */
-    public static function getStartupPath($file = null)
+    public static function getStartupPath(?string $file = null): ?string
     {
-        return self::getSpecialPath( self::STARTUP_PATH ) . ($file != null ? '/' . $file : '');
+        $path = self::getSpecialPath(self::STARTUP_PATH);
+        if ($path === null) {
+            return null;
+        }
+
+        return $path . ($file !== null ? '/' . $file : '');
     }
 
     /**
@@ -301,11 +306,11 @@ class Vbs
      *
      * @return bool True on success, false on failure.
      */
-    public static function createShortcut($savePath)
+    public static function createShortcut(string $savePath): bool
     {
         global $bearsamppRoot, $bearsamppCore;
         $basename   = 'createShortcut';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
 
         $content = 'Dim objShell, objFso, objResultFile' . PHP_EOL . PHP_EOL;
         $content .= 'Set objShell = Wscript.CreateObject("Wscript.Shell")' . PHP_EOL;
@@ -322,13 +327,13 @@ class Vbs
         $content .= 'End If' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if (empty($result)) {
             return true;
         }
-        elseif ( isset( $result[0] ) ) {
-            Util::logError( 'createShortcut: ' . $result[0] );
 
+        if (isset($result[0])) {
+            Util::logError('createShortcut: ' . $result[0]);
             return false;
         }
 
@@ -342,10 +347,10 @@ class Vbs
      *
      * @return array|false An array of service information, or false on failure.
      */
-    public static function getServiceInfos($serviceName)
+    public static function getServiceInfos(string $serviceName): array|false
     {
         $basename   = 'getServiceInfos';
-        $resultFile = self::getResultFile( $basename );
+        $resultFile = self::getResultFile($basename);
         $sep        = ' & "' . self::STR_SEPARATOR . '" & _';
         $vbsKeys    = Win32Service::getVbsKeys();
 
@@ -358,29 +363,33 @@ class Vbs
         $content .= 'For Each service in listServices' . PHP_EOL;
 
         $content .= '    objResultFile.WriteLine(_' . PHP_EOL;
-        foreach ( $vbsKeys as $vbsKey ) {
+        foreach ($vbsKeys as $vbsKey) {
             $content .= '        service.' . $vbsKey . $sep . PHP_EOL;
         }
-        $content = substr( $content, 0, strlen( $content ) - strlen( $sep ) - 1 ) . ')' . PHP_EOL;
+        $content = substr($content, 0, strlen($content) - strlen($sep) - 1) . ')' . PHP_EOL;
 
         $content .= 'Next' . PHP_EOL;
         $content .= 'objResultFile.WriteLine("' . self::END_PROCESS_STR . '")' . PHP_EOL;
         $content .= 'objResultFile.Close' . PHP_EOL;
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
+        $result = self::exec($basename, $resultFile, $content);
+        if (empty($result)) {
             return false;
         }
 
-        unset( $result[array_search( self::END_PROCESS_STR, $result )] );
-        if ( is_array( $result ) && count( $result ) == 1 ) {
-            $rebuildResult = array();
-            $row           = explode( trim( self::STR_SEPARATOR ), $result[0] );
-            if ( count( $row ) != count( $vbsKeys ) ) {
+        $endProcessKey = array_search(self::END_PROCESS_STR, $result);
+        if ($endProcessKey !== false) {
+            unset($result[$endProcessKey]);
+        }
+
+        if (is_array($result) && count($result) == 1) {
+            $rebuildResult = [];
+            $row = explode(trim(self::STR_SEPARATOR), $result[0]);
+            if (count($row) != count($vbsKeys)) {
                 return false;
             }
-            foreach ( $vbsKeys as $key => $vbsKey ) {
-                $rebuildResult[$vbsKey] = trim( $row[$key] );
+            foreach ($vbsKeys as $key => $vbsKey) {
+                $rebuildResult[$vbsKey] = trim($row[$key]);
             }
 
             return $rebuildResult;
@@ -397,11 +406,11 @@ class Vbs
      *
      * @return string The formatted path to the temporary file.
      */
-    public static function getTmpFile($ext, $customName = null)
+    public static function getTmpFile(string $ext, ?string $customName = null): string
     {
         global $bearsamppCore;
 
-        return Util::formatWindowsPath( $bearsamppCore->getTmpPath() . '/' . (!empty( $customName ) ? $customName . '-' : '') . Util::random() . $ext );
+        return Util::formatWindowsPath($bearsamppCore->getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . Util::random() . $ext);
     }
 
     /**
@@ -411,9 +420,9 @@ class Vbs
      *
      * @return string The path to the result file.
      */
-    public static function getResultFile($basename)
+    public static function getResultFile(string $basename): string
     {
-        return self::getTmpFile( '.vbs', $basename );
+        return self::getTmpFile('.vbs', $basename);
     }
 
     /**
@@ -428,25 +437,46 @@ class Vbs
      */
     public static function exec($basename, $resultFile, $content, $timeout = true)
     {
-        global $bearsamppConfig, $bearsamppWinbinder;
+        global $bearsamppConfig, $bearsamppWinbinder, $bearsamppCore;
         $result = false;
 
-        $scriptPath       = self::getTmpFile( '.vbs', $basename );
-        $checkFile        = self::getTmpFile( '.tmp', $basename );
-        $errFile          = self::getTmpFile( '.tmp', $basename );
-        $randomVarName    = Util::random( 15, false );
-        $randomObjErrFile = Util::random( 15, false );
-        $randomObjFile    = Util::random( 15, false );
-        $randomObjFso     = Util::random( 15, false );
+        // Special handling for registry operations
+        $isRegistryOperation = (strpos($basename, 'registry') !== false);
 
-        // Header
+        // Determine appropriate timeout value
+        if (strpos($basename, 'postgresql') !== false || strpos($basename, 'memcached') !== false) {
+            if ($timeout === true) {
+                $timeout = 30; // Increase timeout for database operations
+            }
+        } else if ($isRegistryOperation) {
+            if ($timeout === true) {
+                $timeout = 15; // Use specific timeout for registry operations
+            }
+        }
+
+        // Calculate final timeout value
+        $timeoutValue = is_int($timeout) ? $timeout : ($timeout === true ? min($bearsamppConfig->getScriptsTimeout(), 15) : 0);
+
+        // Prepare temporary files
+        $scriptPath       = self::getTmpFile('.vbs', $basename);
+        $checkFile        = self::getTmpFile('.tmp', $basename);
+        $errFile          = self::getTmpFile('.tmp', $basename);
+        $pidFile          = self::getTmpFile('.pid', $basename);
+
+        // Generate random variable names to avoid conflicts
+        $randomVarName    = Util::random(15, false);
+        $randomObjErrFile = Util::random(15, false);
+        $randomObjFile    = Util::random(15, false);
+        $randomObjFso     = Util::random(15, false);
+
+        // Header with error handling
         $header = 'On Error Resume Next' . PHP_EOL .
             'Dim ' . $randomVarName . ', ' . $randomObjFso . ', ' . $randomObjErrFile . ', ' . $randomObjFile . PHP_EOL .
             'Set ' . $randomObjFso . ' = CreateObject("scripting.filesystemobject")' . PHP_EOL .
             'Set ' . $randomObjErrFile . ' = ' . $randomObjFso . '.CreateTextFile("' . $errFile . '", True)' . PHP_EOL .
             'Set ' . $randomObjFile . ' = ' . $randomObjFso . '.CreateTextFile("' . $checkFile . '", True)' . PHP_EOL . PHP_EOL;
 
-        // Footer
+        // Footer with completion marker
         $footer = PHP_EOL . PHP_EOL .
             'If Err.Number <> 0 Then' . PHP_EOL .
             $randomObjErrFile . '.Write Err.Description' . PHP_EOL .
@@ -455,51 +485,186 @@ class Vbs
             $randomObjFile . '.Close' . PHP_EOL .
             $randomObjErrFile . '.Close' . PHP_EOL;
 
-        // Process
-        file_put_contents( $scriptPath, $header . $content . $footer );
-        $bearsamppWinbinder->exec( 'wscript.exe', '"' . $scriptPath . '"' );
+        // Write script to file
+        file_put_contents($scriptPath, $header . $content . $footer);
 
-        $timeout   = is_numeric( $timeout ) ? $timeout : ($timeout === true ? $bearsamppConfig->getScriptsTimeout() : false);
-        $maxtime   = time() + $timeout;
-        $noTimeout = $timeout === false;
-        while ( $result === false || empty( $result ) ) {
-            if ( file_exists( $checkFile ) ) {
-                $check = file( $checkFile );
-                if ( !empty( $check ) && trim( $check[0] ) == self::END_PROCESS_STR ) {
-                    $result = file( $resultFile );
-                    break;
+        // Log execution
+        self::writeLog('Executing ' . $basename . ' with timeout: ' . ($timeoutValue ?: 'none'));
+
+        // For registry operations, use a different approach
+        if ($isRegistryOperation) {
+            // Use direct execution for registry operations to avoid WinBinder issues
+            $command = 'cscript //NoLogo "' . $scriptPath . '" > nul';
+
+            // Execute with timeout
+            $startTime = time();
+            $process = proc_open($command, array(), $pipes);
+
+            if (is_resource($process)) {
+                // Check for completion periodically
+                $checkInterval = 0.1; // Check every 100ms
+                $lastCheckTime = microtime(true);
+
+                while (time() - $startTime < $timeoutValue) {
+                    // Only check files periodically to reduce disk I/O
+                    if (microtime(true) - $lastCheckTime >= $checkInterval) {
+                        if (file_exists($checkFile)) {
+                            $checkContent = file_get_contents($checkFile);
+                            if (!empty($checkContent) && strpos($checkContent, self::END_PROCESS_STR) !== false) {
+                                // Script completed successfully
+                                if (file_exists($resultFile)) {
+                                    $result = file($resultFile);
+                                } else {
+                                    $result = array(); // Empty result but successful completion
+                                }
+                                break;
+                            }
+                        }
+                        $lastCheckTime = microtime(true);
+
+                        // Check if process is still running
+                        $status = proc_get_status($process);
+                        if (!$status['running']) {
+                            // Process completed, check for results
+                            if (file_exists($resultFile)) {
+                                $result = file($resultFile);
+                            }
+                            break;
+                        }
+                    } else {
+                        // Small sleep to prevent CPU hammering
+                        usleep(10000); // 10ms
+                    }
+                }
+
+                // Check if timeout occurred
+                if (time() - $startTime >= $timeoutValue) {
+                    // Timeout occurred, terminate the process
+                    Util::logWarning("Registry VBS script $basename timed out after $timeoutValue seconds");
+                    $status = proc_get_status($process);
+                    if ($status['running']) {
+                        proc_terminate($process);
+                        // Try to kill the process more forcefully
+                        exec('taskkill /F /PID ' . $status['pid'] . ' 2>nul');
+                    }
+                }
+
+                proc_close($process);
+            } else {
+                Util::logError("Failed to start registry VBS script: $basename");
+            }
+        } else {
+            // Use cscript with NoLogo for better process control
+            $command = 'cscript //NoLogo "' . $scriptPath . '"';
+
+            if ($timeoutValue > 0) {
+                // Execute with timeout using WinBinder
+                $pid = $bearsamppWinbinder->exec('cscript.exe', '//NoLogo "' . $scriptPath . '"', false, true);
+                if ($pid !== false) {
+                    file_put_contents($pidFile, $pid);
+
+                    // Monitor execution with timeout
+                    $startTime = time();
+                    $checkInterval = 0.1; // Check every 100ms
+                    $lastCheckTime = microtime(true);
+
+                    while (time() - $startTime < $timeoutValue) {
+                        // Only check files periodically to reduce disk I/O
+                        if (microtime(true) - $lastCheckTime >= $checkInterval) {
+                            if (file_exists($checkFile)) {
+                                // Read the entire file content instead of just the first line
+                                $checkContent = file_get_contents($checkFile);
+                                if (!empty($checkContent) && strpos($checkContent, self::END_PROCESS_STR) !== false) {
+                                    // Script completed successfully
+                                    if (file_exists($resultFile)) {
+                                        $result = file($resultFile);
+                                    } else {
+                                        $result = array(); // Empty result but successful completion
+                                    }
+                                    break;
+                                }
+                            }
+                            $lastCheckTime = microtime(true);
+                        } else {
+                            // Small sleep to prevent CPU hammering
+                            usleep(10000); // 10ms
+                        }
+                    }
+
+                    // Check if timeout occurred
+                    if (time() - $startTime >= $timeoutValue) {
+                        // Timeout occurred, terminate the process
+                        Util::logWarning("VBS script $basename timed out after $timeoutValue seconds");
+
+                        if (file_exists($pidFile)) {
+                            $pid = trim(file_get_contents($pidFile));
+                            if (!empty($pid)) {
+                                // Kill the process
+                                Win32Ps::kill($pid);
+
+                                // For database operations, try to kill child processes too
+                                if (strpos($basename, 'postgresql') !== false || strpos($basename, 'memcached') !== false) {
+                                    $command = 'taskkill /F /T /PID ' . $pid . ' 2>nul';
+                                    exec($command);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Util::logError("Failed to start VBS script: $basename");
+                }
+            } else {
+                // Execute without timeout (synchronous)
+                exec($command);
+
+                // Check for completion
+                if (file_exists($checkFile)) {
+                    // Read the entire file content
+                    $checkContent = file_get_contents($checkFile);
+                    if (!empty($checkContent) && strpos($checkContent, self::END_PROCESS_STR) !== false) {
+                        if (file_exists($resultFile)) {
+                            $result = file($resultFile);
+                        } else {
+                            $result = array();
+                        }
+                    }
                 }
             }
-            if ( $maxtime < time() && !$noTimeout ) {
-                break;
-            }
         }
 
-        $err = file_get_contents( $errFile );
-        if ( !empty( $err ) ) {
-            Util::logError( 'VBS error on ' . $basename . ': ' . $err );
+        // Check for errors
+        $err = file_exists($errFile) ? file_get_contents($errFile) : '';
+        if (!empty($err)) {
+            Util::logError('VBS error on ' . $basename . ': ' . $err);
         }
 
-        self::writeLog( 'Exec ' . $basename . ':' );
-        self::writeLog( '-> content: ' . str_replace( PHP_EOL, ' \\\\ ', $content ) );
-        self::writeLog( '-> errFile: ' . $errFile );
-        self::writeLog( '-> checkFile: ' . $checkFile );
-        self::writeLog( '-> resultFile: ' . $resultFile );
-        self::writeLog( '-> scriptPath: ' . $scriptPath );
+        // Log execution details
+        self::writeLog('Exec ' . $basename . ':');
+        self::writeLog('-> content: ' . str_replace(PHP_EOL, ' \\\\ ', $content));
+        self::writeLog('-> errFile: ' . $errFile);
+        self::writeLog('-> checkFile: ' . $checkFile);
+        self::writeLog('-> resultFile: ' . $resultFile);
+        self::writeLog('-> scriptPath: ' . $scriptPath);
 
-        if ( $result !== false && !empty( $result ) ) {
-            $rebuildResult = array();
-            foreach ( $result as $row ) {
-                $row = trim( $row );
-                if ( !empty( $row ) ) {
+        // Cleanup temp files
+        @unlink($pidFile);
+        @unlink($checkFile);
+        @unlink($errFile);
+        @unlink($scriptPath);
+
+        // Process results
+        if ($result !== false && !empty($result)) {
+            $rebuildResult = [];
+            foreach ($result as $row) {
+                $row = trim($row);
+                if (!empty($row)) {
                     $rebuildResult[] = $row;
                 }
             }
             $result = $rebuildResult;
-            self::writeLog( '-> result: ' . substr( implode( ' \\\\ ', $result ), 0, 2048 ) );
-        }
-        else {
-            self::writeLog( '-> result: N/A' );
+            self::writeLog('-> result: ' . substr(implode(' \\\\ ', $result), 0, 2048));
+        } else {
+            self::writeLog('-> result: N/A');
         }
 
         return $result;

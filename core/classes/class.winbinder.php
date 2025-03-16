@@ -455,6 +455,11 @@ class WinBinder
         }
 
         $this->callback[$wbobject] = array($classCallback, $methodCallback, $launchTimer);
+        
+        // Ensure the global function is available to the extension
+        if (!function_exists('__winbinderEventHandler')) {
+            $this->writeLog('Warning: __winbinderEventHandler function not found in global namespace');
+        }
 
         return $this->callWinBinder('wb_set_handler', array($wbobject, '__winbinderEventHandler'));
     }
@@ -1044,29 +1049,32 @@ class WinBinder
 
 }
 
-/**
- * Event handler for WinBinder events.
- *
- * This function is called by WinBinder when an event occurs. It retrieves the callback
- * associated with the window and executes it. If a timer is associated with the callback,
- * the timer is destroyed before executing the callback.
- *
- * @param   mixed  $window  The window object where the event occurred.
- * @param   int    $id      The ID of the event.
- * @param   mixed  $ctrl    The control that triggered the event.
- * @param   mixed  $param1  The first parameter of the event.
- * @param   mixed  $param2  The second parameter of the event.
- */
-function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
-{
-    global $bearsamppWinbinder;
+// This function MUST be in the global namespace, outside of any class
+if (!function_exists('__winbinderEventHandler')) {
+    /**
+     * Event handler for WinBinder events.
+     *
+     * This function is called by WinBinder when an event occurs. It retrieves the callback
+     * associated with the window and executes it. If a timer is associated with the callback,
+     * the timer is destroyed before executing the callback.
+     *
+     * @param   mixed  $window  The window object where the event occurred.
+     * @param   int    $id      The ID of the event.
+     * @param   mixed  $ctrl    The control that triggered the event.
+     * @param   mixed  $param1  The first parameter of the event.
+     * @param   mixed  $param2  The second parameter of the event.
+     */
+    function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
+    {
+        global $bearsamppWinbinder;
 
-    if ($bearsamppWinbinder->callback[$window][2] != null) {
-        $bearsamppWinbinder->destroyTimer($window, $bearsamppWinbinder->callback[$window][2][0]);
+        if (isset($bearsamppWinbinder->callback[$window][2]) && $bearsamppWinbinder->callback[$window][2] != null) {
+            $bearsamppWinbinder->destroyTimer($window, $bearsamppWinbinder->callback[$window][2][WinBinder::CTRL_ID]);
+        }
+
+        call_user_func_array(
+            array($bearsamppWinbinder->callback[$window][0], $bearsamppWinbinder->callback[$window][1]),
+            array($window, $id, $ctrl, $param1, $param2)
+        );
     }
-
-    call_user_func_array(
-        array($bearsamppWinbinder->callback[$window][0], $bearsamppWinbinder->callback[$window][1]),
-        array($window, $id, $ctrl, $param1, $param2)
-    );
 }

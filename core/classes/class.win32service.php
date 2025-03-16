@@ -136,8 +136,8 @@ class Win32Service
         $result = false;
         if ( function_exists( $function ) ) {
             $result = call_user_func( $function, $param );
-            if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = dechex( $result );
+            if ( $checkError && Util::toHex( $result ) != self::WIN32_NO_ERROR ) {
+                $this->latestError = Util::toHex( $result );
             }
         }
 
@@ -153,26 +153,86 @@ class Win32Service
      */
     public function status($timeout = true)
     {
-        usleep( self::SLEEP_TIME );
+        // Special handling for Memcached service to prevent freezing
+        if ($this->getName() == BinMemcached::SERVICE_NAME) {
+            $this->writeLog('Using direct status check for Memcached service');
+            
+            // First check if the service exists using SC command
+            $output = [];
+            exec('sc query ' . $this->getName() . ' 2>nul', $output);
+            
+            $serviceExists = false;
+            $serviceRunning = false;
+            
+            foreach ($output as $line) {
+                if (strpos($line, 'DOES NOT EXIST') !== false) {
+                    $this->latestStatus = self::WIN32_SERVICE_NA;
+                    $this->writeLog('Memcached service does not exist');
+                    return $this->latestStatus;
+                }
+                
+                if (strpos($line, 'STATE') !== false && strpos($line, 'RUNNING') !== false) {
+                    $serviceExists = true;
+                    $serviceRunning = true;
+                    $this->latestStatus = self::WIN32_SERVICE_RUNNING;
+                    break;
+                }
+                
+                if (strpos($line, 'STATE') !== false && strpos($line, 'STOPPED') !== false) {
+                    $serviceExists = true;
+                    $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+                    break;
+                }
+            }
+            
+            // If service exists but not determined from SC, use port check as fallback
+            if ($serviceExists && !isset($this->latestStatus)) {
+                global $bearsamppBins;
+                if (method_exists($bearsamppBins, 'getMemcached')) {
+                    $port = $bearsamppBins->getMemcached()->getPort();
+                    if (Util::isPortInUse($port)) {
+                        $this->latestStatus = self::WIN32_SERVICE_RUNNING;
+                        $this->writeLog('Memcached service is running (port check)');
+                    } else {
+                        $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+                        $this->writeLog('Memcached service is stopped (port check)');
+                    }
+                } else {
+                    $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+                    $this->writeLog('Memcached service status unknown, assuming stopped');
+                }
+            }
+            
+            // If service doesn't exist according to SC
+            if (!$serviceExists) {
+                $this->latestStatus = self::WIN32_SERVICE_NA;
+                $this->writeLog('Memcached service not found');
+            }
+            
+            return $this->latestStatus;
+        }
+        
+        // Standard status check for other services
+        usleep(self::SLEEP_TIME);
 
         $this->latestStatus = self::WIN32_SERVICE_NA;
-        $maxtime            = time() + self::PENDING_TIMEOUT;
+        $maxtime = time() + self::PENDING_TIMEOUT;
 
-        while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
-            $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
-            if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( $this->latestStatus['CurrentState'] );
+        while ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus)) {
+            $this->latestStatus = $this->callWin32Service('win32_query_service_status', $this->getName());
+            if (is_array($this->latestStatus) && isset($this->latestStatus['CurrentState'])) {
+                $this->latestStatus = Util::toHex($this->latestStatus['CurrentState']);
             }
-            elseif ( dechex( $this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( $this->latestStatus );
+            elseif (is_numeric($this->latestStatus)) {
+                $this->latestStatus = Util::toHex($this->latestStatus);
             }
-            if ( $timeout && $maxtime < time() ) {
+            if ($timeout && $maxtime < time()) {
                 break;
             }
         }
 
-        if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-            $this->latestError  = $this->latestStatus;
+        if ($this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+            $this->latestError = $this->latestStatus;
             $this->latestStatus = self::WIN32_SERVICE_NA;
         }
 
@@ -206,7 +266,7 @@ class Win32Service
             return $this->getNssm()->create();
         }
 
-        $create = dechex( $this->callWin32Service( 'win32_create_service', array(
+        $create = Util::toHex( $this->callWin32Service( 'win32_create_service', array(
             'service'       => $this->getName(),
             'display'       => $this->getDisplayName(),
             'description'   => $this->getDisplayName(),
@@ -244,29 +304,106 @@ class Win32Service
      */
     public function delete()
     {
-        if ( !$this->isInstalled() ) {
+        global $bearsamppCore;
+        
+        $this->writeLog('Attempting to delete service: ' . $this->getName());
+        
+        // Check if service exists
+        if (!$this->isInstalled()) {
+            $this->writeLog('Service does not exist, nothing to delete');
             return true;
         }
 
-        $this->stop();
-
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        // Special handling for PostgreSQL
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
+            $this->writeLog('Using specialized method for PostgreSQL service');
             return Batch::uninstallPostgresqlService();
         }
 
-        $delete = dechex( $this->callWin32Service( 'win32_delete_service', $this->getName(), true ) );
-        $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
-
-        if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-            return false;
-        }
-        elseif ( $this->isInstalled() ) {
-            $this->latestError = self::WIN32_NO_ERROR;
-
-            return false;
+        // Try to stop the service first
+        if ($this->isRunning()) {
+            $this->writeLog('Stopping service before deletion');
+            $this->stop();
+            
+            // Give it a moment to stop
+            usleep(self::SLEEP_TIME * 2);
         }
 
-        return true;
+        // First attempt: Use win32_delete_service
+        $delete = Util::toHex($this->callWin32Service('win32_delete_service', $this->getName(), true));
+        $this->writeLog('Delete service ' . $this->getName() . ' (win32_delete_service): ' . $delete);
+        
+        // Check if first attempt was successful
+        if (($delete == self::WIN32_NO_ERROR || $delete == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) && !$this->isInstalled()) {
+            $this->writeLog('Service deleted successfully with win32_delete_service');
+            return true;
+        }
+        
+        // Second attempt: Use SC command
+        $this->writeLog('First attempt failed, trying SC command');
+        $deleteCmd = 'sc delete ' . $this->getName();
+        $output = [];
+        exec($deleteCmd, $output, $returnCode);
+        
+        $success = false;
+        foreach ($output as $line) {
+            $this->writeLog('SC output: ' . $line);
+            if (strpos($line, 'SUCCESS') !== false) {
+                $success = true;
+                break;
+            }
+        }
+        
+        // Check if service is gone
+        usleep(self::SLEEP_TIME * 2);
+        if (!$this->isInstalled()) {
+            $this->writeLog('Service deleted successfully with SC command');
+            return true;
+        }
+        
+        // Third attempt: Try NSSM as fallback
+        if ($bearsamppCore && method_exists($bearsamppCore, 'getNssmExe')) {
+            $this->writeLog('Second attempt failed, trying NSSM');
+            $nssmPath = Util::formatWindowsPath($bearsamppCore->getNssmExe());
+            if (file_exists($nssmPath)) {
+                $nssmCmd = '"' . $nssmPath . '" remove ' . $this->getName() . ' confirm';
+                Batch::execStandalone('removeService_' . $this->getName(), $nssmCmd, true, 10);
+                
+                // Verify service is gone
+                usleep(self::SLEEP_TIME * 2);
+                if (!$this->isInstalled()) {
+                    $this->writeLog('Service deleted successfully with NSSM');
+                    return true;
+                }
+            }
+        }
+        
+        // Special handling for problematic services
+        if ($this->getName() == BinMemcached::SERVICE_NAME) {
+            $this->writeLog('Using aggressive approach for memcached');
+            exec('taskkill /F /IM memcached.exe /T 2>nul');
+        } elseif ($this->getName() == BinPostgresql::SERVICE_NAME) {
+            $this->writeLog('Using aggressive approach for postgresql');
+            exec('taskkill /F /IM postgres.exe /T 2>nul');
+            exec('taskkill /F /IM pg_ctl.exe /T 2>nul');
+        }
+        
+        // Last resort: Try registry cleanup
+        $this->writeLog('Attempting registry cleanup as last resort');
+        $regCmd = 'reg delete "HKLM\\SYSTEM\\CurrentControlSet\\Services\\' . $this->getName() . '" /f';
+        exec($regCmd);
+        
+        // Final check
+        usleep(self::SLEEP_TIME * 2);
+        if (!$this->isInstalled()) {
+            $this->writeLog('Service deleted successfully after aggressive cleanup');
+            return true;
+        }
+        
+        // If we get here, all attempts failed
+        $this->latestError = self::WIN32_NO_ERROR;
+        $this->writeLog('All deletion attempts failed for service: ' . $this->getName());
+        return false;
     }
 
     /**
@@ -296,70 +433,117 @@ class Win32Service
 
         Util::logInfo('Attempting to start service: ' . $this->getName());
 
-        if ( $this->getName() == BinMysql::SERVICE_NAME ) {
+        // Special initialization for different services
+        if ($this->getName() == BinMysql::SERVICE_NAME) {
             $bearsamppBins->getMysql()->initData();
         }
-        elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
+        elseif ($this->getName() == BinMailpit::SERVICE_NAME) {
             $bearsamppBins->getMailpit()->rebuildConf();
         }
-        elseif ( $this->getName() == BinMemcached::SERVICE_NAME ) {
+        elseif ($this->getName() == BinMemcached::SERVICE_NAME) {
+            // Special handling for Memcached
+            $this->writeLog('Using special handling for Memcached service start');
+
+            // Make sure Memcached is properly configured
             $bearsamppBins->getMemcached()->rebuildConf();
+
+            // Check if any memcached processes are already running
+            $this->writeLog('Checking for existing Memcached processes');
+            $output = [];
+            exec('tasklist /FI "IMAGENAME eq memcached.exe" /FO CSV', $output);
+            if (count($output) > 1) {
+                $this->writeLog('Found existing Memcached processes, killing them');
+                exec('taskkill /F /IM memcached.exe /T 2>nul');
+                sleep(1); // Give it a moment to terminate
+            }
+
+            // Try standard service start first
+            $start = Util::toHex($this->callWin32Service('win32_start_service', $this->getName(), true));
+            $this->writeLog('Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')');
+
+            // If standard start fails, try direct command
+            if ($start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING) {
+                if (file_exists($bearsamppBins->getMemcached()->getExe())) {
+                    $this->writeLog('Starting Memcached using direct command');
+                    $port = $bearsamppBins->getMemcached()->getPort();
+                    $memory = $bearsamppBins->getMemcached()->getMemory();
+                    $exe = $bearsamppBins->getMemcached()->getExe();
+
+                    // Start memcached as a background process
+                    $cmd = 'start /b "" "' . $exe . '" -m ' . $memory . ' -p ' . $port . ' -l 127.0.0.1';
+                    $this->writeLog('Executing: ' . $cmd);
+                    pclose(popen($cmd, 'r'));
+
+                    // Wait a moment for it to start
+                    sleep(2);
+
+                    // Check if it's running
+                    if (Util::isPortInUse($port)) {
+                        $this->writeLog('Memcached started successfully on port ' . $port);
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
-        elseif ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        elseif ($this->getName() == BinPostgresql::SERVICE_NAME) {
             $bearsamppBins->getPostgresql()->rebuildConf();
             $bearsamppBins->getPostgresql()->initData();
         }
-        elseif ( $this->getName() == BinXlight::SERVICE_NAME ) {
+        elseif ($this->getName() == BinXlight::SERVICE_NAME) {
             $bearsamppBins->getXlight()->rebuildConf();
         }
 
+        // For services other than Memcached or if Memcached was started normally
+        if ($this->getName() != BinMemcached::SERVICE_NAME) {
+            // Standard service start
+            $start = Util::toHex($this->callWin32Service('win32_start_service', $this->getName(), true));
+            $this->writeLog('Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')');
 
-        $start = dechex( $this->callWin32Service( 'win32_start_service', $this->getName(), true ) );
-        Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
+            if ($start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING) {
+                // Write error to log
+                Util::logError('Failed to start service: ' . $this->getName() . ' with error code: ' . $start);
 
-        if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
-
-            // Write error to log
-            Util::logError('Failed to start service: ' . $this->getName() . ' with error code: ' . $start);
-
-            if ( $this->getName() == BinApache::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput( BinApache::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
-                    file_put_contents(
-                        $bearsamppBins->getApache()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
-                        FILE_APPEND
-                    );
+                if ($this->getName() == BinApache::SERVICE_NAME) {
+                    $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput(BinApache::CMD_SYNTAX_CHECK);
+                    if (!$cmdOutput['syntaxOk']) {
+                        file_put_contents(
+                            $bearsamppBins->getApache()->getErrorLog(),
+                            '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                            FILE_APPEND
+                        );
+                    }
                 }
-            }
-            elseif ( $this->getName() == BinMysql::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput( BinMysql::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
-                    file_put_contents(
-                        $bearsamppBins->getMysql()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
-                        FILE_APPEND
-                    );
+                elseif ($this->getName() == BinMysql::SERVICE_NAME) {
+                    $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput(BinMysql::CMD_SYNTAX_CHECK);
+                    if (!$cmdOutput['syntaxOk']) {
+                        file_put_contents(
+                            $bearsamppBins->getMysql()->getErrorLog(),
+                            '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                            FILE_APPEND
+                        );
+                    }
                 }
-            }
-            elseif ( $this->getName() == BinMariadb::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput( BinMariadb::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
-                    file_put_contents(
-                        $bearsamppBins->getMariadb()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
-                        FILE_APPEND
-                    );
+                elseif ($this->getName() == BinMariadb::SERVICE_NAME) {
+                    $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput(BinMariadb::CMD_SYNTAX_CHECK);
+                    if (!$cmdOutput['syntaxOk']) {
+                        file_put_contents(
+                            $bearsamppBins->getMariadb()->getErrorLog(),
+                            '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                            FILE_APPEND
+                        );
+                    }
                 }
-            }
 
-            return false;
-        }
-        elseif ( !$this->isRunning() ) {
-            $this->latestError = self::WIN32_NO_ERROR;
-            Util::logError('Service ' . $this->getName() . ' is not running after start attempt.');
-            $this->latestError = null;
-            return false;
+                return false;
+            }
+            elseif (!$this->isRunning()) {
+                $this->latestError = self::WIN32_NO_ERROR;
+                Util::logError('Service ' . $this->getName() . ' is not running after start attempt.');
+                $this->latestError = null;
+                return false;
+            }
         }
 
         Util::logInfo('Service ' . $this->getName() . ' started successfully.');
@@ -373,7 +557,7 @@ class Win32Service
      */
     public function stop()
     {
-        $stop = dechex( $this->callWin32Service( 'win32_stop_service', $this->getName(), true ) );
+        $stop = Util::toHex( $this->callWin32Service( 'win32_stop_service', $this->getName(), true ) );
         $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
 
         if ( $stop != self::WIN32_NO_ERROR ) {
@@ -723,11 +907,11 @@ class Win32Service
         global $bearsamppLang;
         if ( $this->latestError != self::WIN32_NO_ERROR ) {
             return $bearsamppLang->getValue( Lang::ERROR ) . ' ' .
-                $this->latestError . ' (' . hexdec( $this->latestError ) . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
+                $this->latestError . ' (' . Util::fromHex( $this->latestError ) . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
         }
         elseif ( $this->latestStatus != self::WIN32_SERVICE_NA ) {
             return $bearsamppLang->getValue( Lang::STATUS ) . ' ' .
-                $this->latestStatus . ' (' . hexdec( $this->latestStatus ) . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
+                $this->latestStatus . ' (' . Util::fromHex( $this->latestStatus ) . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
         }
 
         return null;

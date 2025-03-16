@@ -186,15 +186,17 @@ class Batch
     {
         global $bearsamppBins;
 
+        // Register PostgreSQL service with a 30-second timeout
         $cmd = '"' . Util::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" register -N "' . BinPostgresql::SERVICE_NAME . '"';
         $cmd .= ' -U "LocalSystem" -D "' . Util::formatWindowsPath($bearsamppBins->getPostgresql()->getSymlinkPath()) . '\\data"';
         $cmd .= ' -l "' . Util::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
-        self::exec('installPostgresqlService', $cmd, true, false);
+        self::exec('installPostgresqlService', $cmd, 30, false);
 
         if (!$bearsamppBins->getPostgresql()->getService()->isInstalled()) {
             return false;
         }
 
+        // Configure the service properties
         self::setServiceDisplayName(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
         self::setServiceDescription(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
         self::setServiceStartType(BinPostgresql::SERVICE_NAME, "demand");
@@ -221,14 +223,24 @@ class Batch
      * Initializes PostgreSQL using a specified path.
      *
      * @param string $path The path to the PostgreSQL initialization script.
+     * @param bool $async Whether to run the initialization asynchronously.
      */
-    public static function initializePostgresql($path)
+    public static function initializePostgresql($path, $async = false)
     {
         if (!file_exists($path . '/init.bat')) {
             Util::logWarning($path . '/init.bat does not exist');
             return;
         }
-        self::exec('initializePostgresql', 'CMD /C "' . $path . '/init.bat"', 15);
+        
+        $cmd = 'CMD /C "' . $path . '/init.bat"';
+        
+        if ($async) {
+            // Run initialization asynchronously for long-running operations
+            self::execStandalone('initializePostgresql', $cmd);
+        } else {
+            // Run synchronously with a 60-second timeout
+            self::exec('initializePostgresql', $cmd, 60);
+        }
     }
 
     /**
@@ -310,16 +322,65 @@ class Batch
     }
 
     /**
-     * Executes a standalone batch script.
+     * Executes a standalone command with optional timeout.
      *
-     * @param string $basename The base name for the script and result files.
-     * @param string $content The content of the batch script.
-     * @param bool $silent Whether to execute the script silently.
-     * @return array|false The result of the execution, or false on failure.
+     * @param string $name The name of the command.
+     * @param string $cmd The command to execute.
+     * @param bool $wait Whether to wait for the command to complete.
+     * @param int $timeout Timeout in seconds (0 for no timeout).
+     * @return bool True if the command was executed successfully, false otherwise.
      */
-    public static function execStandalone($basename, $content, $silent = true)
+    public static function execStandalone($name, $cmd, $wait = false, $timeout = 0)
     {
-        return self::exec($basename, $content, false, false, true, $silent);
+        global $bearsamppCore;
+
+        $tmpFile = $bearsamppCore->getTmpPath() . '/bearsampp-' . $name . '.bat';
+        $tmpFileLog = $bearsamppCore->getTmpPath() . '/bearsampp-' . $name . '.log';
+
+        $content = '@ECHO OFF' . PHP_EOL;
+        $content .= 'SETLOCAL EnableDelayedExpansion' . PHP_EOL;
+        $content .= 'CD /D ' . $bearsamppCore->getHomeDrive() . PHP_EOL;
+        $content .= 'CD ' . $bearsamppCore->getRootPath() . PHP_EOL;
+        $content .= $cmd . ' > "' . $tmpFileLog . '" 2>&1' . PHP_EOL;
+
+        file_put_contents($tmpFile, $content);
+
+        if ($wait) {
+            if ($timeout > 0) {
+                // Use Windows timeout command for process with timeout
+                $command = 'cmd /c start /wait /b "" "' . $tmpFile . '"';
+                $process = proc_open($command, array(), $pipes);
+
+                // Start timer
+                $startTime = time();
+                $status = proc_get_status($process);
+
+                // Check if process is still running
+                while ($status['running']) {
+                    // Check if timeout has been reached
+                    if (time() - $startTime > $timeout) {
+                        // Kill the process
+                        $pid = $status['pid'];
+                        exec("taskkill /F /T /PID $pid 2>nul");
+                        proc_terminate($process);
+                        break;
+                    }
+
+                    // Wait a bit before checking again
+                    usleep(100000); // 100ms
+                    $status = proc_get_status($process);
+                }
+
+                proc_close($process);
+            } else {
+                // Original behavior without timeout
+                pclose(popen('cmd /c start /wait /b "" "' . $tmpFile . '"', 'r'));
+            }
+        } else {
+            pclose(popen('cmd /c start /b "" "' . $tmpFile . '"', 'r'));
+        }
+
+        return true;
     }
 
     /**

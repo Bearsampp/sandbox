@@ -103,6 +103,9 @@ class BinMemcached extends Module
         $nssm->setStart(Nssm::SERVICE_DEMAND_START);
         $nssm->setStdout($bearsamppRoot->getLogsPath() . '/memcached.out.log');
         $nssm->setStderr($bearsamppRoot->getLogsPath() . '/memcached.err.log');
+        
+        // Set environment variables
+        $nssm->setEnvironmentExtra('');
 
         $this->service->setNssm($nssm);
     }
@@ -132,28 +135,69 @@ class BinMemcached extends Module
     }
 
     /**
-     * Rebuilds the configuration for the Memcached service in the Windows Registry.
+     * Rebuilds the Memcached configuration.
+     * This method ensures the service is properly configured before starting.
      *
-     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     * @return bool True if the configuration was rebuilt successfully, false otherwise.
      */
-    public function rebuildConf() {
-        global $bearsamppRegistry;
-
-        $exists = $bearsamppRegistry->exists(
-            Registry::HKEY_LOCAL_MACHINE,
-            'SYSTEM\CurrentControlSet\Services\\' . self::SERVICE_NAME . '\Parameters',
-            Nssm::INFO_APP_PARAMETERS
-        );
-        if ($exists) {
-            return $bearsamppRegistry->setExpandStringValue(
-                Registry::HKEY_LOCAL_MACHINE,
-                'SYSTEM\CurrentControlSet\Services\\' . self::SERVICE_NAME . '\Parameters',
-                Nssm::INFO_APP_PARAMETERS,
-                sprintf(self::SERVICE_PARAMS, $this->memory, $this->port)
-            );
+    public function rebuildConf()
+    {
+        global $bearsamppBins, $bearsamppLang, $bearsamppRoot, $bearsamppRegistry;
+        
+        if (!is_file($this->bearsamppConf)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
+            return false;
+        }
+        
+        if (!is_file($this->exe)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
+            return false;
+        }
+        
+        if (empty($this->memory)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_MEMORY, $this->memory));
+            return false;
+        }
+        
+        if (empty($this->port)) {
+            Util::logError(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_PORT, $this->port));
+            return false;
         }
 
-        return false;
+        // Configure the NSSM service with proper parameters
+        $nssm = new Nssm(self::SERVICE_NAME);
+        $nssm->setDisplayName(APP_TITLE . ' ' . $this->getName());
+        $nssm->setBinPath($this->exe);
+        $nssm->setParams(sprintf(self::SERVICE_PARAMS, $this->memory, $this->port));
+        $nssm->setStart(Nssm::SERVICE_DEMAND_START);
+        $nssm->setStdout($bearsamppRoot->getLogsPath() . '/memcached.out.log');
+        $nssm->setStderr($bearsamppRoot->getLogsPath() . '/memcached.err.log');
+        
+        // Set environment variables
+        $nssm->setEnvironmentExtra('');
+        
+        $this->service->setNssm($nssm);
+        
+        // Update registry parameters if service exists
+        if (isset($bearsamppRegistry) && method_exists($bearsamppRegistry, 'exists')) {
+            $exists = $bearsamppRegistry->exists(
+                Registry::HKEY_LOCAL_MACHINE,
+                'SYSTEM\CurrentControlSet\Services\\' . self::SERVICE_NAME . '\Parameters',
+                Nssm::INFO_APP_PARAMETERS
+            );
+            
+            if ($exists) {
+                $bearsamppRegistry->setExpandStringValue(
+                    Registry::HKEY_LOCAL_MACHINE,
+                    'SYSTEM\CurrentControlSet\Services\\' . self::SERVICE_NAME . '\Parameters',
+                    Nssm::INFO_APP_PARAMETERS,
+                    sprintf(self::SERVICE_PARAMS, $this->memory, $this->port)
+                );
+            }
+        }
+        
+        Util::logDebug('Memcached configuration rebuilt successfully');
+        return true;
     }
 
     /**
