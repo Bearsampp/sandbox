@@ -139,8 +139,11 @@ class WinBinder
     {
         global $bearsamppCore;
 
+        // Convert null parent to integer 0 to avoid deprecation warning
+        $parentWindow = ($parent === null) ? 0 : $parent;
+        
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
-        $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
+        $window  = $this->callWinBinder('wb_create_window', array($parentWindow, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
         // Set tiny window icon
         $this->setImage($window, $bearsamppCore->getIconsPath() . 'app.ico');
