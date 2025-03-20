@@ -8,6 +8,9 @@
  *
  */
 
+// Include WinBinder constants
+require_once(dirname(__FILE__) . '/../../libs/winbinder/wb_constants.inc.php');
+
 /**
  * Class WinBinder
  *
@@ -25,16 +28,16 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
-    // TODO why does it say we have undelcared constants
     // Constants for message box types
-    const BOX_INFO = '';
-    const BOX_OK = '';
-    const BOX_OKCANCEL = '';
-    const BOX_QUESTION = '';
+    // These are now defined in the included constants file
+    const BOX_INFO = WBC_INFO;
+    const BOX_OK = WBC_OK;
+    const BOX_OKCANCEL = WBC_OKCANCEL;
+    const BOX_QUESTION = WBC_QUESTION;
     const BOX_ERROR = '';
-    const BOX_WARNING = '';
-    const BOX_YESNO = '';
-    const BOX_YESNOCANCEL = '';
+    const BOX_WARNING = WBC_WARNING;
+    const BOX_YESNO = WBC_YESNO;
+    const BOX_YESNOCANCEL = WBC_YESNOCANCEL;
 
     // Constants for cursor types
     const CURSOR_ARROW = 'arrow';
@@ -199,6 +202,22 @@ class WinBinder
      * @return mixed The created window object.
      */
     public function createAppWindow($caption, $width, $height, $style = null, $params = null)
+    {
+        return $this->createWindow(null, AppWindow, $caption, WBC_CENTER, WBC_CENTER, $width, $height, $style, $params);
+    }
+
+    /**
+     * Creates a main application window.
+     *
+     * @param   string  $caption  The window caption.
+     * @param   int     $width    The width of the window.
+     * @param   int     $height   The height of the window.
+     * @param   mixed   $style    The window style.
+     * @param   mixed   $params   Additional parameters for the window.
+     *
+     * @return mixed The created window object.
+     */
+    public function createMainWindow($caption, $width, $height, $style = null, $params = null)
     {
         return $this->createWindow(null, AppWindow, $caption, WBC_CENTER, WBC_CENTER, $width, $height, $style, $params);
     }
