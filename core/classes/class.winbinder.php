@@ -27,14 +27,14 @@ class WinBinder
 
     // TODO why does it say we have undelcared constants
     // Constants for message box types
-    const BOX_INFO = WBC_INFO;
-    const BOX_OK = WBC_OK;
-    const BOX_OKCANCEL = WBC_OKCANCEL;
-    const BOX_QUESTION = WBC_QUESTION;
-    const BOX_ERROR = WBC_STOP;
-    const BOX_WARNING = WBC_WARNING;
-    const BOX_YESNO = WBC_YESNO;
-    const BOX_YESNOCANCEL = WBC_YESNOCANCEL;
+    const BOX_INFO = '';
+    const BOX_OK = '';
+    const BOX_OKCANCEL = '';
+    const BOX_QUESTION = '';
+    const BOX_ERROR = '';
+    const BOX_WARNING = '';
+    const BOX_YESNO = '';
+    const BOX_YESNOCANCEL = '';
 
     // Constants for cursor types
     const CURSOR_ARROW = 'arrow';
@@ -141,7 +141,7 @@ class WinBinder
 
         // Convert null parent to integer 0 to avoid deprecation warning
         $parentWindow = ($parent === null) ? 0 : $parent;
-        
+
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
         $window  = $this->callWinBinder('wb_create_window', array($parentWindow, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
@@ -458,7 +458,7 @@ class WinBinder
         }
 
         $this->callback[$wbobject] = array($classCallback, $methodCallback, $launchTimer);
-        
+
         // Ensure the global function is available to the extension
         if (!function_exists('__winbinderEventHandler')) {
             $this->writeLog('Warning: __winbinderEventHandler function not found in global namespace');
