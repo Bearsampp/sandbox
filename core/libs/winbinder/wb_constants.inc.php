@@ -69,6 +69,7 @@ class WB_Constants {
 
     // Other constants
     const NOCOLOR = 0x20000000;
+    const WBC_TITLE = 0x00000001; // Added constant for window title area
 
     // Screen constants from wb_resources.inc.php
     const WB_KX_SCREEN = 1.498; // Determined through trial and error
@@ -144,6 +145,7 @@ class WB_Constants {
     const ModalDialog = 'ModalDialog';
     const ModelessDialog = 'ModelessDialog';
     const ToolDialog = 'ToolDialog';
+    const NakedWindow = 'NakedWindow'; // Added missing window class constant
     const Accel = 'Accel';
     const ToolBar = 'ToolBar';
     const Menu = 'Menu';
@@ -248,6 +250,7 @@ define("WBC_ID_NO", WB_Constants::WBC_ID_NO);
 
 // Other constants
 define("NOCOLOR", WB_Constants::NOCOLOR);
+define("WBC_TITLE", WB_Constants::WBC_TITLE); // Added global constant for window title area
 
 // Screen constants from wb_resources.inc.php
 define("WB_KX_SCREEN", WB_Constants::WB_KX_SCREEN);
@@ -323,6 +326,7 @@ define("ResizableWindow", WB_Constants::ResizableWindow);
 define("ModalDialog", WB_Constants::ModalDialog);
 define("ModelessDialog", WB_Constants::ModelessDialog);
 define("ToolDialog", WB_Constants::ToolDialog);
+define("NakedWindow", WB_Constants::NakedWindow); // Added missing window class constant
 define("Accel", WB_Constants::Accel);
 define("ToolBar", WB_Constants::ToolBar);
 define("Menu", WB_Constants::Menu);
