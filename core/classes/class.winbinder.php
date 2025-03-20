@@ -9,7 +9,7 @@
  */
 
 // Include WinBinder constants
-require_once(dirname(__FILE__) . '/../../libs/winbinder/wb_constants.inc.php');
+require_once(dirname(__FILE__) . '/../libs/winbinder/wb_constants.inc.php');
 
 /**
  * Class WinBinder

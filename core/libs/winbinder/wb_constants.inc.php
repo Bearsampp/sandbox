@@ -193,178 +193,178 @@ class WB_Constants {
 // This ensures existing code that uses these constants will continue to work
 
 // Window positioning constants
-define("WBC_CENTER", WB_Constants::WBC_CENTER);
-define("WBC_DEFAULTPOS", WB_Constants::WBC_DEFAULTPOS);
-define("WBC_MINIMIZED", WB_Constants::WBC_MINIMIZED);
-define("WBC_MAXIMIZED", WB_Constants::WBC_MAXIMIZED);
+if (!defined("WBC_CENTER")) define("WBC_CENTER", WB_Constants::WBC_CENTER);
+if (!defined("WBC_DEFAULTPOS")) define("WBC_DEFAULTPOS", WB_Constants::WBC_DEFAULTPOS);
+if (!defined("WBC_MINIMIZED")) define("WBC_MINIMIZED", WB_Constants::WBC_MINIMIZED);
+if (!defined("WBC_MAXIMIZED")) define("WBC_MAXIMIZED", WB_Constants::WBC_MAXIMIZED);
 
 // Window style constants
-define("WBC_VISIBLE", WB_Constants::WBC_VISIBLE);
-define("WBC_INVISIBLE", WB_Constants::WBC_INVISIBLE);
-define("WBC_ENABLED", WB_Constants::WBC_ENABLED);
-define("WBC_DISABLED", WB_Constants::WBC_DISABLED);
-define("WBC_BORDER", WB_Constants::WBC_BORDER);
-define("WBC_GROUP", WB_Constants::WBC_GROUP);
-define("WBC_READONLY", WB_Constants::WBC_READONLY);
-define("WBC_MASKED", WB_Constants::WBC_MASKED);
-define("WBC_MULTILINE", WB_Constants::WBC_MULTILINE);
-define("WBC_NUMBER", WB_Constants::WBC_NUMBER);
-define("WBC_SORT", WB_Constants::WBC_SORT);
-define("WBC_SINGLE", WB_Constants::WBC_SINGLE);
-define("WBC_LINES", WB_Constants::WBC_LINES);
-define("WBC_CHECKBOXES", WB_Constants::WBC_CHECKBOXES);
-define("WBC_ELLIPSIS", WB_Constants::WBC_ELLIPSIS);
-define("WBC_IMAGE", WB_Constants::WBC_IMAGE);
-define("WBC_LEFT", WB_Constants::WBC_LEFT);
-define("WBC_RIGHT", WB_Constants::WBC_RIGHT);
-define("WBC_NOTIFY", WB_Constants::WBC_NOTIFY);
-define("WBC_AUTOREPEAT", WB_Constants::WBC_AUTOREPEAT);
-define("WBC_TRANSPARENT", WB_Constants::WBC_TRANSPARENT);
-define("WBC_MULTISELECT", WB_Constants::WBC_MULTISELECT);
-define("WBC_NOHEADER", WB_Constants::WBC_NOHEADER);
-define("WBC_DBLCLICK", WB_Constants::WBC_DBLCLICK);
-define("WBC_DRAW", WB_Constants::WBC_DRAW);
-define("WBC_TASK", WB_Constants::WBC_TASK);
-define("WBC_AUTOCHECK", WB_Constants::WBC_AUTOCHECK);
+if (!defined("WBC_VISIBLE")) define("WBC_VISIBLE", WB_Constants::WBC_VISIBLE);
+if (!defined("WBC_INVISIBLE")) define("WBC_INVISIBLE", WB_Constants::WBC_INVISIBLE);
+if (!defined("WBC_ENABLED")) define("WBC_ENABLED", WB_Constants::WBC_ENABLED);
+if (!defined("WBC_DISABLED")) define("WBC_DISABLED", WB_Constants::WBC_DISABLED);
+if (!defined("WBC_BORDER")) define("WBC_BORDER", WB_Constants::WBC_BORDER);
+if (!defined("WBC_GROUP")) define("WBC_GROUP", WB_Constants::WBC_GROUP);
+if (!defined("WBC_READONLY")) define("WBC_READONLY", WB_Constants::WBC_READONLY);
+if (!defined("WBC_MASKED")) define("WBC_MASKED", WB_Constants::WBC_MASKED);
+if (!defined("WBC_MULTILINE")) define("WBC_MULTILINE", WB_Constants::WBC_MULTILINE);
+if (!defined("WBC_NUMBER")) define("WBC_NUMBER", WB_Constants::WBC_NUMBER);
+if (!defined("WBC_SORT")) define("WBC_SORT", WB_Constants::WBC_SORT);
+if (!defined("WBC_SINGLE")) define("WBC_SINGLE", WB_Constants::WBC_SINGLE);
+if (!defined("WBC_LINES")) define("WBC_LINES", WB_Constants::WBC_LINES);
+if (!defined("WBC_CHECKBOXES")) define("WBC_CHECKBOXES", WB_Constants::WBC_CHECKBOXES);
+if (!defined("WBC_ELLIPSIS")) define("WBC_ELLIPSIS", WB_Constants::WBC_ELLIPSIS);
+if (!defined("WBC_IMAGE")) define("WBC_IMAGE", WB_Constants::WBC_IMAGE);
+if (!defined("WBC_LEFT")) define("WBC_LEFT", WB_Constants::WBC_LEFT);
+if (!defined("WBC_RIGHT")) define("WBC_RIGHT", WB_Constants::WBC_RIGHT);
+if (!defined("WBC_NOTIFY")) define("WBC_NOTIFY", WB_Constants::WBC_NOTIFY);
+if (!defined("WBC_AUTOREPEAT")) define("WBC_AUTOREPEAT", WB_Constants::WBC_AUTOREPEAT);
+if (!defined("WBC_TRANSPARENT")) define("WBC_TRANSPARENT", WB_Constants::WBC_TRANSPARENT);
+if (!defined("WBC_MULTISELECT")) define("WBC_MULTISELECT", WB_Constants::WBC_MULTISELECT);
+if (!defined("WBC_NOHEADER")) define("WBC_NOHEADER", WB_Constants::WBC_NOHEADER);
+if (!defined("WBC_DBLCLICK")) define("WBC_DBLCLICK", WB_Constants::WBC_DBLCLICK);
+if (!defined("WBC_DRAW")) define("WBC_DRAW", WB_Constants::WBC_DRAW);
+if (!defined("WBC_TASK")) define("WBC_TASK", WB_Constants::WBC_TASK);
+if (!defined("WBC_AUTOCHECK")) define("WBC_AUTOCHECK", WB_Constants::WBC_AUTOCHECK);
 
 // Message box constants
-define("WBC_INFO", WB_Constants::WBC_INFO);
-define("WBC_OK", WB_Constants::WBC_OK);
-define("WBC_OKCANCEL", WB_Constants::WBC_OKCANCEL);
-define("WBC_QUESTION", WB_Constants::WBC_QUESTION);
-define("WBC_STOP", WB_Constants::WBC_STOP);
-define("WBC_WARNING", WB_Constants::WBC_WARNING);
-define("WBC_YESNO", WB_Constants::WBC_YESNO);
-define("WBC_YESNOCANCEL", WB_Constants::WBC_YESNOCANCEL);
+if (!defined("WBC_INFO")) define("WBC_INFO", WB_Constants::WBC_INFO);
+if (!defined("WBC_OK")) define("WBC_OK", WB_Constants::WBC_OK);
+if (!defined("WBC_OKCANCEL")) define("WBC_OKCANCEL", WB_Constants::WBC_OKCANCEL);
+if (!defined("WBC_QUESTION")) define("WBC_QUESTION", WB_Constants::WBC_QUESTION);
+if (!defined("WBC_STOP")) define("WBC_STOP", WB_Constants::WBC_STOP);
+if (!defined("WBC_WARNING")) define("WBC_WARNING", WB_Constants::WBC_WARNING);
+if (!defined("WBC_YESNO")) define("WBC_YESNO", WB_Constants::WBC_YESNO);
+if (!defined("WBC_YESNOCANCEL")) define("WBC_YESNOCANCEL", WB_Constants::WBC_YESNOCANCEL);
 
 // Message box return values
-define("WBC_ID_OK", WB_Constants::WBC_ID_OK);
-define("WBC_ID_CANCEL", WB_Constants::WBC_ID_CANCEL);
-define("WBC_ID_ABORT", WB_Constants::WBC_ID_ABORT);
-define("WBC_ID_RETRY", WB_Constants::WBC_ID_RETRY);
-define("WBC_ID_IGNORE", WB_Constants::WBC_ID_IGNORE);
-define("WBC_ID_YES", WB_Constants::WBC_ID_YES);
-define("WBC_ID_NO", WB_Constants::WBC_ID_NO);
+if (!defined("WBC_ID_OK")) define("WBC_ID_OK", WB_Constants::WBC_ID_OK);
+if (!defined("WBC_ID_CANCEL")) define("WBC_ID_CANCEL", WB_Constants::WBC_ID_CANCEL);
+if (!defined("WBC_ID_ABORT")) define("WBC_ID_ABORT", WB_Constants::WBC_ID_ABORT);
+if (!defined("WBC_ID_RETRY")) define("WBC_ID_RETRY", WB_Constants::WBC_ID_RETRY);
+if (!defined("WBC_ID_IGNORE")) define("WBC_ID_IGNORE", WB_Constants::WBC_ID_IGNORE);
+if (!defined("WBC_ID_YES")) define("WBC_ID_YES", WB_Constants::WBC_ID_YES);
+if (!defined("WBC_ID_NO")) define("WBC_ID_NO", WB_Constants::WBC_ID_NO);
 
 // Other constants
-define("NOCOLOR", WB_Constants::NOCOLOR);
+if (!defined("NOCOLOR")) define("NOCOLOR", WB_Constants::NOCOLOR);
 
 // Screen constants from wb_resources.inc.php
-define("WB_KX_SCREEN", WB_Constants::WB_KX_SCREEN);
-define("WB_KY_SCREEN", WB_Constants::WB_KY_SCREEN);
+if (!defined("WB_KX_SCREEN")) define("WB_KX_SCREEN", WB_Constants::WB_KX_SCREEN);
+if (!defined("WB_KY_SCREEN")) define("WB_KY_SCREEN", WB_Constants::WB_KY_SCREEN);
 
 // Windows constants from WIN.H
-define("WS_VISIBLE", WB_Constants::WS_VISIBLE);
-define("WS_DISABLED", WB_Constants::WS_DISABLED);
-define("WS_GROUP", WB_Constants::WS_GROUP);
-define("WS_EX_STATICEDGE", WB_Constants::WS_EX_STATICEDGE);
+if (!defined("WS_VISIBLE")) define("WS_VISIBLE", WB_Constants::WS_VISIBLE);
+if (!defined("WS_DISABLED")) define("WS_DISABLED", WB_Constants::WS_DISABLED);
+if (!defined("WS_GROUP")) define("WS_GROUP", WB_Constants::WS_GROUP);
+if (!defined("WS_EX_STATICEDGE")) define("WS_EX_STATICEDGE", WB_Constants::WS_EX_STATICEDGE);
 
 // Button styles
-define("BS_PUSHBUTTON", WB_Constants::BS_PUSHBUTTON);
-define("BS_CHECKBOX", WB_Constants::BS_CHECKBOX);
-define("BS_AUTOCHECKBOX", WB_Constants::BS_AUTOCHECKBOX);
-define("BS_RADIOBUTTON", WB_Constants::BS_RADIOBUTTON);
-define("BS_GROUPBOX", WB_Constants::BS_GROUPBOX);
-define("BS_AUTORADIOBUTTON", WB_Constants::BS_AUTORADIOBUTTON);
-define("BS_ICON", WB_Constants::BS_ICON);
-define("BS_BITMAP", WB_Constants::BS_BITMAP);
+if (!defined("BS_PUSHBUTTON")) define("BS_PUSHBUTTON", WB_Constants::BS_PUSHBUTTON);
+if (!defined("BS_CHECKBOX")) define("BS_CHECKBOX", WB_Constants::BS_CHECKBOX);
+if (!defined("BS_AUTOCHECKBOX")) define("BS_AUTOCHECKBOX", WB_Constants::BS_AUTOCHECKBOX);
+if (!defined("BS_RADIOBUTTON")) define("BS_RADIOBUTTON", WB_Constants::BS_RADIOBUTTON);
+if (!defined("BS_GROUPBOX")) define("BS_GROUPBOX", WB_Constants::BS_GROUPBOX);
+if (!defined("BS_AUTORADIOBUTTON")) define("BS_AUTORADIOBUTTON", WB_Constants::BS_AUTORADIOBUTTON);
+if (!defined("BS_ICON")) define("BS_ICON", WB_Constants::BS_ICON);
+if (!defined("BS_BITMAP")) define("BS_BITMAP", WB_Constants::BS_BITMAP);
 
 // Edit control styles
-define("ES_NUMBER", WB_Constants::ES_NUMBER);
-define("ES_PASSWORD", WB_Constants::ES_PASSWORD);
-define("ES_READONLY", WB_Constants::ES_READONLY);
-define("ES_UPPERCASE", WB_Constants::ES_UPPERCASE);
-define("ES_LEFT", WB_Constants::ES_LEFT);
-define("ES_CENTER", WB_Constants::ES_CENTER);
-define("ES_RIGHT", WB_Constants::ES_RIGHT);
-define("ES_MULTILINE", WB_Constants::ES_MULTILINE);
+if (!defined("ES_NUMBER")) define("ES_NUMBER", WB_Constants::ES_NUMBER);
+if (!defined("ES_PASSWORD")) define("ES_PASSWORD", WB_Constants::ES_PASSWORD);
+if (!defined("ES_READONLY")) define("ES_READONLY", WB_Constants::ES_READONLY);
+if (!defined("ES_UPPERCASE")) define("ES_UPPERCASE", WB_Constants::ES_UPPERCASE);
+if (!defined("ES_LEFT")) define("ES_LEFT", WB_Constants::ES_LEFT);
+if (!defined("ES_CENTER")) define("ES_CENTER", WB_Constants::ES_CENTER);
+if (!defined("ES_RIGHT")) define("ES_RIGHT", WB_Constants::ES_RIGHT);
+if (!defined("ES_MULTILINE")) define("ES_MULTILINE", WB_Constants::ES_MULTILINE);
 
 // Static styles
-define("SS_LEFT", WB_Constants::SS_LEFT);
-define("SS_CENTER", WB_Constants::SS_CENTER);
-define("SS_RIGHT", WB_Constants::SS_RIGHT);
-define("SS_ETCHEDHORZ", WB_Constants::SS_ETCHEDHORZ);
-define("SS_ETCHEDVERT", WB_Constants::SS_ETCHEDVERT);
-define("SS_ETCHEDFRAME", WB_Constants::SS_ETCHEDFRAME);
-define("SS_ICON", WB_Constants::SS_ICON);
-define("SS_BITMAP", WB_Constants::SS_BITMAP);
-define("SS_LEFTNOWORDWRAP", WB_Constants::SS_LEFTNOWORDWRAP);
-define("SS_WORDELLIPSIS", WB_Constants::SS_WORDELLIPSIS);
+if (!defined("SS_LEFT")) define("SS_LEFT", WB_Constants::SS_LEFT);
+if (!defined("SS_CENTER")) define("SS_CENTER", WB_Constants::SS_CENTER);
+if (!defined("SS_RIGHT")) define("SS_RIGHT", WB_Constants::SS_RIGHT);
+if (!defined("SS_ETCHEDHORZ")) define("SS_ETCHEDHORZ", WB_Constants::SS_ETCHEDHORZ);
+if (!defined("SS_ETCHEDVERT")) define("SS_ETCHEDVERT", WB_Constants::SS_ETCHEDVERT);
+if (!defined("SS_ETCHEDFRAME")) define("SS_ETCHEDFRAME", WB_Constants::SS_ETCHEDFRAME);
+if (!defined("SS_ICON")) define("SS_ICON", WB_Constants::SS_ICON);
+if (!defined("SS_BITMAP")) define("SS_BITMAP", WB_Constants::SS_BITMAP);
+if (!defined("SS_LEFTNOWORDWRAP")) define("SS_LEFTNOWORDWRAP", WB_Constants::SS_LEFTNOWORDWRAP);
+if (!defined("SS_WORDELLIPSIS")) define("SS_WORDELLIPSIS", WB_Constants::SS_WORDELLIPSIS);
 
 // Other styles
-define("CBS_SORT", WB_Constants::CBS_SORT);
-define("CBS_DROPDOWNLIST", WB_Constants::CBS_DROPDOWNLIST);
-define("LBS_SORT", WB_Constants::LBS_SORT);
-define("LVS_NOSORTHEADER", WB_Constants::LVS_NOSORTHEADER);
-define("LVS_GRIDLINES", WB_Constants::LVS_GRIDLINES);
-define("LVS_CHECKBOXES", WB_Constants::LVS_CHECKBOXES);
-define("LVS_SINGLESEL", WB_Constants::LVS_SINGLESEL);
-define("TBS_AUTOTICKS", WB_Constants::TBS_AUTOTICKS);
+if (!defined("CBS_SORT")) define("CBS_SORT", WB_Constants::CBS_SORT);
+if (!defined("CBS_DROPDOWNLIST")) define("CBS_DROPDOWNLIST", WB_Constants::CBS_DROPDOWNLIST);
+if (!defined("LBS_SORT")) define("LBS_SORT", WB_Constants::LBS_SORT);
+if (!defined("LVS_NOSORTHEADER")) define("LVS_NOSORTHEADER", WB_Constants::LVS_NOSORTHEADER);
+if (!defined("LVS_GRIDLINES")) define("LVS_GRIDLINES", WB_Constants::LVS_GRIDLINES);
+if (!defined("LVS_CHECKBOXES")) define("LVS_CHECKBOXES", WB_Constants::LVS_CHECKBOXES);
+if (!defined("LVS_SINGLESEL")) define("LVS_SINGLESEL", WB_Constants::LVS_SINGLESEL);
+if (!defined("TBS_AUTOTICKS")) define("TBS_AUTOTICKS", WB_Constants::TBS_AUTOTICKS);
 
 // Constants from wb_windows.inc.php
-define("BM_SETCHECK", WB_Constants::BM_SETCHECK);
-define("LVM_FIRST", WB_Constants::LVM_FIRST);
-define("LVM_DELETEALLITEMS", WB_Constants::LVM_DELETEALLITEMS);
-define("LVM_GETITEMCOUNT", WB_Constants::LVM_GETITEMCOUNT);
-define("LVM_GETITEMSTATE", WB_Constants::LVM_GETITEMSTATE);
-define("LVM_GETSELECTEDCOUNT", WB_Constants::LVM_GETSELECTEDCOUNT);
-define("LVIS_SELECTED", WB_Constants::LVIS_SELECTED);
-define("TCM_GETCURSEL", WB_Constants::TCM_GETCURSEL);
-define("CB_FINDSTRINGEXACT", WB_Constants::CB_FINDSTRINGEXACT);
-define("CB_SETCURSEL", WB_Constants::CB_SETCURSEL);
-define("LB_FINDSTRINGEXACT", WB_Constants::LB_FINDSTRINGEXACT);
-define("LB_SETCURSEL", WB_Constants::LB_SETCURSEL);
-define("TCM_SETCURSEL", WB_Constants::TCM_SETCURSEL);
-define("WM_SETTEXT", WB_Constants::WM_SETTEXT);
+if (!defined("BM_SETCHECK")) define("BM_SETCHECK", WB_Constants::BM_SETCHECK);
+if (!defined("LVM_FIRST")) define("LVM_FIRST", WB_Constants::LVM_FIRST);
+if (!defined("LVM_DELETEALLITEMS")) define("LVM_DELETEALLITEMS", WB_Constants::LVM_DELETEALLITEMS);
+if (!defined("LVM_GETITEMCOUNT")) define("LVM_GETITEMCOUNT", WB_Constants::LVM_GETITEMCOUNT);
+if (!defined("LVM_GETITEMSTATE")) define("LVM_GETITEMSTATE", WB_Constants::LVM_GETITEMSTATE);
+if (!defined("LVM_GETSELECTEDCOUNT")) define("LVM_GETSELECTEDCOUNT", WB_Constants::LVM_GETSELECTEDCOUNT);
+if (!defined("LVIS_SELECTED")) define("LVIS_SELECTED", WB_Constants::LVIS_SELECTED);
+if (!defined("TCM_GETCURSEL")) define("TCM_GETCURSEL", WB_Constants::TCM_GETCURSEL);
+if (!defined("CB_FINDSTRINGEXACT")) define("CB_FINDSTRINGEXACT", WB_Constants::CB_FINDSTRINGEXACT);
+if (!defined("CB_SETCURSEL")) define("CB_SETCURSEL", WB_Constants::CB_SETCURSEL);
+if (!defined("LB_FINDSTRINGEXACT")) define("LB_FINDSTRINGEXACT", WB_Constants::LB_FINDSTRINGEXACT);
+if (!defined("LB_SETCURSEL")) define("LB_SETCURSEL", WB_Constants::LB_SETCURSEL);
+if (!defined("TCM_SETCURSEL")) define("TCM_SETCURSEL", WB_Constants::TCM_SETCURSEL);
+if (!defined("WM_SETTEXT")) define("WM_SETTEXT", WB_Constants::WM_SETTEXT);
 
 // Window class constants
-define("AppWindow", WB_Constants::AppWindow);
-define("ResizableWindow", WB_Constants::ResizableWindow);
-define("ModalDialog", WB_Constants::ModalDialog);
-define("ModelessDialog", WB_Constants::ModelessDialog);
-define("ToolDialog", WB_Constants::ToolDialog);
-define("Accel", WB_Constants::Accel);
-define("ToolBar", WB_Constants::ToolBar);
-define("Menu", WB_Constants::Menu);
-define("HyperLink", WB_Constants::HyperLink);
-define("ComboBox", WB_Constants::ComboBox);
-define("ListBox", WB_Constants::ListBox);
-define("ListView", WB_Constants::ListView);
-define("TreeView", WB_Constants::TreeView);
-define("Gauge", WB_Constants::Gauge);
-define("Slider", WB_Constants::Slider);
-define("ScrollBar", WB_Constants::ScrollBar);
-define("PushButton", WB_Constants::PushButton);
-define("RadioButton", WB_Constants::RadioButton);
-define("CheckBox", WB_Constants::CheckBox);
-define("Frame", WB_Constants::Frame);
-define("Label", WB_Constants::Label);
-define("EditBox", WB_Constants::EditBox);
-define("RTFEditBox", WB_Constants::RTFEditBox);
-define("TabControl", WB_Constants::TabControl);
-define("StatusBar", WB_Constants::StatusBar);
-define("Calendar", WB_Constants::Calendar);
-define("Spinner", WB_Constants::Spinner);
+if (!defined("AppWindow")) define("AppWindow", WB_Constants::AppWindow);
+if (!defined("ResizableWindow")) define("ResizableWindow", WB_Constants::ResizableWindow);
+if (!defined("ModalDialog")) define("ModalDialog", WB_Constants::ModalDialog);
+if (!defined("ModelessDialog")) define("ModelessDialog", WB_Constants::ModelessDialog);
+if (!defined("ToolDialog")) define("ToolDialog", WB_Constants::ToolDialog);
+if (!defined("Accel")) define("Accel", WB_Constants::Accel);
+if (!defined("ToolBar")) define("ToolBar", WB_Constants::ToolBar);
+if (!defined("Menu")) define("Menu", WB_Constants::Menu);
+if (!defined("HyperLink")) define("HyperLink", WB_Constants::HyperLink);
+if (!defined("ComboBox")) define("ComboBox", WB_Constants::ComboBox);
+if (!defined("ListBox")) define("ListBox", WB_Constants::ListBox);
+if (!defined("ListView")) define("ListView", WB_Constants::ListView);
+if (!defined("TreeView")) define("TreeView", WB_Constants::TreeView);
+if (!defined("Gauge")) define("Gauge", WB_Constants::Gauge);
+if (!defined("Slider")) define("Slider", WB_Constants::Slider);
+if (!defined("ScrollBar")) define("ScrollBar", WB_Constants::ScrollBar);
+if (!defined("PushButton")) define("PushButton", WB_Constants::PushButton);
+if (!defined("RadioButton")) define("RadioButton", WB_Constants::RadioButton);
+if (!defined("CheckBox")) define("CheckBox", WB_Constants::CheckBox);
+if (!defined("Frame")) define("Frame", WB_Constants::Frame);
+if (!defined("Label")) define("Label", WB_Constants::Label);
+if (!defined("EditBox")) define("EditBox", WB_Constants::EditBox);
+if (!defined("RTFEditBox")) define("RTFEditBox", WB_Constants::RTFEditBox);
+if (!defined("TabControl")) define("TabControl", WB_Constants::TabControl);
+if (!defined("StatusBar")) define("StatusBar", WB_Constants::StatusBar);
+if (!defined("Calendar")) define("Calendar", WB_Constants::Calendar);
+if (!defined("Spinner")) define("Spinner", WB_Constants::Spinner);
 
 // Path constants
-define("PATH_RES", WB_Constants::PATH_RES);
+if (!defined("PATH_RES")) define("PATH_RES", WB_Constants::PATH_RES);
 
 // Color constants
-define("BLACK", WB_Constants::BLACK);
-define("BLUE", WB_Constants::BLUE);
-define("GREEN", WB_Constants::GREEN);
-define("CYAN", WB_Constants::CYAN);
-define("RED", WB_Constants::RED);
-define("MAGENTA", WB_Constants::MAGENTA);
-define("YELLOW", WB_Constants::YELLOW);
-define("WHITE", WB_Constants::WHITE);
-define("DARKBLUE", WB_Constants::DARKBLUE);
-define("DARKGREEN", WB_Constants::DARKGREEN);
-define("DARKCYAN", WB_Constants::DARKCYAN);
-define("DARKRED", WB_Constants::DARKRED);
-define("DARKMAGENTA", WB_Constants::DARKMAGENTA);
-define("DARKYELLOW", WB_Constants::DARKYELLOW);
-define("DARKGRAY", WB_Constants::DARKGRAY);
-define("LIGHTGRAY", WB_Constants::LIGHTGRAY);
+if (!defined("BLACK")) define("BLACK", WB_Constants::BLACK);
+if (!defined("BLUE")) define("BLUE", WB_Constants::BLUE);
+if (!defined("GREEN")) define("GREEN", WB_Constants::GREEN);
+if (!defined("CYAN")) define("CYAN", WB_Constants::CYAN);
+if (!defined("RED")) define("RED", WB_Constants::RED);
+if (!defined("MAGENTA")) define("MAGENTA", WB_Constants::MAGENTA);
+if (!defined("YELLOW")) define("YELLOW", WB_Constants::YELLOW);
+if (!defined("WHITE")) define("WHITE", WB_Constants::WHITE);
+if (!defined("DARKBLUE")) define("DARKBLUE", WB_Constants::DARKBLUE);
+if (!defined("DARKGREEN")) define("DARKGREEN", WB_Constants::DARKGREEN);
+if (!defined("DARKCYAN")) define("DARKCYAN", WB_Constants::DARKCYAN);
+if (!defined("DARKRED")) define("DARKRED", WB_Constants::DARKRED);
+if (!defined("DARKMAGENTA")) define("DARKMAGENTA", WB_Constants::DARKMAGENTA);
+if (!defined("DARKYELLOW")) define("DARKYELLOW", WB_Constants::DARKYELLOW);
+if (!defined("DARKGRAY")) define("DARKGRAY", WB_Constants::DARKGRAY);
+if (!defined("LIGHTGRAY")) define("LIGHTGRAY", WB_Constants::LIGHTGRAY);
 
 ?>
