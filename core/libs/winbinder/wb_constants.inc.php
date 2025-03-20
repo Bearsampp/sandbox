@@ -68,6 +68,7 @@ class WB_Constants {
     const WBC_ID_NO = 7;
 
     // Other constants
+    const WBC_TITLE = 0x00000001;
     const NOCOLOR = 0x20000000;
 
     // Screen constants from wb_resources.inc.php
@@ -141,6 +142,7 @@ class WB_Constants {
     // Window class constants
     const AppWindow = 'AppWindow';
     const ResizableWindow = 'ResizableWindow';
+    const NakedWindow = 'NakedWindow';
     const ModalDialog = 'ModalDialog';
     const ModelessDialog = 'ModelessDialog';
     const ToolDialog = 'ToolDialog';
@@ -247,6 +249,7 @@ if (!defined("WBC_ID_YES")) define("WBC_ID_YES", WB_Constants::WBC_ID_YES);
 if (!defined("WBC_ID_NO")) define("WBC_ID_NO", WB_Constants::WBC_ID_NO);
 
 // Other constants
+if (!defined("WBC_TITLE")) define("WBC_TITLE", WB_Constants::WBC_TITLE);
 if (!defined("NOCOLOR")) define("NOCOLOR", WB_Constants::NOCOLOR);
 
 // Screen constants from wb_resources.inc.php
@@ -320,6 +323,7 @@ if (!defined("WM_SETTEXT")) define("WM_SETTEXT", WB_Constants::WM_SETTEXT);
 // Window class constants
 if (!defined("AppWindow")) define("AppWindow", WB_Constants::AppWindow);
 if (!defined("ResizableWindow")) define("ResizableWindow", WB_Constants::ResizableWindow);
+if (!defined("NakedWindow")) define("NakedWindow", WB_Constants::NakedWindow);
 if (!defined("ModalDialog")) define("ModalDialog", WB_Constants::ModalDialog);
 if (!defined("ModelessDialog")) define("ModelessDialog", WB_Constants::ModelessDialog);
 if (!defined("ToolDialog")) define("ToolDialog", WB_Constants::ToolDialog);
