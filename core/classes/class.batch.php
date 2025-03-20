@@ -334,9 +334,11 @@ class Batch
     {
         global $bearsamppCore;
 
+        // Create batch file with the command
         $tmpFile = $bearsamppCore->getTmpPath() . '/bearsampp-' . $name . '.bat';
         $tmpFileLog = $bearsamppCore->getTmpPath() . '/bearsampp-' . $name . '.log';
 
+        // Create the batch file content
         $content = '@ECHO OFF' . PHP_EOL;
         $content .= 'SETLOCAL EnableDelayedExpansion' . PHP_EOL;
         $content .= 'CD /D ' . $bearsamppCore->getHomeDrive() . PHP_EOL;
@@ -346,9 +348,9 @@ class Batch
         file_put_contents($tmpFile, $content);
 
         if ($wait) {
+            // Use direct command execution with /min flag to minimize window visibility
             if ($timeout > 0) {
-                // Use Windows timeout command for process with timeout
-                $command = 'cmd /c start /wait /b "" "' . $tmpFile . '"';
+                $command = 'cmd /c start /wait /min "" "' . $tmpFile . '"';
                 $process = proc_open($command, array(), $pipes);
 
                 // Start timer
@@ -373,11 +375,12 @@ class Batch
 
                 proc_close($process);
             } else {
-                // Original behavior without timeout
-                pclose(popen('cmd /c start /wait /b "" "' . $tmpFile . '"', 'r'));
+                // Original behavior without timeout but using /min to minimize window
+                pclose(popen('cmd /c start /wait /min "" "' . $tmpFile . '"', 'r'));
             }
         } else {
-            pclose(popen('cmd /c start /b "" "' . $tmpFile . '"', 'r'));
+            // Non-waiting execution using /min flag
+            pclose(popen('cmd /c start /min /b "" "' . $tmpFile . '"', 'r'));
         }
 
         return true;

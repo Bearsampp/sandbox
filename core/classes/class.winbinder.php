@@ -434,6 +434,7 @@ class WinBinder
     {
         global $bearsamppCore;
 
+        // Use existing silent execution script without creating additional temporary files
         if ($silent) {
             $silent = '"' . $bearsamppCore->getScript(Core::SCRIPT_EXEC_SILENT) . '" "' . $cmd . '"';
             $cmd    = 'wscript.exe';

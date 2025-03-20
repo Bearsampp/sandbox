@@ -1,5 +1,5 @@
+' Simple VBScript to execute a command silently
 Set objShell = WScript.CreateObject("WScript.Shell")
-Set objFso = CreateObject("Scripting.FileSystemObject")
 Set args = WScript.Arguments
 num = args.Count
 sargs = ""
@@ -16,4 +16,7 @@ If num > 1 Then
     Next
 End If
 
-Return = objShell.Run("""" & args(0) & """" & sargs, 0, True)
+' Execute the command with window style 0 (hidden) and wait for completion
+objShell.Run """" & args(0) & """" & sargs, 0, True
+
+' No cleanup logic - this prevents potential runaway processes

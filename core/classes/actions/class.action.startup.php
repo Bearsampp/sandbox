@@ -829,29 +829,71 @@ class ActionStartup
                 }
 
                 if ( !$serviceRestart ) {
+                    // Log port check details
+                    $this->writeLog( $name . ' checking port ' . $port . ' availability' );
                     $isPortInUse = Util::isPortInUse( $port );
+                    $this->writeLog( $name . ' port check result: ' . ($isPortInUse ? 'Port in use by: ' . (is_string($isPortInUse) ? $isPortInUse : 'Unknown process') : 'Port available') );
+                    
+                    // For Apache, also check SSL port if available
+                    if ($sName == BinApache::SERVICE_NAME && method_exists($bin, 'getSslPort')) {
+                        $sslPort = $bin->getSslPort();
+                        $this->writeLog( $name . ' checking SSL port ' . $sslPort . ' availability' );
+                        $isSslPortInUse = Util::isPortInUse( $sslPort );
+                        $this->writeLog( $name . ' SSL port check result: ' . ($isSslPortInUse ? 'Port in use by: ' . (is_string($isSslPortInUse) ? $isSslPortInUse : 'Unknown process') : 'Port available') );
+                    }
+                    
                     if ( $isPortInUse === false ) {
                         $this->splash->incrProgressBar();
+                        
+                        // Log configuration status for Apache and database services
+                        if ($sName == BinApache::SERVICE_NAME) {
+                            $this->writeLog( $name . ' configuration status: ' . ($bin->checkConfFile() ? 'Valid' : 'Invalid') );
+                            $this->writeLog( $name . ' executable path: ' . $bin->getExeFilePath() . ' (exists: ' . (file_exists($bin->getExeFilePath()) ? 'Yes' : 'No') . ')' );
+                        }
+                        
                         if ( !$serviceAlreadyInstalled && !$serviceToRemove ) {
                             $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_INSTALL_SERVICE_TEXT ), $name ) );
+                            $this->writeLog( 'Creating ' . $name . ' service' );
                             if ( !$service->create() ) {
                                 $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_CREATE_ERROR ), $service->getError() );
+                                $this->writeLog( 'Failed to create ' . $name . ' service: ' . $service->getError() );
+                            } else {
+                                $this->writeLog( $name . ' service created successfully' );
                             }
                         }
 
                         $this->splash->incrProgressBar();
                         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_START_SERVICE_TEXT ), $name ) );
+                        
+                        // Log service status before startup attempt
+                        $this->writeLog( $name . ' service status before startup: ' . 
+                                       ($service->isInstalled() ? 'Installed' : 'Not installed') . 
+                                       ', ' . ($service->isRunning() ? 'Running' : 'Not running') );
+                        
+                        $this->writeLog( 'Attempting to start ' . $name . ' service' );
                         if ( !$service->start() ) {
                             if ( !empty( $serviceError ) ) {
                                 $serviceError .= PHP_EOL;
                             }
                             $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_START_ERROR ), $service->getError() );
+                            $this->writeLog( 'Failed to start ' . $name . ' service: ' . $service->getError() );
+                            
                             if ( !empty( $syntaxCheckCmd ) ) {
+                                $this->writeLog( 'Running syntax check for ' . $name );
                                 $cmdSyntaxCheck = $bin->getCmdLineOutput( $syntaxCheckCmd );
+                                $this->writeLog( $name . ' syntax check result: ' . ($cmdSyntaxCheck['syntaxOk'] ? 'OK' : 'Failed') );
+                                
                                 if ( !$cmdSyntaxCheck['syntaxOk'] ) {
                                     $serviceError .= PHP_EOL . sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_SYNTAX_ERROR ), $cmdSyntaxCheck['content'] );
+                                    $this->writeLog( $name . ' syntax check output: ' . $cmdSyntaxCheck['content'] );
                                 }
                             }
+                        } else {
+                            $this->writeLog( $name . ' service started successfully' );
+                            // Log service status after startup attempt
+                            $this->writeLog( $name . ' service status after startup: ' . 
+                                           ($service->isInstalled() ? 'Installed' : 'Not installed') . 
+                                           ', ' . ($service->isRunning() ? 'Running' : 'Not running') );
                         }
                         $this->splash->incrProgressBar();
                     }
@@ -860,6 +902,7 @@ class ActionStartup
                             $serviceError .= PHP_EOL;
                         }
                         $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_PORT_ERROR ), $port, $isPortInUse );
+                        $this->writeLog( $name . ' service cannot start: port ' . $port . ' is already in use by ' . $isPortInUse );
                         $this->splash->incrProgressBar( 3 );
                     }
                 }

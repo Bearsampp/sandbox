@@ -1594,73 +1594,46 @@ class Util
     }
 
     /**
-     * Checks if a specific port on localhost is in use and returns the process using it if available.
+     * Checks if a specific port on localhost is in use and returns the process using it
      *
-     * This improved implementation uses socket functions for more reliable port checking
-     * and supports both IPv4 and IPv6 connections.
-     *
-     * @param   int     $port       The port number to check.
-     * @param   string  $host       The host to check, defaults to 'localhost'.
-     * @param   bool    $checkBoth  Whether to check both TCP and UDP protocols.
-     *
-     * @return  mixed   Returns the process using the port if in use, 'N/A' if the port is open but 
-     *                  no specific process can be identified, or false if the port is not in use.
+     * @param int $port The port number to check
+     * @return mixed Process info if found, true if port is occupied (process unknown), false if available
      */
-    public static function isPortInUse($port, $host = 'localhost', $checkBoth = false)
+    public static function isPortInUse($port)
     {
-        // Validate port
+        self::logTrace("isPortInUse: Starting check for port " . $port);
+        
         if (!self::isValidPort($port)) {
+            self::logTrace("isPortInUse: Invalid port " . $port);
             return false;
         }
         
-        // TCP check
-        $inUse = false;
+        self::logTrace("isPortInUse: Port " . $port . " is valid, attempting connection");
         
-        // Check using socket extension (more reliable)
-        if (function_exists('socket_create') && function_exists('socket_connect')) {
-            // Try with IPv4
-            $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-            if ($socket !== false) {
-                // Set socket options to prevent connection from hanging
-                socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, ['sec' => 1, 'usec' => 0]);
-                socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, ['sec' => 1, 'usec' => 0]);
-                
-                // Try to connect 
-                $result = @socket_connect($socket, $host, $port);
-                if ($result) {
-                    $inUse = true;
-                }
-                socket_close($socket);
-            }
-            
-            // If still not found and checkBoth is true, try UDP
-            if (!$inUse && $checkBoth) {
-                $socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-                if ($socket !== false) {
-                    // For UDP, we try to bind since connect doesn't really establish a connection
-                    $result = @socket_bind($socket, $host, $port);
-                    if (!$result) {
-                        $inUse = true;
-                    }
-                    socket_close($socket);
-                }
-            }
-        } 
-        // Fallback to fsockopen if socket functions aren't available
-        else {
-            $connection = @fsockopen($host, $port, $errno, $errstr, 1);
-            if (is_resource($connection)) {
-                fclose($connection);
-                $inUse = true;
-            }
-        }
+        // Set error handler temporarily to prevent logging
+        $previousErrorReporting = error_reporting(0);
+        $connection = @fsockopen('127.0.0.1', $port, $errno, $errstr, 1);
+        error_reporting($previousErrorReporting);
         
-        // If the port is in use, get the process information
-        if ($inUse) {
+        if (is_resource($connection)) {
+            self::logTrace("isPortInUse: Connection successful to port " . $port . ", port is in use");
+            fclose($connection);
+            // Get process details if available
+            self::logTrace("isPortInUse: Attempting to get process using port " . $port);
             $process = Batch::getProcessUsingPort($port);
-            return $process !== null ? $process : 'N/A';
+            self::logTrace("isPortInUse: Process using port " . $port . ": " . ($process ?: "Unknown"));
+            return $process ?: true;
         }
         
+        self::logTrace("isPortInUse: Connection failed to port " . $port . ", errno: " . $errno . ", errstr: " . $errstr);
+        
+        // Handle edge cases where port might be blocked
+        if ($errno === 0 || $errno === 13) {
+            self::logTrace("isPortInUse: Port " . $port . " appears to be blocked (errno: " . $errno . ")");
+            return true;
+        }
+        
+        self::logTrace("isPortInUse: Port " . $port . " is available");
         return false;
     }
 
