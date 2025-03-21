@@ -91,7 +91,8 @@ class Win32Service
      */
     public function __construct($name)
     {
-        Util::logInitClass( $this );
+        Util::logInitClass($this);
+        Util::logTrace('Win32Service constructor initialized for service: ' . $name);
         $this->name = $name;
     }
 
@@ -103,7 +104,9 @@ class Win32Service
     private function writeLog($log)
     {
         global $bearsamppRoot;
-        Util::logDebug( $log, $bearsamppRoot->getServicesLogFilePath() );
+        Util::logDebug($log, $bearsamppRoot->getServicesLogFilePath());
+        // Also send to trace log for debugging
+        Util::logTrace($log);
     }
 
     /**
@@ -124,16 +127,22 @@ class Win32Service
 
     /**
      * Safely converts a value to hexadecimal, handling null values.
-     * 
-     * @param mixed $value The value to convert to hexadecimal
+     *
+     * @param   mixed  $value  The value to convert to hexadecimal
+     *
      * @return string The hexadecimal representation or '0' for null values
      */
     private function safeHex($value)
     {
         if ($value === null) {
+            Util::logTrace('safeHex: Null value received, returning WIN32_NO_ERROR (0)');
+
             return self::WIN32_NO_ERROR; // Return '0' for null values
         }
-        return dechex((int)$value);
+        $result = dechex((int)$value);
+        Util::logTrace('safeHex: Converted ' . $value . ' to hex: ' . $result);
+
+        return $result;
     }
 
     /**
@@ -147,16 +156,30 @@ class Win32Service
      */
     private function callWin32Service($function, $param, $checkError = false)
     {
+        $startTime   = Util::getMicrotime();
+        $serviceName = is_array($param) ? ($param['service'] ?? $this->name) : $param;
+
+        Util::logTrace("CALL START: Win32 function: {$function} for service: {$serviceName}");
+
         $result = false;
-        if ( function_exists( $function ) ) {
-            $result = call_user_func( $function, $param );
-            if ( $checkError && $result !== null ) {
+        if (function_exists($function)) {
+            Util::logTrace("Function {$function} exists, executing now");
+            $result = call_user_func($function, $param);
+
+            if ($checkError && $result !== null) {
                 $hexResult = $this->safeHex($result);
                 if ($hexResult != self::WIN32_NO_ERROR) {
                     $this->latestError = $hexResult;
+                    Util::logTrace('Error detected: ' . $hexResult . ' (decimal: ' . hexdec($hexResult) . ')');
                 }
             }
+        } else {
+            Util::logTrace("Function {$function} does not exist");
         }
+
+        $elapsedTime = round(Util::getMicrotime() - $startTime, 3);
+        $resultStr   = is_array($result) ? json_encode($result) : (is_bool($result) ? ($result ? 'true' : 'false') : $result);
+        Util::logTrace("CALL END: {$function} completed in {$elapsedTime}s with result: {$resultStr}");
 
         return $result;
     }
@@ -170,32 +193,66 @@ class Win32Service
      */
     public function status($timeout = true)
     {
-        usleep( self::SLEEP_TIME );
+        $startTime = Util::getMicrotime();
+        Util::logTrace('STATUS START: Checking status for service: ' . $this->getName() . ', timeout: ' . ($timeout ? 'yes' : 'no'));
+
+        usleep(self::SLEEP_TIME);
 
         $this->latestStatus = self::WIN32_SERVICE_NA;
         $maxtime            = time() + self::PENDING_TIMEOUT;
+        $iterations         = 0;
 
-        while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
-            $statusResult = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
+        while ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus)) {
+            $iterations++;
+            $iterStartTime = Util::getMicrotime();
+            Util::logTrace("Status check iteration #{$iterations} for " . $this->getName());
+
+            $statusResult       = $this->callWin32Service('win32_query_service_status', $this->getName());
             $this->latestStatus = $statusResult;
-            if ( is_array( $statusResult ) && isset( $statusResult['CurrentState'] ) ) {
-                $this->latestStatus = $this->safeHex( $statusResult['CurrentState'] );
-            }
-            elseif ( $statusResult !== null ) {
+
+            if (is_array($statusResult) && isset($statusResult['CurrentState'])) {
+                $this->latestStatus = $this->safeHex($statusResult['CurrentState']);
+                Util::logTrace('Service ' . $this->getName() . ' status array with CurrentState: ' . $this->latestStatus);
+
+                // Log additional status details for debugging
+                if (isset($statusResult['ControlsAccepted'])) {
+                    Util::logTrace('Service ControlsAccepted: ' . $statusResult['ControlsAccepted']);
+                }
+                if (isset($statusResult['Win32ExitCode'])) {
+                    Util::logTrace('Service Win32ExitCode: ' . $statusResult['Win32ExitCode']);
+                }
+            } elseif ($statusResult !== null) {
                 $hexResult = $this->safeHex($statusResult);
                 if ($hexResult == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
                     $this->latestStatus = $hexResult;
+                    Util::logTrace('Service ' . $this->getName() . ' does not exist (error code: ' . $hexResult . ')');
                 }
             }
-            if ( $timeout && $maxtime < time() ) {
+
+            $iterElapsedTime = round(Util::getMicrotime() - $iterStartTime, 3);
+            Util::logTrace("Status iteration #{$iterations} completed in {$iterElapsedTime}s with status: " . $this->latestStatus);
+
+            if ($timeout && $maxtime < time()) {
+                Util::logTrace("Status check timeout reached after {$iterations} iterations");
                 break;
+            }
+
+            // If pending state, add a brief sleep to avoid excessive CPU usage
+            if ($this->isPending($this->latestStatus)) {
+                Util::logTrace('Service ' . $this->getName() . ' in pending state, waiting 100ms before next check');
+                usleep(100000); // 100ms
             }
         }
 
-        if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+        if ($this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
             $this->latestError  = $this->latestStatus;
             $this->latestStatus = self::WIN32_SERVICE_NA;
+            Util::logTrace('Service ' . $this->getName() . ' final status set to NA due to SERVICE_DOES_NOT_EXIST error');
         }
+
+        $totalElapsedTime = round(Util::getMicrotime() - $startTime, 3);
+        $statusDesc       = $this->getWin32ServiceStatusDesc($this->latestStatus) ?? 'Unknown status';
+        Util::logTrace('STATUS END: Check for ' . $this->getName() . " completed in {$totalElapsedTime}s with final status: {$this->latestStatus} ({$statusDesc})");
 
         return $this->latestStatus;
     }
@@ -209,25 +266,25 @@ class Win32Service
     {
         global $bearsamppBins;
 
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
             $bearsamppBins->getPostgresql()->rebuildConf();
             $bearsamppBins->getPostgresql()->initData();
 
             return Batch::installPostgresqlService();
         }
-        if ( $this->getNssm() instanceof Nssm ) {
-            $nssmEnvPath = Util::getAppBinsRegKey( false );
+        if ($this->getNssm() instanceof Nssm) {
+            $nssmEnvPath = Util::getAppBinsRegKey(false);
             $nssmEnvPath .= Util::getNssmEnvPaths();
             $nssmEnvPath .= '%SystemRoot%/system32;';
             $nssmEnvPath .= '%SystemRoot%;';
             $nssmEnvPath .= '%SystemRoot%/system32/Wbem;';
             $nssmEnvPath .= '%SystemRoot%/system32/WindowsPowerShell/v1.0';
-            $this->getNssm()->setEnvironmentExtra( 'PATH=' . $nssmEnvPath );
+            $this->getNssm()->setEnvironmentExtra('PATH=' . $nssmEnvPath);
 
             return $this->getNssm()->create();
         }
 
-        $createResult = $this->callWin32Service( 'win32_create_service', array(
+        $createResult = $this->callWin32Service('win32_create_service', array(
             'service'       => $this->getName(),
             'display'       => $this->getDisplayName(),
             'description'   => $this->getDisplayName(),
@@ -235,23 +292,22 @@ class Win32Service
             'params'        => $this->getParams(),
             'start_type'    => $this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START,
             'error_control' => $this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL,
-        ), true );
-        
-        $create = $createResult !== null ? $this->safeHex( $createResult ) : self::WIN32_NO_ERROR;
+        ), true);
 
-        $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
-        $this->writeLog( '-> service: ' . $this->getName() );
-        $this->writeLog( '-> display: ' . $this->getDisplayName() );
-        $this->writeLog( '-> description: ' . $this->getDisplayName() );
-        $this->writeLog( '-> path: ' . $this->getBinPath() );
-        $this->writeLog( '-> params: ' . $this->getParams() );
-        $this->writeLog( '-> start_type: ' . ($this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START) );
-        $this->writeLog( '-> service: ' . ($this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL) );
+        $create = $createResult !== null ? $this->safeHex($createResult) : self::WIN32_NO_ERROR;
 
-        if ( $create != self::WIN32_NO_ERROR ) {
+        $this->writeLog('Create service: ' . $create . ' (status: ' . $this->status() . ')');
+        $this->writeLog('-> service: ' . $this->getName());
+        $this->writeLog('-> display: ' . $this->getDisplayName());
+        $this->writeLog('-> description: ' . $this->getDisplayName());
+        $this->writeLog('-> path: ' . $this->getBinPath());
+        $this->writeLog('-> params: ' . $this->getParams());
+        $this->writeLog('-> start_type: ' . ($this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START));
+        $this->writeLog('-> service: ' . ($this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL));
+
+        if ($create != self::WIN32_NO_ERROR) {
             return false;
-        }
-        elseif ( !$this->isInstalled() ) {
+        } elseif (!$this->isInstalled()) {
             $this->latestError = self::WIN32_NO_ERROR;
 
             return false;
@@ -267,24 +323,23 @@ class Win32Service
      */
     public function delete()
     {
-        if ( !$this->isInstalled() ) {
+        if (!$this->isInstalled()) {
             return true;
         }
 
         $this->stop();
 
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
             return Batch::uninstallPostgresqlService();
         }
 
-        $deleteResult = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
-        $delete = $deleteResult !== null ? $this->safeHex( $deleteResult ) : self::WIN32_NO_ERROR;
-        Util::logTrace( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
+        $deleteResult = $this->callWin32Service('win32_delete_service', $this->getName(), true);
+        $delete       = $deleteResult !== null ? $this->safeHex($deleteResult) : self::WIN32_NO_ERROR;
+        Util::logTrace('Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')');
 
-        if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+        if ($delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
             return false;
-        }
-        elseif ( $this->isInstalled() ) {
+        } elseif ($this->isInstalled()) {
             $this->latestError = self::WIN32_NO_ERROR;
 
             return false;
@@ -300,15 +355,14 @@ class Win32Service
      */
     public function reset()
     {
-        if ( $this->delete() ) {
-            usleep( self::SLEEP_TIME );
+        if ($this->delete()) {
+            usleep(self::SLEEP_TIME);
 
             return $this->create();
         }
 
         return false;
     }
-
     /**
      * Starts the service.
      *
@@ -318,75 +372,163 @@ class Win32Service
     {
         global $bearsamppBins;
 
+        $startTime = Util::getMicrotime();
+        Util::logTrace('START SERVICE BEGIN: ' . $this->getName() . ' at ' . date('Y-m-d H:i:s'));
         Util::logInfo('Attempting to start service: ' . $this->getName());
 
-        if ( $this->getName() == BinMysql::SERVICE_NAME ) {
+        // Special handling for Apache to debug freezing issues
+        if ($this->getName() == BinApache::SERVICE_NAME) {
+            Util::logTrace('APACHE SERVICE: Preparing to start Apache service');
+            Util::logTrace('APACHE SERVICE: Checking Apache configuration before startup');
+            
+            // Check if Apache config is valid before starting
+            $cmdStartTime = Util::getMicrotime();
+            $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput(BinApache::CMD_SYNTAX_CHECK);
+            $cmdElapsed = round(Util::getMicrotime() - $cmdStartTime, 3);
+            
+            Util::logTrace('APACHE SERVICE: Config check completed in ' . $cmdElapsed . 's');
+            
+            if (!$cmdOutput['syntaxOk']) {
+                Util::logTrace('APACHE SERVICE: Config check FAILED with output: ' . $cmdOutput['content']);
+            } else {
+                Util::logTrace('APACHE SERVICE: Config check PASSED. Proceeding to start service.');
+            }
+            
+            // Log Apache module list to help diagnose potential module conflicts
+            Util::logTrace('APACHE SERVICE: Listing loaded modules:');
+            $modulesOutput = $bearsamppBins->getApache()->getCmdLineOutput('-M');
+            if (isset($modulesOutput['content'])) {
+                $moduleLines = explode("\n", $modulesOutput['content']);
+                foreach ($moduleLines as $line) {
+                    if (!empty(trim($line))) {
+                        Util::logTrace('APACHE MODULE: ' . trim($line));
+                    }
+                }
+            }
+        } 
+        // Handle other service initialization
+        elseif ($this->getName() == BinMysql::SERVICE_NAME) {
+            Util::logTrace('MYSQL SERVICE: Initializing data directory');
             $bearsamppBins->getMysql()->initData();
         }
-        elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
+        elseif ($this->getName() == BinMailpit::SERVICE_NAME) {
+            Util::logTrace('MAILPIT SERVICE: Rebuilding configuration');
             $bearsamppBins->getMailpit()->rebuildConf();
         }
-        elseif ( $this->getName() == BinMemcached::SERVICE_NAME ) {
+        elseif ($this->getName() == BinMemcached::SERVICE_NAME) {
+            Util::logTrace('MEMCACHED SERVICE: Rebuilding configuration');
             $bearsamppBins->getMemcached()->rebuildConf();
         }
-        elseif ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        elseif ($this->getName() == BinPostgresql::SERVICE_NAME) {
+            Util::logTrace('POSTGRESQL SERVICE: Rebuilding configuration and initializing data directory');
             $bearsamppBins->getPostgresql()->rebuildConf();
             $bearsamppBins->getPostgresql()->initData();
         }
-        elseif ( $this->getName() == BinXlight::SERVICE_NAME ) {
+        elseif ($this->getName() == BinXlight::SERVICE_NAME) {
+            Util::logTrace('XLIGHT SERVICE: Rebuilding configuration');
             $bearsamppBins->getXlight()->rebuildConf();
         }
 
+        // Make the actual service start call
+        $startCallTime = Util::getMicrotime();
+        Util::logTrace('SERVICE CALL: Executing win32_start_service for ' . $this->getName());
+        $startResult = $this->callWin32Service('win32_start_service', $this->getName(), true);
+        $startCallElapsed = round(Util::getMicrotime() - $startCallTime, 3);
+        $start = $startResult !== null ? $this->safeHex($startResult) : self::WIN32_NO_ERROR;
+        
+        Util::logTrace('SERVICE CALL: win32_start_service completed in ' . $startCallElapsed . 's with result: ' . $start);
+        Util::logDebug('Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')');
 
-        $startResult = $this->callWin32Service( 'win32_start_service', $this->getName(), true );
-        $start = $startResult !== null ? $this->safeHex( $startResult ) : self::WIN32_NO_ERROR;
-        Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
+        // Special handling for Apache status checks - potential freezing point
+        if ($this->getName() == BinApache::SERVICE_NAME) {
+            Util::logTrace('APACHE SERVICE: Checking running status after start call');
+            $statusCheckTime = Util::getMicrotime();
+            $isRunning = $this->isRunning();
+            $statusCheckElapsed = round(Util::getMicrotime() - $statusCheckTime, 3);
+            Util::logTrace('APACHE SERVICE: Status check completed in ' . $statusCheckElapsed . 's, result: ' . ($isRunning ? 'RUNNING' : 'NOT RUNNING'));
+        }
 
-        if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
-
+        // Handle errors
+        if ($start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING) {
             // Write error to log
             Util::logError('Failed to start service: ' . $this->getName() . ' with error code: ' . $start);
+            Util::logTrace('SERVICE ERROR: Failed to start ' . $this->getName() . ' with error code: ' . $start);
 
-            if ( $this->getName() == BinApache::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput( BinApache::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            // Additional error handling for specific services
+            if ($this->getName() == BinApache::SERVICE_NAME) {
+                Util::logTrace('APACHE SERVICE: Start failed, checking syntax again...');
+                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput(BinApache::CMD_SYNTAX_CHECK);
+                    
+                if (!$cmdOutput['syntaxOk']) {
+                    $errorMsg = '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL;
+                    Util::logTrace('APACHE SERVICE: Syntax error detected: ' . $cmdOutput['content']);
                     file_put_contents(
                         $bearsamppBins->getApache()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        $errorMsg,
                         FILE_APPEND
                     );
+                } else {
+                    Util::logTrace('APACHE SERVICE: Syntax is valid despite start failure');
+                }
+                
+                // Check Apache error log for recent errors
+                Util::logTrace('APACHE SERVICE: Checking recent error log entries');
+                $errorLogPath = $bearsamppBins->getApache()->getErrorLog();
+                if (file_exists($errorLogPath)) {
+                    $logContent = file_get_contents($errorLogPath);
+                    if ($logContent) {
+                        $logLines = explode("\n", $logContent);
+                        $lastLines = array_slice($logLines, -20); // Get last 20 lines
+                        foreach ($lastLines as $line) {
+                            if (!empty(trim($line))) {
+                                Util::logTrace('APACHE ERROR LOG: ' . trim($line));
+                            }
+                        }
+                    } else {
+                        Util::logTrace('APACHE SERVICE: Error log exists but is empty');
+                    }
+                } else {
+                    Util::logTrace('APACHE SERVICE: Error log file not found at: ' . $errorLogPath);
                 }
             }
-            elseif ( $this->getName() == BinMysql::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput( BinMysql::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            elseif ($this->getName() == BinMysql::SERVICE_NAME) {
+                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput(BinMysql::CMD_SYNTAX_CHECK);
+                if (!$cmdOutput['syntaxOk']) {
                     file_put_contents(
                         $bearsamppBins->getMysql()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
             }
-            elseif ( $this->getName() == BinMariadb::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput( BinMariadb::CMD_SYNTAX_CHECK );
-                if ( !$cmdOutput['syntaxOk'] ) {
+            elseif ($this->getName() == BinMariadb::SERVICE_NAME) {
+                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput(BinMariadb::CMD_SYNTAX_CHECK);
+                if (!$cmdOutput['syntaxOk']) {
                     file_put_contents(
                         $bearsamppBins->getMariadb()->getErrorLog(),
-                        '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
+                        '[' . date('Y-m-d H:i:s', time()) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
             }
 
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            Util::logTrace('START SERVICE END: ' . $this->getName() . ' FAILED after ' . $totalElapsed . 's');
             return false;
         }
-        elseif ( !$this->isRunning() ) {
+        elseif (!$this->isRunning()) {
             $this->latestError = self::WIN32_NO_ERROR;
             Util::logError('Service ' . $this->getName() . ' is not running after start attempt.');
+            Util::logTrace('SERVICE WARNING: ' . $this->getName() . ' is not in running state after successful start call');
             $this->latestError = null;
+            
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            Util::logTrace('START SERVICE END: ' . $this->getName() . ' NOT RUNNING after ' . $totalElapsed . 's');
             return false;
         }
 
+        $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('START SERVICE END: ' . $this->getName() . ' started successfully in ' . $totalElapsed . 's');
         Util::logInfo('Service ' . $this->getName() . ' started successfully.');
         return true;
     }
@@ -398,19 +540,61 @@ class Win32Service
      */
     public function stop()
     {
-        $stopResult = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
-        $stop = $stopResult !== null ? $this->safeHex( $stopResult ) : self::WIN32_NO_ERROR;
-        $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
+        $startTime = Util::getMicrotime();
+        Util::logTrace('STOP SERVICE BEGIN: ' . $this->getName() . ' at ' . date('Y-m-d H:i:s'));
 
-        if ( $stop != self::WIN32_NO_ERROR ) {
+        // Special handling for Apache to debug freezing issues
+        if ($this->getName() == BinApache::SERVICE_NAME) {
+            Util::logTrace('APACHE SERVICE STOP: Current status: ' . $this->status(false));
+        }
+
+        $stopCallTime = Util::getMicrotime();
+        Util::logTrace('SERVICE CALL: Executing win32_stop_service for ' . $this->getName());
+        $stopResult = $this->callWin32Service('win32_stop_service', $this->getName(), true);
+        $stopCallElapsed = round(Util::getMicrotime() - $stopCallTime, 3);
+        $stop = $stopResult !== null ? $this->safeHex($stopResult) : self::WIN32_NO_ERROR;
+        
+        Util::logTrace('SERVICE CALL: win32_stop_service completed in ' . $stopCallElapsed . 's with result: ' . $stop);
+        $this->writeLog('Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')');
+
+        if ($stop != self::WIN32_NO_ERROR) {
+            Util::logTrace('SERVICE ERROR: Failed to stop ' . $this->getName() . ' with error code: ' . $stop);
+            
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            Util::logTrace('STOP SERVICE END: ' . $this->getName() . ' FAILED after ' . $totalElapsed . 's');
             return false;
         }
-        elseif ( !$this->isStopped() ) {
+        elseif (!$this->isStopped()) {
             $this->latestError = self::WIN32_NO_ERROR;
-
+            Util::logError('Service ' . $this->getName() . ' is not stopped after stop attempt.');
+            Util::logTrace('SERVICE WARNING: ' . $this->getName() . ' is not in stopped state after successful stop call');
+            
+            // For Apache, try to diagnose why it's not stopping
+            if ($this->getName() == BinApache::SERVICE_NAME) {
+                Util::logTrace('APACHE SERVICE STOP: Service not stopping, checking processes');
+                global $bearsamppCore;
+                // Check if Apache processes are still running
+                $cmd = 'tasklist /FI "IMAGENAME eq httpd.exe" /FO CSV';
+                $result = Batch::exec('checkApacheProcesses', $cmd, 2);
+                if ($result && count($result) > 1) {
+                    Util::logTrace('APACHE SERVICE STOP: Apache processes still running');
+                    foreach ($result as $line) {
+                        Util::logTrace('APACHE PROCESS: ' . $line);
+                    }
+                    
+                    // Try to force kill Apache processes
+                    Util::logTrace('APACHE SERVICE STOP: Attempting to force kill Apache processes');
+                    Batch::execStandalone('killApacheProcesses', 'taskkill /F /IM httpd.exe /T', true, 5);
+                }
+            }
+            
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            Util::logTrace('STOP SERVICE END: ' . $this->getName() . ' NOT STOPPED after ' . $totalElapsed . 's');
             return false;
         }
 
+        $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('STOP SERVICE END: ' . $this->getName() . ' stopped successfully in ' . $totalElapsed . 's');
         return true;
     }
 
@@ -421,10 +605,38 @@ class Win32Service
      */
     public function restart()
     {
-        if ( $this->stop() ) {
-            return $this->start();
+        $startTime = Util::getMicrotime();
+        Util::logTrace('RESTART SERVICE BEGIN: ' . $this->getName() . ' at ' . date('Y-m-d H:i:s'));
+        
+        // Special handling for Apache
+        if ($this->getName() == BinApache::SERVICE_NAME) {
+            Util::logTrace('APACHE SERVICE RESTART: Preparing to restart Apache service');
+            Util::logTrace('APACHE SERVICE RESTART: Current status before stop: ' . $this->status(false));
         }
-
+        
+        $stopResult = $this->stop();
+        Util::logTrace('SERVICE RESTART: Stop operation result: ' . ($stopResult ? 'SUCCESS' : 'FAILED'));
+        
+        if ($stopResult) {
+            // Add a small delay between stop and start to ensure service has time to fully stop
+            Util::logTrace('SERVICE RESTART: Adding 1 second delay between stop and start');
+            usleep(1000000); // 1 second
+            
+            $startResult = $this->start();
+            Util::logTrace('SERVICE RESTART: Start operation result: ' . ($startResult ? 'SUCCESS' : 'FAILED'));
+            
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            if ($startResult) {
+                Util::logTrace('RESTART SERVICE END: ' . $this->getName() . ' restarted successfully in ' . $totalElapsed . 's');
+            } else {
+                Util::logTrace('RESTART SERVICE END: ' . $this->getName() . ' restart FAILED (start failed) after ' . $totalElapsed . 's');
+            }
+            
+            return $startResult;
+        }
+        
+        $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('RESTART SERVICE END: ' . $this->getName() . ' restart FAILED (stop failed) after ' . $totalElapsed . 's');
         return false;
     }
 
@@ -435,25 +647,66 @@ class Win32Service
  */
 public function infos()
 {
-    Util::logTrace("Beginning service info check for " . $this->getName());
-
-    // Set a maximum execution time
     $startTime = Util::getMicrotime();
+    Util::logTrace("INFOS BEGIN: Getting service info for " . $this->getName() . " at " . date('Y-m-d H:i:s'));
 
     try {
+        // Special handling for Apache
+        if ($this->getName() == BinApache::SERVICE_NAME) {
+            Util::logTrace('APACHE SERVICE INFOS: Getting info for Apache service');
+            Util::logTrace('APACHE SERVICE INFOS: Current status: ' . $this->status(false));
+        }
+        
         if ($this->getNssm() instanceof Nssm) {
+            Util::logTrace("INFOS: Using NSSM to get service info");
+            $nssmStartTime = Util::getMicrotime();
             $result = $this->getNssm()->infos();
-            Util::logTrace("NSSM service info completed in " . round(Util::getMicrotime() - $startTime, 3) . "s");
+            $nssmElapsed = round(Util::getMicrotime() - $nssmStartTime, 3);
+            Util::logTrace("INFOS: NSSM service info completed in " . $nssmElapsed . "s");
+            
+            // Log the result structure
+            if (is_array($result)) {
+                Util::logTrace("INFOS: NSSM returned " . count($result) . " info items");
+                foreach ($result as $key => $value) {
+                    if (is_array($value)) {
+                        Util::logTrace("INFOS: NSSM info[$key] = [array with " . count($value) . " items]");
+                    } else {
+                        Util::logTrace("INFOS: NSSM info[$key] = " . $value);
+                    }
+                }
+            } else {
+                Util::logTrace("INFOS: NSSM returned non-array result: " . (is_bool($result) ? ($result ? 'true' : 'false') : $result));
+            }
+            
+            $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+            Util::logTrace("INFOS END: Completed in " . $totalElapsed . "s for " . $this->getName());
             return $result;
         }
 
-        // Use a lower timeout specifically for VBS getServiceInfos
+        // Use VBS for non-NSSM services
+        Util::logTrace("INFOS: Using VBS to get service info");
+        $vbsStartTime = Util::getMicrotime();
         $result = Vbs::getServiceInfos($this->getName());
-        $elapsed = round(Util::getMicrotime() - $startTime, 3);
-        Util::logTrace("VBS getServiceInfos completed in " . $elapsed . "s");
+        $vbsElapsed = round(Util::getMicrotime() - $vbsStartTime, 3);
+        Util::logTrace("INFOS: VBS getServiceInfos completed in " . $vbsElapsed . "s");
+        
+        // Log the result structure
+        if (is_array($result)) {
+            Util::logTrace("INFOS: VBS returned " . count($result) . " info items");
+            foreach ($result as $key => $value) {
+                Util::logTrace("INFOS: VBS info[$key] = " . $value);
+            }
+        } else {
+            Util::logTrace("INFOS: VBS returned non-array result: " . (is_bool($result) ? ($result ? 'true' : 'false') : $result));
+        }
+        
+        $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace("INFOS END: Completed in " . $totalElapsed . "s for " . $this->getName());
         return $result;
     } catch (Exception $e) {
+        $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
         Util::logError("Exception during service info check: " . $e->getMessage());
+        Util::logTrace("INFOS ERROR: Exception after " . $totalElapsed . "s: " . $e->getMessage());
         return false;
     }
 }
@@ -465,10 +718,17 @@ public function infos()
      */
     public function isInstalled()
     {
+        $startTime = Util::getMicrotime();
+        Util::logTrace('IS_INSTALLED BEGIN: Checking if service ' . $this->getName() . ' is installed');
+        
         $status = $this->status();
-        $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $result = $status != self::WIN32_SERVICE_NA;
+        
+        $elapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('IS_INSTALLED END: Service ' . $this->getName() . ' is ' . ($result ? 'INSTALLED' : 'NOT INSTALLED') . ' (status: ' . $status . ') - completed in ' . $elapsed . 's');
+        $this->writeLog('isInstalled ' . $this->getName() . ': ' . ($result ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
-        return $status != self::WIN32_SERVICE_NA;
+        return $result;
     }
 
     /**
@@ -478,10 +738,17 @@ public function infos()
      */
     public function isRunning()
     {
+        $startTime = Util::getMicrotime();
+        Util::logTrace('IS_RUNNING BEGIN: Checking if service ' . $this->getName() . ' is running');
+        
         $status = $this->status();
-        $this->writeLog( 'isRunning ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_RUNNING ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $result = $status == self::WIN32_SERVICE_RUNNING;
+        
+        $elapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('IS_RUNNING END: Service ' . $this->getName() . ' is ' . ($result ? 'RUNNING' : 'NOT RUNNING') . ' (status: ' . $status . ') - completed in ' . $elapsed . 's');
+        $this->writeLog('isRunning ' . $this->getName() . ': ' . ($result ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
-        return $status == self::WIN32_SERVICE_RUNNING;
+        return $result;
     }
 
     /**
@@ -491,10 +758,17 @@ public function infos()
      */
     public function isStopped()
     {
+        $startTime = Util::getMicrotime();
+        Util::logTrace('IS_STOPPED BEGIN: Checking if service ' . $this->getName() . ' is stopped');
+        
         $status = $this->status();
-        $this->writeLog( 'isStopped ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_STOPPED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $result = $status == self::WIN32_SERVICE_STOPPED;
+        
+        $elapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('IS_STOPPED END: Service ' . $this->getName() . ' is ' . ($result ? 'STOPPED' : 'NOT STOPPED') . ' (status: ' . $status . ') - completed in ' . $elapsed . 's');
+        $this->writeLog('isStopped ' . $this->getName() . ': ' . ($result ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
-        return $status == self::WIN32_SERVICE_STOPPED;
+        return $result;
     }
 
     /**
@@ -504,10 +778,17 @@ public function infos()
      */
     public function isPaused()
     {
+        $startTime = Util::getMicrotime();
+        Util::logTrace('IS_PAUSED BEGIN: Checking if service ' . $this->getName() . ' is paused');
+        
         $status = $this->status();
-        $this->writeLog( 'isPaused ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_PAUSED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        $result = $status == self::WIN32_SERVICE_PAUSED;
+        
+        $elapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace('IS_PAUSED END: Service ' . $this->getName() . ' is ' . ($result ? 'PAUSED' : 'NOT PAUSED') . ' (status: ' . $status . ') - completed in ' . $elapsed . 's');
+        $this->writeLog('isPaused ' . $this->getName() . ': ' . ($result ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
-        return $status == self::WIN32_SERVICE_PAUSED;
+        return $result;
     }
 
     /**
@@ -519,8 +800,31 @@ public function infos()
      */
     public function isPending($status)
     {
-        return $status == self::WIN32_SERVICE_START_PENDING || $status == self::WIN32_SERVICE_STOP_PENDING
-            || $status == self::WIN32_SERVICE_CONTINUE_PENDING || $status == self::WIN32_SERVICE_PAUSE_PENDING;
+        $isPending = $status == self::WIN32_SERVICE_START_PENDING || 
+                     $status == self::WIN32_SERVICE_STOP_PENDING ||
+                     $status == self::WIN32_SERVICE_CONTINUE_PENDING || 
+                     $status == self::WIN32_SERVICE_PAUSE_PENDING;
+        
+        if ($isPending) {
+            $pendingType = '';
+            switch ($status) {
+                case self::WIN32_SERVICE_START_PENDING:
+                    $pendingType = 'START_PENDING';
+                    break;
+                case self::WIN32_SERVICE_STOP_PENDING:
+                    $pendingType = 'STOP_PENDING';
+                    break;
+                case self::WIN32_SERVICE_CONTINUE_PENDING:
+                    $pendingType = 'CONTINUE_PENDING';
+                    break;
+                case self::WIN32_SERVICE_PAUSE_PENDING:
+                    $pendingType = 'PAUSE_PENDING';
+                    break;
+            }
+            Util::logTrace('Service ' . $this->getName() . ' is in PENDING state: ' . $pendingType . ' (status: ' . $status . ')');
+        }
+        
+        return $isPending;
     }
 
     /**
