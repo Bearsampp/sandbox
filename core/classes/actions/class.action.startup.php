@@ -334,8 +334,23 @@ class ActionStartup
             if ($serviceInfos === false) {
                 continue;
             }
-            Util::removeService($service, $sName);
-            Util::logTrace('Stopped service: ' . $sName);
+            
+            // Direct service stop approach instead of using the potentially problematic Util::removeService
+            try {
+                // Log that we're attempting to stop the service
+                $this->writeLog('Attempting to stop service: ' . $sName);
+                
+                // Most service objects should have a stop() method
+                if (method_exists($service, 'stop')) {
+                    $service->stop();
+                    $this->writeLog('Successfully stopped service: ' . $sName);
+                } else {
+                    $this->writeLog('Service ' . $sName . ' does not have a stop method');
+                }
+            } catch (Exception $e) {
+                // Log the error but continue execution to prevent freezing
+                $this->writeLog('Error stopping service ' . $sName . ': ' . $e->getMessage());
+            }
         }
 
         // Stop third party procs
