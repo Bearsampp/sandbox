@@ -279,7 +279,7 @@ class Win32Service
 
         $deleteResult = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
         $delete = $deleteResult !== null ? $this->safeHex( $deleteResult ) : self::WIN32_NO_ERROR;
-        $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
+        Util::logTrace( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
 
         if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
             return false;
