@@ -428,19 +428,35 @@ class Win32Service
         return false;
     }
 
-    /**
-     * Retrieves information about the service.
-     *
-     * @return array The service information.
-     */
-    public function infos()
-    {
-        if ( $this->getNssm() instanceof Nssm ) {
-            return $this->getNssm()->infos();
+/**
+ * Retrieves information about the service.
+ *
+ * @return array|false The service information.
+ */
+public function infos()
+{
+    Util::logTrace("Beginning service info check for " . $this->getName());
+
+    // Set a maximum execution time
+    $startTime = Util::getMicrotime();
+
+    try {
+        if ($this->getNssm() instanceof Nssm) {
+            $result = $this->getNssm()->infos();
+            Util::logTrace("NSSM service info completed in " . round(Util::getMicrotime() - $startTime, 3) . "s");
+            return $result;
         }
 
-        return Vbs::getServiceInfos( $this->getName() );
+        // Use a lower timeout specifically for VBS getServiceInfos
+        $result = Vbs::getServiceInfos($this->getName());
+        $elapsed = round(Util::getMicrotime() - $startTime, 3);
+        Util::logTrace("VBS getServiceInfos completed in " . $elapsed . "s");
+        return $result;
+    } catch (Exception $e) {
+        Util::logError("Exception during service info check: " . $e->getMessage());
+        return false;
     }
+}
 
     /**
      * Checks if the service is installed.

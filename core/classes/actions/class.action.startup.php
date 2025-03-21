@@ -737,14 +737,21 @@ class ActionStartup
     {
         global $bearsamppLang, $bearsamppBins, $bearsamppRoot;
 
+        Util::logTrace('STARTUP: Beginning installServices method');
+
         if ( !$this->restart ) {
+            Util::logTrace('STARTUP: No restart flag set, proceeding with service installation checks');
 
             foreach ( $bearsamppBins->getServices() as $sName => $service ) {
+                Util::logTrace("STARTUP: Processing service: $sName");
+                
                 $serviceError            = '';
                 $serviceRestart          = false;
                 $serviceAlreadyInstalled = false;
                 $serviceToRemove         = false;
                 $startServiceTime        = Util::getMicrotime();
+                
+                Util::logTrace("STARTUP: $sName - Initial variables set");
 
                 $syntaxCheckCmd = null;
                 $bin            = null;
@@ -752,49 +759,66 @@ class ActionStartup
                 if ( $sName == BinMailpit::SERVICE_NAME ) {
                     $bin  = $bearsamppBins->getMailpit();
                     $port = $bearsamppBins->getMailpit()->getSmtpPort();
+                    Util::logTrace("STARTUP: $sName - Identified as Mailpit service, port: $port");
                 }
                 elseif ( $sName == BinMemcached::SERVICE_NAME ) {
                     $bin  = $bearsamppBins->getMemcached();
                     $port = $bearsamppBins->getMemcached()->getPort();
+                    Util::logTrace("STARTUP: $sName - Identified as Memcached service, port: $port");
                 }
                 elseif ( $sName == BinApache::SERVICE_NAME ) {
                     $bin            = $bearsamppBins->getApache();
                     $port           = $bearsamppBins->getApache()->getPort();
                     $syntaxCheckCmd = BinApache::CMD_SYNTAX_CHECK;
+                    Util::logTrace("STARTUP: $sName - Identified as Apache service, port: $port");
                 }
                 elseif ( $sName == BinMysql::SERVICE_NAME ) {
                     $bin            = $bearsamppBins->getMysql();
                     $port           = $bearsamppBins->getMysql()->getPort();
                     $syntaxCheckCmd = BinMysql::CMD_SYNTAX_CHECK;
+                    Util::logTrace("STARTUP: $sName - Identified as MySQL service, port: $port");
                 }
                 elseif ( $sName == BinMariadb::SERVICE_NAME ) {
                     $bin            = $bearsamppBins->getMariadb();
                     $port           = $bearsamppBins->getMariadb()->getPort();
                     $syntaxCheckCmd = BinMariadb::CMD_SYNTAX_CHECK;
+                    Util::logTrace("STARTUP: $sName - Identified as MariaDB service, port: $port");
                 }
                 elseif ( $sName == BinPostgresql::SERVICE_NAME ) {
                     $bin  = $bearsamppBins->getPostgresql();
                     $port = $bearsamppBins->getPostgresql()->getPort();
+                    Util::logTrace("STARTUP: $sName - Identified as PostgreSQL service, port: $port");
                 }
                 elseif ( $sName == BinXlight::SERVICE_NAME ) {
                     $bin  = $bearsamppBins->getXlight();
                     $port = $bearsamppBins->getXlight()->getPort();
+                    Util::logTrace("STARTUP: $sName - Identified as Xlight service, port: $port");
                 }
 
                 $name = $bin->getName() . ' ' . $bin->getVersion() . ' (' . $service->getName() . ')';
+                Util::logTrace("STARTUP: $sName - Full service name: $name");
 
                 $this->splash->incrProgressBar();
                 $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_CHECK_SERVICE_TEXT ), $name ) );
+                
+                Util::logTrace("STARTUP: $sName - About to check if service is already installed");
                 $serviceInfos = $service->infos();
+                Util::logTrace("STARTUP: $sName - Service info check completed: " . ($serviceInfos !== false ? "Service exists" : "Service does not exist"));
+                
                 if ( $serviceInfos !== false ) {
                     $serviceAlreadyInstalled = true;
                     $this->writeLog( $name . ' service already installed' );
+                    Util::logTrace("STARTUP: $sName - Service already installed, checking details");
+                    
                     foreach ( $serviceInfos as $key => $value ) {
                         $this->writeLog( '-> ' . $key . ': ' . $value );
                     }
                     // For all services, normalize the path strings before comparison
                     $serviceGenPathName = trim(str_replace('"', '', $service->getBinPath() . ($service->getParams() ? ' ' . $service->getParams() : '')));
                     $serviceVbsPathName = trim(str_replace('"', '', $serviceInfos[Win32Service::VBS_PATH_NAME]));
+                    Util::logTrace("STARTUP: $sName - Comparing service paths");
+                    Util::logTrace("STARTUP: $sName - Generated path: $serviceGenPathName");
+                    Util::logTrace("STARTUP: $sName - Installed path: $serviceVbsPathName");
 
                     // Normalize spaces (replace multiple spaces with single space)
                     $serviceGenPathName = preg_replace('/\s+/', ' ', $serviceGenPathName);
@@ -805,12 +829,16 @@ class ActionStartup
                         // Extract just the executable path from both strings
                         $serviceGenExePath = explode(' ', $serviceGenPathName)[0];
                         $serviceVbsExePath = explode(' ', $serviceVbsPathName)[0];
+                        Util::logTrace("STARTUP: $sName - PostgreSQL special handling - comparing executable paths only");
+                        Util::logTrace("STARTUP: $sName - Generated exe path: $serviceGenExePath");
+                        Util::logTrace("STARTUP: $sName - Installed exe path: $serviceVbsExePath");
 
                         if ($serviceGenExePath != $serviceVbsExePath) {
                             $serviceToRemove = true;
                             $this->writeLog($name . ' service has to be removed');
                             $this->writeLog('-> serviceGenPathName: ' . $serviceGenPathName);
                             $this->writeLog('-> serviceVbsPathName: ' . $serviceVbsPathName);
+                            Util::logTrace("STARTUP: $sName - Service needs to be removed due to path mismatch");
                         }
                     } else {
                         // For other services, compare the full normalized paths
@@ -819,27 +847,37 @@ class ActionStartup
                             $this->writeLog($name . ' service has to be removed');
                             $this->writeLog('-> serviceGenPathName: ' . $serviceGenPathName);
                             $this->writeLog('-> serviceVbsPathName: ' . $serviceVbsPathName);
+                            Util::logTrace("STARTUP: $sName - Service needs to be removed due to path mismatch");
                         }
                     }
                 }
 
                 $this->splash->incrProgressBar();
-                if ( $serviceToRemove && !$service->delete() ) {
-                    $serviceRestart = true;
+                if ( $serviceToRemove ) {
+                    Util::logTrace("STARTUP: $sName - Attempting to delete service");
+                    $deleteResult = $service->delete();
+                    Util::logTrace("STARTUP: $sName - Service delete result: " . ($deleteResult ? "Success" : "Failed"));
+                    
+                    if (!$deleteResult) {
+                        $serviceRestart = true;
+                        Util::logTrace("STARTUP: $sName - Service delete failed, setting restart flag");
+                    }
                 }
 
                 if ( !$serviceRestart ) {
                     // Log port check details
-                    $this->writeLog( $name . ' checking port ' . $port . ' availability' );
+                    Util::logTrace("STARTUP: $sName - Checking if port $port is in use");
                     $isPortInUse = Util::isPortInUse( $port );
-                    $this->writeLog( $name . ' port check result: ' . ($isPortInUse ? 'Port in use by: ' . (is_string($isPortInUse) ? $isPortInUse : 'Unknown process') : 'Port available') );
+                    $portStatus = $isPortInUse ? 'Port in use by: ' . (is_string($isPortInUse) ? $isPortInUse : 'Unknown process') : 'Port available';
+                    Util::logTrace("STARTUP: $sName - Port check result: $portStatus");
                     
                     // For Apache, also check SSL port if available
                     if ($sName == BinApache::SERVICE_NAME && method_exists($bin, 'getSslPort')) {
                         $sslPort = $bin->getSslPort();
-                        $this->writeLog( $name . ' checking SSL port ' . $sslPort . ' availability' );
+                        Util::logTrace("STARTUP: $sName - Checking if SSL port $sslPort is in use");
                         $isSslPortInUse = Util::isPortInUse( $sslPort );
-                        $this->writeLog( $name . ' SSL port check result: ' . ($isSslPortInUse ? 'Port in use by: ' . (is_string($isSslPortInUse) ? $isSslPortInUse : 'Unknown process') : 'Port available') );
+                        $sslPortStatus = $isSslPortInUse ? 'Port in use by: ' . (is_string($isSslPortInUse) ? $isSslPortInUse : 'Unknown process') : 'Port available';
+                        Util::logTrace("STARTUP: $sName - SSL port check result: $sslPortStatus");
                     }
                     
                     if ( $isPortInUse === false ) {
@@ -847,18 +885,27 @@ class ActionStartup
                         
                         // Log configuration status for Apache and database services
                         if ($sName == BinApache::SERVICE_NAME) {
-                            $this->writeLog( $name . ' configuration status: ' . ($bin->checkConfFile() ? 'Valid' : 'Invalid') );
-                            $this->writeLog( $name . ' executable path: ' . $bin->getExeFilePath() . ' (exists: ' . (file_exists($bin->getExeFilePath()) ? 'Yes' : 'No') . ')' );
+                            $confStatus = $bin->checkConfFile() ? 'Valid' : 'Invalid';
+                            Util::logTrace("STARTUP: $sName - Configuration status: $confStatus");
+                            
+                            $exePath = $bin->getExeFilePath();
+                            $exeExists = file_exists($exePath) ? 'Yes' : 'No';
+                            Util::logTrace("STARTUP: $sName - Executable path: $exePath (exists: $exeExists)");
                         }
                         
                         if ( !$serviceAlreadyInstalled && !$serviceToRemove ) {
                             $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_INSTALL_SERVICE_TEXT ), $name ) );
-                            $this->writeLog( 'Creating ' . $name . ' service' );
-                            if ( !$service->create() ) {
-                                $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_CREATE_ERROR ), $service->getError() );
-                                $this->writeLog( 'Failed to create ' . $name . ' service: ' . $service->getError() );
+                            Util::logTrace("STARTUP: $sName - About to create service");
+                            
+                            $createResult = $service->create();
+                            Util::logTrace("STARTUP: $sName - Service creation result: " . ($createResult ? "Success" : "Failed"));
+                            
+                            if ( !$createResult ) {
+                                $errorMsg = $service->getError();
+                                $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_CREATE_ERROR ), $errorMsg );
+                                Util::logTrace("STARTUP: $sName - Service creation failed: $errorMsg");
                             } else {
-                                $this->writeLog( $name . ' service created successfully' );
+                                Util::logTrace("STARTUP: $sName - Service created successfully");
                             }
                         }
 
@@ -866,34 +913,43 @@ class ActionStartup
                         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_START_SERVICE_TEXT ), $name ) );
                         
                         // Log service status before startup attempt
-                        $this->writeLog( $name . ' service status before startup: ' . 
-                                       ($service->isInstalled() ? 'Installed' : 'Not installed') . 
-                                       ', ' . ($service->isRunning() ? 'Running' : 'Not running') );
+                        $beforeStatus = ($service->isInstalled() ? 'Installed' : 'Not installed') . 
+                                       ', ' . ($service->isRunning() ? 'Running' : 'Not running');
+                        Util::logTrace("STARTUP: $sName - Service status before startup: $beforeStatus");
                         
-                        $this->writeLog( 'Attempting to start ' . $name . ' service' );
-                        if ( !$service->start() ) {
+                        Util::logTrace("STARTUP: $sName - About to start service");
+                        
+                        $startResult = $service->start();
+                        Util::logTrace("STARTUP: $sName - Service start result: " . ($startResult ? "Success" : "Failed"));
+                        
+                        if ( !$startResult ) {
                             if ( !empty( $serviceError ) ) {
                                 $serviceError .= PHP_EOL;
                             }
-                            $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_START_ERROR ), $service->getError() );
-                            $this->writeLog( 'Failed to start ' . $name . ' service: ' . $service->getError() );
+                            $errorMsg = $service->getError();
+                            $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_START_ERROR ), $errorMsg );
+                            Util::logTrace("STARTUP: $sName - Service start failed: $errorMsg");
                             
                             if ( !empty( $syntaxCheckCmd ) ) {
-                                $this->writeLog( 'Running syntax check for ' . $name );
+                                Util::logTrace("STARTUP: $sName - Running syntax check with command: $syntaxCheckCmd");
+                                
                                 $cmdSyntaxCheck = $bin->getCmdLineOutput( $syntaxCheckCmd );
-                                $this->writeLog( $name . ' syntax check result: ' . ($cmdSyntaxCheck['syntaxOk'] ? 'OK' : 'Failed') );
+                                $syntaxResult = $cmdSyntaxCheck['syntaxOk'] ? 'OK' : 'Failed';
+                                Util::logTrace("STARTUP: $sName - Syntax check result: $syntaxResult");
                                 
                                 if ( !$cmdSyntaxCheck['syntaxOk'] ) {
-                                    $serviceError .= PHP_EOL . sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_SYNTAX_ERROR ), $cmdSyntaxCheck['content'] );
-                                    $this->writeLog( $name . ' syntax check output: ' . $cmdSyntaxCheck['content'] );
+                                    $syntaxContent = $cmdSyntaxCheck['content'];
+                                    $serviceError .= PHP_EOL . sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_SYNTAX_ERROR ), $syntaxContent );
+                                    Util::logTrace("STARTUP: $sName - Syntax check output: $syntaxContent");
                                 }
                             }
                         } else {
-                            $this->writeLog( $name . ' service started successfully' );
+                            Util::logTrace("STARTUP: $sName - Service started successfully");
+                            
                             // Log service status after startup attempt
-                            $this->writeLog( $name . ' service status after startup: ' . 
-                                           ($service->isInstalled() ? 'Installed' : 'Not installed') . 
-                                           ', ' . ($service->isRunning() ? 'Running' : 'Not running') );
+                            $afterStatus = ($service->isInstalled() ? 'Installed' : 'Not installed') . 
+                                         ', ' . ($service->isRunning() ? 'Running' : 'Not running');
+                            Util::logTrace("STARTUP: $sName - Service status after startup: $afterStatus");
                         }
                         $this->splash->incrProgressBar();
                     }
@@ -902,12 +958,12 @@ class ActionStartup
                             $serviceError .= PHP_EOL;
                         }
                         $serviceError .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_PORT_ERROR ), $port, $isPortInUse );
-                        $this->writeLog( $name . ' service cannot start: port ' . $port . ' is already in use by ' . $isPortInUse );
+                        Util::logTrace("STARTUP: $sName - Service cannot start: port $port is already in use by $isPortInUse");
                         $this->splash->incrProgressBar( 3 );
                     }
                 }
                 else {
-                    $this->writeLog( 'Need restart: installService ' . $bin->getName() );
+                    Util::logTrace("STARTUP: $sName - Need restart for service installation");
                     $this->restart = true;
                     $this->splash->incrProgressBar( 3 );
                 }
@@ -917,15 +973,22 @@ class ActionStartup
                         $this->error .= PHP_EOL . PHP_EOL;
                     }
                     $this->error .= sprintf( $bearsamppLang->getValue( Lang::STARTUP_SERVICE_ERROR ), $name ) . PHP_EOL . $serviceError;
+                    Util::logTrace("STARTUP: $sName - Service error added to global error: $serviceError");
                 }
                 else {
-                    $this->writeLog( $name . ' service installed in ' . round( Util::getMicrotime() - $startServiceTime, 3 ) . 's' );
+                    $elapsedTime = round( Util::getMicrotime() - $startServiceTime, 3 );
+                    Util::logTrace("STARTUP: $sName - Service processing completed in $elapsedTime seconds");
                 }
             }
+            
+            Util::logTrace("STARTUP: All services processed. Restart flag: " . ($this->restart ? "Yes" : "No"));
         }
         else {
+            Util::logTrace("STARTUP: Restart flag was set, skipping service installation");
             $this->splash->incrProgressBar( self::GAUGE_SERVICES * count( $bearsamppBins->getServices() ) );
         }
+        
+        Util::logTrace("STARTUP: installServices method completed");
     }
 
     /**
