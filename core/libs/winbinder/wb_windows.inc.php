@@ -14,18 +14,24 @@
 
 /**
  * Creates a window control, menu, toolbar, status bar or accelerator.
- * @param $parent
- * @param $class
- * @param $caption
- * @param $xpos
- * @param $ypos
- * @param $width
- * @param $height
- * @param $id
- * @param $style
- * @param $lparam
- * @param $ntab
- * @return int
+ * 
+ * This function serves as a wrapper around various WinBinder creation functions,
+ * providing a unified interface for creating different types of UI elements.
+ * It handles special cases for different control types and applies appropriate
+ * initialization based on the control class.
+ *
+ * @param int $parent The handle of the parent window or control
+ * @param int|string $class The class constant or name of the control to create
+ * @param string|array $caption The caption text or array of items for the control
+ * @param int $xpos The x-coordinate of the control
+ * @param int $ypos The y-coordinate of the control
+ * @param int $width The width of the control
+ * @param int $height The height of the control
+ * @param int|null $id The identifier of the control (null for auto-assignment)
+ * @param int $style The style flags for the control
+ * @param mixed|null $lparam Additional parameter for the control (varies by control type)
+ * @param int $ntab The tab number where the control should appear (for TabControl)
+ * @return int The handle of the created control or 0 on failure
  */
 function _create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0, $width = 0, $height = 0, $id = null, $style = 0, $lparam = null, $ntab = 0)
 {
@@ -72,11 +78,17 @@ function _create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0, $
 }
 
 /**
- * Sets the value of a control or control item
- * @param $ctrl
- * @param $value
- * @param $item
- * @return int|void|null
+ * Sets the value of a control or control item.
+ * 
+ * This function handles different control types appropriately when setting values.
+ * For ListView controls, it can check multiple items based on their indices.
+ * For TreeView controls, it sets the value of a specific item.
+ * For other controls, it uses the standard wb_set_value function.
+ *
+ * @param int $ctrl The handle of the control
+ * @param mixed $value The value to set. For ListView, can be an array of indices to check
+ * @param mixed|null $item For TreeView, the item identifier; for other controls, passed to wb_set_value
+ * @return int|null The result of the operation or null if the control handle is invalid
  */
 function _set_value($ctrl, $value, $item = null)
 {
@@ -117,10 +129,17 @@ function _set_value($ctrl, $value, $item = null)
 
 /**
  * Gets the text from a control, a control item, or a control sub-item.
- * @param $ctrl
- * @param $item
- * @param $subitem
- * @return array|int|mixed|null
+ * 
+ * This function provides a unified interface for retrieving text from different
+ * control types, handling the specific requirements of each control type.
+ * For ListView controls, it can retrieve text from specific items/subitems or the entire table.
+ * For TreeView controls, it retrieves text from specific items or the selected item.
+ * For ComboBox and ListBox controls, it handles item selection appropriately.
+ *
+ * @param int $ctrl The handle of the control
+ * @param mixed|null $item The item identifier or index (null for selected item or all items)
+ * @param int|null $subitem For ListView, the subitem index
+ * @return string|array|null The text from the control, item, or subitem; null if control handle is invalid
  */
 function _get_text($ctrl, $item = null, $subitem = null)
 {
@@ -187,16 +206,20 @@ function _get_text($ctrl, $item = null, $subitem = null)
 }
 
 /**
- * Sets the text of a control.
- * In a ListView, it creates columns: each element of the array text is a column.
- * In a tab control, it renames the tabs.
- * Sets the text of a control item.
+ * Sets the text of a control or control items.
+ * 
+ * This function provides a unified interface for setting text in different control types:
+ * - For ListView: Creates columns or sets cell text
+ * - For ListBox: Sets items or selects an item
+ * - For ComboBox: Sets items or selects/sets an item
+ * - For TreeView: Sets item text or creates items
+ * - For other controls: Uses the standard wb_set_text function
  *
- * @param $ctrl
- * @param $text
- * @param $item
- * @param $subitem
- * @return array|bool|int|mixed|void|null
+ * @param int $ctrl The handle of the control
+ * @param mixed $text The text to set (string, array of strings, or array of arrays for ListView columns)
+ * @param mixed|null $item For ListView/TreeView, the item identifier; for other controls, passed to wb_set_text
+ * @param int|null $subitem For ListView, the subitem index
+ * @return mixed The result of the operation or null if the control handle is invalid
  */
 function _set_text($ctrl, $text, $item = null, $subitem = null)
 {
@@ -319,11 +342,17 @@ function _set_text($ctrl, $text, $item = null, $subitem = null)
 }
 
 /**
- * Selects one or more items. Compare with _set_value() which checks items instead.
- * @param $ctrl
- * @param $selitems
- * @param $selected
- * @return bool|int
+ * Selects one or more items in a control.
+ * 
+ * This function provides a unified interface for selecting items in different control types.
+ * Unlike _set_value() which checks items, this function selects them.
+ * For ListView controls, it can select multiple items.
+ * For Menu controls, it checks/unchecks menu items.
+ *
+ * @param int $ctrl The handle of the control
+ * @param mixed $selitems The item(s) to select (integer index, array of indices, or null to deselect all)
+ * @param bool $selected Whether to select (TRUE) or deselect (FALSE) the items
+ * @return bool TRUE if successful, FALSE otherwise
  */
 function _set_selected($ctrl, $selitems = 0, $selected = TRUE)
 {
@@ -368,11 +397,18 @@ function _set_selected($ctrl, $selitems = 0, $selected = TRUE)
 
 /**
  * Creates one or more items in a control.
- * @param $ctrl
- * @param $items
- * @param $clear
- * @param $param
- * @return array|int|mixed|true|void
+ * 
+ * This function provides a unified interface for creating items in different control types:
+ * - For ListView: Creates rows and cells
+ * - For TreeView: Creates tree nodes
+ * - For StatusBar: Creates status bar sections
+ * - For other controls: Creates individual items
+ *
+ * @param int $ctrl The handle of the control
+ * @param mixed $items The item(s) to create (string, array of strings, or array of arrays)
+ * @param bool $clear Whether to clear existing items before creating new ones
+ * @param callable|null $param For ListView, a callback function to format cell text
+ * @return mixed The handle of the created item(s), TRUE on success, or void
  */
 function _create_items($ctrl, $items, $clear = false, $param = null)
 {
@@ -455,13 +491,17 @@ function _create_items($ctrl, $items, $clear = false, $param = null)
 
 /**
  * Opens the standard Open dialog box.
- * @param $parent
- * @param $title
- * @param $filter
- * @param $path
- * @param $filename
- * @param $flags
- * @return mixed
+ * 
+ * This function is a wrapper around wb_sys_dlg_open that provides additional
+ * convenience features, such as automatic filter creation.
+ *
+ * @param int|null $parent The handle of the parent window or null
+ * @param string|null $title The dialog title or null for default
+ * @param mixed|null $filter The file filter (string or array) or null for default
+ * @param string|null $path The initial directory path or null for current directory
+ * @param string|null $filename The default filename or null
+ * @param int|null $flags Dialog flags or null for default
+ * @return mixed The selected filename(s) or false if canceled
  */
 function _sys_dlg_open($parent = null, $title = null, $filter = null, $path = null, $filename = null, $flags = null)
 {
@@ -471,14 +511,17 @@ function _sys_dlg_open($parent = null, $title = null, $filter = null, $path = nu
 
 /**
  * Opens the standard Save As dialog box.
+ * 
+ * This function is a wrapper around wb_sys_dlg_save that provides additional
+ * convenience features, such as automatic filter creation.
  *
- * @param $parent
- * @param $title
- * @param $filter
- * @param $path
- * @param $filename
- * @param $defext
- * @return mixed
+ * @param int|null $parent The handle of the parent window or null
+ * @param string|null $title The dialog title or null for default
+ * @param mixed|null $filter The file filter (string or array) or null for default
+ * @param string|null $path The initial directory path or null for current directory
+ * @param string|null $filename The default filename or null
+ * @param string|null $defext The default file extension or null
+ * @return mixed The selected filename or false if canceled
  */
 function _sys_dlg_save($parent = null, $title = null, $filter = null, $path = null, $filename = null, $defext = null)
 {
@@ -491,8 +534,16 @@ function _sys_dlg_save($parent = null, $title = null, $filter = null, $path = nu
 
 /**
  * Creates a file filter for Open/Save dialog boxes based on an array.
- * @param $filter
- * @return mixed|string
+ * 
+ * This function converts a filter specification (either a string or an array)
+ * into the format required by Windows file dialog functions.
+ * 
+ * When using an array, each element should be an array with two elements:
+ * - The first element is the description (e.g., "Text Files")
+ * - The second element is the filter pattern (e.g., "*.txt")
+ *
+ * @param mixed $filter The filter specification (string or array)
+ * @return string The formatted filter string with null terminators
  */
 function _make_file_filter($filter)
 {

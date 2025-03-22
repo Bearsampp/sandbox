@@ -13,10 +13,31 @@
 
 //-------------------------------------------------------------------- FUNCTIONS
 
-/* Returns an array with all files of subdirectory $path. If $subdirs is TRUE,
-  includes subdirectories recursively. $mask is a PCRE regular expression.
-*/
-
+/**
+ * Retrieves all files in a directory and optionally its subdirectories.
+ * 
+ * This function scans a specified directory and returns an array of file paths.
+ * It can include files from subdirectories recursively and apply a regular expression
+ * filter to include only matching files.
+ *
+ * @param string $path The directory path to scan.
+ * @param bool $subdirs Whether to include files from subdirectories (default: false).
+ * @param bool $fullname Whether to return full paths or just filenames (default: true).
+ * @param string $mask A PCRE regular expression to filter filenames (default: "").
+ * @param bool $forcelowercase Whether to convert filenames to lowercase (default: true).
+ * 
+ * @return array An array of file paths matching the criteria.
+ * 
+ * @example
+ * // Get all files in current directory
+ * $files = get_folder_files('.'); 
+ * 
+ * // Get all files in subdirectories
+ * $files = get_folder_files('.', true); 
+ * 
+ * // Get files with .php extension
+ * $files = get_folder_files('.', false, true, '/\.php$/');
+ */
 function get_folder_files($path, $subdirs=false, $fullname=true, $mask="", $forcelowercase=TRUE)
 {
 	// Correct path name, if needed
@@ -51,9 +72,32 @@ function get_folder_files($path, $subdirs=false, $fullname=true, $mask="", $forc
 
 //-------------------------------------------------------------------- INI FILES
 
-/* Transforms the array $data in a text that can be saved as an INI file.
-  Escapes double-quotes as (\") */
-
+/**
+ * Converts an array into a formatted INI file string.
+ * 
+ * This function takes an associative array and converts it into a string
+ * formatted as an INI file. It handles escaping of special characters
+ * and can include a comment header.
+ *
+ * @param array $data The associative array to convert.
+ * @param string $comments Optional header comments for the INI file (default: "").
+ * 
+ * @return string|null The INI-formatted string, or null if input is not an array.
+ * 
+ * @example
+ * // Example usage
+ * $data = array(
+ *     'section1' => array(
+ *         'key1' => 'value1',
+ *         'key2' => 123,
+ *     ),
+ *     'section2' => array(
+ *         'key3' => 'value with spaces',
+ *     ),
+ * );
+ * 
+ * $iniContent = generate_ini($data, '# Custom INI file');
+ */
 function generate_ini($data, $comments="")
 {
 	if(!is_array($data)) {
@@ -83,13 +127,37 @@ function generate_ini($data, $comments="")
 	return $text;
 }
 
-/*
-
-Replaces function parse_ini_file() so INI files may be processed more similarly to Windows.
-Replaces escaped double-quotes (\") with double-quotes ("). See manual for details.
-
-*/
-
+/**
+ * Parses an INI formatted string into an associative array.
+ * 
+ * This function reads an INI-formatted string and converts it into an
+ * associative array. It handles escaped double quotes and can optionally
+ * convert certain keywords to their boolean or null equivalents.
+ * Replaces function parse_ini_file() so INI files may be processed more similarly to Windows.
+ * Replaces escaped double-quotes (\") with double-quotes (").
+ *
+ * @param string $initext The INI-formatted string to parse.
+ * @param bool $changecase Whether to convert section names to title case and keys to lowercase (default: true).
+ * @param bool $convertwords Whether to convert special keywords to their respective values (default: true).
+ * 
+ * @return array The parsed data as an associative array.
+ * 
+ * @example
+ * // Example usage
+ * $iniContent = <<<INI
+ * [Section1]
+ * key1 = value1
+ * key2 = 123
+ * key3 = true
+ * key4 = null
+ * 
+ * [Section2]
+ * key5 = "quoted value"
+ * key6 = "value with \" escaped quote"
+ * INI;
+ * 
+ * $parsedData = parse_ini($iniContent);
+ */
 function parse_ini($initext, $changecase=TRUE, $convertwords=TRUE)
 {
 	$ini = preg_split("/\r\n|\n/", $initext);
@@ -171,5 +239,3 @@ function parse_ini($initext, $changecase=TRUE, $convertwords=TRUE)
 }
 
 //------------------------------------------------------------------ END OF FILE
-
-?>

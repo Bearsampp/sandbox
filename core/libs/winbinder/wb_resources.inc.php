@@ -11,16 +11,27 @@
  *******************************************************************************/
 // TODO: These functions will be replaced by the visual layout editor
 
-/*
-
-  Returns the WinBinder code that results from the resource text $rc, usually
-   read from a RC (Windows resource) file.
-
-TODO: Extend support to several RC generators (currently supports WinAsm Studio only)
-NOTE: Caption is not used, it's taken from the resource instead. The parameter is kept
-      here just to be compatible with wb_create_window()
-*/
-
+/**
+ * Parses a Windows resource file and converts it to WinBinder code.
+ *
+ * This function takes a Windows resource (RC) file content and generates
+ * the equivalent WinBinder PHP code to create the same interface.
+ * Currently supports WinAsm Studio format.
+ *
+ * @param string $rc The content of the RC file to parse
+ * @param string $winvar The variable name to use for the window (default: '$mainwin')
+ * @param mixed $parent The parent window handle or 0 for no parent (default: 0)
+ * @param string $type The window class type (default: "AppWindow")
+ * @param string $caption The window caption (not used, taken from resource)
+ * @param int $x The x-coordinate of the window (default: WBC_CENTER)
+ * @param int $y The y-coordinate of the window (default: WBC_CENTER)
+ * @param int $width The width of the window (default: WBC_CENTER)
+ * @param int $height The height of the window (default: WBC_CENTER)
+ * @param int $style Additional window styles (default: 0)
+ * @param int $lparam Additional parameter for the window (default: 0)
+ * @param string $respath The path to resource files (default: PATH_RES)
+ * @return string The generated WinBinder PHP code
+ */
 function parse_rc(
     $rc,
     $winvar = '$mainwin',
@@ -101,6 +112,15 @@ function parse_rc(
 
 //----------------------------------------------------------- INTERNAL FUNCTIONS
 
+/**
+ * Internal callback function to scale dialog dimensions from RC file.
+ *
+ * This function processes dialog definitions from the RC file and converts them
+ * to WinBinder window creation code with appropriate scaling.
+ *
+ * @param array $c Matched elements from the regex pattern
+ * @return string Generated WinBinder code for window creation
+ */
 function _scale_dialog($c)
 {
     global $_winclass, $_usergeom, $_tabN;
@@ -184,6 +204,15 @@ function _scale_dialog($c)
     return $code;
 }
 
+/**
+ * Internal callback function to scale control dimensions from RC file.
+ *
+ * This function processes control definitions from the RC file and converts them
+ * to WinBinder control creation code with appropriate scaling and style mapping.
+ *
+ * @param array $c Matched elements from the regex pattern
+ * @return string Generated WinBinder code for control creation
+ */
 function _scale_controls($c)
 {
     global $_tabN, $path_res;
@@ -443,11 +472,24 @@ function _scale_controls($c)
     return $str;
 }
 
+/**
+ * Removes quotes from a string.
+ *
+ * @param string $str The string to process
+ * @return string The string with quotes removed
+ */
 function _trim_quotes($str)
 {
     return str_replace('"', '', $str);
 }
 
+/**
+ * Tests if a specific bit is set in a value.
+ *
+ * @param int $v The value to test
+ * @param int $t The bit mask to test against
+ * @return bool True if the bit is set, false otherwise
+ */
 function _bit_test($v, $t)
 {
     return (($v & $t) == $t);
