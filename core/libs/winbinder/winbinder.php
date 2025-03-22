@@ -25,5 +25,3 @@ include_once $_mainpath . "wb_generic.inc.php";
 include_once $_mainpath . "wb_resources.inc.php";
 
 //------------------------------------------------------------------ END OF FILE
-
-?>
