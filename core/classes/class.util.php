@@ -1593,49 +1593,101 @@ class Util
 
     }
 
+
     /**
-     * Checks if a specific port on localhost is in use and returns the process using it
+     * Checks if a port is in use by attempting to connect to it.
+     * Enhanced version with better timeout handling and error recovery.
      *
-     * @param int $port The port number to check
-     * @return mixed Process info if found, true if port is occupied (process unknown), false if available
+     * @param   int  $port     The port to check
+     * @param   int  $timeout  Connection timeout in seconds (default: 1)
+     *
+     * @return mixed False if port is available, string with process name if known, or true if in use but process unknown
      */
-    public static function isPortInUse($port)
+    public static function isPortInUse($port, $timeout = 1)
     {
-        self::logTrace("isPortInUse: Starting check for port " . $port);
-        
+        self::logTrace('isPortInUse: Starting check for port ' . $port);
+
         if (!self::isValidPort($port)) {
-            self::logTrace("isPortInUse: Invalid port " . $port);
+            self::logTrace('isPortInUse: Invalid port ' . $port);
+
             return false;
         }
-        
-        self::logTrace("isPortInUse: Port " . $port . " is valid, attempting connection");
-        
+
+        self::logTrace('isPortInUse: Port ' . $port . ' is valid, attempting connection');
+
         // Set error handler temporarily to prevent logging
         $previousErrorReporting = error_reporting(0);
-        $connection = @fsockopen('127.0.0.1', $port, $errno, $errstr, 1);
-        error_reporting($previousErrorReporting);
-        
-        if (is_resource($connection)) {
-            self::logTrace("isPortInUse: Connection successful to port " . $port . ", port is in use");
-            fclose($connection);
-            // Get process details if available
-            self::logTrace("isPortInUse: Attempting to get process using port " . $port);
-            $process = Batch::getProcessUsingPort($port);
-            self::logTrace("isPortInUse: Process using port " . $port . ": " . ($process ?: "Unknown"));
-            return $process ?: true;
+
+        // Set a custom timeout handler to prevent hanging
+        $previousHandler = set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$connectionError) {
+            $connectionError = $errstr;
+
+            return true;
+        });
+
+        // Set a timeout alarm as a backup
+        if (function_exists('pcntl_alarm') && function_exists('pcntl_signal')) {
+            pcntl_signal(SIGALRM, function () use (&$timedOut) {
+                $timedOut = true;
+            });
+            pcntl_alarm($timeout + 1);
         }
-        
-        self::logTrace("isPortInUse: Connection failed to port " . $port . ", errno: " . $errno . ", errstr: " . $errstr);
-        
+
+        $timedOut        = false;
+        $connectionError = null;
+        $startTime       = microtime(true);
+        $connection      = @fsockopen('127.0.0.1', $port, $errno, $errstr, $timeout);
+        $elapsedTime     = microtime(true) - $startTime;
+
+        // Reset the alarm
+        if (function_exists('pcntl_alarm')) {
+            pcntl_alarm(0);
+        }
+
+        // Restore previous error handler
+        restore_error_handler();
+        error_reporting($previousErrorReporting);
+
+        self::logTrace('isPortInUse: Connection attempt took ' . round($elapsedTime, 3) . 's');
+
+        if ($timedOut) {
+            self::logTrace('isPortInUse: Connection timed out for port ' . $port);
+
+            return 'Connection timed out';
+        }
+
+        if (is_resource($connection)) {
+            self::logTrace('isPortInUse: Connection successful to port ' . $port . ', port is in use');
+            fclose($connection);
+
+            // Get process details if available, but don't let it hang
+            self::logTrace('isPortInUse: Attempting to get process using port ' . $port);
+            try {
+                $process = Batch::getProcessUsingPort($port);
+                self::logTrace('isPortInUse: Process using port ' . $port . ': ' . ($process ?: 'Unknown'));
+
+                return $process ?: true;
+            } catch (Exception $e) {
+                self::logTrace('isPortInUse: Error getting process: ' . $e->getMessage());
+
+                return true;
+            }
+        }
+
+        self::logTrace('isPortInUse: Connection failed to port ' . $port . ', errno: ' . $errno . ', errstr: ' . $errstr);
+
         // Handle edge cases where port might be blocked
         if ($errno === 0 || $errno === 13) {
-            self::logTrace("isPortInUse: Port " . $port . " appears to be blocked (errno: " . $errno . ")");
+            self::logTrace('isPortInUse: Port ' . $port . ' appears to be blocked (errno: ' . $errno . ')');
+
             return true;
         }
-        
-        self::logTrace("isPortInUse: Port " . $port . " is available");
+
+        self::logTrace('isPortInUse: Port ' . $port . ' is available');
+
         return false;
     }
+
 
     /**
      * Validates a domain name based on specific criteria.
@@ -1680,7 +1732,7 @@ class Util
         $service  = $bin->getService();
         $boxTitle = sprintf( $bearsamppLang->getValue( Lang::INSTALL_SERVICE_TITLE ), $name );
 
-        $isPortInUse = self::isPortInUse( $port );
+        $isPortInUse = self::isPortInUse( $port, 2 );
         if ( $isPortInUse === false ) {
             if ( !$service->isInstalled() ) {
                 $service->create();

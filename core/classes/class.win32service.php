@@ -653,7 +653,6 @@ public function infos()
     try {
         // Special handling for Apache
         if ($this->getName() == BinApache::SERVICE_NAME) {
-            Util::logTrace('APACHE SERVICE INFOS: Getting info for Apache service');
             Util::logTrace('APACHE SERVICE INFOS: Current status: ' . $this->status(false));
         }
         
@@ -705,7 +704,6 @@ public function infos()
         return $result;
     } catch (Exception $e) {
         $totalElapsed = round(Util::getMicrotime() - $startTime, 3);
-        Util::logError("Exception during service info check: " . $e->getMessage());
         Util::logTrace("INFOS ERROR: Exception after " . $totalElapsed . "s: " . $e->getMessage());
         return false;
     }

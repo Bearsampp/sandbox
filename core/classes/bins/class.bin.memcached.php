@@ -237,58 +237,162 @@ class BinMemcached extends Module
     }
 
     /**
-     * Checks if the specified port is in use by the Memcached service.
+     * Checks if the Memcached port is in use by the Memcached service.
+     * Enhanced version with better error handling.
      *
-     * @param int $port The port number to check.
-     * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the port is in use by Memcached, false otherwise.
+     * @param   int     $port        The port to check
+     * @param   bool    $showWindow  Whether to show a message box
+     * @param   string  $boxTitle    The title of the message box
+     *
+     * @return bool True if the port is in use by Memcached, false otherwise
      */
-    public function checkPort($port, $showWindow = false) {
+    public function checkPort($port, $showWindow = false, $boxTitle = null)
+    {
         global $bearsamppLang, $bearsamppWinbinder;
-        $boxTitle = sprintf($bearsamppLang->getValue(Lang::CHECK_PORT_TITLE), $this->getName(), $port);
+
+        Util::logTrace('MEMCACHED: Checking port ' . $port);
+
+        if (empty($boxTitle)) {
+            $boxTitle = sprintf($bearsamppLang->getValue(Lang::CHECK_PORT_TITLE), $this->getName() . ' ' . $this->getVersion());
+        }
 
         if (!Util::isValidPort($port)) {
-            Util::logError($this->getName() . ' port not valid: ' . $port);
+            Util::logTrace('MEMCACHED: Invalid port ' . $port);
+            if ($showWindow) {
+                $bearsamppWinbinder->messageBoxError(
+                    sprintf($bearsamppLang->getValue(Lang::INVALID_PORT), $port),
+                    $boxTitle
+                );
+            }
+
             return false;
         }
 
-        if (function_exists('memcache_connect')) {
-            $memcache = @memcache_connect('127.0.0.1', $port);
-            if ($memcache) {
-                $memcacheVersion = memcache_get_version($memcache);
-                Util::logDebug($this->getName() . ' port ' . $port . ' is used by: ' . $this->getName() . ' ' . $memcacheVersion);
-                memcache_close($memcache);
-                if ($showWindow) {
-                    $bearsamppWinbinder->messageBoxInfo(
-                        sprintf($bearsamppLang->getValue(Lang::PORT_USED_BY), $port, $this->getName() . ' ' . $memcacheVersion),
-                        $boxTitle
-                    );
-                }
-                return true;
-            }
-        } else {
-            $fp = @fsockopen('127.0.0.1', $port, $errno, $errstr, 3);
-            if (!$fp) {
-                Util::logDebug($this->getName() . ' port ' . $port . ' is used by another application');
-                if ($showWindow) {
+        // First check if the service is running
+        if ($this->getService()->isRunning()) {
+            Util::logTrace('MEMCACHED: Service is running, checking if port ' . $port . ' is in use');
+
+            // Try to connect to the port with a short timeout
+            $isInUse = Util::isPortInUse($port, 2);
+
+            if ($isInUse !== false) {
+                Util::logTrace('MEMCACHED: Port ' . $port . ' is in use');
+
+                // Check if it's actually Memcached using the port
+                $processName = is_string($isInUse) ? $isInUse : 'unknown process';
+                $isMemcached = (stripos($processName, 'memcached') !== false);
+
+                Util::logTrace(
+                    'MEMCACHED: Port ' . $port . ' is used by: ' . $processName .
+                    ' (is Memcached: ' . ($isMemcached ? 'yes' : 'no') . ')'
+                );
+
+                if ($showWindow && !$isMemcached) {
                     $bearsamppWinbinder->messageBoxWarning(
-                        sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port),
+                        sprintf($bearsamppLang->getValue(Lang::PORT_USED_BY), $port, $processName),
                         $boxTitle
                     );
                 }
+
+                return $isMemcached;
             } else {
-                Util::logDebug($this->getName() . ' port ' . $port . ' is not used');
+                Util::logTrace('MEMCACHED: Port ' . $port . ' is not in use despite service running');
                 if ($showWindow) {
                     $bearsamppWinbinder->messageBoxError(
                         sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED), $port),
                         $boxTitle
                     );
                 }
-                fclose($fp);
+
+                return false;
+            }
+        } else {
+            Util::logTrace('MEMCACHED: Service is not running, checking if port ' . $port . ' is available');
+
+            $isInUse = Util::isPortInUse($port, 1);
+
+            if ($isInUse !== false) {
+                Util::logTrace('MEMCACHED: Port ' . $port . ' is used by another application');
+                if ($showWindow) {
+                    $bearsamppWinbinder->messageBoxWarning(
+                        sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port),
+                        $boxTitle
+                    );
+                }
+
+                return false;
+            } else {
+                Util::logTrace('MEMCACHED: Port ' . $port . ' is available');
+
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Safely stops the Memcached service and ensures all processes are terminated.
+     *
+     * @return bool True if successful, false otherwise
+     */
+    public function safeStop()
+    {
+        Util::logTrace('MEMCACHED: Attempting to safely stop service');
+
+        // First try normal service stop
+        $stopResult = $this->getService()->stop();
+        Util::logTrace('MEMCACHED: Service stop result: ' . ($stopResult ? 'Success' : 'Failed'));
+
+        // Check if processes are still running
+        $this->killRemainingProcesses();
+
+        // Verify all processes are gone
+        $checkCmd = 'tasklist /FI "IMAGENAME eq memcached.exe" /FO CSV';
+        $result   = Batch::exec('checkMemcachedProcess', $checkCmd, 3);
+
+        if ($result && count($result) > 1) {
+            Util::logTrace('MEMCACHED: Processes still running after stop attempt');
+
+            return false;
+        }
+
+        Util::logTrace('MEMCACHED: Service stopped successfully');
+
+        return true;
+    }
+
+    /**
+     * Kills any remaining Memcached processes.
+     */
+    private function killRemainingProcesses()
+    {
+        Util::logTrace('MEMCACHED: Killing remaining processes');
+
+        // Try multiple approaches to ensure all processes are killed
+
+        // 1. Kill by process name
+        $command = 'taskkill /F /IM memcached.exe /T 2>nul';
+        Batch::execStandalone('killMemcachedProc', $command, true, 5);
+
+        // 2. Kill by service name
+        $command = 'taskkill /F /FI "SERVICES eq bearsamppmemcached" /T 2>nul';
+        Batch::execStandalone('killMemcachedProcByService', $command, true, 5);
+
+        // 3. Find and kill by PID
+        $command = 'wmic process where "name=\'memcached.exe\'" get processid /format:csv';
+        $result  = Batch::exec('findMemcachedPids', $command, 3);
+
+        if ($result && count($result) > 1) {
+            foreach ($result as $line) {
+                if (preg_match('/,(\d+)$/', $line, $matches)) {
+                    $pid = $matches[1];
+                    Util::logTrace('MEMCACHED: Killing process with PID ' . $pid);
+                    Batch::execStandalone('killMemcachedPid', 'taskkill /F /PID ' . $pid, true, 3);
+                }
             }
         }
 
-        return false;
+        // Wait a moment for processes to terminate
+        sleep(1);
     }
 
     /**
