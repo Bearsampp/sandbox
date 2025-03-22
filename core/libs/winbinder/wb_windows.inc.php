@@ -10,6 +10,7 @@
  * Refactor the below functions that begin with _ into your own Winbinder library
  * Temp functions no longer exist.
  *******************************************************************************/
+
 //------------------------------------------------------------- WINDOW FUNCTIONS
 
 /**
@@ -27,7 +28,7 @@
  * @param $ntab
  * @return int
  */
-function _create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0, $width = 0, $height = 0, $id = null, $style = 0, $lparam = null, $ntab = 0)
+function wb_create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0, $width = 0, $height = 0, $id = null, $style = 0, $lparam = null, $ntab = 0)
 {
     switch ($class) {
 
@@ -78,7 +79,7 @@ function _create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0, $
  * @param $item
  * @return int|void|null
  */
-function _set_value($ctrl, $value, $item = null)
+function wb_set_value($ctrl, $value, $item = null)
 {
     if (!$ctrl)
         return null;
@@ -122,7 +123,7 @@ function _set_value($ctrl, $value, $item = null)
  * @param $subitem
  * @return array|int|mixed|null
  */
-function _get_text($ctrl, $item = null, $subitem = null)
+function wb_get_text($ctrl, $item = null, $subitem = null)
 {
     if (!$ctrl)
         return null;
@@ -198,7 +199,7 @@ function _get_text($ctrl, $item = null, $subitem = null)
  * @param $subitem
  * @return array|bool|int|mixed|void|null
  */
-function _set_text($ctrl, $text, $item = null, $subitem = null)
+function wb_set_text($ctrl, $text, $item = null, $subitem = null)
 {
     if (!$ctrl)
         return null;
@@ -325,7 +326,7 @@ function _set_text($ctrl, $text, $item = null, $subitem = null)
  * @param $selected
  * @return bool|int
  */
-function _set_selected($ctrl, $selitems = 0, $selected = TRUE)
+function wb_set_selected($ctrl, $selitems = 0, $selected = TRUE)
 {
     switch (wb_get_class($ctrl)) {
 
@@ -374,7 +375,7 @@ function _set_selected($ctrl, $selitems = 0, $selected = TRUE)
  * @param $param
  * @return array|int|mixed|true|void
  */
-function _create_items($ctrl, $items, $clear = false, $param = null)
+function wb_create_items($ctrl, $items, $clear = false, $param = null)
 {
     switch (wb_get_class($ctrl)) {
 
@@ -463,7 +464,7 @@ function _create_items($ctrl, $items, $clear = false, $param = null)
  * @param $flags
  * @return mixed
  */
-function _sys_dlg_open($parent = null, $title = null, $filter = null, $path = null, $filename = null, $flags = null)
+function wb_sys_dlg_open($parent = null, $title = null, $filter = null, $path = null, $filename = null, $flags = null)
 {
     $filter = _make_file_filter($filter ? $filter : $filename);
     return wb_sys_dlg_open($parent, $title, $filter, $path, $flags);
@@ -480,7 +481,7 @@ function _sys_dlg_open($parent = null, $title = null, $filter = null, $path = nu
  * @param $defext
  * @return mixed
  */
-function _sys_dlg_save($parent = null, $title = null, $filter = null, $path = null, $filename = null, $defext = null)
+function wb_sys_dlg_save($parent = null, $title = null, $filter = null, $path = null, $filename = null, $defext = null)
 {
     $filter = _make_file_filter($filter ? $filter : $filename);
 
