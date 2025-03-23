@@ -25,16 +25,15 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
-    // TODO why does it say we have undelcared constants
     // Constants for message box types
-    const BOX_INFO = WBC_INFO;
-    const BOX_OK = WBC_OK;
-    const BOX_OKCANCEL = WBC_OKCANCEL;
-    const BOX_QUESTION = WBC_QUESTION;
-    const BOX_ERROR = WBC_STOP;
-    const BOX_WARNING = WBC_WARNING;
-    const BOX_YESNO = WBC_YESNO;
-    const BOX_YESNOCANCEL = WBC_YESNOCANCEL;
+    const BOX_INFO = 64;          // Information message
+    const BOX_OK = 0;            // OK button only
+    const BOX_OKCANCEL = 1;      // OK and Cancel buttons
+    const BOX_QUESTION = 32;      // Question mark icon
+    const BOX_ERROR = 16;         // Error icon (Stop sign)
+    const BOX_WARNING = 48;       // Warning icon (Exclamation)
+    const BOX_YESNO = 4;         // Yes and No buttons
+    const BOX_YESNOCANCEL = 3;   // Yes, No and Cancel buttons
 
     // Constants for cursor types
     const CURSOR_ARROW = 'arrow';
