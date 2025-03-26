@@ -73,7 +73,7 @@ class WinBinder
     const Gauge = 'gauge';
 
     // Window areas
-    const WBC_TITLE = 'title';
+    const WBC_TITLE = 0x0001;
 
     // Control styles
     const WBC_GROUP = 'group';
