@@ -59,6 +59,10 @@ class WinBinder
     // Window types
     const AppWindow = 'appwindow';
     const NakedWindow = 'nakedwindow';
+    const ResizableWindow = 'resizablewindow';
+    const ModalDialog = 'modaldialog';
+    const ModelessDialog = 'modelessdialog';
+    const ToolDialog = 'tooldialog';
 
     // Alignment constants
     const WBC_CENTER = 0x0002;
