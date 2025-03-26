@@ -9,11 +9,12 @@ If num = 0 Then
 End If
 
 If num > 1 Then
-    sargs = " "
+    Dim argArray()
+    ReDim argArray(num - 2)
     For k = 1 To num - 1
-        anArg = args.Item(k)
-        sargs = sargs & anArg & " "
+        argArray(k - 1) = args.Item(k)
     Next
+    sargs = " " & Join(argArray, " ") & " "
 End If
 
 Return = objShell.Run("""" & args(0) & """" & sargs, 0, True)
