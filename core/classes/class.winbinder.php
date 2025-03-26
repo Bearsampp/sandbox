@@ -61,7 +61,7 @@ class WinBinder
     const NakedWindow = 'nakedwindow';
 
     // Alignment constants
-    const WBC_CENTER = 0;
+    const WBC_CENTER = 0x0002;
 
     // Control types
     const Label = 'label';
