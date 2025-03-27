@@ -345,24 +345,6 @@ class WinBinder
         }
     }
 
-    /**
-     * Writes a log message to the WinBinder log file.
-     *
-     * @param   string  $log  The log message to write.
-     */
-    private static function writeLog($log)
-    {
-        global $bearsamppRoot;
-
-        // Ensure we have a valid log path
-        $logPath = $bearsamppRoot->getWinbinderLogFilePath();
-        if (empty($logPath)) {
-            // Fallback to system temp directory if root path not available
-            $logPath = sys_get_temp_dir() . '/bearsampp_winbinder.log';
-        }
-
-        Util::logDebug($log, $logPath);
-    }
 
     /**
      * Resets the control counter and callback array.
@@ -384,15 +366,28 @@ class WinBinder
      */
     private function callWinBinder($function, $params = array(), $removeErrorHandler = false)
     {
-        // Enhanced PHP 8.x type checking
-        foreach ($params as &$param) {
-            if ($param === null && in_array($function, [
-                'wb_create_window',
-                'wb_create_control',
-                'wb_set_handler'
-            ])) {
-                $param = 0;
-                $this->writeLog("callWinBinder: Converted null parameter to 0 for $function");
+        // Map of functions that require null-to-0 conversion with parameter indices
+        $nullConvertFunctions = [
+            'wb_create_window' => [0, 7],    // Parent and style params
+            'wb_create_control' => [0, 8],   // Parent and style params
+            'wb_set_handler' => [0],         // Window handle
+            'wb_set_value' => [0],           // Control handle
+            'wb_set_image' => [0],           // Control handle
+            'wb_set_text' => [0],            // Control handle
+            'wb_set_focus' => [0],           // Control handle
+            'wb_set_enabled' => [0],         // Control handle
+            'wb_set_style' => [0],           // Control handle
+            'wb_set_range' => [0],           // Control handle
+            'wb_set_area' => [0]             // Control handle
+        ];
+
+        // Convert null parameters to 0 for specific function parameters
+        foreach ($params as $index => &$param) {
+            if ($param === null && isset($nullConvertFunctions[$function])) {
+                if (in_array($index, $nullConvertFunctions[$function])) {
+                    $param = 0;
+                    $this->writeLog("callWinBinder: Converted null parameter at index $index to 0 for $function");
+                }
             }
         }
 
@@ -401,6 +396,13 @@ class WinBinder
             $this->writeLog("Critical: WinBinder function $function missing");
             return false;
         }
+
+        // Enhanced error context capture
+        $errorContext = [
+            'function' => $function,
+            'params' => $params,
+            'backtrace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3)
+        ];
 
         // Call the function with appropriate error handling
         try {
@@ -412,14 +414,62 @@ class WinBinder
 
             // Log failures for debugging
             if ($result === false && !in_array($function, ['wb_destroy_window', 'wb_wait'])) {
-                $this->writeLog("Warning: $function call failed with parameters: " . json_encode($params));
+                $this->logFailedCall($function, $params, $errorContext);
             }
 
             return $result;
         } catch (Throwable $e) {
-            $this->writeLog("Exception in $function: " . $e->getMessage());
+            $this->writeLog("Exception in $function: " . $e->getMessage() . "\nContext: " . json_encode($errorContext));
             return false;
         }
+    }
+
+    /**
+     * Logs detailed information about a failed WinBinder function call.
+     *
+     * @param   string  $function      The name of the WinBinder function that failed.
+     * @param   array   $params        The parameters passed to the function.
+     * @param   array   $errorContext  Additional context information about the error.
+     *
+     * @return void
+     */
+    private function logFailedCall($function, $params, $errorContext)
+    {
+        // Error code mapping for common WinBinder errors
+        $errorMap = [
+            'wb_set_value' => [
+                0x500 => 'Invalid control handle',
+                0x501 => 'Value out of range',
+                0x502 => 'Invalid data type'
+            ],
+            'wb_create_window' => [
+                0x401 => 'Invalid parent window',
+                0x402 => 'Invalid window class',
+                0x403 => 'Window creation failed'
+            ],
+            'wb_create_control' => [
+                0x501 => 'Invalid parent window',
+                0x502 => 'Invalid control class',
+                0x503 => 'Control creation failed'
+            ]
+        ];
+
+        // Get the last error code if the wb_get_last_error function exists
+        $errorCode = function_exists('wb_get_last_error') ? wb_get_last_error() : 0;
+        $errorMsg = isset($errorMap[$function][$errorCode]) ? $errorMap[$function][$errorCode] : 'Unknown error';
+
+        $logMessage = sprintf(
+            "WinBinder call failed:\n" .
+            "Function: %s\nParams: %s\nError: 0x%04X - %s\nCaller: %s:%d",
+            $function,
+            json_encode($params),
+            $errorCode,
+            $errorMsg,
+            $errorContext['backtrace'][1]['file'] ?? 'unknown',
+            $errorContext['backtrace'][1]['line'] ?? 0
+        );
+
+        $this->writeLog($logMessage);
     }
 
     /**
@@ -809,6 +859,25 @@ class WinBinder
     }
 
     /**
+     * Writes a log message to the WinBinder log file.
+     *
+     * @param   string  $log  The log message to write.
+     */
+    private static function writeLog($log)
+    {
+        global $bearsamppRoot;
+
+        // Ensure we have a valid log path
+        $logPath = $bearsamppRoot->getWinbinderLogFilePath();
+        if (empty($logPath)) {
+            // Fallback to system temp directory if root path not available
+            $logPath = sys_get_temp_dir() . '/bearsampp_winbinder.log';
+        }
+
+        Util::logDebug($log, $logPath);
+    }
+
+    /**
      * Sets the maximum length for a WinBinder object.
      *
      * @param   mixed  $wbobject  The WinBinder object to set the maximum length for.
@@ -1178,10 +1247,21 @@ class WinBinder
     {
         global $bearsamppLang;
 
+        if ($parent === null || $parent === 0) {
+            $this->writeLog('Error: Invalid parent in createProgressBar');
+            return null;
+        }
+
         $width       = $width == null ? 200 : $width;
         $height      = $height == null ? 15 : $height;
         $progressBar = $this->createControl($parent, Gauge, $bearsamppLang->getValue(Lang::LOADING), $xPos, $yPos, $width, $height, $style, $params);
 
+        if (!isset($progressBar[self::CTRL_OBJ]) || !$progressBar[self::CTRL_OBJ]) {
+            $this->writeLog('Error: Failed to create progress bar control');
+            return null;
+        }
+
+        $this->writeLog("Created progress bar with handle: " . $progressBar[self::CTRL_OBJ]);
         $this->setRange($progressBar[self::CTRL_OBJ], 0, $max);
         $this->gauge[$progressBar[self::CTRL_OBJ]] = 0;
 
@@ -1195,6 +1275,10 @@ class WinBinder
      */
     public function incrProgressBar($progressBar)
     {
+        if ($progressBar == null || !isset($progressBar[self::CTRL_OBJ])) {
+            $this->writeLog('Invalid progressBar parameter in incrProgressBar');
+            return;
+        }
         $this->setProgressBarValue($progressBar, self::INCR_PROGRESS_BAR);
     }
 
@@ -1205,6 +1289,10 @@ class WinBinder
      */
     public function resetProgressBar($progressBar)
     {
+        if ($progressBar == null || !isset($progressBar[self::CTRL_OBJ])) {
+            $this->writeLog('Invalid progressBar parameter in resetProgressBar');
+            return;
+        }
         $this->setProgressBarValue($progressBar, 0);
     }
 
@@ -1216,14 +1304,39 @@ class WinBinder
      */
     public function setProgressBarValue($progressBar, $value)
     {
-        if ($progressBar != null && isset($progressBar[self::CTRL_OBJ]) && isset($this->gauge[$progressBar[self::CTRL_OBJ]])) {
+        if ($progressBar == null || !isset($progressBar[self::CTRL_OBJ])) {
+            $this->writeLog('Invalid progressBar parameter in setProgressBarValue');
+            return;
+        }
+
+        $ctrlObj = $progressBar[self::CTRL_OBJ];
+        
+        if (!isset($this->gauge[$ctrlObj])) {
+            $this->writeLog("Progress bar handle $ctrlObj not found in gauge array");
+            return;
+        }
+
+        try {
             if (strval($value) == self::INCR_PROGRESS_BAR) {
-                $value = $this->gauge[$progressBar[self::CTRL_OBJ]] + 1;
+                $value = $this->gauge[$ctrlObj] + 1;
+                $this->writeLog("Incrementing progress bar $ctrlObj to $value");
             }
+
             if (is_numeric($value)) {
-                $this->gauge[$progressBar[self::CTRL_OBJ]] = $value;
-                $this->setValue($progressBar[self::CTRL_OBJ], $value);
+                $this->writeLog("Setting progress bar $ctrlObj value to $value");
+                $this->gauge[$ctrlObj] = $value;
+                
+                // Add validation before setting value
+                if ($this->isValidControl($ctrlObj)) {
+                    $this->setValue($ctrlObj, $value);
+                } else {
+                    $this->writeLog("Invalid control handle $ctrlObj in setProgressBarValue");
+                    unset($this->gauge[$ctrlObj]);
+                }
             }
+        } catch (Throwable $e) {
+            $this->writeLog("Exception in setProgressBarValue: " . $e->getMessage());
+            unset($this->gauge[$ctrlObj]);
         }
     }
 
@@ -1235,7 +1348,41 @@ class WinBinder
      */
     public function setProgressBarMax($progressBar, $max)
     {
+        if ($progressBar == null || !isset($progressBar[self::CTRL_OBJ])) {
+            $this->writeLog('Invalid progressBar parameter in setProgressBarMax');
+            return;
+        }
+        
         $this->setRange($progressBar[self::CTRL_OBJ], 0, $max);
+    }
+    
+    /**
+     * Validates if a control handle is valid.
+     *
+     * @param   mixed  $ctrlObj  The control object to validate.
+     *
+     * @return bool True if the control is valid, false otherwise.
+     */
+    private function isValidControl($ctrlObj)
+    {
+        // Basic type validation
+        if (!is_resource($ctrlObj) && !is_int($ctrlObj) && !is_numeric($ctrlObj)) {
+            return false;
+        }
+        
+        // Additional validation using WinBinder API if available
+        if (function_exists('wb_get_value')) {
+            // Try to get a value from the control - if it fails, the control is invalid
+            try {
+                $result = @$this->callWinBinder('wb_get_value', array($ctrlObj), true);
+                return $result !== false;
+            } catch (Throwable $e) {
+                $this->writeLog("Control validation failed: " . $e->getMessage());
+                return false;
+            }
+        }
+        
+        return true; // Fallback if validation function not available
     }
 
     /**
