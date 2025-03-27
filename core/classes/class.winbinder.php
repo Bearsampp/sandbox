@@ -8,6 +8,187 @@
  *
  */
 
+// Define control class constants if not already defined
+if (!defined('Label')) {
+    define('Label', 'Label');
+}
+
+if (!defined('EditBox')) {
+    define('EditBox', 'EditBox');
+}
+
+if (!defined('RTFEditBox')) {
+    define('RTFEditBox', 'RTFEditBox');
+}
+
+if (!defined('HyperLink')) {
+    define('HyperLink', 'HyperLink');
+}
+
+if (!defined('RadioButton')) {
+    define('RadioButton', 'RadioButton');
+}
+
+if (!defined('PushButton')) {
+    define('PushButton', 'PushButton');
+}
+
+if (!defined('Gauge')) {
+    define('Gauge', 'Gauge');
+}
+
+// Define window type constants
+if (!defined('AppWindow')) {
+    define('AppWindow', 'AppWindow');
+}
+
+if (!defined('NakedWindow')) {
+    define('NakedWindow', 'NakedWindow');
+}
+
+if (!defined('ResizableWindow')) {
+    define('ResizableWindow', 'ResizableWindow');
+}
+
+if (!defined('ModalDialog')) {
+    define('ModalDialog', 'ModalDialog');
+}
+
+if (!defined('ModelessDialog')) {
+    define('ModelessDialog', 'ModelessDialog');
+}
+
+if (!defined('ToolDialog')) {
+    define('ToolDialog', 'ToolDialog');
+}
+
+if (!defined('WBC_CENTER')) {
+    define('WBC_CENTER', 0x0002);
+}
+
+if (!defined('WBC_TITLE')) {
+    define('WBC_TITLE', 0x0001);
+}
+
+if (!defined('WBC_GROUP')) {
+    define('WBC_GROUP', 0x0004);
+}
+
+// Window styles
+if (!defined('WBC_VISIBLE')) {
+    define('WBC_VISIBLE', 0x0010);
+}
+
+if (!defined('WBC_ENABLED')) {
+    define('WBC_ENABLED', 0x0020);
+}
+
+if (!defined('WBC_NOTIFY')) {
+    define('WBC_NOTIFY', 0x0040);
+}
+
+if (!defined('WBC_BORDER')) {
+    define('WBC_BORDER', 0x0080);
+}
+
+if (!defined('WBC_RESIZE')) {
+    define('WBC_RESIZE', 0x0100);
+}
+
+if (!defined('WBC_MINIMIZED')) {
+    define('WBC_MINIMIZED', 0x0200);
+}
+
+if (!defined('WBC_MAXIMIZED')) {
+    define('WBC_MAXIMIZED', 0x0400);
+}
+
+if (!defined('WBC_TASKBAR')) {
+    define('WBC_TASKBAR', 0x0800);
+}
+
+// Control styles
+if (!defined('WBC_LEFT')) {
+    define('WBC_LEFT', 0x1000);
+}
+
+if (!defined('WBC_RIGHT')) {
+    define('WBC_RIGHT', 0x2000);
+}
+
+if (!defined('WBC_TOP')) {
+    define('WBC_TOP', 0x4000);
+}
+
+if (!defined('WBC_BOTTOM')) {
+    define('WBC_BOTTOM', 0x8000);
+}
+
+if (!defined('WBC_MIDDLE')) {
+    define('WBC_MIDDLE', 0x10000);
+}
+
+if (!defined('WBC_READONLY')) {
+    define('WBC_READONLY', 0x20000);
+}
+
+if (!defined('WBC_MASKED')) {
+    define('WBC_MASKED', 0x40000);
+}
+
+if (!defined('WBC_MULTILINE')) {
+    define('WBC_MULTILINE', 0x80000);
+}
+
+if (!defined('WBC_LINES')) {
+    define('WBC_LINES', 0x100000);
+}
+
+if (!defined('WBC_DEFAULT')) {
+    define('WBC_DEFAULT', 0x200000);
+}
+
+if (!defined('WBC_AUTOREPEAT')) {
+    define('WBC_AUTOREPEAT', 0x400000);
+}
+
+if (!defined('WBC_SINGLE')) {
+    define('WBC_SINGLE', 0x800000);
+}
+
+if (!defined('WBC_SORT')) {
+    define('WBC_SORT', 0x1000000);
+}
+
+if (!defined('WBC_TRANSPARENT')) {
+    define('WBC_TRANSPARENT', 0x2000000);
+}
+
+if (!defined('WBC_IMAGE')) {
+    define('WBC_IMAGE', 0x4000000);
+}
+
+if (!defined('WBC_DISABLED')) {
+    define('WBC_DISABLED', 0x8000000);
+}
+
+if (!defined('WBC_ELLIPSIS')) {
+    define('WBC_ELLIPSIS', 0x10000000);
+}
+
+if (!defined('WBC_CUSTOMDRAW')) {
+    define('WBC_CUSTOMDRAW', 0x20000000);
+}
+
+// Positioning constants
+if (!defined('WBC_HEADERSEL')) {
+    define('WBC_HEADERSEL', 0x40000000);
+}
+
+if (!defined('WBC_REDRAW')) {
+    define('WBC_REDRAW', 0x80000000);
+}
+
 /**
  * Class WinBinder
  *
@@ -17,6 +198,11 @@
  */
 class WinBinder
 {
+    // Version compatibility constants
+    const PHP_MIN_VERSION = '8.0.0';
+    const PHP_MAX_VERSION = '8.4.99';
+    const REQUIRED_EXTENSIONS = ['mbstring', 'openssl', 'sockets'];
+
     // Constants for control IDs and objects
     const CTRL_ID = 0;
     const CTRL_OBJ = 1;
@@ -25,16 +211,15 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
-    // TODO why does it say we have undelcared constants
     // Constants for message box types
-    const BOX_INFO = WBC_INFO;
-    const BOX_OK = WBC_OK;
-    const BOX_OKCANCEL = WBC_OKCANCEL;
-    const BOX_QUESTION = WBC_QUESTION;
-    const BOX_ERROR = WBC_STOP;
-    const BOX_WARNING = WBC_WARNING;
-    const BOX_YESNO = WBC_YESNO;
-    const BOX_YESNOCANCEL = WBC_YESNOCANCEL;
+    const BOX_INFO = 64;          // Information message
+    const BOX_OK = 0;            // OK button only
+    const BOX_OKCANCEL = 1;      // OK and Cancel buttons
+    const BOX_QUESTION = 32;      // Question mark icon
+    const BOX_ERROR = 16;         // Error icon (Stop sign)
+    const BOX_WARNING = 48;       // Warning icon (Exclamation)
+    const BOX_YESNO = 4;         // Yes and No buttons
+    const BOX_YESNOCANCEL = 3;   // Yes, No and Cancel buttons
 
     // Constants for cursor types
     const CURSOR_ARROW = 'arrow';
@@ -71,10 +256,93 @@ class WinBinder
     public function __construct()
     {
         global $bearsamppCore;
+
+        $this->verifyPhpVersion();
+        $this->checkRequiredExtensions();
+        $this->verify64BitEnvironment();
+        $this->verifyWinBinderExtension();
+
         Util::logInitClass($this);
 
         $this->defaultTitle = APP_TITLE . ' ' . $bearsamppCore->getAppVersion();
         $this->reset();
+    }
+
+    /**
+     * Verifies that the current PHP version is compatible.
+     *
+     * @throws RuntimeException If PHP version is not supported.
+     */
+    private function verifyPhpVersion()
+    {
+        if (version_compare(PHP_VERSION, self::PHP_MIN_VERSION, '<') ||
+            version_compare(PHP_VERSION, self::PHP_MAX_VERSION, '>')) {
+            throw new RuntimeException(
+                'Unsupported PHP version ' . PHP_VERSION . '. ' .
+                'Requires PHP between ' . self::PHP_MIN_VERSION . ' and ' . self::PHP_MAX_VERSION
+            );
+        }
+    }
+
+    /**
+     * Checks that all required PHP extensions are loaded.
+     *
+     * @throws RuntimeException If any required extension is missing.
+     */
+    private function checkRequiredExtensions()
+    {
+        $missing = array_filter(self::REQUIRED_EXTENSIONS,
+            function($ext) { return !extension_loaded($ext); });
+
+        if (!empty($missing)) {
+            throw new RuntimeException(
+                'Missing required extensions: ' . implode(', ', $missing) . "\n" .
+                'Install using: scoop install php-' . implode(' php-', $missing)
+            );
+        }
+    }
+
+    /**
+     * Verifies that PHP is running in a 64-bit environment.
+     *
+     * @throws RuntimeException If not running in a 64-bit environment.
+     */
+    private function verify64BitEnvironment()
+    {
+        if (PHP_INT_SIZE !== 8) {
+            throw new RuntimeException(
+                '64-bit PHP required. Detected: ' . (PHP_INT_SIZE * 8) . '-bit environment'
+            );
+        }
+    }
+
+    /**
+     * Verifies that the WinBinder extension is loaded and compatible.
+     *
+     * @throws RuntimeException If WinBinder extension is not loaded or incompatible.
+     */
+    private function verifyWinBinderExtension()
+    {
+        // Extension check with installation guidance
+        if (!extension_loaded('winbinder')) {
+            $downloadUrl = 'https://bearsampp.com/winbinder-php' . PHP_MAJOR_VERSION . PHP_MINOR_VERSION;
+            throw new RuntimeException(
+                "WinBinder extension required but not loaded.\n" .
+                "Download PHP " . PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION . " compatible version from:\n" .
+                $downloadUrl
+            );
+        }
+
+        // Verify critical constants exist
+        $requiredConstants = ['WBC_INFO', 'WBC_OK', 'WBC_QUESTION', 'WBC_STOP', 'WBC_WARNING', 'WBC_YESNO', 'WBC_YESNOCANCEL', 'WBC_OKCANCEL'];
+        foreach ($requiredConstants as $constant) {
+            if (!defined($constant)) {
+                throw new RuntimeException(
+                    "Missing required WinBinder constant: $constant\n" .
+                    "Indicates incompatible WinBinder extension version"
+                );
+            }
+        }
     }
 
     /**
@@ -85,7 +353,15 @@ class WinBinder
     private static function writeLog($log)
     {
         global $bearsamppRoot;
-        Util::logDebug($log, $bearsamppRoot->getWinbinderLogFilePath());
+
+        // Ensure we have a valid log path
+        $logPath = $bearsamppRoot->getWinbinderLogFilePath();
+        if (empty($logPath)) {
+            // Fallback to system temp directory if root path not available
+            $logPath = sys_get_temp_dir() . '/bearsampp_winbinder.log';
+        }
+
+        Util::logDebug($log, $logPath);
     }
 
     /**
@@ -108,16 +384,42 @@ class WinBinder
      */
     private function callWinBinder($function, $params = array(), $removeErrorHandler = false)
     {
-        $result = false;
-        if (function_exists($function)) {
+        // Enhanced PHP 8.x type checking
+        foreach ($params as &$param) {
+            if ($param === null && in_array($function, [
+                'wb_create_window',
+                'wb_create_control',
+                'wb_set_handler'
+            ])) {
+                $param = 0;
+                $this->writeLog("callWinBinder: Converted null parameter to 0 for $function");
+            }
+        }
+
+        // Validate function exists
+        if (!function_exists($function)) {
+            $this->writeLog("Critical: WinBinder function $function missing");
+            return false;
+        }
+
+        // Call the function with appropriate error handling
+        try {
             if ($removeErrorHandler) {
                 $result = @call_user_func_array($function, $params);
             } else {
                 $result = call_user_func_array($function, $params);
             }
-        }
 
-        return $result;
+            // Log failures for debugging
+            if ($result === false && !in_array($function, ['wb_destroy_window', 'wb_wait'])) {
+                $this->writeLog("Warning: $function call failed with parameters: " . json_encode($params));
+            }
+
+            return $result;
+        } catch (Throwable $e) {
+            $this->writeLog("Exception in $function: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**
@@ -139,11 +441,18 @@ class WinBinder
     {
         global $bearsamppCore;
 
+        // Type enforcement for PHP 8.4.4 strict mode
+        $parent = is_numeric($parent) ? (int)$parent : 0;
+
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
         $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
         // Set tiny window icon
-        $this->setImage($window, $bearsamppCore->getIconsPath() . 'app.ico');
+        if ($window) {
+            $this->setImage($window, $bearsamppCore->getIconsPath() . 'app.ico');
+        } else {
+            $this->writeLog('Error: Failed to create window');
+        }
 
         return $window;
     }
@@ -450,15 +759,27 @@ class WinBinder
      */
     public function setHandler($wbobject, $classCallback, $methodCallback, $launchTimer = null)
     {
+        if ($wbobject === null || $wbobject === 0) {
+            $this->writeLog('Error: Cannot set handler on null or invalid object');
+            return false;
+        }
+
+        // Validate callback method exists
+        if (!is_object($classCallback) || !method_exists($classCallback, $methodCallback)) {
+            $this->writeLog('Error: Invalid callback - method ' . $methodCallback . ' does not exist in provided class');
+            return false;
+        }
+
         if ($launchTimer != null) {
             $launchTimer = $this->createTimer($wbobject, $launchTimer);
         }
 
         $this->callback[$wbobject] = array($classCallback, $methodCallback, $launchTimer);
-        
+
         // Ensure the global function is available to the extension
         if (!function_exists('__winbinderEventHandler')) {
-            $this->writeLog('Warning: __winbinderEventHandler function not found in global namespace');
+            $this->writeLog('Critical: __winbinderEventHandler function not found in global namespace');
+            return false;
         }
 
         return $this->callWinBinder('wb_set_handler', array($wbobject, '__winbinderEventHandler'));
@@ -474,15 +795,13 @@ class WinBinder
      */
     public function setImage($wbobject, $path)
     {
-        if ($wbobject === null) {
-            error_log('Error: $wbobject is null.');
-
+        if ($wbobject === null || $wbobject === 0) {
+            $this->writeLog('Error: $wbobject is null or invalid.');
             return false;
         }
 
         if (!file_exists($path)) {
-            error_log('Error: Image file does not exist at path: ' . $path);
-
+            $this->writeLog('Error: Image file does not exist at path: ' . $path);
             return false;
         }
 
@@ -1063,10 +1382,17 @@ if (!function_exists('__winbinderEventHandler')) {
      * @param   mixed  $ctrl    The control that triggered the event.
      * @param   mixed  $param1  The first parameter of the event.
      * @param   mixed  $param2  The second parameter of the event.
+     *
+     * @return void
      */
-    function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
+    function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2): void
     {
         global $bearsamppWinbinder;
+
+        if (!isset($bearsamppWinbinder->callback[$window])) {
+            error_log("WinBinder error: No callback registered for window $window");
+            return;
+        }
 
         if (isset($bearsamppWinbinder->callback[$window][2]) && $bearsamppWinbinder->callback[$window][2] != null) {
             $bearsamppWinbinder->destroyTimer($window, $bearsamppWinbinder->callback[$window][2][WinBinder::CTRL_ID]);
