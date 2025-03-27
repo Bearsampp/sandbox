@@ -502,6 +502,20 @@ class Vbs
             self::writeLog( '-> result: N/A' );
         }
 
+        // Clean up temporary files
+        if (file_exists($scriptPath)) {
+            @unlink($scriptPath);
+        }
+        if (file_exists($checkFile)) {
+            @unlink($checkFile);
+        }
+        if (file_exists($errFile)) {
+            @unlink($errFile);
+        }
+        if (file_exists($resultFile)) {
+            @unlink($resultFile);
+        }
+
         return $result;
     }
 }
