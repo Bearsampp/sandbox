@@ -23,7 +23,7 @@ $_mainpath = $_mainpath["dirname"] . "/";
 include_once $_mainpath . "wb_windows.inc.php";
 include_once $_mainpath . "wb_generic.inc.php";
 include_once $_mainpath . "wb_resources.inc.php";
-
+include_once $_mainpath . 'wb_constants.inc.php';
 //------------------------------------------------------------------ END OF FILE
 
 ?>
