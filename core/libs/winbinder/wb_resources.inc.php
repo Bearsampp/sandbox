@@ -12,112 +12,7 @@ RC file parser: convert Windows resource file to WinBinder commands
 
  *******************************************************************************/
 
-// so this file will not be necessary in the future
-
-//-------------------------------------------------------------------- CONSTANTS
-
-// Define constants as class constants for better organization and performance
-class WB_Resources {
-    // Screen constants
-    const KX_SCREEN = 1.498; // Determined through trial and error
-    const KY_SCREEN = 1.625; // Determined through trial and error
-
-    // Windows constants from WIN.H
-    const WS_VISIBLE = 0x10000000;
-    const WS_DISABLED = 0x08000000;
-    const WS_GROUP = 0x00020000;
-    const WS_EX_STATICEDGE = 0x00020000;
-
-    // Button styles
-    const BS_PUSHBUTTON = 0x00;
-    const BS_CHECKBOX = 0x02;
-    const BS_AUTOCHECKBOX = 0x03;
-    const BS_RADIOBUTTON = 0x04;
-    const BS_GROUPBOX = 0x07;
-    const BS_AUTORADIOBUTTON = 0x09;
-    const BS_ICON = 0x40;
-    const BS_BITMAP = 0x80;
-
-    // Edit control styles
-    const ES_NUMBER = 0x2000;
-    const ES_PASSWORD = 0x20;
-    const ES_READONLY = 0x0800;
-    const ES_UPPERCASE = 0x08;
-    const ES_LEFT = 0x0;
-    const ES_CENTER = 0x01;
-    const ES_RIGHT = 0x02;
-    const ES_MULTILINE = 0x04;
-
-    // Static styles
-    const SS_LEFT = 0x00;
-    const SS_CENTER = 0x01;
-    const SS_RIGHT = 0x02;
-    const SS_ETCHEDHORZ = 0x10;
-    const SS_ETCHEDVERT = 0x11;
-    const SS_ETCHEDFRAME = 0x12;
-    const SS_ICON = 0x03;
-    const SS_BITMAP = 0x0E;
-    const SS_LEFTNOWORDWRAP = 0x0C;
-    const SS_WORDELLIPSIS = 0xC000;
-
-    // Other styles
-    const CBS_SORT = 0x100;
-    const CBS_DROPDOWNLIST = 3;
-    const LBS_SORT = 2;
-    const LVS_NOSORTHEADER = 0x00008000;
-    const LVS_GRIDLINES = 0x00800000;    // Actually WS_BORDER
-    const LVS_CHECKBOXES = 0x00000800;   // Actually LVS_ALIGNLEFT
-    const LVS_SINGLESEL = 0x00000004;
-    const TBS_AUTOTICKS = 1;
-}
-
-// For backward compatibility, define the constants in the global namespace
-// This ensures existing code that uses these constants will continue to work
-define("WB_KX_SCREEN", WB_Resources::KX_SCREEN);
-define("WB_KY_SCREEN", WB_Resources::KY_SCREEN);
-
-define("WS_VISIBLE", WB_Resources::WS_VISIBLE);
-define("WS_DISABLED", WB_Resources::WS_DISABLED);
-define("WS_GROUP", WB_Resources::WS_GROUP);
-define("WS_EX_STATICEDGE", WB_Resources::WS_EX_STATICEDGE);
-
-define("BS_PUSHBUTTON", WB_Resources::BS_PUSHBUTTON);
-define("BS_CHECKBOX", WB_Resources::BS_CHECKBOX);
-define("BS_AUTOCHECKBOX", WB_Resources::BS_AUTOCHECKBOX);
-define("BS_RADIOBUTTON", WB_Resources::BS_RADIOBUTTON);
-define("BS_GROUPBOX", WB_Resources::BS_GROUPBOX);
-define("BS_AUTORADIOBUTTON", WB_Resources::BS_AUTORADIOBUTTON);
-define("BS_ICON", WB_Resources::BS_ICON);
-define("BS_BITMAP", WB_Resources::BS_BITMAP);
-
-define("ES_NUMBER", WB_Resources::ES_NUMBER);
-define("ES_PASSWORD", WB_Resources::ES_PASSWORD);
-define("ES_READONLY", WB_Resources::ES_READONLY);
-define("ES_UPPERCASE", WB_Resources::ES_UPPERCASE);
-define("ES_LEFT", WB_Resources::ES_LEFT);
-define("ES_CENTER", WB_Resources::ES_CENTER);
-define("ES_RIGHT", WB_Resources::ES_RIGHT);
-define("ES_MULTILINE", WB_Resources::ES_MULTILINE);
-
-define("SS_LEFT", WB_Resources::SS_LEFT);
-define("SS_CENTER", WB_Resources::SS_CENTER);
-define("SS_RIGHT", WB_Resources::SS_RIGHT);
-define("SS_ETCHEDHORZ", WB_Resources::SS_ETCHEDHORZ);
-define("SS_ETCHEDVERT", WB_Resources::SS_ETCHEDVERT);
-define("SS_ETCHEDFRAME", WB_Resources::SS_ETCHEDFRAME);
-define("SS_ICON", WB_Resources::SS_ICON);
-define("SS_BITMAP", WB_Resources::SS_BITMAP);
-define("SS_LEFTNOWORDWRAP", WB_Resources::SS_LEFTNOWORDWRAP);
-define("SS_WORDELLIPSIS", WB_Resources::SS_WORDELLIPSIS);
-
-define("CBS_SORT", WB_Resources::CBS_SORT);
-define("CBS_DROPDOWNLIST", WB_Resources::CBS_DROPDOWNLIST);
-define("LBS_SORT", WB_Resources::LBS_SORT);
-define("LVS_NOSORTHEADER", WB_Resources::LVS_NOSORTHEADER);
-define("LVS_GRIDLINES", WB_Resources::LVS_GRIDLINES);
-define("LVS_CHECKBOXES", WB_Resources::LVS_CHECKBOXES);
-define("LVS_SINGLESEL", WB_Resources::LVS_SINGLESEL);
-define("TBS_AUTOTICKS", WB_Resources::TBS_AUTOTICKS);
+// This file uses constants from WBConstants class
 
 //-------------------------------------------------------------------- FUNCTIONS
 
@@ -277,8 +172,8 @@ function _scale_dialog($c)
                 "WBC_CENTER, " .							// top
 //			(int)($c[4] * WB_KX_SCREEN + $_addx) . ", " .
 //			(int)($c[5] * WB_KY_SCREEN + $_addy) . ", " .
-                (int)($c[4] * WB_Resources::KX_SCREEN) . ", " .
-                (int)($c[5] * WB_Resources::KY_SCREEN) . ", " .
+                (int)($c[4] * WBConstants::KX_SCREEN) . ", " .
+                (int)($c[5] * WBConstants::KY_SCREEN) . ", " .
                 "%STYLE%, " .								// style
                 "%LPARAM%);\n";								// lparam
         }
@@ -297,17 +192,17 @@ function _scale_controls($c)
     $winstyle = hexdec($c[4]);
     $winexstyle = hexdec($c[9]);
 
-    if(_bit_test($winstyle, WB_Resources::WS_VISIBLE))
+    if(_bit_test($winstyle, WBConstants::WS_VISIBLE))
         $style = "WBC_VISIBLE";
     else
         $style = "WBC_INVISIBLE";
 
-    if(_bit_test($winstyle, WB_Resources::WS_DISABLED))
+    if(_bit_test($winstyle, WBConstants::WS_DISABLED))
         $style .= " | WBC_DISABLED";
     else
         $style .= " | WBC_ENABLED";
 
-    if(_bit_test($winexstyle, WB_Resources::WS_EX_STATICEDGE))
+    if(_bit_test($winexstyle, WBConstants::WS_EX_STATICEDGE))
         $style .= " | WBC_BORDER";
 
     // Set attributes according to control class
@@ -317,20 +212,20 @@ function _scale_controls($c)
         case '"button"':
 
             switch($winstyle & 0x0F) {
-                case WB_Resources::BS_AUTORADIOBUTTON:
-                case WB_Resources::BS_RADIOBUTTON:
+                case WBConstants::BS_AUTORADIOBUTTON:
+                case WBConstants::BS_RADIOBUTTON:
                     $class = "RadioButton";
-                    if(_bit_test($winstyle, WB_Resources::WS_GROUP))
+                    if(_bit_test($winstyle, WBConstants::WS_GROUP))
                         $style .= " | WBC_GROUP";
                     break;
-                case WB_Resources::BS_AUTOCHECKBOX:
-                case WB_Resources::BS_CHECKBOX:
+                case WBConstants::BS_AUTOCHECKBOX:
+                case WBConstants::BS_CHECKBOX:
                     $class = "CheckBox";
                     break;
-                case WB_Resources::BS_GROUPBOX:
+                case WBConstants::BS_GROUPBOX:
                     $class = "Frame";
                     break;
-                case WB_Resources::BS_PUSHBUTTON:
+                case WBConstants::BS_PUSHBUTTON:
                 default:
                     $class = "PushButton";
                     break;
@@ -340,33 +235,33 @@ function _scale_controls($c)
         case '"static"':
 
             switch($winstyle & 0x1F) {
-                case WB_Resources::SS_ICON:
-                case WB_Resources::SS_BITMAP:
+                case WBConstants::SS_ICON:
+                case WBConstants::SS_BITMAP:
                     $style .= " | WBC_IMAGE | WBC_CENTER";
                     $class = "Frame";
                     break;
-                case WB_Resources::SS_ETCHEDHORZ:
-                case WB_Resources::SS_ETCHEDVERT:
-                case WB_Resources::SS_ETCHEDFRAME:
+                case WBConstants::SS_ETCHEDHORZ:
+                case WBConstants::SS_ETCHEDVERT:
+                case WBConstants::SS_ETCHEDFRAME:
                     $class = "Frame";
                     break;
-                case WB_Resources::SS_CENTER:
-                    if(_bit_test($winstyle, WB_Resources::SS_WORDELLIPSIS))
+                case WBConstants::SS_CENTER:
+                    if(_bit_test($winstyle, WBConstants::SS_WORDELLIPSIS))
                         $style .= " | WBC_ELLIPSIS";
                     $style .= " | WBC_CENTER";
                     $class = "Label";
                     break;
-                case WB_Resources::SS_RIGHT:
-                    if(_bit_test($winstyle, WB_Resources::SS_WORDELLIPSIS))
+                case WBConstants::SS_RIGHT:
+                    if(_bit_test($winstyle, WBConstants::SS_WORDELLIPSIS))
                         $style .= " | WBC_ELLIPSIS";
                     $style .= " | WBC_RIGHT";
                     $class = "Label";
                     break;
-                case WB_Resources::SS_LEFT:
+                case WBConstants::SS_LEFT:
                 default:
-                    if(!_bit_test($winstyle, WB_Resources::SS_LEFTNOWORDWRAP))
+                    if(!_bit_test($winstyle, WBConstants::SS_LEFTNOWORDWRAP))
                         $style .= " | WBC_MULTILINE";
-                    if(_bit_test($winstyle, WB_Resources::SS_WORDELLIPSIS))
+                    if(_bit_test($winstyle, WBConstants::SS_WORDELLIPSIS))
                         $style .= " | WBC_ELLIPSIS";
                     $class = "Label";
                     break;
@@ -375,31 +270,31 @@ function _scale_controls($c)
 
         case '"edit"':
             $class = "EditBox";
-            if(_bit_test($winstyle, WB_Resources::ES_MULTILINE)) {
+            if(_bit_test($winstyle, WBConstants::ES_MULTILINE)) {
                 $style .= " | WBC_MULTILINE";
             } else {
                 switch($winstyle & 0x03) {
-                    case WB_Resources::ES_CENTER:
+                    case WBConstants::ES_CENTER:
                         $style .= " | WBC_CENTER";
                         break;
-                    case WB_Resources::ES_RIGHT:
+                    case WBConstants::ES_RIGHT:
                         $style .= " | WBC_RIGHT";
                         break;
-                    case WB_Resources::ES_LEFT:
+                    case WBConstants::ES_LEFT:
                     default:
                         break;
                 }
             }
-            if(_bit_test($winstyle, WB_Resources::ES_READONLY))
+            if(_bit_test($winstyle, WBConstants::ES_READONLY))
                 $style .= " | WBC_READONLY";
-            if(_bit_test($winstyle, WB_Resources::ES_PASSWORD))
+            if(_bit_test($winstyle, WBConstants::ES_PASSWORD))
                 $style .= " | WBC_MASKED";
-            if(_bit_test($winstyle, WB_Resources::ES_NUMBER))
+            if(_bit_test($winstyle, WBConstants::ES_NUMBER))
                 $style .= " | WBC_NUMBER";
             break;
 
         case '"richedit20a"':
-            if(_bit_test($winstyle, WB_Resources::ES_READONLY))
+            if(_bit_test($winstyle, WBConstants::ES_READONLY))
                 $style .= " | WBC_READONLY";
             $class = "RTFEditBox";
             switch($winstyle & 0x03) {
@@ -417,15 +312,15 @@ function _scale_controls($c)
 
         case '"combobox"':
             $class = "ComboBox";
-            if(_bit_test($winstyle, WB_Resources::CBS_SORT))
+            if(_bit_test($winstyle, WBConstants::CBS_SORT))
                 $style .= " | WBC_SORT";
-            if(_bit_test($winstyle, WB_Resources::CBS_DROPDOWNLIST))
+            if(_bit_test($winstyle, WBConstants::CBS_DROPDOWNLIST))
                 $style .= " | WBC_READONLY";
             break;
 
         case '"listbox"':
             $class = "ListBox";
-            if(_bit_test($winstyle, WB_Resources::LBS_SORT))
+            if(_bit_test($winstyle, WBConstants::LBS_SORT))
                 $style .= " | WBC_SORT";
             break;
 
@@ -435,13 +330,13 @@ function _scale_controls($c)
 
         case '"syslistview32"':
             $class = "ListView";
-            if(!_bit_test($winstyle, WB_Resources::LVS_NOSORTHEADER))
+            if(!_bit_test($winstyle, WBConstants::LVS_NOSORTHEADER))
                 $style .= " | WBC_SORT";
-            if(_bit_test($winstyle, WB_Resources::LVS_GRIDLINES))
+            if(_bit_test($winstyle, WBConstants::LVS_GRIDLINES))
                 $style .= " | WBC_LINES";
-            if(_bit_test($winstyle, WB_Resources::LVS_CHECKBOXES))
+            if(_bit_test($winstyle, WBConstants::LVS_CHECKBOXES))
                 $style .= " | WBC_CHECKBOXES";
-            if(!_bit_test($winstyle, WB_Resources::LVS_SINGLESEL))
+            if(!_bit_test($winstyle, WBConstants::LVS_SINGLESEL))
                 $style .= " | WBC_SINGLE";
             break;
 
@@ -471,13 +366,13 @@ function _scale_controls($c)
 
         case '"msctls_trackbar32"':
             $class = "Slider";
-            if(_bit_test($winstyle, WB_Resources::TBS_AUTOTICKS))
+            if(_bit_test($winstyle, WBConstants::TBS_AUTOTICKS))
                 $style .= " | WBC_LINES";
             break;
 
         case '"msctls_updown32"':
             $class = "Spinner";
-            if(_bit_test($winstyle, WB_Resources::WS_GROUP))
+            if(_bit_test($winstyle, WBConstants::WS_GROUP))
                 $style .= " | WBC_GROUP";
             break;
     }
@@ -488,10 +383,10 @@ function _scale_controls($c)
         "%WINVAR%, " .								// Parent
         $class . ", " . 							// Class
         $c[1] . ", " .								// Caption
-        (int)($c[5] * WB_Resources::KX_SCREEN) . ", " .		// Left
-        (int)($c[6] * WB_Resources::KY_SCREEN) . ", " .		// Top
-        (int)($c[7] * WB_Resources::KX_SCREEN) . ", " .		// Width
-        (int)($c[8] * WB_Resources::KY_SCREEN) . ", " .		// Height
+        (int)($c[5] * WBConstants::KX_SCREEN) . ", " .		// Left
+        (int)($c[6] * WBConstants::KY_SCREEN) . ", " .		// Top
+        (int)($c[7] * WBConstants::KX_SCREEN) . ", " .		// Width
+        (int)($c[8] * WBConstants::KY_SCREEN) . ", " .		// Height
         $c[2] . ", " . 								// ID
         $style . ", " .			 					// Style
         "0" .										// Param
@@ -504,7 +399,7 @@ function _scale_controls($c)
         case "Frame":
 
             if(strstr($style, "WBC_IMAGE")) {
-                if(($winstyle & (WB_Resources::SS_BITMAP | WB_Resources::SS_ICON)) && ($c[1] !== '""')) {
+                if(($winstyle & (WBConstants::SS_BITMAP | WBConstants::SS_ICON)) && ($c[1] !== '""')) {
                     $image = $path_res . _trim_quotes($c[1]);
                     if(preg_match("/\.(bmp|ico)$/", $image))
                         $str = "\$_tmp_ctrl_ = " . $str . "wb_set_image(\$_tmp_ctrl_, '$image', GREEN);" . " unset(\$_tmp_ctrl_);\n";
@@ -514,7 +409,7 @@ function _scale_controls($c)
 
         case "PushButton":
 
-            if(($winstyle & (WB_Resources::BS_BITMAP | WB_Resources::BS_ICON)) && ($c[1] !== '""')) {
+            if(($winstyle & (WBConstants::BS_BITMAP | WBConstants::BS_ICON)) && ($c[1] !== '""')) {
                 $image = $path_res . _trim_quotes($c[1]);
                 if($image)
                     if(preg_match("/\.(bmp|ico)$/", $image))

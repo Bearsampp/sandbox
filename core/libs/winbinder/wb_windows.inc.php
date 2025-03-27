@@ -15,40 +15,7 @@
 
 //-------------------------------------------------------------------- CONSTANTS
 
-// Windows constants - now defined as class constants
-class WB_Constants {
-    const BM_SETCHECK = 241;
-    const LVM_FIRST = 0x1000;
-    const LVM_DELETEALLITEMS = self::LVM_FIRST + 9;
-    const LVM_GETITEMCOUNT = self::LVM_FIRST + 4;
-    const LVM_GETITEMSTATE = self::LVM_FIRST + 44;
-    const LVM_GETSELECTEDCOUNT = self::LVM_FIRST + 50;
-    const LVIS_SELECTED = 2;
-    const TCM_GETCURSEL = 4875;
-    const CB_FINDSTRINGEXACT = 344;
-    const CB_SETCURSEL = 334;
-    const LB_FINDSTRINGEXACT = 418;
-    const LB_SETCURSEL = 390;
-    const TCM_SETCURSEL = 4876;
-    const WM_SETTEXT = 12;
-}
-
-// For backward compatibility, define the constants in the global namespace
-// This ensures existing code that uses these constants will continue to work
-define("BM_SETCHECK", WB_Constants::BM_SETCHECK);
-define("LVM_FIRST", WB_Constants::LVM_FIRST);
-define("LVM_DELETEALLITEMS", WB_Constants::LVM_DELETEALLITEMS);
-define("LVM_GETITEMCOUNT", WB_Constants::LVM_GETITEMCOUNT);
-define("LVM_GETITEMSTATE", WB_Constants::LVM_GETITEMSTATE);
-define("LVM_GETSELECTEDCOUNT", WB_Constants::LVM_GETSELECTEDCOUNT);
-define("LVIS_SELECTED", WB_Constants::LVIS_SELECTED);
-define("TCM_GETCURSEL", WB_Constants::TCM_GETCURSEL);
-define("CB_FINDSTRINGEXACT", WB_Constants::CB_FINDSTRINGEXACT);
-define("CB_SETCURSEL", WB_Constants::CB_SETCURSEL);
-define("LB_FINDSTRINGEXACT", WB_Constants::LB_FINDSTRINGEXACT);
-define("LB_SETCURSEL", WB_Constants::LB_SETCURSEL);
-define("TCM_SETCURSEL", WB_Constants::TCM_SETCURSEL);
-define("WM_SETTEXT", WB_Constants::WM_SETTEXT);
+// Windows constants are now defined elsewhere in WBConstants class
 
 //------------------------------------------------------------- WINDOW FUNCTIONS
 
@@ -298,8 +265,8 @@ function wb_set_text($ctrl, $text, $item=null, $subitem=null)
 					foreach($text as $str)
 						wbtemp_create_item($ctrl, (string)$str);
 				} else {
-					$index = wb_send_message($ctrl, WB_Constants::LB_FINDSTRINGEXACT, -1, wb_get_address($text));
-					wb_send_message($ctrl, WB_Constants::LB_SETCURSEL, $index, 0);
+					$index = wb_send_message($ctrl, WBConstants::LB_FINDSTRINGEXACT, -1, wb_get_address($text));
+					wb_send_message($ctrl, WBConstants::LB_SETCURSEL, $index, 0);
 				}
 			} elseif(is_array($text)) {
 				wb_delete_items($ctrl);
@@ -319,10 +286,10 @@ function wb_set_text($ctrl, $text, $item=null, $subitem=null)
 					foreach($text as $str)
 						wbtemp_create_item($ctrl, (string)$str);
 				} else {
-					$index = wb_send_message($ctrl, WB_Constants::CB_FINDSTRINGEXACT, -1, wb_get_address($text));
-					wb_send_message($ctrl, WB_Constants::CB_SETCURSEL, $index, 0);
+					$index = wb_send_message($ctrl, WBConstants::CB_FINDSTRINGEXACT, -1, wb_get_address($text));
+					wb_send_message($ctrl, WBConstants::CB_SETCURSEL, $index, 0);
 					if($index == -1)
-						wb_send_message($ctrl, WB_Constants::WM_SETTEXT, 0, wb_get_address($text));
+						wb_send_message($ctrl, WBConstants::WM_SETTEXT, 0, wb_get_address($text));
 				}
 			} elseif(is_array($text)) {
 				wb_delete_items($ctrl);
@@ -359,11 +326,11 @@ function wb_set_selected($ctrl, $selitems, $selected=TRUE)
 	switch(wb_get_class($ctrl)) {
 
 		case ComboBox:
-			wb_send_message($ctrl, WB_Constants::CB_SETCURSEL, (int)$selitems, 0);
+			wb_send_message($ctrl, WBConstants::CB_SETCURSEL, (int)$selitems, 0);
 			break;
 
 		case ListBox:
-			wb_send_message($ctrl, WB_Constants::LB_SETCURSEL, (int)$selitems, 0);
+			wb_send_message($ctrl, WBConstants::LB_SETCURSEL, (int)$selitems, 0);
 			break;
 
 		case ListView:
@@ -408,7 +375,7 @@ function wb_create_items($ctrl, $items, $clear=false, $param=null)
 		case ListView:
 
 			if($clear)
-				wb_send_message($ctrl, WB_Constants::LVM_DELETEALLITEMS, 0, 0);
+				wb_send_message($ctrl, WBConstants::LVM_DELETEALLITEMS, 0, 0);
 
 			$last = -1;
 

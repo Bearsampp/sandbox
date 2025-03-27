@@ -4,12 +4,14 @@
 
  WINBINDER - The native Windows binding for PHP for PHP
 
- Copyright © Hypervisual - see LICENSE.TXT for details
+ Copyright ï¿½ Hypervisual - see LICENSE.TXT for details
  Author: Rubem Pechansky (http://winbinder.org/contact.php)
 
  General-purpose supporting functions
 
 *******************************************************************************/
+
+// Use WBConstants class instead of global defines
 
 //-------------------------------------------------------------------- FUNCTIONS
 
