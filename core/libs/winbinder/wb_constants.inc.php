@@ -72,4 +72,15 @@ class WBConstants {
     const LB_SETCURSEL = 390;
     const TCM_SETCURSEL = 4876;
     const WM_SETTEXT = 12;
+    const NakedWindow = 0x00000001;
+    const WBC_CENTER = -1;
+    const AppWindow = 0x00000002;
+    const Gauge = 0x0088;
+    const Label = 0x0082;
+    const EditBox = 0x0083;
+    const RTFEditBox = 0x0084;
+    const RadioButton = 0x0086;
+    const HyperLink = 0x0085;
+    const WBC_GROUP = -2;
+    const PushButton = 0x0087;
 }
