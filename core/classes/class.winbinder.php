@@ -8,10 +8,6 @@
  *
  */
 
-// Define control class constants if not already defined
-
-
-
 /**
  * Class WinBinder
  *
@@ -29,15 +25,16 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
+    // TODO why does it say we have undelcared constants
     // Constants for message box types
-    const BOX_INFO = 64;          // Information message
-    const BOX_OK = 0;            // OK button only
-    const BOX_OKCANCEL = 1;      // OK and Cancel buttons
-    const BOX_QUESTION = 32;      // Question mark icon
-    const BOX_ERROR = 16;         // Error icon (Stop sign)
-    const BOX_WARNING = 48;       // Warning icon (Exclamation)
-    const BOX_YESNO = 4;         // Yes and No buttons
-    const BOX_YESNOCANCEL = 3;   // Yes, No and Cancel buttons
+    const BOX_INFO = WBC_INFO;
+    const BOX_OK = WBC_OK;
+    const BOX_OKCANCEL = WBC_OKCANCEL;
+    const BOX_QUESTION = WBC_QUESTION;
+    const BOX_ERROR = WBC_STOP;
+    const BOX_WARNING = WBC_WARNING;
+    const BOX_YESNO = WBC_YESNO;
+    const BOX_YESNOCANCEL = WBC_YESNOCANCEL;
 
     // Constants for cursor types
     const CURSOR_ARROW = 'arrow';
@@ -55,32 +52,6 @@ class WinBinder
     const CURSOR_UPARROW = 'uparrow';
     const CURSOR_WAIT = 'wait';
     const CURSOR_WAITARROW = 'waitarrow';
-
-    // Window types
-    const AppWindow = 'appwindow';
-    const NakedWindow = 'nakedwindow';
-    const ResizableWindow = 'resizablewindow';
-    const ModalDialog = 'modaldialog';
-    const ModelessDialog = 'modelessdialog';
-    const ToolDialog = 'tooldialog';
-
-    // Alignment constants
-    const WBC_CENTER = 0x0002;
-
-    // Control types
-    const Label = 'label';
-    const EditBox = 'editbox';
-    const RTFEditBox = 'rtfeditbox';
-    const HyperLink = 'hyperlink';
-    const RadioButton = 'radiobutton';
-    const PushButton = 'pushbutton';
-    const Gauge = 'gauge';
-
-    // Window areas
-    const WBC_TITLE = 0x0001;
-
-    // Control styles
-    const WBC_GROUP = 'group';
 
     // Constants for system information types
     const SYSINFO_SCREENAREA = 'screenarea';
@@ -226,7 +197,7 @@ class WinBinder
      */
     public function createAppWindow($caption, $width, $height, $style = null, $params = null)
     {
-        return $this->createWindow(null, WBConstants::AppWindow, $caption, WBConstants::WBC_CENTER, WBConstants::WBC_CENTER, $width, $height, $style, $params);
+        return $this->createWindow(null, AppWindow, $caption, WBC_CENTER, WBC_CENTER, $width, $height, $style, $params);
     }
 
     /**
@@ -242,7 +213,7 @@ class WinBinder
      */
     public function createNakedWindow($caption, $width, $height, $style = null, $params = null)
     {
-        $window = $this->createWindow(null, WBConstants::NakedWindow, $caption, WBConstants::WBC_CENTER, WBConstants::WBC_CENTER, $width, $height, $style, $params);
+        $window = $this->createWindow(null, NakedWindow, $caption, WBC_CENTER, WBC_CENTER, $width, $height, $style, $params);
         $this->setArea($window, $width, $height);
 
         return $window;
@@ -537,7 +508,7 @@ class WinBinder
      */
     public function setArea($wbobject, $width, $height)
     {
-        return $this->callWinBinder('wb_set_area', array($wbobject, WinBinder::WBC_TITLE, 0, 0, $width, $height));
+        return $this->callWinBinder('wb_set_area', array($wbobject, WBC_TITLE, 0, 0, $width, $height));
     }
 
     /**
@@ -740,7 +711,7 @@ class WinBinder
         $width   = $width == null ? 120 : $width;
         $height  = $height == null ? 25 : $height;
 
-        return $this->createControl($parent, WBConstants::Label, $caption, $xPos, $yPos, $width, $height, $style, $params);
+        return $this->createControl($parent, Label, $caption, $xPos, $yPos, $width, $height, $style, $params);
     }
 
     /**
@@ -763,7 +734,7 @@ class WinBinder
         $value     = str_replace(self::NEW_LINE, PHP_EOL, $value);
         $width     = $width == null ? 120 : $width;
         $height    = $height == null ? 25 : $height;
-        $inputText = $this->createControl($parent, WBConstants::EditBox, (string)$value, $xPos, $yPos, $width, $height, $style, $params);
+        $inputText = $this->createControl($parent, EditBox, (string)$value, $xPos, $yPos, $width, $height, $style, $params);
         if (is_numeric($maxLength) && $maxLength > 0) {
             $this->setMaxLength($inputText[self::CTRL_OBJ], $maxLength);
         }
@@ -790,7 +761,7 @@ class WinBinder
         $value   = str_replace(self::NEW_LINE, PHP_EOL, $value);
         $width   = $width == null ? 540 : $width;
         $height  = $height == null ? 340 : $height;
-        $editBox = $this->createControl($parent, WBConstants::RTFEditBox, (string)$value, $xPos, $yPos, $width, $height, $style, $params);
+        $editBox = $this->createControl($parent, RTFEditBox, (string)$value, $xPos, $yPos, $width, $height, $style, $params);
 
         return $editBox;
     }
@@ -814,7 +785,7 @@ class WinBinder
         $caption   = str_replace(self::NEW_LINE, PHP_EOL, $caption);
         $width     = $width == null ? 120 : $width;
         $height    = $height == null ? 15 : $height;
-        $hyperLink = $this->createControl($parent, WBConstants::HyperLink, (string)$caption, $xPos, $yPos, $width, $height, $style, $params);
+        $hyperLink = $this->createControl($parent, HyperLink, (string)$caption, $xPos, $yPos, $width, $height, $style, $params);
         $this->setCursor($hyperLink[self::CTRL_OBJ], self::CURSOR_FINGER);
 
         return $hyperLink;
@@ -840,7 +811,7 @@ class WinBinder
         $width   = $width == null ? 120 : $width;
         $height  = $height == null ? 25 : $height;
 
-        return $this->createControl($parent, WBConstants::RadioButton, (string)$caption, $xPos, $yPos, $width, $height, $startGroup ? WBConstants::WBC_GROUP : null, $checked ? 1 : 0);
+        return $this->createControl($parent, RadioButton, (string)$caption, $xPos, $yPos, $width, $height, $startGroup ? WBC_GROUP : null, $checked ? 1 : 0);
     }
 
     /**
@@ -862,7 +833,7 @@ class WinBinder
         $width  = $width == null ? 80 : $width;
         $height = $height == null ? 25 : $height;
 
-        return $this->createControl($parent, WBConstants::PushButton, $caption, $xPos, $yPos, $width, $height, $style, $params);
+        return $this->createControl($parent, PushButton, $caption, $xPos, $yPos, $width, $height, $style, $params);
     }
 
     /**
@@ -885,7 +856,7 @@ class WinBinder
 
         $width       = $width == null ? 200 : $width;
         $height      = $height == null ? 15 : $height;
-        $progressBar = $this->createControl($parent, WBConstants::Gauge, $bearsamppLang->getValue(Lang::LOADING), $xPos, $yPos, $width, $height, $style, $params);
+        $progressBar = $this->createControl($parent, Gauge, $bearsamppLang->getValue(Lang::LOADING), $xPos, $yPos, $width, $height, $style, $params);
 
         $this->setRange($progressBar[self::CTRL_OBJ], 0, $max);
         $this->gauge[$progressBar[self::CTRL_OBJ]] = 0;
