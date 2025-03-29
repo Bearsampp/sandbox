@@ -585,7 +585,7 @@ function _scale_controls($c)
 
     // Convert Windows style to WinBinder style
 
-    $str = "_create_control(" .
+    $str = "wb_create_control(" .
         "%WINVAR%, " .                                // Parent
         $class . ", " .                            // Class
         $c[1] . ", " .                                // Caption
