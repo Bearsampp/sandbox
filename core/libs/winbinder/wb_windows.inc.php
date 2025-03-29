@@ -62,7 +62,7 @@ function wb_create_control($parent, $class, $caption = "", $xpos = 0, $ypos = 0,
         case ListView:
             $ctrl = wbtemp_create_control($parent, $class, $caption, $xpos, $ypos, $width, $height, $id, $style, $lparam, $ntab);
             if (is_array($caption)) {
-                _set_text($ctrl, $caption[0]);
+                wb_set_text($ctrl, $caption[0]);
             }
 
             return $ctrl;
