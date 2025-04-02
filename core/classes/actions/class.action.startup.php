@@ -246,82 +246,206 @@ class ActionStartup
 
     /**
      * Rotates the logs by archiving old logs and purging old archives.
+     * Enhanced with file lock checking to prevent permission denied errors.
      */
     private function rotationLogs()
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppConfig, $bearsamppLang, $bearsamppBins;
 
-        $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_ROTATION_LOGS_TEXT ) );
+        Util::logTrace("Starting log rotation process");
+        $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_ROTATION_LOGS_TEXT));
         $this->splash->incrProgressBar();
 
         $archivesPath = $bearsamppRoot->getLogsPath() . '/archives';
-        if ( !is_dir( $archivesPath ) ) {
-            mkdir( $archivesPath, 0777, true );
-
+        if (!is_dir($archivesPath)) {
+            Util::logTrace("Creating archives directory: " . $archivesPath);
+            mkdir($archivesPath, 0777, true);
             return;
         }
 
-        $date               = date( 'Y-m-d-His', time() );
-        $archiveLogsPath    = $archivesPath . '/' . $date;
+        $date = date('Y-m-d-His', time());
+        $archiveLogsPath = $archivesPath . '/' . $date;
         $archiveScriptsPath = $archiveLogsPath . '/scripts';
 
         // Create archive folders
-        mkdir( $archiveLogsPath, 0777, true );
-        mkdir( $archiveScriptsPath, 0777, true );
+        Util::logTrace("Creating archive directories for current rotation");
+        mkdir($archiveLogsPath, 0777, true);
+        mkdir($archiveScriptsPath, 0777, true);
 
         // Count archives
+        Util::logTrace("Counting existing archives");
         $archives = array();
-        $handle   = @opendir( $archivesPath );
-        if ( !$handle ) {
+        $handle = @opendir($archivesPath);
+        if (!$handle) {
+            Util::logTrace("Failed to open archives directory: " . $archivesPath);
             return;
         }
-        while ( false !== ($file = readdir( $handle )) ) {
-            if ( $file == '.' || $file == '..' ) {
+        
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..') {
                 continue;
             }
             $archives[] = $archivesPath . '/' . $file;
         }
-        closedir( $handle );
-        sort( $archives );
+        closedir($handle);
+        sort($archives);
+        Util::logTrace("Found " . count($archives) . " existing archives");
 
         // Remove old archives
-        if ( count( $archives ) > $bearsamppConfig->getMaxLogsArchives() ) {
-            $total = count( $archives ) - $bearsamppConfig->getMaxLogsArchives();
-            for ( $i = 0; $i < $total; $i++ ) {
-                Util::deleteFolder( $archives[$i] );
+        if (count($archives) > $bearsamppConfig->getMaxLogsArchives()) {
+            $total = count($archives) - $bearsamppConfig->getMaxLogsArchives();
+            Util::logTrace("Removing " . $total . " old archives");
+            for ($i = 0; $i < $total; $i++) {
+                Util::logTrace("Deleting old archive: " . $archives[$i]);
+                Util::deleteFolder($archives[$i]);
             }
         }
+
+        // Helper function to check if a file is locked
+        $isFileLocked = function($filePath) {
+            if (!file_exists($filePath)) {
+                return false;
+            }
+            
+            $handle = @fopen($filePath, 'r+');
+            if ($handle === false) {
+                Util::logTrace("File appears to be locked: " . $filePath);
+                return true; // File is locked
+            }
+            
+            fclose($handle);
+            return false; // File is not locked
+        };
 
         // Logs
+        Util::logTrace("Archiving log files");
         $srcPath = $bearsamppRoot->getLogsPath();
-        $handle  = @opendir( $srcPath );
-        if ( !$handle ) {
+        $handle = @opendir($srcPath);
+        if (!$handle) {
+            Util::logTrace("Failed to open logs directory: " . $srcPath);
             return;
         }
-        while ( false !== ($file = readdir( $handle )) ) {
-            if ( $file == '.' || $file == '..' || is_dir( $srcPath . '/' . $file ) ) {
+        
+        $logsCopied = 0;
+        $logsSkipped = 0;
+        
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
                 continue;
             }
-            copy( $srcPath . '/' . $file, $archiveLogsPath . '/' . $file );
+            
+            $sourceFile = $srcPath . '/' . $file;
+            $destFile = $archiveLogsPath . '/' . $file;
+            
+            // Check if file is locked before attempting to copy
+            if ($isFileLocked($sourceFile)) {
+                Util::logTrace("Skipping locked log file: " . $file);
+                $logsSkipped++;
+                continue;
+            }
+            
+            try {
+                if (copy($sourceFile, $destFile)) {
+                    $logsCopied++;
+                    Util::logTrace("Archived log file: " . $file);
+                } else {
+                    $logsSkipped++;
+                    Util::logTrace("Failed to copy log file: " . $file);
+                }
+            } catch (Exception $e) {
+                $logsSkipped++;
+                Util::logTrace("Exception copying log file " . $file . ": " . $e->getMessage());
+            }
         }
-        closedir( $handle );
+        closedir($handle);
+        Util::logTrace("Logs archived: " . $logsCopied . " copied, " . $logsSkipped . " skipped");
 
         // Scripts
+        Util::logTrace("Archiving script files");
         $srcPath = $bearsamppCore->getTmpPath();
-        $handle  = @opendir( $srcPath );
-        if ( !$handle ) {
+        $handle = @opendir($srcPath);
+        if (!$handle) {
+            Util::logTrace("Failed to open tmp directory: " . $srcPath);
             return;
         }
-        while ( false !== ($file = readdir( $handle )) ) {
-            if ( $file == '.' || $file == '..' || is_dir( $srcPath . '/' . $file ) ) {
+        
+        $scriptsCopied = 0;
+        $scriptsSkipped = 0;
+        
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
                 continue;
             }
-            copy( $srcPath . '/' . $file, $archiveScriptsPath . '/' . $file );
+            
+            $sourceFile = $srcPath . '/' . $file;
+            $destFile = $archiveScriptsPath . '/' . $file;
+            
+            // Check if file is locked before attempting to copy
+            if ($isFileLocked($sourceFile)) {
+                Util::logTrace("Skipping locked script file: " . $file);
+                $scriptsSkipped++;
+                continue;
+            }
+            
+            try {
+                if (copy($sourceFile, $destFile)) {
+                    $scriptsCopied++;
+                    Util::logTrace("Archived script file: " . $file);
+                } else {
+                    $scriptsSkipped++;
+                    Util::logTrace("Failed to copy script file: " . $file);
+                }
+            } catch (Exception $e) {
+                $scriptsSkipped++;
+                Util::logTrace("Exception copying script file " . $file . ": " . $e->getMessage());
+            }
         }
-        closedir( $handle );
+        closedir($handle);
+        Util::logTrace("Scripts archived: " . $scriptsCopied . " copied, " . $scriptsSkipped . " skipped");
 
-        // Purge logs
-        Util::clearFolder( $bearsamppRoot->getLogsPath(), array('archives', '.gitignore') );
+        // Purge logs - only delete files that aren't locked
+        Util::logTrace("Purging log files");
+        $logsPath = $bearsamppRoot->getLogsPath();
+        $handle = @opendir($logsPath);
+        if (!$handle) {
+            Util::logTrace("Failed to open logs directory for purging: " . $logsPath);
+            return;
+        }
+        
+        $logsDeleted = 0;
+        $logsPurgeSkipped = 0;
+        
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..' || $file == 'archives' || $file == '.gitignore' || is_dir($logsPath . '/' . $file)) {
+                continue;
+            }
+            
+            $filePath = $logsPath . '/' . $file;
+            
+            // Check if file is locked before attempting to delete
+            if ($isFileLocked($filePath)) {
+                Util::logTrace("Skipping locked log file during purge: " . $file);
+                $logsPurgeSkipped++;
+                continue;
+            }
+            
+            try {
+                if (unlink($filePath)) {
+                    $logsDeleted++;
+                    Util::logTrace("Purged log file: " . $file);
+                } else {
+                    $logsPurgeSkipped++;
+                    Util::logTrace("Failed to purge log file: " . $file);
+                }
+            } catch (Exception $e) {
+                $logsPurgeSkipped++;
+                Util::logTrace("Exception purging log file " . $file . ": " . $e->getMessage());
+            }
+        }
+        closedir($handle);
+        Util::logTrace("Logs purged: " . $logsDeleted . " deleted, " . $logsPurgeSkipped . " skipped");
+        
+        Util::logTrace("Log rotation completed");
     }
 
     /**
@@ -751,12 +875,48 @@ class ActionStartup
                         Util::logTrace('Service info - ' . $key . ': ' . $value);
                     }
 
-                    $serviceGenPathName = trim(str_replace('"', '', $service->getBinPath() . ($service->getParams() ? ' ' . $service->getParams() : '')));
-                    $serviceVbsPathName = trim(str_replace('"', '', $serviceInfos[Win32Service::VBS_PATH_NAME]));
+                    // Special handling for PostgreSQL service
+                    if ($sName == BinPostgresql::SERVICE_NAME) {
+                        // For PostgreSQL, only compare the executable path, not the parameters
+                        $serviceGenPathName = trim(str_replace('"', '', $service->getBinPath()));
+                        $installedPathParts = explode(' ', $serviceInfos[Win32Service::VBS_PATH_NAME], 2);
+                        $serviceVbsPathName = trim(str_replace('"', '', $installedPathParts[0]));
 
-                    Util::logTrace('Comparing service paths - Generated: ' . $serviceGenPathName . ' vs Installed: ' . $serviceVbsPathName);
+                        Util::logTrace('PostgreSQL service - comparing only executable paths');
+                        Util::logTrace('Generated path: ' . $serviceGenPathName);
+                        Util::logTrace('Installed path: ' . $serviceVbsPathName);
+                    } else {
+                        // For other services, use the normal comparison with enhanced debugging
+                        $serviceGenPathName = trim(str_replace('"', '', $service->getBinPath() . ($service->getParams() ? ' ' . $service->getParams() : '')));
+                        $serviceVbsPathName = trim(str_replace('"', '', $serviceInfos[Win32Service::VBS_PATH_NAME]));
 
-                    if ($serviceGenPathName != $serviceVbsPathName) {
+                        Util::logTrace('Comparing service paths - Generated: ' . $serviceGenPathName . ' vs Installed: ' . $serviceVbsPathName);
+                    
+                        // Add detailed debugging to identify invisible characters
+                        Util::logTrace('Generated path length: ' . strlen($serviceGenPathName));
+                        Util::logTrace('Installed path length: ' . strlen($serviceVbsPathName));
+                    
+                        // Output character codes to identify invisible characters
+                        $genChars = 'Generated path char codes: ';
+                        for ($i = 0; $i < strlen($serviceGenPathName); $i++) {
+                            $genChars .= ord($serviceGenPathName[$i]) . ' ';
+                        }
+                        Util::logTrace($genChars);
+                    
+                        $instChars = 'Installed path char codes: ';
+                        for ($i = 0; $i < strlen($serviceVbsPathName); $i++) {
+                            $instChars .= ord($serviceVbsPathName[$i]) . ' ';
+                        }
+                        Util::logTrace($instChars);
+                    }
+
+                    // Try a more robust comparison that normalizes whitespace
+                    $normalizedGenPath = preg_replace('/\s+/', ' ', $serviceGenPathName);
+                    $normalizedVbsPath = preg_replace('/\s+/', ' ', $serviceVbsPathName);
+                    
+                    if ($normalizedGenPath === $normalizedVbsPath) {
+                        Util::logTrace('Paths match after normalizing whitespace - skipping service reinstall');
+                    } else if ($serviceGenPathName != $serviceVbsPathName) {
                         $serviceToRemove = true;
                         $this->writeLog($name . ' service has to be removed');
                         $this->writeLog('-> serviceGenPathName: ' . $serviceGenPathName);
@@ -784,7 +944,7 @@ class ActionStartup
                     if ($isPortInUse === false) {
                         Util::logTrace('Port ' . $port . ' is available');
                         $this->splash->incrProgressBar();
-                        if (!$serviceAlreadyInstalled && !$serviceToRemove) {
+                        if (!$serviceAlreadyInstalled || $serviceToRemove) {
                             Util::logTrace('Installing new service: ' . $name);
                             $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_INSTALL_SERVICE_TEXT), $name));
                             if (!$service->create()) {

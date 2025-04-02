@@ -165,8 +165,12 @@ class Util
      */
     public static function startWith($string, $search)
     {
+        // Return false if string is NULL or empty
+        if ($string === null || $string === '') {
+            return false;
+        }
+        
         $length = strlen( $search );
-
         return (substr( $string, 0, $length ) === $search);
     }
 
