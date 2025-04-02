@@ -1598,11 +1598,8 @@ class Util
      */
     public static function isPortInUse($port)
     {
-        // Declaring a variable to hold the IP
-        // address getHostName() gets the name
-        // of the local machine getHostByName()
-        // gets the corresponding IP
-        $localIP = getHostByName( getHostName() );
+        // Set localIP statically
+        $localIP = '127.0.0.1';
 
         $connection = @fsockopen( $localIP, $port );
 
