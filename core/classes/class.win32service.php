@@ -135,12 +135,14 @@ class Win32Service
     {
         $result = false;
         if ( function_exists( $function ) ) {
+            Util::logTrace('Win32 function: ' . $function . ' exists');
             $result = call_user_func( $function, $param );
             if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
                 $this->latestError = dechex( $result );
             }
+        } else {
+            Util::logTrace('Win32 function: ' . $function . ' missing');
         }
-
         return $result;
     }
 
