@@ -100,6 +100,7 @@ class ActionQuit
         $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::EXIT_STOP_OTHER_PROCESS_TEXT ) );
         Win32Ps::killBins( true );
 
+        // Terminate any remaining processes
         // Final termination sequence
         $this->splash->setTextLoading('Completing shutdown...');
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
