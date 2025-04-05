@@ -240,13 +240,13 @@ class ActionStartup
         Util::logTrace('Loading process completed');
 
         // Closing cli to finish startup
-        Util::logTrace('Destroying startup window');
+        Util::logTrace('Finishing startup process');
 
         $currentPid = Win32Ps::getCurrentPid();
         $terminate = ActionQuit::terminatePhpProcesses($currentPid);
 
-        // Kill any remaining splash windows
-        $bearsamppWinbinder->destroyWindow($window);
+        // Safely reset WinBinder instead of trying to destroy specific windows
+        $bearsamppWinbinder->reset();
 
     }
 
