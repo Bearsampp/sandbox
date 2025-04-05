@@ -237,11 +237,16 @@ class ActionStartup
 
         Util::logTrace('Starting loading screen');
         Util::startLoading();
+        Util::logTrace('Loading process completed');
 
+        // Closing cli to finish startup
         Util::logTrace('Destroying startup window');
+
+        $currentPid = Win32Ps::getCurrentPid();
+        $terminate = ActionQuit::terminatePhpProcesses($currentPid);
+        // Kill any remaining splash windows
         $bearsamppWinbinder->destroyWindow($window);
 
-        Util::logTrace('processWindow method completed');
     }
 
     /**
