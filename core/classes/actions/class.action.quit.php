@@ -107,14 +107,7 @@ class ActionQuit
             $currentPid = Win32Ps::getCurrentPid();
 
             // 1. Terminate PHP processes first
-            $this->terminatePhpProcesses($currentPid);
-
-            // 2. Initiate self-termination
-            $this->splash->setTextLoading('Final cleanup...');
-            Vbs::killProc($currentPid);
-
-            // 3. Destroy window after process termination
-            $bearsamppWinbinder->destroyWindow($window);
+            self::terminatePhpProcesses($currentPid, $window, $this->splash);
 
             // 4. Force exit if still running
             exit(0);
@@ -125,8 +118,20 @@ class ActionQuit
         exit(0);
     }
 
-    private function terminatePhpProcesses($excludePid)
+    /**
+     * Terminate PHP processes
+     * 
+     * @param mixed $window The window parameter
+     * @param mixed $excludePid The PID to exclude
+     * @param Splash $splash The splash screen instance
+     * @return mixed Returns the result of the termination operation
+     */
+    public static function terminatePhpProcesses($excludePid, mixed $window = null, $splash = null)
     {
+        global $bearsamppWinbinder;
+
+        $currentPid = Win32Ps::getCurrentPid();
+
         $targets = ['php-win.exe', 'php.exe'];
         foreach (Win32Ps::getListProcs() as $proc) {
             $exe = strtolower(basename($proc[Win32Ps::EXECUTABLE_PATH]));
@@ -137,5 +142,16 @@ class ActionQuit
                 usleep(100000); // 100ms delay between terminations
             }
         }
+
+        // 2. Initiate self-termination
+        if ($splash !== null) {
+            $splash->setTextLoading('Final cleanup...');
+        }
+        Vbs::killProc($currentPid);
+
+        // 3. Destroy window after process termination
+       if ($window) {
+           $bearsamppWinbinder->destroyWindow($window);
+       }
     }
 }
