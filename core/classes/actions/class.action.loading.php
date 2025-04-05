@@ -98,12 +98,12 @@ class ActionLoading
         }
 
         // Set a maximum number of iterations to prevent infinite loops
-        $maxIterations = 20;
+        $maxIterations = 10;
         $iterations = 0;
         
         // Set a timeout for the entire loading process
         $startTime = time();
-        $maxLoadingTime = 30; // 30 seconds maximum
+        $maxLoadingTime = 10; // 30 seconds maximum
         
         while ($iterations < $maxIterations && (time() - $startTime) < $maxLoadingTime) {
             $bearsamppRoot->removeErrorHandling();
