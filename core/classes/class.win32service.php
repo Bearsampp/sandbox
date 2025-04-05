@@ -83,6 +83,9 @@ class Win32Service
 
     private $latestStatus;
     private $latestError;
+    
+    // Track which functions have been logged to avoid duplicate log entries
+    private static $loggedFunctions = array();
 
     /**
      * Constructor for the Win32Service class.
@@ -135,13 +138,19 @@ class Win32Service
     {
         $result = false;
         if ( function_exists( $function ) ) {
-            Util::logTrace('Win32 function: ' . $function . ' exists');
+            if (!isset(self::$loggedFunctions[$function])) {
+                Util::logTrace('Win32 function: ' . $function . ' exists');
+                self::$loggedFunctions[$function] = true;
+            }
             $result = call_user_func( $function, $param );
             if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
                 $this->latestError = dechex( $result );
             }
         } else {
-            Util::logTrace('Win32 function: ' . $function . ' missing');
+            if (!isset(self::$loggedFunctions[$function])) {
+                Util::logTrace('Win32 function: ' . $function . ' missing');
+                self::$loggedFunctions[$function] = true;
+            }
         }
         return $result;
     }
