@@ -269,8 +269,19 @@ class ActionStartup
 
         // Create archive folders
         Util::logTrace("Creating archive directories for current rotation");
-        mkdir($archiveLogsPath, 0777, true);
-        mkdir($archiveScriptsPath, 0777, true);
+        if (!is_dir($archiveLogsPath)) {
+            Util::logTrace("Creating logs archive directory: " . $archiveLogsPath);
+            mkdir($archiveLogsPath, 0777, true);
+        } else {
+            Util::logTrace("Logs archive directory already exists: " . $archiveLogsPath);
+        }
+        
+        if (!is_dir($archiveScriptsPath)) {
+            Util::logTrace("Creating scripts archive directory: " . $archiveScriptsPath);
+            mkdir($archiveScriptsPath, 0777, true);
+        } else {
+            Util::logTrace("Scripts archive directory already exists: " . $archiveScriptsPath);
+        }
 
         // Count archives
         Util::logTrace("Counting existing archives");
