@@ -119,14 +119,14 @@ class ActionQuit
     }
 
     /**
-     * Terminate PHP processes
-     * 
-     * @param mixed $window The window parameter
-     * @param mixed $excludePid The PID to exclude
-     * @param Splash $splash The splash screen instance
-     * @return mixed Returns the result of the termination operation
+     * Terminates PHP processes.
+     *
+     * @param   int     $excludePid  Process ID to exclude
+     * @param   mixed   $window      Window handle or null
+     * @param   mixed   $splash      Splash screen or null
+     * @return  void
      */
-    public static function terminatePhpProcesses($excludePid, mixed $window = null, $splash = null)
+    public static function terminatePhpProcesses($excludePid, $window = null, $splash = null)
     {
         global $bearsamppWinbinder;
 
@@ -150,8 +150,9 @@ class ActionQuit
         Vbs::killProc($currentPid);
 
         // 3. Destroy window after process termination
-       if ($window) {
-           $bearsamppWinbinder->destroyWindow($window);
-       }
+        // Fix for PHP 8.2: Check if window is not null before destroying
+        if ($window && $bearsamppWinbinder) {
+            $bearsamppWinbinder->destroyWindow($window);
+        }
     }
 }

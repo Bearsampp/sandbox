@@ -143,8 +143,8 @@ class Win32Service
                 self::$loggedFunctions[$function] = true;
             }
             $result = call_user_func( $function, $param );
-            if ( $checkError && dechex( $result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = dechex( $result );
+            if ( $checkError && $result !== null && dechex( (int)$result ) != self::WIN32_NO_ERROR ) {
+                $this->latestError = $result !== null ? dechex( (int)$result ) : '0';
             }
         } else {
             if (!isset(self::$loggedFunctions[$function])) {
@@ -172,10 +172,10 @@ class Win32Service
         while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
             $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
             if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( $this->latestStatus['CurrentState'] );
+                $this->latestStatus = dechex( (int)$this->latestStatus['CurrentState'] );
             }
-            elseif ( dechex( $this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( $this->latestStatus );
+            elseif ( $this->latestStatus !== null && dechex( (int)$this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+                $this->latestStatus = dechex( (int)$this->latestStatus );
             }
             if ( $timeout && $maxtime < time() ) {
                 break;
@@ -263,7 +263,8 @@ class Win32Service
             Util::logTrace("-> $key: $value");
         }
         
-        $create = dechex( $this->callWin32Service( 'win32_create_service', $serviceParams, true ) );
+        $result = $this->callWin32Service( 'win32_create_service', $serviceParams, true );
+        $create = $result !== null ? dechex( (int)$result ) : '0';
         Util::logTrace("win32_create_service result code: " . $create);
 
         $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
@@ -306,7 +307,8 @@ class Win32Service
             return Batch::uninstallPostgresqlService();
         }
 
-        $delete = dechex( $this->callWin32Service( 'win32_delete_service', $this->getName(), true ) );
+        $result = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
+        $delete = $result !== null ? dechex( (int)$result ) : '0';
         $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
 
         if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
@@ -366,7 +368,8 @@ class Win32Service
         }
 
 
-        $start = dechex( $this->callWin32Service( 'win32_start_service', $this->getName(), true ) );
+        $result = $this->callWin32Service( 'win32_start_service', $this->getName(), true );
+        $start = $result !== null ? dechex( (int)$result ) : '0';
         Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
 
         if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
@@ -425,7 +428,8 @@ class Win32Service
      */
     public function stop()
     {
-        $stop = dechex( $this->callWin32Service( 'win32_stop_service', $this->getName(), true ) );
+        $result = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
+        $stop = $result !== null ? dechex( (int)$result ) : '0';
         $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
 
         if ( $stop != self::WIN32_NO_ERROR ) {
