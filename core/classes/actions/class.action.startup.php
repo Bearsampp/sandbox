@@ -244,6 +244,7 @@ class ActionStartup
 
         $currentPid = Win32Ps::getCurrentPid();
         $terminate = ActionQuit::terminatePhpProcesses($currentPid);
+
         // Kill any remaining splash windows
         $bearsamppWinbinder->destroyWindow($window);
 
