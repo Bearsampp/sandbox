@@ -55,4 +55,16 @@ class TplAppReload
             'Action: resetservices' . PHP_EOL .
             'Action: readconfig';
     }
+
+    /**
+     * Triggers a reload of the Bearsampp menu system and returns the reload action string
+     *
+     * @param array $args Arguments passed to the reload action
+     * @return string The reload action string for console output
+     */
+    public static function triggerReload($args)
+    {
+        new ActionReload($args);
+        return self::getActionReload();
+    }
 }
