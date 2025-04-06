@@ -21,6 +21,7 @@ class ActionSwitchVersion
     private $service;
     private $changePort;
     private $boxTitle;
+    private $pathsToScan = [];
 
     const GAUGE_SERVICES = 1;
     const GAUGE_OTHERS = 7;

@@ -141,7 +141,7 @@ class WinBinder
 
         // Fix for PHP 8.2: Convert null to 0 for parent parameter
         $parent = $parent === null ? 0 : $parent;
-        
+
         $caption = empty($caption) ? $this->defaultTitle : $this->defaultTitle . ' - ' . $caption;
         $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
@@ -932,7 +932,7 @@ class WinBinder
 
         $message    = str_replace(self::NEW_LINE, PHP_EOL, $message);
         $messageBox = $this->callWinBinder('wb_message_box', array(
-            null,
+            0, // Use 0 instead of null for the window handle parameter
             strlen($message) < 64 ? str_pad($message, 64) : $message, // Pad message to display entire title
             $title == null ? $this->defaultTitle : $this->defaultTitle . ' - ' . $title,
             $type
