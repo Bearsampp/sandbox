@@ -213,14 +213,16 @@ class WinBinder
     }
 
     /**
-     * Destroys a window.
+     * Destroys a window with proper cleanup and handling.
      *
      * @param   mixed  $window  The window object to destroy.
+     * @return  boolean True if window was successfully destroyed
      */
     public function destroyWindow($window)
     {
-        if (!$this->windowIsValid($window)) {
-            return true; // Already closed
+        // Check if window exists and is valid
+        if (!$window || !$this->windowIsValid($window)) {
+            return true; // Already closed or invalid window
         }
 
         // Get window title before destruction for fallback
@@ -253,10 +255,14 @@ class WinBinder
                 $this->exec('taskkill', '/PID ' . $currentPid . ' /T /F', true);
                 $this->writeLog('Force-killed PID: ' . $currentPid . ' for window: ' . $window);
             }
+            
             // 3. Final sanity check
             if ($this->windowIsValid($window)) {
                 $this->callWinBinder('wb_destroy_window', array($window), true); // Force native call
             }
+            
+            // 4. Reset internal state to prevent memory leaks
+            $this->reset();
         }
 
         // Final verification
@@ -273,6 +279,33 @@ class WinBinder
     public function getText($wbobject)
     {
         return $this->callWinBinder('wb_get_text', array($wbobject));
+    }
+    
+    /**
+     * Checks if a window handle is still valid.
+     *
+     * @param   mixed  $window  The window object to check.
+     * @return  boolean True if window is valid
+     */
+    private function windowIsValid($window)
+    {
+        if (!$window) {
+            return false;
+        }
+        
+        // Try to get window text - if window is invalid, this will fail
+        $text = $this->callWinBinder('wb_get_text', array($window), true);
+        return ($text !== false);
+    }
+    
+    /**
+     * Process any pending window messages.
+     *
+     * @return void
+     */
+    private function processMessages()
+    {
+        $this->callWinBinder('wb_wait', array(null, 1), true);
     }
 
     /**
