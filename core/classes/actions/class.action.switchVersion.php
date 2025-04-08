@@ -25,6 +25,20 @@ class ActionSwitchVersion
 
     const GAUGE_SERVICES = 1;
     const GAUGE_OTHERS = 7;
+    
+    // Configuration sections
+    const CONFIG_SECTION_APACHE = 'apache';
+    const CONFIG_SECTION_PHP = 'php';
+    const CONFIG_SECTION_MYSQL = 'mysql';
+    const CONFIG_SECTION_MARIADB = 'mariadb';
+    const CONFIG_SECTION_POSTGRESQL = 'postgresql';
+    const CONFIG_SECTION_NODEJS = 'nodejs';
+    const CONFIG_SECTION_MEMCACHED = 'memcached';
+    const CONFIG_SECTION_MAILPIT = 'mailpit';
+    const CONFIG_SECTION_XLIGHT = 'xlight';
+    
+    // Configuration keys
+    const CONFIG_KEY_VERSION = 'version';
 
     /**
      * ActionSwitchVersion constructor.
@@ -240,11 +254,16 @@ class ActionSwitchVersion
         }
 
         $this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + 1);
+
+        // Update configuration file with the new version
+        $this->updateConfigVersion();
+
         $bearsamppWinbinder->messageBoxInfo(
             sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
             $this->boxTitle
         );
         $bearsamppWinbinder->destroyWindow($window);
+
 
         $this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_REGISTRY), Registry::APP_BINS_REG_ENTRY));
         $this->bearsamppSplash->incrProgressBar(2);
@@ -264,5 +283,53 @@ class ActionSwitchVersion
         $bearsamppCore->setExec(ActionExec::RESTART);
 
         $bearsamppWinbinder->destroyWindow($window);
+    }
+    
+    /**
+     * Updates the configuration file with the new version of the binary
+     * This ensures version persistence across restarts
+     */
+    private function updateConfigVersion()
+    {
+        $bearsamppConfig = Config::getInstance();
+        $configSection = '';
+        
+        // Determine the correct configuration section based on binary type
+        if ($this->bin->getName() == $GLOBALS['bearsamppBins']->getApache()->getName()) {
+            $configSection = self::CONFIG_SECTION_APACHE;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPhp()->getName()) {
+            $configSection = self::CONFIG_SECTION_PHP;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMysql()->getName()) {
+            $configSection = self::CONFIG_SECTION_MYSQL;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMariadb()->getName()) {
+            $configSection = self::CONFIG_SECTION_MARIADB;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPostgresql()->getName()) {
+            $configSection = self::CONFIG_SECTION_POSTGRESQL;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getNodejs()->getName()) {
+            $configSection = self::CONFIG_SECTION_NODEJS;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMemcached()->getName()) {
+            $configSection = self::CONFIG_SECTION_MEMCACHED;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMailpit()->getName()) {
+            $configSection = self::CONFIG_SECTION_MAILPIT;
+        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getXlight()->getName()) {
+            $configSection = self::CONFIG_SECTION_XLIGHT;
+        }
+        
+        // Update the configuration if a valid section was found
+        if (!empty($configSection)) {
+            $bearsamppConfig->replace($configSection, self::CONFIG_KEY_VERSION, $this->version);
+            $bearsamppConfig->save();
+            
+            // Update tray menu display if TrayMenu class is available
+            if (class_exists('TrayMenu')) {
+                $trayMenu = TrayMenu::getInstance();
+                if (method_exists($trayMenu, 'updateSectionVersion')) {
+                    $trayMenu->updateSectionVersion(
+                        strtoupper($configSection), 
+                        $this->version
+                    );
+                }
+            }
+        }
     }
 }
