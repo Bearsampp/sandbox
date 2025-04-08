@@ -293,7 +293,7 @@ class ActionSwitchVersion
      * Updates the configuration file with the new version of the binary
      * This ensures version persistence across restarts
      */
-    private function updateConfigVersion()
+    private function updateConfigVersion(): void
     {
         $bearsamppConfig = Config::getInstance();
         $configSection = '';
@@ -301,30 +301,41 @@ class ActionSwitchVersion
         // Determine the correct configuration section based on binary type
         if ($this->bin->getName() == $GLOBALS['bearsamppBins']->getApache()->getName()) {
             $configSection = self::CONFIG_SECTION_APACHE;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_APACHE, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPhp()->getName()) {
             $configSection = self::CONFIG_SECTION_PHP;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_PHP, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMysql()->getName()) {
             $configSection = self::CONFIG_SECTION_MYSQL;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_MYSQL, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMariadb()->getName()) {
             $configSection = self::CONFIG_SECTION_MARIADB;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_MARIADB, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPostgresql()->getName()) {
             $configSection = self::CONFIG_SECTION_POSTGRESQL;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_POSTGRESQL, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getNodejs()->getName()) {
             $configSection = self::CONFIG_SECTION_NODEJS;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_NODEJS, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMemcached()->getName()) {
             $configSection = self::CONFIG_SECTION_MEMCACHED;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_MEMCACHED, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMailpit()->getName()) {
             $configSection = self::CONFIG_SECTION_MAILPIT;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_MAILPIT, $this->version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getXlight()->getName()) {
             $configSection = self::CONFIG_SECTION_XLIGHT;
+            Util::logTrace(sprintf('Switch %s version to %s', self::CONFIG_SECTION_XLIGHT, $this->version));
         }
         
         // Update the configuration if a valid section was found
         if (!empty($configSection)) {
+            Util::logTrace('Updating .ini file...');
             $bearsamppConfig->replace($configSection, self::CONFIG_KEY_VERSION, $this->version);
             $bearsamppConfig->save();
             
             // Update tray menu display if TrayMenu class is available
+            Util::logTrace('Updating TrayMenu...');
             if (class_exists('TrayMenu')) {
                 $trayMenu = TrayMenu::getInstance();
                 if (method_exists($trayMenu, 'updateSectionVersion')) {
@@ -335,5 +346,6 @@ class ActionSwitchVersion
                 }
             }
         }
+        Util::logTrace('Returning to parent call');
     }
 }
