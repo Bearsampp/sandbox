@@ -256,12 +256,16 @@ class ActionSwitchVersion
         $this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + 1);
 
         // Update configuration file with the new version
+        Util::logTrace('Updating ini & menu...');
         $this->updateConfigVersion();
 
+        Util::logTrace('Creating modal...');
         $bearsamppWinbinder->messageBoxInfo(
             sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
             $this->boxTitle
         );
+
+        Util::logTrace('Destroying modal window...');
         $bearsamppWinbinder->destroyWindow($window);
 
 
