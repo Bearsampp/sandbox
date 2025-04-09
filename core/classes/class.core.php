@@ -1,7 +1,7 @@
 <?php
 /*
  *
- *  * Copyright (c) 2022 - ${todayYear} Bearsampp
+ *  * Copyright (c) 2022-${YEAR} Bearsampp
  *  * License: GNU General Public License version 3 or later; see LICENSE.txt
  *  * Website: https://bearsampp.com
  *  * Github: https://github.com/Bearsampp
