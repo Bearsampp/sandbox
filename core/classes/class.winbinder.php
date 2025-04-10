@@ -213,14 +213,36 @@ class WinBinder
     }
 
     /**
-     * Destroys a window.
+     * Destroys a window with proper cleanup and handling.
      *
      * @param   mixed  $window  The window object to destroy.
+     * @return  boolean True if window was successfully destroyed
      */
     public function destroyWindow($window)
     {
-        $this->callWinBinder('wb_destroy_window', array($window), true);
-        exit();
+        if ($this->windowIsValid($window)) {
+            // First attempt - standard window destruction with error suppression
+            Util::logTrace('standard window destruction with error suppression');
+            $result = $this->callWinBinder('wb_destroy_window', array($window), true);
+        }
+        if (!$this->windowIsValid($window)) {
+            Util::logTrace('Error: Window ' . $window . ' is not valid.');
+            return true;
+        }
+
+        // If we have a window, try to get its PID and close it
+        $pid = getmypid();
+        if ($pid) {
+            Util::logTrace('Closing process with PID: ' . $pid . ' - using taskkill');
+            $this->exec('taskkill', '/PID ' . $pid . ' /F', true);
+        }
+        // Fallback to window title if PID retrieval fails
+        elseif (!empty($windowTitle)) {
+            Util::logTrace('Closing window with title: ' . $windowTitle . ' - using taskkill');
+            $this->exec('taskkill', '/FI "WINDOWTITLE eq ' . $windowTitle . '" /F', true);
+        }
+        
+        return true;
     }
 
     /**
