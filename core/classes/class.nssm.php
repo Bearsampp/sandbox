@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -683,7 +684,7 @@ class Nssm
             return $bearsamppLang->getValue( Lang::ERROR ) . ' ' . $this->latestError;
         }
         elseif ( $this->latestStatus != self::STATUS_NA ) {
-            return $bearsamppLang->getValue( Lang::STATUS ) . ' ' . $this->latestStatus . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus );
+            return $bearsamppLang->getValue( Lang::STATUS ) . ' ' . $this->latestStatus . ' : ' . $this->getServiceStatusDesc( $this->latestStatus );
         }
 
         return null;

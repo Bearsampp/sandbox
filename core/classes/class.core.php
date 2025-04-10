@@ -1,8 +1,8 @@
 <?php
 /*
  *
- *  * Copyright (c) 2021-2024 Bearsampp
- *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
  *  * Website: https://bearsampp.com
  *  * Github: https://github.com/Bearsampp
  *
@@ -495,8 +495,6 @@ class Core
      */
     public function unzipFile($filePath, $destination, $progressCallback = null)
     {
-        global $bearsamppRoot;
-
         $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
         if ( !file_exists( $sevenZipPath ) ) {
