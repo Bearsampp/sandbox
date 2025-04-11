@@ -255,12 +255,12 @@ class WinBinder
                 $this->exec('taskkill', '/PID ' . $currentPid . ' /T /F', true);
                 $this->writeLog('Force-killed PID: ' . $currentPid . ' for window: ' . $window);
             }
-            
+
             // 3. Final sanity check
             if ($this->windowIsValid($window)) {
                 $this->callWinBinder('wb_destroy_window', array($window), true); // Force native call
             }
-            
+
             // 4. Reset internal state to prevent memory leaks
             $this->reset();
         }
@@ -280,7 +280,7 @@ class WinBinder
     {
         return $this->callWinBinder('wb_get_text', array($wbobject));
     }
-    
+
     /**
      * Checks if a window handle is still valid.
      *
@@ -289,15 +289,26 @@ class WinBinder
      */
     private function windowIsValid($window)
     {
+        // Basic validation first
         if (!$window) {
             return false;
         }
-        
-        // Try to get window text - if window is invalid, this will fail
-        $text = $this->callWinBinder('wb_get_text', array($window), true);
-        return ($text !== false);
+
+        // Suppress warnings when checking invalid handles
+        $errorReporting = error_reporting(0);
+        try {
+            // Try to get window text - if window is invalid, this will fail
+            $text = $this->callWinBinder('wb_get_text', array($window), true);
+            $isValid = ($text !== false);
+        } catch (Exception $e) {
+            $isValid = false;
+        }
+        // Restore error reporting
+        error_reporting($errorReporting);
+
+        return $isValid;
     }
-    
+
     /**
      * Process any pending window messages.
      *
