@@ -684,7 +684,7 @@ class Nssm
             return $bearsamppLang->getValue( Lang::ERROR ) . ' ' . $this->latestError;
         }
         elseif ( $this->latestStatus != self::STATUS_NA ) {
-            return $bearsamppLang->getValue( Lang::STATUS ) . ' ' . $this->latestStatus . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus );
+            return $bearsamppLang->getValue( Lang::STATUS ) . ' ' . $this->latestStatus . ' : ' . $this->getServiceStatusDesc( $this->latestStatus );
         }
 
         return null;

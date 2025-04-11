@@ -495,8 +495,6 @@ class Core
      */
     public function unzipFile($filePath, $destination, $progressCallback = null)
     {
-        global $bearsamppRoot;
-
         $sevenZipPath = $this->getLibsPath() . '/7zip/7za.exe';
 
         if (!file_exists($sevenZipPath)) {
