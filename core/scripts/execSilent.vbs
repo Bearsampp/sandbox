@@ -1,65 +1,85 @@
-On Error Resume Next
-Err.Clear
+Option Explicit
 
 ' Constants
 Const ForAppending = 8
+Const MAX_LOG_SIZE = 1048576 ' 1MB
 
-' Variables for execution
+' Objects
 Dim randomShell, randomFso, randomArgs
-
-' Variables for logging
 Dim scriptPath, logPath, logFile
 
-' Initialize objects
-Set randomShell = WScript.CreateObject("WScript.Shell")
+' Initialize core objects
+Set randomShell = CreateObject("WScript.Shell")
 Set randomFso = CreateObject("Scripting.FileSystemObject")
 Set randomArgs = WScript.Arguments
 
-' Setup logging
-scriptPath = randomFso.GetParentFolderName(WScript.ScriptFullName)
-logPath = randomFso.BuildPath(scriptPath, "..\logs\")
-
-If Not randomFso.FolderExists(logPath) Then
-    randomFso.CreateFolder(logPath)
-End If
-
-logFile = randomFso.BuildPath(logPath, "bearsampp-vbs.log")
-
-' Check for initialization errors
-If Err.Number <> 0 Then
-    WScript.Echo "Error: " & Err.Description
+' Validate argument count
+If randomArgs.Count < 1 Then
+    WScript.Echo "Error: Missing executable path argument"
     WScript.Quit 1
 End If
 
-num = randomArgs.Count
-sargs = ""
+' Configure logging
+InitializeLogging
 
-If num = 0 Then
-    LogError "No arguments provided"
-    WScript.Quit 1
-End If
+On Error Resume Next
 
-If num > 1 Then
-    Dim argArray()
-    ReDim argArray(num - 1)
-    For k = 1 To num - 1
-        argArray(k - 1) = randomArgs.Item(k)
-    Next
-    sargs = " " & Join(argArray, " ") & " "
-End If
+Dim command, arguments, exitCode
+command = randomArgs(0)
+arguments = BuildArguments
 
-Dim exitCode
-exitCode = randomShell.Run("""" & randomArgs(0) & """" & sargs, 0, True)
+LogInfo "Attempting to execute: " & command & " " & arguments
+LogInfo "Working directory: " & randomShell.CurrentDirectory
+
+' Execute command
+exitCode = randomShell.Run(Chr(34) & command & Chr(34) & " " & arguments, 0, True)
 
 If Err.Number <> 0 Then
-    LogError "Failed to execute: " & randomArgs(0) & " - " & Err.Description
+    LogError "Execution failed: " & Err.Description & " (0x" & Hex(Err.Number) & ")"
     WScript.Quit 1
 End If
 
-LogInfo "Successfully executed: " & randomArgs(0) & " with exit code: " & exitCode
+LogInfo "Execution completed with exit code: " & exitCode
 WScript.Quit exitCode
 
-' Logging functions
+' ---------- Support Functions ----------
+Sub InitializeLogging
+    scriptPath = randomFso.GetParentFolderName(WScript.ScriptFullName)
+    logPath = randomFso.BuildPath(scriptPath, "..\logs\")
+    
+    If Not randomFso.FolderExists(logPath) Then
+        randomFso.CreateFolder(logPath)
+        If Err.Number <> 0 Then
+            WScript.Echo "Log path creation failed: " & Err.Description
+            WScript.Quit 1
+        End If
+    End If
+    
+    logFile = randomFso.BuildPath(logPath, "bearsampp-vbs.log")
+    CheckLogSize
+End Sub
+
+Function BuildArguments
+    Dim argArray, i
+    If randomArgs.Count > 1 Then
+        ReDim argArray(randomArgs.Count - 2)
+        For i = 1 To randomArgs.Count - 1
+            argArray(i - 1) = randomArgs(i)
+        Next
+        BuildArguments = Join(argArray, " ")
+    Else
+        BuildArguments = ""
+    End If
+End Function
+
+Sub CheckLogSize
+    If randomFso.FileExists(logFile) Then
+        If randomFso.GetFile(logFile).Size > MAX_LOG_SIZE Then
+            randomFso.MoveFile logFile, logFile & "." & FormatDateTime(Now, 2) & ".bak"
+        End If
+    End If
+End Sub
+
 Sub LogError(message)
     WriteToLog "ERROR", message
 End Sub
@@ -72,11 +92,11 @@ Sub WriteToLog(level, message)
     On Error Resume Next
     Dim logStream
     Set logStream = randomFso.OpenTextFile(logFile, ForAppending, True)
-    If Err.Number <> 0 Then
-        WScript.Echo "Log Error: " & Err.Description
+    If Err.Number = 0 Then
+        logStream.WriteLine Now & " [" & level & "] " & message
+        logStream.Close
+    Else
+        WScript.Echo "Log write failed: " & Err.Description
         Err.Clear
-        WScript.Quit 1
     End If
-    logStream.WriteLine Now & " [" & level & "] " & message
-    logStream.Close
 End Sub
