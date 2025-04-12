@@ -12,7 +12,3 @@
 
 # ignore "current" directories
 /**/current
-/bearsampp.conf
-/bearsampp.ini
-item
-.qodo
