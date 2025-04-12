@@ -101,7 +101,7 @@ class Core
      */
     public function getIconsPath($aetrayPath = false)
     {
-        return $this->getImagesPath($aetrayPath) . '/icons/';
+        return $this->getImagesPath($aetrayPath) . '/icons';
     }
 
     /**

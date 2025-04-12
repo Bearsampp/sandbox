@@ -126,7 +126,7 @@ class WinBinder
         $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
         // Set tiny window icon
-        $this->setImage($window, $bearsamppCore->getIconsPath() . 'app.ico');
+        $this->setImage($window, $bearsamppCore->getIconsPath() . '/app.ico');
 
         return $window;
     }
