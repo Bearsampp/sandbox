@@ -288,23 +288,27 @@ class WinBinder
     }
 
     /**
-     * Executes a command.
+     * Executes a system command.
      *
-     * @param   string  $command     The command to execute.
-     * @param   string  $params      The parameters for the command.
-     * @param   bool    $waitForIt   Whether to wait for the command to complete.
-     * @param   bool    $hideWindow  Whether to hide the command window.
+     * @param   string       $cmd         The command to execute.
+     * @param   string|null  $params      The parameters to pass to the command.
+     * @param   bool         $waitForIt   Whether to wait for the command to complete.
+     * @param   bool         $hideWindow  Whether to hide the command window.
      *
-     * @return mixed The result of the execution.
+     * @return mixed The result of the command execution.
      */
-    public function exec($command, $params = '', $waitForIt = false, $hideWindow = true)
+    public function exec($cmd, $params = null, $silent = false)
     {
-        // Add windowstyle parameter to hide the command window
-        if ($hideWindow) {
-            return $this->callWinBinder('wb_exec', array($command, $params, $waitForIt, 'windowstyle=hidden'));
-        } else {
-            return $this->callWinBinder('wb_exec', array($command, $params, $waitForIt));
+        global $bearsamppCore;
+
+        if ($silent) {
+            $silent = '"' . $bearsamppCore->getScript(Core::SCRIPT_EXEC_SILENT) . '" "' . $cmd . '"';
+            $cmd = 'wscript.exe';
+            $params = !empty($params) ? $silent . ' "' . $params . '"' : $silent;
         }
+
+        $this->writeLog('exec: ' . $cmd . ' ' . $params);
+        return $this->callWinBinder('wb_exec', array($cmd, $params));
     }
 
     /**
@@ -964,10 +968,12 @@ class WinBinder
      *
      * @param   string  $log  The log message to write.
      */
-    private static function writeLog($log)
+    private function writeLog($log)
     {
-        global $bearsamppBs;
-        Util::logDebug($log, $bearsamppBs->getWinbinderLogFilePath());
+        global $bearsamppCore;
+        if (method_exists('Util', 'logDebug') && method_exists($bearsamppCore, 'getWinbinderLogFilePath')) {
+            Util::logDebug($log, $bearsamppCore->getWinbinderLogFilePath());
+        }
     }
     
     /**
