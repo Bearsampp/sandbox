@@ -72,11 +72,6 @@ class ActionChangePort
                 $this->currentPort       = $bearsamppBins->getXlight()->getPort();
                 $this->cntProcessActions = 3;
             }
-            elseif ( $args[0] == $bearsamppBins->getXlight()->getName() ) {
-                $this->bin               = $bearsamppBins->getXlight();
-                $this->currentPort       = $bearsamppBins->getXlight()->getPort();
-                $this->cntProcessActions = 3;
-            }
 
             $bearsamppWinbinder->reset();
             $this->wbWindow = $bearsamppWinbinder->createAppWindow( sprintf( $bearsamppLang->getValue( Lang::CHANGE_PORT_TITLE ), $args[0] ), 380, 170, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP );
