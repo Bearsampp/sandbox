@@ -27,11 +27,17 @@ class Config
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
     const CFG_BROWSER = 'browser';
+    const CFG_BROWSER_MODE = 'browserMode';
+    const CFG_DEFAULT_BROWSER = 'defaultBrowser';
+    const CFG_CUSTOM_BROWSER = 'customBrowser';
     const CFG_ONLINE = 'online';
     const CFG_LAUNCH_STARTUP = 'launchStartup';
 
     const ENABLED = 1;
     const DISABLED = 0;
+
+    const BROWSER_DEFAULT = 'default';
+    const BROWSER_CUSTOM = 'custom';
 
     const VERBOSE_SIMPLE = 0;
     const VERBOSE_REPORT = 1;
@@ -39,6 +45,9 @@ class Config
     const VERBOSE_TRACE = 3;
 
     private $raw;
+    private $defaultBrowser;
+    private $customBrowser;
+    private $browserMode;
 
     /**
      * Constructs a Config object and initializes the configuration settings.
@@ -51,6 +60,27 @@ class Config
         // Set current timezone to match whats in .conf
         $this->raw = parse_ini_file($bearsamppRoot->getConfigFilePath());
         date_default_timezone_set($this->getTimezone());
+        
+        // Initialize browser settings with proper defaults
+        $this->browserMode = isset($this->raw[self::CFG_BROWSER_MODE]) ? $this->raw[self::CFG_BROWSER_MODE] : self::BROWSER_DEFAULT;
+        $this->defaultBrowser = isset($this->raw[self::CFG_DEFAULT_BROWSER]) ? $this->raw[self::CFG_DEFAULT_BROWSER] : '';
+        $this->customBrowser = isset($this->raw[self::CFG_CUSTOM_BROWSER]) ? $this->raw[self::CFG_CUSTOM_BROWSER] : '';
+        
+        // For backward compatibility
+        if (isset($this->raw[self::CFG_BROWSER]) && !isset($this->raw[self::CFG_DEFAULT_BROWSER])) {
+            $this->defaultBrowser = $this->raw[self::CFG_BROWSER];
+            // Also update the raw array to ensure consistency
+            $this->raw[self::CFG_DEFAULT_BROWSER] = $this->defaultBrowser;
+        }
+        
+        // Ensure browser mode is valid
+        if ($this->browserMode != self::BROWSER_DEFAULT && $this->browserMode != self::BROWSER_CUSTOM) {
+            $this->browserMode = self::BROWSER_DEFAULT;
+            $this->raw[self::CFG_BROWSER_MODE] = self::BROWSER_DEFAULT;
+        }
+        
+        // Log browser settings for debugging
+        Util::logTrace("Browser settings initialized - Mode: {$this->browserMode}, Default: {$this->defaultBrowser}, Custom: {$this->customBrowser}");
     }
 
     /**
@@ -61,7 +91,7 @@ class Config
      */
     public function getRaw($key)
     {
-        return $this->raw[$key];
+        return isset($this->raw[$key]) ? $this->raw[$key] : null;
     }
 
     /**
@@ -87,12 +117,23 @@ class Config
         Util::logTrace('Replace config:');
         $content = file_get_contents($bearsamppRoot->getConfigFilePath());
         foreach ($params as $key => $value) {
-            $content = preg_replace('/^' . $key . '\s=\s.*/m', $key . ' = ' . '"' . $value.'"', $content, -1, $count);
-            Util::logTrace('## ' . $key . ': ' . $value . ' (' . $count . ' replacements done)');
+            // Check if the key already exists in the file
+            if (preg_match('/^' . preg_quote($key, '/') . '\s*=\s*.*/m', $content)) {
+                // Replace existing key
+                $content = preg_replace('/^' . preg_quote($key, '/') . '\s*=\s*.*/m', $key . ' = "' . $value . '"', $content, -1, $count);
+                Util::logTrace('## ' . $key . ': ' . $value . ' (' . $count . ' replacements done)');
+            } else {
+                // Add new key at the end of the file
+                $content .= PHP_EOL . $key . ' = "' . $value . '"';
+                Util::logTrace('## ' . $key . ': ' . $value . ' (added new key)');
+            }
             $this->raw[$key] = $value;
         }
 
-        file_put_contents($bearsamppRoot->getConfigFilePath(), $content);
+        // Write the updated content back to the file
+        if (file_put_contents($bearsamppRoot->getConfigFilePath(), $content) === false) {
+            Util::logError("Failed to write configuration to file: " . $bearsamppRoot->getConfigFilePath());
+        }
     }
 
     /**
@@ -156,13 +197,109 @@ class Config
     }
 
     /**
+     * Gets the browser mode (default or custom).
+     *
+     * @return string The browser mode.
+     */
+    public function getBrowserMode()
+    {
+        return $this->browserMode;
+    }
+
+    /**
+     * Sets the browser mode (default or custom).
+     *
+     * @param string $browserMode The browser mode.
+     */
+    public function setBrowserMode($browserMode)
+    {
+        if ($browserMode == self::BROWSER_DEFAULT || $browserMode == self::BROWSER_CUSTOM) {
+            $this->browserMode = $browserMode;
+            $this->replace(self::CFG_BROWSER_MODE, $browserMode);
+            Util::logTrace("Browser mode set to: " . $browserMode);
+        } else {
+            // Default to default browser if invalid mode is provided
+            $this->browserMode = self::BROWSER_DEFAULT;
+            $this->replace(self::CFG_BROWSER_MODE, self::BROWSER_DEFAULT);
+            Util::logWarning("Invalid browser mode '{$browserMode}' specified, defaulting to " . self::BROWSER_DEFAULT);
+        }
+    }
+
+    /**
+     * Gets the path to the default browser executable.
+     *
+     * @return string The path to the default browser executable.
+     */
+    public function getDefaultBrowser()
+    {
+        return $this->defaultBrowser;
+    }
+
+    /**
+     * Sets the path to the default browser executable.
+     *
+     * @param string $defaultBrowser The path to the default browser executable.
+     */
+    public function setDefaultBrowser($defaultBrowser)
+    {
+        $this->defaultBrowser = $defaultBrowser;
+        $this->replace(self::CFG_DEFAULT_BROWSER, $defaultBrowser);
+        // For backward compatibility
+        $this->replace(self::CFG_BROWSER, $defaultBrowser);
+        Util::logTrace("Default browser set to: " . $defaultBrowser);
+    }
+
+    /**
+     * Gets the path to the custom browser executable.
+     *
+     * @return string The path to the custom browser executable.
+     */
+    public function getCustomBrowser()
+    {
+        return $this->customBrowser;
+    }
+
+    /**
+     * Sets the path to the custom browser executable.
+     *
+     * @param string $customBrowser The path to the custom browser executable.
+     */
+    public function setCustomBrowser($customBrowser)
+    {
+        $this->customBrowser = $customBrowser;
+        $this->replace(self::CFG_CUSTOM_BROWSER, $customBrowser);
+        Util::logTrace("Custom browser set to: " . $customBrowser);
+    }
+
+    /**
      * Retrieves the browser setting from the configuration.
+     * This method determines which browser to use based on the browser mode.
      *
      * @return string The browser setting.
      */
     public function getBrowser()
     {
-        return $this->raw[self::CFG_BROWSER];
+        Util::logTrace("Getting browser with mode: {$this->browserMode}");
+        
+        if ($this->browserMode == self::BROWSER_CUSTOM && !empty($this->customBrowser) && file_exists($this->customBrowser)) {
+            Util::logTrace("Using custom browser: {$this->customBrowser}");
+            return $this->customBrowser;
+        } else {
+            // If custom browser is selected but not valid, log a warning
+            if ($this->browserMode == self::BROWSER_CUSTOM) {
+                Util::logWarning("Custom browser selected but path is invalid or empty: {$this->customBrowser}");
+            }
+            
+            // Use default browser if it's set
+            if (!empty($this->defaultBrowser)) {
+                Util::logTrace("Using default browser: {$this->defaultBrowser}");
+                return $this->defaultBrowser;
+            }
+            
+            // Fallback to system default browser
+            Util::logTrace("No browser configured, using system default");
+            return 'explorer.exe';
+        }
     }
 
     /**

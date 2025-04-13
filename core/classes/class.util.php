@@ -2045,4 +2045,90 @@ class Util
             return false; // Internet connection is not active
         }
     }
+    
+    /**
+     * Launches a URL in the configured browser.
+     *
+     * This method opens the specified URL in the browser configured in the application settings.
+     * If the configured browser is not found, it falls back to the system default browser.
+     * The method includes detailed logging for debugging purposes.
+     *
+     * @param   string  $url  The URL to open in the browser.
+     * @return  bool    True if the browser was launched successfully, false otherwise.
+     */
+    public static function openBrowser($url)
+    {
+        global $bearsamppConfig, $bearsamppWinbinder;
+        
+        // Get the browser from the configuration
+        $browser = $bearsamppConfig->getBrowser();
+        
+        // Log the browser being used
+        self::logDebug("Opening URL in browser: " . $url);
+        self::logDebug("Using browser: " . $browser);
+        
+        // Check if the browser exists
+        if ($browser != 'explorer.exe' && !file_exists($browser)) {
+            self::logWarning("Browser not found: " . $browser);
+            self::logWarning("Falling back to system default browser");
+            $browser = 'explorer.exe';
+        }
+        
+        try {
+            // Launch the browser with the URL
+            if ($browser == 'explorer.exe') {
+                // Use the system default browser
+                $command = 'start "" "' . $url . '"';
+                $result = self::exec($command);
+            } else {
+                // Use the specified browser
+                $result = $bearsamppWinbinder->exec($browser, '"' . $url . '"');
+            }
+            
+            if ($result !== false) {
+                self::logInfo("Browser launched successfully for URL: " . $url);
+                return true;
+            } else {
+                self::logError("Failed to launch browser for URL: " . $url);
+                return false;
+            }
+        } catch (Exception $e) {
+            self::logError("Exception when launching browser: " . $e->getMessage());
+            
+            // Fallback to system default as last resort
+            if ($browser != 'explorer.exe') {
+                self::logWarning("Attempting fallback to system default browser");
+                $command = 'start "" "' . $url . '"';
+                $result = self::exec($command);
+                
+                return ($result !== false);
+            }
+            
+            return false;
+        }
+    }
+    
+    /**
+     * Executes a system command and returns the result.
+     *
+     * @param   string  $command  The command to execute.
+     * @return  mixed   The command output or false on failure.
+     */
+    private static function exec($command)
+    {
+        self::logDebug("Executing command: " . $command);
+        $output = array();
+        $returnVar = 0;
+        exec($command, $output, $returnVar);
+        
+        if ($returnVar !== 0) {
+            self::logError("Command execution failed. Return code: " . $returnVar);
+            if (!empty($output)) {
+                self::logError("Output: " . implode("\n", $output));
+            }
+            return false;
+        }
+        
+        return $output;
+    }
 }
