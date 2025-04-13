@@ -145,8 +145,10 @@ class WinBinder
         $result = false;
         if (function_exists($function)) {
             if ($removeErrorHandler) {
+                Util::logTrace('Using @Call_user_func_array: ' . $function . ' with params: ' . print_r($params, true));
                 $result = @call_user_func_array($function, $params);
             } else {
+                Util::logTrace('Using Call_user_func_array: ' . $function . ' with params: ' . print_r($params, true));
                 $result = call_user_func_array($function, $params);
             }
         }
@@ -244,12 +246,14 @@ class WinBinder
             // 2. Try to kill process directly using Winbinder's PID method
             $currentPid = Win32Ps::getCurrentPid();
             if (!empty($currentPid)) {
+                Util::logTrace('');
                 $this->exec('taskkill', '/PID ' . $currentPid . ' /T /F', true);
                 $this->writeLog('Force-killed PID: ' . $currentPid . ' for window: ' . $window);
             }
 
             // 3. Final sanity check
             if ($this->windowIsValid($window)) {
+                Util::logTrace('Closing window with wb_destroy_window: ' . $window);
                 $this->callWinBinder('wb_destroy_window', array($window), true); // Force native call
             }
 
