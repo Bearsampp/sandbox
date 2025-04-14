@@ -35,10 +35,11 @@ class ActionCheckVersion
      * Constructor for the ActionCheckVersion class.
      *
      * @param array $args Command line arguments passed to the script.
+     * @global LangProc $bearsamppLang The language processor instance
      */
     public function __construct($args)
     {
-        global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder, $appGithubHeader;
+        global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
 
         if (!file_exists($bearsamppCore->getExec())) {
             Util::startLoading();
@@ -62,7 +63,7 @@ class ActionCheckVersion
     /**
      * Displays a window with the latest version information.
      *
-     * @param Lang $lang Language processor instance.
+     * @param LangProc $lang Language processor instance.
      * @param WinBinder $winbinder WinBinder instance for creating windows and controls.
      * @param Core $core Core instance for accessing application resources.
      * @param string $githubLatestVersion The latest version available on GitHub.
@@ -90,7 +91,7 @@ class ActionCheckVersion
     /**
      * Displays a message box indicating that the current version is the latest.
      *
-     * @param Lang $lang Language processor instance.
+     * @param LangProc $lang Language processor instance.
      * @param WinBinder $winbinder WinBinder instance for creating windows and controls.
      */
     private function showVersionOkMessageBox($lang, $winbinder)
