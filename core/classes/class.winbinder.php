@@ -217,14 +217,25 @@ class WinBinder
      * Sets the area of a WinBinder object.
      *
      * @param   mixed  $wbobject  The WinBinder object to set the area for.
-     * @param   int    $width     The width of the area.
-     * @param   int    $height    The height of the area.
+     * @param   mixed  $area      The area type (WBC_TITLE, WBC_RESIZE, etc.) or width if using dimensions.
+     * @param   int    $x         The x-coordinate of the area (or 0 if using dimensions only).
+     * @param   int    $y         The y-coordinate of the area (or 0 if using dimensions only).
+     * @param   int    $width     The width of the area (required if $area is an area type).
+     * @param   int    $height    The height of the area (required if $area is an area type).
      *
      * @return mixed The result of the set area operation.
      */
-    public function setArea($wbobject, $width, $height)
+    public function setArea($wbobject, $area, $x = 0, $y = 0, $width = null, $height = null)
     {
-        return $this->callWinBinder('wb_set_area', array($wbobject, WBC_TITLE, 0, 0, $width, $height));
+        // If only width and height are provided (backward compatibility)
+        if (is_numeric($area) && $width === null && $height === null) {
+            $width = $area;
+            $height = $x;
+            return $this->callWinBinder('wb_set_area', array($wbobject, WBC_TITLE, 0, 0, $width, $height));
+        }
+        
+        // Full parameter version
+        return $this->callWinBinder('wb_set_area', array($wbobject, $area, $x, $y, $width, $height));
     }
 
     /**
@@ -1425,6 +1436,60 @@ class WinBinder
     }
 
     /**
+     * Gets the state of a WinBinder object.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to get the state of.
+     *
+     * @return mixed The state of the WinBinder object.
+     */
+    public function getState($wbobject)
+    {
+        return $this->callWinBinder('wb_get_state', array($wbobject));
+    }
+
+    /**
+     * Gets the selected item from a WinBinder control.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to get the selected item from.
+     *
+     * @return mixed The selected item.
+     */
+    public function getSelected($wbobject)
+    {
+        return $this->callWinBinder('wb_get_selected', array($wbobject));
+    }
+
+    /**
+     * Sets the position of a WinBinder object.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to set the position of.
+     * @param   int    $xPos      The x-coordinate of the object.
+     * @param   int    $yPos      The y-coordinate of the object.
+     * @param   int    $width     The width of the object.
+     * @param   int    $height    The height of the object.
+     *
+     * @return mixed The result of the set position operation.
+     */
+    public function setPosition($wbobject, $xPos, $yPos, $width = null, $height = null)
+    {
+        return $this->callWinBinder('wb_set_position', array($wbobject, $xPos, $yPos, $width, $height));
+    }
+
+    /**
+     * Sets the size for a WinBinder object.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to set the size for.
+     * @param   int    $width     The width of the object.
+     * @param   int    $height    The height of the object.
+     *
+     * @return mixed The result of the set size operation.
+     */
+    public function setSize($wbobject, $width, $height)
+    {
+        return $this->callWinBinder('wb_set_size', array($wbobject, $width, $height));
+    }
+
+    /**
      * Shows or hides a WinBinder object.
      *
      * @param   mixed   $wbobject  The WinBinder object to show or hide.
@@ -1435,6 +1500,18 @@ class WinBinder
     public function setVisible($wbobject, $visible = true)
     {
         return $this->callWinBinder('wb_set_visible', array($wbobject, $visible));
+    }
+
+    /**
+     * Checks if a WinBinder object is visible.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to check.
+     *
+     * @return bool Whether the object is visible.
+     */
+    public function getVisible($wbobject)
+    {
+        return $this->callWinBinder('wb_get_visible', array($wbobject));
     }
 
     /**
