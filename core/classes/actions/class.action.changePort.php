@@ -134,7 +134,12 @@ class ActionChangePort
                         sprintf( $bearsamppLang->getValue( Lang::PORT_CHANGED ), $this->bin, $port ),
                         $boxTitle
                     );
-                    $bearsamppWinbinder->destroyWindow( $window );
+                    // Safely close window to avoid PHP 8 deprecation warnings
+                    if (function_exists('wb_destroy_window')) {
+                        wb_destroy_window($window);
+                    } else {
+                        $bearsamppWinbinder->destroyWindow($window);
+                    }
                 }
                 else {
                     $bearsamppWinbinder->messageBoxError(
@@ -146,7 +151,12 @@ class ActionChangePort
                 break;
             case IDCLOSE:
             case $this->wbBtnCancel[WinBinder::CTRL_ID]:
-                $bearsamppWinbinder->destroyWindow( $window );
+                // Safely close window to avoid PHP 8 deprecation warnings
+                if (function_exists('wb_destroy_window')) {
+                    wb_destroy_window($window);
+                } else {
+                    $bearsamppWinbinder->destroyWindow($window);
+                }
                 break;
         }
     }
