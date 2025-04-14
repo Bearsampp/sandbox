@@ -25,7 +25,6 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
-    // TODO why does it say we have undelcared constants
     // Constants for message box types
     const BOX_INFO = WBC_INFO;
     const BOX_OK = WBC_OK;
@@ -58,6 +57,11 @@ class WinBinder
     const SYSINFO_WORKAREA = 'workarea';
     public $callback;
     public $gauge;
+    /**
+     * Array to store progress bar objects
+     * @var array
+     */
+    private $progressBars = array();
     private $defaultTitle;
     private $countCtrls;
 
@@ -73,6 +77,9 @@ class WinBinder
 
         $this->defaultTitle = APP_TITLE . ' ' . $bearsamppCore->getAppVersion();
         $this->reset();
+        
+        // Initialize the progressBars array
+        $this->progressBars = array();
     }
 
     /**
@@ -144,11 +151,19 @@ class WinBinder
     {
         $result = false;
         if (function_exists($function)) {
+            // Log function call and parameters for debugging
+            Util::logTrace("Calling WinBinder function: $function with params: " . print_r($params, true));
+            
             if ($removeErrorHandler) {
                 $result = @call_user_func_array($function, $params);
             } else {
                 $result = call_user_func_array($function, $params);
             }
+            
+            // Log the result of the function call
+            Util::logTrace("WinBinder function $function result: " . ($result === false ? 'false' : print_r($result, true)));
+        } else {
+            Util::logTrace("WinBinder function not found: $function");
         }
 
         return $result;
@@ -213,36 +228,138 @@ class WinBinder
     }
 
     /**
-     * Destroys a window with proper cleanup and handling.
+     * Destroys a window and its children, ensuring UI elements are properly updated.
      *
      * @param   mixed  $window  The window object to destroy.
      * @return  boolean True if window was successfully destroyed
      */
     public function destroyWindow($window)
     {
-        if ($this->windowIsValid($window)) {
-            // First attempt - standard window destruction with error suppression
-            Util::logTrace('standard window destruction with error suppression');
-            $result = $this->callWinBinder('wb_destroy_window', array($window), true);
-        }
-        if (!$this->windowIsValid($window)) {
-            Util::logTrace('Error: Window ' . $window . ' is not valid.');
-            return true;
-        }
-
-        // If we have a window, try to get its PID and close it
-        $pid = getmypid();
-        if ($pid) {
-            Util::logTrace('Closing process with PID: ' . $pid . ' - using taskkill');
-            $this->exec('taskkill', '/PID ' . $pid . ' /F', true);
-        }
-        // Fallback to window title if PID retrieval fails
-        elseif (!empty($windowTitle)) {
-            Util::logTrace('Closing window with title: ' . $windowTitle . ' - using taskkill');
-            $this->exec('taskkill', '/FI "WINDOWTITLE eq ' . $windowTitle . '" /F', true);
+        Util::logTrace("Destroying window: " . $window);
+        
+        // First, find and update any progress bars to their final state
+        $progressBars = $this->findControlsByType($window, "gauge");
+        if (!empty($progressBars)) {
+            foreach ($progressBars as $progressBar) {
+                // Get the range to set to maximum value
+                $range = $this->callWinBinder('wb_get_range', array($progressBar));
+                if (is_array($range) && isset($range[1])) {
+                    $this->setValue($progressBar, $range[1]);
+                    
+                    // Also update our tracking array
+                    if (isset($this->progressBars[$progressBar])) {
+                        $this->progressBars[$progressBar]['value'] = $range[1];
+                    }
+                }
+                $this->refresh($progressBar);
+            }
         }
         
-        return true;
+        // Before destroying the window, refresh the UI to show final state
+        $this->refresh($window);
+        
+        // Apply a small delay to ensure UI updates are rendered
+        usleep(50000); // 50ms delay
+        
+        try {
+            // First try standard window destruction
+            if ($this->windowIsValid($window)) {
+                Util::logTrace("Window exists, attempting standard window destruction");
+                $result = $this->callWinBinder('wb_destroy_window', array($window));
+                
+                if ($result === false || $result === null) {
+                    // If standard destruction fails, try with error suppression
+                    Util::logTrace("Standard window destruction failed, using error suppression");
+                    $result = $this->callWinBinder('wb_destroy_window', array($window), true);
+                }
+                
+                // Process any pending messages to finalize destruction
+                $this->processMessages();
+                
+                // If window still exists, try more aggressive methods
+                if ($this->windowIsValid($window)) {
+                    // Get window title for fallback
+                    $windowTitle = $this->getText($window);
+                    
+                    // Try to close by PID
+                    $pid = getmypid();
+                    if ($pid) {
+                        Util::logTrace('Window still exists. Closing process with PID: ' . $pid . ' - using taskkill');
+                        $this->exec('taskkill.exe', '/PID ' . $pid . ' /F', true);
+                    }
+                    // Fallback to window title if PID retrieval fails
+                    elseif (!empty($windowTitle)) {
+                        Util::logTrace('Closing window with title: ' . $windowTitle . ' - using taskkill');
+                        $this->exec('taskkill.exe', '/FI "WINDOWTITLE eq ' . $windowTitle . '" /F', true);
+                    }
+                    
+                    // Final processing of messages
+                    $this->processMessages();
+                }
+            } else {
+                Util::logTrace("Window does not exist or is already destroyed");
+                return true;
+            }
+            
+            // Force redraw to ensure UI elements update properly
+            $this->callWinBinder('wb_refresh', array(null, true));
+            
+            return true;
+        } catch (Exception $e) {
+            Util::logTrace("Exception in destroyWindow: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Find all controls of a specific type in a window.
+     *
+     * @param   mixed   $window  The window object
+     * @param   string  $type    The control type to find (e.g., "gauge" for progress bars)
+     * @return  array   Array of control objects that match the requested type
+     */
+    /**
+     * Find all controls of a specific type in a window.
+     *
+     * @param   mixed   $window  The window object
+     * @param   string  $type    The control type to find (e.g., "gauge" for progress bars)
+     * @return  array   Array of control objects that match the requested type
+     */
+    private function findControlsByType($window, $type)
+    {
+        $result = array();
+        
+        // First check our progressBars array if looking for gauges
+        if (strtolower($type) == 'gauge' && !empty($this->progressBars)) {
+            foreach ($this->progressBars as $ctrlObj => $data) {
+                // Check if this control belongs to the specified window
+                $parent = $this->callWinBinder('wb_get_parent', array($ctrlObj), true);
+                if ($parent == $window) {
+                    $result[] = $ctrlObj;
+                }
+            }
+            
+            // If we found progress bars in our tracking, return them
+            if (!empty($result)) {
+                return $result;
+            }
+        }
+        
+        // Fallback to searching all controls
+        $controls = $this->callWinBinder('wb_get_item_list', array($window));
+        if (!is_array($controls) || empty($controls)) {
+            return $result;
+        }
+        
+        // Filter controls by type
+        foreach ($controls as $controlId) {
+            $className = $this->callWinBinder('wb_get_class', array($controlId));
+            if ($className && strtolower($className) == strtolower($type)) {
+                $result[] = $controlId;
+            }
+        }
+        
+        return $result;
     }
 
     /**
@@ -269,19 +386,51 @@ class WinBinder
             return false;
         }
         
-        // Try to get window text - if window is invalid, this will fail
+        // Try multiple methods to verify window validity
+        
+        // Method 1: Try to get window text
         $text = $this->callWinBinder('wb_get_text', array($window), true);
-        return ($text !== false);
+        if ($text !== false) {
+            return true;
+        }
+        
+        // Method 2: Check if window is visible
+        $visible = $this->callWinBinder('wb_get_visible', array($window), true);
+        if ($visible !== false) {
+            return true;
+        }
+        
+        // Method 3: Try to get window value
+        $value = $this->callWinBinder('wb_get_value', array($window), true);
+        if ($value !== false) {
+            return true;
+        }
+        
+        // Method 4: Check if window exists in the system
+        $exists = $this->callWinBinder('wb_sys_dlg_path', array($window, '', null), true);
+        if ($exists !== false) {
+            return true;
+        }
+        
+        return false;
     }
     
     /**
      * Process any pending window messages.
      *
+     * @param   int  $timeout  Optional timeout in milliseconds (default: 50ms)
      * @return void
      */
-    private function processMessages()
+    private function processMessages($timeout = 50)
     {
-        $this->callWinBinder('wb_wait', array(null, 1), true);
+        // Process messages with a reasonable timeout
+        $this->callWinBinder('wb_wait', array(null, $timeout), true);
+        
+        // Allow a short sleep to ensure OS has time to process
+        usleep(10000); // 10ms sleep
+        
+        // Force a refresh to ensure UI updates
+        $this->callWinBinder('wb_refresh', array(null, true), true);
     }
 
     /**
@@ -290,22 +439,78 @@ class WinBinder
      * @param   string       $cmd     The command to execute.
      * @param   string|null  $params  The parameters to pass to the command.
      * @param   bool         $silent  Whether to execute the command silently.
+     * @param   string       $dir     The working directory for the command.
      *
      * @return mixed The result of the command execution.
      */
-    public function exec($cmd, $params = null, $silent = false)
+    public function exec($cmd, $params = null, $silent = false, $dir = '')
     {
         global $bearsamppCore;
+        
+        Util::logTrace("Starting exec method with command: $cmd, params: " . print_r($params, true) . ", silent: " . ($silent ? 'true' : 'false') . ", dir: $dir");
 
+        // Handle silent execution
         if ($silent) {
-            $silent = '"' . $bearsamppCore->getScript(Core::SCRIPT_EXEC_SILENT) . '" "' . $cmd . '"';
-            $cmd    = 'wscript.exe';
-            $params = !empty($params) ? $silent . ' "' . $params . '"' : $silent;
+            $silentScript = '"' . $bearsamppCore->getScript(Core::SCRIPT_EXEC_SILENT) . '" "' . $cmd . '"';
+            $originalCmd = $cmd; // Store original command for logging
+            $cmd = 'wscript.exe';
+            $params = !empty($params) ? $silentScript . ' "' . $params . '"' : $silentScript;
+            Util::logTrace("Silent execution configured. New command: $cmd, new params: $params, original command: $originalCmd");
+        }
+        
+        // Ensure proper quoting of paths with spaces for non-system commands
+        if (!$this->isSystemCommand($cmd) && strpos($cmd, ' ') !== false && substr($cmd, 0, 1) != '"') {
+            $cmd = '"' . $cmd . '"';
+            Util::logTrace("Added quotes to command path: $cmd");
         }
 
         $this->writeLog('exec: ' . $cmd . ' ' . $params);
+        Util::logTrace("Preparing to execute: $cmd $params in directory: " . ($dir ? $dir : 'current directory'));
 
-        return $this->callWinBinder('wb_exec', array($cmd, $params));
+        try {
+            // Call the WinBinder function with proper error handling
+            Util::logTrace("Calling wb_exec through callWinBinder");
+            $result = $this->callWinBinder('wb_exec', array($cmd, $params, $dir));
+            
+            if ($result === false || $result === null) {
+                $this->writeLog('Failed to execute command: ' . $cmd);
+                Util::logTrace("Execution failed for command: $cmd");
+                return false;
+            }
+            
+            Util::logTrace("Command executed successfully. Result: " . print_r($result, true));
+            return $result;
+        } catch (Exception $e) {
+            $this->writeLog('Exception in exec method: ' . $e->getMessage());
+            Util::logTrace("Exception caught in exec method: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+            return false;
+        }
+    }
+    
+    /**
+     * Checks if a command is a system command that doesn't need a full path.
+     *
+     * @param string $command The command to check
+     * @return bool True if it's a system command, false otherwise
+     */
+    private function isSystemCommand($command)
+    {
+        // Extract just the filename if a path is provided
+        $commandName = basename($command);
+        
+        $systemCommands = array(
+            'cmd.exe', 'wscript.exe', 'cscript.exe', 'explorer.exe', 
+            'notepad.exe', 'regedit.exe', 'taskmgr.exe', 'taskkill.exe'
+        );
+        
+        // Case-insensitive check for system commands
+        foreach ($systemCommands as $sysCmd) {
+            if (strtolower($commandName) == strtolower($sysCmd)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**
@@ -504,6 +709,27 @@ class WinBinder
         $this->callback[$wbobject] = array($classCallback, $methodCallback, $launchTimer);
 
         return $this->callWinBinder('wb_set_handler', array($wbobject, '__winbinderEventHandler'));
+    }
+    
+    /**
+     * Callback function for WinBinder events.
+     *
+     * @param   mixed  $window   The window object.
+     * @param   mixed  $id       The control ID.
+     * @param   mixed  $ctrl     The control object.
+     * @param   mixed  $param1   The first parameter.
+     * @param   mixed  $param2   The second parameter.
+     *
+     * @return mixed The result of the callback.
+     */
+    public function callback($window, $id, $ctrl, $param1 = 0, $param2 = 0)
+    {
+        if (isset($this->callback[$window])) {
+            $class = $this->callback[$window][0];
+            $method = $this->callback[$window][1];
+            return $class->$method($window, $id, $ctrl, $param1, $param2);
+        }
+        return false;
     }
 
     /**
@@ -871,6 +1097,13 @@ class WinBinder
 
         $this->setRange($progressBar[self::CTRL_OBJ], 0, $max);
         $this->gauge[$progressBar[self::CTRL_OBJ]] = 0;
+        
+        // Store the progress bar in our tracking array
+        $this->progressBars[$progressBar[self::CTRL_OBJ]] = array(
+            'value' => 0,
+            'max' => $max,
+            'control' => $progressBar
+        );
 
         return $progressBar;
     }
@@ -919,13 +1152,33 @@ class WinBinder
      */
     public function setProgressBarValue($progressBar, $value)
     {
-        if ($progressBar != null && isset($progressBar[self::CTRL_OBJ]) && isset($this->gauge[$progressBar[self::CTRL_OBJ]])) {
-            if (strval($value) == self::INCR_PROGRESS_BAR) {
-                $value = $this->gauge[$progressBar[self::CTRL_OBJ]] + 1;
-            }
-            if (is_numeric($value)) {
-                $this->gauge[$progressBar[self::CTRL_OBJ]] = $value;
-                $this->setValue($progressBar[self::CTRL_OBJ], $value);
+        if ($progressBar != null && isset($progressBar[self::CTRL_OBJ])) {
+            $ctrlObj = $progressBar[self::CTRL_OBJ];
+            
+            // Check if progress bar exists in our tracking array
+            if (isset($this->progressBars[$ctrlObj])) {
+                if (strval($value) == self::INCR_PROGRESS_BAR) {
+                    $value = $this->progressBars[$ctrlObj]['value'] + 1;
+                }
+                
+                if (is_numeric($value)) {
+                    // Update both tracking systems for backward compatibility
+                    $this->gauge[$ctrlObj] = $value;
+                    $this->progressBars[$ctrlObj]['value'] = $value;
+                    
+                    // Update the actual control
+                    $this->setValue($ctrlObj, $value);
+                }
+            } 
+            // Fallback to old gauge system if not in progressBars
+            else if (isset($this->gauge[$ctrlObj])) {
+                if (strval($value) == self::INCR_PROGRESS_BAR) {
+                    $value = $this->gauge[$ctrlObj] + 1;
+                }
+                if (is_numeric($value)) {
+                    $this->gauge[$ctrlObj] = $value;
+                    $this->setValue($ctrlObj, $value);
+                }
             }
         }
     }
@@ -950,7 +1203,17 @@ class WinBinder
      */
     public function resetProgressBar($progressBar)
     {
-        $this->setProgressBarValue($progressBar, 0);
+        if ($progressBar != null && isset($progressBar[self::CTRL_OBJ])) {
+            $ctrlObj = $progressBar[self::CTRL_OBJ];
+            
+            // Reset to zero
+            $this->setProgressBarValue($progressBar, 0);
+            
+            // Make sure our tracking is also reset
+            if (isset($this->progressBars[$ctrlObj])) {
+                $this->progressBars[$ctrlObj]['value'] = 0;
+            }
+        }
     }
 
     /**
@@ -961,7 +1224,31 @@ class WinBinder
      */
     public function setProgressBarMax($progressBar, $max)
     {
-        $this->setRange($progressBar[self::CTRL_OBJ], 0, $max);
+        if ($progressBar != null && isset($progressBar[self::CTRL_OBJ])) {
+            $ctrlObj = $progressBar[self::CTRL_OBJ];
+            
+            // Update the range in the control
+            $this->setRange($ctrlObj, 0, $max);
+            
+            // Update our tracking array if it exists
+            if (isset($this->progressBars[$ctrlObj])) {
+                $this->progressBars[$ctrlObj]['max'] = $max;
+            }
+        }
+    }
+
+    /**
+     * Creates an item in a WinBinder control.
+     *
+     * @param   mixed   $wbobject  The WinBinder object to create the item in.
+     * @param   string  $text      The text of the item.
+     * @param   mixed   $value     The value of the item.
+     *
+     * @return mixed The result of the create item operation.
+     */
+    public function createItem($wbobject, $text, $value = null)
+    {
+        return $this->callWinBinder('wb_create_item', array($wbobject, $text, $value));
     }
 
     /**
@@ -969,12 +1256,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxInfo($message, $title = null)
+    public function messageBoxInfo($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_INFO, $title);
+        return $this->messageBox($message, self::BOX_INFO, $title, $parent);
     }
 
     /**
@@ -983,21 +1271,32 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   int          $type     The type of message box.
      * @param   string|null  $title    The title of the message box.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBox($message, $type, $title = null)
+    public function messageBox($message, $type = self::BOX_OK, $title = null, $parent = null)
     {
-        global $bearsamppCore;
-
-        $message    = str_replace(self::NEW_LINE, PHP_EOL, $message);
+        // Fix for PHP 8.2: Convert null to 0 for parent parameter
+        $parent = $parent === null ? 0 : $parent;
+        
+        // Format the message and title
+        $message = str_replace(self::NEW_LINE, PHP_EOL, $message);
+        $title = $title === null ? $this->defaultTitle : $this->defaultTitle . ' - ' . $title;
+        
+        // Ensure message is long enough to display the full title
+        if (strlen($message) < 64) {
+            $message = str_pad($message, 64);
+        }
+        
+        // Call the WinBinder function
         $messageBox = $this->callWinBinder('wb_message_box', array(
-            0, // Use 0 instead of null for the window handle parameter
-            strlen($message) < 64 ? str_pad($message, 64) : $message, // Pad message to display entire title
-            $title == null ? $this->defaultTitle : $this->defaultTitle . ' - ' . $title,
+            $parent,
+            $message,
+            $title,
             $type
         ));
-
+        
         return $messageBox;
     }
 
@@ -1006,12 +1305,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxOk($message, $title = null)
+    public function messageBoxOk($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_OK, $title);
+        return $this->messageBox($message, self::BOX_OK, $title, $parent);
     }
 
     /**
@@ -1019,12 +1319,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxOkCancel($message, $title = null)
+    public function messageBoxOkCancel($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_OKCANCEL, $title);
+        return $this->messageBox($message, self::BOX_OKCANCEL, $title, $parent);
     }
 
     /**
@@ -1032,12 +1333,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxQuestion($message, $title = null)
+    public function messageBoxQuestion($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_QUESTION, $title);
+        return $this->messageBox($message, self::BOX_QUESTION, $title, $parent);
     }
 
     /**
@@ -1045,12 +1347,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxError($message, $title = null)
+    public function messageBoxError($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_ERROR, $title);
+        return $this->messageBox($message, self::BOX_ERROR, $title, $parent);
     }
 
     /**
@@ -1058,12 +1361,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxWarning($message, $title = null)
+    public function messageBoxWarning($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_WARNING, $title);
+        return $this->messageBox($message, self::BOX_WARNING, $title, $parent);
     }
 
     /**
@@ -1071,12 +1375,13 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxYesNo($message, $title = null)
+    public function messageBoxYesNo($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_YESNO, $title);
+        return $this->messageBox($message, self::BOX_YESNO, $title, $parent);
     }
 
     /**
@@ -1084,12 +1389,64 @@ class WinBinder
      *
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
+     * @param   mixed        $parent   The parent window handle or null for a top-level message box.
      *
      * @return mixed The result of the message box operation.
      */
-    public function messageBoxYesNoCancel($message, $title = null)
+    public function messageBoxYesNoCancel($message, $title = null, $parent = null)
     {
-        return $this->messageBox($message, self::BOX_YESNOCANCEL, $title);
+        return $this->messageBox($message, self::BOX_YESNOCANCEL, $title, $parent);
+    }
+
+    /**
+     * Sets the selected item in a WinBinder control.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to set the selected item in.
+     * @param   mixed  $index     The index of the item to select.
+     *
+     * @return mixed The result of the set selected operation.
+     */
+    public function setSelected($wbobject, $index)
+    {
+        return $this->callWinBinder('wb_set_selected', array($wbobject, $index));
+    }
+
+    /**
+     * Sets the state of a WinBinder object.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to set the state of.
+     * @param   mixed  $state     The state to set.
+     *
+     * @return mixed The result of the set state operation.
+     */
+    public function setState($wbobject, $state)
+    {
+        return $this->callWinBinder('wb_set_state', array($wbobject, $state));
+    }
+
+    /**
+     * Shows or hides a WinBinder object.
+     *
+     * @param   mixed   $wbobject  The WinBinder object to show or hide.
+     * @param   bool    $visible   Whether to show or hide the object.
+     *
+     * @return mixed The result of the set visible operation.
+     */
+    public function setVisible($wbobject, $visible = true)
+    {
+        return $this->callWinBinder('wb_set_visible', array($wbobject, $visible));
+    }
+
+    /**
+     * Deletes all items from a WinBinder control.
+     *
+     * @param   mixed  $wbobject  The WinBinder object to delete items from.
+     *
+     * @return mixed The result of the delete items operation.
+     */
+    public function deleteItems($wbobject)
+    {
+        return $this->callWinBinder('wb_delete_items', array($wbobject));
     }
 
 }
@@ -1115,8 +1472,5 @@ function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
         $bearsamppWinbinder->destroyTimer($window, $bearsamppWinbinder->callback[$window][2][0]);
     }
 
-    call_user_func_array(
-        array($bearsamppWinbinder->callback[$window][0], $bearsamppWinbinder->callback[$window][1]),
-        array($window, $id, $ctrl, $param1, $param2)
-    );
+    return $bearsamppWinbinder->callback($window, $id, $ctrl, $param1, $param2);
 }

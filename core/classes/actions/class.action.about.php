@@ -21,6 +21,7 @@ class ActionAbout
     private $wbLinkDonate;
     private $wbLinkGithub;
     private $wbBtnOk;
+    private $wbProgressBar;
 
     /**
      * ActionAbout constructor.
@@ -65,6 +66,11 @@ class ActionAbout
         $this->wbLinkGithub = $bearsamppWinbinder->createHyperLink($this->wbWindow, Util::getGithubUserUrl(), 180, $yPos, 300, 15, WBC_LINES);
         $yPos += 10;
 
+        // Create progress bar
+        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, null, 80, 180, 290, 15, null, WBC_CENTER);
+        $bearsamppWinbinder->setControlValue($this->wbProgressBar, 50);
+        $bearsamppWinbinder->refresh($this->wbProgressBar, true);
+        
         $this->wbBtnOk = $bearsamppWinbinder->createButton($this->wbWindow, $bearsamppLang->getValue(Lang::BUTTON_OK), 390, 180);
 
         $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/about.bmp');
@@ -86,6 +92,12 @@ class ActionAbout
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;
+        
+        // Update progress bar to show activity
+        if ($this->wbProgressBar) {
+            $bearsamppWinbinder->setControlValue($this->wbProgressBar, rand(30, 100));
+            $bearsamppWinbinder->refresh($this->wbProgressBar, true);
+        }
 
         switch ($id) {
             case $this->wbLinkHomepage[WinBinder::CTRL_ID]:
@@ -99,8 +111,15 @@ $bearsamppWinbinder->exec($bearsamppConfig->getBrowser(), Util::getGithubUserUrl
 break;
             case IDCLOSE:
             case $this->wbBtnOk[WinBinder::CTRL_ID]:
-$bearsamppWinbinder->destroyWindow($window);
-break;
+                // Set progress to 100% before closing
+                if ($this->wbProgressBar) {
+                    $bearsamppWinbinder->setControlValue($this->wbProgressBar, 100);
+                    $bearsamppWinbinder->refresh($this->wbProgressBar, true);
+                    // Small delay to show completion
+                    usleep(200000); // 0.2 seconds
+                }
+                $bearsamppWinbinder->destroyWindow($window);
+                break;
         }
     }
 }
