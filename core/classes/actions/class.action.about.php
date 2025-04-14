@@ -64,16 +64,10 @@ class ActionAbout
 
         $bearsamppWinbinder->createLabel($this->wbWindow, $bearsamppLang->getValue(Lang::GITHUB) . ' :', 80, $yPos, 100, 15);
         $this->wbLinkGithub = $bearsamppWinbinder->createHyperLink($this->wbWindow, Util::getGithubUserUrl(), 180, $yPos, 300, 15, WBC_LINES);
-        $yPos += 10;
 
-        // Create progress bar
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, null, 80, 180, 290, 15, null, WBC_CENTER);
-        $bearsamppWinbinder->setControlValue($this->wbProgressBar, 50);
-        $bearsamppWinbinder->refresh($this->wbProgressBar, true);
-        
         $this->wbBtnOk = $bearsamppWinbinder->createButton($this->wbWindow, $bearsamppLang->getValue(Lang::BUTTON_OK), 390, 180);
 
-        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getResourcesPath() . '/homepage/img/about.bmp');
+        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, $bearsamppCore->getImagesPath() . '/about.bmp');
 
         $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processWindow');
         $bearsamppWinbinder->mainLoop();
@@ -92,7 +86,7 @@ class ActionAbout
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;
-        
+
         // Update progress bar to show activity
         if ($this->wbProgressBar) {
             $bearsamppWinbinder->setControlValue($this->wbProgressBar, rand(30, 100));

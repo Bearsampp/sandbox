@@ -133,7 +133,7 @@ class WinBinder
         $window  = $this->callWinBinder('wb_create_window', array($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style, $params));
 
         // Set tiny window icon
-        $this->setImage($window, $bearsamppCore->getIconsPath() . 'app.ico');
+        $this->setImage($window, $bearsamppCore->getIconsPath() . '/app.ico');
 
         return $window;
     }
@@ -549,12 +549,19 @@ class WinBinder
      * Refreshes a WinBinder object.
      *
      * @param   mixed  $wbobject  The WinBinder object to refresh.
+     * @param   bool   $redraw    Whether to force a redraw.
      *
      * @return mixed The result of the refresh operation.
      */
-    public function refresh($wbobject)
+    public function refresh($wbobject, $redraw = true)
     {
-        return $this->callWinBinder('wb_refresh', array($wbobject, true));
+        // Handle the case where $wbobject is an array (likely from createProgressBar)
+        if (is_array($wbobject) && isset($wbobject[self::CTRL_OBJ])) {
+            $ctrlObj = $wbobject[self::CTRL_OBJ];
+            return $this->callWinBinder('wb_refresh', array($ctrlObj, $redraw));
+        }
+        
+        return $this->callWinBinder('wb_refresh', array($wbobject, $redraw));
     }
 
     /**
@@ -1205,6 +1212,61 @@ class WinBinder
     public function setValue($wbobject, $content)
     {
         return $this->callWinBinder('wb_set_value', array($wbobject, $content));
+    }
+
+    /**
+     * Sets the value of a control.
+     *
+     * @param   mixed  $wbobject  The WinBinder control object.
+     * @param   mixed  $value     The value to set.
+     *
+     * @return mixed The result of the set control value operation.
+     */
+    public function setControlValue($wbobject, $value)
+    {
+        // Handle the case where $wbobject is an array (likely from createProgressBar)
+        if (is_array($wbobject) && isset($wbobject[self::CTRL_OBJ])) {
+            $ctrlObj = $wbobject[self::CTRL_OBJ];
+            
+            // Special handling for progress bars
+            if (is_array($this->progressBars) && isset($this->progressBars[$ctrlObj])) {
+                if ($value === self::INCR_PROGRESS_BAR) {
+                    $value = $this->progressBars[$ctrlObj]['value'] + 1;
+                }
+                
+                // Update our tracking array
+                $this->progressBars[$ctrlObj]['value'] = $value;
+            }
+            // Fallback to old gauge system
+            else if (isset($this->gauge[$ctrlObj])) {
+                if ($value === self::INCR_PROGRESS_BAR) {
+                    $value = $this->gauge[$ctrlObj] + 1;
+                }
+                $this->gauge[$ctrlObj] = $value;
+            }
+            
+            return $this->callWinBinder('wb_set_value', array($ctrlObj, $value));
+        }
+        
+        // Original behavior for non-array objects
+        // Special handling for progress bars
+        if (is_array($this->progressBars) && isset($this->progressBars[$wbobject])) {
+            if ($value === self::INCR_PROGRESS_BAR) {
+                $value = $this->progressBars[$wbobject]['value'] + 1;
+            }
+            
+            // Update our tracking array
+            $this->progressBars[$wbobject]['value'] = $value;
+        }
+        // Fallback to old gauge system
+        else if (isset($this->gauge[$wbobject])) {
+            if ($value === self::INCR_PROGRESS_BAR) {
+                $value = $this->gauge[$wbobject] + 1;
+            }
+            $this->gauge[$wbobject] = $value;
+        }
+        
+        return $this->callWinBinder('wb_set_value', array($wbobject, $value));
     }
 
     /**
