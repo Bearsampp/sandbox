@@ -101,7 +101,7 @@ class Core
      */
     public function getIconsPath($aetrayPath = false)
     {
-        return $this->getImagesPath($aetrayPath) . '/icons/';
+        return $this->getImagesPath($aetrayPath) . '/icons';
     }
 
     /**
@@ -261,29 +261,29 @@ class Core
     public function setExec($action)
     {
         Util::logTrace('Core::setExec: [RESTART_FLOW] Setting execution action to: ' . $action . ' - ' . microtime(true));
-        
+
         try {
             $phpExe = $this->getPhpExe();
             $execCommand = '"' . $phpExe . '" "' . self::isRoot_FILE . '" "' . Action::EXEC . '" "' . $action . '"';
             $execFile = $this->getExec();
-            
+
             Util::logTrace('Core::setExec: [RESTART_FLOW] PHP executable path: ' . $phpExe);
             Util::logTrace('Core::setExec: [RESTART_FLOW] isRoot_FILE path: ' . self::isRoot_FILE);
             Util::logTrace('Core::setExec: [RESTART_FLOW] Command to execute: ' . $execCommand);
             Util::logTrace('Core::setExec: [RESTART_FLOW] Writing to exec file: ' . $execFile);
-            
+
             // Check if PHP executable exists
             if (!file_exists($phpExe)) {
                 Util::logTrace('Core::setExec: [RESTART_FLOW] ERROR: PHP executable not found at path: ' . $phpExe);
                 return false;
             }
-            
+
             // Check if isRoot_FILE exists
             if (!file_exists(self::isRoot_FILE)) {
                 Util::logTrace('Core::setExec: [RESTART_FLOW] ERROR: isRoot_FILE not found at path: ' . self::isRoot_FILE);
                 return false;
             }
-            
+
             // Check if tmp directory exists
             $tmpDir = dirname($execFile);
             if (!is_dir($tmpDir)) {
@@ -293,11 +293,11 @@ class Core
                     return false;
                 }
             }
-            
+
             // Write command to exec file
             $result = file_put_contents($execFile, $execCommand);
             Util::logTrace('Core::setExec: [RESTART_FLOW] File write result: ' . ($result !== false ? 'Success (' . $result . ' bytes)' : 'Failed'));
-            
+
             if ($result === false) {
                 Util::logTrace('Core::setExec: [RESTART_FLOW] ERROR: Failed to write to exec file: ' . $execFile);
                 // Check file permissions
@@ -306,18 +306,18 @@ class Core
                 }
                 return false;
             }
-            
+
             // Check if exec file exists after writing
             if (file_exists($execFile)) {
                 Util::logTrace('Core::setExec: [RESTART_FLOW] Exec file exists, executing command via Batch::exec - ' . microtime(true));
                 Util::logTrace('Core::setExec: [RESTART_FLOW] File content verification: ' . file_get_contents($execFile));
-                
+
                 $batchResult = Batch::exec('setExec', $execFile);
                 Util::logTrace('Core::setExec: [RESTART_FLOW] Batch execution completed - ' . microtime(true));
-                
+
                 if ($batchResult === false) {
                     Util::logTrace('Core::setExec: [RESTART_FLOW] ERROR: Batch execution returned false');
-                    
+
                     // Try an alternative execution method
                     Util::logTrace('Core::setExec: [RESTART_FLOW] Attempting direct execution via system()');
                     $sysResult = system('cmd /c "' . $execFile . '"', $returnVar);
