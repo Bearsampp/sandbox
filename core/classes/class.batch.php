@@ -125,10 +125,33 @@ class Batch
 
     /**
      * Restarts the application.
+     * 
+     * This method logs detailed information about the restart process
+     * to help track and debug the restart flow.
      */
     public static function restartApp()
     {
-        self::exitApp(true);
+        global $bearsamppRoot, $bearsamppCore;
+        
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Starting app restart - ' . microtime(true));
+        Util::logInfo('Restart App');
+        
+        // Create batch script content
+        $content = 'PING 1.1.1.1 -n 1 -w 2000 > nul' . PHP_EOL;
+        $content .= '"' . $bearsamppRoot->getExeFilePath() . '" -quit -id={bearsampp}' . PHP_EOL;
+        $content .= '"' . $bearsamppCore->getPhpExe() . '" "' . Core::isRoot_FILE . '" "' . Action::RESTART . '"' . PHP_EOL;
+        
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Prepared restart script content - ' . microtime(true));
+        
+        // Kill any running binaries before restart
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Killing running binaries - ' . microtime(true));
+        Win32Ps::killBins();
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Binaries killed - ' . microtime(true));
+        
+        // Execute the restart script
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Executing restart script - ' . microtime(true));
+        self::execStandalone('restartApp', $content);
+        Util::logTrace('Batch::restartApp: [RESTART_FLOW] Restart script execution initiated - ' . microtime(true));
     }
 
     /**
@@ -368,12 +391,24 @@ class Batch
      */
     public static function exec($basename, $content, $timeout = true, $catchOutput = true, $standalone = false, $silent = true, $rebuild = true)
     {
-        global $bearsamppConfig, $bearsamppWinbinder;
+        global $bearsamppConfig, $bearsamppWinbinder, $bearsamppCore;
         $result = false;
+        $isRestartFlow = ($basename == 'setExec' || $basename == 'restartApp' || $basename == 'exitApp');
+
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Starting execution for ' . $basename . ' - ' . microtime(true));
+        }
 
         $resultFile = self::getTmpFile('.tmp', $basename);
         $scriptPath = self::getTmpFile('.bat', $basename);
         $checkFile = self::getTmpFile('.tmp', $basename);
+
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Files prepared:');
+            Util::logTrace('Batch:exec: [RESTART_FLOW] -> resultFile: ' . $resultFile);
+            Util::logTrace('Batch:exec: [RESTART_FLOW] -> scriptPath: ' . $scriptPath);
+            Util::logTrace('Batch:exec: [RESTART_FLOW] -> checkFile: ' . $checkFile);
+        }
 
         // Redirect output
         if ($catchOutput) {
@@ -387,27 +422,89 @@ class Batch
         $footer = PHP_EOL . (!$standalone ? PHP_EOL . 'ECHO ' . self::END_PROCESS_STR . ' > "' . $checkFile . '"' : '');
 
         // Process
-        file_put_contents($scriptPath, $header . $content . $footer);
+        $fullScript = $header . $content . $footer;
+        file_put_contents($scriptPath, $fullScript);
+        
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Script content written to file - ' . microtime(true));
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Script content: ' . str_replace(PHP_EOL, ' \\\\ ', $fullScript));
+        }
+
+        // Execute the script
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Executing script via WinBinder - ' . microtime(true));
+        }
         $bearsamppWinbinder->exec($scriptPath, null, $silent);
+        
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] WinBinder execution initiated - ' . microtime(true));
+        }
 
         if (!$standalone) {
             $timeout = is_numeric($timeout) ? $timeout : ($timeout === true ? $bearsamppConfig->getScriptsTimeout() : false);
             $maxtime = time() + $timeout;
             $noTimeout = $timeout === false;
+            
+            if ($isRestartFlow) {
+                Util::logTrace('Batch:exec: [RESTART_FLOW] Waiting for completion with ' . 
+                    ($noTimeout ? 'no timeout' : 'timeout of ' . $timeout . ' seconds') . 
+                    ' - ' . microtime(true));
+            }
+            
+            $startTime = microtime(true);
+            $checkCount = 0;
+            
             while ($result === false || empty($result)) {
+                $checkCount++;
+                
                 if (file_exists($checkFile)) {
                     $check = file($checkFile);
                     if (!empty($check) && trim($check[0]) == self::END_PROCESS_STR) {
                         if ($catchOutput && file_exists($resultFile)) {
                             $result = file($resultFile);
+                            if ($isRestartFlow) {
+                                Util::logTrace('Batch:exec: [RESTART_FLOW] Process completed successfully, result file read - ' . microtime(true));
+                            }
                         } else {
                             $result = self::CATCH_OUTPUT_FALSE;
+                            if ($isRestartFlow) {
+                                Util::logTrace('Batch:exec: [RESTART_FLOW] Process completed but no output captured - ' . microtime(true));
+                            }
                         }
+                        break;
                     }
                 }
+                
                 if ($maxtime < time() && !$noTimeout) {
+                    if ($isRestartFlow) {
+                        Util::logTrace('Batch:exec: [RESTART_FLOW] Process TIMED OUT after ' . 
+                            round(microtime(true) - $startTime, 2) . ' seconds and ' . 
+                            $checkCount . ' checks - ' . microtime(true));
+                    }
                     break;
                 }
+                
+                // Add a small sleep to prevent CPU hogging
+                usleep(50000); // 50ms
+                
+                // Log progress for restart flow every 2 seconds
+                if ($isRestartFlow && $checkCount % 40 === 0) {
+                    $elapsedTime = round(microtime(true) - $startTime, 2);
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Still waiting after ' . $elapsedTime . 
+                        ' seconds, check count: ' . $checkCount . ' - ' . microtime(true));
+                    
+                    // Check if files exist
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Check file exists: ' . 
+                        (file_exists($checkFile) ? 'Yes' : 'No'));
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Result file exists: ' . 
+                        (file_exists($resultFile) ? 'Yes' : 'No'));
+                }
+            }
+            
+            if ($isRestartFlow) {
+                $elapsedTime = round(microtime(true) - $startTime, 2);
+                Util::logTrace('Batch:exec: [RESTART_FLOW] Wait loop completed after ' . 
+                    $elapsedTime . ' seconds and ' . $checkCount . ' checks - ' . microtime(true));
             }
         }
 
@@ -429,9 +526,52 @@ class Batch
                 }
                 $result = $rebuildResult;
             }
-            self::writeLog('-> result: ' . substr(implode(' \\\\ ', $result), 0, 2048));
+            
+            $resultSummary = substr(implode(' \\\\ ', $result), 0, 2048);
+            self::writeLog('-> result: ' . $resultSummary);
+            
+            if ($isRestartFlow) {
+                Util::logTrace('Batch:exec: [RESTART_FLOW] Result summary: ' . $resultSummary);
+                
+                // Log detailed results for restart flow
+                if (count($result) > 0) {
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Detailed results (' . count($result) . ' lines):');
+                    foreach ($result as $index => $line) {
+                        if ($index < 20) { // Limit to first 20 lines to avoid excessive logging
+                            Util::logTrace('Batch:exec: [RESTART_FLOW] -> Line ' . $index . ': ' . $line);
+                        }
+                    }
+                    if (count($result) > 20) {
+                        Util::logTrace('Batch:exec: [RESTART_FLOW] -> ... and ' . (count($result) - 20) . ' more lines');
+                    }
+                }
+            }
         } else {
             self::writeLog('-> result: N/A');
+            
+            if ($isRestartFlow) {
+                Util::logTrace('Batch:exec: [RESTART_FLOW] No results obtained - ' . microtime(true));
+                
+                // Try to determine why no results were obtained
+                if (!file_exists($checkFile)) {
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Check file was never created');
+                }
+                if (!file_exists($resultFile) && $catchOutput) {
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] Result file was never created');
+                }
+                
+                // Check temp directory permissions
+                $tmpDir = $bearsamppCore->getTmpPath();
+                if (!is_dir($tmpDir)) {
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] ERROR: Temp directory does not exist: ' . $tmpDir);
+                } else if (!is_writable($tmpDir)) {
+                    Util::logTrace('Batch:exec: [RESTART_FLOW] ERROR: Temp directory is not writable: ' . $tmpDir);
+                }
+            }
+        }
+        
+        if ($isRestartFlow) {
+            Util::logTrace('Batch:exec: [RESTART_FLOW] Execution completed for ' . $basename . ' - ' . microtime(true));
         }
 
         return $result;

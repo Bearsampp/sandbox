@@ -952,26 +952,152 @@ class Util
 
     /**
      * Initiates a loading process using external components.
+     * 
+     * This method launches a separate PHP process to display a loading screen
+     * during operations that may take time to complete, such as restarts.
+     * Detailed logging is included to track the execution flow.
+     * 
+     * @return bool Success or failure
      */
     public static function startLoading()
     {
         global $bearsamppCore, $bearsamppWinbinder;
-        $bearsamppWinbinder->exec( $bearsamppCore->getPhpExe(), Core::isRoot_FILE . ' ' . Action::LOADING );
+        
+        // Keep existing log if already present
+        self::logTrace('Util:startLoading: [RESTART_FLOW] Starting loading process - ' . microtime(true));
+        
+        $phpExe = $bearsamppCore->getPhpExe();
+        $loadingArgs = Core::isRoot_FILE . ' ' . Action::LOADING;
+        $command = '"' . $phpExe . '" ' . $loadingArgs;
+        
+        self::logTrace('Util:startLoading: [RESTART_FLOW] PHP executable path: ' . $phpExe);
+        self::logTrace('Util:startLoading: [RESTART_FLOW] Loading arguments: ' . $loadingArgs);
+        self::logTrace('Util:startLoading: [RESTART_FLOW] Full command: ' . $command);
+        
+        if (!file_exists($phpExe)) {
+            self::logTrace('Util:startLoading: [RESTART_FLOW] ERROR: PHP executable not found at path: ' . $phpExe);
+            return false;
+        }
+        
+        if (!file_exists(Core::isRoot_FILE)) {
+            self::logTrace('Util:startLoading: [RESTART_FLOW] ERROR: isRoot_FILE not found at path: ' . Core::isRoot_FILE);
+            return false;
+        }
+        
+        try {
+            $result = false;
+            
+            // First try using WinBinder
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Attempting execution via WinBinder - ' . microtime(true));
+            $winBinderResult = $bearsamppWinbinder->exec($phpExe, $loadingArgs);
+            self::logTrace('Util:startLoading: [RESTART_FLOW] WinBinder exec result: ' . ($winBinderResult ? 'Success' : 'Failed'));
+            
+            if ($winBinderResult) {
+                return true;
+            }
+            
+            // Try using popen which is more reliable in PHP 8.2.3
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Attempting execution via popen - ' . microtime(true));
+            $handle = @popen('start "" ' . $command, 'r');
+            
+            if ($handle !== false) {
+                pclose($handle);
+                $result = true;
+                self::logTrace('Util:startLoading: [RESTART_FLOW] popen execution succeeded - ' . microtime(true));
+                return true;
+            } else {
+                self::logTrace('Util:startLoading: [RESTART_FLOW] popen execution failed - ' . microtime(true));
+            }
+            
+            // Fallback to shell_exec if popen failed
+            if (!$result) {
+                self::logTrace('Util:startLoading: [RESTART_FLOW] Falling back to shell_exec - ' . microtime(true));
+                $shellResult = shell_exec('start "" ' . $command);
+                self::logTrace('Util:startLoading: [RESTART_FLOW] shell_exec completed - ' . microtime(true));
+                return true;
+            }
+            
+            // Last resort: try proc_open
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Attempting execution via proc_open - ' . microtime(true));
+            $descriptorspec = array(
+                0 => array("pipe", "r"),  // stdin
+                1 => array("pipe", "w"),  // stdout
+                2 => array("pipe", "w")   // stderr
+            );
+            
+            $process = proc_open('cmd /c start "" ' . $command, $descriptorspec, $pipes);
+            if (is_resource($process)) {
+                self::logTrace('Util:startLoading: [RESTART_FLOW] proc_open executed successfully');
+                
+                // Close pipes
+                fclose($pipes[0]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                
+                proc_close($process);
+                self::logTrace('Util:startLoading: [RESTART_FLOW] proc_open completed successfully');
+                return true;
+            } else {
+                self::logTrace('Util:startLoading: [RESTART_FLOW] Failed to execute via proc_open');
+            }
+            
+            return false;
+        } catch (Exception $e) {
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Exception executing loading command: ' . $e->getMessage() . ' - ' . microtime(true));
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Exception trace: ' . $e->getTraceAsString());
+            return false;
+        } finally {
+            self::logTrace('Util:startLoading: [RESTART_FLOW] Loading process initiation completed - ' . microtime(true));
+        }
     }
 
     /**
      * Stops a previously started loading process and cleans up related resources.
+     * 
+     * This method terminates any loading processes that were started by startLoading()
+     * by killing the associated process IDs and removing the PID file.
      */
     public static function stopLoading()
     {
         global $bearsamppCore;
-        if ( file_exists( $bearsamppCore->getLoadingPid() ) ) {
-            $pids = file( $bearsamppCore->getLoadingPid() );
-            foreach ( $pids as $pid ) {
-                Win32Ps::kill( $pid );
+        
+        self::logTrace('Util:stopLoading: [RESTART_FLOW] Stopping loading process - ' . microtime(true));
+        
+        $loadingPidFile = $bearsamppCore->getLoadingPid();
+        
+        self::logTrace('Util:stopLoading: [RESTART_FLOW] Loading PID file path: ' . $loadingPidFile);
+        
+        if (file_exists($loadingPidFile)) {
+            self::logTrace('Util:stopLoading: [RESTART_FLOW] Loading PID file found: ' . $loadingPidFile);
+            
+            $pids = file($loadingPidFile);
+            self::logTrace('Util:stopLoading: [RESTART_FLOW] Number of PIDs to kill: ' . count($pids));
+            
+            foreach ($pids as $pid) {
+                $pid = trim($pid);
+                self::logTrace('Util:stopLoading: [RESTART_FLOW] Killing process with PID: ' . $pid);
+                
+                try {
+                    $result = Win32Ps::kill($pid);
+                    self::logTrace('Util:stopLoading: [RESTART_FLOW] Kill result for PID ' . $pid . ': ' . ($result ? 'Success' : 'Failed'));
+                } catch (Exception $e) {
+                    self::logTrace('Util:stopLoading: [RESTART_FLOW] Exception killing PID ' . $pid . ': ' . $e->getMessage());
+                }
             }
-            @unlink( $bearsamppCore->getLoadingPid() );
+            
+            self::logTrace('Util:stopLoading: [RESTART_FLOW] Removing PID file');
+            $unlinkResult = @unlink($loadingPidFile);
+            self::logTrace('Util:stopLoading: [RESTART_FLOW] PID file removal result: ' . ($unlinkResult ? 'Success' : 'Failed'));
+            
+            if (!$unlinkResult) {
+                self::logTrace('Util:stopLoading: [RESTART_FLOW] Failed to remove PID file, checking if it still exists');
+                self::logTrace('Util:stopLoading: [RESTART_FLOW] PID file still exists: ' . (file_exists($loadingPidFile) ? 'Yes' : 'No'));
+            }
+        } else {
+            self::logTrace('Util:stopLoading: [RESTART_FLOW] No loading PID file found at: ' . $loadingPidFile);
         }
+        
+        self::logTrace('Util:stopLoading: [RESTART_FLOW] Loading process stopped - ' . microtime(true));
     }
 
     /**

@@ -120,40 +120,95 @@ class ActionQuit
     }
 
     /**
-     * Terminates PHP processes.
+     * Terminates PHP processes except for the one with the given PID.
      *
-     * @param   int     $excludePid  Process ID to exclude
-     * @param   mixed   $window      Window handle or null
-     * @param   mixed   $splash      Splash screen or null
-     * @return  void
+     * @param   int     $excludePid  Process ID to exclude from termination
+     * @param   mixed   $window      Window handle to destroy
+     * @param   mixed   $splash      Splash screen instance
+     * @return  bool    Success status
      */
     public static function terminatePhpProcesses($excludePid, $window = null, $splash = null)
     {
         global $bearsamppWinbinder;
 
-        $currentPid = Win32Ps::getCurrentPid();
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Starting with excludePid: ' . $excludePid . ' - ' . microtime(true));
 
+        $currentPid = Win32Ps::getCurrentPid();
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Current PID: ' . $currentPid . ' - ' . microtime(true));
+
+        // 1. First terminate other PHP processes
         $targets = ['php-win.exe', 'php.exe'];
-        foreach (Win32Ps::getListProcs() as $proc) {
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Targeting executables: ' . implode(', ', $targets) . ' - ' . microtime(true));
+        
+        $processes = Win32Ps::getListProcs();
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Found ' . count($processes) . ' total processes - ' . microtime(true));
+        
+        $terminatedCount = 0;
+        $phpProcsCount = 0;
+        $result = false;
+        
+        foreach ($processes as $proc) {
             $exe = strtolower(basename($proc[Win32Ps::EXECUTABLE_PATH]));
             $pid = $proc[Win32Ps::PROCESS_ID];
 
-            if (in_array($exe, $targets) && $pid != $excludePid) {
-                Win32Ps::kill($pid);
-                usleep(100000); // 100ms delay between terminations
+            if (in_array($exe, $targets)) {
+                $phpProcsCount++;
+                
+                if ($pid != $excludePid) {
+                    Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Terminating process: ' . $exe . ' (PID: ' . $pid . '), path: ' . $proc[Win32Ps::EXECUTABLE_PATH] . ' - ' . microtime(true));
+                    try {
+                        $terminationResult = Win32Ps::kill($pid);
+                        if ($terminationResult) {
+                            $terminatedCount++;
+                            $result = true;
+                            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Successfully terminated process: ' . $pid . ' - ' . microtime(true));
+                        } else {
+                            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Failed to terminate process: ' . $pid . ' (kill returned false) - ' . microtime(true));
+                        }
+                    } catch (Exception $e) {
+                        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Exception terminating process: ' . $pid . ' - Error: ' . $e->getMessage() . ' - ' . microtime(true));
+                    }
+                    usleep(100000); // 100ms delay between terminations
+                } else {
+                    Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Skipping current PHP process: ' . $pid . ' - ' . microtime(true));
+                }
+            }
+        }
+        
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Stats: ' . $phpProcsCount . ' PHP processes found, ' . $terminatedCount . ' terminated - ' . microtime(true));
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Termination overall result: ' . ($result ? 'success' : 'no processes terminated') . ' - ' . microtime(true));
+
+        // 2. Update splash screen if available
+        if ($splash !== null) {
+            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Updating splash screen with final message - ' . microtime(true));
+            $splash->setTextLoading('Final cleanup...');
+        }
+        
+        // 3. Initiate self-termination if needed
+        if ($currentPid != $excludePid) {
+            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Initiating self-termination for PID: ' . $currentPid . ' - ' . microtime(true));
+            try {
+                $selfTermResult = Vbs::killProc($currentPid);
+                Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Kill command issued for self, result: ' . ($selfTermResult ? 'success' : 'failed') . ' - ' . microtime(true));
+            } catch (Exception $e) {
+                Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Exception during self-termination: ' . $e->getMessage() . ' - ' . microtime(true));
             }
         }
 
-        // 2. Initiate self-termination
-        if ($splash !== null) {
-            $splash->setTextLoading('Final cleanup...');
-        }
-        Vbs::killProc($currentPid);
-
-        // 3. Destroy window after process termination
-        // Fix for PHP 8.2: Check if window is not null before destroying
+        // 4. Destroy window after process termination
         if ($window && $bearsamppWinbinder) {
-            $bearsamppWinbinder->destroyWindow($window);
+            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Destroying window - ' . microtime(true));
+            try {
+                $windowResult = $bearsamppWinbinder->destroyWindow($window);
+                Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Window destruction result: ' . ($windowResult ? 'success' : 'failed') . ' - ' . microtime(true));
+            } catch (Exception $e) {
+                Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Exception destroying window: ' . $e->getMessage() . ' - ' . microtime(true));
+            }
+        } else {
+            Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] No window to destroy or WinBinder not available - ' . microtime(true));
         }
+        
+        Util::logTrace('ActionQuit::terminatePhpProcesses - [QUIT_FLOW] Termination process completed - ' . microtime(true));
+        return $result;
     }
 }

@@ -169,6 +169,60 @@ class Win32Ps
             Vbs::killProc($pid);
         }
     }
+    
+    /**
+     * Enhanced method to terminate a process with detailed logging.
+     * 
+     * @param int $pid The process ID to terminate.
+     * @return bool True if termination was successful, false otherwise.
+     */
+    public static function terminateProcess($pid)
+    {
+        Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Attempting to terminate process ID: ' . $pid . ' - ' . microtime(true));
+        
+        $pid = intval($pid);
+        if (empty($pid)) {
+            Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Invalid PID provided - ' . microtime(true));
+            return false;
+        }
+        
+        // First try using COM extension if available
+        if (extension_loaded('com_dotnet')) {
+            try {
+                Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Using WMI approach - ' . microtime(true));
+                $wmi = new COM('WbemScripting.SWbemLocator');
+                $service = $wmi->ConnectServer('.', 'root\\cimv2');
+                $process = $service->Get('Win32_Process.Handle="' . $pid . '"');
+                $result = $process->Terminate();
+                
+                $success = ($result === 0);
+                Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] WMI termination result: ' . ($success ? 'success' : 'failed') . ' - ' . microtime(true));
+                return $success;
+            } catch (Exception $e) {
+                Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Exception during WMI termination: ' . $e->getMessage() . ' - ' . microtime(true));
+                // Fall through to alternative methods
+            }
+        } else {
+            Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] COM extension not loaded - ' . microtime(true));
+        }
+        
+        // Try using taskkill command
+        Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Attempting taskkill approach - ' . microtime(true));
+        exec('taskkill /F /PID ' . $pid, $output, $result);
+        $success = ($result === 0);
+        Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] taskkill result: ' . ($success ? 'success' : 'failed') . ' - ' . microtime(true));
+        
+        // If taskkill fails, fall back to the original Vbs method
+        if (!$success) {
+            Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Falling back to Vbs method - ' . microtime(true));
+            Vbs::killProc($pid);
+            // Verify if process was terminated
+            $success = !self::exists($pid);
+            Util::logTrace('Win32Ps::terminateProcess: [RESTART_FLOW] Vbs method result: ' . ($success ? 'success' : 'failed') . ' - ' . microtime(true));
+        }
+        
+        return $success;
+    }
 
     /**
      * Terminates all Bearsampp-related processes except the current one.

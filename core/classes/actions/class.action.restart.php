@@ -22,10 +22,39 @@ class ActionRestart
      */
     public function __construct($args)
     {
-        global $bearsamppLang, $bearsamppWinbinder;
+        global $bearsamppLang, $bearsamppWinbinder, $bearsamppCore;
 
-        $bearsamppWinbinder->messageBoxInfo(
-            sprintf($bearsamppLang->getValue(Lang::RESTART_TEXT), APP_TITLE),
-            $bearsamppLang->getValue(Lang::RESTART_TITLE));
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Constructor starting - ' . microtime(true));
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Args: ' . (is_array($args) ? json_encode($args) : 'No arguments'));
+        
+        $restartTitle = $bearsamppLang->getValue(Lang::RESTART_TITLE);
+        $restartText = sprintf($bearsamppLang->getValue(Lang::RESTART_TEXT), APP_TITLE);
+        
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Preparing restart message box - ' . microtime(true));
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Title: ' . $restartTitle);
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Text: ' . $restartText);
+        
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Checking WinBinder state before message box - ' . microtime(true));
+        Util::logTrace('ActionRestart: [RESTART_FLOW] WinBinder object: ' . (is_object($bearsamppWinbinder) ? 'Valid' : 'Invalid'));
+        
+        try {
+            Util::logTrace('ActionRestart: [RESTART_FLOW] Displaying message box - ' . microtime(true));
+            $result = $bearsamppWinbinder->messageBoxInfo(
+                $restartText,
+                $restartTitle
+            );
+            Util::logTrace('ActionRestart: [RESTART_FLOW] Message box displayed successfully - Result: ' . $result . ' - ' . microtime(true));
+        } catch (Exception $e) {
+            Util::logTrace('ActionRestart: [RESTART_FLOW] Exception displaying message box: ' . $e->getMessage() . ' - ' . microtime(true));
+        }
+        
+        Util::logTrace('ActionRestart: [RESTART_FLOW] WinBinder state after message box - ' . microtime(true));
+        Util::logTrace('ActionRestart: [RESTART_FLOW] WinBinder object: ' . (is_object($bearsamppWinbinder) ? 'Valid' : 'Invalid'));
+        
+        // Verify that the exec action is set correctly
+        Util::logTrace('ActionRestart: [RESTART_FLOW] ExecAction value: ' . $bearsamppCore->getExec());
+        
+        // Pre-exit logging
+        Util::logTrace('ActionRestart: [RESTART_FLOW] Constructor completed - About to return from constructor - ' . microtime(true));
     }
 }

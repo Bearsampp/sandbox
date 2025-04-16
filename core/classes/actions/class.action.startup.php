@@ -211,23 +211,54 @@ class ActionStartup
         }
 
         if ($this->restart) {
-            Util::logTrace('Restart required - preparing to restart application');
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Restart flag is true - ' . microtime(true));
             $this->writeLog(APP_TITLE . ' has to be restarted');
-            $this->splash->setTextLoading(
-                sprintf(
-                    $bearsamppLang->getValue(Lang::STARTUP_PREPARE_RESTART_TEXT),
-                    APP_TITLE . ' ' . $bearsamppCore->getAppVersion()
-                )
+            
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Setting splash loading text for restart - ' . microtime(true));
+            $restartText = sprintf(
+                $bearsamppLang->getValue(Lang::STARTUP_PREPARE_RESTART_TEXT),
+                APP_TITLE . ' ' . $bearsamppCore->getAppVersion()
             );
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Restart text: ' . $restartText . ' - ' . microtime(true));
+            
+            $this->splash->setTextLoading($restartText);
 
-            Util::logTrace('Deleting all services before restart');
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Deleting all services before restart - ' . microtime(true));
+            $serviceCount = count($bearsamppBins->getServices());
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Found ' . $serviceCount . ' services to delete - ' . microtime(true));
+            
             foreach ($bearsamppBins->getServices() as $sName => $service) {
-                Util::logTrace('Deleting service: ' . $sName);
-                $service->delete();
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Deleting service: ' . $sName . ' - ' . microtime(true));
+                try {
+                    $deleteResult = $service->delete();
+                    Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Service ' . $sName . ' deletion result: ' . ($deleteResult ? 'success' : 'failed') . ' - ' . microtime(true));
+                } catch (Exception $e) {
+                    Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Exception deleting service ' . $sName . ': ' . $e->getMessage() . ' - ' . microtime(true));
+                }
             }
 
-            Util::logTrace('Setting execution action to RESTART');
-            $bearsamppCore->setExec(ActionExec::RESTART);
+            Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] About to set execution action to RESTART - ' . microtime(true));
+            
+            // Critical fix: Ensure we can write to the exec file directly
+            try {
+                $execPath = $bearsamppCore->getExec();
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Writing RESTART to exec file: ' . $execPath . ' - ' . microtime(true));
+                
+                // Make sure the content is correct and directly write to the file
+                file_put_contents($execPath, ActionExec::RESTART);
+                
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Successfully wrote to exec file - ' . microtime(true));
+            } catch (Exception $e) {
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Exception writing to exec file: ' . $e->getMessage() . ' - ' . microtime(true));
+            }
+            
+            // Verify the file was written correctly
+            if (file_exists($bearsamppCore->getExec())) {
+                $newExecValue = file_get_contents($bearsamppCore->getExec());
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Exec file content: "' . $newExecValue . '" - ' . microtime(true));
+            } else {
+                Util::logTrace('ActionStartup::processWindow: [RESTART_FLOW] Exec file does not exist after write attempt - ' . microtime(true));
+            }
         }
 
         if (!empty($this->error)) {
