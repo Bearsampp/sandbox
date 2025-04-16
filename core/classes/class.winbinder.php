@@ -25,7 +25,6 @@ class WinBinder
     const INCR_PROGRESS_BAR = '++';
     const NEW_LINE = '@nl@';
 
-    // TODO why does it say we have undelcared constants
     // Constants for message box types
     const BOX_INFO = WBC_INFO;
     const BOX_OK = WBC_OK;
