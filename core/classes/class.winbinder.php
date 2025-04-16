@@ -1,8 +1,8 @@
 <?php
 /*
  *
- *  * Copyright (c) 2022-2025 Bearsampp
- *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Copyright (c) 2021-2024 Bearsampp
+ *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
  *  * Website: https://bearsampp.com
  *  * Github: https://github.com/Bearsampp
  *
@@ -213,21 +213,60 @@ class WinBinder
     }
 
     /**
-     * Destroys a window.
+     * Destroys a window with proper cleanup and handling.
      *
      * @param   mixed  $window  The window object to destroy.
      * @return  boolean True if window was successfully destroyed
      */
     public function destroyWindow($window)
     {
-        // Skip validation for window destruction to prevent recursive validation
-        // This prevents the "Invalid WinBinder object" warnings
-        $result = $this->callWinBinder('wb_destroy_window', array($window), true);
-        
-        // Reset internal state to prevent memory leaks
-        $this->reset();
-        
-        return true;
+        // Check if window exists and is valid
+        if (!$window || !$this->windowIsValid($window)) {
+            return true; // Already closed or invalid window
+        }
+
+        // Get window title before destruction for fallback
+        $windowTitle = $this->getText($window);
+        $currentPid = Win32Ps::getCurrentPid();
+
+        // Attempt standard destruction
+        $this->callWinBinder('wb_destroy_window', array($window));
+
+        // Verify closure with retries
+        $maxAttempts = 3;
+        $attempt     = 0;
+        $destroyed   = false;
+
+        while ($attempt < $maxAttempts && !$destroyed) {
+            $this->processMessages();
+            usleep(100000); // 100ms delay
+            $destroyed = !$this->windowIsValid($window);
+            $attempt++;
+        }
+
+        // Fallback to process termination if window still exists
+        if (!$destroyed) {
+            // 1. Try to close using window title
+            $this->exec('taskkill', '/FI "WINDOWTITLE eq ' . $windowTitle . '" /F', true);
+
+            // 2. Try to kill process directly using Winbinder's PID method
+            $currentPid = Win32Ps::getCurrentPid();
+            if (!empty($currentPid)) {
+                $this->exec('taskkill', '/PID ' . $currentPid . ' /T /F', true);
+                $this->writeLog('Force-killed PID: ' . $currentPid . ' for window: ' . $window);
+            }
+
+            // 3. Final sanity check
+            if ($this->windowIsValid($window)) {
+                $this->callWinBinder('wb_destroy_window', array($window), true); // Force native call
+            }
+
+            // 4. Reset internal state to prevent memory leaks
+            $this->reset();
+        }
+
+        // Final verification
+        return !$this->windowIsValid($window);
     }
 
     /**
@@ -1096,25 +1135,12 @@ function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
 {
     global $bearsamppWinbinder;
 
-    // Skip processing if the window is not valid or callback doesn't exist
-    if (!isset($bearsamppWinbinder->callback[$window]) || empty($window)) {
-        return;
-    }
-
-    // Handle timer destruction if needed
-    if (isset($bearsamppWinbinder->callback[$window][2]) && $bearsamppWinbinder->callback[$window][2] != null) {
+    if ($bearsamppWinbinder->callback[$window][2] != null) {
         $bearsamppWinbinder->destroyTimer($window, $bearsamppWinbinder->callback[$window][2][0]);
     }
 
-    // Store callback information before calling it
-    $classCallback = $bearsamppWinbinder->callback[$window][0];
-    $methodCallback = $bearsamppWinbinder->callback[$window][1];
-
-    // Call the callback if it exists
-    if (isset($classCallback) && isset($methodCallback)) {
-        call_user_func_array(
-            array($classCallback, $methodCallback),
-            array($window, $id, $ctrl, $param1, $param2)
-        );
-    }
+    call_user_func_array(
+        array($bearsamppWinbinder->callback[$window][0], $bearsamppWinbinder->callback[$window][1]),
+        array($window, $id, $ctrl, $param1, $param2)
+    );
 }

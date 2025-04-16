@@ -1,11 +1,10 @@
 <?php
 /*
- *
- *  * Copyright (c) 2022-2025 Bearsampp
- *  * License: GNU General Public License version 3 or later; see LICENSE.txt
- *  * Website: https://bearsampp.com
- *  * Github: https://github.com/Bearsampp
- *
+ * Copyright (c) 2021-2024 Bearsampp
+ * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ * Author: Bear
+ * Website: https://bearsampp.com
+ * Github: https://github.com/Bearsampp
  */
 
 /**
@@ -86,14 +85,6 @@ class ActionAbout
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
         global $bearsamppConfig, $bearsamppWinbinder;
-        
-        // Static variable to track if we're already closing
-        static $isClosing = false;
-        
-        // If we're already in the process of closing, don't try to close again
-        if ($isClosing) {
-            return;
-        }
 
         switch ($id) {
             case $this->wbLinkHomepage[WinBinder::CTRL_ID]:
@@ -107,15 +98,8 @@ $bearsamppWinbinder->exec($bearsamppConfig->getBrowser(), Util::getGithubUserUrl
 break;
             case IDCLOSE:
             case $this->wbBtnOk[WinBinder::CTRL_ID]:
-                $isClosing = true;
-                
-                // Remove callback to prevent further event processing
-                if (isset($bearsamppWinbinder->callback[$window])) {
-                    unset($bearsamppWinbinder->callback[$window]);
-                }
-                
-                $bearsamppWinbinder->destroyWindow($window);
-                break;
+$bearsamppWinbinder->destroyWindow($window);
+break;
         }
     }
 }
