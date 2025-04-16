@@ -2,59 +2,13 @@
 /*.iml
 /.idea
 
-# Qodo
-/.qodo
-
 # Bearsampp
-/**/*.tmp
-/**/*.log
-/**/*.logs
-/**/*.bak
-
-# ignore everything except for core.
-/alias/
-/apps/
-/bin/
-/cgi-bin/
-/img/*
-/logs/*
-/ssl/
-/tmp/*
-/core/tmp/*
-/tools/
-/vhosts/
-/www/
-/**/post-install/
-/bearsampp.ini
-/bearsampp.exe
-/bearsampp.conf
-/core/resources/homepage/alias.conf
-/core/resources/loading.pid
-/core/libs/openssl/openssl.cfg
-/core/resources/lastPath.dat
-/core/resources/version.dat
-/core/resources/homepage/img/about.bmp
-/core/resources/homepage/img/bearsampp.bmp
-/core/resources/homepage/img/header-logo.png
-/core/resources/homepage/img/icons/app.ico
-/core/resources/homepage/img/icons/bearsampp.ico
-/core/resources/quickpick-releases.json
+/.dev
 
 # Visual Studio
 .vscode/
 .vs/
 .vsc/
 
-# api
-/www/doxy/
-/www/api/
-/www/.phpdoc/
-
-# exclude gitignores
-!/tmp/.gitignore
-!/logs/.gitignore
-!/core/tmp/.gitignore
-.codiumai
-/core/resources/quickpick-releases.json
-
-.qodo
+# ignore "current" directories
+/**/current
