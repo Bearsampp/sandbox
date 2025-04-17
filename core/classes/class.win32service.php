@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -83,9 +84,12 @@ class Win32Service
 
     private $latestStatus;
     private $latestError;
-    
+
     // Track which functions have been logged to avoid duplicate log entries
     private static $loggedFunctions = array();
+
+    // Cache of services that are known to not exist
+    private static $nonExistentServices = array();
 
     /**
      * Constructor for the Win32Service class.
@@ -107,6 +111,29 @@ class Win32Service
     {
         global $bearsamppRoot;
         Util::logDebug( $log, $bearsamppRoot->getServicesLogFilePath() );
+    }
+
+    /**
+     * Marks a service as non-existent in the static cache.
+     * This prevents redundant status checks for services that don't exist.
+     *
+     * @param   string  $serviceName  The name of the service to mark as non-existent.
+     */
+    public static function markServiceAsNonExistent($serviceName)
+    {
+        self::$nonExistentServices[$serviceName] = true;
+        Util::logTrace('Service marked as non-existent in cache: ' . $serviceName);
+    }
+
+    /**
+     * Checks if a service is marked as non-existent in the static cache.
+     *
+     * @param   string  $serviceName  The name of the service to check.
+     * @return  bool    True if the service is marked as non-existent, false otherwise.
+     */
+    public static function isServiceNonExistent($serviceName)
+    {
+        return isset(self::$nonExistentServices[$serviceName]);
     }
 
     /**
@@ -142,14 +169,150 @@ class Win32Service
                 Util::logTrace('Win32 function: ' . $function . ' exists');
                 self::$loggedFunctions[$function] = true;
             }
-            $result = call_user_func( $function, $param );
-            if ( $checkError && $result !== null && dechex( (int)$result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = $result !== null ? dechex( (int)$result ) : '0';
+
+            // Add timeout protection for Win32 service calls
+            // This prevents hanging if the service call doesn't respond
+            $timeout = 5; // 5 seconds timeout
+            $startTime = time();
+
+            // Use set_time_limit to prevent script timeout
+            $originalTimeLimit = ini_get('max_execution_time');
+            set_time_limit($timeout + 10);
+
+            // Use a separate process for potentially hanging calls
+            if (in_array($function, array('win32_query_service_status', 'win32_delete_service', 'win32_stop_service'))) {
+                Util::logTrace('Using protected call for ' . $function);
+
+                // Create a unique temporary file for this call
+                $tempFile = sys_get_temp_dir() . '\\bearsampp_' . uniqid() . '.tmp';
+
+                // Create a PHP script that will execute the function and save the result
+                $script = '<?php
+                $result = ' . $function . '("' . addslashes($param) . '");
+                file_put_contents("' . addslashes($tempFile) . '", serialize($result));
+                // Create a signal file to indicate completion
+                file_put_contents("' . addslashes($tempFile . '.done') . '", "done");
+                ?>';
+
+                $scriptFile = sys_get_temp_dir() . '\\bearsampp_script_' . uniqid() . '.php';
+                file_put_contents($scriptFile, $script);
+
+                // Create a VBS script to run the PHP script completely hidden
+                $vbsFile = sys_get_temp_dir() . '\\bearsampp_runner_' . uniqid() . '.vbs';
+                $phpPath = str_replace('\\', '\\\\', dirname(PHP_BINARY) . '\\php.exe');
+                $scriptPath = str_replace('\\', '\\\\', $scriptFile);
+                $currentDir = str_replace('\\', '\\\\', getcwd());
+
+                // Create a simple VBS script that runs the command hidden
+                $vbsContent = 'Set WshShell = CreateObject("WScript.Shell")' . PHP_EOL;
+                $vbsContent .= 'WshShell.Run """' . $phpPath . '" "' . $scriptPath . '""", 0, True' . PHP_EOL;
+                file_put_contents($vbsFile, $vbsContent);
+
+                // Execute the VBS script which will run PHP hidden
+                // Use wscript instead of cscript to hide the console window completely
+                $cmd = 'wscript "' . $vbsFile . '"';
+                Util::logTrace('Executing hidden command via VBS: ' . $cmd);
+
+                // Execute with timeout
+                $descriptorspec = array(
+                    0 => array("pipe", "r"),
+                    1 => array("pipe", "w"),
+                    2 => array("pipe", "w")
+                );
+
+                $process = proc_open($cmd, $descriptorspec, $pipes, getcwd());
+
+                if (is_resource($process)) {
+                    // Wait for completion or timeout
+                    $waitTime = 0;
+                    $interval = 0.1; // Check every 100ms
+
+                    while ($waitTime < $timeout) {
+                        // Check if the process has completed
+                        $status = proc_get_status($process);
+                        if (!$status['running']) {
+                            break;
+                        }
+
+                        // Check if either the result file or the signal file exists
+                        if (file_exists($tempFile) || file_exists($tempFile . '.done')) {
+                            break;
+                        }
+
+                        usleep(100000); // 100ms
+                        $waitTime += $interval;
+                    }
+
+                    // If we timed out, terminate the process
+                    if ($waitTime >= $timeout) {
+                        Util::logTrace('Function call timed out after ' . $timeout . ' seconds');
+
+                        // On Windows, we need to use taskkill to terminate the process
+                        $pid = $status['pid'];
+                        exec('taskkill /F /T /PID ' . $pid . ' 2>&1');
+
+                        proc_close($process);
+                    } else {
+                        proc_close($process);
+                    }
+                }
+
+                // Check if we have a result
+                if (file_exists($tempFile)) {
+                    $result = unserialize(file_get_contents($tempFile));
+                    unlink($tempFile);
+                    Util::logTrace('Function call completed successfully with result');
+                } elseif (file_exists($tempFile . '.done')) {
+                    // The signal file exists but the result file doesn't
+                    // This means the PHP script completed but didn't create a result file
+                    Util::logTrace('Function call completed but no result file was created');
+                    if ($function == 'win32_query_service_status') {
+                        $result = self::WIN32_SERVICE_NA;
+                    } else {
+                        $result = null;
+                    }
+                } else {
+                    Util::logTrace('Function call failed or timed out');
+                    // Set a default result for timeout
+                    if ($function == 'win32_query_service_status') {
+                        $result = self::WIN32_SERVICE_NA;
+                    } else {
+                        $result = null;
+                    }
+                }
+
+                // Clean up the script files and signal file
+                if (file_exists($scriptFile)) {
+                    unlink($scriptFile);
+                }
+                if (file_exists($vbsFile)) {
+                    unlink($vbsFile);
+                }
+                if (file_exists($tempFile . '.done')) {
+                    unlink($tempFile . '.done');
+                }
+            } else {
+                // For other functions, call directly
+                $result = call_user_func($function, $param);
+            }
+
+            // Restore original time limit
+            set_time_limit($originalTimeLimit);
+
+            if ($checkError && $result !== null && dechex((int)$result) != self::WIN32_NO_ERROR) {
+                $this->latestError = $result !== null ? dechex((int)$result) : '0';
             }
         } else {
             if (!isset(self::$loggedFunctions[$function])) {
                 Util::logTrace('Win32 function: ' . $function . ' missing');
                 self::$loggedFunctions[$function] = true;
+            }
+
+            // Handle missing functions gracefully
+            if ($function == 'win32_query_service_status') {
+                Util::logTrace('Handling missing win32_query_service_status function');
+                $this->latestStatus = self::WIN32_SERVICE_NA;
+                $this->latestError = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
             }
         }
         return $result;
@@ -164,27 +327,97 @@ class Win32Service
      */
     public function status($timeout = true)
     {
+        // First check if the service is already known to not exist
+        // This is the fastest check and avoids any external calls
+        if (self::isServiceNonExistent($this->getName())) {
+            Util::logTrace('Service already known to not exist in status: ' . $this->getName());
+            $this->latestError = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+            return self::WIN32_SERVICE_NA;
+        }
+
         usleep( self::SLEEP_TIME );
 
         $this->latestStatus = self::WIN32_SERVICE_NA;
-        $maxtime            = time() + self::PENDING_TIMEOUT;
+        $maxtime = time() + self::PENDING_TIMEOUT;
 
-        while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
-            $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
-            if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( (int)$this->latestStatus['CurrentState'] );
+        // Check if function exists before entering the loop
+        if (!function_exists('win32_query_service_status')) {
+            Util::logTrace('win32_query_service_status function missing, returning NA status');
+            $this->latestError = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+            return self::WIN32_SERVICE_NA;
+        }
+
+        // Set a maximum number of attempts to prevent infinite loops
+        $maxAttempts = 5;
+        $attempts = 0;
+
+        // First attempt - if it fails with "service does not exist", don't try again
+        $attempts++;
+        Util::logTrace('Checking service status, attempt ' . $attempts . ' of ' . $maxAttempts);
+
+        $this->latestStatus = $this->callWin32Service('win32_query_service_status', $this->getName());
+
+        if (is_array($this->latestStatus) && isset($this->latestStatus['CurrentState'])) {
+            $this->latestStatus = dechex((int)$this->latestStatus['CurrentState']);
+            Util::logTrace('Service status retrieved: ' . $this->latestStatus);
+        }
+        elseif ($this->latestStatus !== null && dechex((int)$this->latestStatus) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+            // Service doesn't exist - cache this result and return immediately
+            $this->latestStatus = dechex((int)$this->latestStatus);
+            Util::logTrace('Service does not exist: ' . $this->latestStatus);
+            self::$nonExistentServices[$this->getName()] = true;
+            $this->latestError = $this->latestStatus;
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+            Util::logTrace('Final status: Service does not exist');
+            return self::WIN32_SERVICE_NA;
+        }
+        elseif ($this->latestStatus === null || $this->latestStatus === false) {
+            // Function call failed or timed out - assume service doesn't exist
+            Util::logTrace('Status check failed or timed out - assuming service does not exist');
+            self::$nonExistentServices[$this->getName()] = true;
+            $this->latestError = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+            Util::logTrace('Final status: Service does not exist (assumed)');
+            return self::WIN32_SERVICE_NA;
+        }
+
+        // Only continue with additional attempts if the service exists and is in a pending state
+        while (($this->isPending($this->latestStatus)) && $attempts < $maxAttempts) {
+            $attempts++;
+            Util::logTrace('Checking service status, attempt ' . $attempts . ' of ' . $maxAttempts);
+
+            $this->latestStatus = $this->callWin32Service('win32_query_service_status', $this->getName());
+
+            if (is_array($this->latestStatus) && isset($this->latestStatus['CurrentState'])) {
+                $this->latestStatus = dechex((int)$this->latestStatus['CurrentState']);
+                Util::logTrace('Service status retrieved: ' . $this->latestStatus);
             }
-            elseif ( $this->latestStatus !== null && dechex( (int)$this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( (int)$this->latestStatus );
-            }
-            if ( $timeout && $maxtime < time() ) {
+            elseif ($this->latestStatus !== null && dechex((int)$this->latestStatus) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+                $this->latestStatus = dechex((int)$this->latestStatus);
+                Util::logTrace('Service does not exist: ' . $this->latestStatus);
                 break;
+            }
+
+            // Check for timeout
+            if ($timeout && $maxtime < time()) {
+                Util::logTrace('Status check timed out after ' . self::PENDING_TIMEOUT . ' seconds');
+                break;
+            }
+
+            // Add a small delay between attempts
+            if ($attempts < $maxAttempts && $this->isPending($this->latestStatus)) {
+                usleep(self::SLEEP_TIME);
             }
         }
 
-        if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-            $this->latestError  = $this->latestStatus;
+        if ($this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+            self::$nonExistentServices[$this->getName()] = true;
+            $this->latestError = $this->latestStatus;
             $this->latestStatus = self::WIN32_SERVICE_NA;
+            Util::logTrace('Final status: Service does not exist');
+        } else {
+            Util::logTrace('Final status: ' . $this->latestStatus);
         }
 
         return $this->latestStatus;
@@ -205,7 +438,7 @@ class Win32Service
             Util::logTrace("PostgreSQL service detected - using specialized installation");
             $bearsamppBins->getPostgresql()->rebuildConf();
             Util::logTrace("PostgreSQL configuration rebuilt");
-            
+
             $bearsamppBins->getPostgresql()->initData();
             Util::logTrace("PostgreSQL data initialized");
 
@@ -213,22 +446,22 @@ class Win32Service
             Util::logTrace("PostgreSQL service installation " . ($result ? "succeeded" : "failed"));
             return $result;
         }
-        
+
         if ( $this->getNssm() instanceof Nssm ) {
             Util::logTrace("Using NSSM for service installation");
-            
+
             $nssmEnvPath = Util::getAppBinsRegKey( false );
             Util::logTrace("NSSM environment path (bins): " . $nssmEnvPath);
-            
+
             $nssmEnvPath .= Util::getNssmEnvPaths();
             Util::logTrace("NSSM environment path (with additional paths): " . $nssmEnvPath);
-            
+
             $nssmEnvPath .= '%SystemRoot%/system32;';
             $nssmEnvPath .= '%SystemRoot%;';
             $nssmEnvPath .= '%SystemRoot%/system32/Wbem;';
             $nssmEnvPath .= '%SystemRoot%/system32/WindowsPowerShell/v1.0';
             Util::logTrace("NSSM final environment PATH: " . $nssmEnvPath);
-            
+
             $this->getNssm()->setEnvironmentExtra( 'PATH=' . $nssmEnvPath );
             Util::logTrace("NSSM service parameters:");
             Util::logTrace("-> Name: " . $this->getNssm()->getName());
@@ -238,7 +471,7 @@ class Win32Service
             Util::logTrace("-> Start: " . $this->getNssm()->getStart());
             Util::logTrace("-> Stdout: " . $this->getNssm()->getStdout());
             Util::logTrace("-> Stderr: " . $this->getNssm()->getStderr());
-            
+
             $result = $this->getNssm()->create();
             Util::logTrace("NSSM service creation " . ($result ? "succeeded" : "failed"));
             if (!$result) {
@@ -257,12 +490,12 @@ class Win32Service
             'start_type'    => $this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START,
             'error_control' => $this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL,
         );
-        
+
         Util::logTrace("win32_create_service parameters:");
         foreach ($serviceParams as $key => $value) {
             Util::logTrace("-> $key: $value");
         }
-        
+
         $result = $this->callWin32Service( 'win32_create_service', $serviceParams, true );
         $create = $result !== null ? dechex( (int)$result ) : '0';
         Util::logTrace("win32_create_service result code: " . $create);
@@ -297,30 +530,80 @@ class Win32Service
      */
     public function delete()
     {
-        if ( !$this->isInstalled() ) {
+        Util::logTrace('Starting delete for service: ' . $this->getName());
+
+        // First check if the service is already known to not exist
+        if (self::isServiceNonExistent($this->getName())) {
+            Util::logTrace('Service already known to not exist, skipping deletion: ' . $this->getName());
             return true;
         }
 
-        $this->stop();
+        // Use a direct status check instead of isInstalled() to avoid multiple checks
+        $status = $this->status();
+        if ($status == self::WIN32_SERVICE_NA) {
+            Util::logTrace('Service not installed, skipping deletion: ' . $this->getName());
+            return true;
+        }
 
-        if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
+        // Only stop the service if it's running
+        if ($status == self::WIN32_SERVICE_RUNNING) {
+            Util::logTrace('Stopping running service before deletion: ' . $this->getName());
+            $this->stop();
+        } else {
+            Util::logTrace('Service not running, no need to stop before deletion');
+        }
+
+        if ($this->getName() == BinPostgresql::SERVICE_NAME) {
+            Util::logTrace('Using specialized uninstall for PostgreSQL service');
             return Batch::uninstallPostgresqlService();
         }
 
-        $result = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
-        $delete = $result !== null ? dechex( (int)$result ) : '0';
-        $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
-
-        if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-            return false;
-        }
-        elseif ( $this->isInstalled() ) {
-            $this->latestError = self::WIN32_NO_ERROR;
-
-            return false;
+        // Check if function exists before calling
+        if (!function_exists('win32_delete_service')) {
+            Util::logTrace('win32_delete_service function missing, using alternative approach');
+            // If the function doesn't exist, we'll consider the service as deleted
+            // This prevents freezing when the Win32 service functions are not available
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+            $this->latestError = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+            return true;
         }
 
-        return true;
+        Util::logTrace('Calling win32_delete_service for: ' . $this->getName());
+        $result = $this->callWin32Service('win32_delete_service', $this->getName(), true);
+        $delete = $result !== null ? dechex((int)$result) : '0';
+
+        // Log the deletion result without checking status
+        $this->writeLog('Delete service ' . $this->getName() . ': ' . $delete);
+
+        // If the delete operation returned success or "service does not exist", consider it successful
+        if ($delete == self::WIN32_NO_ERROR || $delete == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+            Util::logTrace('Service deletion reported success with code: ' . $delete);
+
+            // Set the status directly instead of calling status() again
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+
+            // We can't directly access the static cache in status(), but we can
+            // set a flag that will be used by future status checks
+            self::markServiceAsNonExistent($this->getName());
+
+            Util::logTrace('Service deleted successfully: ' . $this->getName());
+            return true;
+        } else {
+            Util::logTrace('Service deletion failed with error code: ' . $delete);
+
+            // For unexpected errors, we'll do a single status check
+            // but we won't use isInstalled() to avoid multiple checks
+            $finalStatus = $this->status(false); // Use false to avoid timeout loops
+            if ($finalStatus != self::WIN32_SERVICE_NA) {
+                Util::logTrace('Service still appears to be installed after deletion attempt');
+                $this->latestError = self::WIN32_NO_ERROR;
+                return false;
+            }
+
+            // If we get here, the service doesn't exist despite the error
+            $this->latestStatus = self::WIN32_SERVICE_NA;
+            return true;
+        }
     }
 
     /**
@@ -428,20 +711,65 @@ class Win32Service
      */
     public function stop()
     {
-        $result = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
-        $stop = $result !== null ? dechex( (int)$result ) : '0';
-        $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
+        Util::logTrace('Attempting to stop service: ' . $this->getName());
 
-        if ( $stop != self::WIN32_NO_ERROR ) {
-            return false;
-        }
-        elseif ( !$this->isStopped() ) {
-            $this->latestError = self::WIN32_NO_ERROR;
-
-            return false;
+        // Check if function exists before calling
+        if (!function_exists('win32_stop_service')) {
+            Util::logTrace('win32_stop_service function missing, using alternative approach');
+            // If the function doesn't exist, we'll consider the service as stopped
+            // This prevents freezing when the Win32 service functions are not available
+            $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+            return true;
         }
 
-        return true;
+        // Check if the service is already stopped before attempting to stop it
+        $initialStatus = $this->status();
+        if ($initialStatus == self::WIN32_SERVICE_STOPPED) {
+            Util::logTrace('Service already stopped: ' . $this->getName());
+            return true;
+        }
+
+        // If the service doesn't exist, consider it stopped
+        if ($initialStatus == self::WIN32_SERVICE_NA) {
+            Util::logTrace('Service does not exist, considering it stopped: ' . $this->getName());
+            return true;
+        }
+
+        $result = $this->callWin32Service('win32_stop_service', $this->getName(), true);
+        $stop = $result !== null ? dechex((int)$result) : '0';
+
+        // Avoid calling status() directly after stop to prevent potential freezing
+        // Instead, log the stop result without checking status
+        $this->writeLog('Stop service ' . $this->getName() . ': ' . $stop);
+
+        // If the stop operation returned success, consider it successful
+        if ($stop == self::WIN32_NO_ERROR) {
+            Util::logTrace('Service stop reported success with code: ' . $stop);
+
+            // Set the status directly instead of calling status() again
+            $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+
+            Util::logTrace('Service stopped successfully: ' . $this->getName());
+            return true;
+        } else {
+            Util::logTrace('Failed to stop service: ' . $this->getName() . ' with error code: ' . $stop);
+
+            // Only check if still running if stop failed with an unexpected error
+            // This reduces the risk of freezing on status check
+            if ($stop != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+                // Use a single status check with a short timeout
+                $finalStatus = $this->status(false);
+                if ($finalStatus != self::WIN32_SERVICE_STOPPED) {
+                    Util::logTrace('Service not stopped after stop attempt: ' . $this->getName());
+                    $this->latestError = self::WIN32_NO_ERROR;
+                    return false;
+                }
+            }
+
+            // If we get here, either the service doesn't exist or it's stopped
+            $this->latestStatus = self::WIN32_SERVICE_STOPPED;
+            return true;
+        }
     }
 
     /**
@@ -479,6 +807,12 @@ class Win32Service
      */
     public function isInstalled()
     {
+        // First check if the service is already known to not exist
+        if (self::isServiceNonExistent($this->getName())) {
+            Util::logTrace('Service already known to not exist in isInstalled: ' . $this->getName());
+            return false;
+        }
+
         $status = $this->status();
         $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
 
