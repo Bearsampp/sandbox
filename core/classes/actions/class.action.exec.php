@@ -25,7 +25,7 @@ class ActionExec
     /**
      * Constant representing the 'reload' action.
      */
-    const RELOAD = 'restart';
+    const RESTART = 'restart';
 
     /**
      * ActionExec constructor.
