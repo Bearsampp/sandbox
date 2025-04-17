@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -83,7 +84,7 @@ class Win32Service
 
     private $latestStatus;
     private $latestError;
-    
+
     // Track which functions have been logged to avoid duplicate log entries
     private static $loggedFunctions = array();
 
@@ -142,9 +143,28 @@ class Win32Service
                 Util::logTrace('Win32 function: ' . $function . ' exists');
                 self::$loggedFunctions[$function] = true;
             }
-            $result = call_user_func( $function, $param );
-            if ( $checkError && $result !== null && dechex( (int)$result ) != self::WIN32_NO_ERROR ) {
-                $this->latestError = $result !== null ? dechex( (int)$result ) : '0';
+            try {
+                $result = call_user_func( $function, $param );
+                if ( $checkError && $result !== null && dechex( (int)$result ) != self::WIN32_NO_ERROR ) {
+                    $this->latestError = $result !== null ? dechex( (int)$result ) : '0';
+                }
+            } catch (\Win32ServiceException $e) {
+                Util::logTrace("Win32ServiceException caught: " . $e->getMessage());
+
+                // Handle "service does not exist" exception
+                if (strpos($e->getMessage(), 'service does not exist') !== false) {
+                    Util::logTrace("Service does not exist exception handled for: " . $param);
+                    // Return the appropriate error code for "service does not exist"
+                    $result = hexdec(self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST);
+                } else {
+                    // For other exceptions, log and return false
+                    Util::logTrace("Unhandled Win32ServiceException: " . $e->getMessage());
+                    $result = false;
+                }
+            } catch (\Exception $e) {
+                // Catch any other exceptions to prevent application freeze
+                Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
+                $result = false;
             }
         } else {
             if (!isset(self::$loggedFunctions[$function])) {
@@ -205,7 +225,7 @@ class Win32Service
             Util::logTrace("PostgreSQL service detected - using specialized installation");
             $bearsamppBins->getPostgresql()->rebuildConf();
             Util::logTrace("PostgreSQL configuration rebuilt");
-            
+
             $bearsamppBins->getPostgresql()->initData();
             Util::logTrace("PostgreSQL data initialized");
 
@@ -213,22 +233,22 @@ class Win32Service
             Util::logTrace("PostgreSQL service installation " . ($result ? "succeeded" : "failed"));
             return $result;
         }
-        
+
         if ( $this->getNssm() instanceof Nssm ) {
             Util::logTrace("Using NSSM for service installation");
-            
+
             $nssmEnvPath = Util::getAppBinsRegKey( false );
             Util::logTrace("NSSM environment path (bins): " . $nssmEnvPath);
-            
+
             $nssmEnvPath .= Util::getNssmEnvPaths();
             Util::logTrace("NSSM environment path (with additional paths): " . $nssmEnvPath);
-            
+
             $nssmEnvPath .= '%SystemRoot%/system32;';
             $nssmEnvPath .= '%SystemRoot%;';
             $nssmEnvPath .= '%SystemRoot%/system32/Wbem;';
             $nssmEnvPath .= '%SystemRoot%/system32/WindowsPowerShell/v1.0';
             Util::logTrace("NSSM final environment PATH: " . $nssmEnvPath);
-            
+
             $this->getNssm()->setEnvironmentExtra( 'PATH=' . $nssmEnvPath );
             Util::logTrace("NSSM service parameters:");
             Util::logTrace("-> Name: " . $this->getNssm()->getName());
@@ -238,7 +258,7 @@ class Win32Service
             Util::logTrace("-> Start: " . $this->getNssm()->getStart());
             Util::logTrace("-> Stdout: " . $this->getNssm()->getStdout());
             Util::logTrace("-> Stderr: " . $this->getNssm()->getStderr());
-            
+
             $result = $this->getNssm()->create();
             Util::logTrace("NSSM service creation " . ($result ? "succeeded" : "failed"));
             if (!$result) {
@@ -257,12 +277,12 @@ class Win32Service
             'start_type'    => $this->getStartType() != null ? $this->getStartType() : self::SERVICE_DEMAND_START,
             'error_control' => $this->getErrorControl() != null ? $this->getErrorControl() : self::SERVER_ERROR_NORMAL,
         );
-        
+
         Util::logTrace("win32_create_service parameters:");
         foreach ($serviceParams as $key => $value) {
             Util::logTrace("-> $key: $value");
         }
-        
+
         $result = $this->callWin32Service( 'win32_create_service', $serviceParams, true );
         $create = $result !== null ? dechex( (int)$result ) : '0';
         Util::logTrace("win32_create_service result code: " . $create);
