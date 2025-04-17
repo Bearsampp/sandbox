@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -32,7 +33,6 @@ class Action
     const EXEC = 'exec';
     const GEN_SSL_CERTIFICATE = 'genSslCertificate';
     const LAUNCH_STARTUP = 'launchStartup';
-    const MANUAL_RESTART = 'manualRestart';
     const LOADING = 'loading';
     const QUIT = 'quit';
     const REBUILD_INI = 'rebuildIni';

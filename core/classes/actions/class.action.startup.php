@@ -513,14 +513,7 @@ class ActionStartup
         $this->splash->setTextLoading( $bearsamppLang->getValue( Lang::STARTUP_KILL_OLD_PROCS_TEXT ) );
         $this->splash->incrProgressBar();
 
-        // Stop services
-        /*foreach ($bearsamppBins->getServices() as $sName => $service) {
-            $serviceInfos = $service->infos();
-            if ($serviceInfos === false) {
-                continue;
-            }
-            $service->stop();
-        }*/
+        // Services are now handled by Win32Service::markServiceAsNonExistent in the restart section
 
         // Stop third party procs
         $procsKilled = Win32Ps::killBins();
@@ -912,22 +905,8 @@ class ActionStartup
 
                         Util::logTrace('Comparing service paths - Generated: ' . $serviceGenPathName . ' vs Installed: ' . $serviceVbsPathName);
 
-                        // Add detailed debugging to identify invisible characters
-                        Util::logTrace('Generated path length: ' . strlen($serviceGenPathName));
-                        Util::logTrace('Installed path length: ' . strlen($serviceVbsPathName));
-
-                        // Output character codes to identify invisible characters
-                        $genChars = 'Generated path char codes: ';
-                        for ($i = 0; $i < strlen($serviceGenPathName); $i++) {
-                            $genChars .= ord($serviceGenPathName[$i]) . ' ';
-                        }
-                        Util::logTrace($genChars);
-
-                        $instChars = 'Installed path char codes: ';
-                        for ($i = 0; $i < strlen($serviceVbsPathName); $i++) {
-                            $instChars .= ord($serviceVbsPathName[$i]) . ' ';
-                        }
-                        Util::logTrace($instChars);
+                        // Log basic path information for troubleshooting
+                        Util::logTrace('Generated path length: ' . strlen($serviceGenPathName) . ', Installed path length: ' . strlen($serviceVbsPathName));
                     }
 
                     // Try a more robust comparison that normalizes whitespace
