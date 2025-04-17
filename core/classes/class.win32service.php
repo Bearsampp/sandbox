@@ -368,20 +368,30 @@ class Win32Service
      */
     public function delete(): bool
     {
+        Util::logTrace("Starting Win32Service::delete for service: " . $this->getName());
+        Util::logTrace("Checking if service is installed: " . $this->getName());
+
         if ( !$this->isInstalled() ) {
+            Util::logTrace("Service is not installed, skipping deletion: " . $this->getName());
             return true;
         }
 
+        Util::logTrace("Stopping service before deletion: " . $this->getName());
         $this->stop();
 
         if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
-            return Batch::uninstallPostgresqlService();
+            Util::logTrace("PostgreSQL service detected - using specialized uninstallation");
+            $result = Batch::uninstallPostgresqlService();
+            Util::logTrace("PostgreSQL service uninstallation " . ($result ? "succeeded" : "failed"));
+            return $result;
         }
 
+        Util::logTrace("Calling win32_delete_service for service: " . $this->getName());
         $result = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
         // Ensure proper type conversion for PHP 8.2.3 compatibility
         $resultInt = is_numeric($result) ? (int)$result : 0;
         $delete = $result !== null ? dechex( $resultInt ) : '0';
+        Util::logTrace("Delete service result code: " . $delete);
         $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
 
         if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
@@ -503,11 +513,21 @@ class Win32Service
      */
     public function stop(): bool
     {
+        Util::logTrace("Starting Win32Service::stop for service: " . $this->getName());
+
+        Util::logTrace("Calling win32_stop_service for service: " . $this->getName());
         $result = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
+
         // Ensure proper type conversion for PHP 8.2.3 compatibility
         $resultInt = is_numeric($result) ? (int)$result : 0;
         $stop = $result !== null ? dechex( $resultInt ) : '0';
-        $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
+        Util::logTrace("Stop service result code: " . $stop);
+
+        Util::logTrace("Checking current status after stop attempt");
+        $currentStatus = $this->status();
+        Util::logTrace("Current status: " . $currentStatus);
+
+        $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $currentStatus . ')' );
 
         if ( $stop != self::WIN32_NO_ERROR ) {
             return false;
@@ -556,10 +576,15 @@ class Win32Service
      */
     public function isInstalled(): bool
     {
-        $status = $this->status();
-        $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        Util::logTrace("Checking if service is installed: " . $this->getName());
 
-        return $status != self::WIN32_SERVICE_NA;
+        $status = $this->status();
+        $isInstalled = $status != self::WIN32_SERVICE_NA;
+
+        Util::logTrace("Service " . $this->getName() . " installation status: " . ($isInstalled ? "YES" : "NO") . " (status code: " . $status . ")");
+        $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($isInstalled ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+
+        return $isInstalled;
     }
 
     /**
@@ -569,10 +594,15 @@ class Win32Service
      */
     public function isRunning(): bool
     {
-        $status = $this->status();
-        $this->writeLog( 'isRunning ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_RUNNING ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        Util::logTrace("Checking if service is running: " . $this->getName());
 
-        return $status == self::WIN32_SERVICE_RUNNING;
+        $status = $this->status();
+        $isRunning = $status == self::WIN32_SERVICE_RUNNING;
+
+        Util::logTrace("Service " . $this->getName() . " running status: " . ($isRunning ? "YES" : "NO") . " (status code: " . $status . ")");
+        $this->writeLog( 'isRunning ' . $this->getName() . ': ' . ($isRunning ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+
+        return $isRunning;
     }
 
     /**
@@ -582,10 +612,15 @@ class Win32Service
      */
     public function isStopped(): bool
     {
-        $status = $this->status();
-        $this->writeLog( 'isStopped ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_STOPPED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        Util::logTrace("Checking if service is stopped: " . $this->getName());
 
-        return $status == self::WIN32_SERVICE_STOPPED;
+        $status = $this->status();
+        $isStopped = $status == self::WIN32_SERVICE_STOPPED;
+
+        Util::logTrace("Service " . $this->getName() . " stopped status: " . ($isStopped ? "YES" : "NO") . " (status code: " . $status . ")");
+        $this->writeLog( 'isStopped ' . $this->getName() . ': ' . ($isStopped ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+
+        return $isStopped;
     }
 
     /**
@@ -595,10 +630,15 @@ class Win32Service
      */
     public function isPaused(): bool
     {
-        $status = $this->status();
-        $this->writeLog( 'isPaused ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_PAUSED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+        Util::logTrace("Checking if service is paused: " . $this->getName());
 
-        return $status == self::WIN32_SERVICE_PAUSED;
+        $status = $this->status();
+        $isPaused = $status == self::WIN32_SERVICE_PAUSED;
+
+        Util::logTrace("Service " . $this->getName() . " paused status: " . ($isPaused ? "YES" : "NO") . " (status code: " . $status . ")");
+        $this->writeLog( 'isPaused ' . $this->getName() . ': ' . ($isPaused ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+
+        return $isPaused;
     }
 
     /**
@@ -610,8 +650,24 @@ class Win32Service
      */
     public function isPending($status): bool
     {
-        return $status == self::WIN32_SERVICE_START_PENDING || $status == self::WIN32_SERVICE_STOP_PENDING
+        $isPending = $status == self::WIN32_SERVICE_START_PENDING || $status == self::WIN32_SERVICE_STOP_PENDING
             || $status == self::WIN32_SERVICE_CONTINUE_PENDING || $status == self::WIN32_SERVICE_PAUSE_PENDING;
+
+        Util::logTrace("Checking if status is pending: " . $status . " - Result: " . ($isPending ? "YES" : "NO"));
+
+        if ($isPending) {
+            if ($status == self::WIN32_SERVICE_START_PENDING) {
+                Util::logTrace("Service is in START_PENDING state");
+            } else if ($status == self::WIN32_SERVICE_STOP_PENDING) {
+                Util::logTrace("Service is in STOP_PENDING state");
+            } else if ($status == self::WIN32_SERVICE_CONTINUE_PENDING) {
+                Util::logTrace("Service is in CONTINUE_PENDING state");
+            } else if ($status == self::WIN32_SERVICE_PAUSE_PENDING) {
+                Util::logTrace("Service is in PAUSE_PENDING state");
+            }
+        }
+
+        return $isPending;
     }
 
     /**
