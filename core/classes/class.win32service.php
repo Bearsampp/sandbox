@@ -144,9 +144,14 @@ class Win32Service
                 self::$loggedFunctions[$function] = true;
             }
             try {
+                // Ensure proper parameter handling for PHP 8.2.3 compatibility
                 $result = call_user_func( $function, $param );
-                if ( $checkError && $result !== null && dechex( (int)$result ) != self::WIN32_NO_ERROR ) {
-                    $this->latestError = $result !== null ? dechex( (int)$result ) : '0';
+                if ( $checkError && $result !== null ) {
+                    // Convert to int before using dechex for PHP 8.2.3 compatibility
+                    $resultInt = is_numeric($result) ? (int)$result : 0;
+                    if ( dechex( $resultInt ) != self::WIN32_NO_ERROR ) {
+                        $this->latestError = dechex( $resultInt );
+                    }
                 }
             } catch (\Win32ServiceException $e) {
                 Util::logTrace("Win32ServiceException caught: " . $e->getMessage());
@@ -164,6 +169,10 @@ class Win32Service
             } catch (\Exception $e) {
                 // Catch any other exceptions to prevent application freeze
                 Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
+                $result = false;
+            } catch (\Throwable $e) {
+                // Catch any other throwables (PHP 7+) to prevent application freeze
+                Util::logTrace("Throwable caught in callWin32Service: " . $e->getMessage());
                 $result = false;
             }
         } else {
@@ -192,10 +201,17 @@ class Win32Service
         while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
             $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
             if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                $this->latestStatus = dechex( (int)$this->latestStatus['CurrentState'] );
+                // Ensure proper type conversion for PHP 8.2.3 compatibility
+                $stateInt = is_numeric($this->latestStatus['CurrentState']) ? (int)$this->latestStatus['CurrentState'] : 0;
+                $this->latestStatus = dechex( $stateInt );
             }
-            elseif ( $this->latestStatus !== null && dechex( (int)$this->latestStatus ) == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                $this->latestStatus = dechex( (int)$this->latestStatus );
+            elseif ( $this->latestStatus !== null ) {
+                // Ensure proper type conversion for PHP 8.2.3 compatibility
+                $statusInt = is_numeric($this->latestStatus) ? (int)$this->latestStatus : 0;
+                $statusHex = dechex( $statusInt );
+                if ( $statusHex == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+                    $this->latestStatus = $statusHex;
+                }
             }
             if ( $timeout && $maxtime < time() ) {
                 break;
@@ -284,7 +300,9 @@ class Win32Service
         }
 
         $result = $this->callWin32Service( 'win32_create_service', $serviceParams, true );
-        $create = $result !== null ? dechex( (int)$result ) : '0';
+        // Ensure proper type conversion for PHP 8.2.3 compatibility
+        $resultInt = is_numeric($result) ? (int)$result : 0;
+        $create = $result !== null ? dechex( $resultInt ) : '0';
         Util::logTrace("win32_create_service result code: " . $create);
 
         $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
@@ -328,7 +346,9 @@ class Win32Service
         }
 
         $result = $this->callWin32Service( 'win32_delete_service', $this->getName(), true );
-        $delete = $result !== null ? dechex( (int)$result ) : '0';
+        // Ensure proper type conversion for PHP 8.2.3 compatibility
+        $resultInt = is_numeric($result) ? (int)$result : 0;
+        $delete = $result !== null ? dechex( $resultInt ) : '0';
         $this->writeLog( 'Delete service ' . $this->getName() . ': ' . $delete . ' (status: ' . $this->status() . ')' );
 
         if ( $delete != self::WIN32_NO_ERROR && $delete != self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
@@ -389,7 +409,9 @@ class Win32Service
 
 
         $result = $this->callWin32Service( 'win32_start_service', $this->getName(), true );
-        $start = $result !== null ? dechex( (int)$result ) : '0';
+        // Ensure proper type conversion for PHP 8.2.3 compatibility
+        $resultInt = is_numeric($result) ? (int)$result : 0;
+        $start = $result !== null ? dechex( $resultInt ) : '0';
         Util::logDebug( 'Start service ' . $this->getName() . ': ' . $start . ' (status: ' . $this->status() . ')' );
 
         if ( $start != self::WIN32_NO_ERROR && $start != self::WIN32_ERROR_SERVICE_ALREADY_RUNNING ) {
@@ -449,7 +471,9 @@ class Win32Service
     public function stop()
     {
         $result = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
-        $stop = $result !== null ? dechex( (int)$result ) : '0';
+        // Ensure proper type conversion for PHP 8.2.3 compatibility
+        $resultInt = is_numeric($result) ? (int)$result : 0;
+        $stop = $result !== null ? dechex( $resultInt ) : '0';
         $this->writeLog( 'Stop service ' . $this->getName() . ': ' . $stop . ' (status: ' . $this->status() . ')' );
 
         if ( $stop != self::WIN32_NO_ERROR ) {
@@ -798,12 +822,16 @@ class Win32Service
     {
         global $bearsamppLang;
         if ( $this->latestError != self::WIN32_NO_ERROR ) {
+            // Ensure proper type conversion for PHP 8.2.3 compatibility
+            $errorInt = is_numeric($this->latestError) ? hexdec( $this->latestError ) : 0;
             return $bearsamppLang->getValue( Lang::ERROR ) . ' ' .
-                $this->latestError . ' (' . hexdec( $this->latestError ) . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
+                $this->latestError . ' (' . $errorInt . ' : ' . $this->getWin32ErrorCodeDesc( $this->latestError ) . ')';
         }
         elseif ( $this->latestStatus != self::WIN32_SERVICE_NA ) {
+            // Ensure proper type conversion for PHP 8.2.3 compatibility
+            $statusInt = is_numeric($this->latestStatus) ? hexdec( $this->latestStatus ) : 0;
             return $bearsamppLang->getValue( Lang::STATUS ) . ' ' .
-                $this->latestStatus . ' (' . hexdec( $this->latestStatus ) . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
+                $this->latestStatus . ' (' . $statusInt . ' : ' . $this->getWin32ServiceStatusDesc( $this->latestStatus ) . ')';
         }
 
         return null;
