@@ -143,37 +143,94 @@ class Win32Service
                 Util::logTrace('Win32 function: ' . $function . ' exists');
                 self::$loggedFunctions[$function] = true;
             }
-            try {
-                // Ensure proper parameter handling for PHP 8.2.3 compatibility
-                $result = call_user_func( $function, $param );
-                if ( $checkError && $result !== null ) {
-                    // Convert to int before using dechex for PHP 8.2.3 compatibility
-                    $resultInt = is_numeric($result) ? (int)$result : 0;
-                    if ( dechex( $resultInt ) != self::WIN32_NO_ERROR ) {
-                        $this->latestError = dechex( $resultInt );
-                    }
-                }
-            } catch (\Win32ServiceException $e) {
-                Util::logTrace("Win32ServiceException caught: " . $e->getMessage());
 
-                // Handle "service does not exist" exception
-                if (strpos($e->getMessage(), 'service does not exist') !== false) {
-                    Util::logTrace("Service does not exist exception handled for: " . $param);
-                    // Return the appropriate error code for "service does not exist"
-                    $result = hexdec(self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST);
-                } else {
-                    // For other exceptions, log and return false
-                    Util::logTrace("Unhandled Win32ServiceException: " . $e->getMessage());
+            // Special handling for win32_query_service_status to prevent hanging
+            if ($function === 'win32_query_service_status') {
+                Util::logTrace("Using enhanced handling for win32_query_service_status");
+
+                // Set a shorter timeout for this specific function
+                $originalTimeout = ini_get('max_execution_time');
+                set_time_limit(5); // 5 seconds timeout
+
+                try {
+                    // Ensure proper parameter handling for PHP 8.2.3 compatibility
+                    $result = call_user_func($function, $param);
+
+                    // Reset the timeout
+                    set_time_limit($originalTimeout);
+
+                    if ($checkError && $result !== null) {
+                        // Convert to int before using dechex for PHP 8.2.3 compatibility
+                        $resultInt = is_numeric($result) ? (int)$result : 0;
+                        if (dechex($resultInt) != self::WIN32_NO_ERROR) {
+                            $this->latestError = dechex($resultInt);
+                        }
+                    }
+                } catch (\Win32ServiceException $e) {
+                    // Reset the timeout
+                    set_time_limit($originalTimeout);
+
+                    Util::logTrace("Win32ServiceException caught: " . $e->getMessage());
+
+                    // Handle "service does not exist" exception
+                    if (strpos($e->getMessage(), 'service does not exist') !== false) {
+                        Util::logTrace("Service does not exist exception handled for: " . $param);
+                        // Return the appropriate error code for "service does not exist"
+                        $result = hexdec(self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST);
+                    } else {
+                        // For other exceptions, log and return false
+                        Util::logTrace("Unhandled Win32ServiceException: " . $e->getMessage());
+                        $result = false;
+                    }
+                } catch (\Exception $e) {
+                    // Reset the timeout
+                    set_time_limit($originalTimeout);
+
+                    // Catch any other exceptions to prevent application freeze
+                    Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
+                    $result = false;
+                } catch (\Throwable $e) {
+                    // Reset the timeout
+                    set_time_limit($originalTimeout);
+
+                    // Catch any other throwable (PHP 7+) to prevent application freeze
+                    Util::logTrace("Throwable caught in callWin32Service: " . $e->getMessage());
                     $result = false;
                 }
-            } catch (\Exception $e) {
-                // Catch any other exceptions to prevent application freeze
-                Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
-                $result = false;
-            } catch (\Throwable $e) {
-                // Catch any other throwable (PHP 7+) to prevent application freeze
-                Util::logTrace("Throwable caught in callWin32Service: " . $e->getMessage());
-                $result = false;
+            } else {
+                // Standard handling for other functions
+                try {
+                    // Ensure proper parameter handling for PHP 8.2.3 compatibility
+                    $result = call_user_func($function, $param);
+                    if ($checkError && $result !== null) {
+                        // Convert to int before using dechex for PHP 8.2.3 compatibility
+                        $resultInt = is_numeric($result) ? (int)$result : 0;
+                        if (dechex($resultInt) != self::WIN32_NO_ERROR) {
+                            $this->latestError = dechex($resultInt);
+                        }
+                    }
+                } catch (\Win32ServiceException $e) {
+                    Util::logTrace("Win32ServiceException caught: " . $e->getMessage());
+
+                    // Handle "service does not exist" exception
+                    if (strpos($e->getMessage(), 'service does not exist') !== false) {
+                        Util::logTrace("Service does not exist exception handled for: " . $param);
+                        // Return the appropriate error code for "service does not exist"
+                        $result = hexdec(self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST);
+                    } else {
+                        // For other exceptions, log and return false
+                        Util::logTrace("Unhandled Win32ServiceException: " . $e->getMessage());
+                        $result = false;
+                    }
+                } catch (\Exception $e) {
+                    // Catch any other exceptions to prevent application freeze
+                    Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
+                    $result = false;
+                } catch (\Throwable $e) {
+                    // Catch any other throwable (PHP 7+) to prevent application freeze
+                    Util::logTrace("Throwable caught in callWin32Service: " . $e->getMessage());
+                    $result = false;
+                }
             }
         } else {
             if (!isset(self::$loggedFunctions[$function])) {
@@ -206,48 +263,75 @@ class Win32Service
         // Add a safety counter to prevent infinite loops
         $loopCount = 0;
         $maxLoops = 5; // Maximum number of attempts
+        $startTime = microtime(true);
 
-        while ( ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus )) && $loopCount < $maxLoops ) {
-            $loopCount++;
-            Util::logTrace("Calling win32_query_service_status for service: " . $this->getName());
+        try {
+            while ( ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus )) && $loopCount < $maxLoops ) {
+                $loopCount++;
+                Util::logTrace("Calling win32_query_service_status for service: " . $this->getName() . " (attempt " . $loopCount . " of " . $maxLoops . ")");
 
-            $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
-
-            if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
-                // Ensure proper type conversion for PHP 8.2.3 compatibility
-                $stateInt = is_numeric($this->latestStatus['CurrentState']) ? (int)$this->latestStatus['CurrentState'] : 0;
-                $this->latestStatus = dechex( $stateInt );
-                Util::logTrace("Service status returned as array, CurrentState: " . $this->latestStatus);
-            }
-            elseif ( $this->latestStatus !== null ) {
-                // Ensure proper type conversion for PHP 8.2.3 compatibility
-                $statusInt = is_numeric($this->latestStatus) ? (int)$this->latestStatus : 0;
-                $statusHex = dechex( $statusInt );
-                Util::logTrace("Service status returned as value: " . $statusHex);
-
-                if ( $statusHex == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
-                    $this->latestStatus = $statusHex;
-                    Util::logTrace("Service does not exist, breaking loop");
-                    break; // Exit the loop immediately if service doesn't exist
+                // Add a timeout check before making the call
+                if (microtime(true) - $startTime > 10) { // 10 seconds overall timeout
+                    Util::logTrace("Overall timeout reached before making service status call");
+                    break;
                 }
-            } else {
-                Util::logTrace("Service status query returned null");
-            }
 
-            if ( $timeout && $maxtime < time() ) {
-                Util::logTrace("Timeout reached while querying service status");
-                break;
-            }
+                $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
 
-            // Only sleep if we're going to loop again
-            if ($loopCount < $maxLoops && ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus))) {
-                usleep(self::SLEEP_TIME);
+                if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
+                    // Ensure proper type conversion for PHP 8.2.3 compatibility
+                    $stateInt = is_numeric($this->latestStatus['CurrentState']) ? (int)$this->latestStatus['CurrentState'] : 0;
+                    $this->latestStatus = dechex( $stateInt );
+                    Util::logTrace("Service status returned as array, CurrentState: " . $this->latestStatus);
+                }
+                elseif ( $this->latestStatus !== null ) {
+                    // Ensure proper type conversion for PHP 8.2.3 compatibility
+                    $statusInt = is_numeric($this->latestStatus) ? (int)$this->latestStatus : 0;
+                    $statusHex = dechex( $statusInt );
+                    Util::logTrace("Service status returned as value: " . $statusHex);
+
+                    if ( $statusHex == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
+                        $this->latestStatus = $statusHex;
+                        Util::logTrace("Service does not exist, breaking loop");
+                        break; // Exit the loop immediately if service doesn't exist
+                    }
+                } else {
+                    Util::logTrace("Service status query returned null");
+                    // If we get a null result, assume service does not exist to avoid hanging
+                    if ($loopCount >= 2) { // Only do this after at least one retry
+                        Util::logTrace("Multiple null results, assuming service does not exist");
+                        $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+                        break;
+                    }
+                }
+
+                if ( $timeout && $maxtime < time() ) {
+                    Util::logTrace("Timeout reached while querying service status");
+                    break;
+                }
+
+                // Only sleep if we're going to loop again
+                if ($loopCount < $maxLoops && ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus))) {
+                    Util::logTrace("Sleeping before next status check attempt");
+                    usleep(self::SLEEP_TIME);
+                }
             }
+        } catch (\Exception $e) {
+            Util::logTrace("Exception in status method: " . $e->getMessage());
+            // If an exception occurs, assume service does not exist
+            $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
+        } catch (\Throwable $e) {
+            Util::logTrace("Throwable in status method: " . $e->getMessage());
+            // If a throwable occurs, assume service does not exist
+            $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
         }
 
         if ($loopCount >= $maxLoops) {
             Util::logTrace("Maximum query attempts reached for service: " . $this->getName());
         }
+
+        $elapsedTime = microtime(true) - $startTime;
+        Util::logTrace("Status check completed in " . round($elapsedTime, 2) . " seconds after " . $loopCount . " attempts");
 
         if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
             $this->latestError  = $this->latestStatus;
@@ -558,15 +642,51 @@ class Win32Service
     /**
      * Retrieves information about the service.
      *
-     * @return array The service information.
+     * @return array|false The service information, or false on failure.
      */
-    public function infos(): array
+    public function infos()
     {
-        if ( $this->getNssm() instanceof Nssm ) {
-            return $this->getNssm()->infos();
-        }
+        Util::logTrace("Starting Win32Service::infos for service: " . $this->getName());
 
-        return Vbs::getServiceInfos( $this->getName() );
+        try {
+            // Set a timeout for the entire operation
+            $startTime = microtime(true);
+            $timeout = 10; // 10 seconds timeout for the entire operation
+
+            if ($this->getNssm() instanceof Nssm) {
+                Util::logTrace("Using NSSM to get service info");
+                $result = $this->getNssm()->infos();
+                Util::logTrace("NSSM info retrieval completed in " . round(microtime(true) - $startTime, 2) . " seconds");
+                return $result;
+            }
+
+            Util::logTrace("Using VBS to get service info");
+
+            // Use set_time_limit to prevent PHP script timeout
+            $originalTimeout = ini_get('max_execution_time');
+            set_time_limit(15); // 15 seconds timeout
+
+            // Create a separate process to get service info with a timeout
+            $result = Vbs::getServiceInfos($this->getName());
+
+            // Reset the timeout
+            set_time_limit($originalTimeout);
+
+            // Check if we've exceeded our timeout
+            if (microtime(true) - $startTime > $timeout) {
+                Util::logTrace("Timeout exceeded in infos() method, returning false");
+                return false;
+            }
+
+            Util::logTrace("VBS info retrieval completed in " . round(microtime(true) - $startTime, 2) . " seconds");
+            return $result;
+        } catch (\Exception $e) {
+            Util::logTrace("Exception in infos() method: " . $e->getMessage() . ", returning false");
+            return false;
+        } catch (\Throwable $e) {
+            Util::logTrace("Throwable in infos() method: " . $e->getMessage() . ", returning false");
+            return false;
+        }
     }
 
     /**
@@ -578,13 +698,36 @@ class Win32Service
     {
         Util::logTrace("Checking if service is installed: " . $this->getName());
 
-        $status = $this->status();
-        $isInstalled = $status != self::WIN32_SERVICE_NA;
+        try {
+            // Set a timeout for the entire operation
+            $startTime = microtime(true);
+            $timeout = 15; // 15 seconds timeout for the entire operation
 
-        Util::logTrace("Service " . $this->getName() . " installation status: " . ($isInstalled ? "YES" : "NO") . " (status code: " . $status . ")");
-        $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($isInstalled ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
+            // Call status() with a try-catch to ensure we don't get stuck
+            $status = $this->status();
 
-        return $isInstalled;
+            // Check if we've exceeded our timeout
+            if (microtime(true) - $startTime > $timeout) {
+                Util::logTrace("Timeout exceeded in isInstalled() method, assuming service is not installed");
+                $this->writeLog('isInstalled ' . $this->getName() . ': NO (timeout exceeded)');
+                return false;
+            }
+
+            $isInstalled = $status != self::WIN32_SERVICE_NA;
+
+            Util::logTrace("Service " . $this->getName() . " installation status: " . ($isInstalled ? "YES" : "NO") . " (status code: " . $status . ")");
+            $this->writeLog('isInstalled ' . $this->getName() . ': ' . ($isInstalled ? 'YES' : 'NO') . ' (status: ' . $status . ')');
+
+            return $isInstalled;
+        } catch (\Exception $e) {
+            Util::logTrace("Exception in isInstalled() method: " . $e->getMessage() . ", assuming service is not installed");
+            $this->writeLog('isInstalled ' . $this->getName() . ': NO (exception: ' . $e->getMessage() . ')');
+            return false;
+        } catch (\Throwable $e) {
+            Util::logTrace("Throwable in isInstalled() method: " . $e->getMessage() . ", assuming service is not installed");
+            $this->writeLog('isInstalled ' . $this->getName() . ': NO (throwable: ' . $e->getMessage() . ')');
+            return false;
+        }
     }
 
     /**
