@@ -104,7 +104,7 @@ class Win32Service
      *
      * @param   string  $log  The log message.
      */
-    private function writeLog($log)
+    private function writeLog($log): void
     {
         global $bearsamppRoot;
         Util::logDebug( $log, $bearsamppRoot->getServicesLogFilePath() );
@@ -115,7 +115,7 @@ class Win32Service
      *
      * @return array The array of VBS keys.
      */
-    public static function getVbsKeys()
+    public static function getVbsKeys(): array
     {
         return array(
             self::VBS_NAME,
@@ -135,7 +135,7 @@ class Win32Service
      *
      * @return mixed The result of the function call.
      */
-    private function callWin32Service($function, $param, $checkError = false)
+    private function callWin32Service($function, $param, $checkError = false): mixed
     {
         $result = false;
         if ( function_exists( $function ) ) {
@@ -171,7 +171,7 @@ class Win32Service
                 Util::logTrace("Exception caught in callWin32Service: " . $e->getMessage());
                 $result = false;
             } catch (\Throwable $e) {
-                // Catch any other throwables (PHP 7+) to prevent application freeze
+                // Catch any other throwable (PHP 7+) to prevent application freeze
                 Util::logTrace("Throwable caught in callWin32Service: " . $e->getMessage());
                 $result = false;
             }
@@ -191,38 +191,71 @@ class Win32Service
      *
      * @return string The status of the service.
      */
-    public function status($timeout = true)
+    public function status($timeout = true): string
     {
         usleep( self::SLEEP_TIME );
 
         $this->latestStatus = self::WIN32_SERVICE_NA;
         $maxtime            = time() + self::PENDING_TIMEOUT;
 
-        while ( $this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus ) ) {
+        Util::logTrace("Querying status for service: " . $this->getName() . " (timeout: " . ($timeout ? "enabled" : "disabled") . ")");
+        if ($timeout) {
+            Util::logTrace("Max timeout time set to: " . date('Y-m-d H:i:s', $maxtime));
+        }
+
+        // Add a safety counter to prevent infinite loops
+        $loopCount = 0;
+        $maxLoops = 5; // Maximum number of attempts
+
+        while ( ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending( $this->latestStatus )) && $loopCount < $maxLoops ) {
+            $loopCount++;
+            Util::logTrace("Calling win32_query_service_status for service: " . $this->getName());
+
             $this->latestStatus = $this->callWin32Service( 'win32_query_service_status', $this->getName() );
+
             if ( is_array( $this->latestStatus ) && isset( $this->latestStatus['CurrentState'] ) ) {
                 // Ensure proper type conversion for PHP 8.2.3 compatibility
                 $stateInt = is_numeric($this->latestStatus['CurrentState']) ? (int)$this->latestStatus['CurrentState'] : 0;
                 $this->latestStatus = dechex( $stateInt );
+                Util::logTrace("Service status returned as array, CurrentState: " . $this->latestStatus);
             }
             elseif ( $this->latestStatus !== null ) {
                 // Ensure proper type conversion for PHP 8.2.3 compatibility
                 $statusInt = is_numeric($this->latestStatus) ? (int)$this->latestStatus : 0;
                 $statusHex = dechex( $statusInt );
+                Util::logTrace("Service status returned as value: " . $statusHex);
+
                 if ( $statusHex == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
                     $this->latestStatus = $statusHex;
+                    Util::logTrace("Service does not exist, breaking loop");
+                    break; // Exit the loop immediately if service doesn't exist
                 }
+            } else {
+                Util::logTrace("Service status query returned null");
             }
+
             if ( $timeout && $maxtime < time() ) {
+                Util::logTrace("Timeout reached while querying service status");
                 break;
             }
+
+            // Only sleep if we're going to loop again
+            if ($loopCount < $maxLoops && ($this->latestStatus == self::WIN32_SERVICE_NA || $this->isPending($this->latestStatus))) {
+                usleep(self::SLEEP_TIME);
+            }
+        }
+
+        if ($loopCount >= $maxLoops) {
+            Util::logTrace("Maximum query attempts reached for service: " . $this->getName());
         }
 
         if ( $this->latestStatus == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST ) {
             $this->latestError  = $this->latestStatus;
             $this->latestStatus = self::WIN32_SERVICE_NA;
+            Util::logTrace("Service does not exist, setting status to NA");
         }
 
+        Util::logTrace("Final status for service " . $this->getName() . ": " . $this->latestStatus);
         return $this->latestStatus;
     }
 
@@ -231,7 +264,7 @@ class Win32Service
      *
      * @return bool True if the service was created successfully, false otherwise.
      */
-    public function create()
+    public function create(): bool
     {
         global $bearsamppBins;
 
@@ -333,7 +366,7 @@ class Win32Service
      *
      * @return bool True if the service was deleted successfully, false otherwise.
      */
-    public function delete()
+    public function delete(): bool
     {
         if ( !$this->isInstalled() ) {
             return true;
@@ -368,7 +401,7 @@ class Win32Service
      *
      * @return bool True if the service was reset successfully, false otherwise.
      */
-    public function reset()
+    public function reset(): bool
     {
         if ( $this->delete() ) {
             usleep( self::SLEEP_TIME );
@@ -384,7 +417,7 @@ class Win32Service
      *
      * @return bool True if the service was started successfully, false otherwise.
      */
-    public function start()
+    public function start(): bool
     {
         global $bearsamppBins;
 
@@ -468,7 +501,7 @@ class Win32Service
      *
      * @return bool True if the service was stopped successfully, false otherwise.
      */
-    public function stop()
+    public function stop(): bool
     {
         $result = $this->callWin32Service( 'win32_stop_service', $this->getName(), true );
         // Ensure proper type conversion for PHP 8.2.3 compatibility
@@ -493,7 +526,7 @@ class Win32Service
      *
      * @return bool True if the service was restarted successfully, false otherwise.
      */
-    public function restart()
+    public function restart(): bool
     {
         if ( $this->stop() ) {
             return $this->start();
@@ -507,7 +540,7 @@ class Win32Service
      *
      * @return array The service information.
      */
-    public function infos()
+    public function infos(): array
     {
         if ( $this->getNssm() instanceof Nssm ) {
             return $this->getNssm()->infos();
@@ -521,7 +554,7 @@ class Win32Service
      *
      * @return bool True if the service is installed, false otherwise.
      */
-    public function isInstalled()
+    public function isInstalled(): bool
     {
         $status = $this->status();
         $this->writeLog( 'isInstalled ' . $this->getName() . ': ' . ($status != self::WIN32_SERVICE_NA ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
@@ -534,7 +567,7 @@ class Win32Service
      *
      * @return bool True if the service is running, false otherwise.
      */
-    public function isRunning()
+    public function isRunning(): bool
     {
         $status = $this->status();
         $this->writeLog( 'isRunning ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_RUNNING ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
@@ -547,7 +580,7 @@ class Win32Service
      *
      * @return bool True if the service is stopped, false otherwise.
      */
-    public function isStopped()
+    public function isStopped(): bool
     {
         $status = $this->status();
         $this->writeLog( 'isStopped ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_STOPPED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
@@ -560,7 +593,7 @@ class Win32Service
      *
      * @return bool True if the service is paused, false otherwise.
      */
-    public function isPaused()
+    public function isPaused(): bool
     {
         $status = $this->status();
         $this->writeLog( 'isPaused ' . $this->getName() . ': ' . ($status == self::WIN32_SERVICE_PAUSED ? 'YES' : 'NO') . ' (status: ' . $status . ')' );
@@ -575,7 +608,7 @@ class Win32Service
      *
      * @return bool True if the service is in a pending state, false otherwise.
      */
-    public function isPending($status)
+    public function isPending($status): bool
     {
         return $status == self::WIN32_SERVICE_START_PENDING || $status == self::WIN32_SERVICE_STOP_PENDING
             || $status == self::WIN32_SERVICE_CONTINUE_PENDING || $status == self::WIN32_SERVICE_PAUSE_PENDING;
@@ -588,44 +621,35 @@ class Win32Service
      *
      * @return string|null The status description.
      */
-    private function getWin32ServiceStatusDesc($status)
+    private function getWin32ServiceStatusDesc($status): ?string
     {
         switch ( $status ) {
             case self::WIN32_SERVICE_CONTINUE_PENDING:
                 return 'The service continue is pending.';
-                break;
 
             case self::WIN32_SERVICE_PAUSE_PENDING:
                 return 'The service pause is pending.';
-                break;
 
             case self::WIN32_SERVICE_PAUSED:
                 return 'The service is paused.';
-                break;
 
             case self::WIN32_SERVICE_RUNNING:
                 return 'The service is running.';
-                break;
 
             case self::WIN32_SERVICE_START_PENDING:
                 return 'The service is starting.';
-                break;
 
             case self::WIN32_SERVICE_STOP_PENDING:
                 return 'The service is stopping.';
-                break;
 
             case self::WIN32_SERVICE_STOPPED:
                 return 'The service is not running.';
-                break;
 
             case self::WIN32_SERVICE_NA:
                 return 'Cannot retrieve service status.';
-                break;
 
             default:
                 return null;
-                break;
         }
     }
 
@@ -636,7 +660,7 @@ class Win32Service
      *
      * @return string|null The description of the error code, or null if the code is not recognized.
      */
-    private function getWin32ErrorCodeDesc($code)
+    private function getWin32ErrorCodeDesc($code): ?string
     {
         switch ( $code ) {
             case self::WIN32_ERROR_ACCESS_DENIED:
@@ -652,7 +676,7 @@ class Win32Service
      *
      * @return string The name of the service.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -662,7 +686,7 @@ class Win32Service
      *
      * @param   string  $name  The name to set.
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -672,7 +696,7 @@ class Win32Service
      *
      * @return string The display name of the service.
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->displayName;
     }
@@ -682,7 +706,7 @@ class Win32Service
      *
      * @param   string  $displayName  The display name to set.
      */
-    public function setDisplayName($displayName)
+    public function setDisplayName($displayName): void
     {
         $this->displayName = $displayName;
     }
@@ -692,7 +716,7 @@ class Win32Service
      *
      * @return string The binary path of the service.
      */
-    public function getBinPath()
+    public function getBinPath(): string
     {
         return $this->binPath;
     }
@@ -702,7 +726,7 @@ class Win32Service
      *
      * @param   string  $binPath  The binary path to set.
      */
-    public function setBinPath($binPath)
+    public function setBinPath($binPath): void
     {
         $this->binPath = str_replace( '"', '', Util::formatWindowsPath( $binPath ) );
     }
@@ -712,7 +736,7 @@ class Win32Service
      *
      * @return string The parameters for the service.
      */
-    public function getParams()
+    public function getParams(): string
     {
         return $this->params;
     }
@@ -722,7 +746,7 @@ class Win32Service
      *
      * @param   string  $params  The parameters to set.
      */
-    public function setParams($params)
+    public function setParams($params): void
     {
         $this->params = $params;
     }
@@ -732,7 +756,7 @@ class Win32Service
      *
      * @return string The start type of the service.
      */
-    public function getStartType()
+    public function getStartType(): string
     {
         return $this->startType;
     }
@@ -742,7 +766,7 @@ class Win32Service
      *
      * @param   string  $startType  The start type to set.
      */
-    public function setStartType($startType)
+    public function setStartType($startType): void
     {
         $this->startType = $startType;
     }
@@ -752,7 +776,7 @@ class Win32Service
      *
      * @return string The error control setting of the service.
      */
-    public function getErrorControl()
+    public function getErrorControl(): string
     {
         return $this->errorControl;
     }
@@ -762,7 +786,7 @@ class Win32Service
      *
      * @param   string  $errorControl  The error control setting to set.
      */
-    public function setErrorControl($errorControl)
+    public function setErrorControl($errorControl): void
     {
         $this->errorControl = $errorControl;
     }
