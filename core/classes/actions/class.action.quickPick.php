@@ -1,8 +1,8 @@
 <?php
 /*
  *
- *  * Copyright (c) 2021-2024 Bearsampp
- *  * License:  GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
  *  * Website: https://bearsampp.com
  *  * Github: https://github.com/Bearsampp
  *
@@ -411,18 +411,40 @@ class QuickPick
             return ['error' => 'Module URL not found'];
         }
 
-        $state = Util::checkInternetState();
-        if ( $state ) {
-            $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
-            Util::logDebug( 'Response is: ' . print_r( $response, true ) );
-
-            return $response;
-        }
-        else {
-            Util::logError( 'No internet connection available.' );
+        $internet = Util::checkInternetState();
+        if (!$internet) {
+            Util::logError('No internet connection available.');
 
             return ['error' => 'No internet connection'];
         }
+
+        // Fetch and unzip first
+        $response = $this->fetchAndUnzipModule($moduleUrl, $module);
+        Util::logDebug('Unzip Response is: ' . print_r($response, true));
+        Util::logTrace('Unzip Response is: ' . print_r($response, true));
+
+        if (!isset($response['error'])) {
+            // Extra validation layer
+            if (!isset($this->modules[$module])) {
+                Util::logError("Module validation failed after install: $module");
+
+                return ['error' => 'Critical: Module became invalid after installation'];
+            }
+
+            $moduleType = $this->modules[$module]['type'];
+            $moduleName = str_replace('module-', '', $module);
+
+            // Handle binary module reload
+            if ($moduleType === 'binary') {
+                Util::logTrace('Attempting reload of module: ' . $moduleName);
+                $this->reload($moduleName);
+            }
+
+            // Add success message (could be moved to fetchAndUnzipModule)
+            $response['message'] = "Module $moduleName installed successfully.";
+        }
+
+        return $response;
     }
 
     /**
@@ -527,6 +549,36 @@ class QuickPick
         }
 
         return $destination;
+    }
+
+    /**
+     * Reloads the specified binary module by name.
+     *
+     * This method triggers the reload functionality for a binary module, which refreshes
+     * its configuration and updates the available versions in the menu. It:
+     * 1. Normalizes the module name to lowercase
+     * 2. Verifies the module exists in the $bearsamppBins->bins array
+     * 3. Checks if the module has a reload() method
+     * 4. Calls the module's reload() method to refresh its state
+     *
+     * @param   string  $moduleName  The name of the binary module (e.g., 'php', 'apache').
+     *
+     * @return bool True if reload was successful, false otherwise.
+     */
+    public function reload(string $moduleName): bool
+    {
+        global $bearsamppBins;
+		$args = '';
+
+        $moduleName = strtolower($moduleName);
+
+        Util::logTrace('Reloading module: ' . $moduleName);
+        Util::logTrace('Calling triggerReload...');
+        $reloadAction = TplAppReload::triggerReload($args); // Add $args parameter
+        Util::logTrace('Reload action: ' . $reloadAction);
+        Util::logDebug("Reloaded module: $moduleName");
+
+        return true;
     }
 
     /**
