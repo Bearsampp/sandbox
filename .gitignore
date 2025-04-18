@@ -6,6 +6,10 @@
 /.dev
 /bearsampp.conf
 /bearsampp.ini
+/alias/
+/core/resources/quickpick-releases.json
+/core/resources/lastPath.dat
+/core/resources/homepage/alias.conf
 
 # Visual Studio
 .vscode/
@@ -14,4 +18,3 @@
 
 # ignore "current" directories
 /**/current
-/alias/
