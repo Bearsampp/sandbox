@@ -574,9 +574,10 @@ class QuickPick
 
         Util::logTrace('Reloading module: ' . $moduleName);
         Util::logTrace('Calling triggerReload...');
-        $reloadAction = TplAppReload::triggerReload($args); // Add $args parameter
-        Util::logTrace('Reload action: ' . $reloadAction);
+        //$reloadAction = TplAppReload::triggerReload($args); // Add $args parameter
+        //Util::logTrace('Reload action: ' . $reloadAction);
         Util::logDebug("Reloaded module: $moduleName");
+        Util::logTrace("Reloaded module: $moduleName");
 
         return true;
     }
