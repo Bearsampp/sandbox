@@ -507,19 +507,46 @@ class QuickPick
      */
     public function reload(): array
     {
+        global $bearsamppRoot, $bearsamppConfig, $bearsamppBins;
+        
         try {
             Util::logTrace('QuickPick: Initiating reload operation...');
             
             // Use the TplAppReload class to trigger the reload action
-            // This ensures we're using the same reload mechanism as the tray menu
             $args = [];  // Add any necessary arguments here
             Util::logTrace('Calling triggerReload...');
             $reloadAction = TplAppReload::triggerReload($args);
             Util::logTrace('Reload action: ' . $reloadAction);
             
-            if ($reloadAction === false) {
-                return ['error' => 'Failed to reload Bearsampp'];
+            // Check if the reload action was generated successfully
+            if (empty($reloadAction)) {
+                return ['error' => 'Failed to generate reload action'];
             }
+            
+            // Replace the %AeTrayMenuPath% placeholder with the actual path
+            $resolvedAction = str_replace(
+                '%AeTrayMenuPath%', 
+                $bearsamppRoot->getPath() . '/', 
+                $reloadAction
+            );
+            Util::logTrace('Resolved reload action: ' . $resolvedAction);
+            
+            // Execute the resolved action
+            // For AJAX calls, we'll need to handle this differently than the tray menu
+            // We'll directly call the necessary components
+            
+            // First, execute the reload action directly
+            $bearsamppAction = new ActionReload($args);
+            
+            // Then reset services (this would normally be handled by the tray menu)
+            Util::logTrace('Resetting services...');
+            foreach ($bearsamppBins->getServices() as $service) {
+                $service->restart();
+            }
+            
+            // Finally, reload configuration
+            Util::logTrace('Reloading configuration...');
+            $bearsamppConfig->reload();
             
             Util::logDebug('Bearsampp reload executed successfully');
             return ['success' => true];
