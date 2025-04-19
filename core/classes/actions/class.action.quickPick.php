@@ -500,6 +500,36 @@ class QuickPick
 }
 
     /**
+     * Reloads Bearsampp configuration.
+     * This method triggers the same action as the tray "reload" command.
+     *
+     * @return array Result of the reload operation
+     */
+    public function reload(): array
+    {
+        try {
+            Util::logTrace('QuickPick: Initiating reload operation...');
+            
+            // Use the TplAppReload class to trigger the reload action
+            // This ensures we're using the same reload mechanism as the tray menu
+            $args = [];  // Add any necessary arguments here
+            Util::logTrace('Calling triggerReload...');
+            $reloadAction = TplAppReload::triggerReload($args);
+            Util::logTrace('Reload action: ' . $reloadAction);
+            
+            if ($reloadAction === false) {
+                return ['error' => 'Failed to reload Bearsampp'];
+            }
+            
+            Util::logDebug('Bearsampp reload executed successfully');
+            return ['success' => true];
+        } catch (Exception $e) {
+            Util::logDebug('Error reloading Bearsampp: ' . $e->getMessage());
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    /**
      * Get the destination path for a given module type and name.
      *
      * This method constructs the destination path based on the type of module
@@ -588,7 +618,7 @@ class QuickPick
                                 <?php endforeach; ?>
                             </ul>
                         </div>
-	                    <a class = "reload fa-2x" href="http://google.com"><i class = 'fa-solid fa-rotate'></i></a>
+	                    <a class = "reload fa-2x" href="#" onclick="reloadBearsampp(); return false;"><i class = 'fa-solid fa-rotate'></i></a>
                     </div>
                     <div class = "progress " id = "progress" tabindex = "-1" style = "width:260px;display:none"
                          aria-labelledby = "progressbar" aria-hidden = "true">

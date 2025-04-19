@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -33,34 +34,60 @@ include __DIR__ . '/../../../classes/actions/class.action.quickPick.php';
 Util::logDebug('File accessed successfully.');
 $QuickPick = new QuickPick();
 
-header('Content-Type: application/json');
-
 $response = array();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $module  = isset($_POST['module']) ? $_POST['module'] : null;
-    $version = isset($_POST['version']) ? $_POST['version'] : null;
-    $filesize = isset($_POST['filesize']) ? $_POST['filesize'] : null;
+header('Content-Type: application/json');
 
-    if ($module && $version) {
-        $response = $QuickPick->installModule($module, $version);
-        if (!isset($response['error'])) {
-            $response['message'] = "Module $module version $version installed successfully.";
-            if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
-                $response['message'] .= "\nReload needed...";
-                $response['message'] .= "\nWhen you are done installing modules then";
-                $response['message'] .= "\nRight click on menu and choose reload.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if this is a reload action
+    $action = isset($_POST['action']) ? $_POST['action'] : null;
+    
+    if ($action === 'reload') {
+        // Execute the reload command
+        try {
+            $result = $QuickPick->reload();
+            
+            if (isset($result['error'])) {
+                $response = ['error' => $result['error']];
             } else {
-                $response['message'] .= "\nEdit Bearsampp.conf to use new version(s) then";
-                $response['message'] .= "\nWhen you are done installing modules";
-                $response['message'] .= "\nRight click on menu and choose reload.";
+                $response = [
+                    'success' => true,
+                    'message' => 'Bearsampp has been reloaded successfully.'
+                ];
             }
-        } else {
-            error_log('Error in response: ' . json_encode($response));
+        } catch (Exception $e) {
+            $response = ['error' => 'Failed to reload Bearsampp: ' . $e->getMessage()];
+            Util::logDebug('Reload error: ' . $e->getMessage());
         }
-        Util::logDebug('Response: ' . json_encode($response));
+    }
+    // Existing module installation code
+    else if (isset($_POST['module']) && isset($_POST['version'])) {
+        $module  = $_POST['module'];
+        $version = $_POST['version'];
+        $filesize = isset($_POST['filesize']) ? $_POST['filesize'] : null;
+
+        if ($module && $version) {
+            $response = $QuickPick->installModule($module, $version);
+            if (!isset($response['error'])) {
+                $response['message'] = "Module $module version $version installed successfully.";
+                if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
+                    $response['message'] .= "\nReload needed...";
+                    $response['message'] .= "\nWhen you are done installing modules then";
+                    $response['message'] .= "\nRight click on menu and choose reload.";
+                } else {
+                    $response['message'] .= "\nEdit Bearsampp.conf to use new version(s) then";
+                    $response['message'] .= "\nWhen you are done installing modules";
+                    $response['message'] .= "\nRight click on menu and choose reload.";
+                }
+            } else {
+                error_log('Error in response: ' . json_encode($response));
+            }
+            Util::logDebug('Response: ' . json_encode($response));
+        } else {
+            $response = ['error' => 'Invalid module or version.'];
+        }
     } else {
-        $response = ['error' => 'Invalid module or version.'];
+        $response = ['error' => 'Invalid request parameters.'];
     }
 } else {
     $response = ['error' => 'Invalid request method.'];
