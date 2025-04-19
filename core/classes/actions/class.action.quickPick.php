@@ -588,6 +588,7 @@ class QuickPick
                                 <?php endforeach; ?>
                             </ul>
                         </div>
+	                    <a class = "reload fa-2x" href="http://google.com"><i class = 'fa-solid fa-rotate'></i></a>
                     </div>
                     <div class = "progress " id = "progress" tabindex = "-1" style = "width:260px;display:none"
                          aria-labelledby = "progressbar" aria-hidden = "true">
