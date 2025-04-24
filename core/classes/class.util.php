@@ -1923,22 +1923,9 @@ class Util
     {
         global $bearsamppCore, $bearsamppConfig;
 
-        $stringfile    = false;
+        $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
         $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
         $method        = 'AES-256-CBC'; // The same encryption method used
-
-        // If we're including pr's we need to use the personal token
-        if ($bearsamppConfig->getIncludePr()) {
-            $stringfile = $bearsamppCore->getResourcesPath() . '/personal.dat';
-        } else {
-            $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
-        }
-
-        if ($stringfile === false) {
-            Util::logDebug('Failed to determine the file path for string.dat or personal.dat');
-
-            return false;
-        }
 
         // Get key string
         $stringPhrase = @file_get_contents($stringfile);
