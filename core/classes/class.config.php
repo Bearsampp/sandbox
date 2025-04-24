@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -22,6 +23,7 @@ class Config
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
     const DOWNLOAD_ID = 'DownloadId';
+    const INCLUDE_PR = 'IncludePR';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -132,6 +134,16 @@ class Config
     public function getDownloadId()
     {
         return $this->raw[self::DOWNLOAD_ID];
+    }
+
+    /**
+     * Retrieves the license key from the configuration.
+     *
+     * @return string The license key.
+     */
+    public function getIncludePr()
+    {
+        return $this->raw[self::INCLUDE_PR];
     }
 
     /**

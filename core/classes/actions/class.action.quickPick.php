@@ -214,10 +214,19 @@ class QuickPick
      */
     public function rebuildQuickpickJson(): array
     {
+		global $bearsamppConfig;
+
         Util::logDebug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
         // Fetch the JSON content from the URL
         $jsonContent = file_get_contents( QUICKPICK_JSON_URL );
+
+		// Get all releases if "IncludePR = 1"
+	    $includePr = $bearsamppConfig->getIncludePr();
+	    if($includePr) {
+			$jsonContent = str_replace( '/latest', '', $jsonContent);
+			Util::logTrace('JSON included pr: ' . $includePr . ' , content: ' . $jsonContent);
+        }
 
         if ( $jsonContent === false ) {
             // Handle error if the file could not be fetched
