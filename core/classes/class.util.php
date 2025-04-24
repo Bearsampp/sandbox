@@ -122,6 +122,90 @@ class Util
     }
 
     /**
+     * Checks if a string contains a specified substring.
+     *
+     * @param   string  $string  The string to search in.
+     * @param   string  $search  The substring to search for.
+     *
+     * @return bool Returns true if the substring is found in the string, otherwise false.
+     */
+    public static function contains($string, $search)
+    {
+        if (!empty($string) && !empty($search)) {
+            $result = stripos($string, $search);
+            if ($result !== false) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if a string starts with a specified substring.
+     *
+     * @param   string  $string  The string to check.
+     * @param   string  $search  The substring to look for at the start of the string.
+     *
+     * @return bool Returns true if the string starts with the search substring, otherwise false.
+     */
+    public static function startWith($string, $search)
+    {
+        // Return false if string is NULL or empty
+        if ($string === null || $string === '') {
+            return false;
+        }
+
+        $length = strlen($search);
+
+        return (substr($string, 0, $length) === $search);
+    }
+
+    /**
+     * Checks if a string ends with a specified substring.
+     *
+     * This method trims the right side whitespace of the input string before checking
+     * if it ends with the specified search substring.
+     *
+     * @param   string  $string  The string to check.
+     * @param   string  $search  The substring to look for at the end of the string.
+     *
+     * @return bool Returns true if the string ends with the search substring, otherwise false.
+     */
+    public static function endWith($string, $search)
+    {
+        $length = strlen($search);
+        $start  = $length * -1;
+
+        return (substr($string, $start) === $search);
+    }
+
+    /**
+     * Generates a random string of specified length and character set.
+     *
+     * @param   int   $length       The length of the random string to generate.
+     * @param   bool  $withNumeric  Whether to include numeric characters in the random string.
+     *
+     * @return string Returns the generated random string.
+     */
+    public static function random($length = 32, $withNumeric = true)
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if ($withNumeric) {
+            $characters .= '0123456789';
+        }
+
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $randomString;
+    }
+
+    /**
      * Recursively deletes files from a specified directory while excluding certain files.
      *
      * @param   string  $path     The path to the directory to clear.
@@ -210,6 +294,43 @@ class Util
     }
 
     /**
+     * Recursively searches for a file starting from a specified directory.
+     *
+     * @param   string  $startPath  The directory path to start the search.
+     * @param   string  $findFile   The filename to search for.
+     *
+     * @return string|false Returns the path to the file if found, or false if not found.
+     */
+    private static function findFile($startPath, $findFile)
+    {
+        $result = false;
+
+        $handle = @opendir($startPath);
+        if (!$handle) {
+            return false;
+        }
+
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            if (is_dir($startPath . '/' . $file)) {
+                $result = self::findFile($startPath . '/' . $file, $findFile);
+                if ($result !== false) {
+                    break;
+                }
+            } elseif ($file == $findFile) {
+                $result = self::formatUnixPath($startPath . '/' . $file);
+                break;
+            }
+        }
+
+        closedir($handle);
+
+        return $result;
+    }
+
+    /**
      * Validates an IP address.
      *
      * @param   string  $ip  The IP address to validate.
@@ -288,59 +409,6 @@ class Util
     }
 
     /**
-     * Logs trace information.
-     * This function is a wrapper around the generic log function for trace-level messages.
-     *
-     * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
-     */
-    public static function logTrace($data, $file = null)
-    {
-        self::log($data, self::LOG_TRACE, $file);
-    }
-
-    /**
-     * Logs a message to a specified file or default log file based on the log type.
-     *
-     * @param   string       $data  The message to log.
-     * @param   string       $type  The type of log message: 'ERROR', 'WARNING', 'INFO', 'DEBUG', or 'TRACE'.
-     * @param   string|null  $file  The file path to write the log message to. If null, uses default log file based on type.
-     */
-    private static function log($data, $type, $file = null)
-    {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppConfig;
-        $file = $file == null ? ($type == self::LOG_ERROR ? $bearsamppRoot->getErrorLogFilePath() : $bearsamppRoot->getLogFilePath()) : $file;
-        if (!$bearsamppRoot->isRoot()) {
-            $file = $bearsamppRoot->getHomepageLogFilePath();
-        }
-
-        $verbose                         = array();
-        $verbose[Config::VERBOSE_SIMPLE] = $type == self::LOG_ERROR || $type == self::LOG_WARNING;
-        $verbose[Config::VERBOSE_REPORT] = $verbose[Config::VERBOSE_SIMPLE] || $type == self::LOG_INFO;
-        $verbose[Config::VERBOSE_DEBUG]  = $verbose[Config::VERBOSE_REPORT] || $type == self::LOG_DEBUG;
-        $verbose[Config::VERBOSE_TRACE]  = $verbose[Config::VERBOSE_DEBUG] || $type == self::LOG_TRACE;
-
-        $writeLog = false;
-        if ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_SIMPLE && $verbose[Config::VERBOSE_SIMPLE]) {
-            $writeLog = true;
-        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_REPORT && $verbose[Config::VERBOSE_REPORT]) {
-            $writeLog = true;
-        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_DEBUG && $verbose[Config::VERBOSE_DEBUG]) {
-            $writeLog = true;
-        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_TRACE && $verbose[Config::VERBOSE_TRACE]) {
-            $writeLog = true;
-        }
-
-        if ($writeLog) {
-            file_put_contents(
-                $file,
-                '[' . date('Y-m-d H:i:s', time()) . '] # ' . APP_TITLE . ' ' . $bearsamppCore->getAppVersion() . ' # ' . $type . ': ' . $data . PHP_EOL,
-                FILE_APPEND
-            );
-        }
-    }
-
-    /**
      * Retrieves a list of version directories within a specified path.
      *
      * @param   string  $path  The path to search for version directories.
@@ -358,7 +426,7 @@ class Util
 
         while (false !== ($file = readdir($handle))) {
             $filePath = $path . '/' . $file;
-            if ($file != "." && $file != ".." && is_dir($filePath) && $file != 'current') {
+            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
                 $result[] = str_replace(basename($path), '', $file);
             }
         }
@@ -367,6 +435,18 @@ class Util
         natcasesort($result);
 
         return $result;
+    }
+
+    /**
+     * Gets the current Unix timestamp with microseconds.
+     *
+     * @return float Returns the current Unix timestamp combined with microseconds.
+     */
+    public static function getMicrotime()
+    {
+        list($usec, $sec) = explode(' ', microtime());
+
+        return ((float)$usec + (float)$sec);
     }
 
     public static function getAppBinsRegKey($fromRegistry = true)
@@ -424,30 +504,6 @@ class Util
         }
 
         return $value;
-    }
-
-    /**
-     * Logs debug information.
-     * This function is a wrapper around the generic log function for debug-level messages.
-     *
-     * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
-     */
-    public static function logDebug($data, $file = null)
-    {
-        self::log($data, self::LOG_DEBUG, $file);
-    }
-
-    /**
-     * Converts a Unix-style path to a Windows-style path.
-     *
-     * @param   string  $path  The Unix-style path to convert.
-     *
-     * @return string Returns the converted Windows-style path.
-     */
-    public static function formatWindowsPath($path)
-    {
-        return str_replace('/', '\\', $path);
     }
 
     /**
@@ -540,13 +596,19 @@ class Util
     }
 
     /**
-     * Checks if the application is set to launch at startup.
+     * Retrieves the processor identifier from the registry.
      *
-     * @return bool True if the startup link exists, false otherwise.
+     * @return mixed The value of the processor identifier registry key or false on error.
      */
-    public static function isLaunchStartup()
+    public static function getProcessorRegKey()
     {
-        return file_exists(self::getStartupLnkPath());
+        global $bearsamppRegistry;
+
+        return $bearsamppRegistry->getValue(
+            Registry::HKEY_LOCAL_MACHINE,
+            Registry::PROCESSOR_REG_SUBKEY,
+            Registry::PROCESSOR_REG_ENTRY
+        );
     }
 
     /**
@@ -557,6 +619,16 @@ class Util
     public static function getStartupLnkPath()
     {
         return Vbs::getStartupPath(APP_TITLE . '.lnk');
+    }
+
+    /**
+     * Checks if the application is set to launch at startup.
+     *
+     * @return bool True if the startup link exists, false otherwise.
+     */
+    public static function isLaunchStartup()
+    {
+        return file_exists(self::getStartupLnkPath());
     }
 
     /**
@@ -585,6 +657,47 @@ class Util
 
         // Return true if the file doesn't exist (already disabled)
         return true;
+    }
+
+    /**
+     * Logs a message to a specified file or default log file based on the log type.
+     *
+     * @param   string       $data  The message to log.
+     * @param   string       $type  The type of log message: 'ERROR', 'WARNING', 'INFO', 'DEBUG', or 'TRACE'.
+     * @param   string|null  $file  The file path to write the log message to. If null, uses default log file based on type.
+     */
+    private static function log($data, $type, $file = null)
+    {
+        global $bearsamppRoot, $bearsamppCore, $bearsamppConfig;
+        $file = $file == null ? ($type == self::LOG_ERROR ? $bearsamppRoot->getErrorLogFilePath() : $bearsamppRoot->getLogFilePath()) : $file;
+        if (!$bearsamppRoot->isRoot()) {
+            $file = $bearsamppRoot->getHomepageLogFilePath();
+        }
+
+        $verbose                         = array();
+        $verbose[Config::VERBOSE_SIMPLE] = $type == self::LOG_ERROR || $type == self::LOG_WARNING;
+        $verbose[Config::VERBOSE_REPORT] = $verbose[Config::VERBOSE_SIMPLE] || $type == self::LOG_INFO;
+        $verbose[Config::VERBOSE_DEBUG]  = $verbose[Config::VERBOSE_REPORT] || $type == self::LOG_DEBUG;
+        $verbose[Config::VERBOSE_TRACE]  = $verbose[Config::VERBOSE_DEBUG] || $type == self::LOG_TRACE;
+
+        $writeLog = false;
+        if ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_SIMPLE && $verbose[Config::VERBOSE_SIMPLE]) {
+            $writeLog = true;
+        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_REPORT && $verbose[Config::VERBOSE_REPORT]) {
+            $writeLog = true;
+        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_DEBUG && $verbose[Config::VERBOSE_DEBUG]) {
+            $writeLog = true;
+        } elseif ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_TRACE && $verbose[Config::VERBOSE_TRACE]) {
+            $writeLog = true;
+        }
+
+        if ($writeLog) {
+            file_put_contents(
+                $file,
+                '[' . date('Y-m-d H:i:s', time()) . '] # ' . APP_TITLE . ' ' . $bearsamppCore->getAppVersion() . ' # ' . $type . ': ' . $data . PHP_EOL,
+                FILE_APPEND
+            );
+        }
     }
 
     /**
@@ -621,22 +734,63 @@ class Util
     }
 
     /**
-     * Checks if a string ends with a specified substring.
+     * Logs trace information.
+     * This function is a wrapper around the generic log function for trace-level messages.
      *
-     * This method trims the right side whitespace of the input string before checking
-     * if it ends with the specified search substring.
-     *
-     * @param   string  $string  The string to check.
-     * @param   string  $search  The substring to look for at the end of the string.
-     *
-     * @return bool Returns true if the string ends with the search substring, otherwise false.
+     * @param   mixed        $data  The data to log.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
      */
-    public static function endWith($string, $search)
+    public static function logTrace($data, $file = null)
     {
-        $length = strlen($search);
-        $start  = $length * -1;
+        self::log($data, self::LOG_TRACE, $file);
+    }
 
-        return (substr($string, $start) === $search);
+    /**
+     * Logs debug information.
+     * This function is a wrapper around the generic log function for debug-level messages.
+     *
+     * @param   mixed        $data  The data to log.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     */
+    public static function logDebug($data, $file = null)
+    {
+        self::log($data, self::LOG_DEBUG, $file);
+    }
+
+    /**
+     * Logs informational messages.
+     * This function is a wrapper around the generic log function for informational messages.
+     *
+     * @param   mixed        $data  The data to log.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     */
+    public static function logInfo($data, $file = null)
+    {
+        self::log($data, self::LOG_INFO, $file);
+    }
+
+    /**
+     * Logs warning messages.
+     * This function is a wrapper around the generic log function for warning-level messages.
+     *
+     * @param   mixed        $data  The data to log.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     */
+    public static function logWarning($data, $file = null)
+    {
+        self::log($data, self::LOG_WARNING, $file);
+    }
+
+    /**
+     * Logs error messages.
+     * This function is a wrapper around the generic log function for error-level messages.
+     *
+     * @param   mixed        $data  The data to log.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     */
+    public static function logError($data, $file = null)
+    {
+        self::log($data, self::LOG_ERROR, $file);
     }
 
     /**
@@ -671,55 +825,6 @@ class Util
         }
 
         return false;
-    }
-
-    /**
-     * Recursively searches for a file starting from a specified directory.
-     *
-     * @param   string  $startPath  The directory path to start the search.
-     * @param   string  $findFile   The filename to search for.
-     *
-     * @return string|false Returns the path to the file if found, or false if not found.
-     */
-    private static function findFile($startPath, $findFile)
-    {
-        $result = false;
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return false;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file)) {
-                $result = self::findFile($startPath . '/' . $file, $findFile);
-                if ($result !== false) {
-                    break;
-                }
-            } elseif ($file == $findFile) {
-                $result = self::formatUnixPath($startPath . '/' . $file);
-                break;
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Converts a Windows-style path to a Unix-style path.
-     *
-     * @param   string  $path  The Windows-style path to convert.
-     *
-     * @return string Returns the converted Unix-style path.
-     */
-    public static function formatUnixPath($path)
-    {
-        return str_replace('\\', '/', $path);
     }
 
     /**
@@ -762,6 +867,30 @@ class Util
     }
 
     /**
+     * Converts a Unix-style path to a Windows-style path.
+     *
+     * @param   string  $path  The Unix-style path to convert.
+     *
+     * @return string Returns the converted Windows-style path.
+     */
+    public static function formatWindowsPath($path)
+    {
+        return str_replace('/', '\\', $path);
+    }
+
+    /**
+     * Converts a Windows-style path to a Unix-style path.
+     *
+     * @param   string  $path  The Windows-style path to convert.
+     *
+     * @return string Returns the converted Unix-style path.
+     */
+    public static function formatUnixPath($path)
+    {
+        return str_replace('\\', '/', $path);
+    }
+
+    /**
      * Converts an image file to a base64 encoded string.
      *
      * @param   string  $path  The path to the image file.
@@ -785,7 +914,7 @@ class Util
      */
     public static function utf8ToCp1252($data)
     {
-        return iconv("UTF-8", "WINDOWS-1252//IGNORE", $data);
+        return iconv('UTF-8', 'WINDOWS-1252//IGNORE', $data);
     }
 
     /**
@@ -797,7 +926,7 @@ class Util
      */
     public static function cp1252ToUtf8($data)
     {
-        return iconv("WINDOWS-1252", "UTF-8//IGNORE", $data);
+        return iconv('WINDOWS-1252', 'UTF-8//IGNORE', $data);
     }
 
     /**
@@ -1018,46 +1147,6 @@ class Util
     }
 
     /**
-     * Retrieves a list of folders from a specified directory, excluding certain directories.
-     *
-     * @param   string  $path  The directory path from which to list folders.
-     *
-     * @return array|bool An array of folder names, or false if the directory cannot be opened.
-     */
-    public static function getFolderList($path)
-    {
-        $result = array();
-
-        $handle = @opendir($path);
-        if (!$handle) {
-            return false;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            $filePath = $path . '/' . $file;
-            if ($file != "." && $file != ".." && is_dir($filePath) && $file != 'current') {
-                $result[] = $file;
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Gets the current Unix timestamp with microseconds.
-     *
-     * @return float Returns the current Unix timestamp combined with microseconds.
-     */
-    public static function getMicrotime()
-    {
-        list($usec, $sec) = explode(" ", microtime());
-
-        return ((float)$usec + (float)$sec);
-    }
-
-    /**
      * Recursively finds files in a directory that match a set of inclusion patterns.
      *
      * @param   string  $startPath  The directory path to start the search from.
@@ -1103,26 +1192,6 @@ class Util
         closedir($handle);
 
         return $result;
-    }
-
-    /**
-     * Checks if a string starts with a specified substring.
-     *
-     * @param   string  $string  The string to check.
-     * @param   string  $search  The substring to look for at the start of the string.
-     *
-     * @return bool Returns true if the string starts with the search substring, otherwise false.
-     */
-    public static function startWith($string, $search)
-    {
-        // Return false if string is NULL or empty
-        if ($string === null || $string === '') {
-            return false;
-        }
-
-        $length = strlen($search);
-
-        return (substr($string, 0, $length) === $search);
     }
 
     /**
@@ -1218,130 +1287,6 @@ class Util
 
             return null;
         }
-    }
-
-    /**
-     * Sends a GET request to the specified URL and returns the response.
-     *
-     * @param   string  $url  The URL to send the GET request to.
-     *
-     * @return string The trimmed response data from the URL.
-     */
-    public static function getApiJson($url)
-    {
-        $header = self::setupCurlHeaderWithToken();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        $data = curl_exec($ch);
-        if (curl_errno($ch)) {
-            Util::logError('CURL Error: ' . curl_error($ch));
-        }
-        curl_close($ch);
-
-        return trim($data);
-    }
-
-    /**
-     * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
-     *
-     * @return array The header array for cURL with authorization and other necessary details.
-     */
-    public static function setupCurlHeaderWithToken()
-    {
-        // Usage
-        global $bearsamppCore, $bearsamppConfig;
-        $Token = self::decryptFile();
-
-        return [
-            'Accept: application/vnd.github+json',
-            'Authorization: Token ' . $Token,
-            'User-Agent: ' . APP_GITHUB_USERAGENT,
-            'X-GitHub-Api-Version: 2022-11-28'
-        ];
-    }
-
-    /**
-     * Decrypts a file encrypted with a specified method and returns the content.
-     *
-     * @return string|false Decrypted content or false on failure.
-     */
-    public static function decryptFile()
-    {
-        global $bearsamppCore, $bearsamppConfig;
-
-        $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
-        $method        = 'AES-256-CBC'; // The same encryption method used
-
-        // If we're including pr's we need to use the personal token
-        if (!$bearsamppConfig->getIncludePr()) {
-            $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
-        } else {
-            $stringfile = $bearsamppCore->getResourcesPath() . '/personal.dat';
-        }
-        if (!is_readable($stringfile)) {
-            Util::logDebug("Neither string.dat nor personal.dat could be found or read at: {$stringfile}");
-
-            return false;
-        }
-
-        // Get key string
-        $stringPhrase = @file_get_contents($stringfile);
-        if ($stringPhrase === false) {
-            Util::logDebug("Failed to read the file at path: {$stringfile}");
-
-            return false;
-        }
-
-        $stringKey = convert_uudecode($stringPhrase);
-
-        // Read the encrypted data from the file
-        $encryptedData = file_get_contents($encryptedFile);
-        if ($encryptedData === false) {
-            Util::logDebug("Failed to read the file at path: {$encryptedFile}");
-
-            return false;
-        }
-
-        // Decode the base64 encoded data
-        $data = base64_decode($encryptedData);
-        if ($data === false) {
-            Util::logDebug("Failed to decode the data from path: {$encryptedFile}");
-
-            return false;
-        }
-
-        // Extract the IV which was prepended to the encrypted data
-        $ivLength  = openssl_cipher_iv_length($method);
-        $iv        = substr($data, 0, $ivLength);
-        $encrypted = substr($data, $ivLength);
-
-        // Decrypt the data
-        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
-        if ($decrypted === false) {
-            Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
-
-            return false;
-        }
-
-        return $decrypted;
-    }
-
-    /**
-     * Logs error messages.
-     * This function is a wrapper around the generic log function for error-level messages.
-     *
-     * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
-     */
-    public static function logError($data, $file = null)
-    {
-        self::log($data, self::LOG_ERROR, $file);
     }
 
     /**
@@ -1452,44 +1397,6 @@ class Util
     }
 
     /**
-     * Retrieves the processor identifier from the registry.
-     *
-     * @return mixed The value of the processor identifier registry key or false on error.
-     */
-    public static function getProcessorRegKey()
-    {
-        global $bearsamppRegistry;
-
-        return $bearsamppRegistry->getValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            Registry::PROCESSOR_REG_SUBKEY,
-            Registry::PROCESSOR_REG_ENTRY
-        );
-    }
-
-    /**
-     * Checks if a string contains a specified substring.
-     *
-     * @param   string  $string  The string to search in.
-     * @param   string  $search  The substring to search for.
-     *
-     * @return bool Returns true if the substring is found in the string, otherwise false.
-     */
-    public static function contains($string, $search)
-    {
-        if (!empty($string) && !empty($search)) {
-            $result = stripos($string, $search);
-            if ($result !== false) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
      *
      * @param   string  $pingUrl  The URL to ping for headers.
@@ -1518,6 +1425,39 @@ class Util
             foreach ($result as $header) {
                 self::logDebug('-> ' . $header);
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieves HTTP headers from a given URL using the fopen function.
+     *
+     * This method creates a stream context to disable SSL peer and peer name verification,
+     * which allows self-signed certificates. It attempts to open the URL and read the HTTP
+     * response headers.
+     *
+     * @param   string  $url  The URL from which to fetch the headers.
+     *
+     * @return array An array of headers if successful, otherwise an empty array.
+     */
+    public static function getFopenHttpHeaders($url)
+    {
+        $result = array();
+
+        $context = stream_context_create(array(
+            'ssl' => array(
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
+                'allow_self_signed' => true,
+            )
+        ));
+
+        $fp = @fopen($url, 'r', false, $context);
+        if ($fp) {
+            $meta   = stream_get_meta_data($fp);
+            $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
+            fclose($fp);
         }
 
         return $result;
@@ -1557,39 +1497,6 @@ class Util
         }
 
         return explode("\n", $responseHeaders[0]);
-    }
-
-    /**
-     * Retrieves HTTP headers from a given URL using the fopen function.
-     *
-     * This method creates a stream context to disable SSL peer and peer name verification,
-     * which allows self-signed certificates. It attempts to open the URL and read the HTTP
-     * response headers.
-     *
-     * @param   string  $url  The URL from which to fetch the headers.
-     *
-     * @return array An array of headers if successful, otherwise an empty array.
-     */
-    public static function getFopenHttpHeaders($url)
-    {
-        $result = array();
-
-        $context = stream_context_create(array(
-            'ssl' => array(
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
-            )
-        ));
-
-        $fp = @fopen($url, 'r', false, $context);
-        if ($fp) {
-            $meta   = stream_get_meta_data($fp);
-            $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
-            fclose($fp);
-        }
-
-        return $result;
     }
 
     /**
@@ -1640,6 +1547,66 @@ class Util
         }
 
         return $result;
+    }
+
+    /**
+     * Sends a GET request to the specified URL and returns the response.
+     *
+     * @param   string  $url  The URL to send the GET request to.
+     *
+     * @return string The trimmed response data from the URL.
+     */
+    public static function getApiJson($url)
+    {
+        $header = self::setupCurlHeaderWithToken();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        $data = curl_exec($ch);
+        if (curl_errno($ch)) {
+            Util::logError('CURL Error: ' . curl_error($ch));
+        }
+        curl_close($ch);
+
+        return trim($data);
+    }
+
+    /**
+     * Checks if a specific port is in use.
+     *
+     * @param   int  $port  The port number to check
+     *
+     * @return mixed False if the port is not in use, otherwise returns the process using the port
+     */
+    public static function isPortInUse($port)
+    {
+        // Set localIP statically
+        $localIP = '127.0.0.1';
+
+        // Save current error reporting level
+        $errorReporting = error_reporting();
+
+        // Disable error reporting temporarily
+        error_reporting(0);
+
+        $connection = @fsockopen($localIP, $port);
+
+        // Restore original error reporting level
+        error_reporting($errorReporting);
+
+        if (is_resource($connection)) {
+            fclose($connection);
+            $process = Batch::getProcessUsingPort($port);
+
+            return $process != null ? $process : 'N/A';
+        }
+
+        return false;
     }
 
     /**
@@ -1749,63 +1716,6 @@ class Util
     }
 
     /**
-     * Checks if a specific port is in use.
-     *
-     * @param   int  $port  The port number to check
-     *
-     * @return mixed False if the port is not in use, otherwise returns the process using the port
-     */
-    public static function isPortInUse($port)
-    {
-        // Set localIP statically
-        $localIP = '127.0.0.1';
-
-        // Save current error reporting level
-        $errorReporting = error_reporting();
-
-        // Disable error reporting temporarily
-        error_reporting(0);
-
-        $connection = @fsockopen($localIP, $port);
-
-        // Restore original error reporting level
-        error_reporting($errorReporting);
-
-        if (is_resource($connection)) {
-            fclose($connection);
-            $process = Batch::getProcessUsingPort($port);
-
-            return $process != null ? $process : 'N/A';
-        }
-
-        return false;
-    }
-
-    /**
-     * Logs informational messages.
-     * This function is a wrapper around the generic log function for informational messages.
-     *
-     * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
-     */
-    public static function logInfo($data, $file = null)
-    {
-        self::log($data, self::LOG_INFO, $file);
-    }
-
-    /**
-     * Logs warning messages.
-     * This function is a wrapper around the generic log function for warning-level messages.
-     *
-     * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
-     */
-    public static function logWarning($data, $file = null)
-    {
-        self::log($data, self::LOG_WARNING, $file);
-    }
-
-    /**
      * Removes a service if it is installed.
      *
      * @param   Win32Service  $service  The service object to be removed.
@@ -1876,20 +1786,6 @@ class Util
     }
 
     /**
-     * Constructs a GitHub repository URL with an optional path.
-     *
-     * @param   string|null  $part  Optional path to append to the URL.
-     *
-     * @return string The full GitHub repository URL.
-     */
-    public static function getGithubUrl($part = null)
-    {
-        $part = !empty($part) ? '/' . $part : null;
-
-        return self::getGithubUserUrl(APP_GITHUB_REPO . $part);
-    }
-
-    /**
      * Constructs a GitHub user URL with an optional path.
      *
      * @param   string|null  $part  Optional path to append to the URL.
@@ -1904,6 +1800,20 @@ class Util
     }
 
     /**
+     * Constructs a GitHub repository URL with an optional path.
+     *
+     * @param   string|null  $part  Optional path to append to the URL.
+     *
+     * @return string The full GitHub repository URL.
+     */
+    public static function getGithubUrl($part = null)
+    {
+        $part = !empty($part) ? '/' . $part : null;
+
+        return self::getGithubUserUrl(APP_GITHUB_REPO . $part);
+    }
+
+    /**
      * Constructs a URL for raw content from a GitHub repository.
      *
      * @param   string  $file  The file path to append to the base URL.
@@ -1915,6 +1825,34 @@ class Util
         $file = !empty($file) ? '/' . $file : null;
 
         return 'https://raw.githubusercontent.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . '/main' . $file;
+    }
+
+    /**
+     * Retrieves a list of folders from a specified directory, excluding certain directories.
+     *
+     * @param   string  $path  The directory path from which to list folders.
+     *
+     * @return array|bool An array of folder names, or false if the directory cannot be opened.
+     */
+    public static function getFolderList($path)
+    {
+        $result = array();
+
+        $handle = @opendir($path);
+        if (!$handle) {
+            return false;
+        }
+
+        while (false !== ($file = readdir($handle))) {
+            $filePath = $path . '/' . $file;
+            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
+                $result[] = $file;
+            }
+        }
+
+        closedir($handle);
+
+        return $result;
     }
 
     /**
@@ -1977,26 +1915,90 @@ class Util
     }
 
     /**
-     * Generates a random string of specified length and character set.
+     * Decrypts a file encrypted with a specified method and returns the content.
      *
-     * @param   int   $length       The length of the random string to generate.
-     * @param   bool  $withNumeric  Whether to include numeric characters in the random string.
-     *
-     * @return string Returns the generated random string.
+     * @return string|false Decrypted content or false on failure.
      */
-    public static function random($length = 32, $withNumeric = true)
+    public static function decryptFile()
     {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if ($withNumeric) {
-            $characters .= '0123456789';
+        global $bearsamppCore, $bearsamppConfig;
+
+        $stringfile    = false;
+        $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
+        $method        = 'AES-256-CBC'; // The same encryption method used
+
+        // If we're including pr's we need to use the personal token
+        if ($bearsamppConfig->getIncludePr()) {
+            $stringfile = $bearsamppCore->getResourcesPath() . '/personal.dat';
+        } else {
+            $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
         }
 
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        if ($stringfile === false) {
+            Util::logDebug('Failed to determine the file path for string.dat or personal.dat');
+
+            return false;
         }
 
-        return $randomString;
+        // Get key string
+        $stringPhrase = @file_get_contents($stringfile);
+        if ($stringPhrase === false) {
+            Util::logDebug("Failed to read the file at path: {$stringfile}");
+
+            return false;
+        }
+
+        $stringKey = convert_uudecode($stringPhrase);
+
+        // Read the encrypted data from the file
+        $encryptedData = file_get_contents($encryptedFile);
+        if ($encryptedData === false) {
+            Util::logDebug("Failed to read the file at path: {$encryptedFile}");
+
+            return false;
+        }
+
+        // Decode the base64 encoded data
+        $data = base64_decode($encryptedData);
+        if ($data === false) {
+            Util::logDebug("Failed to decode the data from path: {$encryptedFile}");
+
+            return false;
+        }
+
+        // Extract the IV which was prepended to the encrypted data
+        $ivLength  = openssl_cipher_iv_length($method);
+        $iv        = substr($data, 0, $ivLength);
+        $encrypted = substr($data, $ivLength);
+
+        // Decrypt the data
+        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
+        if ($decrypted === false) {
+            Util::logDebug("Decryption failed for data from path: {$encryptedFile}");
+
+            return false;
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
+     *
+     * @return array The header array for cURL with authorization and other necessary details.
+     */
+    public static function setupCurlHeaderWithToken()
+    {
+        // Usage
+        global $bearsamppCore, $bearsamppConfig;
+        $Token = self::decryptFile();
+
+        return [
+            'Accept: application/vnd.github+json',
+            'Authorization: Token ' . $Token,
+            'User-Agent: ' . APP_GITHUB_USERAGENT,
+            'X-GitHub-Api-Version: 2022-11-28'
+        ];
     }
 
     /**
@@ -2009,7 +2011,7 @@ class Util
      */
     public static function checkInternetState()
     {
-        $connected = @fsockopen("www.google.com", 80);
+        $connected = @fsockopen('www.google.com', 80);
         if ($connected) {
             fclose($connected);
 
