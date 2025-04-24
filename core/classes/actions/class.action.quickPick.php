@@ -69,15 +69,9 @@ class QuickPick
      */
     public function __construct()
     {
-        global $bearsamppCore, $bearsamppConfig;
+        global $bearsamppCore;
 
         $this->jsonFilePath = $bearsamppCore->getResourcesPath() . '/quickpick-releases.json';
-
-        // check if we're using live QuickPick json or not
-        if ($bearsamppConfig->getValue('IncludePR')) {
-            // Build the live version of quickpick-releases.json
-            $this->createQuickPickLive();
-        }
     }
 
     public function createQuickPickLive()
@@ -95,7 +89,7 @@ class QuickPick
             // Use curl to retrieve a list of all releases in the module
             $json = Util::getApiJson($url);
             $data = json_decode($json, true);
-            
+
             if ($data === null) {
                 Util::logError('Failed to decode JSON data for module: ' . $moduleName);
                 continue;
@@ -125,9 +119,10 @@ class QuickPick
                                 $versionOnly = $matches[1]; // This will be "3.10.9"
                                 // Now you can use $versionOnly as needed
                                 Util::logTrace("Found version: $versionOnly ($downloadUrl)");
-                                
+
                                 // Update the quickpick-releases.json file with this version
-                                $this->updateQuickpickReleasesJson($moduleName, $versionOnly, $downloadUrl);
+                                // Since this is coming from a pre-release, set the prerelease flag to true
+                                $this->updateQuickpickReleasesJson($moduleName, $versionOnly, $downloadUrl, true);
                             }
                         }
                     }
@@ -146,6 +141,101 @@ class QuickPick
     public function getModules(): array
     {
         return array_keys($this->modules);
+    }
+
+    /**
+     * Update quickpick-releases.json with a new version and URL for a module.
+     *
+     * This method adds a new version and URL to the quickpick-releases.json file for a specified module.
+     * If the module doesn't exist in the file, it creates a new entry for it.
+     * If the version already exists for the module, it doesn't add a duplicate.
+     *
+     * @param   string  $moduleName  The name of the module (e.g., 'python').
+     * @param   string  $version     The version string (e.g., '3.10.9').
+     * @param   string  $url         The download URL for the module version.
+     * @param   bool    $prerelease  Whether this version is a prerelease.
+     *
+     * @return bool True if the update was successful, false if the version already exists or there was an error.
+     */
+    public function updateQuickpickReleasesJson(string $moduleName, string $version, string $url, bool $prerelease = false): bool
+    {
+        if (!file_exists($this->jsonFilePath)) {
+            Util::logError('quickpick-releases.json file not found at: ' . $this->jsonFilePath);
+
+            return false;
+        }
+
+        $json = file_get_contents($this->jsonFilePath);
+        if ($json === false) {
+            Util::logError('Failed to read quickpick-releases.json file');
+
+            return false;
+        }
+
+        $data = json_decode($json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Util::logError('Failed to decode JSON: ' . json_last_error_msg());
+
+            return false;
+        }
+
+        $moduleKey = "module-" . strtolower($moduleName);
+        $found     = false;
+
+        // Find the module entry
+        foreach ($data as &$moduleEntry) {
+            if (isset($moduleEntry['module']) && $moduleEntry['module'] === $moduleKey) {
+                $found = true;
+                // Check for duplicate version
+                foreach ($moduleEntry['versions'] as $entry) {
+                    if (isset($entry['version']) && $entry['version'] === $version) {
+                        // Version already exists, do not add
+                        Util::logDebug("Version $version already exists for module $moduleName");
+
+                        return false;
+                    }
+                }
+                // Add new version entry
+                $moduleEntry['versions'][] = [
+                    'version'    => $version,
+                    'url'        => $url,
+                    'prerelease' => $prerelease
+                ];
+                // Sort versions in descending semver order
+                usort($moduleEntry['versions'], function($a, $b) {
+                    return version_compare($b['version'], $a['version']);
+                });
+                break;
+            }
+        }
+        unset($moduleEntry);
+
+        // If module not found, add new module entry
+        if (!$found) {
+            $data[] = [
+                'module'   => $moduleKey,
+                'versions' => [
+                    [
+                        'version'    => $version,
+                        'url'        => $url,
+                        'prerelease' => $prerelease
+                    ]
+                ]
+            ];
+        }
+
+        // Save back to file (pretty print for readability)
+        $result = file_put_contents($this->jsonFilePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        if ($result === false) {
+            Util::logError('Failed to write updated JSON to file');
+
+            return false;
+        }
+
+        Util::logDebug("Successfully added version $version for module $moduleName");
+
+        return true;
     }
 
     /**
@@ -168,11 +258,9 @@ class QuickPick
     }
 
     /**
-     * Checks if the local `quickpick-releases.json` file is up-to-date with the remote version.
-     *
-     * Compares the creation time of the local JSON file with the remote file's last modified time.
+     * Checks if the local quickpick-releases.json file is up-to-date with the remote version.
      * If the remote file is newer or the local file does not exist, it fetches the latest JSON data by calling
-     * the `rebuildQuickpickJson` method.
+     * the rebuildQuickpickJson method. If IncludePR is enabled, merges PRs into the local file.
      *
      * @return array|false Returns the JSON data if the remote file is newer or the local file does not exist,
      *                     otherwise returns false.
@@ -180,8 +268,6 @@ class QuickPick
      */
     public function checkQuickpickJson()
     {
-        global $bearsamppConfig;
-
         // Determine local file creation time or rebuild if missing
         $localFileCreationTime = $this->getLocalFileCreationTime();
 
@@ -198,7 +284,14 @@ class QuickPick
         // Compare the creation times (remote vs. local)
         $remoteFileCreationTime = strtotime(isset($headers['Date']) ? $headers['Date'] : '');
         if ($remoteFileCreationTime > $localFileCreationTime) {
-            return $this->rebuildQuickpickJson();
+            // Always update local file from remote
+            $this->rebuildQuickpickJson();
+
+            // If IncludePR is enabled, merge in PRs
+            if ($this->isIncludePrEnabled()) {
+                $this->createQuickPickLive();
+            }
+            return true;
         }
 
         // Return false if local file is already up-to-date
@@ -250,6 +343,17 @@ class QuickPick
 
         // Return success message
         return ['success' => 'JSON content fetched and saved successfully'];
+    }
+
+    /**
+     * Helper to check if IncludePR is enabled in the config.
+     *
+     * @return bool
+     */
+    private function isIncludePrEnabled(): bool
+    {
+        global $bearsamppConfig;
+        return (bool)$bearsamppConfig->getValue('IncludePR');
     }
 
     /**
@@ -392,7 +496,11 @@ class QuickPick
 										</li>
 
                                         <?php
-                                        foreach ($versions['module-' . strtolower($module)] as $version_array): ?>
+                                        foreach ($versions['module-' . strtolower($module)] as $version_array):
+                                            $isPrerelease = !empty($version_array['prerelease']);
+                                            $labelClass = $isPrerelease ? 'text-warning' : '';
+                                            $labelText = htmlspecialchars($version_array['version']) . ($isPrerelease ? ' PR' : '');
+                                            ?>
 											<li role = "option" class = "moduleoption"
 											    id = "<?php
                                                 echo htmlspecialchars($module); ?>-version-<?php
@@ -408,8 +516,14 @@ class QuickPick
 												<label
 														for = "<?php
                                                         echo htmlspecialchars($module); ?>-version-<?php
-                                                        echo htmlspecialchars($version_array['version']); ?>"><?php
-                                                    echo htmlspecialchars($version_array['version']); ?></label>
+                                                        echo htmlspecialchars($version_array['version']); ?>"
+                                                    <?php
+                                                    if ($labelClass) {
+                                                        echo 'class="' . $labelClass . '"';
+                                                    } ?>>
+                                                    <?php
+                                                    echo $labelText; ?>
+												</label>
 											</li>
                                         <?php
                                         endforeach; ?>
@@ -702,87 +816,5 @@ class QuickPick
         }
 
         return $destination;
-    }
-
-    /**
-     * Update quickpick-releases.json with a new version and URL for a module.
-     *
-     * This method adds a new version and URL to the quickpick-releases.json file for a specified module.
-     * If the module doesn't exist in the file, it creates a new entry for it.
-     * If the version already exists for the module, it doesn't add a duplicate.
-     *
-     * @param   string  $moduleName  The name of the module (e.g., 'python').
-     * @param   string  $version     The version string (e.g., '3.10.9').
-     * @param   string  $url         The download URL for the module version.
-     *
-     * @return bool True if the update was successful, false if the version already exists or there was an error.
-     */
-    public function updateQuickpickReleasesJson(string $moduleName, string $version, string $url): bool
-    {
-        if (!file_exists($this->jsonFilePath)) {
-            Util::logError('quickpick-releases.json file not found at: ' . $this->jsonFilePath);
-            return false;
-        }
-
-        $json = file_get_contents($this->jsonFilePath);
-        if ($json === false) {
-            Util::logError('Failed to read quickpick-releases.json file');
-            return false;
-        }
-
-        $data = json_decode($json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            Util::logError('Failed to decode JSON: ' . json_last_error_msg());
-            return false;
-        }
-
-        $moduleKey = "module-" . strtolower($moduleName);
-        $found = false;
-
-        // Find the module entry
-        foreach ($data as &$moduleEntry) {
-            if (isset($moduleEntry['module']) && $moduleEntry['module'] === $moduleKey) {
-                $found = true;
-                // Check for duplicate version
-                foreach ($moduleEntry['versions'] as $entry) {
-                    if (isset($entry['version']) && $entry['version'] === $version) {
-                        // Version already exists, do not add
-                        Util::logDebug("Version $version already exists for module $moduleName");
-                        return false;
-                    }
-                }
-                // Add new version entry
-                $moduleEntry['versions'][] = [
-                    'version' => $version,
-                    'url'     => $url
-                ];
-                break;
-            }
-        }
-        unset($moduleEntry);
-
-        // If module not found, add new module entry
-        if (!$found) {
-            $data[] = [
-                'module'   => $moduleKey,
-                'versions' => [
-                    [
-                        'version' => $version,
-                        'url'     => $url
-                    ]
-                ]
-            ];
-        }
-
-        // Save back to file (pretty print for readability)
-        $result = file_put_contents($this->jsonFilePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-        
-        if ($result === false) {
-            Util::logError('Failed to write updated JSON to file');
-            return false;
-        }
-        
-        Util::logDebug("Successfully added version $version for module $moduleName");
-        return true;
     }
 }
