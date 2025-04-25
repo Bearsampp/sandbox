@@ -92,7 +92,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         "/js/php.js",
         "/js/postgresql.js",
         "/js/xlight.js",
-        "/js/quickpick.js"
+        "/js/quickpick.js",
+	    "/js/loading-cursor.js"
     ];
 
     /**
@@ -105,6 +106,26 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
 
     <link href = "<?php echo $iconsPath . 'favicon.ico'; ?>" rel = "icon" />
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
+    
+    <!-- Inline script to set loading cursor immediately -->
+    <script>
+        // Set loading cursor immediately
+        document.documentElement.classList.add('loading-cursor');
+        
+        // Create and show loading overlay
+        window.addEventListener('DOMContentLoaded', function() {
+            // Remove loading cursor when page is fully loaded
+            window.addEventListener('load', function() {
+                document.documentElement.classList.remove('loading-cursor');
+                
+                // If there's an overlay, remove it
+                const existingOverlay = document.querySelector('.loading-overlay');
+                if (existingOverlay) {
+                    existingOverlay.parentNode.removeChild(existingOverlay);
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
