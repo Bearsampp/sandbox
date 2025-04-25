@@ -1351,7 +1351,7 @@ class QuickPick
         $internet = Util::checkInternetState();
         if ($internet) {
             $response = $this->fetchAndUnzipModule($moduleUrl, $module);
-            Util::logDebug('Response is: ' . print_r($response, true));
+            Util::logTrace('Response is: ' . print_r($response, true));
 
             return $response;
         } else {
@@ -1375,7 +1375,7 @@ class QuickPick
     public function getModuleUrl(string $module, string $version)
     {
         $this->getVersions();
-        Util::logDebug('getModuleUrl called for module: ' . $module . ' version: ' . $version);
+        Util::logTrace('getModuleUrl called for module: ' . $module . ' version: ' . $version);
         $url = trim($this->versions['module-' . strtolower($module)][$version]['url']);
         if ($url <> '') {
             Util::logDebug('Found URL for version: ' . $version . ' URL: ' . $url);
