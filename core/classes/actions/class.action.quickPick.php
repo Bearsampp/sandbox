@@ -634,7 +634,7 @@ class QuickPick
                     // Always preserve the PR update timestamp if it exists
                     if (isset($existingData['pr_last_update'])) {
                         $prLastUpdate = $existingData['pr_last_update'];
-                        Util::logDebug('Preserving PR update timestamp: ' . $prLastUpdate);
+                        Util::logTrace('Preserving PR update timestamp: ' . $prLastUpdate);
                     }
 
                     // Check if there are any prerelease versions in the existing file
