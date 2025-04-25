@@ -1007,6 +1007,7 @@ class QuickPick
                 foreach ($entry['versions'] as $version) {
                     if (isset($version['prerelease']) && $version['prerelease'] === true) {
                         $prereleaseCount++;
+                        Util::logTrace('Found prerelease: ' . json_encode($version));
                     }
                 }
             }
@@ -1169,7 +1170,7 @@ class QuickPick
 
                                         <?php
                                         foreach ($versions['module-' . strtolower($module)] as $version_array):
-                                            $isPrerelease = !empty($version_array['prerelease']) || (strpos($version_array['version'], '-RC') !== false) || (strpos($version_array['version'], '-rc') !== false) || (strpos($version_array['version'], '-beta') !== false) || (strpos($version_array['version'], '-alpha') !== false);
+                                            $isPrerelease = !empty($version_array['prerelease']);
                                             $labelClass = $isPrerelease ? 'text-danger' : '';
                                             $labelText = htmlspecialchars($version_array['version']) . ($isPrerelease ? ' PR' : '');
                                             ?>
