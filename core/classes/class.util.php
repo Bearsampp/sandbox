@@ -352,7 +352,7 @@ class Util
      */
     public static function isValidPort($port)
     {
-        return is_numeric($port) && ($port > 0 || $port <= 65535);
+        return is_numeric($port) && ($port > 0 && $port <= 65535);
     }
 
     /**
