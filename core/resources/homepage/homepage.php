@@ -1,4 +1,4 @@
-same <?php
+<?php
 /*
  *
  *  * Copyright (c) 2022-2025 Bearsampp
@@ -37,8 +37,10 @@ $resourcesPath = rtrim( $bearsamppHomepage->getResourcesPath(), '/' ) . '/';
 $iconsPath  = $bearsamppHomepage->getIconsPath();
 $imagesPath = $bearsamppHomepage->getImagesPath();
 
-// Define the AJAX URL for QuickPick
-$AJAX_URL = $bearsamppHomepage->getResourcesPath() . '/ajax.php';
+// Instantiate the QuickPick class
+$quickPick = new QuickPick();
+
+$ajaxUrl = $bearsamppCore->getAjaxPath() . '/ajax.getmodule_versions.php';
 
 
 /**
@@ -140,13 +142,17 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <!-- QuickPick placeholder that will be filled asynchronously -->
-    <div id="quickPickContainer" class="navbar-quickpick">
-        <div class="text-center mt-3 pe-3">
-            <div class="spinner-border spinner-border-sm text-light" role="status"></div>
-            <span class="text-light ms-2">Loading QuickPick...</span>
-        </div>
-    </div>
+    <?php 
+    try {
+        echo $quickPick->loadQuickpick($imagesPath);
+    } catch (Exception $e) {
+        // Log the error but continue with the page
+        error_log('Error loading QuickPick: ' . $e->getMessage());
+        echo '<div id="quickPickError" class="text-center mt-3 pe-3">
+            <span>QuickPick unavailable</span>
+        </div>';
+    }
+    ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
@@ -192,34 +198,10 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     ?>
 </div>
 
-<script>
-    // Define the AJAX URL for the QuickPick loader
-    var QUICKPICK_AJAX_URL = '<?php echo $AJAX_URL; ?>';
-</script>
-
 <?php
 foreach ( $jsFiles as $file ) {
     echo '<script src="' . $resourcesPath . $file . '"></script>' . PHP_EOL;
 }
 ?>
-
-<!-- QuickPick loading script - moved after all JS files are loaded -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Load QuickPick menu after a short delay to allow the page to render
-        setTimeout(function() {
-            if (typeof initQuickPick === 'function') {
-                initQuickPick();
-            } else {
-                console.error('initQuickPick function not found');
-                document.getElementById('quickPickContainer').innerHTML =
-                    '<div class="text-center mt-3 pe-3 text-danger">' +
-                    '<i class="fas fa-exclamation-triangle"></i> ' +
-                    'QuickPick initialization failed' +
-                    '</div>';
-            }
-        }, 100);
-    });
-</script>
 </body>
 </html>

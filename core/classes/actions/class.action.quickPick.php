@@ -8,9 +8,6 @@
  *
  */
 
-// Check if the class already exists to prevent redeclaration
-if (!class_exists('QuickPick')) {
-
 /**
  * Class QuickPick
  *
@@ -451,15 +448,7 @@ class QuickPick
     public function loadQuickpick(string $imagesPath): string
     {
         try {
-            // Check if the PR cache is about to expire and IncludePR is enabled
-            if ($this->isIncludePrEnabled() && $this->isPrCacheAboutToExpire()) {
-                // Start a background process to update the cache
-                Util::logDebug('PR cache is about to expire, starting background update');
-                $this->startBackgroundCacheUpdate();
-            } else {
-                // Normal check
-                $this->checkQuickpickJson();
-            }
+            $this->checkQuickpickJson();
 
             $modules  = $this->getModules();
             $versions = $this->getVersions();
@@ -472,50 +461,6 @@ class QuickPick
                 <span>QuickPick unavailable</span>
             </div>';
         }
-    }
-
-    /**
-     * Starts a background process to update the PR cache
-     */
-    private function startBackgroundCacheUpdate(): void
-    {
-        global $bearsamppRoot;
-        
-        // Create a temporary PHP script to update the cache
-        $scriptPath = $bearsamppRoot->getTmpPath() . '/update_pr_cache_' . uniqid() . '.php';
-        
-        // Create the script content
-        $scriptContent = '<?php
-// Set time limit to prevent script from running too long
-set_time_limit(60);
-
-// Include required files
-require_once "' . $bearsamppRoot->getCorePath() . '/classes/class.util.php";
-require_once "' . $bearsamppRoot->getCorePath() . '/classes/actions/class.action.quickPick.php";
-
-// Create QuickPick instance
-$quickPick = new QuickPick();
-
-// Update the cache
-Util::logDebug("Background process: Updating PR cache");
-$result = $quickPick->createQuickPickLive();
-Util::logDebug("Background process: PR cache update completed with " . $result . " new versions");
-
-// Clean up
-unlink(__FILE__);
-';
-        
-        // Write the script to a file
-        file_put_contents($scriptPath, $scriptContent);
-        
-        // Execute the script in the background
-        if (PHP_OS_FAMILY === 'Windows') {
-            pclose(popen('start /B php "' . $scriptPath . '" > nul 2>&1', 'r'));
-        } else {
-            exec('php "' . $scriptPath . '" > /dev/null 2>&1 &');
-        }
-        
-        Util::logDebug('Started background PR cache update process');
     }
 
     /**
@@ -846,45 +791,6 @@ unlink(__FILE__);
 
         // Return true if cache is still valid (less than cache time)
         return $timeDiff < $cacheTimeMinutes;
-    }
-
-    /**
-     * Checks if the PR cache is about to expire (within the next minute).
-     * This can be used to preemptively update the cache in the background.
-     * 
-     * @return bool True if the cache is about to expire, false otherwise
-     */
-    private function isPrCacheAboutToExpire(): bool
-    {
-        global $bearsamppConfig;
-
-        // Get the cache time in minutes from config
-        $cacheTimeMinutes = $bearsamppConfig->getIncludePrCacheTime();
-
-        // If cache time is 0, always reload
-        if ($cacheTimeMinutes <= 0) {
-            return true;
-        }
-
-        // Check if PR cache file exists
-        $prCacheFile = $this->jsonFilePath;
-        if (!file_exists($prCacheFile)) {
-            return true;
-        }
-
-        // Try to get the PR update timestamp from the file
-        $lastUpdateTime = $this->getPrLastUpdateTime();
-
-        if ($lastUpdateTime === 0) {
-            // If no PR update timestamp found, fall back to file modification time
-            $lastUpdateTime = filemtime($prCacheFile);
-        }
-
-        // Calculate time difference in minutes
-        $timeDiff = (time() - $lastUpdateTime) / 60;
-        
-        // Return true if cache is about to expire (within 1 minute of expiration)
-        return $timeDiff > ($cacheTimeMinutes - 1);
     }
 
     /**
@@ -1561,7 +1467,7 @@ unlink(__FILE__);
             return ['error' => 'Unsupported file extension'];
         }
 
-        return ['success' => "Module installed successfully.\n\nReload is needed to update the menu."];
+        return ['success' => 'Module installed successfully'];
     }
 
     /**
@@ -1592,5 +1498,3 @@ unlink(__FILE__);
         return $destination;
     }
 }
-
-} // End of class_exists check
