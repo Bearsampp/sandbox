@@ -1,10 +1,11 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
@@ -120,7 +121,17 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             </button>
         </div>
     </div>
-    <?php echo $quickPick->loadQuickpick($imagesPath ); ?>
+    <?php 
+    try {
+        echo $quickPick->loadQuickpick($imagesPath);
+    } catch (Exception $e) {
+        // Log the error but continue with the page
+        error_log('Error loading QuickPick: ' . $e->getMessage());
+        echo '<div id="quickPickError" class="text-center mt-3 pe-3">
+            <span>QuickPick unavailable</span>
+        </div>';
+    }
+    ?>
 
     <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
         <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
@@ -144,8 +155,26 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
 </nav>
 
 <div id = "page-wrapper">
-    <?php include 'tpls/hp.latestversion.html'; ?>
-    <?php include 'tpls/hp.' . $bearsamppHomepage->getPage() . '.html'; ?>
+    <?php 
+    try {
+        include 'tpls/hp.latestversion.html';
+    } catch (Exception $e) {
+        error_log('Error including latest version template: ' . $e->getMessage());
+        echo '<div class="alert alert-warning">Latest version information unavailable</div>';
+    }
+
+    try {
+        $pagePath = 'tpls/hp.' . $bearsamppHomepage->getPage() . '.html';
+        if (file_exists($pagePath)) {
+            include $pagePath;
+        } else {
+            include 'tpls/hp.index.html';
+        }
+    } catch (Exception $e) {
+        error_log('Error including page template: ' . $e->getMessage());
+        echo '<div class="alert alert-warning">Page content unavailable</div>';
+    }
+    ?>
 </div>
 
 <?php

@@ -24,6 +24,7 @@ class Config
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
     const DOWNLOAD_ID = 'DownloadId';
     const INCLUDE_PR = 'IncludePR';
+    const INCLUDE_PR_CACHE_TIME = 'IncludePRCacheTime';
 
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
@@ -144,6 +145,16 @@ class Config
     public function getIncludePr()
     {
         return $this->raw[self::INCLUDE_PR];
+    }
+
+    /**
+     * Retrieves the IncludePRCacheTime value from the configuration.
+     *
+     * @return int The number of minutes to wait before reloading prerelease methods.
+     */
+    public function getIncludePrCacheTime()
+    {
+        return intval($this->raw[self::INCLUDE_PR_CACHE_TIME]);
     }
 
     /**
