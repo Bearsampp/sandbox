@@ -117,10 +117,17 @@ class QuickPick
             // for each repos use the API and retrieve the list of pre-releases
             // Use curl to retrieve a list of all releases in the module
             $json = Util::getApiJson($url);
-            $data = json_decode($json, true);
 
-            if ($data === null) {
-                Util::logError('Failed to decode JSON data for module: ' . $moduleName);
+			// Validate that we received a response
+            if (empty($json)) {
+                Util::logError('Empty response from API for module: ' . $moduleName);
+                continue;
+            }
+
+			// Validate JSON before decoding
+            $data = json_decode($json, true);
+            if ($data === null || json_last_error() !== JSON_ERROR_NONE) {
+                Util::logError('Failed to decode JSON data for module: ' . $moduleName . '. Error: ' . json_last_error_msg());
                 continue;
             }
 
