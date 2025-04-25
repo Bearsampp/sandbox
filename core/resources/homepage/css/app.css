@@ -281,12 +281,14 @@ div#InternetState {
     margin-top: -9px;
 }
 
+/* QuickPick Dropdown Styles */
 .custom-select {
     position: relative;
     width: 100%;
     max-width: 100%;
     font-size: 1.15rem;
     color: #000;
+    display: inline-block;
 }
 
 .custom-select .select-button {
@@ -302,12 +304,13 @@ div#InternetState {
     align-items: center;
     white-space: nowrap;
     font-weight: normal !important;
+    min-width: 200px;
 }
 
 .custom-select .selected-value {
     text-align: left;
     padding-right: 5px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .custom-select .arrow {
@@ -317,10 +320,17 @@ div#InternetState {
     transition: transform ease-in-out 0.3s;
 }
 
+.custom-select.active .arrow {
+    transform: rotate(-180deg);
+}
+
 .custom-select.active .select-dropdown {
     opacity: 1;
     visibility: visible;
     transform: scaleY(1);
+    display: block !important; /* Force display with !important */
+    z-index: 1000; /* Ensure z-index is high enough */
+    pointer-events: auto; /* Ensure clicks are registered */
 }
 
 .select-dropdown {
@@ -336,10 +346,13 @@ div#InternetState {
     margin-top: 10px;
     max-height: 300px;
     overflow-y: auto;
-    transition: 0.5s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
     transform: scaleY(0);
+    transform-origin: top;
     opacity: 0;
     visibility: hidden;
+    z-index: 1000;
+    pointer-events: none; /* Disable pointer events when hidden */
 }
 
 .select-dropdown:focus-within {
@@ -352,6 +365,16 @@ div#InternetState {
     display: flex;
     gap: 1rem;
     align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.select-dropdown li.moduleheader {
+    font-weight: bold;
+    border-bottom: 1px solid #ced4da;
+}
+
+.select-dropdown li.moduleoption {
+    padding-left: 2rem;
 }
 
 .select-dropdown li label {
@@ -376,7 +399,8 @@ div#InternetState {
 
 .select-dropdown li:hover,
 .select-dropdown input:checked ~ label,
-.select-dropdown input:focus ~ label {
+.select-dropdown input:focus ~ label,
+.select-dropdown li:hover {
     background-color: var(--bs-gray-200);
 }
 

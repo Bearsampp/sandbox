@@ -1,27 +1,16 @@
 <?php
 /*
- * Copyright (c) 2021-2024 Bearsampp
- * License:  GNU General Public License version 3 or later; see LICENSE.txt
- * Author: Bear
- * Website: https://bearsampp.com
- * Github: https://github.com/Bearsampp
+ *
+ *  * Copyright (c) 2022-2025 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
  */
 
 /**
- * This script handles AJAX requests for installing modules in the Bearsampp application.
- * It expects a POST request with 'module', 'version', and optionally 'filesize' parameters.
- *
- * The script performs the following actions:
- * - Includes the QuickPick class.
- * - Logs the file access.
- * - Creates an instance of the QuickPick class.
- * - Sets the response header to JSON.
- * - Initializes an empty response array.
- * - Checks if the request method is POST.
- * - Validates the 'module' and 'version' parameters.
- * - Calls the installModule method of the QuickPick class.
- * - Constructs a response message based on the installation result.
- * - Returns the response as a JSON object.
+ * This script handles AJAX requests for QuickPick functionality in the Bearsampp application.
+ * It supports various actions related to module management.
  *
  * @package    Bearsampp
  * @subpackage Core
@@ -30,20 +19,38 @@
  * @link       https://bearsampp.com
  */
 include __DIR__ . '/../../../classes/actions/class.action.quickPick.php';
-Util::logDebug('File accessed successfully.');
-$QuickPick = new QuickPick();
+Util::logDebug('QuickPick AJAX handler accessed.');
 
 header('Content-Type: application/json');
-
 $response = array();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $module  = isset($_POST['module']) ? $_POST['module'] : null;
-    $version = isset($_POST['version']) ? $_POST['version'] : null;
-    $filesize = isset($_POST['filesize']) ? $_POST['filesize'] : null;
+// Verify request method
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['error' => 'Invalid request method.']);
+    exit;
+}
 
-    if ($module && $version) {
+// Get the requested action
+$action = isset($_POST['action']) ? $_POST['action'] : 'install'; // Default to install for backward compatibility
+
+// Initialize QuickPick
+$QuickPick = new QuickPick();
+
+// Handle different actions
+switch ($action) {
+    case 'install':
+        // Handle module installation
+        $module = isset($_POST['module']) ? $_POST['module'] : null;
+        $version = isset($_POST['version']) ? $_POST['version'] : null;
+        $filesize = isset($_POST['filesize']) ? $_POST['filesize'] : null;
+        
+        if (!$module || !$version) {
+            $response = ['error' => 'Invalid module or version.'];
+            break;
+        }
+        
         $response = $QuickPick->installModule($module, $version);
+        
         if (!isset($response['error'])) {
             $response['message'] = "Module $module version $version installed successfully.";
             if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
@@ -58,12 +65,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             error_log('Error in response: ' . json_encode($response));
         }
-        Util::logDebug('Response: ' . json_encode($response));
-    } else {
-        $response = ['error' => 'Invalid module or version.'];
-    }
-} else {
-    $response = ['error' => 'Invalid request method.'];
+        Util::logDebug('Install response: ' . json_encode($response));
+        break;
+        
+    case 'list':
+        // Return a list of available modules
+        $response = [
+            'success' => true,
+            'modules' => $QuickPick->getAvailableModules()
+        ];
+        break;
+        
+    case 'check-updates':
+        // Check for module updates
+        $module = isset($_POST['module']) ? $_POST['module'] : null;
+        
+        if (!$module) {
+            $response = ['error' => 'Invalid module.'];
+            break;
+        }
+        
+        $response = $QuickPick->checkModuleUpdates($module);
+        break;
+        
+    case 'load_quickpick':
+        // Load QuickPick menu asynchronously
+        global $bearsamppHomepage;
+        $imagesPath = $bearsamppHomepage->getImagesPath();
+        
+        try {
+            $html = $QuickPick->loadQuickpick($imagesPath);
+            $response = ['success' => true, 'html' => $html];
+        } catch (Exception $e) {
+            $response = ['success' => false, 'error' => $e->getMessage()];
+        }
+        break;
+        
+    default:
+        $response = ['error' => 'Unknown action.'];
+        break;
 }
 
 echo json_encode($response);
