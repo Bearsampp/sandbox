@@ -384,10 +384,8 @@ class QuickPick
                     ];
                     $updated = true;
 
-                    // Sort versions in ascending semver order
-                    usort($moduleEntry['versions'], function($a, $b) {
-                        return version_compare($a['version'], $b['version']);
-                    });
+                    // Sort versions using our improved sorting method
+                    $moduleEntry['versions'] = $this->sortVersions($moduleEntry['versions']);
                 }
                 break;
             }
@@ -498,7 +496,7 @@ class QuickPick
 
         // Check if we need to update the PR data based on cache time
         if ($this->isIncludePrEnabled()) {
-            // Check if the PR cache has expired
+            // Check if the PR cache has expired (using a fixed cache time)
             if (!$this->isPrCacheValid()) {
                 Util::logDebug('PR cache has expired, reloading prerelease versions');
                 // First check if there are any prereleases to load
@@ -547,7 +545,7 @@ class QuickPick
             Util::logDebug('Remote file is newer, rebuilding quickpick-releases.json');
             $this->rebuildQuickpickJson();
 
-            // If IncludePR is enabled and cache has expired, reload PRs
+            // If IncludePR is enabled, check if cache has expired using fixed cache time
             if ($this->isIncludePrEnabled() && !$this->isPrCacheValid()) {
                 Util::logDebug('After rebuild: PR cache has expired, reloading prerelease versions');
                 // First check if there are any prereleases to load
@@ -706,10 +704,8 @@ class QuickPick
                             }
                         }
 
-                        // Sort versions in ascending semver order
-                        usort($entry['versions'], function($a, $b) {
-                            return version_compare($a['version'], $b['version']);
-                        });
+                        // Sort versions using our improved sorting method
+                        $entry['versions'] = $this->sortVersions($entry['versions']);
                     }
                 }
             }
@@ -749,24 +745,13 @@ class QuickPick
     }
 
     /**
-     * Checks if it's been less than IncludePRCacheTime minutes since the last PR reload.
+     * Checks if the PR cache needs to be refreshed.
      * Uses the 'pr_last_update' timestamp in the JSON file if available, otherwise falls back to file modification time.
      * 
      * @return bool True if cache is still valid, false if cache has expired
      */
     private function isPrCacheValid(): bool
     {
-        global $bearsamppConfig;
-
-        // Get the cache time in minutes from config
-        $cacheTimeMinutes = $bearsamppConfig->getIncludePrCacheTime();
-
-        // If cache time is 0, always reload
-        if ($cacheTimeMinutes <= 0) {
-            Util::logDebug('Cache time is 0 or less, always reloading PRs');
-            return false;
-        }
-
         // Check if PR cache file exists
         $prCacheFile = $this->jsonFilePath;
         if (!file_exists($prCacheFile)) {
@@ -785,6 +770,9 @@ class QuickPick
             Util::logDebug('Using PR update timestamp: ' . date('Y-m-d H:i:s', $lastUpdateTime));
         }
 
+        // Default cache time: 60 minutes
+        $cacheTimeMinutes = 60;
+        
         // Calculate time difference in minutes
         $timeDiff = (time() - $lastUpdateTime) / 60;
         Util::logDebug("Time since last PR update: $timeDiff minutes (cache time: $cacheTimeMinutes minutes)");
@@ -823,6 +811,139 @@ class QuickPick
         }
 
         return 0;
+    }
+
+    /**
+     * Parses a version string into components for proper comparison
+     * 
+     * @param string $version The version string to parse
+     * @return array Array of version components for comparison
+     */
+    private function parseVersion(string $version): array
+    {
+        // Remove any leading 'v' if present
+        if (substr($version, 0, 1) === 'v') {
+            $version = substr($version, 1);
+        }
+        
+        // Handle special case for versions like "apache-2020"
+        if (preg_match('/^([a-z]+)-(\d+)$/i', $version, $matches)) {
+            return [
+                'prefix' => $matches[1],
+                'components' => [(int)$matches[2]],
+                'original' => $version
+            ];
+        }
+        
+        // Handle versions with hyphens (like "2.47.0-rc1" or "3.12.8.0-b2")
+        $parts = explode('-', $version);
+        $versionBase = $parts[0];
+        $suffix = isset($parts[1]) ? $parts[1] : '';
+        
+        // Split the version into numeric components
+        $components = [];
+        foreach (preg_split('/[^0-9]+/', $versionBase) as $component) {
+            if ($component !== '') {
+                $components[] = (int)$component;
+            }
+        }
+        
+        return [
+            'components' => $components,
+            'suffix' => $suffix,
+            'original' => $version
+        ];
+    }
+
+    /**
+     * Compares two version arrays for sorting
+     * 
+     * @param array $a First version array to compare
+     * @param array $b Second version array to compare
+     * @return int Comparison result (-1, 0, 1)
+     */
+    private function compareVersions(array $a, array $b): int
+    {
+        $versionA = $this->parseVersion($a['version']);
+        $versionB = $this->parseVersion($b['version']);
+        
+        // If one has a prefix and the other doesn't, the one without prefix comes first
+        if (isset($versionA['prefix']) && !isset($versionB['prefix'])) {
+            return 1;
+        } else if (!isset($versionA['prefix']) && isset($versionB['prefix'])) {
+            return -1;
+        }
+        
+        // If both have prefixes, compare them
+        if (isset($versionA['prefix']) && isset($versionB['prefix'])) {
+            if ($versionA['prefix'] !== $versionB['prefix']) {
+                return strcmp($versionA['prefix'], $versionB['prefix']);
+            }
+        }
+        
+        // Compare numeric components
+        $componentsA = $versionA['components'];
+        $componentsB = $versionB['components'];
+        
+        $maxLength = max(count($componentsA), count($componentsB));
+        
+        for ($i = 0; $i < $maxLength; $i++) {
+            // If we've reached the end of one version, the longer one is newer
+            $valueA = $i < count($componentsA) ? $componentsA[$i] : 0;
+            $valueB = $i < count($componentsB) ? $componentsB[$i] : 0;
+            
+            if ($valueA != $valueB) {
+                return ($valueA > $valueB) ? -1 : 1; // Descending order
+            }
+        }
+        
+        // If numeric components are equal, check suffixes
+        $suffixA = isset($versionA['suffix']) ? $versionA['suffix'] : '';
+        $suffixB = isset($versionB['suffix']) ? $versionB['suffix'] : '';
+        
+        // No suffix is newer than any suffix
+        if ($suffixA === '' && $suffixB !== '') {
+            return -1;
+        } else if ($suffixA !== '' && $suffixB === '') {
+            return 1;
+        }
+        
+        // If both have suffixes, compare them
+        if ($suffixA !== $suffixB) {
+            // Special handling for common suffixes
+            $suffixRank = function($suffix) {
+                if (preg_match('/^rc(\d+)$/i', $suffix)) return 3;
+                if (preg_match('/^beta(\d+)?$/i', $suffix)) return 2;
+                if (preg_match('/^alpha(\d+)?$/i', $suffix)) return 1;
+                if (preg_match('/^b(\d+)$/i', $suffix)) return 2; // Treat 'b2' like 'beta2'
+                return 0;
+            };
+            
+            $rankA = $suffixRank($suffixA);
+            $rankB = $suffixRank($suffixB);
+            
+            if ($rankA !== $rankB) {
+                return ($rankA > $rankB) ? -1 : 1; // Higher rank is newer
+            }
+            
+            // If ranks are the same, compare lexicographically
+            return strcmp($suffixB, $suffixA); // Reverse for descending
+        }
+        
+        // If everything else is equal, they're the same version
+        return 0;
+    }
+
+    /**
+     * Sorts version arrays in descending order (newest first)
+     * 
+     * @param array $versions Array of version data to sort
+     * @return array Sorted array of version data
+     */
+    private function sortVersions(array $versions): array
+    {
+        usort($versions, [$this, 'compareVersions']);
+        return $versions;
     }
 
     /**
@@ -1040,6 +1161,81 @@ class QuickPick
         }
         
         return $version;
+    }
+
+    /**
+     * Generates the HTML for module options from the quickpick-releases.json data
+     * 
+     * @param array $jsonData Array of module data from quickpick-releases.json
+     * @param string $activeModule Currently selected module (optional)
+     * @return string HTML content for the dropdown
+     */
+    public function generateModuleOptions(array $jsonData, string $activeModule = ''): string
+    {
+        $html = '<ul class="select-dropdown" role="listbox" id="select-dropdown" tabindex="-1">' . PHP_EOL;
+        
+        foreach ($jsonData as $entry) {
+            if (!is_array($entry) || !isset($entry['module']) || !isset($entry['versions']) || !is_array($entry['versions'])) {
+                continue;
+            }
+            
+            // Extract module name without the "module-" prefix
+            $moduleName = str_replace('module-', '', $entry['module']);
+            
+            // Convert first character to uppercase for display
+            $displayName = ucfirst($moduleName);
+            
+            // Add module header
+            $html .= '<li role="option" class="moduleheader">' . PHP_EOL;
+            $html .= htmlspecialchars($displayName) . ' </li>' . PHP_EOL;
+            
+            // Check if this is the active module
+            $isActiveModule = ($displayName === $activeModule);
+            
+            // Sort versions before displaying them
+            $sortedVersions = $this->sortVersions($entry['versions']);
+            
+            // Filter out duplicate versions by keeping only the newest one
+            // We'll use a map where the key is the version string
+            $uniqueVersions = [];
+            foreach ($sortedVersions as $versionData) {
+                $versionKey = $versionData['version'];
+                
+                // If we haven't seen this version before, add it
+                if (!isset($uniqueVersions[$versionKey])) {
+                    $uniqueVersions[$versionKey] = $versionData;
+                }
+                // If we have seen it, we don't need to do anything since we're already
+                // processing versions in sorted order (newest first)
+            }
+            
+            // Add module versions
+            foreach ($uniqueVersions as $version_array) {
+                $isPrerelease = isset($version_array['prerelease']) && $version_array['prerelease'] === true;
+                $labelClass = $isPrerelease ? 'text-danger' : '';
+                $labelText = htmlspecialchars($version_array['version']) . ($isPrerelease ? ' PR' : '');
+                
+                // Set hidden attribute for non-active modules if an active module is specified
+                $hiddenAttr = ($activeModule && !$isActiveModule) ? 'hidden=""' : '';
+                
+                $html .= '<li role="option" class="moduleoption" id="' . htmlspecialchars($displayName) . '-version-' . 
+                         htmlspecialchars($version_array['version']) . '-li" ' . $hiddenAttr . '>' . PHP_EOL;
+                
+                $html .= '<input type="radio" id="' . htmlspecialchars($displayName) . '-version-' . 
+                         htmlspecialchars($version_array['version']) . '" name="module" data-module="' . 
+                         htmlspecialchars($displayName) . '" data-value="' . htmlspecialchars($version_array['version']) . '">' . PHP_EOL;
+                
+                $html .= '<label for="' . htmlspecialchars($displayName) . '-version-' . 
+                         htmlspecialchars($version_array['version']) . '"' . 
+                         ($labelClass ? ' class="' . $labelClass . '"' : '') . '>' . PHP_EOL;
+                
+                $html .= $labelText . ' </label>' . PHP_EOL;
+                $html .= '</li>' . PHP_EOL;
+            }
+        }
+        
+        $html .= '</ul>' . PHP_EOL;
+        return $html;
     }
 
     /**
@@ -1285,54 +1481,7 @@ class QuickPick
 								<span class = "selected-value">Select a module and version</span>
 								<span class = "arrow"></span>
 							</button>
-							<ul class = "select-dropdown" role = "listbox" id = "select-dropdown">
-
-                                <?php
-                                foreach ($modules as $module): ?>
-                                    <?php
-                                    if (is_string($module)): ?>
-										<li role = "option" class = "moduleheader">
-                                            <?php
-                                            echo htmlspecialchars($module); ?>
-										</li>
-
-                                        <?php
-                                        foreach ($versions['module-' . strtolower($module)] as $version_array):
-                                            $isPrerelease = isset($version_array['prerelease']) && $version_array['prerelease'] === true;
-                                            $labelClass = $isPrerelease ? 'text-danger' : '';
-                                            $labelText = htmlspecialchars($version_array['version']) . ($isPrerelease ? ' PR' : '');
-                                            ?>
-											<li role = "option" class = "moduleoption"
-											    id = "<?php
-                                                echo htmlspecialchars($module); ?>-version-<?php
-                                                echo htmlspecialchars($version_array['version']); ?>-li">
-												<input type = "radio"
-												       id = "<?php
-                                                       echo htmlspecialchars($module); ?>-version-<?php
-                                                       echo htmlspecialchars($version_array['version']); ?>"
-												       name = "module" data-module = "<?php
-                                                echo htmlspecialchars($module); ?>"
-												       data-value = "<?php
-                                                       echo htmlspecialchars($version_array['version']); ?>">
-												<label
-														for = "<?php
-                                                        echo htmlspecialchars($module); ?>-version-<?php
-                                                        echo htmlspecialchars($version_array['version']); ?>"
-                                                    <?php
-                                                    if ($labelClass) {
-                                                        echo 'class="' . $labelClass . '"';
-                                                    } ?>>
-                                                    <?php
-                                                    echo $labelText; ?>
-												</label>
-											</li>
-                                        <?php
-                                        endforeach; ?>
-                                    <?php
-                                    endif; ?>
-                                <?php
-                                endforeach; ?>
-							</ul>
+							<?php echo $this->generateModuleOptions($this->getQuickpickJson()); ?>
 						</div>
 					</div>
 					<div class = "progress " id = "progress" tabindex = "-1" style = "width:260px;display:none"
