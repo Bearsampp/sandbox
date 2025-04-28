@@ -15,3 +15,5 @@
 
 # Qodo
 /.qodo
+/core/resources/lastPath.dat
+/core/resources/homepage/alias.conf

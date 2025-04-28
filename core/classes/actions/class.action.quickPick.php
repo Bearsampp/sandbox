@@ -1025,6 +1025,101 @@ class QuickPick
     }
 
     /**
+     * Formats the version display with prerelease indicator if needed
+     * 
+     * @param array $versionData The version data
+     * @return string Formatted version string
+     */
+    public function formatVersionDisplay(array $versionData): string
+    {
+        $version = htmlspecialchars($versionData['version']);
+        
+        // Check if this is a prerelease version
+        if (isset($versionData['prerelease']) && $versionData['prerelease'] === true) {
+            return $version . ' PR';
+        }
+        
+        return $version;
+    }
+
+    /**
+     * Gets the CSS class for version display based on prerelease status
+     * 
+     * @param array $versionData The version data
+     * @return string CSS class name or empty string
+     */
+    public function getVersionDisplayClass(array $versionData): string
+    {
+        // Check if this is a prerelease version
+        if (isset($versionData['prerelease']) && $versionData['prerelease'] === true) {
+            return 'text-danger';
+        }
+        
+        return '';
+    }
+
+    /**
+     * Checks if a version is a prerelease
+     * 
+     * @param array $versionData The version data
+     * @return bool True if the version is a prerelease, false otherwise
+     */
+    public function isPrerelease(array $versionData): bool
+    {
+        return isset($versionData['prerelease']) && $versionData['prerelease'] === true;
+    }
+
+    /**
+     * Gets all versions for a specific module
+     * 
+     * @param string $moduleName The module name
+     * @return array Array of version data
+     */
+    public function getVersionsForModule(string $moduleName): array
+    {
+        $data = $this->getQuickpickJson();
+        $moduleKey = 'module-' . strtolower($moduleName);
+        
+        foreach ($data as $entry) {
+            if (is_array($entry) && isset($entry['module']) && $entry['module'] === $moduleKey) {
+                return isset($entry['versions']) ? $entry['versions'] : [];
+            }
+        }
+        
+        return [];
+    }
+
+    /**
+     * Gets only stable (non-prerelease) versions for a specific module
+     * 
+     * @param string $moduleName The module name
+     * @return array Array of stable version data
+     */
+    public function getStableVersionsForModule(string $moduleName): array
+    {
+        $allVersions = $this->getVersionsForModule($moduleName);
+        
+        return array_filter($allVersions, function($versionData) {
+            return !$this->isPrerelease($versionData);
+        });
+    }
+
+    /**
+     * Gets only prerelease versions for a specific module
+     * 
+     * @param string $moduleName The module name
+     * @return array Array of prerelease version data
+     */
+    public function getPrereleaseVersionsForModule(string $moduleName): array
+    {
+        $allVersions = $this->getVersionsForModule($moduleName);
+        
+        return array_filter($allVersions, function($versionData) {
+            return $this->isPrerelease($versionData);
+        });
+    }
+
+    /**
      * Determines whether the header response is valid and includes a 'Date' key.
      *
      * @param   mixed  $headers  Headers retrieved from get_headers().
@@ -1045,6 +1140,32 @@ class QuickPick
         }
 
         return true;
+    }
+
+    /**
+     * Gets the remote file's modification time
+     * 
+     * @return int The remote file's modification time as a Unix timestamp
+     */
+    private function getRemoteFileModTime(): int
+    {
+        $headers = get_headers(QUICKPICK_JSON_URL, 1);
+        
+        if (!$this->isValidHeaderResponse($headers)) {
+            // If we can't get valid headers, return current time to force an update
+            return time();
+        }
+        
+        // Get the Last-Modified header if available, otherwise use Date
+        $remoteLastModified = isset($headers['Last-Modified']) ? $headers['Last-Modified'] : $headers['Date'];
+        $remoteFileModTime = strtotime($remoteLastModified);
+        
+        if ($remoteFileModTime === false) {
+            // If we can't parse the time, return current time to force an update
+            return time();
+        }
+        
+        return $remoteFileModTime;
     }
 
     /**
@@ -1177,7 +1298,7 @@ class QuickPick
 
                                         <?php
                                         foreach ($versions['module-' . strtolower($module)] as $version_array):
-                                            $isPrerelease = !empty($version_array['prerelease']);
+                                            $isPrerelease = isset($version_array['prerelease']) && $version_array['prerelease'] === true;
                                             $labelClass = $isPrerelease ? 'text-danger' : '';
                                             $labelText = htmlspecialchars($version_array['version']) . ($isPrerelease ? ' PR' : '');
                                             ?>
