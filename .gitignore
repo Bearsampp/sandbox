@@ -4,8 +4,6 @@
 
 # Bearsampp
 /.dev
-/bearsampp.conf
-/bearsampp.ini
 
 # Visual Studio
 .vscode/
@@ -17,5 +15,3 @@
 
 # Qodo
 /.qodo
-/core/resources/lastPath.dat
-/core/resources/homepage/alias.conf
