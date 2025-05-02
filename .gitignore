@@ -4,6 +4,12 @@
 
 # Bearsampp
 /.dev
+/core/resources/homepage/alias.conf
+/core/resources/lastPath.dat
+/core/resources/quickpick-releases.json
+/bearsampp.conf
+/bearsampp.ini
+
 
 # Visual Studio
 .vscode/
