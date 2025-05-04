@@ -23,8 +23,8 @@ class Config
     const CFG_NOTEPAD = 'notepad';
     const CFG_SCRIPTS_TIMEOUT = 'scriptsTimeout';
     const DOWNLOAD_ID = 'DownloadId';
-    const CFG_INCLUDE_PR = 'IncludePr';
 
+    const CFG_INCLUDE_PR = 'IncludePR';
     const CFG_DEFAULT_LANG = 'defaultLang';
     const CFG_HOSTNAME = 'hostname';
     const CFG_BROWSER = 'browser';
