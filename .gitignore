@@ -4,6 +4,8 @@
 
 # Bearsampp
 /.dev
+/bearsampp.conf
+/bearsampp.ini
 
 # Visual Studio
 .vscode/
