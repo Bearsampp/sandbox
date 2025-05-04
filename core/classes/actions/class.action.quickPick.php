@@ -563,6 +563,9 @@ class QuickPick
      */
     public function getQuickpickMenu(array $modules, array $versions, string $imagesPath): string
     {
+        global $bearsamppConfig;
+        $includePr = $bearsamppConfig->getIncludePr();
+        
         ob_start();
         if ( Util::checkInternetState() ) {
 
@@ -590,7 +593,12 @@ class QuickPick
                                         </li>
 
                                         <?php
-                                        foreach ( $versions['module-' . strtolower( $module )] as $version_array ): ?>
+                                        foreach ( $versions['module-' . strtolower( $module )] as $version_array ): 
+                                            // Skip prerelease versions if includePr is not enabled
+                                            if (isset($version_array['prerelease']) && $version_array['prerelease'] === true && $includePr != 1) {
+                                                continue;
+                                            }
+                                        ?>
                                             <li role = "option" class = "moduleoption"
                                                 id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li">
                                                 <input type = "radio"
