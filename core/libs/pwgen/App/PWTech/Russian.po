@@ -1,10 +1,23 @@
-# Translation template for Password Tech 3.5.2
 # Released under the GNU General Public License
-
-#. Add header entry "X-PasswordTech-Manual: ..." to provide language-specific manual
+#
+# !!! NOTE ON FORMAT STRINGS !!!
+# As of version 3.5.3, Password Tech uses format specifiers of the form "%N",
+# with N being the index of the argument (starting at N=1) to be inserted into
+# the formatted string. All arguments are provided as strings by the application.
+# The new format was chosen because it provides higher flexibility and security.
+# Example:
+# Format string:    "%1 characters / %2 bits per character"
+# 1st argument:     "90"
+# 2nd argument:     "6.4"
+# Resulting string: "90 characters / 6.4 bits per character"
+# In the translated string, the arguments can be specified in any order.
+# Password Tech is still compatible with the old format ("%d" for digits, "%f"
+# for floating point numbers, "%s" for strings, etc.), and the original strings
+# are still provided in the old format to avoid merge conflicts when updating
+# existing translations.
 msgid ""
 msgstr ""
-"Project-Id-Version: Password Tech 3.5.2\n"
+"Project-Id-Version: Password Tech 3.5.5\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dmitry Yerokhin <erodim@mail.ru>\n"
@@ -247,6 +260,9 @@ msgstr "Справка"
 msgid "Open Manual"
 msgstr "Открыть справочное руководство"
 
+msgid "Command Line Arguments..."
+msgstr "Аргументы командной строки..."
+
 #. Main menu, Help submenu
 msgid "Visit Website"
 msgstr "Посетить сайт"
@@ -290,6 +306,40 @@ msgstr "Создать и ввести пароль"
 #. System tray context menu
 msgid "Open user manual"
 msgstr "Руководство пользователя"
+
+#. Command line arguments
+msgid "Usage:"
+msgstr "Использование:"
+
+#. Command line arguments
+msgid "Display this help message."
+msgstr "Показать этот справочный текст"
+
+#. Command line arguments
+msgid "Do not write to disk unless explicitly requested."
+msgstr "Не записывать на диск, если не запрошено явно"
+
+#. Command line arguments
+msgid "Load profile named 'profilename' on start-up."
+msgstr "Загрузить профиль 'profilename' при запуске"
+
+#. Command line arguments
+msgid ""
+"Generate 'number' of passwords and display on the console, then close "
+"application."
+msgstr ""
+"Сгенерировать 'number' паролей и показать в консоли, а затем закрыть "
+"программу"
+
+#. Command line arguments
+msgid "Launch application in the background."
+msgstr "Запустить программу в фоне"
+
+#. Command line arguments
+msgid ""
+"Open database named 'filename' on start-up and show password manager window."
+msgstr ""
+"Открыть базу данных 'filename' при запуске и показать окно диспетчера паролей"
 
 #. Main window, Clear Clipboard button tooltip
 msgid "Clear clipboard (text contents only)"
@@ -634,20 +684,20 @@ msgid "%d of %d passwords generated."
 msgstr "%d из %d паролей создано."
 
 #. Formatted password, Include Characters/Words selected, but format specifier "P" not found in format string
-msgid "\"P\" is not specified."
-msgstr "Параметр \"P\" не указан!"
+msgid "\"P\" is not specified"
+msgstr "Параметр \"P\" не указан"
 
 #. Formatted password, format specifier "P" contained in format string, but no password available to insert
-msgid "Password not available."
-msgstr "Пароль недоступен."
+msgid "Password not available"
+msgstr "Пароль недоступен"
 
 #. Formatted password, format specifier "P" contained in format string, but password cannot be fully inserted
-msgid "Password too long."
-msgstr "Пароль слишком длинный."
+msgid "Password too long"
+msgstr "Пароль слишком длинный"
 
 #. Formatted password, format string contains unknown specifier
-msgid "Invalid format specifier \"%s\"."
-msgstr "Неверный формат \"%s\"."
+msgid "%d invalid format specifier(s): %s"
+msgstr "Неверные форматы (%d): %s"
 
 #. Run script, executing Lua script
 msgid "Executing script"
@@ -1132,6 +1182,10 @@ msgid "User interface style:"
 msgstr "Стиль интерфейса:"
 
 #. Configuration window, General
+msgid "Application icon:"
+msgstr "Значок приложения:"
+
+#. Configuration window, General
 msgid "Change font for the GUI controls:"
 msgstr "Изменить шрифт интерфейса:"
 
@@ -1170,10 +1224,6 @@ msgstr "Запускать при старте системы (для текущ
 #. Configuration window, General
 msgid "Load the following profile on startup:"
 msgstr "Загружать этот профиль при запуске:"
-
-#. Configuration window, General
-msgid "Load pr"
-msgstr "Загрузить"
 
 #. Configuration window, Security
 msgid "Benchmark..."
@@ -1311,6 +1361,70 @@ msgstr "Символы перевода строки"
 msgid "Select language:"
 msgstr "Выберите язык:"
 
+#. Configuration window, Language
+msgid "Install..."
+msgstr "Установить..."
+
+#. Configuration window, Language, Open dialog title
+msgid "Select language file to install"
+msgstr "Выберите языковой файл для установки"
+
+#. Configuration window, Language, Open dialog filter
+msgid "Language files"
+msgstr "Языковые файлы"
+
+#. Configuration window, Language, Install
+msgid "Language already installed"
+msgstr "Язык уже установлен"
+
+#. Configuration window, Language, Install
+msgid ""
+"Language file already exists:\n"
+"\"%1\""
+msgstr ""
+"Языковой файл уже существует:\n"
+"\"%1\""
+
+#. Configuration window, Language, Install
+msgid "Language \"%1\" installed successfully."
+msgstr "Язык \"%1\" успешно установлен."
+
+#. Configuration window, Language, Install
+msgid ""
+"Could not copy file \"%1\" to\n"
+"\"%2\""
+msgstr ""
+"Не удалось скопировать файл \"%1\" в\n"
+"\"%2\""
+
+#. Configuration window, Language, Install
+msgid ""
+"Could not install language:\n"
+"%1."
+msgstr ""
+"Не удалось установить язык:\n"
+"%1."
+
+#. Configuration window, Language, Remove
+msgid ""
+"Are you sure you want to remove\n"
+"\"%1\"?"
+msgstr ""
+"Вы действительно хотите удалить\n"
+"\"%1\"?"
+
+#. Configuration window, Language, Remove
+msgid "Language \"%1\" successfully removed."
+msgstr "Язык \"%1\" успешно удалён."
+
+#. Configuration window, Language, Remove
+msgid ""
+"Could not delete file\n"
+"\"%1\"."
+msgstr ""
+"Не удалось удалить файл\n"
+"\"%1\"."
+
 #. Configuration window, Database
 msgid "Clear clipboard when closing/locking database"
 msgstr "Очищать буфер обмена при закрытии/блокировке базы"
@@ -1342,6 +1456,9 @@ msgstr "Открывать окно при запуске"
 #. Configuration window, Database
 msgid "Open last used database on startup"
 msgstr "Открывать недавнюю БД при запуске"
+
+msgid "Keep list of recently opened files"
+msgstr "Хранить список недавних файлов"
 
 #. Configuration window, Database
 msgid "Warn if database contains expired entries"
@@ -1526,12 +1643,20 @@ msgid "Include at least one special symbol (!\"#$%...)"
 msgstr "Включать хотя бы один особый символ (!\"#$%...)"
 
 #. Advanced Password Options window, list of boolean options (checkboxes)
+msgid "Include at least one character from each subset"
+msgstr "Включать хотя бы один символ из каждого набора"
+
+#. Advanced Password Options window, list of boolean options (checkboxes)
 msgid "Only include characters from custom character set"
 msgstr "Включать только символы из пользовательского набора"
 
 #. Advanced Password Options window, list of boolean options (checkboxes)
 msgid "Exclude repeating consecutive characters (e.g. aa, 11)"
 msgstr "Исключать повторы символов (например: аа, 11)"
+
+#. Advanced Password Options window, list of boolean options (checkboxes)
+msgid "Remove leading and trailing whitespace characters"
+msgstr "Удалить пробелы в начале и конце"
 
 #. Advanced Password Options window, list of boolean options (checkboxes)
 msgid "Exclude duplicate entries in password lists"
@@ -1566,8 +1691,20 @@ msgid "Redefine special symbols:"
 msgstr "Переопределить особые символы:"
 
 #. Advanced Password Options window, label
-msgid "Maximum length of words in word lists (except default word list):"
-msgstr "Максимальная длина слов в списках (кроме списка по умолчанию):"
+msgid "Min./Max. length of words in word lists (except default word list):"
+msgstr "Мин./макс. длина слов в списках (кроме списка по умолчанию):"
+
+#. Advanced Password Options window, label
+msgid "Redefine separators in passphrases:"
+msgstr "Переопределение разделителей в парольных фразах:"
+
+#. Advanced Password Options window, label
+msgid "Words:"
+msgstr "Слова:"
+
+#. Advanced Password Options window, label
+msgid "Words/characters:"
+msgstr "Слова/символы:"
 
 #. Advanced Password Options window, label
 msgid "Trigram file for generating phonetic (pronounceable) passwords:"
@@ -1802,32 +1939,32 @@ msgid "without ambiguous characters"
 msgstr "без неоднозначных символов"
 
 #. Quick help for "Include characters" in main window
-msgid "special symbols"
-msgstr "особые символы"
+msgid "Special symbols"
+msgstr "Особые символы"
 
 #. Quick help for "Include characters" in main window
-msgid "brackets"
-msgstr "скобки"
+msgid "Brackets"
+msgstr "Скобки"
 
 #. Quick help for "Include characters" in main window
-msgid "punctuation marks"
-msgstr "знаки препинания"
+msgid "Punctuation marks"
+msgstr "Знаки препинания"
 
 #. Quick help for "Include characters" in main window
-msgid "higher ANSI characters"
-msgstr "верхние ANSI-символы"
+msgid "Higher ANSI characters"
+msgstr "Верхние ANSI-символы"
 
 #. Quick help for "Include characters" in main window
-msgid "generate phonetic password (lower-case letters)"
-msgstr "создать фонетический пароль (строчные буквы)"
+msgid "Generate phonetic password (lower-case letters)"
+msgstr "Создать фонетический пароль (строчные буквы)"
 
 #. Quick help for "Include characters" in main window
-msgid "generate phonetic password (upper-case letters)"
-msgstr "создать фонетический пароль (прописные буквы)"
+msgid "Generate phonetic password (upper-case letters)"
+msgstr "Создать фонетический пароль (прописные буквы)"
 
 #. Quick help for "Include characters" in main window
-msgid "generate phonetic password (mixed-case letters)"
-msgstr "создать фонетический пароль (строчные и прописные буквы)"
+msgid "Generate phonetic password (mixed-case letters)"
+msgstr "Создать фонетический пароль (строчные и прописные буквы)"
 
 #. Quick help for "Include characters" in main window
 msgid ""
@@ -1875,32 +2012,32 @@ msgid "List of placeholders with optional argument \"N\":"
 msgstr "Заполнители с необязательным аргументом \"N\":"
 
 #. Quick help for "Format password" in main window
-msgid "custom character set"
-msgstr "пользовательский набор символов"
+msgid "Custom character set"
+msgstr "Пользовательский набор символов"
 
 #. Quick help for "Format password" in main window
-msgid "vowels, lower-case"
-msgstr "гласные, строчные"
+msgid "Vowels, lower-case"
+msgstr "Гласные, строчные"
 
 #. Quick help for "Format password" in main window
-msgid "vowels, mixed-case"
-msgstr "гласные, смешанные"
+msgid "Vowels, mixed-case"
+msgstr "Гласные, смешанные"
 
 #. Quick help for "Format password" in main window
-msgid "vowels, upper-case"
-msgstr "гласные, прописные"
+msgid "Vowels, upper-case"
+msgstr "Гласные, прописные"
 
 #. Quick help for "Format password" in main window
-msgid "consonants, lower-case"
-msgstr "согласные, строчные"
+msgid "Consonants, lower-case"
+msgstr "Согласные, строчные"
 
 #. Quick help for "Format password" in main window
-msgid "consonants, mixed-case"
-msgstr "согласные, смешанные"
+msgid "Consonants, mixed-case"
+msgstr "Согласные, смешанные"
 
 #. Quick help for "Format password" in main window
-msgid "consonants, upper-case"
-msgstr "согласные, прописные"
+msgid "Consonants, upper-case"
+msgstr "Согласные, прописные"
 
 #. Quick help for "Format password" in main window
 msgid ""
@@ -1911,30 +2048,30 @@ msgstr ""
 "(разрешён аргумент \"N\", обозначаемый \"{N}\"):"
 
 #. Quick help for "Format password" in main window
-msgid "insert password generated via \"Include characters/words\""
-msgstr "вставить пароль, созданный с \"Включать символы/слова\""
+msgid "Insert password generated via \"Include characters/words\""
+msgstr "Вставить пароль, созданный с \"Включать символы/слова\""
 
 #. Quick help for "Format password" in main window
-msgid "words from word list, multiple words are separated by spaces"
-msgstr "слова из списка, несколько слов разделяются пробелами"
+msgid "Words from word list, multiple words are separated by spaces"
+msgstr "Слова из списка, несколько слов разделяются пробелами"
 
 #. Quick help for "Format password" in main window
-msgid "words, multiple words are not separated at all"
-msgstr "слова, несколько слов не разделяются"
+msgid "Words, multiple words are not separated at all"
+msgstr "Слова, несколько слов не разделяются"
 
 #. Quick help for "Format password" in main window
-msgid "repeat input sequence in brackets N times"
-msgstr "повтор входной последовательности в скобках N раз"
+msgid "Repeat input sequence in brackets N times"
+msgstr "Повтор входной последовательности в скобках N раз"
 
 #. Quick help for "Format password" in main window
-msgid "randomly permute formatted sequence in brackets, keep N characters"
+msgid "Randomly permute formatted sequence in brackets, keep N characters"
 msgstr ""
-"случайно перемешать отформатированную последовательность в скобках, "
+"Случайно перемешать отформатированную последовательность в скобках, "
 "сохранить N символов"
 
 #. Quick help for "Format password" in main window
-msgid "treat sequence as character set and insert N characters"
-msgstr "считать последовательность набором символов и вставить N символов"
+msgid "Treat sequence as character set and insert N characters"
+msgstr "Считать последовательность набором символов и вставить N символов"
 
 #. Quick help for "Format password" in main window
 msgid "Additional notes:"
@@ -2204,6 +2341,10 @@ msgid "Lock"
 msgstr "Заблокировать"
 
 #. Password Manager window, main menu, File submenu
+msgid "Clear Recently Opened List"
+msgstr "Очистить список недавних файлов"
+
+#. Password Manager window, main menu, File submenu
 msgid "Unlock"
 msgstr "Разблокировать"
 
@@ -2350,6 +2491,14 @@ msgstr "Заблокировать/разблокировать базу дан�
 #. Password Manager window, Edit panel, Toggle password button, tooltip
 msgid "Left-click: Hide/show password, right-click: Generate password"
 msgstr "ЛКМ: скрыть/показать пароль, ПКМ: создать пароль"
+
+#. Password Manager window, Edit panel, Toggle notes button, tooltip
+msgid "Hide/show notes"
+msgstr "Показать/скрыть заметки"
+
+#. Password Manager window, Edit Panel, text displayed when notes are hidden
+msgid "Notes hidden - click here to display"
+msgstr "Заметки скрыты, нажмите здесь, чтобы показать"
 
 #. Password Manager window, title of password entry dialog when unlocking database
 msgid "Unlock %s"
@@ -2581,12 +2730,20 @@ msgid "Change expiry date"
 msgstr "Изменить срок действия"
 
 #. Password Manager window, main menu, View submenu
-msgid "Filter expired entries"
-msgstr "Показывать только истекшие записи"
+msgid "Filter"
+msgstr "Фильтр"
 
-#. Password Manager window, main menu, View submenu
-msgid "Filter entries that will expire soon"
-msgstr "Показывать только истекающие записи"
+#. Password Manager window, main menu, View submenu, Filter submenu
+msgid "Expired entries"
+msgstr "Истекшие записи"
+
+#. Password Manager window, main menu, View submenu, Filter submenu
+msgid "Entries that will expire soon"
+msgstr "Скоро истекающие записи"
+
+#. Password Manager window, main menu, View submenu, Filter submenu
+msgid "Entries with Weak Passwords"
+msgstr "Записи со слабыми паролями"
 
 #. Password Manager window, Edit panel, context menu of Expiry button, menu items
 msgid "%d days"
@@ -2855,6 +3012,87 @@ msgstr "Запись в базе паролей редактируется."
 #. Password Manager window, shutdown blocker message
 msgid "Password database contains unsaved changes."
 msgstr "База паролей содержит несохранённые изменения."
+
+#. Password Manager window, toolbar, filter info
+msgid "Filtered"
+msgstr "С фильтром"
+
+#. Password Manager window, toolbar, filter info, button tooltip
+msgid "Remove filter"
+msgstr "Убрать фильтр"
+
+#. Main window, button to build character set definition
+msgid "Build..."
+msgstr "Сборка..."
+
+#. Main window, button to build character set definition, hint
+msgid "Build character set definition"
+msgstr "Создание определения набора символов"
+
+#. Character set builder, window title
+msgid "Character Set Builder"
+msgstr "Конструктор наборов символов"
+
+#. Character set builder, group box with character sets
+msgid "Character set selection"
+msgstr "Выбор набора символов"
+
+#. Character set builder, group box with tag/comment
+msgid "Tag/comment"
+msgstr "Тег/комментарий"
+
+#. Character set builder, group box with resulting definition
+msgid "Resulting character set definition"
+msgstr "Определение результирующего набора символов"
+
+#. Character set builder, button
+msgid "Apply"
+msgstr "Применить"
+
+#. Character set builder, check box
+msgid "Lower-case letters (a-z)"
+msgstr "Строчные буквы (a-z)"
+
+#. Character set builder, check box
+msgid "Upper-case letters (A-Z)"
+msgstr "Заглавные буквы (A-Z)"
+
+#. Character set builder, check box
+msgid "Digits (0-9)"
+msgstr "Цифры (0-9)"
+
+#. Character set builder, check box
+msgid "Characters from range:"
+msgstr "Символы из диапазона:"
+
+#. Character set builder, check box
+msgid "Additional characters:"
+msgstr "Дополнительные символы:"
+
+#. Character set builder, check box
+msgid "At least"
+msgstr "Не менее"
+
+#. Character set builder, edit box
+msgid "From:"
+msgstr "С:"
+
+#. Character set builder, edit box
+msgid "to:"
+msgstr "по:"
+
+#. Character set builder, error message
+msgid "Invalid character range."
+msgstr "Неверный диапазон символов."
+
+#~ msgid "Gigabytes"
+#~ msgstr "ГБ"
+
+#~ msgid "Terabytes"
+#~ msgstr "ТБ"
+
+#~ msgid "Convert to new PO file format..."
+#~ msgstr "Преобразовать файл в формат PO..."
 
 #~ msgid "Left-click: Perform search, right-click: Search options"
 #~ msgstr "ЛКМ: найти, ПКМ: параметры поиска"
