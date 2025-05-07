@@ -1,26 +1,10 @@
-﻿# German translation of Password Tech 3.5.6
+﻿# German translation of Password Tech 3.5.4
 # Released under the GNU General Public License
-#
-# !!! NOTE ON FORMAT STRINGS !!!
-# As of version 3.5.3, Password Tech uses format specifiers of the form "%N",
-# with N being the index of the argument (starting at N=1) to be inserted into
-# the formatted string. All arguments are provided as strings by the application.
-# The new format was chosen because it provides higher flexibility and security.
-# Example:
-# Format string:    "%1 characters / %2 bits per character"
-# 1st argument:     "90"
-# 2nd argument:     "6.4"
-# Resulting string: "90 characters / 6.4 bits per character"
-# In the translated string, the arguments can be specified in any order.
-# Password Tech is still compatible with the old format ("%d" for digits, "%f"
-# for floating point numbers, "%s" for strings, etc.), and the original strings
-# are still provided in the old format to avoid merge conflicts when updating
-# existing translations. 
 
 #. Add header entry "X-PasswordTech-Manual: ..." to provide language-specific manual
 msgid ""
 msgstr ""
-"Project-Id-Version: Password Tech 3.5.6\n"
+"Project-Id-Version: Password Tech 3.5.4\n"
 "Last-Translator: Christian Thöing\n"
 "Language: de\n"
 
@@ -122,7 +106,7 @@ msgstr "Erweitert"
 
 #. Main window, button to access advanced password options, tooltip
 msgid "%d option(s) active"
-msgstr "%1 Option(en) aktiv"
+msgstr "%d Option(en) aktiv"
 
 #. Main window, button to access advanced password options, dropdown menu
 msgid "Deactivate All Options"
@@ -142,7 +126,7 @@ msgstr "Auf \"Generieren\" klicken"
 
 #. Main window, button to toggle password display (either display as-is or hide behind symbols)
 msgid "Hide/show password"
-msgstr "Passwort verbergen/anzeigen"
+msgstr "Passwort verstecken/anzeigen"
 
 #. Main window, password groupbox, tooltip of quality bar
 msgid "Hold left mouse button to drag & drop password"
@@ -234,7 +218,7 @@ msgstr "Fenster immer oben"
 
 #. Main menu, Options submenu
 msgid "Hide Entropy Progress"
-msgstr "Entropie-Fortschritt ausblenden"
+msgstr "Entropie-Fortschritt verstecken"
 
 #. Main menu, Options submenu
 msgid "Save Settings on Exit"
@@ -251,9 +235,6 @@ msgstr "Hilfe"
 #. Main window, Help button tooltip
 msgid "Open Manual"
 msgstr "Benutzerhandbuch öffnen"
-
-msgid "Command Line Arguments..."
-msgstr "Kommandozeilen-Argumente..."
 
 #. Main menu, Help submenu
 msgid "Visit Website"
@@ -277,11 +258,11 @@ msgstr "Info über Zeitgeber..."
 
 #. Main window, Help submenu
 msgid "About %s..."
-msgstr "Über %1..."
+msgstr "Über %s..."
 
 #. System tray context menu, Restore application
 msgid "Restore %s"
-msgstr "%1 wiederherstellen"
+msgstr "%s wiederherstellen"
 
 #. System tray context menu, Generate Password to clipboard
 msgid "Generate Password"
@@ -298,34 +279,6 @@ msgstr "Passwort generieren und Autotype"
 #. System tray context menu
 msgid "Open user manual"
 msgstr "Benutzerhandbuch öffnen"
-
-#. Command line arguments
-msgid "Usage:"
-msgstr "Benutzung:"
-
-#. Command line arguments
-msgid "Display this help message."
-msgstr "Diesen Hilfetext anzeigen."
-
-#. Command line arguments
-msgid "Do not write to disk unless explicitly requested."
-msgstr "Nicht auf die Festplatte schreiben, wenn nicht explizit verlangt."
-
-#. Command line arguments
-msgid "Load profile named 'profilename' on start-up."
-msgstr "Profil mit Namen 'profilename' beim Starten laden."
-
-#. Command line arguments
-msgid "Generate 'number' of passwords and display on the console, then close application."
-msgstr "Anzahl 'number' an Passwörtern generieren und auf der Konsole anzeigen, dann Programm schließen."
-
-#. Command line arguments
-msgid "Launch application in the background."
-msgstr "Programm im Hintergrund starten."
-
-#. Command line arguments
-msgid "Open database named 'filename' on start-up and show password manager window."
-msgstr "Datenbank mit Namen 'filename' beim Starten öffnen und Passwort-Manager-Fenster anzeigen."
 
 #. Main window, Clear Clipboard button tooltip
 msgid "Clear clipboard (text contents only)"
@@ -457,7 +410,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Fehler beim Lesen der random-seed-Datei\n"
-"\"%1\"."
+"\"%s\"."
 
 #. Message shown when writing randseed.dat failed
 msgid ""
@@ -465,7 +418,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Fehler beim Schreiben der random-seed-Datei\n"
-"\"%1\"."
+"\"%s\"."
 
 #. List of unknown command line parameters (when the application is run from the command line)
 msgid ""
@@ -473,7 +426,7 @@ msgid ""
 "%s"
 msgstr ""
 "Unbekannte(r) Kommandozeilenschalter:\n"
-"%1"
+"%s"
 
 #. Message shown when word list could not be loaded
 msgid ""
@@ -481,7 +434,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Fehler beim Laden der Wortlisten-Datei\n"
-"\"%1\"."
+"\"%s\"."
 
 #. Message shown when passwords from common_passwords.txt could not be loaded
 msgid ""
@@ -489,23 +442,23 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Laden der Liste häufiger Passwörter:\n"
-"%1."
+"%s."
 
 #. List of errors that occurred during startup phase of the application
 msgid "%s encountered %d error(s) during startup:"
-msgstr "Beim Starten von %1 ist/sind %2 Fehler aufgetreten:"
+msgstr "Beim Starten von %s ist/sind %d Fehler aufgetreten:"
 
 #. Reminder to make a donation, shown with a certain frequency on startup
 msgid ""
 "If you like %s, please consider\n"
 "making a donation. Thank you!"
 msgstr ""
-"Wenn Sie %1 mögen, ziehen Sie bitte eine\n"
+"Wenn Sie %s mögen, ziehen Sie bitte eine\n"
 "Spende in Betracht. Danke!"
 
 #. Message shown when selected character set is invalid
 msgid "Character set \"%s\" is invalid."
-msgstr "Zeichensatz \"%1\" ist ungültig."
+msgstr "Zeichensatz \"%s\" ist ungültig."
 
 #. Message shown when configuration file could not be written
 msgid ""
@@ -513,15 +466,15 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Schreiben der Konfigurationsdatei:\n"
-"%1."
+"%s."
 
 #. Information about selected character set (number N of unique characters and entropy bits (=log2(N)) per character)
 msgid "%d characters / %.1f bits per character"
-msgstr "%1 Zeichen / %2 Bits pro Zeichen"
+msgstr "%d Zeichen / %.1f Bits pro Zeichen"
 
 #. Information about selected word list file (number N of unique words and entropy bits (=log2(N)) per word) 
 msgid "%d words / %.1f bits per word"
-msgstr "%1 Wörter / %2 Bits pro Wort"
+msgstr "%d Wörter / %.1f Bits pro Wort"
 
 #. Message shown when selected trigram file could not be read
 msgid "Could not open trigram file."
@@ -604,7 +557,7 @@ msgid ""
 "Allowed range is %d-%d."
 msgstr ""
 "Ungültige Anzahl an Passwörtern.\n"
-"Erlaubter Wertebereich ist %1-%2."
+"Erlaubter Wertebereich ist %d-%d."
 
 #. Main window, Generate password list to file, message shown when selected file already exists
 msgid ""
@@ -638,7 +591,7 @@ msgid ""
 msgstr ""
 "Wenn die Option \"Jedes Zeichen darf nur einmal\n"
 "vorkommen\" aktiviert ist, ist die Passwortlänge\n"
-"auf %1 einmalige Zeichen beschränkt."
+"auf %d einmalige Zeichen beschränkt."
 
 #. Message shown for a certain configuration of passphrase settings
 msgid ""
@@ -648,7 +601,7 @@ msgid ""
 msgstr ""
 "Wenn die Option \"Jedes Wort darf nur einmal\n"
 "vorkommen\" aktiviert ist, ist die Anzahl der\n"
-"Wörter auf die Größe der Wortliste beschränkt (%1)."
+"Wörter auf die Größe der Wortliste beschränkt (%d)."
 
 #. Message shown when selected script file could not be loaded
 msgid ""
@@ -656,7 +609,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Laden des Skripts:\n"
-"%1."
+"%s."
 
 #. Title of Progress window when generating a single password
 msgid "Generating password"
@@ -668,7 +621,7 @@ msgstr "Generiere Passwort-Liste"
 
 #. Progress info when generating password list
 msgid "%d of %d passwords generated."
-msgstr "%1 von %2 Passwörtern generiert."
+msgstr "%d von %d Passwörtern generiert."
 
 #. Formatted password, Include Characters/Words selected, but format specifier "P" not found in format string
 msgid "\"P\" is not specified"
@@ -684,7 +637,7 @@ msgstr "Passwort zu lang"
 
 #. Formatted password, format string contains unknown specifier
 msgid "%d invalid format specifier(s): %s"
-msgstr "%1 ungültige(r) Format-Spezifizierer: %2"
+msgstr "%d ungültige(r) Format-Spezifizierer: %s"
 
 #. Run script, executing Lua script
 msgid "Executing script"
@@ -724,11 +677,11 @@ msgstr ""
 "Die Speichergrenze der Passwort-Liste wurde\n"
 "überschritten.\n"
 "\n"
-"Die Passwort-Anzahl wurde auf %1 reduziert."
+"Die Passwort-Anzahl wurde auf %d reduziert."
 
 #. Generate password list, number of generated passwords
 msgid "%d passwords generated."
-msgstr "%1 Passwörter generiert."
+msgstr "%d Passwörter generiert."
 
 #. Generate password list, info about passwords
 msgid ""
@@ -736,9 +689,9 @@ msgid ""
 "Entropy of the first password: %d bits.\r\n"
 "Maximum entropy of the entire list: %d bits."
 msgstr ""
-"%1 Passwörter generiert.\r\n"
-"Entropie des ersten Passworts: %2 Bits.\r\n"
-"Maximale Entropie der gesamten Liste: %3 Bits."
+"%d Passwörter generiert.\r\n"
+"Entropie des ersten Passworts: %d Bits.\r\n"
+"Maximale Entropie der gesamten Liste: %d Bits."
 
 #. Generate password to clipboard
 msgid "Password copied to clipboard."
@@ -758,9 +711,9 @@ msgid ""
 "\n"
 "%d passwords written."
 msgstr ""
-"Datei \"%1\" erfolgreich erzeugt.\n"
+"Datei \"%s\" erfolgreich erzeugt.\n"
 "\n"
-"%2 Passwörter geschrieben."
+"%d Passwörter geschrieben."
 
 #. Generate password, error message
 msgid ""
@@ -769,7 +722,7 @@ msgid ""
 msgstr ""
 "Während der Passwort-Generierung ist ein\n"
 "Fehler aufgetreten:\n"
-"%1."
+"%s."
 
 #. Generate password, error message
 msgid ""
@@ -779,15 +732,15 @@ msgid ""
 msgstr ""
 "Beim Versuch, Passwortdaten zu senden oder\n"
 "zu verarbeiten, ist ein Fehler aufgetreten:\n"
-"%1."
+"%s."
 
 #. Generate password, error message, additional info when generating passwords to file
 msgid "%d passwords written to file \"%s\"."
-msgstr "%1 Passwörter in Datei \"%2\" geschrieben."
+msgstr "%d Passwörter in Datei \"%s\" geschrieben."
 
 #. Include characters, info about character set
 msgid "%d bits / %d characters"
-msgstr "%1 Bits / %2 Zeichen"
+msgstr "%d Bits / %d Zeichen"
 
 #. Include characters, error message shown when character set is invalid
 msgid "Invalid character set."
@@ -803,7 +756,7 @@ msgstr "(mit unterschiedlichen Häufigkeiten)"
 
 #. Data loaded from file
 msgid "File \"%s\""
-msgstr "Datei \"%1\""
+msgstr "Datei \"%s\""
 
 #. Include characters, info about phonetic passwords
 msgid ""
@@ -813,7 +766,7 @@ msgid ""
 msgstr ""
 "(phonetisch, basierend auf Trigramm-Häufigkeiten\n"
 "aus folgender Quelle:\n"
-"<%1>)"
+"<%s>)"
 
 #. Include characters, more detailed error message
 msgid ""
@@ -846,8 +799,8 @@ msgid ""
 "%s"
 msgstr ""
 "Fehler beim Laden der Datei\n"
-"\"%1\":\n"
-"%2"
+"\"%s\":\n"
+"%s"
 
 #. Include words, info about default word list
 msgid "default (English) word list"
@@ -878,10 +831,10 @@ msgid ""
 "\n"
 "Do you want to use it anyway?"
 msgstr ""
-"Die Version dieser Sprache (%1) ist nicht\n"
+"Die Version dieser Sprache (%s) ist nicht\n"
 "kompatibel mit dieser Programmversion.\n"
-"Diese Version von %2 benötigt eine\n"
-"Sprachversion von mind. %3.\n"
+"Diese Version von %s benötigt eine\n"
+"Sprachversion von mind. %s.\n"
 "\n"
 "Möchten Sie sie trotzdem verwenden?"
 
@@ -893,8 +846,8 @@ msgid ""
 "\n"
 "Do you want to use it anyway?"
 msgstr ""
-"Die Version dieser Sprache (%1) ist höher\n"
-"als die Version dieses Programms (%2).\n"
+"Die Version dieser Sprache (%s) ist höher\n"
+"als die Version dieses Programms (%s).\n"
 "Es könnte daher zu Versionsinkompatibilitäten\n"
 "kommen.\n"
 "\n"
@@ -938,9 +891,9 @@ msgid ""
 msgstr ""
 "Das generierte Passwort lautet:\n"
 "\n"
-"%1\n"
+"%s\n"
 "\n"
-"Die geschätzte Sicherheit beträgt %2 Bits.\n"
+"Die geschätzte Sicherheit beträgt %d Bits.\n"
 "\n"
 "Ja -> Passwort in Zwischenablage kopieren,\n"
 "Nein -> neues Passwort generieren,\n"
@@ -956,7 +909,7 @@ msgstr ""
 
 #. Main menu, Help submenu
 msgid "Total Entropy Bits: %d"
-msgstr "Gesamtanzahl Entropie-Bits: %1"
+msgstr "Gesamtanzahl Entropie-Bits: %d"
 
 #. Main menu, Help submenu, info about high-resolution timer
 msgid ""
@@ -966,9 +919,9 @@ msgid ""
 "Current value: %s."
 msgstr ""
 "Verwendeter hochauflösender Zeitgeber:\n"
-"%1\n"
+"%s\n"
 "\n"
-"Momentaner Wert: %2."
+"Momentaner Wert: %s."
 
 #. Check for updates, message shown when version file could not be downloaded
 msgid "Could not download version file"
@@ -983,16 +936,16 @@ msgid ""
 "A new version (%s) of %s is available!\n"
 "Do you want to visit the download page now?"
 msgstr ""
-"Eine neue Version (%1) von %2 ist verfügbar!\n"
+"Eine neue Version (%s) von %s ist verfügbar!\n"
 "Möchten Sie jetzt die Download-Seite aufrufen?"
 
 #. Check for updates, additional info about new version
 msgid "(NOTE: %s)"
-msgstr "(HINWEIS: %1)"
+msgstr "(HINWEIS: %s)"
 
 #. Check for updates, message shown when there's no new version to download
 msgid "Your version of %s is up-to-date."
-msgstr "Ihre Version von %1 ist aktuell."
+msgstr "Ihre Version von %s ist aktuell."
 
 #. Check for updates, general error message
 msgid ""
@@ -1000,7 +953,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Suchen nach Updates:\n"
-"%1."
+"%s."
 
 #. Main window, info shown in window title when using deterministic random generator
 msgid "WARNING: Random generator is deterministic (press F7 to deactivate)!"
@@ -1012,7 +965,7 @@ msgstr "Zwischenablage gelöscht."
 
 #. Message shown after loading profile
 msgid "Profile \"%s\" activated."
-msgstr "Profil \"%1\" aktiviert."
+msgstr "Profil \"%s\" aktiviert."
 
 #. Message shown after activating deterministic random generator
 msgid "Deterministic random generator has been ACTIVATED."
@@ -1028,11 +981,11 @@ msgstr "Deterministischer Zufallsgenerator DEAKTIVIERT."
 
 #. Message shown on command line if profile was specified in command line parameters
 msgid "Selected profile \"%s\"."
-msgstr "Profil \"%1\" ausgewählt."
+msgstr "Profil \"%s\" ausgewählt."
 
 #. Message shown on command line if password generation was requested
 msgid "Generating %d password(s) ..."
-msgstr "Generiere %1 Passwörter ..."
+msgstr "Generiere %d Passwörter ..."
 
 #. Message shown during startup if password generation was requested but program is not run from console
 msgid ""
@@ -1040,7 +993,7 @@ msgid ""
 "when %s is run from the console."
 msgstr ""
 "Die Kommandozeilenfunktion \"gen\" ist nur wirksam,\n"
-"wenn %1 von der Konsole gestartet wird."
+"wenn %s von der Konsole gestartet wird."
 
 #. Message shown when donor key has expired
 msgid ""
@@ -1067,8 +1020,8 @@ msgid ""
 "Your Donor ID is: %s\n"
 "Supported number of updates: %s"
 msgstr ""
-"Ihre Spender-ID ist: %1\n"
-"Unterstützte Anzahl von Updates: %2"
+"Ihre Spender-ID ist: %s\n"
+"Unterstützte Anzahl von Updates: %s"
 
 #. Donor key, unlimited number of updates ("Donor Pro")
 msgid "Unlimited"
@@ -1122,8 +1075,8 @@ msgstr ""
 "Spenden Sie mindestens einen der folgenden\n"
 "Beträge, um einen Spender-Schlüssel zu erhalten:\n"
 "\n"
-"%1 EUR / %2 USD: Gültig für die aktuelle Version und %3 Updates.\n"
-"%4 EUR / %5 USD: Gültig für die gesamte Lebensdauer von Version 3 (unbegrenzte Updates).\n"
+"%d EUR / %d USD: Gültig für die aktuelle Version und %d Updates.\n"
+"%d EUR / %d USD: Gültig für die gesamte Lebensdauer von Version 3 (unbegrenzte Updates).\n"
 "\n"
 "Möchten Sie jetzt spenden?"
 
@@ -1133,7 +1086,7 @@ msgid ""
 "%s."
 msgstr ""
 "Zugriff auf Registrierungs-Schlüssel verweigert:\n"
-"%1."
+"%s."
 
 #. Configuration window, caption
 msgid "Configuration"
@@ -1166,10 +1119,6 @@ msgstr "Datenbank"
 #. Configuration window, General
 msgid "User interface style:"
 msgstr "Stil der Benutzeroberfläche:"
-
-#. Configuration window, General
-msgid "Application icon:"
-msgstr "Programm-Symbol:"
 
 #. Configuration window, General
 msgid "Change font for the GUI controls:"
@@ -1229,7 +1178,7 @@ msgstr "Passwörter gegen Liste häufiger Passwörter testen"
 
 #. Configuration window, Security
 msgid "Use advanced password strength estimation (%s)"
-msgstr "Passwortqualität mit erweitertem Algorithmus (%1) abschätzen"
+msgstr "Passwortqualität mit erweitertem Algorithmus (%s) abschätzen"
 
 #. Configuration window, Security
 msgid "Clear clipboard automatically after the following time (seconds):"
@@ -1347,50 +1296,6 @@ msgstr "Zeichensequenz für Zeilenumbruch (\"newline\")"
 msgid "Select language:"
 msgstr "Sprache auswählen:"
 
-#. Configuration window, Language
-msgid "Install..."
-msgstr "Installieren..."
-
-#. Configuration window, Language, Open dialog title
-msgid "Select language file to install"
-msgstr "Zu installierende Sprache auswählen"
-
-#. Configuration window, Language, Open dialog filter
-msgid "Language files"
-msgstr "Sprachdateien"
-
-#. Configuration window, Language, Install
-msgid "Language already installed"
-msgstr "Sprache bereits installiert"
-
-#. Configuration window, Language, Install
-msgid "Language file already exists:\n\"%1\""
-msgstr "Sprachdatei existiert bereits:\n"%1\""
-
-#. Configuration window, Language, Install
-msgid "Language \"%1\" installed successfully."
-msgstr "Sprache \"%1\" erfolgreich installiert."
-
-#. Configuration window, Language, Install
-msgid "Could not copy file \"%1\" to\n\"%2\""
-msgstr "Konnte Datei \"%1\" nicht kopieren nach\n\"%2\""
-
-#. Configuration window, Language, Install
-msgid "Could not install language:\n%1."
-msgstr "Konnte Sprache nicht installieren:\n%1."
-
-#. Configuration window, Language, Remove
-msgid "Are you sure you want to remove\n\"%1\"?"
-msgstr "Sind Sie sicher, dass Sie\n\"%1\" entfernen möchten?"
-
-#. Configuration window, Language, Remove
-msgid "Language \"%1\" successfully removed."
-msgstr "Sprache \"%1\" erfolgreich entfernt."
-
-#. Configuration window, Language, Remove
-msgid "Could not delete file\n\"%1\"."
-msgstr "Konnte Datei nicht löschen:\n\"%1\"."
-
 #. Configuration window, Database
 msgid "Clear clipboard when closing/locking database"
 msgstr "Zwischenablage löschen, wenn Datenbank geschlossen/gesperrt wird"
@@ -1423,9 +1328,6 @@ msgstr "Fenster bei Programmstart öffnen"
 msgid "Open last used database on startup"
 msgstr "Zuletzt verwendete Datenbank beim Start öffnen"
 
-msgid "Keep list of recently opened files"
-msgstr "Liste kürzlich geöffneter Dateien beibehalten"
-
 #. Configuration window, Database
 msgid "Warn if database contains expired entries"
 msgstr "Warnen, wenn Datenbank verfallene Einträge enthält"
@@ -1456,7 +1358,7 @@ msgstr "Standard-Autotype-Sequenz:"
 
 #. Configuration window, Hot Keys, message shown when max. number of hot keys has been exhausted
 msgid "Maximum number of hot keys (%d) reached."
-msgstr "Maximale Anzahl an Hotkeys (%1) erreicht."
+msgstr "Maximale Anzahl an Hotkeys (%d) erreicht."
 
 #. Configuration window, Hot Keys, message shown when hot key has already been assigned
 msgid "This hot key has already been assigned."
@@ -1464,11 +1366,11 @@ msgstr "Dieser Hotkey wurde bereits zugewiesen."
 
 #. Configuration window, Security, Random pool cipher
 msgid "%s (%d-bit key, operates on %d-bit blocks)"
-msgstr "%1 (%2-Bit-Schlüssel, verarbeitet %3-Bit-Blöcke)"
+msgstr "%s (%d-Bit-Schlüssel, verarbeitet %d-Bit-Blöcke)"
 
 #. Configuration window, Security, Random pool cipher, Benchmark results
 msgid "Benchmark results (data size: %d MB):"
-msgstr "Testergebnisse (Datenmenge: %1 MB):"
+msgstr "Testergebnisse (Datenmenge: %d MB):"
 
 #. Enter password window, label
 msgid "Enter password:"
@@ -1532,7 +1434,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Erstellen der Schlüsseldatei:\n"
-"%1."
+"%s."
 
 #. Enter password window, Open file dialog, filter for *.key files
 msgid "Key files"
@@ -1561,12 +1463,12 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Erstellen der Datei\n"
-"\"%1\":\n"
-"%2."
+"\"%s\":\n"
+"%s."
 
 #. Password List window, Save as file, success message
 msgid "File \"%s\" successfully created."
-msgstr "Datei \"%1\" erfolgreich erstellt."
+msgstr "Datei \"%s\" erfolgreich erstellt."
 
 #. Advanced Password Options window, title
 msgid "Advanced Password Options"
@@ -1619,10 +1521,6 @@ msgstr "Nur Zeichen aus benutzerdefiniertem Zeichensatz verwenden"
 #. Advanced Password Options window, list of boolean options (checkboxes)
 msgid "Exclude repeating consecutive characters (e.g. aa, 11)"
 msgstr "Folge desselben Zeichens ausschließen (z.B. aa, 11)"
-
-#. Advanced Password Options window, list of boolean options (checkboxes)
-msgid "Remove leading and trailing whitespace characters"
-msgstr "Leerraum- (whitespace) Zeichen am Anfang und Ende entfernen"
 
 #. Advanced Password Options window, list of boolean options (checkboxes)
 msgid "Exclude duplicate entries in password lists"
@@ -1754,7 +1652,7 @@ msgstr "Erstelle Datei mit Zufallsdaten ..."
 
 #. Create Random Data File dialog, Progress window, progress message
 msgid "%d of %d %s written."
-msgstr "%1 von %2 %3 geschrieben."
+msgstr "%d von %d %s geschrieben."
 
 #. Create Random Data File dialog, success message
 msgid ""
@@ -1762,9 +1660,9 @@ msgid ""
 "\n"
 "%d bytes written."
 msgstr ""
-"Datei \"%1\" erfolgreich erzeugt.\n"
+"Datei \"%s\" erfolgreich erzeugt.\n"
 "\n"
-"%2 Bytes geschrieben."
+"%d Bytes geschrieben."
 
 #. Create Random Data File dialog, error message
 msgid ""
@@ -1775,10 +1673,10 @@ msgid ""
 "%d bytes written."
 msgstr ""
 "Fehler beim Erstellen der Datei\n"
-"\"%1\":\n"
-"%2.\n"
+"\"%s\":\n"
+"%s.\n"
 "\n"
-"%3 Bytes geschrieben."
+"%d Bytes geschrieben."
 
 #. Profile Editor dialog, title
 msgid "Profile Editor"
@@ -1810,18 +1708,18 @@ msgstr "\"Erweiterte Passwort-Optionen\" für dieses Profil speichern"
 
 #. Profile Editor dialog, message shown before deleting a single profile
 msgid "Delete profile \"%s\"?"
-msgstr "Profil \"%1\" löschen?"
+msgstr "Profil \"%s\" löschen?"
 
 #. Profile Editor dialog, message shown before deleting multiple profiles
 msgid "Delete %d profiles?"
-msgstr "%1 Profile löschen?"
+msgstr "%d Profile löschen?"
 
 #. Profile Editor dialog, message shown when max. number of profiles has been reached
 msgid ""
 "Maximum number of profiles (%d) reached.\n"
 "Please delete or overwrite profiles."
 msgstr ""
-"Maximale Anzahl an Profilen (%1) erreicht.\n"
+"Maximale Anzahl an Profilen (%d) erreicht.\n"
 "Bitte löschen oder überschreiben Sie Profile."
 
 #. Profile Editor dialog, message shown when a profile already exists
@@ -1829,7 +1727,7 @@ msgid ""
 "A profile with the name \"%s\" already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Ein Profil mit dem Namen \"%1\" existiert bereits.\n"
+"Ein Profil mit dem Namen \"%s\" existiert bereits.\n"
 "Möchten Sie es überschreiben?"
 
 #. Create Trigram File dialog, title
@@ -1851,10 +1749,10 @@ msgid ""
 "%d trigrams evaluated.\n"
 "%1.2f bits of entropy per letter."
 msgstr ""
-"Trigramm-Datei \"%1\" erfolgreich erstellt.\n"
+"Trigramm-Datei \"%s\" erfolgreich erstellt.\n"
 "\n"
-"%2 Trigramme ausgewertet.\n"
-"%3 Entropie-Bits pro Buchstabe."
+"%d Trigramme ausgewertet.\n"
+"%1.2f Entropie-Bits pro Buchstabe."
 
 #. Create Trigram File dialog, message shown when process was cancelled
 msgid "Process was cancelled by the user"
@@ -1862,15 +1760,15 @@ msgstr "Vorgang wurde durch den Benutzer abgebrochen"
 
 #. Main menu, Help submenu
 msgid "About %s"
-msgstr "Über %1"
+msgstr "Über %s"
 
 #. About window, info about translation
 msgid ""
 "Current language: %s\n"
 "Translator: %s"
 msgstr ""
-"Aktuelle Sprache: %1\n"
-"Übersetzer: %2"
+"Aktuelle Sprache: %s\n"
+"Übersetzer: %s"
 
 #. About window, license info
 msgid "This program is distributed under the terms and conditions of the GNU General Public License (GPL)."
@@ -2095,7 +1993,7 @@ msgstr "Parameter:"
 
 #. MP Password Generator window, label
 msgid "%d ch. / %.1f bits per ch."
-msgstr "%1 Zeichen / %2 Bits pro Zeichen"
+msgstr "%d Zeichen / %.1f Bits pro Zeichen"
 
 #. MP Password Generator window, label
 msgid "Resulting password:"
@@ -2127,7 +2025,7 @@ msgstr "Neuer Schlüssel generiert."
 
 #. MP Password Generator Window, label next to password quality bar
 msgid "%d bits"
-msgstr "%1 Bits"
+msgstr "%d Bits"
 
 #. Provide Additional Entropy window, label
 msgid "Enter or paste some text into the box below, press mouse buttons, or move your mouse within the window."
@@ -2135,7 +2033,7 @@ msgstr "Geben Sie Text in die Box unten ein, drücken Sie Maustasten oder bewege
 
 #. Provide Additional Entropy window, message shown when entropy has been added
 msgid "%d bits of entropy have been added to the random pool."
-msgstr "%1 Entropie-Bits wurden dem Zufallspool hinzugefügt."
+msgstr "%d Entropie-Bits wurden dem Zufallspool hinzugefügt."
 
 #. Password Manager window, Open database, error message
 msgid "Database not encrypted, or invalid key"
@@ -2291,10 +2189,6 @@ msgid "Lock"
 msgstr "Sperren"
 
 #. Password Manager window, main menu, File submenu
-msgid "Clear Recently Opened List"
-msgstr "Liste kürzlich geöffneter Dateien löschen"
-
-#. Password Manager window, main menu, File submenu
 msgid "Unlock"
 msgstr "Entsperren"
 
@@ -2440,23 +2334,15 @@ msgstr "Datenbank sperren/entsperren"
 
 #. Password Manager window, Edit panel, Toggle password button, tooltip
 msgid "Left-click: Hide/show password, right-click: Generate password"
-msgstr "Linksklick: Passwort verbergen/anzeigen, Rechtsklick: Passwort generieren"
-
-#. Password Manager window, Edit panel, Toggle notes button, tooltip
-msgid "Hide/show notes"
-msgstr "Notizen anzeigen/verbergen"
-
-#. Password Manager window, Edit Panel, text displayed when notes are hidden
-msgid "Notes hidden - click here to display"
-msgstr "Notizen verborgen - zum Anzeigen hier klicken"
+msgstr "Linksklick: Passwort verstecken/anzeigen, Rechtsklick: Passwort generieren"
 
 #. Password Manager window, title of password entry dialog when unlocking database
 msgid "Unlock %s"
-msgstr "%1 entsperren"
+msgstr "%s entsperren"
 
 #. Password Manager window, title of password entry dialog when opening database
 msgid "Open %s"
-msgstr "%1 öffnen"
+msgstr "%s öffnen"
 
 #. Password Manager window, title of password entry dialog when creating new database
 msgid "Create new database"
@@ -2468,7 +2354,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Konnte Datenbank-Datei nicht finden:\n"
-"\"%1\"."
+"\"%s\"."
 
 #. Password Manager window, error message when opening database
 msgid ""
@@ -2476,7 +2362,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Öffnen der Datenbank-Datei:\n"
-"%1."
+"%s."
 
 #. Password Manager window, warning message when opening database
 msgid "The selected file is already opened."
@@ -2510,7 +2396,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Konnte Backup-Datei nicht speichern:\n"
-"\"%1\"."
+"\"%s\"."
 
 #. Password Manager window, error message
 msgid ""
@@ -2518,7 +2404,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Speichern der Datenbank-Datei:\n"
-"%1."
+"%s."
 
 #. Password Manager window, message when editing an entry and trying to add new entries
 msgid ""
@@ -2531,7 +2417,7 @@ msgstr ""
 
 #. Password Manager window, message when new entries have been added
 msgid "%d entries with passwords have been added."
-msgstr "%1 Einträge mit Passwörtern hinzugefügt."
+msgstr "%d Einträge mit Passwörtern hinzugefügt."
 
 #. Password Manager window, Search result
 msgid "1 entry found."
@@ -2539,7 +2425,7 @@ msgstr "1 Eintrag gefunden."
 
 #. Password Manager window, Search result
 msgid "%d entries found."
-msgstr "%1 Einträge gefunden."
+msgstr "%d Einträge gefunden."
 
 #. Password Manager window, Search result (via hot key)
 msgid "Search via hot key."
@@ -2551,7 +2437,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Kein passender Eintrag gefunden für Fenstertext\n"
-"\"%1\"."
+"\"%s\"."
 
 #. Password Manager window, placeholder for New Entry in list view
 msgid "New Entry"
@@ -2569,7 +2455,7 @@ msgstr "1 Eintrag löschen?"
 
 #. Password Manager window, confirm deletion of entries
 msgid "Delete %d entries?"
-msgstr "%1 Einträge löschen?"
+msgstr "%d Einträge löschen?"
 
 #. Password Manager window, Change master password, query old password
 msgid "Enter OLD master password"
@@ -2606,7 +2492,7 @@ msgid ""
 "%s."
 msgstr ""
 "Fehler beim Erstellen der CSV-Datei:\n"
-"%1."
+"%s."
 
 #. Password Manager window, Open/Save dialog, filter for .pwdb files
 msgid "Password databases"
@@ -2650,7 +2536,7 @@ msgid ""
 "Longer tags have been shortened."
 msgstr ""
 "Die maximale Länge einer Kennzeichnung beträgt\n"
-"%1 Zeichen. Längere Kennzeichnungen wurden gekürzt."
+"%d Zeichen. Längere Kennzeichnungen wurden gekürzt."
 
 #. Password Manager window, main menu, File submenu, Set Recovery Password, title of password entry dialog
 msgid "Enter master password"
@@ -2670,7 +2556,7 @@ msgstr "Parameterliste editieren"
 
 #. Password Manager window, Edit panel, password box, generate password, message shown when profile specified by corresponding key-value pair could not be found
 msgid "Profile \"%s\" not found."
-msgstr "Profil \"%1\" nicht gefunden."
+msgstr "Profil \"%s\" nicht gefunden."
 
 #. Password Manager window, field name
 msgid "Password expiry"
@@ -2702,7 +2588,7 @@ msgstr "Einträge mit schwachen Passwörtern"
 
 #. Password Manager window, Edit panel, context menu of Expiry button, menu items
 msgid "%d days"
-msgstr "%1 Tage"
+msgstr "%d Tage"
 
 #. Password Manager window, when opening database, message shown if database contains expired entries
 msgid ""
@@ -2768,9 +2654,9 @@ msgid ""
 "Highest supported version: %d.%d"
 msgstr ""
 "Datenbank-Formatfehler:\n"
-"%1.\n"
-"Datenbank-Version: %2.%3\n"
-"Höchste unterstützte Version: %4.%5"
+"%s.\n"
+"Datenbank-Version: %d.%d\n"
+"Höchste unterstützte Version: %d.%d"
 
 #. Password Manager window, Select Columns dialog, window title
 msgid "Select columns"
@@ -2818,7 +2704,7 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Konnte Datei/Operation\n"
-"\"%1\"\n"
+"\"%s\"\n"
 "nicht öffnen/ausführen."
 
 #. Main menu, Tools submenu, Create Trigram File, message shown when source file does not contain enough 3-letter combinations (trigrams) to create the trigram file
@@ -2847,7 +2733,7 @@ msgstr "Verschlüsselungs-Algorithmus:"
 
 #. Password Manager window, Database Settings dialog, items in list of encryption algorithms
 msgid "%s with %d-bit key"
-msgstr "%1 mit %2-Bit-Schlüssel"
+msgstr "%s mit %d-Bit-Schlüssel"
 
 #. Password Manager window, Database Settings dialog, label
 msgid "Number of key derivation rounds:"
@@ -2973,66 +2859,47 @@ msgstr "Gefiltert"
 msgid "Remove filter"
 msgstr "Filter entfernen"
 
-#. Main window, button to build character set definition
 msgid "Build..."
 msgstr "Erstellen..."
 
-#. Main window, button to build character set definition, hint
 msgid "Build character set definition"
 msgstr "Zeichensatz-Definition erstellen"
 
-#. Character set builder, window title
 msgid "Character Set Builder"
 msgstr "Zeichensatz erstellen"
 
-#. Character set builder, group box with character sets
 msgid "Character set selection"
 msgstr "Zeichensatz-Auswahl"
 
-#. Character set builder, group box with tag/comment
-msgid "Tag/comment"
-msgstr "Kennzeichnung/Kommentar"
-
-#. Character set builder, group box with resulting definition
 msgid "Resulting character set definition"
 msgstr "Resultierende Zeichensatz-Definition"
 
-#. Character set builder, button
 msgid "Apply"
 msgstr "Übernehmen"
 
-#. Character set builder, check box
 msgid "Lower-case letters (a-z)"
 msgstr "Kleinbuchstaben (a-z)"
 
-#. Character set builder, check box
 msgid "Upper-case letters (A-Z)"
 msgstr "Großbuchstaben (A-Z)"
 
-#. Character set builder, check box
 msgid "Digits (0-9)"
 msgstr "Zahlen (0-9)"
 
-#. Character set builder, check box
 msgid "Characters from range:"
 msgstr "Zeichen aus Bereich:"
 
-#. Character set builder, check box
 msgid "Additional characters:"
 msgstr "Zusätzliche Zeichen:"
 
-#. Character set builder, check box
 msgid "At least"
 msgstr "Mindestens"
 
-#. Character set builder, edit box
 msgid "From:"
 msgstr "Von:"
 
-#. Character set builder, edit box
 msgid "to:"
 msgstr "bis:"
 
-#. Character set builder, error message
 msgid "Invalid character range."
 msgstr "Ungültiger Zeichenbereich."
