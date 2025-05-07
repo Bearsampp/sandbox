@@ -1,11 +1,8 @@
-/*
- *
- *  * Copyright (c) 2022-2025 Bearsampp
- *  * License: GNU General Public License version 3 or later; see LICENSE.txt
- *  * Website: https://bearsampp.com
- *  * Github: https://github.com/Bearsampp
- *
- */
+/*!
+  * Bootstrap v5.3.6 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
 import * as Popper from '@popperjs/core';
 
 /**
