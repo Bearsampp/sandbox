@@ -185,8 +185,9 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     }
 
     try {
-        $pagePath = __DIR__ . '/tpls/hp.' . $bearsamppHomepage->getPage() . '.html';
-        if (file_exists($pagePath)) {
+        $page = preg_replace('/[^a-z0-9_-]/i', '', (string) $bearsamppHomepage->getPage());
+        $pagePath = __DIR__ . '/tpls/hp.' . $page . '.html';
+        if (is_file($pagePath)) {
             include $pagePath;
         } else {
             include __DIR__ . '/tpls/hp.index.html';
