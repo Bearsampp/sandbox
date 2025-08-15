@@ -90,9 +90,8 @@ if (isset($_SERVER['argv']) && count($_SERVER['argv']) > 1) {
                 }
 
                 // Validate decoded content - prevent null bytes and excessive length
-                $maxArgLength = 2048; // Configurable limit for decoded arguments
-                if (strpos($decoded, "\0") !== false || strlen($decoded) > $maxArgLength) {
-                    Util::logError('Invalid decoded argument content or length exceeded: ' . strlen($decoded) . ' bytes');
+                if (strpos($decoded, "\0") !== false || strlen($decoded) > 1024) {
+                    Util::logError('Invalid decoded argument content: ' . $decoded);
                     die('Invalid argument content');
                 }
             }
