@@ -531,7 +531,8 @@ class BinMysql extends Module
     }
 
     /**
-     * Initializes the MySQL data directory if it does not exist.
+     * Initializes the MySQL data directory if needed.
+     * Triggers reinitialization when the directory exists but is incomplete (e.g., missing performance_schema).
      *
      * @param   string|null  $path     The path to the MySQL installation. If null, the current path is used.
      * @param   string|null  $version  The version of MySQL. If null, the current version is used.
@@ -545,30 +546,76 @@ class BinMysql extends Module
         $path    = $path != null ? $path : $this->getCurrentPath();
         $version = $version != null ? $version : $this->getVersion();
         $dataDir = $path . '/data';
+        $perfSchemaDir = $dataDir . '/performance_schema';
 
         if ( version_compare( $version, '5.7.0', '<' ) ) {
             Util::logTrace('MySQL version below 5.7.0, skipping initialization');
             return true;
         }
 
-        if ( file_exists( $dataDir ) ) {
-            Util::logTrace('MySQL data directory already exists');
+        $needsInit = false;
+
+        if ( !is_dir( $dataDir ) ) {
+            Util::logTrace('MySQL data directory does not exist; initialization required');
+            $needsInit = true;
+        } else {
+            if ( !is_dir( $perfSchemaDir ) ) {
+                Util::logTrace('performance_schema directory missing; reinitialization required');
+                $needsInit = true;
+            }
+        }
+
+        if ( !$needsInit ) {
+            Util::logTrace('MySQL data directory already initialized');
             return true;
         }
 
-        // Create data directory if it doesn't exist
-        if ( !is_dir( $dataDir ) ) {
-            mkdir( $dataDir, 0777, true );
-            Util::logTrace('Created MySQL data directory');
+        // Prepare a clean data directory (mysqld --initialize-insecure requires an empty/nonexistent directory)
+        if ( is_dir( $dataDir ) ) {
+            $backupDir = $dataDir . '_bak_' . date('Ymd_His');
+            if ( @rename( $dataDir, $backupDir ) ) {
+                Util::logTrace('Backed up existing data directory to: ' . $backupDir);
+            } else {
+                Util::logTrace('Failed to backup existing data directory; attempting to clear it');
+                try {
+                    $it = new \RecursiveDirectoryIterator($dataDir, \FilesystemIterator::SKIP_DOTS);
+                    $files = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
+                    foreach ($files as $file) {
+                        if ($file->isDir()) {
+                            @rmdir($file->getPathname());
+                        } else {
+                            @unlink($file->getPathname());
+                        }
+                    }
+                    @rmdir($dataDir);
+                } catch (\Throwable $t) {
+                    Util::logTrace('Error clearing data directory: ' . $t->getMessage());
+                }
+            }
         }
 
-        // Initialize MySQL data directory with timeout
+        if ( !is_dir( $dataDir ) ) {
+            @mkdir( $dataDir, 0777, true );
+            Util::logTrace('Created clean MySQL data directory');
+        }
+
+        // Build mysqld initialization command
+        $mysqld = $path . '/bin/mysqld.exe';
+        $defaultsFile = $path . '/my.ini';
+
+        $cmd = '"' . $mysqld . '" ';
+        if ( is_file( $defaultsFile ) ) {
+            $cmd .= '--defaults-file="' . $defaultsFile . '" ';
+        }
+        $cmd .= '--initialize-insecure --basedir="' . $path . '" --datadir="' . $dataDir . '"';
+
+        // Initialize with timeout
         $initDbStartTime = microtime(true);
-        $initDbTimeout = 30; // 30 seconds timeout
+        $initDbTimeout = 60; // seconds
 
         try {
             $process = proc_open(
-                $path . '/bin/mysql_install_db.exe',
+                $cmd,
                 [
                     0 => ['pipe', 'r'],
                     1 => ['pipe', 'w'],
@@ -579,13 +626,13 @@ class BinMysql extends Module
 
             if ( is_resource( $process ) ) {
                 // Set non-blocking mode
-                stream_set_blocking( $pipes[1], 0 );
-                stream_set_blocking( $pipes[2], 0 );
+                @stream_set_blocking( $pipes[1], 0 );
+                @stream_set_blocking( $pipes[2], 0 );
 
                 while ( true ) {
                     if ( microtime(true) - $initDbStartTime > $initDbTimeout ) {
-                        Util::logTrace('MySQL init_db timeout reached');
-                        proc_terminate( $process );
+                        Util::logTrace('MySQL initialize timeout reached');
+                        @proc_terminate( $process );
                         break;
                     }
 
@@ -594,16 +641,24 @@ class BinMysql extends Module
                         break;
                     }
 
-                    usleep(100000); // Sleep for 100ms
+                    usleep(100000); // 100ms
                 }
 
                 foreach ( $pipes as $pipe ) {
-                    fclose( $pipe );
+                    if ( is_resource($pipe) ) {
+                        fclose( $pipe );
+                    }
                 }
-                proc_close( $process );
+                @proc_close( $process );
             }
         } catch ( \Exception $e ) {
             Util::logTrace('Error during MySQL initialization: ' . $e->getMessage());
+            return false;
+        }
+
+        // Verify initialization by checking performance_schema existence
+        if ( !is_dir( $perfSchemaDir ) ) {
+            Util::logTrace('MySQL initialization appears to have failed: performance_schema still missing');
             return false;
         }
 
