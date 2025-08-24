@@ -228,12 +228,11 @@ class BinMysql extends Module
 
         if (!Util::isValidPort($port)) {
             Util::logError($this->getName() . ' port not valid: ' . $port);
-
             return false;
         }
 
-        // First check if port is open at all
-        $timeout = 3; // Reduced timeout for faster checking
+        // Quick socket check first - much faster than PDO connection
+        $timeout = 1; // Reduced timeout for better performance
         $fp      = @fsockopen('127.0.0.1', $port, $errno, $errstr, $timeout);
         if (!$fp) {
             Util::logDebug($this->getName() . ' port ' . $port . ' is not used');
@@ -243,41 +242,49 @@ class BinMysql extends Module
                     $boxTitle
                 );
             }
-
             return false;
         }
-
         fclose($fp);
 
-        // Try to connect using PDO for better performance and error handling
+        // Use cached connection if available for better performance
+        static $cachedConnection = null;
+        static $lastPort = null;
+
+        if ($cachedConnection === null || $lastPort !== $port) {
+            try {
+                $options = [
+                    \PDO::ATTR_TIMEOUT => $timeout,
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET SESSION sql_mode=''"
+                ];
+
+                $dsn = 'mysql:host=127.0.0.1;port=' . $port;
+                $cachedConnection = new \PDO($dsn, $this->rootUser, $this->rootPwd, $options);
+                $lastPort = $port;
+            } catch (\PDOException $e) {
+                Util::logDebug($this->getName() . ' port ' . $port . ' connection failed: ' . $e->getMessage());
+                if ($showWindow) {
+                    $bearsamppWinbinder->messageBoxWarning(
+                        sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port),
+                        $boxTitle
+                    );
+                }
+                return false;
+            }
+        }
+
         try {
-            $options = [
-                \PDO::ATTR_TIMEOUT => $timeout,
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-            ];
+            // Single optimized query to get both version and type
+            $stmt = $cachedConnection->query("SELECT @@version, @@version_comment");
+            $row = $stmt->fetch(\PDO::FETCH_NUM);
 
-            $dsn    = 'mysql:host=127.0.0.1;port=' . $port;
-            $dbLink = new \PDO($dsn, $this->rootUser, $this->rootPwd, $options);
-
-            // Check if it's MySQL
-            $stmt    = $dbLink->query('SHOW VARIABLES');
-            $isMysql = false;
-            $version = false;
-
-            while ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-                if ($row[0] == 'version') {
-                    $version = explode('-', $row[1]);
-                    $version = count($version) > 1 ? $version[0] : $row[1];
-                }
-                if ($row[0] == 'version_comment' && Util::startWith(strtolower($row[1]), 'mysql')) {
-                    $isMysql = true;
-                }
-                if ($isMysql && $version !== false) {
-                    break;
-                }
+            if (!$row) {
+                return false;
             }
 
-            $dbLink = null; // Close connection
+            $version = explode('-', $row[0]);
+            $version = count($version) > 1 ? $version[0] : $row[0];
+            $isMysql = Util::startWith(strtolower($row[1]), 'mysql');
 
             if (!$isMysql) {
                 Util::logDebug($this->getName() . ' port used by another DBMS: ' . $port);
@@ -287,7 +294,6 @@ class BinMysql extends Module
                         $boxTitle
                     );
                 }
-
                 return false;
             }
 
@@ -301,17 +307,16 @@ class BinMysql extends Module
 
             $totalTime = round(microtime(true) - $startTime, 2);
             Util::logTrace("MySQL port check completed in {$totalTime}s");
-
             return true;
+
         } catch (\PDOException $e) {
-            Util::logDebug($this->getName() . ' port ' . $port . ' is used by another application');
+            Util::logDebug($this->getName() . ' port ' . $port . ' validation error: ' . $e->getMessage());
             if ($showWindow) {
                 $bearsamppWinbinder->messageBoxWarning(
                     sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port),
                     $boxTitle
                 );
             }
-
             return false;
         }
     }
@@ -415,22 +420,49 @@ class BinMysql extends Module
         $startTime  = microtime(true);
         $currentPwd = $currentPwd == null ? $this->rootPwd : $currentPwd;
         $error      = null;
-        $timeout    = 5; // 5 seconds timeout
+        $timeout    = 2; // Reduced timeout for faster validation
 
         $bearsamppWinbinder->incrProgressBar($wbProgressBar);
+
+        // Use cached connection for password validation if available
+        static $passwordCache = [];
+        $cacheKey = md5($this->rootUser . ':' . $currentPwd . ':' . $this->port);
+
+        if (isset($passwordCache[$cacheKey]) && (time() - $passwordCache[$cacheKey]['time']) < 30) {
+            $bearsamppWinbinder->incrProgressBar($wbProgressBar);
+            $totalTime = round(microtime(true) - $startTime, 2);
+            Util::logTrace("MySQL password check completed from cache in {$totalTime}s");
+            return $passwordCache[$cacheKey]['result'];
+        }
 
         try {
             $options = [
                 \PDO::ATTR_TIMEOUT => $timeout,
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET SESSION sql_mode=''"
             ];
 
             $dsn    = 'mysql:host=127.0.0.1;port=' . $this->port;
             $dbLink = new \PDO($dsn, $this->rootUser, $currentPwd, $options);
+
+            // Quick validation query
+            $dbLink->query('SELECT 1');
             $dbLink = null; // Close connection properly
+
+            // Cache successful result
+            $passwordCache[$cacheKey] = [
+                'result' => true,
+                'time' => time()
+            ];
 
         } catch (\PDOException $e) {
             $error = $e->getMessage();
+
+            // Cache failed result for shorter time
+            $passwordCache[$cacheKey] = [
+                'result' => $error,
+                'time' => time() - 25 // Cache for only 5 seconds
+            ];
         }
 
         $bearsamppWinbinder->incrProgressBar($wbProgressBar);
@@ -438,13 +470,11 @@ class BinMysql extends Module
         if (!empty($error)) {
             $totalTime = round(microtime(true) - $startTime, 2);
             Util::logTrace("MySQL password check failed in {$totalTime}s: " . $error);
-
             return $error;
         }
 
         $totalTime = round(microtime(true) - $startTime, 2);
         Util::logTrace("MySQL password check completed in {$totalTime}s");
-
         return true;
     }
 
