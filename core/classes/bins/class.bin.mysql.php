@@ -559,9 +559,6 @@ class BinMysql extends Module
         // phpmyadmin
         $bearsamppApps->getPhpmyadmin()->update($sub + 1);
 
-        // adminer
-        $bearsamppApps->getAdminer()->update($sub + 1);
-
         // php
         $bearsamppBins->getPhp()->update($sub + 1);
 
