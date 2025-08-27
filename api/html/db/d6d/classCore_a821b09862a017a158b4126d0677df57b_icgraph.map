@@ -1,7 +1,0 @@
-<map id="Core\getTmpPath" name="Core\getTmpPath">
-<area shape="rect" id="Node000001" title=" " alt="" coords="377,5,549,38"/>
-<area shape="rect" id="Node000002" href="$db/d6d/classCore.html#ada58b06d3b3a526db86a08f03a9b64cc" title=" " alt="" coords="191,5,329,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="361,24,329,24,329,19,361,19"/>
-<area shape="rect" id="Node000003" href="$db/d6d/classCore.html#a70fbc806f06cc9bb89185615b55c749b" title=" " alt="" coords="5,5,143,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,24,143,24,143,19,175,19"/>
-</map>

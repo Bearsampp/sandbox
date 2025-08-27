@@ -1,9 +1,0 @@
-<map id="Win32Service\isStopped" name="Win32Service\isStopped">
-<area shape="rect" id="Node000001" title=" " alt="" coords="482,35,714,67"/>
-<area shape="rect" id="Node000002" href="$df/d28/classWin32Service.html#a09c364e5eaa7abf4b288b3f1a771a046" title=" " alt="" coords="252,35,434,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,54,435,54,435,48,466,48"/>
-<area shape="rect" id="Node000003" href="$df/d28/classWin32Service.html#a6a5213abbf17063a848a62a86feadee3" title=" " alt="" coords="5,5,204,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,41,204,37,205,31,237,35"/>
-<area shape="rect" id="Node000004" href="$df/d28/classWin32Service.html#a9bff7f1bfac7b2d0784d437c954b9eb5" title=" " alt="" coords="5,63,204,95"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="236,66,205,70,204,65,236,61"/>
-</map>

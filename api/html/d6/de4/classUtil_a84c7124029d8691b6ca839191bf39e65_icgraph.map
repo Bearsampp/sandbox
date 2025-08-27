@@ -1,9 +1,0 @@
-<map id="Util\changePath" name="Util\changePath">
-<area shape="rect" id="Node000001" title=" " alt="" coords="617,40,769,73"/>
-<area shape="rect" id="Node000002" href="$d1/db8/classActionStartup.html#a3ad5368c4a2382783daf1f3e8350cabb" title=" " alt="" coords="330,5,569,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="601,46,568,41,569,36,602,41"/>
-<area shape="rect" id="Node000004" href="$d6/dff/classActionSwitchVersion.html#a89f1ff41b1715ca23ea9f9d35f7ff643" title=" " alt="" coords="352,62,547,117"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="602,71,547,79,547,74,602,66"/>
-<area shape="rect" id="Node000003" href="$d1/db8/classActionStartup.html#a1234a0f2093a95140d6f86983514d28f" title=" " alt="" coords="5,5,282,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="314,24,282,24,282,19,314,19"/>
-</map>

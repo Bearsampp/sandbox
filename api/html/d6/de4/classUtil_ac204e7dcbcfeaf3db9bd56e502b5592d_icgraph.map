@@ -1,9 +1,0 @@
-<map id="Util\disableLaunchStartup" name="Util\disableLaunchStartup">
-<area shape="rect" id="Node000001" title=" " alt="" coords="628,56,862,89"/>
-<area shape="rect" id="Node000002" href="$d7/d5e/classActionLaunchStartup.html#ac73132d2feaecbc33b08f312c698e035" title=" " alt="" coords="357,5,553,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="613,57,553,49,553,43,613,52"/>
-<area shape="rect" id="Node000003" href="$d1/db8/classActionStartup.html#a8bce5b2ec99fc47b5e454fd09f926e10" title=" " alt="" coords="330,84,580,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="613,93,581,97,580,92,612,88"/>
-<area shape="rect" id="Node000004" href="$d1/db8/classActionStartup.html#a1234a0f2093a95140d6f86983514d28f" title=" " alt="" coords="5,95,282,128"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="314,114,282,114,282,109,314,109"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="TplService\getActionStop" name="TplService\getActionStop">
-<area shape="rect" id="Node000001" title=" " alt="" coords="586,16,823,49"/>
-<area shape="rect" id="Node000002" href="$d3/d3e/classTplAppServices.html#aad181c8e3dad942198c4a59e6ae0be41" title=" " alt="" coords="296,5,538,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="571,35,538,35,538,30,571,30"/>
-<area shape="rect" id="Node000003" href="$d3/d3e/classTplAppServices.html#a47ef245180c0d44d8d4df85b709caba7" title=" " alt="" coords="5,5,248,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="280,35,248,35,248,30,280,30"/>
-</map>

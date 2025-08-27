@@ -1,8 +1,0 @@
-<map id="ActionService\start" name="ActionService\start">
-<area shape="rect" id="Node000001" title=" " alt="" coords="540,5,719,38"/>
-<area shape="rect" id="Node000002" href="$d7/d0e/classActionService.html#a4440ed18ce314e66ba30932864b5584b" title=" " alt="" coords="5,5,248,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="524,23,492,23,296,23,248,23,248,18,296,18,492,18,524,18"/>
-<area shape="rect" id="Node000003" href="$d7/d0e/classActionService.html#a66abcafad5706de7894580c0dab1ca0a" title=" " alt="" coords="296,32,492,65"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="525,36,493,40,492,35,524,31"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="280,40,248,36,248,31,280,34"/>
-</map>

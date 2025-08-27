@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['readme_0',['README',['../df/d5b/readme.html',1,'README'],['../df/dd9/readme-1.html',1,'README'],['../d0/d9c/readme-2.html',1,'README']]],
-  ['regex_1',['ansi-regex',['../d9/dd7/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2ansi-regex_2readme.html',1,'']]],
-  ['regex_20a_20href_20https_3a_20travis_20ci_20org_20mathiasbynens_20emoji_20regex_20img_20src_20https_3a_20travis_20ci_20org_20mathiasbynens_20emoji_20regex_20svg_20branch_20master_20alt_20build_20status_20a_2',['emoji-regex &lt;a href=&quot;https://travis-ci.org/mathiasbynens/emoji-regex&quot; &gt;&lt;img src=&quot;https://travis-ci.org/mathiasbynens/emoji-regex.svg?branch=master&quot; alt=&quot;Build status&quot;/&gt;&lt;/a&gt;',['../db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html',1,'']]],
-  ['regex_20img_20src_20https_3a_20travis_20ci_20org_20mathiasbynens_20emoji_20regex_20svg_20branch_20master_20alt_20build_20status_20a_3',['emoji-regex &lt;a href=&quot;https://travis-ci.org/mathiasbynens/emoji-regex&quot; &gt;&lt;img src=&quot;https://travis-ci.org/mathiasbynens/emoji-regex.svg?branch=master&quot; alt=&quot;Build status&quot;/&gt;&lt;/a&gt;',['../db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html',1,'']]],
-  ['regex_20svg_20branch_20master_20alt_20build_20status_20a_4',['emoji-regex &lt;a href=&quot;https://travis-ci.org/mathiasbynens/emoji-regex&quot; &gt;&lt;img src=&quot;https://travis-ci.org/mathiasbynens/emoji-regex.svg?branch=master&quot; alt=&quot;Build status&quot;/&gt;&lt;/a&gt;',['../db/d69/md_E_1_2Bearsampp-development_2sandbox_2core_2libs_2nodejs_2node__modules_2emoji-regex_2README.html',1,'']]]
-];
