@@ -32,9 +32,9 @@ class Tools
     private $bruno;
 
     /**
-     * @var ToolConsoleZ|null The ConsoleZ tool instance.
+     * @var ToolCmder|null The Cmder tool instance.
      */
-    private $consolez;
+    private $cmder;
 
     /**
      * @var ToolGhostscript|null The Ghostscript tool instance.
@@ -94,7 +94,7 @@ class Tools
         return array(
             $this->getBruno(),
             $this->getComposer(),
-            $this->getConsoleZ(),
+            $this->getCmder(),
             $this->getGhostscript(),
             $this->getGit(),
             $this->getNgrok(),
@@ -131,16 +131,16 @@ class Tools
     }
 
     /**
-     * Retrieves the ConsoleZ tool instance.
+     * Retrieves the Cmder tool instance.
      *
-     * @return ToolConsoleZ The ConsoleZ tool instance.
+     * @return ToolCmder The Cmder tool instance.
      */
-    public function getConsoleZ()
+    public function getCmder()
     {
-        if ($this->consolez == null) {
-            $this->consolez = new ToolConsoleZ('consolez', self::TYPE);
+        if ($this->cmder == null) {
+            $this->cmder = new ToolCmder('cmder', self::TYPE);
         }
-        return $this->consolez;
+        return $this->cmder;
     }
 
     /**

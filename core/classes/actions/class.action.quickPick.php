@@ -30,7 +30,7 @@ class QuickPick
         'Apache'      => ['type' => 'binary'],
         'Bruno'       => ['type' => 'tools'],
         'Composer'    => ['type' => 'tools'],
-        'ConsoleZ'    => ['type' => 'tools'],
+        'Cmder'    => ['type' => 'tools'],
         'Ghostscript' => ['type' => 'tools'],
         'Git'         => ['type' => 'tools'],
         'Mailpit'     => ['type' => 'binary'],

@@ -95,10 +95,10 @@ class TplAppNodejs
             $resultActions .= $tplVersions[TplApp::SECTION_CONTENT];
 
             // Console
-            $resultItems .= TplAestan::getItemConsoleZ(
+            $resultItems .= TplAestan::getItemCmder(
                 $bearsamppLang->getValue(Lang::CONSOLE),
-                TplAestan::GLYPH_CONSOLEZ,
-                $bearsamppTools->getConsoleZ()->getTabTitleNodejs()
+                TplAestan::GLYPH_CMDER,
+                $bearsamppTools->getCmder()->getTabTitleNodejs()
             ) . PHP_EOL;
 
             // Conf

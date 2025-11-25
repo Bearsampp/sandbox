@@ -12,7 +12,7 @@
  * Class TplAestan
  *
  * This class provides various methods to generate configuration strings for the Bearsampp application.
- * It includes methods to create items for ConsoleZ, links, Notepad, executables, and explorer actions.
+ * It includes methods to create items for Cmder, links, Notepad, executables, and explorer actions.
  * Additionally, it handles service actions such as start, stop, and restart, and generates configuration
  * sections for messages, config, and menu settings.
  *
@@ -24,7 +24,7 @@
  * Methods:
  * - getGlyphFlah($lang): Retrieves the glyph flag for a given language.
  * - getItemSeparator(): Returns a string representing a separator item.
- * - getItemConsoleZ($caption, $glyph, $id, $title, $initDir, $command): Returns a string representing a ConsoleZ item.
+ * - getItemCmder($caption, $glyph, $id, $title, $initDir, $command): Returns a string representing a Cmder item.
  * - getItemLink($caption, $link, $local, $glyph): Returns a string representing a link item.
  * - getItemNotepad($caption, $path): Returns a string representing a Notepad item.
  * - getItemExe($caption, $exe, $glyph, $params): Returns a string representing an executable item.
@@ -46,7 +46,7 @@
 class TplAestan
 {
     // Glyph constants
-    const GLYPH_CONSOLEZ = 0;
+    const GLYPH_CMDER = 0;
     const GLYPH_ADD = 1;
     const GLYPH_FOLDER_OPEN = 2;
     const GLYPH_FOLDER_CLOSE = 3;
@@ -128,7 +128,7 @@ class TplAestan
     }
 
     /**
-     * Returns a string representing a ConsoleZ item.
+     * Returns a string representing a Cmder item.
      *
      * @param string $caption The caption for the item.
      * @param int $glyph The glyph index.
@@ -136,9 +136,9 @@ class TplAestan
      * @param string|null $title The title for the item.
      * @param string|null $initDir The initial directory for the item.
      * @param string|null $command The command to execute.
-     * @return string The ConsoleZ item string.
+     * @return string The Cmder item string.
      */
-    public static function getItemConsoleZ($caption, $glyph, $id = null, $title = null, $initDir = null, $command = null)
+    public static function getItemCmder($caption, $glyph, $id = null, $title = null, $initDir = null, $command = null)
     {
         global $bearsamppTools;
 
@@ -158,7 +158,7 @@ class TplAestan
 
         return self::getItemExe(
             $caption,
-            $bearsamppTools->getConsoleZ()->getExe(),
+            $bearsamppTools->getCmder()->getExe(),
             $glyph,
             $args
         );

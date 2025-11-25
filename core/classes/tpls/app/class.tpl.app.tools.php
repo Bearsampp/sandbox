@@ -67,54 +67,54 @@ class TplAppTools
             ) . PHP_EOL;
 
         // Composer
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::COMPOSER),
             TplAestan::GLYPH_COMPOSER,
-            $bearsamppTools->getConsoleZ()->getTabTitleComposer()
+            $bearsamppTools->getCmder()->getTabTitleComposer()
         ) . PHP_EOL;
 
         // Ghostscript
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::GHOSTSCRIPT),
             TplAestan::GLYPH_GHOSTSCRIPT,
-            $bearsamppTools->getConsoleZ()->getTabTitleGhostscript()
+            $bearsamppTools->getCmder()->getTabTitleGhostscript()
         ) . PHP_EOL;
 
         // Ngrok
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::NGROK),
             TplAestan::GLYPH_NGROK,
-            $bearsamppTools->getConsoleZ()->getTabTitleNgrok()
+            $bearsamppTools->getCmder()->getTabTitleNgrok()
         ) . PHP_EOL;
 
         // Pear
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::PEAR),
             TplAestan::GLYPH_PEAR,
-            $bearsamppTools->getConsoleZ()->getTabTitlePear()
+            $bearsamppTools->getCmder()->getTabTitlePear()
         ) . PHP_EOL;
 
         // Perl
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::PERL),
             TplAestan::GLYPH_PERL,
-            $bearsamppTools->getConsoleZ()->getTabTitlePerl()
+            $bearsamppTools->getCmder()->getTabTitlePerl()
         ) . PHP_EOL;
 
         // Ruby
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::RUBY),
             TplAestan::GLYPH_RUBY,
-            $bearsamppTools->getConsoleZ()->getTabTitleRuby()
+            $bearsamppTools->getCmder()->getTabTitleRuby()
         ) . PHP_EOL;
 
         // Line Separator
         $resultItems .= TplAestan::getItemSeparator() . PHP_EOL;
 
         // Console
-        $resultItems .= TplAestan::getItemConsoleZ(
+        $resultItems .= TplAestan::getItemCmder(
             $bearsamppLang->getValue(Lang::CONSOLE),
-            TplAestan::GLYPH_CONSOLEZ
+            TplAestan::GLYPH_CMDER
         ) . PHP_EOL;
 
         // HostsEditor

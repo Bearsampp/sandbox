@@ -73,10 +73,10 @@ class TplAppGit
         /* get path for git gui */
         $gitgui = $bearsamppTools->getGit()->getSymlinkPath() . '/cmd';
 
-        return TplAestan::getItemConsoleZ(
+        return TplAestan::getItemCmder(
                 $bearsamppLang->getValue(Lang::GIT_CONSOLE),
                 TplAestan::GLYPH_GIT,
-                $bearsamppTools->getConsoleZ()->getTabTitleGit()
+                $bearsamppTools->getCmder()->getTabTitleGit()
             ) . PHP_EOL .
             TplAestan::getItemExe(
                     $bearsamppLang->getValue(Lang::GITGUI),
@@ -112,11 +112,11 @@ class TplAppGit
         $result = '';
 
         foreach ($bearsamppTools->getGit()->findRepos() as $repo) {
-            $result .= TplAestan::getItemConsoleZ(
+            $result .= TplAestan::getItemCmder(
                 basename($repo),
                 TplAestan::GLYPH_GIT,
-                $bearsamppTools->getConsoleZ()->getTabTitleGit(),
-                $bearsamppTools->getConsoleZ()->getTabTitleGit($repo),
+                $bearsamppTools->getCmder()->getTabTitleGit(),
+                $bearsamppTools->getCmder()->getTabTitleGit($repo),
                 $repo
             ) . PHP_EOL;
         }
