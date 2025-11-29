@@ -142,38 +142,13 @@ class TplAestan
     {
         global $bearsamppTools;
 
-        // LOG EVERYTHING to understand what's being passed
-        Util::logError('=== getItemCmder called ===');
-        Util::logError('Caption: ' . $caption);
-        Util::logError('Glyph: ' . $glyph);
-        Util::logError('ID: ' . ($id ?? 'NULL'));
-        Util::logError('Title: ' . ($title ?? 'NULL'));
-        Util::logError('InitDir: ' . ($initDir ?? 'NULL'));
-        Util::logError('Command: ' . ($command ?? 'NULL'));
-        Util::logError('Cmder Exe: ' . $bearsamppTools->getCmder()->getExe());
-
-        $args = '';
-        if ($id != null) {
-            $args .= ' -t ""' . $id . '""';
-        }
-        if ($title != null) {
-            $args .= ' -w ""' . $title . '""';
-        }
-        if ($initDir != null) {
-            $args .= ' -d ""' . $initDir . '""';
-        }
-        if ($command != null) {
-            $args .= ' -r ""' . $command . '""';
-        }
-
-        Util::logError('Final Args: ' . $args);
-        Util::logError('=== End getItemCmder ===');
-
+        // Don't pass any parameters for now - just launch default Cmder
+        // The /task parameter is causing quoting issues with AeTrayMenu
         return self::getItemExe(
             $caption,
             $bearsamppTools->getCmder()->getExe(),
             $glyph,
-            $args
+            ''
         );
     }
 

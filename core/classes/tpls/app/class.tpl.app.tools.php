@@ -66,46 +66,52 @@ class TplAppTools
                 TplAestan::GLYPH_BRUNO
             ) . PHP_EOL;
 
-        // Composer
-        $resultItems .= TplAestan::getItemCmder(
+        // Composer - use wrapper batch file
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::COMPOSER),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-composer.bat',
             TplAestan::GLYPH_COMPOSER,
-            $bearsamppTools->getCmder()->getTabTitleComposer()
+            ''
         ) . PHP_EOL;
 
-        // Ghostscript
-        $resultItems .= TplAestan::getItemCmder(
+        // Ghostscript - use wrapper batch file
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::GHOSTSCRIPT),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-ghostscript.bat',
             TplAestan::GLYPH_GHOSTSCRIPT,
-            $bearsamppTools->getCmder()->getTabTitleGhostscript()
+            ''
         ) . PHP_EOL;
 
-        // Ngrok
-        $resultItems .= TplAestan::getItemCmder(
+        // Ngrok - use wrapper batch file
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::NGROK),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-ngrok.bat',
             TplAestan::GLYPH_NGROK,
-            $bearsamppTools->getCmder()->getTabTitleNgrok()
+            ''
         ) . PHP_EOL;
 
-        // Pear
-        $resultItems .= TplAestan::getItemCmder(
+        // Pear - use wrapper batch file
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::PEAR),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-pear.bat',
             TplAestan::GLYPH_PEAR,
-            $bearsamppTools->getCmder()->getTabTitlePear()
+            ''
         ) . PHP_EOL;
 
-        // Perl
-        $resultItems .= TplAestan::getItemCmder(
+        // Perl - use wrapper batch file
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::PERL),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-perl.bat',
             TplAestan::GLYPH_PERL,
-            $bearsamppTools->getCmder()->getTabTitlePerl()
+            ''
         ) . PHP_EOL;
 
-        // Ruby
-        $resultItems .= TplAestan::getItemCmder(
+        // Ruby - use wrapper batch file to avoid AeTrayMenu quoting issues
+        $resultItems .= TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::RUBY),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-ruby.bat',
             TplAestan::GLYPH_RUBY,
-            $bearsamppTools->getCmder()->getTabTitleRuby()
+            ''
         ) . PHP_EOL;
 
         // Line Separator

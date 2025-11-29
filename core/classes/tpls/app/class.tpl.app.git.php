@@ -73,10 +73,11 @@ class TplAppGit
         /* get path for git gui */
         $gitgui = $bearsamppTools->getGit()->getSymlinkPath() . '/cmd';
 
-        return TplAestan::getItemCmder(
+        return TplAestan::getItemExe(
                 $bearsamppLang->getValue(Lang::GIT_CONSOLE),
+                $bearsamppTools->getCmder()->getCurrentPath() . '/launch-git.bat',
                 TplAestan::GLYPH_GIT,
-                $bearsamppTools->getCmder()->getTabTitleGit()
+                ''
             ) . PHP_EOL .
             TplAestan::getItemExe(
                     $bearsamppLang->getValue(Lang::GITGUI),

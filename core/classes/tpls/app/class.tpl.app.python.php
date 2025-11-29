@@ -46,11 +46,12 @@ class TplAppPython
     {
         global $bearsamppLang, $bearsamppTools;
 
-        // Generate menu item for Python console
-        $resultItems = TplAestan::getItemCmder(
+        // Generate menu item for Python console - use wrapper batch file
+        $resultItems = TplAestan::getItemExe(
             $bearsamppLang->getValue(Lang::PYTHON_CONSOLE),
+            $bearsamppTools->getCmder()->getCurrentPath() . '/launch-python.bat',
             TplAestan::GLYPH_PYTHON,
-            $bearsamppTools->getCmder()->getTabTitlePython()
+            ''
         ) . PHP_EOL;
 
         // Generate menu item for Python IDLE
