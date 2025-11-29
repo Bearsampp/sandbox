@@ -142,6 +142,16 @@ class TplAestan
     {
         global $bearsamppTools;
 
+        // LOG EVERYTHING to understand what's being passed
+        Util::logError('=== getItemCmder called ===');
+        Util::logError('Caption: ' . $caption);
+        Util::logError('Glyph: ' . $glyph);
+        Util::logError('ID: ' . ($id ?? 'NULL'));
+        Util::logError('Title: ' . ($title ?? 'NULL'));
+        Util::logError('InitDir: ' . ($initDir ?? 'NULL'));
+        Util::logError('Command: ' . ($command ?? 'NULL'));
+        Util::logError('Cmder Exe: ' . $bearsamppTools->getCmder()->getExe());
+
         $args = '';
         if ($id != null) {
             $args .= ' -t ""' . $id . '""';
@@ -155,6 +165,9 @@ class TplAestan
         if ($command != null) {
             $args .= ' -r ""' . $command . '""';
         }
+
+        Util::logError('Final Args: ' . $args);
+        Util::logError('=== End getItemCmder ===');
 
         return self::getItemExe(
             $caption,
