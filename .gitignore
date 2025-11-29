@@ -10,6 +10,17 @@
 /bearsampp.conf
 /bearsampp.ini
 
+# Bearsampp runtime directories
+/alias/
+/apps/
+/bin/
+/img/
+/logs/
+/ssl/
+/tmp/
+/tools/
+/vhosts/
+
 
 # Visual Studio
 .vscode/
