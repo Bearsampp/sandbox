@@ -10,6 +10,20 @@
 /bearsampp.conf
 /bearsampp.ini
 
+# Bearsampp runtime directories
+/alias/
+/apps/
+/bin/
+/img/
+/logs/
+/ssl/
+/tmp/
+/tools/
+/vhosts/
+
+# Core logs - ignore files but keep folder structure
+/core/logs/*
+!/core/logs/.gitkeep
 
 # Visual Studio
 .vscode/
@@ -21,3 +35,6 @@
 
 # Qodo
 /.qodo
+
+# Doxy
+/www/doxy/
