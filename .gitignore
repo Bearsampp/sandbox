@@ -21,6 +21,14 @@
 /tools/
 /vhosts/
 
+# Core logs - ignore files but keep folder structure
+/core/logs/*
+!/core/logs/.gitkeep
+
+# Core tmp - ignore files but keep folder structure
+/core/tmp/*
+!/core/tmp/.gitkeep
+
 
 # Visual Studio
 .vscode/
