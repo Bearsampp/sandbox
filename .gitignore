@@ -25,6 +25,9 @@
 /core/logs/*
 !/core/logs/.gitkeep
 
+# Core tmp - ignore temporary files
+/core/tmp/
+
 # Visual Studio
 .vscode/
 .vs/
