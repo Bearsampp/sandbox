@@ -170,8 +170,7 @@ class ToolPowerShell extends Module
      * @return string The default tab title.
      */
     public function getTabTitleDefault() {
-        global $bearsamppLang;
-        return $bearsamppLang->getValue(Lang::CONSOLE);
+        return 'Bearsampp Powershell Console';
     }
 
     /**

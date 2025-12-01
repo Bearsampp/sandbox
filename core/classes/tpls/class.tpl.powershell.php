@@ -15,6 +15,11 @@
  */
 class TplPowerShell
 {
+    // Icon constants - Currently unused as native PowerShell consoles do not support custom icons
+    // These icons were used with ConsoleZ but are not supported by standard PowerShell console host
+    // To use icons, consider using a terminal emulator like ConEmu, Cmder, or Windows Terminal
+    // Icon files are located at: core/resources/homepage/img/icons/
+    /*
     const ICON_APP = 'app.ico';
     const ICON_POWERSHELL = 'powershell.ico';
     const ICON_PEAR = 'pear.ico';
@@ -27,6 +32,7 @@ class TplPowerShell
     const ICON_RUBY = 'ruby.ico';
     const ICON_PERL = 'perl.ico';
     const ICON_NGROK = 'ngrok.ico';
+    */
 
     /**
      * Private constructor to prevent instantiation.
@@ -92,7 +98,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleDefault(),
-                self::ICON_APP,
+                null, // self::ICON_APP - Icon not supported in native PowerShell console
                 $bearsamppTools->getPowerShell()->getShell(),
                 $bearsamppRoot->getRootPath()
             ) . PHP_EOL;
@@ -117,7 +123,7 @@ class TplPowerShell
         if ($powerShellPath !== false) {
             return self::getTab(
                     $bearsamppTools->getPowerShell()->getTabTitlePowershell(),
-                    self::ICON_POWERSHELL,
+                    null, // self::ICON_POWERSHELL - Icon not supported in native PowerShell console
                     $powerShellPath,
                     $bearsamppRoot->getRootPath()
                 ) . PHP_EOL;
@@ -148,7 +154,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitlePear(),
-                self::ICON_PEAR,
+                null, // self::ICON_PEAR - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppBins->getPhp()->getSymlinkPath() . '/pear'
             ) . PHP_EOL;
@@ -178,7 +184,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleMysql(),
-                self::ICON_DB,
+                null, // self::ICON_DB - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppBins->getMysql()->getSymlinkPath()
             ) . PHP_EOL;
@@ -208,7 +214,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleMariadb(),
-                self::ICON_DB,
+                null, // self::ICON_DB - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppBins->getMariadb()->getSymlinkPath()
             ) . PHP_EOL;
@@ -240,7 +246,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitlePostgresql(),
-                self::ICON_DB,
+                null, // self::ICON_DB - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppBins->getPostgresql()->getSymlinkPath()
             ) . PHP_EOL;
@@ -268,7 +274,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleGit(),
-                self::ICON_GIT,
+                null, // self::ICON_GIT - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -297,7 +303,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleNodejs(),
-                self::ICON_NODEJS,
+                null, // self::ICON_NODEJS - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -325,7 +331,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleComposer(),
-                self::ICON_COMPOSER,
+                null, // self::ICON_COMPOSER - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -353,7 +359,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitlePython(),
-                self::ICON_PYTHON,
+                null, // self::ICON_PYTHON - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -397,7 +403,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleRuby(),
-                self::ICON_RUBY,
+                null, // self::ICON_RUBY - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -425,7 +431,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitlePerl(),
-                self::ICON_PERL,
+                null, // self::ICON_PERL - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -455,7 +461,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleGhostscript(),
-                self::ICON_GHOSTSCRIPT,
+                null, // self::ICON_GHOSTSCRIPT - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -485,7 +491,7 @@ class TplPowerShell
 
         return self::getTab(
                 $bearsamppTools->getPowerShell()->getTabTitleNgrok(),
-                self::ICON_NGROK,
+                null, // self::ICON_NGROK - Icon not supported in native PowerShell console
                 $shell,
                 $bearsamppRoot->getWwwPath()
             ) . PHP_EOL;
@@ -495,10 +501,14 @@ class TplPowerShell
      * Generates the structure for a tab.
      *
      * This function constructs the structure for a tab, including the title,
-     * icon, shell command, and initial directory.
+     * shell command, and initial directory.
+     *
+     * Note: Icon parameter is currently unused as native PowerShell consoles do not support
+     * custom icons in tab titles. This was a feature of ConsoleZ which is no longer used.
+     * To use icons, consider using a terminal emulator like ConEmu, Cmder, or Windows Terminal.
      *
      * @param string $title The title of the tab.
-     * @param string $icon The icon for the tab.
+     * @param string|null $icon The icon for the tab (currently unused).
      * @param string $shell The shell command to be executed in the tab.
      * @param string $initDir The initial directory for the tab.
      * @return string The structure for the tab.
@@ -507,8 +517,8 @@ class TplPowerShell
     private static function getTab($title, $icon, $shell, $initDir)
     {
         global $bearsamppCore;
+        // Icon parameter is ignored as native PowerShell console does not support custom icons
         // Return tab information as a formatted string
-        // This can be used by Windows Terminal or other terminal applications
-        return "Title: $title | Icon: " . $bearsamppCore->getIconsPath(false) . "/$icon | Shell: $shell | InitDir: $initDir";
+        return "Title: $title | Shell: $shell | InitDir: $initDir";
     }
 }
