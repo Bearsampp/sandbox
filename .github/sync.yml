@@ -1,9 +1,9 @@
 group:
-          # Sync to Bearsampp
-    - files:
-          - source: core
-            dest: core
-          - source: bearsampp.exe
-            dest: base/bearsampp.exe
-      repos: |
-          Bearsampp/Bearsampp
+  # Sync to Bearsampp
+  - files:
+      - source: core
+        dest: core
+      - source: bearsampp.exe
+        dest: base/bearsampp.exe
+    repos: |
+      Bearsampp/Bearsampp
