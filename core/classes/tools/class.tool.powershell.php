@@ -8,20 +8,20 @@
  */
 
 /**
- * Class ToolConsoleZ
+ * Class ToolPowerShell
  *
- * This class represents the ConsoleZ tool in the Bearsampp application.
- * It extends the Module class and provides functionalities specific to ConsoleZ.
+ * This class represents the PowerShell tool in the Bearsampp application.
+ * It extends the Module class and provides functionalities specific to PowerShell.
  */
-class ToolConsoleZ extends Module
+class ToolPowerShell extends Module
 {
-    const ROOT_CFG_VERSION = 'consolezVersion';
+    const ROOT_CFG_VERSION = 'powershellVersion';
 
-    const LOCAL_CFG_EXE = 'consolezExe';
-    const LOCAL_CFG_CONF = 'consolezConf';
-    const LOCAL_CFG_LAUNCH_EXE = 'consolezLaunchExe';
-    const LOCAL_CFG_ROWS = 'consolezRows';
-    const LOCAL_CFG_COLS = 'consolezCols';
+    const LOCAL_CFG_EXE = 'powershellExe';
+    const LOCAL_CFG_CONF = 'powershellConf';
+    const LOCAL_CFG_LAUNCH_EXE = 'powershellLaunchExe';
+    const LOCAL_CFG_ROWS = 'powershellRows';
+    const LOCAL_CFG_COLS = 'powershellCols';
 
     private $exe;
     private $launchExe;
@@ -30,7 +30,7 @@ class ToolConsoleZ extends Module
     private $cols;
 
     /**
-     * Constructor for the ToolConsoleZ class.
+     * Constructor for the ToolPowerShell class.
      *
      * @param string $id The ID of the module.
      * @param string $type The type of the module.
@@ -41,7 +41,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Reloads the configuration for the ConsoleZ tool.
+     * Reloads the configuration for the PowerShell tool.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
      * @param string|null $type The type of the module. If null, the current type is used.
@@ -50,7 +50,7 @@ class ToolConsoleZ extends Module
         global $bearsamppConfig, $bearsamppLang;
         Util::logReloadClass($this);
 
-        $this->name = $bearsamppLang->getValue(Lang::CONSOLEZ);
+        $this->name = $bearsamppLang->getValue(Lang::POWERSHELL);
         $this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
         parent::reload($id, $type);
 
@@ -94,7 +94,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Sets the version of the ConsoleZ tool.
+     * Sets the version of the PowerShell tool.
      *
      * @param string $version The version to set.
      */
@@ -106,7 +106,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the executable path for ConsoleZ.
+     * Gets the executable path for PowerShell.
      *
      * @return string The executable path.
      */
@@ -115,7 +115,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the launch executable path for ConsoleZ.
+     * Gets the launch executable path for PowerShell.
      *
      * @return string The launch executable path.
      */
@@ -124,7 +124,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the configuration file path for ConsoleZ.
+     * Gets the configuration file path for PowerShell.
      *
      * @return string The configuration file path.
      */
@@ -133,7 +133,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the number of rows for the ConsoleZ window.
+     * Gets the number of rows for the PowerShell window.
      *
      * @return int The number of rows.
      */
@@ -142,7 +142,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the number of columns for the ConsoleZ window.
+     * Gets the number of columns for the PowerShell window.
      *
      * @return int The number of columns.
      */
@@ -151,7 +151,7 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the shell command to launch ConsoleZ.
+     * Gets the shell command to launch PowerShell.
      *
      * @param string|null $args Additional arguments for the shell command.
      * @return string The shell command.
@@ -165,13 +165,12 @@ class ToolConsoleZ extends Module
     }
 
     /**
-     * Gets the default tab title for ConsoleZ.
+     * Gets the default tab title for PowerShell.
      *
      * @return string The default tab title.
      */
     public function getTabTitleDefault() {
-        global $bearsamppLang;
-        return $bearsamppLang->getValue(Lang::CONSOLE);
+        return 'Bearsampp Powershell Console';
     }
 
     /**
