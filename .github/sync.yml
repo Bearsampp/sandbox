@@ -3,6 +3,8 @@ group:
   - files:
       - source: core
         dest: core
+        replace: true
+        deleteOrphaned: true
       - source: bearsampp.exe
         dest: base/bearsampp.exe
     repos: |
