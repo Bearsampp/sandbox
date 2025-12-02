@@ -18,3 +18,4 @@ jobs:
           CONFIG_PATH: .github/sync.yml
           SKIP_PR: true
           COMMIT_BODY: "Automated core sync"
+          DELETE_ORPHANED_FILES: true
