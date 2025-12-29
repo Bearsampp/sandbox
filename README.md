@@ -25,13 +25,6 @@ For those who wish to contribute, have an issue or questions, read the [Document
 
 ### Modules
 
-<!-- use
-![Deprecated](https://img.shields.io/badge/Deprecated-red?style=flat-square&color=red) for deprecated items
-![Application](https://img.shields.io/badge/Application-%23f89406?style=flat-square&color=%23f89406) for applications
-![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0) for binaries
-![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847) for tools
--->
-
 | <h3>Type</h3>                                                                                        | <h3>Description</h3>                                                                                                                            |  
 |------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|  
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Apache](https://bearsampp.com/module/apache): the world's most used web server software.                                                       |  
@@ -43,7 +36,7 @@ For those who wish to contribute, have an issue or questions, read the [Document
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Memcached](https://bearsampp.com/module/memcached): a distributed memory object caching system.                                                |  
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [MySQL](https://bearsampp.com/module/mysql): an open-source relational database management system.                                              |  
 | ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Ngrok](https://bearsampp.com/module/ngrok): secure tunnels to localhost.                                                                       |  
-| ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Node.js](https://bearsampp.com/module/nodejs): an open-source, cross-platform runtime environment for developing server-side web applications. 
+| ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [Node.js](https://bearsampp.com/module/nodejs): an open-source, cross-platform runtime environment for developing server-side web applications. |
 | ![Tool](https://img.shields.io/badge/Tool-%23468847?style=flat-square&color=%23468847)               | [Perl](https://bearsampp.com/module/perl): a family of high-level, general-purpose, interpreted, dynamic programming languages.                 |  
 | ![Binary](https://img.shields.io/badge/Binary-%234078c0?style=flat-square&color=%234078c0)           | [PHP](https://bearsampp.com/module/php): a server-side scripting language designed for web development including PEAR and extra extensions.     |  
 | ![Application](https://img.shields.io/badge/Application-%23f89406?style=flat-square&color=%23f89406) | [phpMyAdmin](https://bearsampp.com/module/phpmyadmin): to handle the administration of MySQL and MariaDB over the Web.                          |  
