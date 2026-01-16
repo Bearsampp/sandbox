@@ -1713,7 +1713,7 @@ class Util
 
             return true;
         } else {
-            self::logError(sprintf('Port %s is used by an other application : %s', $name));
+            self::logError(sprintf('Port %s is used by an other application : %s', $port, $isPortInUse));
             if ($showWindow) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port, $isPortInUse),
