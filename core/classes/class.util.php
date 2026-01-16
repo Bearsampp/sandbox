@@ -1653,6 +1653,11 @@ class Util
     public static function installService($bin, $port, $syntaxCheckCmd, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
+
+        if (method_exists($bin, 'initData')) {
+            $bin->initData();
+        }
+
         $name     = $bin->getName();
         $service  = $bin->getService();
         $boxTitle = sprintf($bearsamppLang->getValue(Lang::INSTALL_SERVICE_TITLE), $name);
@@ -1708,7 +1713,7 @@ class Util
 
             return true;
         } else {
-            self::logError(sprintf('Port %s is used by an other application : %s', $name));
+            self::logError(sprintf('Port %s is used by an other application : %s', $port, $isPortInUse));
             if ($showWindow) {
                 $bearsamppWinbinder->messageBoxError(
                     sprintf($bearsamppLang->getValue(Lang::PORT_NOT_USED_BY), $port, $isPortInUse),
@@ -1765,6 +1770,11 @@ class Util
     public static function startService($bin, $syntaxCheckCmd, $showWindow = false)
     {
         global $bearsamppLang, $bearsamppWinbinder;
+
+        if (method_exists($bin, 'initData')) {
+            $bin->initData();
+        }
+
         $name     = $bin->getName();
         $service  = $bin->getService();
         $boxTitle = sprintf($bearsamppLang->getValue(Lang::START_SERVICE_TITLE), $name);
