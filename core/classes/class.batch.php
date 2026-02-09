@@ -232,6 +232,20 @@ class Batch
     }
 
     /**
+     * Initializes MariaDB using a specified path.
+     *
+     * @param string $path The path to the MariaDB initialization script.
+     */
+    public static function initializeMariadb($path)
+    {
+        if (!file_exists($path . '/init.bat')) {
+            Util::logWarning($path . '/init.bat does not exist');
+            return;
+        }
+        self::exec('initializeMariadb', 'CMD /C "' . $path . '/init.bat"', 60);
+    }
+
+    /**
      * Creates a symbolic link.
      *
      * @param string $src The source path.
@@ -257,11 +271,11 @@ class Batch
             self::writeLog('-> removeSymlink: Link does not exist: ' . $link);
             return true; // If the link doesn't exist, nothing to do
         }
-        
+
         // Check if it's a directory symlink
         $isDirectory = is_dir($link);
         $formattedLink = Util::formatWindowsPath($link);
-        
+
         try {
             // Use different commands based on whether it's a directory or file symlink
             if ($isDirectory) {
@@ -271,13 +285,13 @@ class Batch
                 // For file symlinks
                 self::exec('removeSymlink', 'del /F /Q "' . $formattedLink . '"', true, false);
             }
-            
+
             // Check if removal was successful
             if (file_exists($link)) {
                 self::writeLog('-> removeSymlink: Failed to remove symlink: ' . $link);
                 return false;
             }
-            
+
             self::writeLog('-> removeSymlink: Successfully removed symlink: ' . $link);
             return true;
         } catch (Exception $e) {

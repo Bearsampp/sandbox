@@ -520,6 +520,9 @@ class Win32Service
         if ( $this->getName() == BinMysql::SERVICE_NAME ) {
             $bearsamppBins->getMysql()->initData();
         }
+        elseif ( $this->getName() == BinMariadb::SERVICE_NAME ) {
+            $bearsamppBins->getMariadb()->initData();
+        }
         elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
             $bearsamppBins->getMailpit()->rebuildConf();
         }
