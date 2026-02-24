@@ -185,12 +185,13 @@ class Util
     }
 
     /**
-     * Generates a random string of specified length and character set.
+     * Generates a cryptographically secure random string of specified length and character set.
      *
      * @param   int   $length       The length of the random string to generate.
      * @param   bool  $withNumeric  Whether to include numeric characters in the random string.
      *
      * @return string Returns the generated random string.
+     * @throws Exception If an appropriate source of randomness cannot be found.
      */
     public static function random($length = 32, $withNumeric = true)
     {
@@ -199,12 +200,59 @@ class Util
             $characters .= '0123456789';
         }
 
+        $charactersLength = strlen($characters);
         $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+
+        try {
+            for ($i = 0; $i < $length; $i++) {
+                // Use cryptographically secure random_int() instead of rand()
+                $randomIndex = random_int(0, $charactersLength - 1);
+                $randomString .= $characters[$randomIndex];
+            }
+        } catch (Exception $e) {
+            self::logError('Failed to generate cryptographically secure random string: ' . $e->getMessage());
+            throw $e;
         }
 
         return $randomString;
+    }
+
+    /**
+     * Generates a cryptographically secure random token as a hexadecimal string.
+     * This is ideal for security tokens, session IDs, CSRF tokens, etc.
+     *
+     * @param   int  $length  The length in bytes (output will be double this in hex characters).
+     *
+     * @return string Returns a hexadecimal string of cryptographically secure random bytes.
+     * @throws Exception If an appropriate source of randomness cannot be found.
+     */
+    public static function generateSecureToken($length = 32)
+    {
+        try {
+            return bin2hex(random_bytes($length));
+        } catch (Exception $e) {
+            self::logError('Failed to generate secure token: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * Generates a cryptographically secure random bytes string.
+     * Useful for encryption keys, initialization vectors, etc.
+     *
+     * @param   int  $length  The length in bytes.
+     *
+     * @return string Returns raw binary random bytes.
+     * @throws Exception If an appropriate source of randomness cannot be found.
+     */
+    public static function generateSecureBytes($length = 32)
+    {
+        try {
+            return random_bytes($length);
+        } catch (Exception $e) {
+            self::logError('Failed to generate secure bytes: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     /**
