@@ -79,7 +79,9 @@ class Util
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                return (isset($_GET[$name]) && !empty($_GET[$name])) ? stripslashes($_GET[$name]) : '';
+                $value = (isset($_GET[$name]) && !empty($_GET[$name])) ? stripslashes($_GET[$name]) : '';
+                // Additional sanitization: remove null bytes and control characters
+                return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'numeric') {
                 return (isset($_GET[$name]) && is_numeric($_GET[$name])) ? intval($_GET[$name]) : '';
             } elseif ($type == 'boolean') {
@@ -935,18 +937,18 @@ class Util
     public static function startLoading()
     {
         global $bearsamppCore, $bearsamppWinbinder;
-        
+
         self::logTrace('startLoading() called');
         self::logTrace('PHP executable: ' . $bearsamppCore->getPhpExe());
         self::logTrace('Root file: ' . Core::isRoot_FILE);
         self::logTrace('Action: ' . Action::LOADING);
-        
+
         $command = Core::isRoot_FILE . ' ' . Action::LOADING;
         self::logTrace('Executing command: ' . $bearsamppCore->getPhpExe() . ' ' . $command);
-        
+
         $result = $bearsamppWinbinder->exec($bearsamppCore->getPhpExe(), $command);
         self::logTrace('exec() returned: ' . var_export($result, true));
-        
+
         self::logTrace('startLoading() completed');
     }
 
@@ -963,7 +965,7 @@ class Util
             }
             @unlink($bearsamppCore->getLoadingPid());
         }
-        
+
         // Clean up status file
         self::clearLoadingText();
     }
@@ -971,13 +973,13 @@ class Util
     /**
      * Updates the loading screen text (if loading screen is active)
      * This allows dynamic updates to show which service is being processed
-     * 
+     *
      * @param string $text The text to display on the loading screen
      */
     public static function updateLoadingText($text)
     {
         global $bearsamppCore;
-        
+
         $statusFile = $bearsamppCore->getTmpPath() . '/loading_status.txt';
         file_put_contents($statusFile, json_encode(['text' => $text]));
     }
@@ -988,7 +990,7 @@ class Util
     public static function clearLoadingText()
     {
         global $bearsamppCore;
-        
+
         $statusFile = $bearsamppCore->getTmpPath() . '/loading_status.txt';
         if (file_exists($statusFile)) {
             @unlink($statusFile);
