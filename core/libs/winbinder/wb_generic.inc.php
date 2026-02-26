@@ -14,7 +14,8 @@
 //-------------------------------------------------------------------- FUNCTIONS
 
 /* Returns an array with all files of subdirectory $path. If $subdirs is TRUE,
-  includes subdirectories recursively. $mask is a PCRE regular expression.
+  includes subdirectories recursively. $mask is a PCRE regular expression. * @since 2022.2.16
+     
 */
 
 function get_folder_files($path, $subdirs=false, $fullname=true, $mask="", $forcelowercase=TRUE)
@@ -52,7 +53,8 @@ function get_folder_files($path, $subdirs=false, $fullname=true, $mask="", $forc
 //-------------------------------------------------------------------- INI FILES
 
 /* Transforms the array $data in a text that can be saved as an INI file.
-  Escapes double-quotes as (\") */
+  Escapes double-quotes as (\") * @since 2022.2.16
+      */
 
 function generate_ini($data, $comments="")
 {
@@ -86,7 +88,8 @@ function generate_ini($data, $comments="")
 /*
 
 Replaces function parse_ini_file() so INI files may be processed more similarly to Windows.
-Replaces escaped double-quotes (\") with double-quotes ("). See manual for details.
+Replaces escaped double-quotes (\") with double-quotes ("). See manual for details. * @since 2022.2.16
+     
 
 */
 

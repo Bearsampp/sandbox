@@ -14,24 +14,28 @@
  * This class represents the Bruno tool module in the Bearsampp application.
  * It extends the abstract Module class and provides specific functionalities
  * for managing the Bruno IDE tool, including setting versions,
- * and retrieving the executable path.
+ * and retrieving the executable path. * @since 2022.2.16
+     
  */
 class ToolBruno extends Module
 {
     /**
-     * Configuration key for the Bruno version in the root configuration.
+     * Configuration key for the Bruno version in the root configuration. * @since 2022.2.16
+     
      */
     const ROOT_CFG_VERSION = 'brunoVersion';
 
     /**
-     * Configuration key for the Bruno executable in the local configuration.
+     * Configuration key for the Bruno executable in the local configuration. * @since 2022.2.16
+     
      */
     const LOCAL_CFG_EXE = 'brunoExe';
 
     /**
      * Path to the Bruno executable.
      *
-     * @var string
+     * @var string * @since 2022.2.16
+     
      */
     private $exe;
 
@@ -42,7 +46,8 @@ class ToolBruno extends Module
      * the module configuration with the provided ID and type.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -57,7 +62,8 @@ class ToolBruno extends Module
      * executable path, and logs errors if the module is not properly configured.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -96,7 +102,8 @@ class ToolBruno extends Module
      * This method updates the version in the configuration and reloads the module
      * to apply the new version.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -108,7 +115,8 @@ class ToolBruno extends Module
     /**
      * Gets the path to the Bruno executable.
      *
-     * @return string The path to the Bruno executable.
+     * @return string The path to the Bruno executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;

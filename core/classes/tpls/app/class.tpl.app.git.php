@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate and manage Git-related menu items and actions
  * within the Bearsampp application. It includes functionalities for creating Git menus,
- * refreshing repositories, and handling startup actions.
+ * refreshing repositories, and handling startup actions. * @since 2022.2.16
+     
  */
 class TplAppGit
 {
@@ -31,7 +32,8 @@ class TplAppGit
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated Git menu item and actions.
+     * @return array The generated Git menu item and actions. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -49,7 +51,8 @@ class TplAppGit
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppTools Provides access to various tools and utilities.
      *
-     * @return string The generated Git menu content.
+     * @return string The generated Git menu content. * @since 2022.2.16
+     
      */
     public static function getMenuGit()
     {
@@ -107,7 +110,8 @@ class TplAppGit
      *
      * @global object $bearsamppTools Provides access to various tools and utilities.
      *
-     * @return string The generated Git repositories menu content.
+     * @return string The generated Git repositories menu content. * @since 2022.2.16
+     
      */
     public static function getMenuGitRepos()
     {
@@ -134,7 +138,8 @@ class TplAppGit
      * This method creates the action string for refreshing Git repositories. It includes
      * commands to reload the application after refreshing the repositories.
      *
-     * @return string The generated action string for refreshing Git repositories.
+     * @return string The generated action string for refreshing Git repositories. * @since 2022.2.16
+     
      */
     public static function getActionRefreshGitRepos()
     {
@@ -150,7 +155,8 @@ class TplAppGit
      *
      * @param int $scanStartup The flag indicating whether to enable or disable scanning at startup.
      *
-     * @return string The generated action string for refreshing Git repositories at startup.
+     * @return string The generated action string for refreshing Git repositories at startup. * @since 2022.2.16
+     
      */
     public static function getActionRefreshGitReposStartup($scanStartup)
     {

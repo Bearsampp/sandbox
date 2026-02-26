@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate menus and actions for managing the Mailpit application.
  * It includes functionalities for enabling/disabling Mailpit, switching versions, changing ports,
- * and managing the Mailpit service.
+ * and managing the Mailpit service. * @since 2022.2.16
+     
  */
 class TplAppMailpit
 {
@@ -35,7 +36,8 @@ class TplAppMailpit
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated menu for enabling or disabling Mailpit.
+     * @return array The generated menu for enabling or disabling Mailpit. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -55,7 +57,8 @@ class TplAppMailpit
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated Mailpit menu items and actions.
+     * @return string The generated Mailpit menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMailpit()
     {
@@ -116,7 +119,8 @@ class TplAppMailpit
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated Mailpit versions menu items and actions.
+     * @return string The generated Mailpit versions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMailpitVersions()
     {
@@ -149,7 +153,8 @@ class TplAppMailpit
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param int $enable The enable flag (1 to enable, 0 to disable).
-     * @return string The generated action string for enabling or disabling Mailpit.
+     * @return string The generated action string for enabling or disabling Mailpit. * @since 2022.2.16
+     
      */
     public static function getActionEnableMailpit($enable)
     {
@@ -167,7 +172,8 @@ class TplAppMailpit
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param string $version The version to switch to.
-     * @return string The generated action string for switching the Mailpit version.
+     * @return string The generated action string for switching the Mailpit version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchMailpitVersion($version)
     {
@@ -187,7 +193,8 @@ class TplAppMailpit
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated Mailpit service menu items and actions.
+     * @return string The generated Mailpit service menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMailpitService()
     {
@@ -244,7 +251,8 @@ class TplAppMailpit
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing the Mailpit port.
+     * @return string The generated action string for changing the Mailpit port. * @since 2022.2.16
+     
      */
     public static function getActionChangeMailpitPort()
     {
@@ -259,7 +267,8 @@ class TplAppMailpit
      *
      * This method creates the action string for installing the Mailpit service and includes a command to reload the application.
      *
-     * @return string The generated action string for installing the Mailpit service.
+     * @return string The generated action string for installing the Mailpit service. * @since 2022.2.16
+     
      */
     public static function getActionInstallMailpitService()
     {
@@ -272,7 +281,8 @@ class TplAppMailpit
      *
      * This method creates the action string for removing the Mailpit service and includes a command to reload the application.
      *
-     * @return string The generated action string for removing the Mailpit service.
+     * @return string The generated action string for removing the Mailpit service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveMailpitService()
     {

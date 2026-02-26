@@ -11,14 +11,16 @@
  * Class ActionDebugPostgresql
  *
  * This class handles the debugging actions for PostgreSQL within the Bearsampp application.
- * It retrieves and displays PostgreSQL command line output based on the provided arguments.
+ * It retrieves and displays PostgreSQL command line output based on the provided arguments. * @since 2022.2.16
+     
  */
 class ActionDebugPostgresql extends ActionDebugBase
 {
     /**
      * Get the service name for language strings
      *
-     * @return string The language constant name for PostgreSQL
+     * @return string The language constant name for PostgreSQL * @since 2022.2.16
+     
      */
     protected function getServiceLangConstant()
     {
@@ -29,7 +31,8 @@ class ActionDebugPostgresql extends ActionDebugBase
      * Get the PostgreSQL binary instance
      *
      * @param object $bearsamppBins The bins object containing all service binaries
-     * @return BinPostgresql The PostgreSQL binary instance
+     * @return BinPostgresql The PostgreSQL binary instance * @since 2022.2.16
+     
      */
     protected function getBinInstance($bearsamppBins)
     {
@@ -39,7 +42,8 @@ class ActionDebugPostgresql extends ActionDebugBase
     /**
      * Get the command-to-caption mapping for PostgreSQL
      *
-     * @return array Command mapping configuration
+     * @return array Command mapping configuration * @since 2022.2.16
+     
      */
     protected function getCommandMapping()
     {
@@ -54,7 +58,8 @@ class ActionDebugPostgresql extends ActionDebugBase
     /**
      * PostgreSQL returns output as a direct string, not an array with 'content' key
      *
-     * @return bool False to indicate direct string output
+     * @return bool False to indicate direct string output * @since 2022.2.16
+     
      */
     protected function hasContentKey()
     {

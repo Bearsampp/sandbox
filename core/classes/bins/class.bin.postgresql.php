@@ -11,7 +11,8 @@
  * Class BinPostgresql
  *
  * This class represents the PostgreSQL module in the Bearsampp application.
- * It handles the configuration, management, and operations related to PostgreSQL.
+ * It handles the configuration, management, and operations related to PostgreSQL. * @since 2022.2.16
+     
  */
 class BinPostgresql extends Module
 {
@@ -52,7 +53,8 @@ class BinPostgresql extends Module
      * Constructor for the BinPostgresql class.
      *
      * @param   string  $id    The ID of the module.
-     * @param   string  $type  The type of the module.
+     * @param   string  $type  The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type)
     {
@@ -64,7 +66,8 @@ class BinPostgresql extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null)
     {
@@ -170,7 +173,8 @@ class BinPostgresql extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param   array  $params  An associative array of key-value pairs to replace.
+     * @param   array  $params  An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params)
     {
@@ -202,7 +206,8 @@ class BinPostgresql extends Module
      * @param   bool   $checkUsed      Whether to check if the port is already in use.
      * @param   mixed  $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use.
+     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
@@ -239,7 +244,8 @@ class BinPostgresql extends Module
      * Checks if the specified port is being used by PostgreSQL
      * @param int $port The port number to check
      * @param bool $showWindow Whether to show a message box with the result
-     * @return bool True if port is used by PostgreSQL, false otherwise
+     * @return bool True if port is used by PostgreSQL, false otherwise * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false)
     {
@@ -277,7 +283,8 @@ class BinPostgresql extends Module
     }
 
     /**
-     * Handles non-PostgreSQL port usage scenarios
+     * Handles non-PostgreSQL port usage scenarios * @since 2022.2.16
+     
      */
     private function handleNonPostgresUsage($port, $showWindow, $boxTitle)
     {
@@ -310,7 +317,8 @@ class BinPostgresql extends Module
      * @param   string  $newPwd         The new root password.
      * @param   mixed   $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password was changed successfully, or an error message if it failed.
+     * @return bool|string True if the password was changed successfully, or an error message if it failed. * @since 2022.2.16
+     
      */
     public function changeRootPassword($currentPwd, $newPwd, $wbProgressBar = null)
     {
@@ -359,7 +367,8 @@ class BinPostgresql extends Module
      * @param   string|null  $currentPwd     The current root password. If null, the stored root password is used.
      * @param   mixed        $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password is correct, or an error message if it is incorrect.
+     * @return bool|string True if the password is correct, or an error message if it is incorrect. * @since 2022.2.16
+     
      */
     public function checkRootPassword($currentPwd = null, $wbProgressBar = null)
     {
@@ -391,7 +400,8 @@ class BinPostgresql extends Module
      * @param   string  $version     The version to switch to.
      * @param   bool    $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the version was switched successfully, false otherwise.
+     * @return bool True if the version was switched successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false)
     {
@@ -407,7 +417,8 @@ class BinPostgresql extends Module
      * @param   int          $sub         The sub-level for logging indentation.
      * @param   bool         $showWindow  Whether to show a window during the update process.
      *
-     * @return bool True if the configuration was updated successfully, false otherwise.
+     * @return bool True if the configuration was updated successfully, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false)
     {
@@ -472,7 +483,8 @@ class BinPostgresql extends Module
     /**
      * Initializes the data directory for PostgreSQL if it does not already exist.
      *
-     * @param   string|null  $path  The path to the PostgreSQL data directory. If null, the current path is used.
+     * @param   string|null  $path  The path to the PostgreSQL data directory. If null, the current path is used. * @since 2022.2.16
+     
      */
     public function initData($path = null)
     {
@@ -509,7 +521,8 @@ class BinPostgresql extends Module
     }
 
     /**
-     * Rebuilds the PostgreSQL configuration files by updating the port number.
+     * Rebuilds the PostgreSQL configuration files by updating the port number. * @since 2022.2.16
+     
      */
     public function rebuildConf()
     {
@@ -526,7 +539,8 @@ class BinPostgresql extends Module
      *
      * @param   string  $cmd  The command to execute.
      *
-     * @return string|null The output of the command, or null if the command failed.
+     * @return string|null The output of the command, or null if the command failed. * @since 2022.2.16
+     
      */
     public function getCmdLineOutput($cmd)
     {
@@ -546,7 +560,8 @@ class BinPostgresql extends Module
     /**
      * Sets the version of PostgreSQL and reloads the configuration.
      *
-     * @param   string  $version  The version to set.
+     * @param   string  $version  The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version)
     {
@@ -559,7 +574,8 @@ class BinPostgresql extends Module
     /**
      * Gets the service object for PostgreSQL.
      *
-     * @return Win32Service The service object.
+     * @return Win32Service The service object. * @since 2022.2.16
+     
      */
     public function getService()
     {
@@ -570,7 +586,8 @@ class BinPostgresql extends Module
      * Enables or disables the PostgreSQL module.
      *
      * @param   bool  $enabled     Whether to enable or disable the module.
-     * @param   bool  $showWindow  Whether to show a message box with the result.
+     * @param   bool  $showWindow  Whether to show a message box with the result. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false)
     {
@@ -603,7 +620,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL error log file.
      *
-     * @return string The path to the error log file.
+     * @return string The path to the error log file. * @since 2022.2.16
+     
      */
     public function getErrorLog()
     {
@@ -613,7 +631,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL control executable.
      *
-     * @return string The path to the control executable.
+     * @return string The path to the control executable. * @since 2022.2.16
+     
      */
     public function getCtlExe()
     {
@@ -623,7 +642,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL command line interface executable.
      *
-     * @return string The path to the CLI executable.
+     * @return string The path to the CLI executable. * @since 2022.2.16
+     
      */
     public function getCliExe()
     {
@@ -633,7 +653,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL dump executable.
      *
-     * @return string The path to the dump executable.
+     * @return string The path to the dump executable. * @since 2022.2.16
+     
      */
     public function getDumpExe()
     {
@@ -643,7 +664,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL dump all executable.
      *
-     * @return string The path to the dump all executable.
+     * @return string The path to the dump all executable. * @since 2022.2.16
+     
      */
     public function getDumpAllExe()
     {
@@ -653,7 +675,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL configuration file.
      *
-     * @return string The path to the configuration file.
+     * @return string The path to the configuration file. * @since 2022.2.16
+     
      */
     public function getConf()
     {
@@ -663,7 +686,8 @@ class BinPostgresql extends Module
     /**
      * Gets the path to the PostgreSQL host-based authentication configuration file.
      *
-     * @return string The path to the HBA configuration file.
+     * @return string The path to the HBA configuration file. * @since 2022.2.16
+     
      */
     public function getHbaConf()
     {
@@ -673,7 +697,8 @@ class BinPostgresql extends Module
     /**
      * Gets the port number used by PostgreSQL.
      *
-     * @return int The port number.
+     * @return int The port number. * @since 2022.2.16
+     
      */
     public function getPort()
     {
@@ -683,7 +708,8 @@ class BinPostgresql extends Module
     /**
      * Sets the port number used by PostgreSQL.
      *
-     * @param   int  $port  The port number to set.
+     * @param   int  $port  The port number to set. * @since 2022.2.16
+     
      */
     public function setPort($port)
     {
@@ -693,7 +719,8 @@ class BinPostgresql extends Module
     /**
      * Gets the root user for PostgreSQL.
      *
-     * @return string The root user.
+     * @return string The root user. * @since 2022.2.16
+     
      */
     public function getRootUser()
     {
@@ -703,7 +730,8 @@ class BinPostgresql extends Module
     /**
      * Sets the root user for PostgreSQL.
      *
-     * @param   string  $rootUser  The root user to set.
+     * @param   string  $rootUser  The root user to set. * @since 2022.2.16
+     
      */
     public function setRootUser($rootUser)
     {
@@ -713,7 +741,8 @@ class BinPostgresql extends Module
     /**
      * Gets the root password for PostgreSQL.
      *
-     * @return string The root password.
+     * @return string The root password. * @since 2022.2.16
+     
      */
     public function getRootPwd()
     {
@@ -723,7 +752,8 @@ class BinPostgresql extends Module
     /**
      * Sets the root password for PostgreSQL.
      *
-     * @param   string  $rootPwd  The root password to set.
+     * @param   string  $rootPwd  The root password to set. * @since 2022.2.16
+     
      */
     public function setRootPwd($rootPwd)
     {

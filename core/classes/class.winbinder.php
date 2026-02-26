@@ -13,7 +13,8 @@
  *
  * This class provides an interface to the WinBinder library, allowing for the creation and management
  * of Windows GUI elements in PHP. It includes methods for creating windows, controls, handling events,
- * and executing system commands.
+ * and executing system commands. * @since 2022.2.16
+     
  */
 class WinBinder
 {
@@ -63,7 +64,8 @@ class WinBinder
     /**
      * WinBinder constructor.
      *
-     * Initializes the WinBinder class, sets the default window title, and resets control counters.
+     * Initializes the WinBinder class, sets the default window title, and resets control counters. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -75,7 +77,8 @@ class WinBinder
     }
 
     /**
-     * Resets the control counter and callback array.
+     * Resets the control counter and callback array. * @since 2022.2.16
+     
      */
     public function reset(): void
     {
@@ -92,7 +95,8 @@ class WinBinder
      * @param   mixed   $style    The window style.
      * @param   mixed   $params   Additional parameters for the window.
      *
-     * @return mixed The created window object.
+     * @return mixed The created window object. * @since 2022.2.16
+     
      */
     public function createAppWindow($caption, $width, $height, $style = null, $params = null): mixed
     {
@@ -112,7 +116,8 @@ class WinBinder
      * @param   mixed   $style    The window style.
      * @param   mixed   $params   Additional parameters for the window.
      *
-     * @return mixed The created window object.
+     * @return mixed The created window object. * @since 2022.2.16
+     
      */
     public function createWindow($parent, $wclass, $caption, $xPos, $yPos, $width, $height, $style = null, $params = null): mixed
     {
@@ -157,7 +162,8 @@ class WinBinder
      * @param   array   $params              The parameters to pass to the function.
      * @param   bool    $removeErrorHandler  Whether to suppress errors during the call.
      *
-     * @return mixed The result of the function call.
+     * @return mixed The result of the function call. * @since 2022.2.16
+     
      */
     private function callWinBinder($function, $params = array(), $removeErrorHandler = false): mixed
     {
@@ -182,7 +188,8 @@ class WinBinder
      * @param   mixed   $wbobject  The WinBinder object to set the image for.
      * @param   string  $path      The path to the image file.
      *
-     * @return mixed The result of the set image operation.
+     * @return mixed The result of the set image operation. * @since 2022.2.16
+     
      */
     public function setImage($wbobject, $path): mixed
     {
@@ -210,7 +217,8 @@ class WinBinder
      * @param   mixed   $style    The window style.
      * @param   mixed   $params   Additional parameters for the window.
      *
-     * @return mixed The created window object.
+     * @return mixed The created window object. * @since 2022.2.16
+     
      */
     public function createNakedWindow($caption, $width, $height, $style = null, $params = null): mixed
     {
@@ -227,7 +235,8 @@ class WinBinder
      * @param   int    $width     The width of the area.
      * @param   int    $height    The height of the area.
      *
-     * @return mixed The result of the set area operation.
+     * @return mixed The result of the set area operation. * @since 2022.2.16
+     
      */
     public function setArea($wbobject, $width, $height): mixed
     {
@@ -238,7 +247,8 @@ class WinBinder
      * Destroys a window with proper cleanup and handling.
      *
      * @param   mixed  $window  The window object to destroy.
-     * @return  boolean True if window was successfully destroyed
+     * @return  boolean True if window was successfully destroyed * @since 2022.2.16
+     
      */
     public function destroyWindow($window): bool
     {
@@ -296,7 +306,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to get the text from.
      *
-     * @return mixed The retrieved text.
+     * @return mixed The retrieved text. * @since 2022.2.16
+     
      */
     public function getText($wbobject): mixed
     {
@@ -307,7 +318,8 @@ class WinBinder
      * Checks if a window handle is still valid.
      *
      * @param   mixed  $window  The window object to check.
-     * @return  boolean True if window is valid
+     * @return  boolean True if window is valid * @since 2022.2.16
+     
      */
     private function windowIsValid($window): bool
     {
@@ -323,7 +335,8 @@ class WinBinder
     /**
      * Process any pending window messages.
      *
-     * @return void
+     * @return void * @since 2022.2.16
+     
      */
     private function processMessages(): void
     {
@@ -337,7 +350,8 @@ class WinBinder
      * @param   string|null  $params  The parameters to pass to the command.
      * @param   bool         $silent  Whether to execute the command silently.
      *
-     * @return mixed The result of the command execution.
+     * @return mixed The result of the command execution. * @since 2022.2.16
+     
      */
     public function exec($cmd, $params = null, $silent = false): mixed
     {
@@ -357,7 +371,8 @@ class WinBinder
     /**
      * Writes a log message to the WinBinder log file.
      *
-     * @param   string  $log  The log message to write.
+     * @param   string  $log  The log message to write. * @since 2022.2.16
+     
      */
     private static function writeLog($log): void
     {
@@ -368,7 +383,8 @@ class WinBinder
     /**
      * Starts the main event loop.
      *
-     * @return mixed The result of the main loop.
+     * @return mixed The result of the main loop. * @since 2022.2.16
+     
      */
     public function mainLoop(): mixed
     {
@@ -380,7 +396,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to refresh.
      *
-     * @return mixed The result of the refresh operation.
+     * @return mixed The result of the refresh operation. * @since 2022.2.16
+     
      */
     public function refresh($wbobject): mixed
     {
@@ -392,7 +409,8 @@ class WinBinder
      *
      * @param   string  $info  The type of system information to retrieve.
      *
-     * @return mixed The retrieved system information.
+     * @return mixed The retrieved system information. * @since 2022.2.16
+     
      */
     public function getSystemInfo($info): mixed
     {
@@ -409,7 +427,8 @@ class WinBinder
      * @param   int     $width     The width of the image.
      * @param   int     $height    The height of the image.
      *
-     * @return mixed The result of the draw operation.
+     * @return mixed The result of the draw operation. * @since 2022.2.16
+     
      */
     public function drawImage($wbobject, $path, $xPos = 0, $yPos = 0, $width = 0, $height = 0): mixed
     {
@@ -429,7 +448,8 @@ class WinBinder
      * @param   int|null     $height   The height of the text area.
      * @param   mixed        $font     The font to use for the text.
      *
-     * @return mixed The result of the draw operation.
+     * @return mixed The result of the draw operation. * @since 2022.2.16
+     
      */
     public function drawText($parent, $caption, $xPos, $yPos, $width = null, $height = null, $font = null)
     {
@@ -453,7 +473,8 @@ class WinBinder
      * @param   int    $color   The color of the rectangle.
      * @param   bool   $filled  Whether the rectangle should be filled.
      *
-     * @return mixed The result of the draw operation.
+     * @return mixed The result of the draw operation. * @since 2022.2.16
+     
      */
     public function drawRect($parent, $xPos, $yPos, $width, $height, $color = 15790320, $filled = true)
     {
@@ -471,7 +492,8 @@ class WinBinder
      * @param   int    $color      The color of the line.
      * @param   int    $height     The height of the line.
      *
-     * @return mixed The result of the draw operation.
+     * @return mixed The result of the draw operation. * @since 2022.2.16
+     
      */
     public function drawLine($wbobject, $xStartPos, $yStartPos, $xEndPos, $yEndPos, $color, $height = 1)
     {
@@ -486,7 +508,8 @@ class WinBinder
      * @param   int|null  $color     The color of the font.
      * @param   mixed     $style     The style of the font.
      *
-     * @return mixed The created font object.
+     * @return mixed The created font object. * @since 2022.2.16
+     
      */
     public function createFont($fontName, $size = null, $color = null, $style = null)
     {
@@ -498,7 +521,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to wait on.
      *
-     * @return mixed The result of the wait operation.
+     * @return mixed The result of the wait operation. * @since 2022.2.16
+     
      */
     public function wait($wbobject = null)
     {
@@ -511,7 +535,8 @@ class WinBinder
      * @param   mixed  $wbobject     The WinBinder object to destroy the timer for.
      * @param   mixed  $timerobject  The timer object to destroy.
      *
-     * @return mixed The result of the destroy operation.
+     * @return mixed The result of the destroy operation. * @since 2022.2.16
+     
      */
     public function destroyTimer($wbobject, $timerobject)
     {
@@ -523,7 +548,8 @@ class WinBinder
      *
      * @param   string  $filename  The name of the file to find.
      *
-     * @return mixed The result of the find operation.
+     * @return mixed The result of the find operation. * @since 2022.2.16
+     
      */
     public function findFile($filename)
     {
@@ -541,7 +567,8 @@ class WinBinder
      * @param   mixed  $methodCallback  The method callback for the handler.
      * @param   mixed  $launchTimer     The timer to launch for the handler.
      *
-     * @return mixed The result of the set handler operation.
+     * @return mixed The result of the set handler operation. * @since 2022.2.16
+     
      */
     public function setHandler($wbobject, $classCallback, $methodCallback, $launchTimer = null)
     {
@@ -560,7 +587,8 @@ class WinBinder
      * @param   mixed  $wbobject  The WinBinder object to create the timer for.
      * @param   int    $wait      The wait time in milliseconds.
      *
-     * @return array An array containing the timer ID and object.
+     * @return array An array containing the timer ID and object. * @since 2022.2.16
+     
      */
     public function createTimer($wbobject, $wait = 1000)
     {
@@ -578,7 +606,8 @@ class WinBinder
      * @param   mixed        $wbobject  The WinBinder object to set the text for.
      * @param   string|null  $content   The text content to set. Null will be converted to empty string.
      *
-     * @return mixed The result of the set text operation.
+     * @return mixed The result of the set text operation. * @since 2022.2.16
+     
      */
     public function setText($wbobject, $content)
     {
@@ -592,7 +621,8 @@ class WinBinder
     /**
      * Retrieves the focus from a WinBinder object.
      *
-     * @return mixed The WinBinder object that has the focus.
+     * @return mixed The WinBinder object that has the focus. * @since 2022.2.16
+     
      */
     public function getFocus()
     {
@@ -604,7 +634,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to set the focus to.
      *
-     * @return mixed The result of the set focus operation.
+     * @return mixed The result of the set focus operation. * @since 2022.2.16
+     
      */
     public function setFocus($wbobject)
     {
@@ -616,7 +647,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to check.
      *
-     * @return mixed True if the object is enabled, false otherwise.
+     * @return mixed True if the object is enabled, false otherwise. * @since 2022.2.16
+     
      */
     public function isEnabled($wbobject)
     {
@@ -628,7 +660,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to disable.
      *
-     * @return mixed The result of the disable operation.
+     * @return mixed The result of the disable operation. * @since 2022.2.16
+     
      */
     public function setDisabled($wbobject)
     {
@@ -641,7 +674,8 @@ class WinBinder
      * @param   mixed  $wbobject  The WinBinder object to set the enabled state for.
      * @param   bool   $enabled   True to enable the object, false to disable it.
      *
-     * @return mixed The result of the set enabled state operation.
+     * @return mixed The result of the set enabled state operation. * @since 2022.2.16
+     
      */
     public function setEnabled($wbobject, $enabled = true)
     {
@@ -654,7 +688,8 @@ class WinBinder
      * @param   mixed  $wbobject  The WinBinder object to set the style for.
      * @param   mixed  $style     The style to set.
      *
-     * @return mixed The result of the set style operation.
+     * @return mixed The result of the set style operation. * @since 2022.2.16
+     
      */
     public function setStyle($wbobject, $style)
     {
@@ -668,7 +703,8 @@ class WinBinder
      * @param   string       $title   The title of the dialog.
      * @param   string|null  $path    The initial path for the dialog.
      *
-     * @return mixed The selected path.
+     * @return mixed The selected path. * @since 2022.2.16
+     
      */
     public function sysDlgPath($parent, $title, $path = null)
     {
@@ -683,7 +719,8 @@ class WinBinder
      * @param   string|null  $filter  The file filter for the dialog.
      * @param   string|null  $path    The initial path for the dialog.
      *
-     * @return mixed The selected file path.
+     * @return mixed The selected file path. * @since 2022.2.16
+     
      */
     public function sysDlgOpen($parent, $title, $filter = null, $path = null)
     {
@@ -702,7 +739,8 @@ class WinBinder
      * @param   mixed     $style    The style for the label.
      * @param   mixed     $params   Additional parameters for the label.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createLabel($parent, $caption, $xPos, $yPos, $width = null, $height = null, $style = null, $params = null)
     {
@@ -726,7 +764,8 @@ class WinBinder
      * @param   mixed   $style     The control style.
      * @param   mixed   $params    Additional parameters for the control.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createControl($parent, $ctlClass, $caption, $xPos, $yPos, $width, $height, $style = null, $params = null)
     {
@@ -766,7 +805,8 @@ class WinBinder
      * @param   mixed        $style      The style for the input text.
      * @param   mixed        $params     Additional parameters for the input text.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createInputText($parent, $value, $xPos, $yPos, $width = null, $height = null, $maxLength = null, $style = null, $params = null)
     {
@@ -789,7 +829,8 @@ class WinBinder
      * @param   mixed  $wbobject  The WinBinder object to set the maximum length for.
      * @param   int    $length    The maximum length to set.
      *
-     * @return mixed The result of the set maximum length operation.
+     * @return mixed The result of the set maximum length operation. * @since 2022.2.16
+     
      */
     public function setMaxLength($wbobject, $length)
     {
@@ -810,7 +851,8 @@ class WinBinder
      * @param   mixed     $style   The style for the edit box.
      * @param   mixed     $params  Additional parameters for the edit box.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createEditBox($parent, $value, $xPos, $yPos, $width = null, $height = null, $style = null, $params = null)
     {
@@ -834,7 +876,8 @@ class WinBinder
      * @param   mixed     $style    The style for the hyperlink.
      * @param   mixed     $params   Additional parameters for the hyperlink.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createHyperLink($parent, $caption, $xPos, $yPos, $width = null, $height = null, $style = null, $params = null)
     {
@@ -853,7 +896,8 @@ class WinBinder
      * @param   mixed   $wbobject  The WinBinder object to set the cursor for.
      * @param   string  $type      The cursor type to set.
      *
-     * @return mixed The result of the set cursor operation.
+     * @return mixed The result of the set cursor operation. * @since 2022.2.16
+     
      */
     public function setCursor($wbobject, $type = self::CURSOR_ARROW)
     {
@@ -872,7 +916,8 @@ class WinBinder
      * @param   int|null  $height      The height of the radio button.
      * @param   bool      $startGroup  Whether this radio button starts a new group.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createRadioButton($parent, $caption, $checked, $xPos, $yPos, $width = null, $height = null, $startGroup = false)
     {
@@ -895,7 +940,8 @@ class WinBinder
      * @param   mixed     $style    The style for the button.
      * @param   mixed     $params   Additional parameters for the button.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createButton($parent, $caption, $xPos, $yPos, $width = null, $height = null, $style = null, $params = null)
     {
@@ -917,7 +963,8 @@ class WinBinder
      * @param   mixed     $style   The style for the progress bar.
      * @param   mixed     $params  Additional parameters for the progress bar.
      *
-     * @return array An array containing the control ID and object.
+     * @return array An array containing the control ID and object. * @since 2022.2.16
+     
      */
     public function createProgressBar($parent, $max, $xPos, $yPos, $width = null, $height = null, $style = null, $params = null)
     {
@@ -938,7 +985,8 @@ class WinBinder
      *
      * @param   mixed  $wbobject  The WinBinder object to get the value from.
      *
-     * @return mixed The retrieved value.
+     * @return mixed The retrieved value. * @since 2022.2.16
+     
      */
     public function getValue($wbobject)
     {
@@ -952,7 +1000,8 @@ class WinBinder
      * @param   int    $min       The minimum value of the range.
      * @param   int    $max       The maximum value of the range.
      *
-     * @return mixed The result of the set range operation.
+     * @return mixed The result of the set range operation. * @since 2022.2.16
+     
      */
     public function setRange($wbobject, $min, $max)
     {
@@ -962,7 +1011,8 @@ class WinBinder
     /**
      * Increments the value of a progress bar.
      *
-     * @param   array  $progressBar  The progress bar control.
+     * @param   array  $progressBar  The progress bar control. * @since 2022.2.16
+     
      */
     public function incrProgressBar($progressBar)
     {
@@ -973,7 +1023,8 @@ class WinBinder
      * Sets the value of a progress bar.
      *
      * @param   array  $progressBar  The progress bar control.
-     * @param   mixed  $value        The value to set.
+     * @param   mixed  $value        The value to set. * @since 2022.2.16
+     
      */
     public function setProgressBarValue($progressBar, $value)
     {
@@ -997,7 +1048,8 @@ class WinBinder
      * @param   mixed  $wbobject  The WinBinder object to set the value for.
      * @param   mixed  $content   The value to set.
      *
-     * @return mixed The result of the set value operation.
+     * @return mixed The result of the set value operation. * @since 2022.2.16
+     
      */
     public function setValue($wbobject, $content)
     {
@@ -1007,7 +1059,8 @@ class WinBinder
     /**
      * Resets the value of a progress bar to zero.
      *
-     * @param   array  $progressBar  The progress bar control.
+     * @param   array  $progressBar  The progress bar control. * @since 2022.2.16
+     
      */
     public function resetProgressBar($progressBar)
     {
@@ -1018,7 +1071,8 @@ class WinBinder
      * Sets the maximum value of a progress bar.
      *
      * @param   array  $progressBar  The progress bar control.
-     * @param   int    $max          The maximum value to set.
+     * @param   int    $max          The maximum value to set. * @since 2022.2.16
+     
      */
     public function setProgressBarMax($progressBar, $max)
     {
@@ -1031,7 +1085,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxInfo($message, $title = null)
     {
@@ -1045,7 +1100,8 @@ class WinBinder
      * @param   int          $type     The type of message box.
      * @param   string|null  $title    The title of the message box.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBox($message, $type, $title = null)
     {
@@ -1068,7 +1124,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxOk($message, $title = null)
     {
@@ -1081,7 +1138,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxOkCancel($message, $title = null)
     {
@@ -1094,7 +1152,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxQuestion($message, $title = null)
     {
@@ -1107,7 +1166,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxError($message, $title = null)
     {
@@ -1120,7 +1180,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxWarning($message, $title = null)
     {
@@ -1133,7 +1194,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxYesNo($message, $title = null)
     {
@@ -1146,7 +1208,8 @@ class WinBinder
      * @param   string       $message  The message to display.
      * @param   string|null  $title    The title of the message box. If null, the default title will be used.
      *
-     * @return mixed The result of the message box operation.
+     * @return mixed The result of the message box operation. * @since 2022.2.16
+     
      */
     public function messageBoxYesNoCancel($message, $title = null)
     {
@@ -1166,7 +1229,8 @@ class WinBinder
  * @param   int    $id      The ID of the event.
  * @param   mixed  $ctrl    The control that triggered the event.
  * @param   mixed  $param1  The first parameter of the event.
- * @param   mixed  $param2  The second parameter of the event.
+ * @param   mixed  $param2  The second parameter of the event. * @since 2022.2.16
+     
  */
 function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
 {

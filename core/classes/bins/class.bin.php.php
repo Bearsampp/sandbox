@@ -12,7 +12,8 @@
  * Class BinPhp
  *
  * This class extends the Module class and provides functionalities specific to managing PHP binaries within the Bearsampp application.
- * It includes methods for reloading configurations, switching versions, updating configurations, and retrieving various PHP settings and extensions.
+ * It includes methods for reloading configurations, switching versions, updating configurations, and retrieving various PHP settings and extensions. * @since 2022.2.16
+     
  */
 class BinPhp extends Module
 {
@@ -100,7 +101,8 @@ class BinPhp extends Module
      * Constructor for the BinPhp class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -111,7 +113,8 @@ class BinPhp extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppBins, $bearsamppLang;
@@ -167,7 +170,8 @@ class BinPhp extends Module
      *
      * @param string $version The version to switch to.
      * @param bool $showWindow Whether to show a window during the switch process.
-     * @return bool True if the switch was successful, false otherwise.
+     * @return bool True if the switch was successful, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
@@ -180,7 +184,8 @@ class BinPhp extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a window during the update process.
-     * @return bool True if the update was successful, false otherwise.
+     * @return bool True if the update was successful, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppBins, $bearsamppApps, $bearsamppWinbinder;
@@ -261,7 +266,8 @@ class BinPhp extends Module
     /**
      * Retrieves the PHP settings.
      *
-     * @return array An associative array of PHP settings.
+     * @return array An associative array of PHP settings. * @since 2022.2.16
+     
      */
     public function getSettings() {
         return array(
@@ -380,7 +386,8 @@ class BinPhp extends Module
     /**
      * Retrieves the default, off, and current values for various PHP settings.
      *
-     * @return array An associative array where the key is the setting name and the value is an array containing the default, off, and current values.
+     * @return array An associative array where the key is the setting name and the value is an array containing the default, off, and current values. * @since 2022.2.16
+     
      */
     public function getSettingsValues() {
         return array(
@@ -451,7 +458,8 @@ class BinPhp extends Module
      * Checks if a specific PHP setting is active.
      *
      * @param string $name The name of the setting to check.
-     * @return bool True if the setting is active, false otherwise.
+     * @return bool True if the setting is active, false otherwise. * @since 2022.2.16
+     
      */
     public function isSettingActive($name) {
         $settingsValues = $this->getSettingsValues();
@@ -471,7 +479,8 @@ class BinPhp extends Module
      * Checks if a specific PHP setting exists in the configuration file.
      *
      * @param string $name The name of the setting to check.
-     * @return bool True if the setting exists, false otherwise.
+     * @return bool True if the setting exists, false otherwise. * @since 2022.2.16
+     
      */
     public function isSettingExists($name) {
         $confContent = file($this->getConf());
@@ -487,7 +496,8 @@ class BinPhp extends Module
     /**
      * Retrieves the list of PHP extensions from both the configuration file and the extensions folder.
      *
-     * @return array An associative array where the key is the extension name and the value is the status (on/off).
+     * @return array An associative array where the key is the extension name and the value is the status (on/off). * @since 2022.2.16
+     
      */
     public function getExtensions() {
         $fromFolder = $this->getExtensionsFromConf();
@@ -501,7 +511,8 @@ class BinPhp extends Module
      * Checks if a specific PHP extension is excluded from the list.
      *
      * @param string $ext The name of the extension to check.
-     * @return bool True if the extension is excluded, false otherwise.
+     * @return bool True if the extension is excluded, false otherwise. * @since 2022.2.16
+     
      */
     private function isExtensionExcluded($ext) {
         return in_array($ext, array(
@@ -513,7 +524,8 @@ class BinPhp extends Module
     /**
      * Retrieves the list of PHP extensions from the configuration file.
      *
-     * @return array An associative array where the key is the extension name and the value is the status (on/off).
+     * @return array An associative array where the key is the extension name and the value is the status (on/off). * @since 2022.2.16
+     
      */
     public function getExtensionsFromConf() {
         $result = array();
@@ -541,7 +553,8 @@ class BinPhp extends Module
     /**
      * Retrieves the list of currently loaded PHP extensions.
      *
-     * @return array An array of extension names that are currently loaded.
+     * @return array An array of extension names that are currently loaded. * @since 2022.2.16
+     
      */
     public function getExtensionsLoaded() {
         $result = array();
@@ -556,7 +569,8 @@ class BinPhp extends Module
     /**
      * Retrieves the list of PHP extensions from the extensions folder.
      *
-     * @return array An associative array where the key is the extension name and the value is the status (off).
+     * @return array An associative array where the key is the extension name and the value is the status (off). * @since 2022.2.16
+     
      */
     public function getExtensionsFromFolder() {
         $result = array();
@@ -586,7 +600,8 @@ class BinPhp extends Module
      *
      * @param string $apacheVersion The version of Apache.
      * @param string|null $phpVersion The version of PHP. If null, the current PHP version is used.
-     * @return string|false The path to the Apache module, or false if not found.
+     * @return string|false The path to the Apache module, or false if not found. * @since 2022.2.16
+     
      */
     public function getApacheModule($apacheVersion, $phpVersion = null) {
         $apacheVersion = substr(str_replace('.', '', $apacheVersion), 0, 2);
@@ -615,7 +630,8 @@ class BinPhp extends Module
      * Retrieves the name of the PHP Thread Safe (TS) DLL for the specified PHP version.
      *
      * @param string|null $phpVersion The version of PHP. If null, the current PHP version is used.
-     * @return string|false The name of the PHP TS DLL, or false if not found.
+     * @return string|false The name of the PHP TS DLL, or false if not found. * @since 2022.2.16
+     
      */
     public function getTsDll($phpVersion = null) {
         $phpVersion = $phpVersion == null ? $this->getVersion() : $phpVersion;
@@ -633,7 +649,8 @@ class BinPhp extends Module
     /**
      * Sets the PHP version and updates the configuration.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -649,7 +666,8 @@ class BinPhp extends Module
      * Enables or disables the module and updates the configuration.
      *
      * @param int $enabled The enable status (Config::ENABLED or Config::DISABLED).
-     * @param bool $showWindow Whether to show a window during the process.
+     * @param bool $showWindow Whether to show a window during the process. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;
@@ -680,7 +698,8 @@ class BinPhp extends Module
     /**
      * Retrieves the path to the PHP error log file.
      *
-     * @return string The path to the PHP error log file.
+     * @return string The path to the PHP error log file. * @since 2022.2.16
+     
      */
     public function getErrorLog() {
         return $this->errorLog;
@@ -689,7 +708,8 @@ class BinPhp extends Module
     /**
      * Retrieves the path to the PHP CLI executable.
      *
-     * @return string The path to the PHP CLI executable.
+     * @return string The path to the PHP CLI executable. * @since 2022.2.16
+     
      */
     public function getCliExe() {
         return $this->cliExe;
@@ -698,7 +718,8 @@ class BinPhp extends Module
     /**
      * Retrieves the path to the PHP CLI silent executable.
      *
-     * @return string The path to the PHP CLI silent executable.
+     * @return string The path to the PHP CLI silent executable. * @since 2022.2.16
+     
      */
     public function getCliSilentExe() {
         return $this->cliSilentExe;
@@ -707,7 +728,8 @@ class BinPhp extends Module
     /**
      * Retrieves the path to the PHP configuration file.
      *
-     * @return string The path to the PHP configuration file.
+     * @return string The path to the PHP configuration file. * @since 2022.2.16
+     
      */
     public function getConf() {
         return $this->conf;
@@ -716,7 +738,8 @@ class BinPhp extends Module
     /**
      * Retrieves the path to the PHP PEAR executable.
      *
-     * @return string The path to the PHP PEAR executable.
+     * @return string The path to the PHP PEAR executable. * @since 2022.2.16
+     
      */
     public function getPearExe() {
         return $this->pearExe;
@@ -726,7 +749,8 @@ class BinPhp extends Module
      * Retrieves the version of PEAR.
      *
      * @param bool $cache Whether to use the cached version.
-     * @return string|null The PEAR version, or null if not found.
+     * @return string|null The PEAR version, or null if not found. * @since 2022.2.16
+     
      */
     public function getPearVersion($cache = false) {
         $cacheFile = $this->getCurrentPath() . '/pear/version';

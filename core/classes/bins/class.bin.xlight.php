@@ -12,7 +12,8 @@
  * Class BinXlight
  *
  * This class represents the Xlight FTP server module in the Bearsampp application.
- * It handles the configuration, initialization, and management of the Xlight FTP server.
+ * It handles the configuration, initialization, and management of the Xlight FTP server. * @since 2022.2.16
+     
  */
 class BinXlight extends Module
 {
@@ -37,7 +38,8 @@ class BinXlight extends Module
      * Constructs a BinXlight object and initializes the module.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -48,7 +50,8 @@ class BinXlight extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
@@ -111,7 +114,8 @@ class BinXlight extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param array $params An associative array of key-value pairs to replace.
+     * @param array $params An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params) {
         $content = file_get_contents($this->bearsamppConf);
@@ -135,7 +139,8 @@ class BinXlight extends Module
     /**
      * Rebuilds the configuration in the Windows Registry.
      *
-     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     * @return bool True if the configuration was successfully rebuilt, false otherwise. * @since 2022.2.16
+     
      */
     public function rebuildConf() {
         global $bearsamppRegistry;
@@ -163,7 +168,8 @@ class BinXlight extends Module
      * @param int $port The new port number.
      * @param bool $checkUsed Whether to check if the port is already in use.
      * @param mixed|null $wbProgressBar The progress bar object for UI updates (optional).
-     * @return bool|int True if the port was successfully changed, false if invalid, or the process using the port.
+     * @return bool|int True if the port was successfully changed, false if invalid, or the process using the port. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null) {
         global $bearsamppWinbinder;
@@ -198,7 +204,8 @@ class BinXlight extends Module
      *
      * @param int $port The port number to check.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the port is used by Xlight, false otherwise.
+     * @return bool True if the port is used by Xlight, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -246,7 +253,8 @@ class BinXlight extends Module
      *
      * @param string $version The version to switch to.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the version was successfully switched, false otherwise.
+     * @return bool True if the version was successfully switched, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
@@ -259,7 +267,8 @@ class BinXlight extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the configuration was successfully updated, false otherwise.
+     * @return bool True if the configuration was successfully updated, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -306,7 +315,8 @@ class BinXlight extends Module
     /**
      * Sets the version of the Xlight FTP server.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -318,7 +328,8 @@ class BinXlight extends Module
     /**
      * Gets the service object for the Xlight FTP server.
      *
-     * @return Win32Service The service object.
+     * @return Win32Service The service object. * @since 2022.2.16
+     
      */
     public function getService() {
         return $this->service;
@@ -328,7 +339,8 @@ class BinXlight extends Module
      * Enables or disables the Xlight FTP server.
      *
      * @param bool $enabled Whether to enable or disable the server.
-     * @param bool $showWindow Whether to show a message box with the result.
+     * @param bool $showWindow Whether to show a message box with the result. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
@@ -359,7 +371,8 @@ class BinXlight extends Module
     /**
      * Gets the log file path for the Xlight FTP server.
      *
-     * @return string The log file path.
+     * @return string The log file path. * @since 2022.2.16
+     
      */
     public function getLog() {
         return $this->log;
@@ -368,7 +381,8 @@ class BinXlight extends Module
     /**
      * Gets the executable file path for the Xlight FTP server.
      *
-     * @return string The executable file path.
+     * @return string The executable file path. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -377,7 +391,8 @@ class BinXlight extends Module
     /**
      * Gets the SSL port used by the Xlight FTP server.
      *
-     * @return int The SSL port number.
+     * @return int The SSL port number. * @since 2022.2.16
+     
      */
     public function getUiPort() {
         return $this->SslPort;
@@ -386,7 +401,8 @@ class BinXlight extends Module
     /**
      * Sets the SSL port for the Xlight FTP server.
      *
-     * @param int $SslPort The SSL port number.
+     * @param int $SslPort The SSL port number. * @since 2022.2.16
+     
      */
     public function setSslPort($SslPort) {
         $this->replace(self::LOCAL_CFG_SSL_PORT, $SslPort);
@@ -395,7 +411,8 @@ class BinXlight extends Module
     /**
      * Gets the port used by the Xlight FTP server.
      *
-     * @return int The port number.
+     * @return int The port number. * @since 2022.2.16
+     
      */
     public function getPort() {
         return $this->port;
@@ -404,7 +421,8 @@ class BinXlight extends Module
     /**
      * Sets the port for the Xlight FTP server.
      *
-     * @param int $port The port number.
+     * @param int $port The port number. * @since 2022.2.16
+     
      */
     public function setPort($port) {
         $this->replace(self::LOCAL_CFG_PORT, $port);

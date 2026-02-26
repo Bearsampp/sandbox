@@ -9,22 +9,26 @@
 
 /**
  * Class ActionStopAllServices
- * Handles stopping all services with a single splash screen showing progress.
+ * Handles stopping all services with a single splash screen showing progress. * @since 2022.2.16
+     
  */
 class ActionStopAllServices
 {
     /**
-     * @var Splash The splash screen instance.
+     * @var Splash The splash screen instance. * @since 2022.2.16
+     
      */
     private $splash;
 
     /**
-     * @var bool Flag to track if processing has been done
+     * @var bool Flag to track if processing has been done * @since 2022.2.16
+     
      */
     private $processed = false;
 
     /**
-     * Gauge value for progress bar increments.
+     * Gauge value for progress bar increments. * @since 2022.2.16
+     
      */
     const GAUGE_PER_SERVICE = 1;
 
@@ -32,7 +36,8 @@ class ActionStopAllServices
      * ActionStopAllServices constructor.
      * Initializes the stopping process, displays the splash screen, and sets up the main loop.
      *
-     * @param   array  $args  Command line arguments.
+     * @param   array  $args  Command line arguments. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -63,7 +68,8 @@ class ActionStopAllServices
      * @param   int       $id      The event ID.
      * @param   int       $ctrl    The control ID.
      * @param   mixed     $param1  Additional parameter 1.
-     * @param   mixed     $param2  Additional parameter 2.
+     * @param   mixed     $param2  Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

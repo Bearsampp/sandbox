@@ -13,17 +13,20 @@
  *
  * This class handles the execution of specific actions based on the content of a file.
  * The actions include quitting the application or reloading it. The actions are read
- * from a file whose path is provided by the global `$bearsamppCore` object.
+ * from a file whose path is provided by the global `$bearsamppCore` object. * @since 2022.2.16
+     
  */
 class ActionExec
 {
     /**
-     * Constant representing the 'quit' action.
+     * Constant representing the 'quit' action. * @since 2022.2.16
+     
      */
     const QUIT = 'quit';
 
     /**
-     * Constant representing the 'reload' action.
+     * Constant representing the 'reload' action. * @since 2022.2.16
+     
      */
     const RESTART = 'restart';
 
@@ -34,7 +37,8 @@ class ActionExec
      * If the action is 'quit', it calls `Batch::exitApp()`. If the action is 'restart', it calls
      * `Batch::restartApp()`. After executing the action, it deletes the action file.
      *
-     * @param array $args Arguments passed to the constructor (not used in the current implementation).
+     * @param array $args Arguments passed to the constructor (not used in the current implementation). * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

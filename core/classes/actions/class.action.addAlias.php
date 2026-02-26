@@ -9,7 +9,8 @@
 
 /**
  * Class ActionAddAlias
- * Handles the creation of a new alias in the Bearsampp application.
+ * Handles the creation of a new alias in the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionAddAlias
 {
@@ -30,7 +31,8 @@ class ActionAddAlias
      * ActionAddAlias constructor.
      * Initializes the window and its controls for adding a new alias.
      *
-     * @param array $args Arguments passed to the constructor.
+     * @param array $args Arguments passed to the constructor. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -68,7 +70,8 @@ class ActionAddAlias
      * @param int $id The control ID.
      * @param resource $ctrl The control resource.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

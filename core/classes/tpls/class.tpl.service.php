@@ -5,6 +5,7 @@
  * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ * @since 2022.2.16
  */
 
 class TplService
@@ -13,7 +14,8 @@ class TplService
      * Generates an action string to create a service.
      *
      * @param string $sName The name of the service to create.
-     * @return string The generated action string for creating the service.
+     * @return string The generated action string for creating the service. * @since 2022.2.16
+     
      */
     public static function getActionCreate($sName)
     {
@@ -24,7 +26,8 @@ class TplService
      * Generates an action string to start a service.
      *
      * @param string $sName The name of the service to start.
-     * @return string The generated action string for starting the service.
+     * @return string The generated action string for starting the service. * @since 2022.2.16
+     
      */
     public static function getActionStart($sName)
     {
@@ -35,7 +38,8 @@ class TplService
      * Generates an action string to stop a service.
      *
      * @param string $sName The name of the service to stop.
-     * @return string The generated action string for stopping the service.
+     * @return string The generated action string for stopping the service. * @since 2022.2.16
+     
      */
     public static function getActionStop($sName)
     {
@@ -46,7 +50,8 @@ class TplService
      * Generates an action string to restart a service.
      *
      * @param string $sName The name of the service to restart.
-     * @return string The generated action string for restarting the service.
+     * @return string The generated action string for restarting the service. * @since 2022.2.16
+     
      */
     public static function getActionRestart($sName)
     {
@@ -57,7 +62,8 @@ class TplService
      * Generates an action string to install a service.
      *
      * @param string $sName The name of the service to install.
-     * @return string The generated action string for installing the service.
+     * @return string The generated action string for installing the service. * @since 2022.2.16
+     
      */
     public static function getActionInstall($sName)
     {
@@ -68,7 +74,8 @@ class TplService
      * Generates an action string to remove a service.
      *
      * @param string $sName The name of the service to remove.
-     * @return string The generated action string for removing the service.
+     * @return string The generated action string for removing the service. * @since 2022.2.16
+     
      */
     public static function getActionRemove($sName)
     {
@@ -79,7 +86,8 @@ class TplService
      * Generates a menu item to start a service.
      *
      * @param string $sName The name of the service to start.
-     * @return string The generated menu item string for starting the service.
+     * @return string The generated menu item string for starting the service. * @since 2022.2.16
+     
      */
     public static function getItemStart($sName)
     {
@@ -95,7 +103,8 @@ class TplService
      * Generates a menu item to stop a service.
      *
      * @param string $sName The name of the service to stop.
-     * @return string The generated menu item string for stopping the service.
+     * @return string The generated menu item string for stopping the service. * @since 2022.2.16
+     
      */
     public static function getItemStop($sName)
     {
@@ -111,7 +120,8 @@ class TplService
      * Generates a menu item to restart a service.
      *
      * @param string $sName The name of the service to restart.
-     * @return string The generated menu item string for restarting the service.
+     * @return string The generated menu item string for restarting the service. * @since 2022.2.16
+     
      */
     public static function getItemRestart($sName)
     {
@@ -127,7 +137,8 @@ class TplService
      * Generates a menu item to install a service.
      *
      * @param string $sName The name of the service to install.
-     * @return string The generated menu item string for installing the service.
+     * @return string The generated menu item string for installing the service. * @since 2022.2.16
+     
      */
     public static function getItemInstall($sName)
     {
@@ -143,7 +154,8 @@ class TplService
      * Generates a menu item to remove a service.
      *
      * @param string $sName The name of the service to remove.
-     * @return string The generated menu item string for removing the service.
+     * @return string The generated menu item string for removing the service. * @since 2022.2.16
+     
      */
     public static function getItemRemove($sName)
     {

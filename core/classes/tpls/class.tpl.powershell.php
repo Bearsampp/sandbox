@@ -11,7 +11,8 @@
  * Class TplPowerShell
  *
  * This class is responsible for managing PowerShell configuration.
- * It includes methods to define various sections such as tabs for different tools.
+ * It includes methods to define various sections such as tabs for different tools. * @since 2022.2.16
+     
  */
 class TplPowerShell
 {
@@ -35,7 +36,8 @@ class TplPowerShell
     */
 
     /**
-     * Private constructor to prevent instantiation.
+     * Private constructor to prevent instantiation. * @since 2022.2.16
+     
      */
     private function __construct()
     {
@@ -45,7 +47,8 @@ class TplPowerShell
      * Process PowerShell configuration.
      *
      * PowerShell 7+ uses profile scripts and Oh My Posh for configuration,
-     * not XML like ConsoleZ. This method is maintained for compatibility.
+     * not XML like ConsoleZ. This method is maintained for compatibility. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -61,7 +64,8 @@ class TplPowerShell
      * It includes multiple tab sections such as command, PowerShell, PEAR, MySQL, MariaDB,
      * PostgreSQL, Ghostscript, Git, Node.js, Composer, Perl, Python, Ruby and Ngrok.
      *
-     * @return string The formatted string for the tabs section.
+     * @return string The formatted string for the tabs section. * @since 2022.2.16
+     
      */
     private static function getTabsSection()
     {
@@ -90,7 +94,8 @@ class TplPowerShell
      * @return string The formatted string for the command tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabCmdSection()
     {
@@ -113,7 +118,8 @@ class TplPowerShell
      * @return string The formatted string for the PowerShell tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabPowerShellSection()
     {
@@ -141,7 +147,8 @@ class TplPowerShell
      * @return string The formatted string for the PEAR tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Bins  $bearsamppBins The bins object of the application.
+     * @global Bins  $bearsamppBins The bins object of the application. * @since 2022.2.16
+     
      */
     private static function getTabPearSection()
     {
@@ -169,7 +176,8 @@ class TplPowerShell
      * @return string The formatted string for the MySQL tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Bins  $bearsamppBins The bins object of the application.
+     * @global Bins  $bearsamppBins The bins object of the application. * @since 2022.2.16
+     
      */
     private static function getTabMysqlSection()
     {
@@ -199,7 +207,8 @@ class TplPowerShell
      * @return string The formatted string for the MariaDB tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Bins  $bearsamppBins The bins object of the application.
+     * @global Bins  $bearsamppBins The bins object of the application. * @since 2022.2.16
+     
      */
     private static function getTabMariadbSection()
     {
@@ -229,7 +238,8 @@ class TplPowerShell
      * @return string The formatted string for the PostgreSQL tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Bins  $bearsamppBins The bins object of the application.
+     * @global Bins  $bearsamppBins The bins object of the application. * @since 2022.2.16
+     
      */
     private static function getTabPostgresqlSection()
     {
@@ -261,7 +271,8 @@ class TplPowerShell
      * @return string The formatted string for the Git tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabGitSection()
     {
@@ -290,7 +301,8 @@ class TplPowerShell
      * @global Bins  $bearsamppBins The bins object of the application.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabNodejsSection()
     {
@@ -318,7 +330,8 @@ class TplPowerShell
      * @return string The formatted string for the Composer tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabComposerSection()
     {
@@ -346,7 +359,8 @@ class TplPowerShell
      * @return string The formatted string for the Python tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabPythonSection()
     {
@@ -374,7 +388,8 @@ class TplPowerShell
      * @return string The formatted string for the Ruby tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabRubySection()
     {
@@ -418,7 +433,8 @@ class TplPowerShell
      * @return string The formatted string for the Perl tab section.
      * @global Tools $bearsamppTools The tools object of the application.
      *
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabPerlSection()
     {
@@ -448,7 +464,8 @@ class TplPowerShell
      *
      * @return string The structure for the Ghostscript tab section.
      * @global Tools $bearsamppTools The tools object of the application.
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabGhostscriptSection()
     {
@@ -478,7 +495,8 @@ class TplPowerShell
      *
      * @return string The structure for the Ngrok tab section.
      * @global Tools $bearsamppTools The tools object of the application.
-     * @global Root  $bearsamppRoot The root object of the application.
+     * @global Root  $bearsamppRoot The root object of the application. * @since 2022.2.16
+     
      */
     private static function getTabNgrokSection()
     {
@@ -512,7 +530,8 @@ class TplPowerShell
      * @param string $shell The shell command to be executed in the tab.
      * @param string $initDir The initial directory for the tab.
      * @return string The structure for the tab.
-     * @global Core  $bearsamppCore The core object of the application.
+     * @global Core  $bearsamppCore The core object of the application. * @since 2022.2.16
+     
      */
     private static function getTab($title, $icon, $shell, $initDir)
     {

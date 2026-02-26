@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Manages reload action templates and execution for Bearsampp menu system
+ * Manages reload action templates and execution for Bearsampp menu system * @since 2022.2.16
+     
  */
 class TplAppReload
 {
     /**
-     * @var string Action identifier for reload operations
+     * @var string Action identifier for reload operations * @since 2022.2.16
+     
      */
     const ACTION = 'reload';
 
@@ -19,7 +21,8 @@ class TplAppReload
      *               - Action parameters
      *               - Menu item configuration (label + glyph)
      *               - Disabled state
-     *               - Calling class name
+     *               - Calling class name * @since 2022.2.16
+     
      */
     public static function process(): array
     {
@@ -39,7 +42,8 @@ class TplAppReload
      * @return string Concatenated action sequence containing:
      *               1. PHP process execution command
      *               2. Service reset command
-     *               3. Configuration reload command
+     *               3. Configuration reload command * @since 2022.2.16
+     
      */
     public static function getActionReload(): string
     {
@@ -58,7 +62,8 @@ class TplAppReload
      * @throws Exception If reload operation fails
      *
      * @log TRACE: Logs method entry and generated action content
-     * @log ERROR: Captures and logs any exceptions during reload
+     * @log ERROR: Captures and logs any exceptions during reload * @since 2022.2.16
+     
      */
     public static function triggerReload($args = null): string
     {

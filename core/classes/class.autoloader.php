@@ -12,6 +12,8 @@
  *
  * This class handles the autoloading of classes within the Bearsampp application.
  * It registers itself with the SPL autoload stack and loads classes based on naming conventions.
+ *
+ * @since 2022.2.16
  */
 class Autoloader
 {
@@ -19,6 +21,8 @@ class Autoloader
      * Autoloader constructor.
      *
      * Initializes the Autoloader object.
+     *
+     * @since 2022.2.16
      */
     public function __construct()
     {
@@ -29,6 +33,8 @@ class Autoloader
      *
      * @param string $class The name of the class to load.
      * @return bool True if the class file was successfully loaded, false otherwise.
+     *
+     * @since 2022.2.16
      */
     public function load($class)
     {
@@ -70,6 +76,8 @@ class Autoloader
      * Registers the autoloader with the SPL autoload stack.
      *
      * @return bool True on success, false on failure.
+     *
+     * @since 2022.2.16
      */
     public function register()
     {
@@ -80,6 +88,8 @@ class Autoloader
      * Unregisters the autoloader from the SPL autoload stack.
      *
      * @return bool True on success, false on failure.
+     *
+     * @since 2022.2.16
      */
     public function unregister()
     {

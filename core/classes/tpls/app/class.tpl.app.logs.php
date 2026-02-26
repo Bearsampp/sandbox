@@ -11,7 +11,8 @@
  * Class TplAppLogs
  *
  * This class provides methods to generate and manage the logs menu within the Bearsampp application.
- * It includes functionalities for creating the logs menu and listing log files.
+ * It includes functionalities for creating the logs menu and listing log files. * @since 2022.2.16
+     
  */
 class TplAppLogs
 {
@@ -26,7 +27,8 @@ class TplAppLogs
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated logs menu as a string.
+     * @return array The generated logs menu as a string. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -43,7 +45,8 @@ class TplAppLogs
      *
      * @global object $bearsamppRoot Provides access to the root directory of the application.
      *
-     * @return string The generated logs menu content as a string.
+     * @return string The generated logs menu content as a string. * @since 2022.2.16
+     
      */
     public static function getMenuLogs()
     {

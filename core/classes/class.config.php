@@ -12,7 +12,8 @@
  * Class Config
  *
  * This class handles the configuration settings for the Bearsampp application.
- * It reads the configuration from an INI file and provides methods to access and modify these settings.
+ * It reads the configuration from an INI file and provides methods to access and modify these settings. * @since 2022.2.16
+     
  */
 class Config
 {
@@ -43,7 +44,8 @@ class Config
 
     /**
      * Constructs a Config object and initializes the configuration settings.
-     * Reads the configuration from the INI file and sets the default timezone.
+     * Reads the configuration from the INI file and sets the default timezone. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -58,7 +60,8 @@ class Config
      * Retrieves the raw configuration value for the specified key.
      *
      * @param string $key The configuration key.
-     * @return mixed The configuration value.
+     * @return mixed The configuration value. * @since 2022.2.16
+     
      */
     public function getRaw($key)
     {
@@ -69,7 +72,8 @@ class Config
      * Replaces a single configuration value with the specified key and value.
      *
      * @param string $key The configuration key.
-     * @param mixed $value The new configuration value.
+     * @param mixed $value The new configuration value. * @since 2022.2.16
+     
      */
     public function replace($key, $value)
     {
@@ -79,7 +83,8 @@ class Config
     /**
      * Replaces multiple configuration values with the specified key-value pairs.
      *
-     * @param array $params An associative array of key-value pairs to replace.
+     * @param array $params An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     public function replaceAll($params)
     {
@@ -99,7 +104,8 @@ class Config
     /**
      * Retrieves the language setting from the configuration.
      *
-     * @return string The language setting.
+     * @return string The language setting. * @since 2022.2.16
+     
      */
     public function getLang()
     {
@@ -109,7 +115,8 @@ class Config
     /**
      * Retrieves the default language setting from the configuration.
      *
-     * @return string The default language setting.
+     * @return string The default language setting. * @since 2022.2.16
+     
      */
     public function getDefaultLang()
     {
@@ -119,7 +126,8 @@ class Config
     /**
      * Retrieves the timezone setting from the configuration.
      *
-     * @return string The timezone setting.
+     * @return string The timezone setting. * @since 2022.2.16
+     
      */
     public function getTimezone()
     {
@@ -129,7 +137,8 @@ class Config
     /**
      * Retrieves the license key from the configuration.
      *
-     * @return string The license key.
+     * @return string The license key. * @since 2022.2.16
+     
      */
     public function getDownloadId()
     {
@@ -139,7 +148,8 @@ class Config
     /**
      * Checks if the application is set to be online.
      *
-     * @return bool True if online, false otherwise.
+     * @return bool True if online, false otherwise. * @since 2022.2.16
+     
      */
     public function isOnline()
     {
@@ -149,7 +159,8 @@ class Config
     /**
      * Checks if the application is set to launch at startup.
      *
-     * @return bool True if set to launch at startup, false otherwise.
+     * @return bool True if set to launch at startup, false otherwise. * @since 2022.2.16
+     
      */
     public function isLaunchStartup()
     {
@@ -159,7 +170,8 @@ class Config
     /**
      * Retrieves the browser setting from the configuration.
      *
-     * @return string The browser setting.
+     * @return string The browser setting. * @since 2022.2.16
+     
      */
     public function getBrowser()
     {
@@ -169,7 +181,8 @@ class Config
     /**
      * Retrieves the hostname setting from the configuration.
      *
-     * @return string The hostname setting.
+     * @return string The hostname setting. * @since 2022.2.16
+     
      */
     public function getHostname()
     {
@@ -179,7 +192,8 @@ class Config
     /**
      * Retrieves the scripts timeout setting from the configuration.
      *
-     * @return int The scripts timeout setting.
+     * @return int The scripts timeout setting. * @since 2022.2.16
+     
      */
     public function getScriptsTimeout()
     {
@@ -189,7 +203,8 @@ class Config
     /**
      * Retrieves the notepad setting from the configuration.
      *
-     * @return string The notepad setting.
+     * @return string The notepad setting. * @since 2022.2.16
+     
      */
     public function getNotepad()
     {
@@ -199,7 +214,8 @@ class Config
     /**
      * Retrieves the logs verbosity setting from the configuration.
      *
-     * @return int The logs verbosity setting.
+     * @return int The logs verbosity setting. * @since 2022.2.16
+     
      */
     public function getLogsVerbose()
     {
@@ -209,7 +225,8 @@ class Config
     /**
      * Retrieves the maximum logs archives setting from the configuration.
      *
-     * @return int The maximum logs archives setting.
+     * @return int The maximum logs archives setting. * @since 2022.2.16
+     
      */
     public function getMaxLogsArchives()
     {
@@ -219,7 +236,8 @@ class Config
     /**
      * Retrieves the IncludePr setting from the configuration.
      *
-     * @return int 1 if PR should be included, 0 otherwise
+     * @return int 1 if PR should be included, 0 otherwise * @since 2022.2.16
+     
      */
     public function getIncludePr()
     {

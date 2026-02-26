@@ -14,6 +14,8 @@
  * This class provides various utility functions for interacting with the Windows operating system
  * using VBScript. It includes methods for counting files and folders, retrieving default and installed browsers,
  * managing processes, and creating shortcuts.
+ *
+ * @since 2022.2.16
  */
 class Vbs
 {
@@ -33,6 +35,7 @@ class Vbs
      * Writes a log entry to the VBS log file.
      *
      * @param   string  $log  The log message to write.
+     * @since 2022.2.16
      */
     private static function writeLog($log)
     {
@@ -46,6 +49,7 @@ class Vbs
      * @param   string  $path  The path to count files and folders in.
      *
      * @return int|false The count of files and folders, or false on failure.
+     * @since 2022.2.16
      */
     public static function countFilesFolders($path)
     {
@@ -77,6 +81,7 @@ class Vbs
      * Retrieves the default browser's executable path.
      *
      * @return string|false The path to the default browser executable, or false on failure.
+     * @since 2022.2.16
      */
     public static function getDefaultBrowser()
     {
@@ -110,6 +115,7 @@ class Vbs
      * Retrieves a list of installed browsers' executable paths.
      *
      * @return array|false An array of paths to installed browser executables, or false on failure.
+     * @since 2022.2.16
      */
     public static function getInstalledBrowsers()
     {
@@ -187,6 +193,7 @@ class Vbs
      * @param   array  $vbsKeys  The keys to retrieve for each process.
      *
      * @return array|false An array of process information, or false on failure.
+     * @since 2022.2.16
      */
     public static function getListProcs($vbsKeys)
     {
@@ -247,6 +254,7 @@ class Vbs
      * @param   int  $pid  The process ID to terminate.
      *
      * @return bool True on success, false on failure.
+     * @since 2022.2.16
      */
     public static function killProc($pid)
     {
@@ -298,6 +306,7 @@ class Vbs
      * @param   string  $path  The VBScript path constant for the special folder.
      *
      * @return string|null The path to the special folder, or null on failure.
+     * @since 2022.2.16
      */
     private static function getSpecialPath($path)
     {
@@ -325,6 +334,7 @@ class Vbs
      * @param   string|null  $file  The file name to append to the startup path.
      *
      * @return string The startup path.
+     * @since 2022.2.16
      */
     public static function getStartupPath($file = null)
     {
@@ -337,6 +347,7 @@ class Vbs
      * @param   string  $savePath  The path to save the shortcut.
      *
      * @return bool True on success, false on failure.
+     * @since 2022.2.16
      */
     public static function createShortcut($savePath)
     {
@@ -378,6 +389,7 @@ class Vbs
      * @param   string  $serviceName  The name of the service to retrieve information about.
      *
      * @return array|false An array of service information, or false on failure.
+     * @since 2022.2.16
      */
     public static function getServiceInfos($serviceName)
     {
@@ -433,6 +445,7 @@ class Vbs
      * @param   string|null  $customName  An optional custom name to include in the file name.
      *
      * @return string The formatted path to the temporary file.
+     * @since 2022.2.16
      */
     public static function getTmpFile($ext, $customName = null)
     {
@@ -447,6 +460,7 @@ class Vbs
      * @param   string  $basename  The base name to use for the result file.
      *
      * @return string The path to the result file.
+     * @since 2022.2.16
      */
     public static function getResultFile($basename)
     {
@@ -462,6 +476,7 @@ class Vbs
      * @param   int|bool  $timeout     The timeout duration in seconds, or true for default timeout, or false for no timeout.
      *
      * @return array|false The result of the script execution as an array of lines, or false on failure.
+     * @since 2022.2.16
      */
     public static function exec($basename, $resultFile, $content, $timeout = true)
     {

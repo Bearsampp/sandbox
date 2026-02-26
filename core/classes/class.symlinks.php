@@ -9,7 +9,8 @@
  */
 
 /**
- * Manages the creation and deletion of symbolic links for various components within the Bearsampp environment.
+ * Manages the creation and deletion of symbolic links for various components within the Bearsampp environment. * @since 2022.2.16
+     
  */
 class Symlinks
 {
@@ -35,14 +36,16 @@ class Symlinks
     const BRUNO_SYMLINK = 'bruno';
 
     /**
-     * @var Root The root object providing access to system paths.
+     * @var Root The root object providing access to system paths. * @since 2022.2.16
+     
      */
     private $root;
 
     /**
      * Constructs a Symlinks object and initializes paths to current directories.
      *
-     * @param Root $root The root object associated with the Bearsampp environment.
+     * @param Root $root The root object associated with the Bearsampp environment. * @since 2022.2.16
+     
      */
     public function __construct($root)
     {
@@ -58,7 +61,8 @@ class Symlinks
      * If a symbolic link does not exist, an error is logged. If the deletion is successful, a debug message is logged.
      *
      * @global Root $bearsamppRoot The root object providing access to system paths.
-     * @global Core $bearsamppCore The core object providing core functionalities.
+     * @global Core $bearsamppCore The core object providing core functionalities. * @since 2022.2.16
+     
      */
     public static function deleteCurrentSymlinks()
     {

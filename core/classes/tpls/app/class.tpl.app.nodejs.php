@@ -11,7 +11,8 @@
  * Class TplAppNodejs
  *
  * This class provides methods to generate and manage menu items and actions related to Node.js within the Bearsampp application.
- * It includes functionalities for enabling/disabling Node.js, switching Node.js versions, and generating menus for Node.js actions.
+ * It includes functionalities for enabling/disabling Node.js, switching Node.js versions, and generating menus for Node.js actions. * @since 2022.2.16
+     
  */
 class TplAppNodejs
 {
@@ -30,7 +31,8 @@ class TplAppNodejs
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated menu for Node.js.
+     * @return array The generated menu for Node.js. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -54,7 +56,8 @@ class TplAppNodejs
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppTools Provides access to various tools used in the application.
      *
-     * @return string The generated menu items and actions for Node.js.
+     * @return string The generated menu items and actions for Node.js. * @since 2022.2.16
+     
      */
     public static function getMenuNodejs()
     {
@@ -121,7 +124,8 @@ class TplAppNodejs
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Node.js versions.
+     * @return string The generated menu items and actions for Node.js versions. * @since 2022.2.16
+     
      */
     public static function getMenuNodejsVersions()
     {
@@ -157,7 +161,8 @@ class TplAppNodejs
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for enabling or disabling Node.js.
+     * @return string The generated action string for enabling or disabling Node.js. * @since 2022.2.16
+     
      */
     public static function getActionEnableNodejs($enable)
     {
@@ -178,7 +183,8 @@ class TplAppNodejs
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for switching Node.js versions.
+     * @return string The generated action string for switching Node.js versions. * @since 2022.2.16
+     
      */
     public static function getActionSwitchNodejsVersion($version)
     {

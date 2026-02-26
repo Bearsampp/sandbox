@@ -11,7 +11,8 @@
  * Class BinMemcached
  *
  * This class represents the Memcached service module in the Bearsampp application.
- * It handles the configuration, initialization, and management of the Memcached service.
+ * It handles the configuration, initialization, and management of the Memcached service. * @since 2022.2.16
+     
  */
 class BinMemcached extends Module
 {
@@ -36,7 +37,8 @@ class BinMemcached extends Module
      * Constructs a BinMemcached object and initializes the Memcached service.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -47,7 +49,8 @@ class BinMemcached extends Module
      * Reloads the configuration and settings for the Memcached service.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
@@ -110,7 +113,8 @@ class BinMemcached extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param array $params An associative array of key-value pairs to replace.
+     * @param array $params An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params) {
         $content = file_get_contents($this->bearsamppConf);
@@ -134,7 +138,8 @@ class BinMemcached extends Module
     /**
      * Rebuilds the configuration for the Memcached service in the Windows Registry.
      *
-     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     * @return bool True if the configuration was successfully rebuilt, false otherwise. * @since 2022.2.16
+     
      */
     public function rebuildConf() {
         global $bearsamppRegistry;
@@ -162,7 +167,8 @@ class BinMemcached extends Module
      * @param int $port The new port number.
      * @param bool $checkUsed Whether to check if the port is already in use.
      * @param mixed $wbProgressBar The progress bar object for UI updates.
-     * @return bool|int True if the port was successfully changed, false if the port is invalid, or the process using the port.
+     * @return bool|int True if the port was successfully changed, false if the port is invalid, or the process using the port. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null) {
         global $bearsamppWinbinder;
@@ -197,7 +203,8 @@ class BinMemcached extends Module
      *
      * @param int $port The port number to check.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the port is in use by Memcached, false otherwise.
+     * @return bool True if the port is in use by Memcached, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -257,7 +264,8 @@ class BinMemcached extends Module
      *
      * @param string $version The version to switch to.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the version was successfully switched, false otherwise.
+     * @return bool True if the version was successfully switched, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
@@ -270,7 +278,8 @@ class BinMemcached extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a message box with the result.
-     * @return bool True if the configuration was successfully updated, false otherwise.
+     * @return bool True if the configuration was successfully updated, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppApps, $bearsamppWinbinder;
@@ -317,7 +326,8 @@ class BinMemcached extends Module
     /**
      * Sets the version of the Memcached service.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -329,7 +339,8 @@ class BinMemcached extends Module
     /**
      * Retrieves the service object for the Memcached service.
      *
-     * @return Win32Service The service object.
+     * @return Win32Service The service object. * @since 2022.2.16
+     
      */
     public function getService() {
         return $this->service;
@@ -339,7 +350,8 @@ class BinMemcached extends Module
      * Enables or disables the Memcached service.
      *
      * @param bool $enabled Whether to enable or disable the service.
-     * @param bool $showWindow Whether to show a message box with the result.
+     * @param bool $showWindow Whether to show a message box with the result. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
@@ -370,7 +382,8 @@ class BinMemcached extends Module
     /**
      * Retrieves the log file path for the Memcached service.
      *
-     * @return string The log file path.
+     * @return string The log file path. * @since 2022.2.16
+     
      */
     public function getLog() {
         return $this->log;
@@ -379,7 +392,8 @@ class BinMemcached extends Module
     /**
      * Retrieves the executable file path for the Memcached service.
      *
-     * @return string The executable file path.
+     * @return string The executable file path. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -388,7 +402,8 @@ class BinMemcached extends Module
     /**
      * Retrieves the memory allocation for the Memcached service.
      *
-     * @return int The memory allocation in MB.
+     * @return int The memory allocation in MB. * @since 2022.2.16
+     
      */
     public function getMemory() {
         return $this->memory;
@@ -397,7 +412,8 @@ class BinMemcached extends Module
     /**
      * Sets the memory allocation for the Memcached service.
      *
-     * @param int $memory The memory allocation in MB.
+     * @param int $memory The memory allocation in MB. * @since 2022.2.16
+     
      */
     public function setMemory($memory) {
         $this->replace(self::LOCAL_CFG_MEMORY, $memory);
@@ -406,7 +422,8 @@ class BinMemcached extends Module
     /**
      * Retrieves the port number for the Memcached service.
      *
-     * @return int The port number.
+     * @return int The port number. * @since 2022.2.16
+     
      */
     public function getPort() {
         return $this->port;
@@ -415,7 +432,8 @@ class BinMemcached extends Module
     /**
      * Sets the port number for the Memcached service.
      *
-     * @param int $port The port number.
+     * @param int $port The port number. * @since 2022.2.16
+     
      */
     public function setPort($port) {
         $this->replace(self::LOCAL_CFG_PORT, $port);

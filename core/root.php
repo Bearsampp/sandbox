@@ -7,7 +7,8 @@
  */
 
 /**
- * Defines constants used throughout the Bearsampp application.
+ * Defines constants used throughout the Bearsampp application. * @since 2022.2.16
+     
  */
 const APP_AUTHOR_NAME = 'N6REJ';
 const APP_TITLE = 'Bearsampp';

@@ -5,6 +5,7 @@
  * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ * @since 2022.2.16
  */
 
 class TplAppEditConf
@@ -17,7 +18,8 @@ class TplAppEditConf
      *
      * @global LangProc $bearsamppLang The language processor for retrieving localized strings.
      * @global Root $bearsamppRoot The root object for accessing application paths.
-     * @return string The Notepad item string for editing the configuration file.
+     * @return string The Notepad item string for editing the configuration file. * @since 2022.2.16
+     
      */
     public static function process()
     {

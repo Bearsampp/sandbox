@@ -12,7 +12,8 @@
  * Class BinApache
  *
  * This class represents the Apache module in the Bearsampp application.
- * It provides functionalities to manage Apache services, configurations, and modules.
+ * It provides functionalities to manage Apache services, configurations, and modules. * @since 2022.2.16
+     
  */
 class BinApache extends Module
 {
@@ -56,7 +57,8 @@ class BinApache extends Module
      * Constructor for the BinApache class.
      *
      * @param   string  $id    The ID of the module.
-     * @param   string  $type  The type of the module.
+     * @param   string  $type  The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type)
     {
@@ -68,7 +70,8 @@ class BinApache extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null)
     {
@@ -157,7 +160,8 @@ class BinApache extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param   array  $params  An associative array of key-value pairs to replace.
+     * @param   array  $params  An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params)
     {
@@ -186,7 +190,8 @@ class BinApache extends Module
      * @param   bool   $checkUsed      Whether to check if the port is already in use.
      * @param   mixed  $wbProgressBar  The progress bar object for updating progress.
      *
-     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use.
+     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
@@ -226,7 +231,8 @@ class BinApache extends Module
      * @param   bool  $ssl         Whether to check for SSL.
      * @param   bool  $showWindow  Whether to show a window with the result.
      *
-     * @return bool True if the port is used by Apache, false otherwise.
+     * @return bool True if the port is used by Apache, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $ssl = false, $showWindow = false)
     {
@@ -281,7 +287,8 @@ class BinApache extends Module
      * @param   string  $version     The version to switch to.
      * @param   bool    $showWindow  Whether to show a window with the result.
      *
-     * @return bool True if the version was switched successfully, false otherwise.
+     * @return bool True if the version was switched successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false)
     {
@@ -297,7 +304,8 @@ class BinApache extends Module
      * @param   int          $sub         The sub-level for logging indentation.
      * @param   bool         $showWindow  Whether to show a window during the update process.
      *
-     * @return bool True if the configuration was updated successfully, false otherwise.
+     * @return bool True if the configuration was updated successfully, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false)
     {
@@ -403,7 +411,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of modules by merging the modules from the folder and the configuration file.
      *
-     * @return array The list of modules.
+     * @return array The list of modules. * @since 2022.2.16
+     
      */
     public function getModules()
     {
@@ -418,7 +427,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of modules from the configuration file.
      *
-     * @return array The list of modules from the configuration file.
+     * @return array The list of modules from the configuration file. * @since 2022.2.16
+     
      */
     public function getModulesFromConf()
     {
@@ -453,7 +463,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of loaded modules from the configuration file.
      *
-     * @return array The list of loaded modules.
+     * @return array The list of loaded modules. * @since 2022.2.16
+     
      */
     public function getModulesLoaded()
     {
@@ -470,7 +481,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of modules from the modules folder.
      *
-     * @return array The list of modules from the modules folder.
+     * @return array The list of modules from the modules folder. * @since 2022.2.16
+     
      */
     private function getModulesFromFolder()
     {
@@ -501,7 +513,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of alias configurations.
      *
-     * @return array The list of alias configurations.
+     * @return array The list of alias configurations. * @since 2022.2.16
+     
      */
     public function getAlias()
     {
@@ -528,7 +541,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of virtual hosts configurations.
      *
-     * @return array The list of virtual hosts configurations.
+     * @return array The list of virtual hosts configurations. * @since 2022.2.16
+     
      */
     public function getVhosts()
     {
@@ -555,7 +569,8 @@ class BinApache extends Module
     /**
      * Retrieves the URLs of the virtual hosts.
      *
-     * @return array The list of virtual hosts URLs.
+     * @return array The list of virtual hosts URLs. * @since 2022.2.16
+     
      */
     public function getVhostsUrl()
     {
@@ -585,7 +600,8 @@ class BinApache extends Module
     /**
      * Retrieves the list of directories in the www folder.
      *
-     * @return array The list of directories in the www folder.
+     * @return array The list of directories in the www folder. * @since 2022.2.16
+     
      */
     public function getWwwDirectories()
     {
@@ -614,7 +630,8 @@ class BinApache extends Module
      *
      * @param   string  $cmd  The command to execute.
      *
-     * @return array The output of the command.
+     * @return array The output of the command. * @since 2022.2.16
+     
      */
     public function getCmdLineOutput($cmd)
     {
@@ -642,7 +659,8 @@ class BinApache extends Module
      *
      * @param   string|null  $version  The version of the configuration.
      *
-     * @return string The online content.
+     * @return string The online content. * @since 2022.2.16
+     
      */
     private function getOnlineContent($version = null)
     {
@@ -665,7 +683,8 @@ class BinApache extends Module
      *
      * @param   string|null  $version  The version of the configuration.
      *
-     * @return string The offline content.
+     * @return string The offline content. * @since 2022.2.16
+     
      */
     private function getOfflineContent($version = null)
     {
@@ -689,7 +708,8 @@ class BinApache extends Module
      *
      * @param   string|null  $version  The version of the configuration.
      *
-     * @return string The required content.
+     * @return string The required content. * @since 2022.2.16
+     
      */
     private function getRequiredContent($version = null)
     {
@@ -704,7 +724,8 @@ class BinApache extends Module
      * @param   string  $name  The name of the alias.
      * @param   string  $dest  The destination path of the alias.
      *
-     * @return string The alias content.
+     * @return string The alias content. * @since 2022.2.16
+     
      */
     public function getAliasContent($name, $dest)
     {
@@ -724,7 +745,8 @@ class BinApache extends Module
      * @param   string  $serverName    The server name of the virtual host.
      * @param   string  $documentRoot  The document root of the virtual host.
      *
-     * @return string The virtual host content.
+     * @return string The virtual host content. * @since 2022.2.16
+     
      */
     public function getVhostContent($serverName, $documentRoot)
     {
@@ -771,7 +793,8 @@ class BinApache extends Module
     /**
      * Refreshes the configuration file to switch between online and offline modes.
      *
-     * @param   bool  $putOnline  Whether to put the configuration online.
+     * @param   bool  $putOnline  Whether to put the configuration online. * @since 2022.2.16
+     
      */
     public function refreshConf($putOnline)
     {
@@ -814,7 +837,8 @@ class BinApache extends Module
     /**
      * Refreshes the alias configurations to switch between online and offline modes.
      *
-     * @param   bool  $putOnline  Whether to put the alias configurations online.
+     * @param   bool  $putOnline  Whether to put the alias configurations online. * @since 2022.2.16
+     
      */
     public function refreshAlias($putOnline)
     {
@@ -850,7 +874,8 @@ class BinApache extends Module
     /**
      * Refreshes the virtual host configurations to switch between online and offline modes.
      *
-     * @param   bool  $putOnline  Whether to put the virtual host configurations online.
+     * @param   bool  $putOnline  Whether to put the virtual host configurations online. * @since 2022.2.16
+     
      */
     public function refreshVhosts($putOnline)
     {
@@ -888,7 +913,8 @@ class BinApache extends Module
      * and optionally shows an error message window.
      *
      * @param   bool  $enabled     Whether to enable or disable the module.
-     * @param   bool  $showWindow  Whether to show an error message window if enabling fails.
+     * @param   bool  $showWindow  Whether to show an error message window if enabling fails. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false)
     {
@@ -923,7 +949,8 @@ class BinApache extends Module
      *
      * This method updates the version of the module and reloads its configuration.
      *
-     * @param   string  $version  The version to set for the module.
+     * @param   string  $version  The version to set for the module. * @since 2022.2.16
+     
      */
     public function setVersion($version)
     {
@@ -936,7 +963,8 @@ class BinApache extends Module
     /**
      * Gets the service associated with the module.
      *
-     * @return string The service associated with the module.
+     * @return string The service associated with the module. * @since 2022.2.16
+     
      */
     public function getService()
     {
@@ -946,7 +974,8 @@ class BinApache extends Module
     /**
      * Gets the path to the modules.
      *
-     * @return string The path to the modules.
+     * @return string The path to the modules. * @since 2022.2.16
+     
      */
     public function getModulesPath()
     {
@@ -956,7 +985,8 @@ class BinApache extends Module
     /**
      * Gets the SSL configuration file path.
      *
-     * @return string The SSL configuration file path.
+     * @return string The SSL configuration file path. * @since 2022.2.16
+     
      */
     public function getSslConf()
     {
@@ -966,7 +996,8 @@ class BinApache extends Module
     /**
      * Gets the access log file path.
      *
-     * @return string The access log file path.
+     * @return string The access log file path. * @since 2022.2.16
+     
      */
     public function getAccessLog()
     {
@@ -976,7 +1007,8 @@ class BinApache extends Module
     /**
      * Gets the rewrite log file path.
      *
-     * @return string The rewrite log file path.
+     * @return string The rewrite log file path. * @since 2022.2.16
+     
      */
     public function getRewriteLog()
     {
@@ -986,7 +1018,8 @@ class BinApache extends Module
     /**
      * Gets the error log file path.
      *
-     * @return string The error log file path.
+     * @return string The error log file path. * @since 2022.2.16
+     
      */
     public function getErrorLog()
     {
@@ -996,7 +1029,8 @@ class BinApache extends Module
     /**
      * Gets the executable file path.
      *
-     * @return string The executable file path.
+     * @return string The executable file path. * @since 2022.2.16
+     
      */
     public function getExe()
     {
@@ -1006,7 +1040,8 @@ class BinApache extends Module
     /**
      * Gets the configuration file path.
      *
-     * @return string The configuration file path.
+     * @return string The configuration file path. * @since 2022.2.16
+     
      */
     public function getConf()
     {
@@ -1016,7 +1051,8 @@ class BinApache extends Module
     /**
      * Gets the port number.
      *
-     * @return int The port number.
+     * @return int The port number. * @since 2022.2.16
+     
      */
     public function getPort()
     {
@@ -1028,7 +1064,8 @@ class BinApache extends Module
      *
      * This method updates the port number in the configuration.
      *
-     * @param   int  $port  The port number to set.
+     * @param   int  $port  The port number to set. * @since 2022.2.16
+     
      */
     public function setPort($port)
     {
@@ -1038,7 +1075,8 @@ class BinApache extends Module
     /**
      * Gets the SSL port number.
      *
-     * @return int The SSL port number.
+     * @return int The SSL port number. * @since 2022.2.16
+     
      */
     public function getSslPort()
     {
@@ -1050,7 +1088,8 @@ class BinApache extends Module
      *
      * This method updates the SSL port number in the configuration.
      *
-     * @param   int  $sslPort  The SSL port number to set.
+     * @param   int  $sslPort  The SSL port number to set. * @since 2022.2.16
+     
      */
     public function setSslPort($sslPort)
     {
@@ -1060,7 +1099,8 @@ class BinApache extends Module
     /**
      * Gets the OpenSSL executable file path.
      *
-     * @return string The OpenSSL executable file path.
+     * @return string The OpenSSL executable file path. * @since 2022.2.16
+     
      */
     public function getOpensslExe()
     {

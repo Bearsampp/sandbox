@@ -9,7 +9,8 @@
 
 /**
  * Class ActionService
- * Handles various actions related to services such as creating, starting, stopping, restarting, installing, and removing.
+ * Handles various actions related to services such as creating, starting, stopping, restarting, installing, and removing. * @since 2022.2.16
+     
  */
 class ActionService
 {
@@ -25,7 +26,8 @@ class ActionService
      * ActionService constructor.
      * Initializes the service action based on provided arguments.
      *
-     * @param   array  $args  Arguments for the service action.
+     * @param   array  $args  Arguments for the service action. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -106,7 +108,8 @@ class ActionService
     /**
      * Creates a service.
      *
-     * @param   Win32Service  $service  The service to create.
+     * @param   Win32Service  $service  The service to create. * @since 2022.2.16
+     
      */
     private function create($service)
     {
@@ -117,7 +120,8 @@ class ActionService
      * Starts a service.
      *
      * @param   mixed        $bin             The binary object of the service.
-     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable.
+     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable. * @since 2022.2.16
+     
      */
     private function start($bin, $syntaxCheckCmd)
     {
@@ -130,7 +134,8 @@ class ActionService
     /**
      * Stops a service.
      *
-     * @param   Win32Service  $service  The service to stop.
+     * @param   Win32Service  $service  The service to stop. * @since 2022.2.16
+     
      */
     private function stop($service)
     {
@@ -144,7 +149,8 @@ class ActionService
      * Restarts a service.
      *
      * @param   mixed        $bin             The binary object of the service.
-     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable.
+     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable. * @since 2022.2.16
+     
      */
     private function restart($bin, $syntaxCheckCmd)
     {
@@ -161,7 +167,8 @@ class ActionService
      *
      * @param   mixed        $bin             The binary object of the service.
      * @param   int          $port            The port number for the service.
-     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable.
+     * @param   string|null  $syntaxCheckCmd  The command to check syntax, if applicable. * @since 2022.2.16
+     
      */
     private function install($bin, $port, $syntaxCheckCmd)
     {
@@ -172,7 +179,8 @@ class ActionService
      * Removes a service.
      *
      * @param   Win32Service  $service  The service to remove.
-     * @param   string        $name     The name of the service.
+     * @param   string        $name     The name of the service. * @since 2022.2.16
+     
      */
     private function remove($service, $name)
     {

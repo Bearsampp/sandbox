@@ -11,7 +11,8 @@
  * Class ActionSwitchPhpParam
  *
  * This class handles the switching of PHP parameters on and off.
- * It modifies the PHP configuration file based on the provided arguments.
+ * It modifies the PHP configuration file based on the provided arguments. * @since 2022.2.16
+     
  */
 class ActionSwitchPhpParam
 {
@@ -21,7 +22,8 @@ class ActionSwitchPhpParam
     /**
      * Constructor for ActionSwitchPhpParam.
      *
-     * @param array $args An array containing the PHP setting name and the desired state ('on' or 'off').
+     * @param array $args An array containing the PHP setting name and the desired state ('on' or 'off'). * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

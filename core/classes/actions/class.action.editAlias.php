@@ -9,7 +9,8 @@
 
 /**
  * Class ActionEditAlias
- * Handles the editing of Apache aliases within the Bearsampp application.
+ * Handles the editing of Apache aliases within the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionEditAlias
 {
@@ -33,7 +34,8 @@ class ActionEditAlias
      * ActionEditAlias constructor.
      * Initializes the alias editing window and its components.
      *
-     * @param array $args Command line arguments passed to the script.
+     * @param array $args Command line arguments passed to the script. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -78,7 +80,8 @@ class ActionEditAlias
      * @param int $id The control ID.
      * @param resource $ctrl The control resource.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

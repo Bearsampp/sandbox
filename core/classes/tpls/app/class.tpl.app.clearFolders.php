@@ -10,7 +10,8 @@
 /**
  * Class TplAppClearFolders
  *
- * This class provides a method to generate an action string for clearing folders within the Bearsampp application.
+ * This class provides a method to generate an action string for clearing folders within the Bearsampp application. * @since 2022.2.16
+     
  */
 class TplAppClearFolders
 {
@@ -22,7 +23,8 @@ class TplAppClearFolders
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated action string for clearing folders.
+     * @return string The generated action string for clearing folders. * @since 2022.2.16
+     
      */
     public static function process()
     {

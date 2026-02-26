@@ -11,7 +11,8 @@
  * Class TplAppLaunchStartup
  *
  * This class provides methods to generate actions and menu items for launching the Bearsampp application at startup.
- * It includes functionalities for creating launch startup actions and processing launch startup commands.
+ * It includes functionalities for creating launch startup actions and processing launch startup commands. * @since 2022.2.16
+     
  */
 class TplAppLaunchStartup
 {
@@ -27,7 +28,8 @@ class TplAppLaunchStartup
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated menu item and actions for launching the application at startup.
+     * @return array The generated menu item and actions for launching the application at startup. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -50,7 +52,8 @@ class TplAppLaunchStartup
      *
      * @param int $launchStartup The status to set for launch startup (enabled or disabled).
      *
-     * @return string The generated action string for launching the application at startup.
+     * @return string The generated action string for launching the application at startup. * @since 2022.2.16
+     
      */
     public static function getActionLaunchStartup($launchStartup)
     {

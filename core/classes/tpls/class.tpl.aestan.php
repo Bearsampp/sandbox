@@ -41,7 +41,8 @@
  * - getSectionMessages(): Returns a string representing the messages section.
  * - getSectionConfig(): Returns a string representing the config section.
  * - getSectionMenuRightSettings(): Returns a string representing the right menu settings section.
- * - getSectionMenuLeftSettings($caption): Returns a string representing the left menu settings section.
+ * - getSectionMenuLeftSettings($caption): Returns a string representing the left menu settings section. * @since 2022.2.16
+     
  */
 class TplAestan
 {
@@ -111,7 +112,8 @@ class TplAestan
      * Retrieves the glyph flag for a given language.
      *
      * @param string $lang The language code.
-     * @return void
+     * @return void * @since 2022.2.16
+     
      */
     public static function getGlyphFlah($lang)
     {
@@ -120,7 +122,8 @@ class TplAestan
     /**
      * Returns a string representing a separator item.
      *
-     * @return string The separator item string.
+     * @return string The separator item string. * @since 2022.2.16
+     
      */
     public static function getItemSeparator()
     {
@@ -136,7 +139,8 @@ class TplAestan
      * @param string|null $title The title for the tab.
      * @param string|null $initDir The initial directory for the item.
      * @param string|null $command The command to execute.
-     * @return string The PowerShell item string.
+     * @return string The PowerShell item string. * @since 2022.2.16
+     
      */
     public static function getItemPowerShell($caption, $glyph, $id = null, $title = null, $initDir = null, $command = null)
     {
@@ -183,7 +187,8 @@ class TplAestan
      * @param string $link The URL for the link.
      * @param bool $local Whether the link is local.
      * @param int $glyph The glyph index.
-     * @return string The link item string.
+     * @return string The link item string. * @since 2022.2.16
+     
      */
     public static function getItemLink($caption, $link, $local = false, $glyph = self::GLYPH_WEB_PAGE)
     {
@@ -206,7 +211,8 @@ class TplAestan
      *
      * @param string $caption The caption for the item.
      * @param string $path The path to the file.
-     * @return string The Notepad item string.
+     * @return string The Notepad item string. * @since 2022.2.16
+     
      */
     public static function getItemNotepad($caption, $path)
     {
@@ -227,7 +233,8 @@ class TplAestan
      * @param string $exe The path to the executable.
      * @param int $glyph The glyph index.
      * @param string|null $params The parameters for the executable.
-     * @return string The executable item string.
+     * @return string The executable item string. * @since 2022.2.16
+     
      */
     public static function getItemExe($caption, $exe, $glyph, $params = null)
     {
@@ -244,7 +251,8 @@ class TplAestan
      *
      * @param string $caption The caption for the item.
      * @param string $path The path to explore.
-     * @return string The explorer item string.
+     * @return string The explorer item string. * @since 2022.2.16
+     
      */
     public static function getItemExplore($caption, $path)
     {
@@ -261,7 +269,8 @@ class TplAestan
      * @param string|null $service The service name.
      * @param string $action The action to perform.
      * @param bool $item Whether to return as an item.
-     * @return string The service action string.
+     * @return string The service action string. * @since 2022.2.16
+     
      */
     private static function getActionService($service, $action, $item = false)
     {
@@ -297,7 +306,8 @@ class TplAestan
      * Returns a string representing a service start action.
      *
      * @param string $service The service name.
-     * @return string The service start action string.
+     * @return string The service start action string. * @since 2022.2.16
+     
      */
     public static function getActionServiceStart($service)
     {
@@ -308,7 +318,8 @@ class TplAestan
      * Returns a string representing a service start item.
      *
      * @param string $service The service name.
-     * @return string The service start item string.
+     * @return string The service start item string. * @since 2022.2.16
+     
      */
     public static function getItemActionServiceStart($service)
     {
@@ -319,7 +330,8 @@ class TplAestan
      * Returns a string representing a service stop action.
      *
      * @param string $service The service name.
-     * @return string The service stop action string.
+     * @return string The service stop action string. * @since 2022.2.16
+     
      */
     public static function getActionServiceStop($service)
     {
@@ -330,7 +342,8 @@ class TplAestan
      * Returns a string representing a service stop item.
      *
      * @param string $service The service name.
-     * @return string The service stop item string.
+     * @return string The service stop item string. * @since 2022.2.16
+     
      */
     public static function getItemActionServiceStop($service)
     {
@@ -341,7 +354,8 @@ class TplAestan
      * Returns a string representing a service restart action.
      *
      * @param string $service The service name.
-     * @return string The service restart action string.
+     * @return string The service restart action string. * @since 2022.2.16
+     
      */
     public static function getActionServiceRestart($service)
     {
@@ -352,7 +366,8 @@ class TplAestan
      * Returns a string representing a service restart item.
      *
      * @param string $service The service name.
-     * @return string The service restart item string.
+     * @return string The service restart item string. * @since 2022.2.16
+     
      */
     public static function getItemActionServiceRestart($service)
     {
@@ -362,7 +377,8 @@ class TplAestan
     /**
      * Returns a string representing a close services action.
      *
-     * @return string The close services action string.
+     * @return string The close services action string. * @since 2022.2.16
+     
      */
     public static function getActionServicesClose()
     {
@@ -372,7 +388,8 @@ class TplAestan
     /**
      * Returns a string representing a close services item.
      *
-     * @return string The close services item string.
+     * @return string The close services item string. * @since 2022.2.16
+     
      */
     public static function getItemActionServicesClose()
     {
@@ -382,7 +399,8 @@ class TplAestan
     /**
      * Returns a string representing the messages section.
      *
-     * @return string The messages section string.
+     * @return string The messages section string. * @since 2022.2.16
+     
      */
     public static function getSectionMessages()
     {
@@ -397,7 +415,8 @@ class TplAestan
     /**
      * Returns a string representing the config section.
      *
-     * @return string The config section string.
+     * @return string The config section string. * @since 2022.2.16
+     
      */
     public static function getSectionConfig()
     {
@@ -416,7 +435,8 @@ class TplAestan
     /**
      * Returns a string representing the right menu settings section.
      *
-     * @return string The right menu settings section string.
+     * @return string The right menu settings section string. * @since 2022.2.16
+     
      */
     public static function getSectionMenuRightSettings()
     {
@@ -436,7 +456,8 @@ class TplAestan
      * Returns a string representing the left menu settings section.
      *
      * @param string $caption The caption for the left menu.
-     * @return string The left menu settings section string.
+     * @return string The left menu settings section string. * @since 2022.2.16
+     
      */
     public static function getSectionMenuLeftSettings($caption)
     {

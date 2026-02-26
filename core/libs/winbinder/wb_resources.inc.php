@@ -204,7 +204,8 @@ if (!defined("TBS_AUTOTICKS")) {
 
 TODO: Extend support to several RC generators (currently supports WinAsm Studio only)
 NOTE: Caption is not used, it's taken from the resource instead. The parameter is kept
-      here just to be compatible with wb_create_window()
+      here just to be compatible with wb_create_window() * @since 2022.2.16
+     
 */
 
 function parse_rc(

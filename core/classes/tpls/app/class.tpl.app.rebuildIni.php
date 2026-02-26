@@ -12,7 +12,8 @@
  * Class TplAppRebuildIni
  *
  * This class provides a method to process the rebuilding of the INI configuration.
- * It generates the necessary action to run the REBUILD_INI command.
+ * It generates the necessary action to run the REBUILD_INI command. * @since 2022.2.16
+     
  */
 class TplAppRebuildIni
 {
@@ -25,7 +26,8 @@ class TplAppRebuildIni
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated action string to rebuild the INI configuration.
+     * @return string The generated action string to rebuild the INI configuration. * @since 2022.2.16
+     
      */
     public static function process()
     {

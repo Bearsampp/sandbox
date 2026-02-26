@@ -12,14 +12,16 @@
  *
  * This class handles debugging actions for MariaDB within the Bearsampp application.
  * It processes command-line arguments to determine the type of debugging action to perform,
- * retrieves the corresponding output from MariaDB, and displays it using the appropriate method.
+ * retrieves the corresponding output from MariaDB, and displays it using the appropriate method. * @since 2022.2.16
+     
  */
 class ActionDebugMariadb extends ActionDebugBase
 {
     /**
      * Get the service name for language strings
      *
-     * @return string The language constant name for MariaDB
+     * @return string The language constant name for MariaDB * @since 2022.2.16
+     
      */
     protected function getServiceLangConstant()
     {
@@ -30,7 +32,8 @@ class ActionDebugMariadb extends ActionDebugBase
      * Get the MariaDB binary instance
      *
      * @param object $bearsamppBins The bins object containing all service binaries
-     * @return BinMariadb The MariaDB binary instance
+     * @return BinMariadb The MariaDB binary instance * @since 2022.2.16
+     
      */
     protected function getBinInstance($bearsamppBins)
     {
@@ -40,7 +43,8 @@ class ActionDebugMariadb extends ActionDebugBase
     /**
      * Get the command-to-caption mapping for MariaDB
      *
-     * @return array Command mapping configuration
+     * @return array Command mapping configuration * @since 2022.2.16
+     
      */
     protected function getCommandMapping()
     {

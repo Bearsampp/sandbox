@@ -10,7 +10,8 @@
 
 /**
  * Class ActionAbout
- * Handles the creation and management of the "About" window in the Bearsampp application.
+ * Handles the creation and management of the "About" window in the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionAbout
 {
@@ -26,7 +27,8 @@ class ActionAbout
      * ActionAbout constructor.
      * Initializes the "About" window and its components.
      *
-     * @param   array  $args  Arguments passed to the constructor.
+     * @param   array  $args  Arguments passed to the constructor. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -81,7 +83,8 @@ class ActionAbout
      * @param   int    $id      The control identifier.
      * @param   int    $ctrl    The control object.
      * @param   mixed  $param1  Additional parameter 1.
-     * @param   mixed  $param2  Additional parameter 2.
+     * @param   mixed  $param2  Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

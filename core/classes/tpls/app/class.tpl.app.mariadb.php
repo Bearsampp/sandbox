@@ -5,6 +5,7 @@
  * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ * @since 2022.2.16
  */
 
 class TplAppMariadb
@@ -30,7 +31,8 @@ class TplAppMariadb
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated MariaDB menu.
+     * @return array The generated MariaDB menu. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -50,7 +52,8 @@ class TplAppMariadb
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppTools Provides access to various tools and utilities.
      *
-     * @return string The generated MariaDB menu items and actions.
+     * @return string The generated MariaDB menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMariadb()
     {
@@ -118,7 +121,8 @@ class TplAppMariadb
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated MariaDB versions menu items and actions.
+     * @return string The generated MariaDB versions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMariadbVersions()
     {
@@ -153,7 +157,8 @@ class TplAppMariadb
      *
      * @param int $enable The enable flag (1 for enable, 0 for disable).
      *
-     * @return string The generated action string for enabling or disabling MariaDB.
+     * @return string The generated action string for enabling or disabling MariaDB. * @since 2022.2.16
+     
      */
     public static function getActionEnableMariadb($enable)
     {
@@ -173,7 +178,8 @@ class TplAppMariadb
      *
      * @param string $version The version to switch to.
      *
-     * @return string The generated action string for switching the MariaDB version.
+     * @return string The generated action string for switching the MariaDB version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchMariadbVersion($version)
     {
@@ -193,7 +199,8 @@ class TplAppMariadb
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated MariaDB service menu items and actions.
+     * @return string The generated MariaDB service menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMariadbService()
     {
@@ -262,7 +269,8 @@ class TplAppMariadb
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated MariaDB debug menu items and actions.
+     * @return string The generated MariaDB debug menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMariadbDebug()
     {
@@ -290,7 +298,8 @@ class TplAppMariadb
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing the MariaDB port.
+     * @return string The generated action string for changing the MariaDB port. * @since 2022.2.16
+     
      */
     public static function getActionChangeMariadbPort()
     {
@@ -308,7 +317,8 @@ class TplAppMariadb
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing the MariaDB root password.
+     * @return string The generated action string for changing the MariaDB root password. * @since 2022.2.16
+     
      */
     public static function getActionChangeMariadbRootPwd()
     {
@@ -323,7 +333,8 @@ class TplAppMariadb
      *
      * This method creates the action string for installing the MariaDB service.
      *
-     * @return string The generated action string for installing the MariaDB service.
+     * @return string The generated action string for installing the MariaDB service. * @since 2022.2.16
+     
      */
     public static function getActionInstallMariadbService()
     {
@@ -336,7 +347,8 @@ class TplAppMariadb
      *
      * This method creates the action string for removing the MariaDB service.
      *
-     * @return string The generated action string for removing the MariaDB service.
+     * @return string The generated action string for removing the MariaDB service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveMariadbService()
     {

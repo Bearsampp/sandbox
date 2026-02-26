@@ -11,7 +11,8 @@
  * Class BinMariadb
  *
  * This class represents the MariaDB module in the Bearsampp application.
- * It handles the configuration, management, and operations related to MariaDB.
+ * It handles the configuration, management, and operations related to MariaDB. * @since 2022.2.16
+     
  */
 class BinMariadb extends Module
 {
@@ -47,7 +48,8 @@ class BinMariadb extends Module
      * Constructs a BinMariadb object and initializes the module.
      *
      * @param   string  $id    The ID of the module.
-     * @param   string  $type  The type of the module.
+     * @param   string  $type  The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type)
     {
@@ -59,7 +61,8 @@ class BinMariadb extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null)
     {
@@ -145,7 +148,8 @@ class BinMariadb extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param   array  $params  An associative array of key-value pairs to replace.
+     * @param   array  $params  An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params)
     {
@@ -177,7 +181,8 @@ class BinMariadb extends Module
      * @param   bool   $checkUsed      Whether to check if the port is already in use.
      * @param   mixed  $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use.
+     * @return bool|string True if the port was changed successfully, or the process using the port if it is in use. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
@@ -216,7 +221,8 @@ class BinMariadb extends Module
      * @param   int   $port        The port number to check.
      * @param   bool  $showWindow  Whether to show a window with the result.
      *
-     * @return bool True if the port is used by MariaDB, false otherwise.
+     * @return bool True if the port is used by MariaDB, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false)
     {
@@ -308,7 +314,8 @@ class BinMariadb extends Module
      * @param   string  $newPwd         The new root password.
      * @param   mixed   $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password was changed successfully, or an error message if it failed.
+     * @return bool|string True if the password was changed successfully, or an error message if it failed. * @since 2022.2.16
+     
      */
     public function changeRootPassword($currentPwd, $newPwd, $wbProgressBar = null)
     {
@@ -378,7 +385,8 @@ class BinMariadb extends Module
      * @param   string|null  $currentPwd     The current root password. If null, the stored root password is used.
      * @param   mixed        $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password is correct, or an error message if it is incorrect.
+     * @return bool|string True if the password is correct, or an error message if it is incorrect. * @since 2022.2.16
+     
      */
     public function checkRootPassword($currentPwd = null, $wbProgressBar = null)
     {
@@ -415,7 +423,8 @@ class BinMariadb extends Module
      * @param   string  $version     The version to switch to.
      * @param   bool    $showWindow  Whether to show a window with the result.
      *
-     * @return bool True if the version was switched successfully, false otherwise.
+     * @return bool True if the version was switched successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false)
     {
@@ -431,7 +440,8 @@ class BinMariadb extends Module
      * @param   int          $sub         The sub-level for logging indentation.
      * @param   bool         $showWindow  Whether to show a window with the result.
      *
-     * @return bool True if the configuration was updated successfully, false otherwise.
+     * @return bool True if the configuration was updated successfully, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppApps, $bearsamppWinbinder;
@@ -490,7 +500,8 @@ class BinMariadb extends Module
  * @param string $cmd The command to execute.
  * @return array An associative array containing:
  *               - 'syntaxOk' (bool): Whether the command executed without syntax errors.
- *               - 'content' (string|null): The output content of the command.
+ *               - 'content' (string|null): The output content of the command. * @since 2022.2.16
+     
  */
 public function getCmdLineOutput($cmd) {
     $result = array(
@@ -529,7 +540,8 @@ public function getCmdLineOutput($cmd) {
 /**
  * Sets the version of the module.
  *
- * @param string $version The version to set.
+ * @param string $version The version to set. * @since 2022.2.16
+     
  */
 public function setVersion($version) {
     global $bearsamppConfig;
@@ -541,7 +553,8 @@ public function setVersion($version) {
 /**
  * Retrieves the service associated with the module.
  *
- * @return Win32Service The service object.
+ * @return Win32Service The service object. * @since 2022.2.16
+     
  */
 public function getService() {
     return $this->service;
@@ -551,7 +564,8 @@ public function getService() {
  * Enables or disables the module.
  *
  * @param bool $enabled Whether to enable or disable the module.
- * @param bool $showWindow Whether to show a window with the result.
+ * @param bool $showWindow Whether to show a window with the result. * @since 2022.2.16
+     
  */
 public function setEnable($enabled, $showWindow = false) {
     global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
@@ -582,7 +596,8 @@ public function setEnable($enabled, $showWindow = false) {
 /**
  * Retrieves the error log path for the module.
  *
- * @return string The error log path.
+ * @return string The error log path. * @since 2022.2.16
+     
  */
 public function getErrorLog() {
     return $this->errorLog;
@@ -591,7 +606,8 @@ public function getErrorLog() {
 /**
  * Retrieves the executable path for the module.
  *
- * @return string The executable path.
+ * @return string The executable path. * @since 2022.2.16
+     
  */
 public function getExe() {
     return $this->exe;
@@ -600,7 +616,8 @@ public function getExe() {
 /**
  * Retrieves the configuration file path for the module.
  *
- * @return string The configuration file path.
+ * @return string The configuration file path. * @since 2022.2.16
+     
  */
 public function getConf() {
     return $this->conf;
@@ -609,7 +626,8 @@ public function getConf() {
 /**
  * Retrieves the port number for the module.
  *
- * @return int The port number.
+ * @return int The port number. * @since 2022.2.16
+     
  */
 public function getPort() {
     return $this->port;
@@ -618,7 +636,8 @@ public function getPort() {
 /**
  * Sets the port number for the module.
  *
- * @param int $port The port number to set.
+ * @param int $port The port number to set. * @since 2022.2.16
+     
  */
 public function setPort($port) {
     $this->replace(self::LOCAL_CFG_PORT, $port);
@@ -627,7 +646,8 @@ public function setPort($port) {
 /**
  * Retrieves the root user for the module.
  *
- * @return string The root user.
+ * @return string The root user. * @since 2022.2.16
+     
  */
 public function getRootUser() {
     return $this->rootUser;
@@ -636,7 +656,8 @@ public function getRootUser() {
 /**
  * Sets the root user for the module.
  *
- * @param string $rootUser The root user to set.
+ * @param string $rootUser The root user to set. * @since 2022.2.16
+     
  */
 public function setRootUser($rootUser) {
     $this->replace(self::LOCAL_CFG_ROOT_USER, $rootUser);
@@ -645,7 +666,8 @@ public function setRootUser($rootUser) {
 /**
  * Retrieves the root password for the module.
  *
- * @return string The root password.
+ * @return string The root password. * @since 2022.2.16
+     
  */
 public function getRootPwd() {
     return $this->rootPwd;
@@ -654,7 +676,8 @@ public function getRootPwd() {
 /**
  * Sets the root password for the module.
  *
- * @param string $rootPwd The root password to set.
+ * @param string $rootPwd The root password to set. * @since 2022.2.16
+     
  */
 public function setRootPwd($rootPwd) {
     $this->replace(self::LOCAL_CFG_ROOT_PWD, $rootPwd);
@@ -663,7 +686,8 @@ public function setRootPwd($rootPwd) {
 /**
  * Retrieves the CLI executable path for the module.
  *
- * @return string The CLI executable path.
+ * @return string The CLI executable path. * @since 2022.2.16
+     
  */
 public function getCliExe()
 {
@@ -673,7 +697,8 @@ public function getCliExe()
 /**
  * Retrieves the admin executable path for the module.
  *
- * @return string The admin executable path.
+ * @return string The admin executable path. * @since 2022.2.16
+     
  */
 public function getAdmin()
 {
@@ -683,7 +708,8 @@ public function getAdmin()
 /**
  * Retrieves the data directory path for MariaDB.
  *
- * @return string The data directory path.
+ * @return string The data directory path. * @since 2022.2.16
+     
  */
 public function getDataDir()
 {
@@ -696,7 +722,8 @@ public function getDataDir()
  * @param   string|null  $path     The path to the MariaDB installation. If null, the current path is used.
  * @param   string|null  $version  The version of MariaDB. If null, the current version is used.
  *
- * @return  bool         True if initialization was successful or not needed
+ * @return  bool         True if initialization was successful or not needed * @since 2022.2.16
+     
  */
 public function initData($path = null, $version = null)
 {

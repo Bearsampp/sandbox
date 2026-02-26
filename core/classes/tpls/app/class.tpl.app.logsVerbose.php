@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate and manage the logs verbosity menu and actions
  * within the Bearsampp application. It includes functionalities for creating the logs verbosity
- * menu and processing actions to switch the logs verbosity level.
+ * menu and processing actions to switch the logs verbosity level. * @since 2022.2.16
+     
  */
 class TplAppLogsVerbose
 {
@@ -27,7 +28,8 @@ class TplAppLogsVerbose
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated menu for selecting the logs verbosity level.
+     * @return array The generated menu for selecting the logs verbosity level. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -46,7 +48,8 @@ class TplAppLogsVerbose
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppConfig Provides access to the application's configuration settings.
      *
-     * @return string The generated menu items and actions for switching logs verbosity levels.
+     * @return string The generated menu items and actions for switching logs verbosity levels. * @since 2022.2.16
+     
      */
     public static function getMenuLogsVerbose()
     {
@@ -87,7 +90,8 @@ class TplAppLogsVerbose
      *
      * @param int $verbose The verbosity level to switch to.
      *
-     * @return string The generated action string for switching the logs verbosity level.
+     * @return string The generated action string for switching the logs verbosity level. * @since 2022.2.16
+     
      */
     public static function getActionSwitchLogsVerbose($verbose)
     {

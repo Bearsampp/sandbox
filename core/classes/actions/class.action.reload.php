@@ -12,7 +12,8 @@
  *
  * This class handles the reloading of various configurations and settings for the Bearsampp application.
  * It performs operations such as refreshing the hostname, updating startup settings, checking and updating
- * the browser configuration, processing configuration files, and rebuilding certain cached contents.
+ * the browser configuration, processing configuration files, and rebuilding certain cached contents. * @since 2022.2.16
+     
  */
 class ActionReload
 {
@@ -26,7 +27,8 @@ class ActionReload
      * @global Config $bearsamppConfig The configuration object of the Bearsampp application.
      * @global Bins $bearsamppBins The bins object containing various binaries used by the Bearsampp application.
      * @global Apps $bearsamppApps The apps object containing various applications used by the Bearsampp application.
-     * @global Homepage $bearsamppHomepage The homepage object for managing homepage-related settings and content.
+     * @global Homepage $bearsamppHomepage The homepage object for managing homepage-related settings and content. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

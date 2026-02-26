@@ -13,7 +13,8 @@
  *
  * This class handles the manual restart of services in the Bearsampp application.
  * It stops all running services, kills all related processes, and sets the application
- * to restart.
+ * to restart. * @since 2022.2.16
+     
  */
 class ActionManualRestart
 {
@@ -27,7 +28,8 @@ class ActionManualRestart
      * 2. Deletes all services managed by Bearsampp.
      * 3. Kills all related processes.
      * 4. Sets the application to restart.
-     * 5. Stops the loading process.
+     * 5. Stops the loading process. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

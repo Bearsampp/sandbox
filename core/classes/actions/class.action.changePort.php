@@ -9,7 +9,8 @@
 
 /**
  * Class ActionChangePort
- * Handles the process of changing the port for various services in the Bearsampp application.
+ * Handles the process of changing the port for various services in the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionChangePort
 {
@@ -32,7 +33,8 @@ class ActionChangePort
      * ActionChangePort constructor.
      * Initializes the port change process for the specified service.
      *
-     * @param   array  $args  The arguments passed to the constructor, where the first element specifies the service name.
+     * @param   array  $args  The arguments passed to the constructor, where the first element specifies the service name. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -106,7 +108,8 @@ class ActionChangePort
      * @param   int    $id      The control ID.
      * @param   mixed  $ctrl    The control object.
      * @param   mixed  $param1  Additional parameter 1.
-     * @param   mixed  $param2  Additional parameter 2.
+     * @param   mixed  $param2  Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

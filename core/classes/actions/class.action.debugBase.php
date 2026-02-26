@@ -12,14 +12,16 @@
  *
  * Base class for debugging actions across different services (MySQL, MariaDB, Apache, PostgreSQL).
  * This class provides common functionality for executing debug commands and displaying their output.
- * Child classes need to implement service-specific methods to define their behavior.
+ * Child classes need to implement service-specific methods to define their behavior. * @since 2022.2.16
+     
  */
 abstract class ActionDebugBase
 {
     /**
      * Get the service name for language strings (e.g., 'MYSQL', 'APACHE', 'MARIADB', 'POSTGRESQL')
      *
-     * @return string The language constant name for the service
+     * @return string The language constant name for the service * @since 2022.2.16
+     
      */
     abstract protected function getServiceLangConstant();
 
@@ -27,7 +29,8 @@ abstract class ActionDebugBase
      * Get the binary instance for this service
      *
      * @param object $bearsamppBins The bins object containing all service binaries
-     * @return object The specific binary instance (e.g., BinMysql, BinApache)
+     * @return object The specific binary instance (e.g., BinMysql, BinApache) * @since 2022.2.16
+     
      */
     abstract protected function getBinInstance($bearsamppBins);
 
@@ -37,7 +40,8 @@ abstract class ActionDebugBase
      * - 'lang': the language constant for the caption
      * - 'editor': boolean indicating if output should be shown in editor (default: false)
      *
-     * @return array Command mapping configuration
+     * @return array Command mapping configuration * @since 2022.2.16
+     
      */
     abstract protected function getCommandMapping();
 
@@ -45,7 +49,8 @@ abstract class ActionDebugBase
      * Check if the debug output has a 'content' key (for services that return arrays)
      * or if it's a direct string (for services like PostgreSQL)
      *
-     * @return bool True if output is an array with 'content' key, false if direct string
+     * @return bool True if output is an array with 'content' key, false if direct string * @since 2022.2.16
+     
      */
     protected function hasContentKey()
     {
@@ -62,7 +67,8 @@ abstract class ActionDebugBase
      * 2. Builds the caption based on the command
      * 3. Executes the command and retrieves output
      * 4. Handles syntax check results if applicable
-     * 5. Displays output in editor or message box
+     * 5. Displays output in editor or message box * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -123,7 +129,8 @@ abstract class ActionDebugBase
      * Check if the given command is a syntax check command
      *
      * @param string $command The command to check
-     * @return bool True if it's a syntax check command
+     * @return bool True if it's a syntax check command * @since 2022.2.16
+     
      */
     protected function isSyntaxCheckCommand($command)
     {

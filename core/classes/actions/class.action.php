@@ -8,7 +8,8 @@
  */
 
 /**
- * Class Action handles the execution of various actions based on command line arguments.
+ * Class Action handles the execution of various actions based on command line arguments. * @since 2022.2.16
+     
  */
 class Action
 {
@@ -56,13 +57,15 @@ class Action
     const EXT = 'ext';
 
     /**
-     * @var mixed Holds the current action instance.
+     * @var mixed Holds the current action instance. * @since 2022.2.16
+     
      */
     private $current;
 
     /**
      * Constructor for the Action class.
-     * Initializes the Action object.
+     * Initializes the Action object. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -76,7 +79,8 @@ class Action
      * cleans the argument, constructs the action class name, and then
      * initializes the action class with the provided arguments.
      *
-     * @return void
+     * @return void * @since 2022.2.16
+     
      */
     public function process()
     {
@@ -108,7 +112,8 @@ class Action
      *
      * @param string $actionName The name of the action to call.
      * @param mixed $actionArgs Optional arguments for the action.
-     * @return void
+     * @return void * @since 2022.2.16
+     
      */
     public function call($actionName, $actionArgs = null)
     {
@@ -125,7 +130,8 @@ class Action
      * This method verifies if the command line arguments contain an action
      * by checking the presence and non-emptiness of the second argument.
      *
-     * @return bool Returns true if the action exists, false otherwise.
+     * @return bool Returns true if the action exists, false otherwise. * @since 2022.2.16
+     
      */
     public function exists()
     {

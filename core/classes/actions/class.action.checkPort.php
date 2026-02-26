@@ -11,7 +11,8 @@
  * Class ActionCheckPort
  *
  * This class is responsible for checking the port status of various services (Apache, MySQL, MariaDB, PostgreSQL, Mailpit, Memcached, Xlight)
- * based on the provided arguments.
+ * based on the provided arguments. * @since 2022.2.16
+     
  */
 class ActionCheckPort
 {
@@ -23,7 +24,8 @@ class ActionCheckPort
      *                                - $args[1] is the port number to check.
      *                                - $args[2] (optional) indicates if SSL should be used.
      *
-     * @global object  $bearsamppBins Global object containing instances of various services.
+     * @global object  $bearsamppBins Global object containing instances of various services. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

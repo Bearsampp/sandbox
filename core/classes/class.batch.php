@@ -25,7 +25,8 @@
  * - Creating and removing symbolic links.
  * - Retrieving operating system information.
  *
- * The class utilizes global variables to access application settings and paths, and logs operations for debugging purposes.
+ * The class utilizes global variables to access application settings and paths, and logs operations for debugging purposes. * @since 2022.2.16
+     
  */
 class Batch
 {
@@ -33,7 +34,8 @@ class Batch
     const CATCH_OUTPUT_FALSE = 'bearsamppCatchOutputFalse';
 
     /**
-     * Constructor for the Batch class.
+     * Constructor for the Batch class. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -42,7 +44,8 @@ class Batch
     /**
      * Writes a log entry to the batch log file.
      *
-     * @param string $log The log message to write.
+     * @param string $log The log message to write. * @since 2022.2.16
+     
      */
     private static function writeLog($log)
     {
@@ -54,7 +57,8 @@ class Batch
      * Finds the executable name by its process ID (PID).
      *
      * @param int $pid The process ID to search for.
-     * @return string|false The executable name if found, false otherwise.
+     * @return string|false The executable name if found, false otherwise. * @since 2022.2.16
+     
      */
     public static function findExeByPid($pid)
     {
@@ -73,7 +77,8 @@ class Batch
      * Gets the process using a specific port.
      *
      * @param int $port The port number to check.
-     * @return string|int|null The executable name and PID if found, the PID if executable not found, or null if no process is using the port.
+     * @return string|int|null The executable name and PID if found, the PID if executable not found, or null if no process is using the port. * @since 2022.2.16
+     
      */
     public static function getProcessUsingPort($port)
     {
@@ -101,7 +106,8 @@ class Batch
     /**
      * Exits the application, optionally restarting it.
      *
-     * @param bool $restart Whether to restart the application after exiting.
+     * @param bool $restart Whether to restart the application after exiting. * @since 2022.2.16
+     
      */
     public static function exitApp($restart = false)
     {
@@ -123,7 +129,8 @@ class Batch
     }
 
     /**
-     * Restarts the application.
+     * Restarts the application. * @since 2022.2.16
+     
      */
     public static function restartApp()
     {
@@ -133,7 +140,8 @@ class Batch
     /**
      * Gets the version of PEAR installed.
      *
-     * @return string|null The PEAR version if found, null otherwise.
+     * @return string|null The PEAR version if found, null otherwise. * @since 2022.2.16
+     
      */
     public static function getPearVersion()
     {
@@ -155,7 +163,8 @@ class Batch
     }
 
     /**
-     * Refreshes the environment variables.
+     * Refreshes the environment variables. * @since 2022.2.16
+     
      */
     public static function refreshEnvVars()
     {
@@ -166,7 +175,8 @@ class Batch
     /**
      * Initializes MySQL using a specified path.
      *
-     * @param string $path The path to the MySQL initialization script.
+     * @param string $path The path to the MySQL initialization script. * @since 2022.2.16
+     
      */
     public static function initializeMysql($path)
     {
@@ -180,7 +190,8 @@ class Batch
     /**
      * Installs the PostgreSQL service.
      *
-     * @return bool True if the service was installed successfully, false otherwise.
+     * @return bool True if the service was installed successfully, false otherwise. * @since 2022.2.16
+     
      */
     public static function installPostgresqlService()
     {
@@ -205,7 +216,8 @@ class Batch
     /**
      * Uninstalls the PostgreSQL service.
      *
-     * @return bool True if the service was uninstalled successfully, false otherwise.
+     * @return bool True if the service was uninstalled successfully, false otherwise. * @since 2022.2.16
+     
      */
     public static function uninstallPostgresqlService()
     {
@@ -220,7 +232,8 @@ class Batch
     /**
      * Initializes PostgreSQL using a specified path.
      *
-     * @param string $path The path to the PostgreSQL initialization script.
+     * @param string $path The path to the PostgreSQL initialization script. * @since 2022.2.16
+     
      */
     public static function initializePostgresql($path)
     {
@@ -234,7 +247,8 @@ class Batch
     /**
      * Initializes MariaDB using a specified path.
      *
-     * @param string $path The path to the MariaDB initialization script.
+     * @param string $path The path to the MariaDB initialization script. * @since 2022.2.16
+     
      */
     public static function initializeMariadb($path)
     {
@@ -249,7 +263,8 @@ class Batch
      * Creates a symbolic link.
      *
      * @param string $src The source path.
-     * @param string $dest The destination path.
+     * @param string $dest The destination path. * @since 2022.2.16
+     
      */
     public static function createSymlink($src, $dest)
     {
@@ -263,7 +278,8 @@ class Batch
      * Removes a symbolic link.
      *
      * @param string $link The path to the symbolic link.
-     * @return bool True if the symlink was removed successfully, false otherwise.
+     * @return bool True if the symlink was removed successfully, false otherwise. * @since 2022.2.16
+     
      */
     public static function removeSymlink($link)
     {
@@ -303,7 +319,8 @@ class Batch
     /**
      * Gets the operating system information.
      *
-     * @return string The operating system information.
+     * @return string The operating system information. * @since 2022.2.16
+     
      */
     public static function getOsInfo()
     {
@@ -322,7 +339,8 @@ class Batch
      * Sets the display name of a service.
      *
      * @param string $serviceName The name of the service.
-     * @param string $displayName The display name to set.
+     * @param string $displayName The display name to set. * @since 2022.2.16
+     
      */
     public static function setServiceDisplayName($serviceName, $displayName)
     {
@@ -334,7 +352,8 @@ class Batch
      * Sets the description of a service.
      *
      * @param string $serviceName The name of the service.
-     * @param string $desc The description to set.
+     * @param string $desc The description to set. * @since 2022.2.16
+     
      */
     public static function setServiceDescription($serviceName, $desc)
     {
@@ -346,7 +365,8 @@ class Batch
      * Sets the start type of a service.
      *
      * @param string $serviceName The name of the service.
-     * @param string $startType The start type to set (e.g., "auto", "demand").
+     * @param string $startType The start type to set (e.g., "auto", "demand"). * @since 2022.2.16
+     
      */
     public static function setServiceStartType($serviceName, $startType)
     {
@@ -360,7 +380,8 @@ class Batch
      * @param string $basename The base name for the script and result files.
      * @param string $content The content of the batch script.
      * @param bool $silent Whether to execute the script silently.
-     * @return array|false The result of the execution, or false on failure.
+     * @return array|false The result of the execution, or false on failure. * @since 2022.2.16
+     
      */
     public static function execStandalone($basename, $content, $silent = true)
     {
@@ -377,7 +398,8 @@ class Batch
      * @param bool $standalone Whether the script is standalone.
      * @param bool $silent Whether to execute the script silently.
      * @param bool $rebuild Whether to rebuild the result array.
-     * @return array|false The result of the execution, or false on failure.
+     * @return array|false The result of the execution, or false on failure. * @since 2022.2.16
+     
      */
     public static function exec($basename, $content, $timeout = true, $catchOutput = true, $standalone = false, $silent = true, $rebuild = true)
     {
@@ -455,7 +477,8 @@ class Batch
      *
      * @param string $ext The file extension.
      * @param string|null $customName An optional custom name for the file.
-     * @return string The temporary file path.
+     * @return string The temporary file path. * @since 2022.2.16
+     
      */
     private static function getTmpFile($ext, $customName = null)
     {

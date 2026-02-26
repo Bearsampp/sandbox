@@ -12,22 +12,26 @@
  *
  * This class represents the phpMyAdmin application module in the Bearsampp application.
  * It extends the Module class and provides functionalities specific to phpMyAdmin,
- * such as configuration management and version handling.
+ * such as configuration management and version handling. * @since 2022.2.16
+     
  */
 class AppPhpmyadmin extends Module
 {
     /**
-     * Constant for the configuration key representing the phpMyAdmin version.
+     * Constant for the configuration key representing the phpMyAdmin version. * @since 2022.2.16
+     
      */
     const ROOT_CFG_VERSION = 'phpmyadminVersion';
 
     /**
-     * Constant for the configuration key representing the phpMyAdmin configuration file.
+     * Constant for the configuration key representing the phpMyAdmin configuration file. * @since 2022.2.16
+     
      */
     const LOCAL_CFG_CONF = 'phpmyadminConf';
 
     /**
-     * @var string The path to the phpMyAdmin configuration file.
+     * @var string The path to the phpMyAdmin configuration file. * @since 2022.2.16
+     
      */
     private $conf;
 
@@ -35,7 +39,8 @@ class AppPhpmyadmin extends Module
      * Constructor for the AppPhpmyadmin class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -46,7 +51,8 @@ class AppPhpmyadmin extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -86,7 +92,8 @@ class AppPhpmyadmin extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a window during the update process.
-     * @return bool True if the update was successful, false otherwise.
+     * @return bool True if the update was successful, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppRoot, $bearsamppBins;
@@ -129,7 +136,8 @@ class AppPhpmyadmin extends Module
     /**
      * Sets the version of the phpMyAdmin module.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -141,7 +149,8 @@ class AppPhpmyadmin extends Module
     /**
      * Gets the path to the phpMyAdmin configuration file.
      *
-     * @return string The path to the configuration file.
+     * @return string The path to the configuration file. * @since 2022.2.16
+     
      */
     public function getConf() {
         return $this->conf;

@@ -29,12 +29,14 @@
  * ```
  *
  * Each method is self-contained and provides specific functionality, making this class a central point for
- * common utility operations needed across a PHP application, especially in environments like web servers or command-line interfaces.
+ * common utility operations needed across a PHP application, especially in environments like web servers or command-line interfaces. * @since 2022.2.16
+     
  */
 class Util
 {
     /**
-     * This code snippet defines constants for logging levels.
+     * This code snippet defines constants for logging levels. * @since 2022.2.16
+     
      */
     const LOG_ERROR = 'ERROR';
     const LOG_WARNING = 'WARNING';
@@ -48,7 +50,8 @@ class Util
      * @param   string  $name  The index of the argument in the $_SERVER['argv'] array.
      * @param   string  $type  The type of the argument to return: 'text', 'numeric', 'boolean', or 'array'.
      *
-     * @return mixed Returns the cleaned argument based on the type or false if the argument is not set.
+     * @return mixed Returns the cleaned argument based on the type or false if the argument is not set. * @since 2022.2.16
+     
      */
     public static function cleanArgv($name, $type = 'text')
     {
@@ -73,7 +76,8 @@ class Util
      * @param   string  $name  The name of the $_GET variable.
      * @param   string  $type  The type of the variable to return: 'text', 'numeric', 'boolean', or 'array'.
      *
-     * @return mixed Returns the cleaned $_GET variable based on the type or false if the variable is not set.
+     * @return mixed Returns the cleaned $_GET variable based on the type or false if the variable is not set. * @since 2022.2.16
+     
      */
     public static function cleanGetVar($name, $type = 'text')
     {
@@ -100,7 +104,8 @@ class Util
      * @param   string  $name  The name of the $_POST variable.
      * @param   string  $type  The type of the variable to return: 'text', 'number', 'float', 'boolean', 'array', or 'content'.
      *
-     * @return mixed Returns the cleaned $_POST variable based on the type or false if the variable is not set.
+     * @return mixed Returns the cleaned $_POST variable based on the type or false if the variable is not set. * @since 2022.2.16
+     
      */
     public static function cleanPostVar($name, $type = 'text')
     {
@@ -129,7 +134,8 @@ class Util
      * @param   string  $string  The string to search in.
      * @param   string  $search  The substring to search for.
      *
-     * @return bool Returns true if the substring is found in the string, otherwise false.
+     * @return bool Returns true if the substring is found in the string, otherwise false. * @since 2022.2.16
+     
      */
     public static function contains($string, $search)
     {
@@ -151,7 +157,8 @@ class Util
      * @param   string  $string  The string to check.
      * @param   string  $search  The substring to look for at the start of the string.
      *
-     * @return bool Returns true if the string starts with the search substring, otherwise false.
+     * @return bool Returns true if the string starts with the search substring, otherwise false. * @since 2022.2.16
+     
      */
     public static function startWith($string, $search)
     {
@@ -174,7 +181,8 @@ class Util
      * @param   string  $string  The string to check.
      * @param   string  $search  The substring to look for at the end of the string.
      *
-     * @return bool Returns true if the string ends with the search substring, otherwise false.
+     * @return bool Returns true if the string ends with the search substring, otherwise false. * @since 2022.2.16
+     
      */
     public static function endWith($string, $search)
     {
@@ -191,7 +199,8 @@ class Util
      * @param   bool  $withNumeric  Whether to include numeric characters in the random string.
      *
      * @return string Returns the generated random string.
-     * @throws Exception If an appropriate source of randomness cannot be found.
+     * @throws Exception If an appropriate source of randomness cannot be found. * @since 2022.2.16
+     
      */
     public static function random($length = 32, $withNumeric = true)
     {
@@ -224,7 +233,8 @@ class Util
      * @param   int  $length  The length in bytes (output will be double this in hex characters).
      *
      * @return string Returns a hexadecimal string of cryptographically secure random bytes.
-     * @throws Exception If an appropriate source of randomness cannot be found.
+     * @throws Exception If an appropriate source of randomness cannot be found. * @since 2022.2.16
+     
      */
     public static function generateSecureToken($length = 32)
     {
@@ -243,7 +253,8 @@ class Util
      * @param   int  $length  The length in bytes.
      *
      * @return string Returns raw binary random bytes.
-     * @throws Exception If an appropriate source of randomness cannot be found.
+     * @throws Exception If an appropriate source of randomness cannot be found. * @since 2022.2.16
+     
      */
     public static function generateSecureBytes($length = 32)
     {
@@ -261,7 +272,8 @@ class Util
      * @param   string  $path     The path to the directory to clear.
      * @param   array   $exclude  An array of filenames to exclude from deletion.
      *
-     * @return array Returns an array with the status of the operation and the number of files deleted.
+     * @return array Returns an array with the status of the operation and the number of files deleted. * @since 2022.2.16
+     
      */
     public static function clearFolders($paths, $exclude = array())
     {
@@ -279,7 +291,8 @@ class Util
      * @param   string  $path     The path of the directory to clear.
      * @param   array   $exclude  An array of filenames to exclude from deletion.
      *
-     * @return array|null Returns an array with the operation status and count of files deleted, or null if the directory cannot be opened.
+     * @return array|null Returns an array with the operation status and count of files deleted, or null if the directory cannot be opened. * @since 2022.2.16
+     
      */
     public static function clearFolder($path, $exclude = array())
     {
@@ -323,7 +336,8 @@ class Util
     /**
      * Recursively deletes a directory and all its contents.
      *
-     * @param   string  $path  The path of the directory to delete.
+     * @param   string  $path  The path of the directory to delete. * @since 2022.2.16
+     
      */
     public static function deleteFolder($path)
     {
@@ -349,7 +363,8 @@ class Util
      * @param   string  $startPath  The directory path to start the search.
      * @param   string  $findFile   The filename to search for.
      *
-     * @return string|false Returns the path to the file if found, or false if not found.
+     * @return string|false Returns the path to the file if found, or false if not found. * @since 2022.2.16
+     
      */
     private static function findFile($startPath, $findFile)
     {
@@ -385,7 +400,8 @@ class Util
      *
      * @param   string  $ip  The IP address to validate.
      *
-     * @return bool Returns true if the IP address is valid, otherwise false.
+     * @return bool Returns true if the IP address is valid, otherwise false. * @since 2022.2.16
+     
      */
     public static function isValidIp($ip)
     {
@@ -398,7 +414,8 @@ class Util
      *
      * @param   int  $port  The port number to validate.
      *
-     * @return bool Returns true if the port number is valid and within the range of 1 to 65535, otherwise false.
+     * @return bool Returns true if the port number is valid and within the range of 1 to 65535, otherwise false. * @since 2022.2.16
+     
      */
     public static function isValidPort($port)
     {
@@ -410,7 +427,8 @@ class Util
      *
      * @param   string  $path   The file path where the constant is defined.
      * @param   string  $var    The name of the constant.
-     * @param   mixed   $value  The new value for the constant.
+     * @param   mixed   $value  The new value for the constant. * @since 2022.2.16
+     
      */
     public static function replaceDefine($path, $var, $value)
     {
@@ -423,7 +441,8 @@ class Util
      * Performs replacements in a file based on a list of regular expression patterns.
      *
      * @param   string  $path         The path to the file where replacements are to be made.
-     * @param   array   $replaceList  An associative array where keys are regex patterns and values are replacement strings.
+     * @param   array   $replaceList  An associative array where keys are regex patterns and values are replacement strings. * @since 2022.2.16
+     
      */
     public static function replaceInFile($path, $replaceList)
     {
@@ -463,7 +482,8 @@ class Util
      *
      * @param   string  $path  The path to search for version directories.
      *
-     * @return array|false Returns a sorted array of version names, or false if the directory cannot be opened.
+     * @return array|false Returns a sorted array of version names, or false if the directory cannot be opened. * @since 2022.2.16
+     
      */
     public static function getVersionList($path)
     {
@@ -490,7 +510,8 @@ class Util
     /**
      * Gets the current Unix timestamp with microseconds.
      *
-     * @return float Returns the current Unix timestamp combined with microseconds.
+     * @return float Returns the current Unix timestamp combined with microseconds. * @since 2022.2.16
+     
      */
     public static function getMicrotime()
     {
@@ -561,7 +582,8 @@ class Util
      *
      * @param   bool  $fromRegistry  Determines whether to retrieve the key from the registry or generate it.
      *
-     * @return string Returns the application binaries registry key.
+     * @return string Returns the application binaries registry key. * @since 2022.2.16
+     
      */
     public static function setAppBinsRegKey($value)
     {
@@ -578,7 +600,8 @@ class Util
     /**
      * Retrieves the application path from the registry.
      *
-     * @return mixed The value of the application path registry key or false on error.
+     * @return mixed The value of the application path registry key or false on error. * @since 2022.2.16
+     
      */
     public static function getAppPathRegKey()
     {
@@ -596,7 +619,8 @@ class Util
      *
      * @param   string  $value  The new value for the application path.
      *
-     * @return bool True on success, false on failure.
+     * @return bool True on success, false on failure. * @since 2022.2.16
+     
      */
     public static function setAppPathRegKey($value)
     {
@@ -613,7 +637,8 @@ class Util
     /**
      * Retrieves the system path from the registry.
      *
-     * @return mixed The value of the system path registry key or false on error.
+     * @return mixed The value of the system path registry key or false on error. * @since 2022.2.16
+     
      */
     public static function getSysPathRegKey()
     {
@@ -631,7 +656,8 @@ class Util
      *
      * @param   string  $value  The new value for the system path.
      *
-     * @return bool True on success, false on failure.
+     * @return bool True on success, false on failure. * @since 2022.2.16
+     
      */
     public static function setSysPathRegKey($value)
     {
@@ -648,7 +674,8 @@ class Util
     /**
      * Retrieves the processor identifier from the registry.
      *
-     * @return mixed The value of the processor identifier registry key or false on error.
+     * @return mixed The value of the processor identifier registry key or false on error. * @since 2022.2.16
+     
      */
     public static function getProcessorRegKey()
     {
@@ -664,7 +691,8 @@ class Util
     /**
      * Retrieves the path for the startup link file.
      *
-     * @return string The full path to the startup link file.
+     * @return string The full path to the startup link file. * @since 2022.2.16
+     
      */
     public static function getStartupLnkPath()
     {
@@ -674,7 +702,8 @@ class Util
     /**
      * Checks if the application is set to launch at startup.
      *
-     * @return bool True if the startup link exists, false otherwise.
+     * @return bool True if the startup link exists, false otherwise. * @since 2022.2.16
+     
      */
     public static function isLaunchStartup()
     {
@@ -684,7 +713,8 @@ class Util
     /**
      * Enables launching the application at startup by creating a shortcut in the startup folder.
      *
-     * @return bool True on success, false on failure.
+     * @return bool True on success, false on failure. * @since 2022.2.16
+     
      */
     public static function enableLaunchStartup()
     {
@@ -694,7 +724,8 @@ class Util
     /**
      * Disables launching the application at startup by removing the shortcut from the startup folder.
      *
-     * @return bool True on success, false on failure.
+     * @return bool True on success, false on failure. * @since 2022.2.16
+     
      */
     public static function disableLaunchStartup()
     {
@@ -714,7 +745,8 @@ class Util
      *
      * @param   string       $data  The message to log.
      * @param   string       $type  The type of log message: 'ERROR', 'WARNING', 'INFO', 'DEBUG', or 'TRACE'.
-     * @param   string|null  $file  The file path to write the log message to. If null, uses default log file based on type.
+     * @param   string|null  $file  The file path to write the log message to. If null, uses default log file based on type. * @since 2022.2.16
+     
      */
     private static function log($data, $type, $file = null)
     {
@@ -754,7 +786,8 @@ class Util
      * Appends a separator line to multiple log files if they do not already end with it.
      * This function ensures that each log file ends with a clear separator for better readability.
      *
-     * @global object $bearsamppRoot An object that provides paths to various log files.
+     * @global object $bearsamppRoot An object that provides paths to various log files. * @since 2022.2.16
+     
      */
     public static function logSeparator()
     {
@@ -788,7 +821,8 @@ class Util
      * This function is a wrapper around the generic log function for trace-level messages.
      *
      * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used. * @since 2022.2.16
+     
      */
     public static function logTrace($data, $file = null)
     {
@@ -800,7 +834,8 @@ class Util
      * This function is a wrapper around the generic log function for debug-level messages.
      *
      * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used. * @since 2022.2.16
+     
      */
     public static function logDebug($data, $file = null)
     {
@@ -812,7 +847,8 @@ class Util
      * This function is a wrapper around the generic log function for informational messages.
      *
      * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used. * @since 2022.2.16
+     
      */
     public static function logInfo($data, $file = null)
     {
@@ -824,7 +860,8 @@ class Util
      * This function is a wrapper around the generic log function for warning-level messages.
      *
      * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used. * @since 2022.2.16
+     
      */
     public static function logWarning($data, $file = null)
     {
@@ -836,7 +873,8 @@ class Util
      * This function is a wrapper around the generic log function for error-level messages.
      *
      * @param   mixed        $data  The data to log.
-     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used.
+     * @param   string|null  $file  Optional. The file path to log to. If not provided, a default path is used. * @since 2022.2.16
+     
      */
     public static function logError($data, $file = null)
     {
@@ -846,7 +884,8 @@ class Util
     /**
      * Logs the initialization of a class instance.
      *
-     * @param   object  $classInstance  The instance of the class to log.
+     * @param   object  $classInstance  The instance of the class to log. * @since 2022.2.16
+     
      */
     public static function logInitClass($classInstance)
     {
@@ -856,7 +895,8 @@ class Util
     /**
      * Logs the reloading of a class instance.
      *
-     * @param   object  $classInstance  The instance of the class to log.
+     * @param   object  $classInstance  The instance of the class to log. * @since 2022.2.16
+     
      */
     public static function logReloadClass($classInstance)
     {
@@ -866,7 +906,8 @@ class Util
     /**
      * Finds the path to the PowerShell executable in the Windows System32 directory.
      *
-     * @return string|false Returns the path to powershell.exe if found, otherwise false.
+     * @return string|false Returns the path to powershell.exe if found, otherwise false. * @since 2022.2.16
+     
      */
     public static function getPowerShellPath()
     {
@@ -885,7 +926,8 @@ class Util
      * @param   string  $checkFile  The file name to check for in the directory to consider it a repository.
      * @param   int     $maxDepth   The maximum depth of directories to search into.
      *
-     * @return array Returns an array of paths that contain the specified file.
+     * @return array Returns an array of paths that contain the specified file. * @since 2022.2.16
+     
      */
     public static function findRepos($initPath, $startPath, $checkFile, $maxDepth = 1)
     {
@@ -921,7 +963,8 @@ class Util
      *
      * @param   string  $path  The Unix-style path to convert.
      *
-     * @return string Returns the converted Windows-style path.
+     * @return string Returns the converted Windows-style path. * @since 2022.2.16
+     
      */
     public static function formatWindowsPath($path)
     {
@@ -933,7 +976,8 @@ class Util
      *
      * @param   string  $path  The Windows-style path to convert.
      *
-     * @return string Returns the converted Unix-style path.
+     * @return string Returns the converted Unix-style path. * @since 2022.2.16
+     
      */
     public static function formatUnixPath($path)
     {
@@ -945,7 +989,8 @@ class Util
      *
      * @param   string  $path  The path to the image file.
      *
-     * @return string Returns the base64 encoded string of the image.
+     * @return string Returns the base64 encoded string of the image. * @since 2022.2.16
+     
      */
     public static function imgToBase64($path)
     {
@@ -960,7 +1005,8 @@ class Util
      *
      * @param   string  $data  The UTF-8 encoded data.
      *
-     * @return string Returns the data encoded in Windows-1252.
+     * @return string Returns the data encoded in Windows-1252. * @since 2022.2.16
+     
      */
     public static function utf8ToCp1252($data)
     {
@@ -972,7 +1018,8 @@ class Util
      *
      * @param   string  $data  The Windows-1252 encoded data.
      *
-     * @return string Returns the data encoded in UTF-8.
+     * @return string Returns the data encoded in UTF-8. * @since 2022.2.16
+     
      */
     public static function cp1252ToUtf8($data)
     {
@@ -980,7 +1027,8 @@ class Util
     }
 
     /**
-     * Initiates a loading process using external components.
+     * Initiates a loading process using external components. * @since 2022.2.16
+     
      */
     public static function startLoading()
     {
@@ -1001,7 +1049,8 @@ class Util
     }
 
     /**
-     * Stops a previously started loading process and cleans up related resources.
+     * Stops a previously started loading process and cleans up related resources. * @since 2022.2.16
+     
      */
     public static function stopLoading()
     {
@@ -1022,7 +1071,8 @@ class Util
      * Updates the loading screen text (if loading screen is active)
      * This allows dynamic updates to show which service is being processed
      *
-     * @param string $text The text to display on the loading screen
+     * @param string $text The text to display on the loading screen * @since 2022.2.16
+     
      */
     public static function updateLoadingText($text)
     {
@@ -1033,7 +1083,8 @@ class Util
     }
 
     /**
-     * Clears the loading status file
+     * Clears the loading status file * @since 2022.2.16
+     
      */
     public static function clearLoadingText()
     {
@@ -1050,7 +1101,8 @@ class Util
      *
      * @param   string|null  $path  Optional. The path to start scanning from. If null, uses default paths.
      *
-     * @return array Returns an array of files found during the scan.
+     * @return array Returns an array of files found during the scan. * @since 2022.2.16
+     
      */
     public static function getFilesToScan($path = null)
     {
@@ -1090,7 +1142,8 @@ class Util
      * important files within the BEARSAMPP environment, possibly for purposes like configuration
      * management, backup, or security auditing.
      *
-     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
+     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys. * @since 2022.2.16
+     
      */
     private static function getPathsToScan()
     {
@@ -1245,7 +1298,8 @@ class Util
      * @param   array   $includes   An array of file patterns to include in the search. Patterns starting with '!' are excluded.
      * @param   bool    $recursive  Determines whether the search should be recursive.
      *
-     * @return array An array of files that match the inclusion patterns.
+     * @return array An array of files that match the inclusion patterns. * @since 2022.2.16
+     
      */
     private static function findFiles($startPath, $includes = array(''), $recursive = true)
     {
@@ -1292,7 +1346,8 @@ class Util
      * @param   array        $filesToScan  Array of file paths to scan and modify.
      * @param   string|null  $rootPath     The new root path to replace the old one. If null, uses a default root path.
      *
-     * @return array Returns an array with the count of occurrences changed and the count of files changed.
+     * @return array Returns an array with the count of occurrences changed and the count of files changed. * @since 2022.2.16
+     
      */
     public static function changePath($filesToScan, $rootPath = null)
     {
@@ -1355,7 +1410,8 @@ class Util
      *
      * @param   string  $url  The URL to fetch version information from.
      *
-     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise.
+     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise. * @since 2022.2.16
+     
      */
     public static function getLatestVersion($url)
     {
@@ -1389,7 +1445,8 @@ class Util
      * @param   string  $path      Optional path to append to the base URL.
      * @param   string  $fragment  Optional fragment to append to the URL.
      *
-     * @return string The constructed URL without UTM parameters.
+     * @return string The constructed URL without UTM parameters. * @since 2022.2.16
+     
      */
     public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
     {
@@ -1403,7 +1460,8 @@ class Util
      * @param   string  $fragment   Optional fragment to append to the URL.
      * @param   bool    $utmSource  Whether to include UTM source parameters.
      *
-     * @return string The constructed URL.
+     * @return string The constructed URL. * @since 2022.2.16
+     
      */
     public static function getWebsiteUrl($path = '', $fragment = '', $utmSource = true)
     {
@@ -1428,7 +1486,8 @@ class Util
      *
      * @param   bool  $utmSource  Whether to include UTM source parameters.
      *
-     * @return string The URL to the changelog page.
+     * @return string The URL to the changelog page. * @since 2022.2.16
+     
      */
     public static function getChangelogUrl($utmSource = true)
     {
@@ -1441,7 +1500,8 @@ class Util
      * @param   string  $url            The URL of the remote file.
      * @param   bool    $humanFileSize  Whether to return the size in a human-readable format.
      *
-     * @return mixed The file size, either in bytes or as a formatted string.
+     * @return mixed The file size, either in bytes or as a formatted string. * @since 2022.2.16
+     
      */
     public static function getRemoteFilesize($url, $humanFileSize = true)
     {
@@ -1461,7 +1521,8 @@ class Util
      * @param   int     $size  The file size in bytes.
      * @param   string  $unit  The unit to convert to ('GB', 'MB', 'KB', or ''). If empty, auto-selects the unit.
      *
-     * @return string The formatted file size.
+     * @return string The formatted file size. * @since 2022.2.16
+     
      */
     public static function humanFileSize($size, $unit = '')
     {
@@ -1481,7 +1542,8 @@ class Util
     /**
      * Checks if the operating system is 32-bit.
      *
-     * @return bool True if the OS is 32-bit, false otherwise.
+     * @return bool True if the OS is 32-bit, false otherwise. * @since 2022.2.16
+     
      */
     public static function is32BitsOs()
     {
@@ -1495,7 +1557,8 @@ class Util
      *
      * @param   string  $pingUrl  The URL to ping for headers.
      *
-     * @return array An array of HTTP headers.
+     * @return array An array of HTTP headers. * @since 2022.2.16
+     
      */
     public static function getHttpHeaders($pingUrl)
     {
@@ -1533,7 +1596,8 @@ class Util
      *
      * @param   string  $url  The URL from which to fetch the headers.
      *
-     * @return array An array of headers if successful, otherwise an empty array.
+     * @return array An array of headers if successful, otherwise an empty array. * @since 2022.2.16
+     
      */
     public static function getFopenHttpHeaders($url)
     {
@@ -1566,7 +1630,8 @@ class Util
      *
      * @param   string  $url  The URL from which to fetch the headers.
      *
-     * @return array An array of headers if successful, otherwise an empty array.
+     * @return array An array of headers if successful, otherwise an empty array. * @since 2022.2.16
+     
      */
     public static function getCurlHttpHeaders($url)
     {
@@ -1604,7 +1669,8 @@ class Util
      * @param   int     $port  The port number to connect to.
      * @param   bool    $ssl   Whether to use SSL (defaults to false).
      *
-     * @return array An array containing the first line of the response, split into parts, or an empty array if unsuccessful.
+     * @return array An array containing the first line of the response, split into parts, or an empty array if unsuccessful. * @since 2022.2.16
+     
      */
     public static function getHeaders($host, $port, $ssl = false)
     {
@@ -1648,7 +1714,8 @@ class Util
      *
      * @param   string  $url  The URL to send the GET request to.
      *
-     * @return string The trimmed response data from the URL.
+     * @return string The trimmed response data from the URL. * @since 2022.2.16
+     
      */
     public static function getApiJson($url)
     {
@@ -1680,7 +1747,8 @@ class Util
      *
      * @param   int  $port  The port number to check
      *
-     * @return mixed False if the port is not in use, otherwise returns the process using the port
+     * @return mixed False if the port is not in use, otherwise returns the process using the port * @since 2022.2.16
+     
      */
     public static function isPortInUse($port)
     {
@@ -1713,7 +1781,8 @@ class Util
      *
      * @param   string  $domainName  The domain name to validate.
      *
-     * @return bool Returns true if the domain name is valid, false otherwise.
+     * @return bool Returns true if the domain name is valid, false otherwise. * @since 2022.2.16
+     
      */
     public static function isValidDomainName($domainName)
     {
@@ -1727,7 +1796,8 @@ class Util
      *
      * @param   string  $string  The string to check.
      *
-     * @return bool Returns true if the string is alphanumeric, false otherwise.
+     * @return bool Returns true if the string is alphanumeric, false otherwise. * @since 2022.2.16
+     
      */
     public static function isAlphanumeric($string)
     {
@@ -1742,7 +1812,8 @@ class Util
      * @param   string  $syntaxCheckCmd  The command to execute for syntax checking of the service configuration.
      * @param   bool    $showWindow      Optional. Whether to show message boxes for information, warnings, and errors. Defaults to false.
      *
-     * @return bool Returns true if the service is successfully installed and started, false otherwise.
+     * @return bool Returns true if the service is successfully installed and started, false otherwise. * @since 2022.2.16
+     
      */
     public static function installService($bin, $port, $syntaxCheckCmd, $showWindow = false)
     {
@@ -1825,7 +1896,8 @@ class Util
      * @param   Win32Service  $service  The service object to be removed.
      * @param   string        $name     The name of the service.
      *
-     * @return bool Returns true if the service is successfully removed, false otherwise.
+     * @return bool Returns true if the service is successfully removed, false otherwise. * @since 2022.2.16
+     
      */
     public static function removeService($service, $name)
     {
@@ -1859,7 +1931,8 @@ class Util
      * @param   string  $syntaxCheckCmd  Command to check syntax errors.
      * @param   bool    $showWindow      Whether to show error messages in a window.
      *
-     * @return bool Returns true if the service starts successfully, false otherwise.
+     * @return bool Returns true if the service starts successfully, false otherwise. * @since 2022.2.16
+     
      */
     public static function startService($bin, $syntaxCheckCmd, $showWindow = false)
     {
@@ -1899,7 +1972,8 @@ class Util
      *
      * @param   string|null  $part  Optional path to append to the URL.
      *
-     * @return string The full GitHub user URL.
+     * @return string The full GitHub user URL. * @since 2022.2.16
+     
      */
     public static function getGithubUserUrl($part = null)
     {
@@ -1913,7 +1987,8 @@ class Util
      *
      * @param   string|null  $part  Optional path to append to the URL.
      *
-     * @return string The full GitHub repository URL.
+     * @return string The full GitHub repository URL. * @since 2022.2.16
+     
      */
     public static function getGithubUrl($part = null)
     {
@@ -1927,7 +2002,8 @@ class Util
      *
      * @param   string  $file  The file path to append to the base URL.
      *
-     * @return string The full URL to the raw content on GitHub.
+     * @return string The full URL to the raw content on GitHub. * @since 2022.2.16
+     
      */
     public static function getGithubRawUrl($file)
     {
@@ -1941,7 +2017,8 @@ class Util
      *
      * @param   string  $path  The directory path from which to list folders.
      *
-     * @return array|bool An array of folder names, or false if the directory cannot be opened.
+     * @return array|bool An array of folder names, or false if the directory cannot be opened. * @since 2022.2.16
+     
      */
     public static function getFolderList($path)
     {
@@ -1970,7 +2047,8 @@ class Util
      * Warnings are logged for paths that do not exist.
      *
      * @return string A semicolon-separated string of formatted environment paths.
-     * @global object $bearsamppRoot Global object containing root path methods.
+     * @global object $bearsamppRoot Global object containing root path methods. * @since 2022.2.16
+     
      */
     public static function getNssmEnvPaths()
     {
@@ -2006,7 +2084,8 @@ class Util
      *
      * @global object   $bearsamppRoot      Global object to access temporary path.
      * @global object   $bearsamppConfig    Global configuration object.
-     * @global object   $bearsamppWinbinder Global object to execute external programs.
+     * @global object   $bearsamppWinbinder Global object to execute external programs. * @since 2022.2.16
+     
      */
     public static function openFileContent($caption, $content)
     {
@@ -2026,7 +2105,8 @@ class Util
     /**
      * Decrypts a file encrypted with a specified method and returns the content.
      *
-     * @return string|false Decrypted content or false on failure.
+     * @return string|false Decrypted content or false on failure. * @since 2022.2.16
+     
      */
     public static function decryptFile()
     {
@@ -2081,7 +2161,8 @@ class Util
     /**
      * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
      *
-     * @return array The header array for cURL with authorization and other necessary details.
+     * @return array The header array for cURL with authorization and other necessary details. * @since 2022.2.16
+     
      */
     public static function setupCurlHeaderWithToken()
     {
@@ -2103,7 +2184,8 @@ class Util
      * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
      * It returns `true` if the connection is successful, otherwise it returns `false`.
      *
-     * @return bool True if the internet connection is active, false otherwise.
+     * @return bool True if the internet connection is active, false otherwise. * @since 2022.2.16
+     
      */
     public static function checkInternetState()
     {

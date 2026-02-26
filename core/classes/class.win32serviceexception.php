@@ -12,7 +12,8 @@
  * Class Win32ServiceException
  *
  * This class represents exceptions thrown by Win32 service operations.
- * It extends the base Exception class to provide specific error handling for Win32 service functions.
+ * It extends the base Exception class to provide specific error handling for Win32 service functions. * @since 2022.2.16
+     
  */
 class Win32ServiceException extends \Exception
 {
@@ -21,7 +22,8 @@ class Win32ServiceException extends \Exception
      *
      * @param string $message The exception message.
      * @param int $code The exception code.
-     * @param \Throwable|null $previous The previous throwable used for exception chaining.
+     * @param \Throwable|null $previous The previous throwable used for exception chaining. * @since 2022.2.16
+     
      */
     public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {

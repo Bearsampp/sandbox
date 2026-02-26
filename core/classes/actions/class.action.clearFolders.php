@@ -13,7 +13,8 @@
  *
  * This class is responsible for clearing out temporary files and directories that are not
  * essential for immediate functionality but may accumulate over time and use disk space.
- * It targets temporary directories used by various components like Composer, OpenSSL, and others.
+ * It targets temporary directories used by various components like Composer, OpenSSL, and others. * @since 2022.2.16
+     
  */
 class ActionClearFolders
 {
@@ -23,7 +24,8 @@ class ActionClearFolders
      * Upon instantiation, it clears specified temporary folders in both the root and core temporary paths.
      * It excludes certain files and folders from being deleted to prevent essential data loss.
      *
-     * @param array $args Arguments that might be used for further extension of constructor functionality.
+     * @param array $args Arguments that might be used for further extension of constructor functionality. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

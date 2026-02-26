@@ -12,7 +12,8 @@
  *
  * This class handles the generation of SSL certificates through a WinBinder GUI.
  * It provides a user interface for inputting the server name and target directory,
- * and includes functionality for browsing directories, saving the certificate, and displaying progress.
+ * and includes functionality for browsing directories, saving the certificate, and displaying progress. * @since 2022.2.16
+     
  */
 class ActionGenSslCertificate
 {
@@ -33,7 +34,8 @@ class ActionGenSslCertificate
      *
      * Initializes the WinBinder window and its controls, sets up event handlers, and starts the main loop.
      *
-     * @param array $args Command line arguments passed to the script.
+     * @param array $args Command line arguments passed to the script. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -71,7 +73,8 @@ class ActionGenSslCertificate
      * @param int $id The control ID that triggered the event.
      * @param resource $ctrl The control resource that triggered the event.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

@@ -11,7 +11,8 @@
  * Class BinMysql
  *
  * This class represents the MySQL binary module in the Bearsampp application.
- * It handles the configuration, management, and operations related to MySQL.
+ * It handles the configuration, management, and operations related to MySQL. * @since 2022.2.16
+     
  */
 class BinMysql extends Module
 {
@@ -48,7 +49,8 @@ class BinMysql extends Module
      * Constructs a BinMysql object and initializes the MySQL module.
      *
      * @param   string  $id    The ID of the module.
-     * @param   string  $type  The type of the module.
+     * @param   string  $type  The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type)
     {
@@ -60,7 +62,8 @@ class BinMysql extends Module
      * Reloads the MySQL module configuration based on the provided ID and type.
      *
      * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null)
     {
@@ -147,7 +150,8 @@ class BinMysql extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param   array  $params  An associative array of key-value pairs to replace.
+     * @param   array  $params  An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params)
     {
@@ -179,7 +183,8 @@ class BinMysql extends Module
      * @param   bool   $checkUsed      Whether to check if the port is already in use.
      * @param   mixed  $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the port was changed successfully, or an error message if the port is in use.
+     * @return bool|string True if the port was changed successfully, or an error message if the port is in use. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
@@ -218,7 +223,8 @@ class BinMysql extends Module
      * @param   int   $port        The port number to check.
      * @param   bool  $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the port is in use by MySQL, false otherwise.
+     * @return bool True if the port is in use by MySQL, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false)
     {
@@ -336,7 +342,8 @@ class BinMysql extends Module
      * @param   string  $newPwd         The new root password.
      * @param   mixed   $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password was changed successfully, or an error message if the operation failed.
+     * @return bool|string True if the password was changed successfully, or an error message if the operation failed. * @since 2022.2.16
+     
      */
     public function changeRootPassword($currentPwd, $newPwd, $wbProgressBar = null)
     {
@@ -420,7 +427,8 @@ class BinMysql extends Module
      * @param   string|null  $currentPwd     The current root password. If null, the stored root password is used.
      * @param   mixed        $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|string True if the password is correct, or an error message if the operation failed.
+     * @return bool|string True if the password is correct, or an error message if the operation failed. * @since 2022.2.16
+     
      */
     public function checkRootPassword($currentPwd = null, $wbProgressBar = null)
     {
@@ -500,7 +508,8 @@ class BinMysql extends Module
      * @param   string  $version     The new MySQL version.
      * @param   bool    $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the version was switched successfully, false otherwise.
+     * @return bool True if the version was switched successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false)
     {
@@ -516,7 +525,8 @@ class BinMysql extends Module
      * @param   int          $sub         The sub-level for logging indentation.
      * @param   bool         $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the configuration was updated successfully, false otherwise.
+     * @return bool True if the configuration was updated successfully, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false)
     {
@@ -588,7 +598,8 @@ class BinMysql extends Module
      * @param   string|null  $path     The path to the MySQL installation. If null, the current path is used.
      * @param   string|null  $version  The version of MySQL. If null, the current version is used.
      *
-     * @return  bool         True if initialization was successful or not needed
+     * @return  bool         True if initialization was successful or not needed * @since 2022.2.16
+     
      */
     public function initData($path = null, $version = null)
     {
@@ -680,7 +691,8 @@ class BinMysql extends Module
      *
      * @param   string  $cmd  The command to execute.
      *
-     * @return array An associative array containing 'syntaxOk' (boolean) and 'content' (string|null).
+     * @return array An associative array containing 'syntaxOk' (boolean) and 'content' (string|null). * @since 2022.2.16
+     
      */
     public function getCmdLineOutput($cmd)
     {
@@ -720,7 +732,8 @@ class BinMysql extends Module
     /**
      * Sets the MySQL version and reloads the configuration.
      *
-     * @param   string  $version  The version to set.
+     * @param   string  $version  The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version)
     {
@@ -733,7 +746,8 @@ class BinMysql extends Module
     /**
      * Retrieves the MySQL service object.
      *
-     * @return Win32Service The MySQL service object.
+     * @return Win32Service The MySQL service object. * @since 2022.2.16
+     
      */
     public function getService()
     {
@@ -744,7 +758,8 @@ class BinMysql extends Module
      * Enables or disables the MySQL module and updates the configuration.
      *
      * @param   bool  $enabled     Whether to enable or disable the module.
-     * @param   bool  $showWindow  Whether to show a message box with the result.
+     * @param   bool  $showWindow  Whether to show a message box with the result. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false)
     {
@@ -776,7 +791,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL error log.
      *
-     * @return string The path to the error log.
+     * @return string The path to the error log. * @since 2022.2.16
+     
      */
     public function getErrorLog()
     {
@@ -786,7 +802,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL executable.
      *
-     * @return string The path to the MySQL executable.
+     * @return string The path to the MySQL executable. * @since 2022.2.16
+     
      */
     public function getExe()
     {
@@ -796,7 +813,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL configuration file.
      *
-     * @return string The path to the configuration file.
+     * @return string The path to the configuration file. * @since 2022.2.16
+     
      */
     public function getConf()
     {
@@ -806,7 +824,8 @@ class BinMysql extends Module
     /**
      * Retrieves the MySQL port number.
      *
-     * @return int The port number.
+     * @return int The port number. * @since 2022.2.16
+     
      */
     public function getPort()
     {
@@ -816,7 +835,8 @@ class BinMysql extends Module
     /**
      * Sets the MySQL port number and updates the configuration.
      *
-     * @param   int  $port  The port number to set.
+     * @param   int  $port  The port number to set. * @since 2022.2.16
+     
      */
     public function setPort($port)
     {
@@ -826,7 +846,8 @@ class BinMysql extends Module
     /**
      * Retrieves the MySQL root username.
      *
-     * @return string The root username.
+     * @return string The root username. * @since 2022.2.16
+     
      */
     public function getRootUser()
     {
@@ -836,7 +857,8 @@ class BinMysql extends Module
     /**
      * Sets the MySQL root username and updates the configuration.
      *
-     * @param   string  $rootUser  The root username to set.
+     * @param   string  $rootUser  The root username to set. * @since 2022.2.16
+     
      */
     public function setRootUser($rootUser)
     {
@@ -846,7 +868,8 @@ class BinMysql extends Module
     /**
      * Retrieves the MySQL root password.
      *
-     * @return string The root password.
+     * @return string The root password. * @since 2022.2.16
+     
      */
     public function getRootPwd()
     {
@@ -856,7 +879,8 @@ class BinMysql extends Module
     /**
      * Sets the MySQL root password and updates the configuration.
      *
-     * @param   string  $rootPwd  The root password to set.
+     * @param   string  $rootPwd  The root password to set. * @since 2022.2.16
+     
      */
     public function setRootPwd($rootPwd)
     {
@@ -866,7 +890,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL CLI executable.
      *
-     * @return string The path to the CLI executable.
+     * @return string The path to the CLI executable. * @since 2022.2.16
+     
      */
     public function getCliExe()
     {
@@ -876,7 +901,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL admin executable.
      *
-     * @return string The path to the admin executable.
+     * @return string The path to the admin executable. * @since 2022.2.16
+     
      */
     public function getAdmin()
     {
@@ -886,7 +912,8 @@ class BinMysql extends Module
     /**
      * Retrieves the path to the MySQL data directory.
      *
-     * @return string The path to the data directory.
+     * @return string The path to the data directory. * @since 2022.2.16
+     
      */
     public function getDataDir()
     {

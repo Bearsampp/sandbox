@@ -11,24 +11,28 @@
  * Class LangProc
  *
  * This class handles the language processing for the Bearsampp application.
- * It loads language files, retrieves language settings, and provides language-specific values.
+ * It loads language files, retrieves language settings, and provides language-specific values. * @since 2022.2.16
+     
  */
 class LangProc
 {
     /**
-     * @var string The current language being used.
+     * @var string The current language being used. * @since 2022.2.16
+     
      */
     private $current;
 
     /**
-     * @var array The raw language data loaded from the language file.
+     * @var array The raw language data loaded from the language file. * @since 2022.2.16
+     
      */
     private $raw;
 
     /**
      * LangProc constructor.
      *
-     * Initializes the LangProc object and loads the language settings.
+     * Initializes the LangProc object and loads the language settings. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -39,7 +43,8 @@ class LangProc
      * Loads the current language settings and data.
      *
      * This method retrieves the default language from the configuration,
-     * checks if it is available, and then loads the corresponding language file.
+     * checks if it is available, and then loads the corresponding language file. * @since 2022.2.16
+     
      */
     public function load()
     {
@@ -57,7 +62,8 @@ class LangProc
     /**
      * Gets the current language being used.
      *
-     * @return string The current language.
+     * @return string The current language. * @since 2022.2.16
+     
      */
     public function getCurrent()
     {
@@ -69,7 +75,8 @@ class LangProc
      *
      * This method scans the language directory and returns a list of available language files.
      *
-     * @return array The list of available languages.
+     * @return array The list of available languages. * @since 2022.2.16
+     
      */
     public function getList()
     {
@@ -98,7 +105,8 @@ class LangProc
      * If the key is not found, it logs an error and returns the key itself.
      *
      * @param string $key The language key to retrieve the value for.
-     * @return string The value associated with the key, or the key itself if not found.
+     * @return string The value associated with the key, or the key itself if not found. * @since 2022.2.16
+     
      */
     public function getValue($key)
     {

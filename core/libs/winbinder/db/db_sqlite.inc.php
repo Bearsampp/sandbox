@@ -30,7 +30,8 @@ define("DB_SQLITE_WRAP", "db_v2b");
 * raw_get_db_version()
 * Returns the version of the database library.
 *
-* @return string
+* @return string * @since 2022.2.16
+     
 */
 function raw_get_db_version()
 {
@@ -49,7 +50,8 @@ if (DB_WRAPVERSION != DB_SQLITE_WRAP) {
 * @param string $server
 * @param string $username
 * @param string $password
-* @return resource or FALSE
+* @return resource or FALSE * @since 2022.2.16
+     
 */
 function raw_db_open_database($database, $path = "", $u = null, $p = null)
 {
@@ -75,7 +77,8 @@ function raw_db_open_database($database, $path = "", $u = null, $p = null)
 * raw_db_list_database_tables()
 * Returns an array with the list of tables of the current database.
 *
-* @return array or FALSE
+* @return array or FALSE * @since 2022.2.16
+     
 */
 function raw_db_list_database_tables()
 {
@@ -95,7 +98,8 @@ function raw_db_list_database_tables()
 /**
 * raw_db_close_database()
 *
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_close_database()
 {
@@ -109,7 +113,8 @@ function raw_db_close_database()
 * raw_db_table_exists()
 *
 * @param  $tablename
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_table_exists($tablename)
 {
@@ -126,7 +131,8 @@ function raw_db_table_exists($tablename)
 *
 * @param  $tablename
 * @param  $newname
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_rename_table($tablename, $newname)
 {
@@ -144,7 +150,8 @@ function raw_db_rename_table($tablename, $newname)
 *
 * @param  $tablename
 * @param boolean $type
-* @return array or FALSE
+* @return array or FALSE * @since 2022.2.16
+     
 */
 function raw_db_list_table_fields_def($tablename, $type = false)
 {
@@ -173,7 +180,8 @@ function raw_db_list_table_fields_def($tablename, $type = false)
 * @param  $tablename
 * @param  $field
 * @param  $type
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_create_field($tablename, $field, $type)
 {
@@ -191,7 +199,8 @@ function raw_db_create_field($tablename, $field, $type)
 *
 * @param  $tablename
 * @param  $field
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_delete_field($tablename, $field)
 {
@@ -211,7 +220,8 @@ function raw_db_delete_field($tablename, $field)
 * @param  $field
 * @param  $newname
 * @param  $type
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_rename_field($tablename, $field, $newname, $type)
 {
@@ -230,7 +240,8 @@ function raw_db_rename_field($tablename, $field, $newname, $type)
 * @param  $tablename
 * @param  $field
 * @param  $type
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_edit_field($tablename, $field, $type)
 {
@@ -250,7 +261,8 @@ function raw_db_edit_field($tablename, $field, $type)
 * @param string $query
 * @return resource on success for SELECT,SHOW,DESCRIBE ans EXPLAIN
 *            TRUE on success for UPDATE, DELETE, DROP etc
-*            FALSE on errors
+*            FALSE on errors * @since 2022.2.16
+     
 */
 function raw_db_query($query)
 {
@@ -265,7 +277,8 @@ function raw_db_query($query)
 *
 * @param  $result
 * @param unknown $type
-* @return array of row, FALSE if no more rows
+* @return array of row, FALSE if no more rows * @since 2022.2.16
+     
 */
 function raw_db_fetch_array($result, $type = SQLITE_BOTH)
 {
@@ -276,7 +289,8 @@ function raw_db_fetch_array($result, $type = SQLITE_BOTH)
 * raw_db_free_result()
 *
 * @param  $result
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function raw_db_free_result($result)
 {
@@ -288,7 +302,8 @@ function raw_db_free_result($result)
 * raw_db_escape_string()
 *
 * @param  $str
-* @return escaped string
+* @return escaped string * @since 2022.2.16
+     
 */
 function raw_db_escape_string($str)
 {
@@ -302,7 +317,8 @@ function raw_db_escape_string($str)
 *
 * @param  $table
 * @param  $alterdefs string for ALTER TABLE
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function __alter_table($table, $alterdefs)
 {

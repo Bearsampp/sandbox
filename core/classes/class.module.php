@@ -9,7 +9,8 @@
 
 /**
  * Abstract class representing a module in the Bearsampp application.
- * This class provides common functionalities for managing modules such as apps, bins, and tools.
+ * This class provides common functionalities for managing modules such as apps, bins, and tools. * @since 2022.2.16
+     
  */
 abstract class Module
 {
@@ -31,7 +32,8 @@ abstract class Module
 
     /**
      * Constructor for the Module class.
-     * Initializes the module with default values.
+     * Initializes the module with default values. * @since 2022.2.16
+     
      */
     protected function __construct() {
         // Initialization logic can be added here if needed
@@ -41,7 +43,8 @@ abstract class Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     protected function reload($id = null, $type = null) {
         global $bearsamppRoot;
@@ -76,7 +79,8 @@ abstract class Module
 
     /**
      * Creates a symbolic link from the current path to the symlink path.
-     * If the symlink already exists and points to the correct target, no action is taken.
+     * If the symlink already exists and points to the correct target, no action is taken. * @since 2022.2.16
+     
      */
     private function createSymlink()
     {
@@ -110,7 +114,8 @@ abstract class Module
      * Replaces a specific key-value pair in the configuration file.
      *
      * @param string $key The key to replace.
-     * @param string $value The new value for the key.
+     * @param string $value The new value for the key. * @since 2022.2.16
+     
      */
     protected function replace($key, $value) {
         $this->replaceAll(array($key => $value));
@@ -119,7 +124,8 @@ abstract class Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param array $params An associative array of key-value pairs to replace.
+     * @param array $params An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params) {
         $content = file_get_contents($this->bearsamppConf);
@@ -136,7 +142,8 @@ abstract class Module
      * Updates the module configuration.
      *
      * @param int $sub The sub-level for logging indentation.
-     * @param bool $showWindow Whether to show a window during the update process.
+     * @param bool $showWindow Whether to show a window during the update process. * @since 2022.2.16
+     
      */
     public function update($sub = 0, $showWindow = false) {
         $this->updateConfig(null, $sub, $showWindow);
@@ -147,7 +154,8 @@ abstract class Module
      *
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
-     * @param bool $showWindow Whether to show a window during the update process.
+     * @param bool $showWindow Whether to show a window during the update process. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         $version = $version == null ? $this->version : $version;
@@ -157,7 +165,8 @@ abstract class Module
     /**
      * Returns the name of the module.
      *
-     * @return string The name of the module.
+     * @return string The name of the module. * @since 2022.2.16
+     
      */
     public function __toString() {
         return $this->getName();
@@ -166,7 +175,8 @@ abstract class Module
     /**
      * Gets the type of the module.
      *
-     * @return string The type of the module.
+     * @return string The type of the module. * @since 2022.2.16
+     
      */
     public function getType() {
         return $this->type;
@@ -175,7 +185,8 @@ abstract class Module
     /**
      * Gets the ID of the module.
      *
-     * @return string The ID of the module.
+     * @return string The ID of the module. * @since 2022.2.16
+     
      */
     public function getId() {
         return $this->id;
@@ -184,7 +195,8 @@ abstract class Module
     /**
      * Gets the name of the module.
      *
-     * @return string The name of the module.
+     * @return string The name of the module. * @since 2022.2.16
+     
      */
     public function getName() {
         return $this->name;
@@ -193,7 +205,8 @@ abstract class Module
     /**
      * Gets the version of the module.
      *
-     * @return string The version of the module.
+     * @return string The version of the module. * @since 2022.2.16
+     
      */
     public function getVersion() {
         return $this->version;
@@ -202,7 +215,8 @@ abstract class Module
     /**
      * Gets the list of available versions for the module.
      *
-     * @return array The list of available versions.
+     * @return array The list of available versions. * @since 2022.2.16
+     
      */
     public function getVersionList() {
         return Util::getVersionList($this->rootPath);
@@ -211,14 +225,16 @@ abstract class Module
     /**
      * Sets the version of the module.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     abstract public function setVersion($version);
 
     /**
      * Gets the release information of the module.
      *
-     * @return string The release information.
+     * @return string The release information. * @since 2022.2.16
+     
      */
     public function getRelease() {
         return $this->release;
@@ -227,7 +243,8 @@ abstract class Module
     /**
      * Gets the root path of the module.
      *
-     * @return string The root path of the module.
+     * @return string The root path of the module. * @since 2022.2.16
+     
      */
     public function getRootPath() {
         return $this->rootPath;
@@ -236,7 +253,8 @@ abstract class Module
     /**
      * Gets the current path of the module.
      *
-     * @return string The current path of the module.
+     * @return string The current path of the module. * @since 2022.2.16
+     
      */
     public function getCurrentPath() {
         return $this->currentPath;
@@ -245,7 +263,8 @@ abstract class Module
     /**
      * Gets the symlink path of the module.
      *
-     * @return string The symlink path of the module.
+     * @return string The symlink path of the module. * @since 2022.2.16
+     
      */
     public function getSymlinkPath() {
         return $this->symlinkPath;
@@ -254,7 +273,8 @@ abstract class Module
     /**
      * Checks if the module is enabled.
      *
-     * @return bool True if the module is enabled, false otherwise.
+     * @return bool True if the module is enabled, false otherwise. * @since 2022.2.16
+     
      */
     public function isEnable() {
         return $this->enable;

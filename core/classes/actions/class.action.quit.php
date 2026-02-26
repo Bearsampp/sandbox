@@ -11,17 +11,20 @@
 /**
  * Class ActionQuit
  * Handles the quitting process of the Bearsampp application.
- * Displays a splash screen and stops all services and processes.
+ * Displays a splash screen and stops all services and processes. * @since 2022.2.16
+     
  */
 class ActionQuit
 {
     /**
-     * @var Splash The splash screen instance.
+     * @var Splash The splash screen instance. * @since 2022.2.16
+     
      */
     private $splash;
 
     /**
-     * Gauge values for progress bar increments.
+     * Gauge values for progress bar increments. * @since 2022.2.16
+     
      */
     const GAUGE_PROCESSES = 1;
     const GAUGE_OTHERS = 1;
@@ -30,7 +33,8 @@ class ActionQuit
      * ActionQuit constructor.
      * Initializes the quitting process, displays the splash screen, and sets up the main loop.
      *
-     * @param   array  $args  Command line arguments.
+     * @param   array  $args  Command line arguments. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -59,7 +63,8 @@ class ActionQuit
      * @param   int       $id      The event ID.
      * @param   int       $ctrl    The control ID.
      * @param   mixed     $param1  Additional parameter 1.
-     * @param   mixed     $param2  Additional parameter 2.
+     * @param   mixed     $param2  Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
@@ -126,7 +131,8 @@ class ActionQuit
      * @param   mixed   $window      Window handle or null
      * @param   mixed   $splash      Splash screen or null
      * @param   int     $timeout     Maximum time to wait for termination (seconds)
-     * @return  void
+     * @return  void * @since 2022.2.16
+     
      */
     public static function terminatePhpProcesses($excludePid, $window = null, $splash = null, $timeout = 10)
     {

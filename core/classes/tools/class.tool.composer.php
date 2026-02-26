@@ -11,24 +11,28 @@
  * Class ToolComposer
  *
  * This class represents the Composer tool module in the Bearsampp application.
- * It extends the abstract Module class and provides functionalities specific to Composer.
+ * It extends the abstract Module class and provides functionalities specific to Composer. * @since 2022.2.16
+     
  */
 class ToolComposer extends Module
 {
     /**
-     * Configuration key for the Composer version in the root configuration.
+     * Configuration key for the Composer version in the root configuration. * @since 2022.2.16
+     
      */
     const ROOT_CFG_VERSION = 'composerVersion';
 
     /**
-     * Configuration key for the Composer executable in the local configuration.
+     * Configuration key for the Composer executable in the local configuration. * @since 2022.2.16
+     
      */
     const LOCAL_CFG_EXE = 'composerExe';
 
     /**
      * Path to the Composer executable.
      *
-     * @var string
+     * @var string * @since 2022.2.16
+     
      */
     private $exe;
 
@@ -36,7 +40,8 @@ class ToolComposer extends Module
      * Constructor for the ToolComposer class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -47,7 +52,8 @@ class ToolComposer extends Module
      * Reloads the Composer module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -83,7 +89,8 @@ class ToolComposer extends Module
     /**
      * Sets the version of the Composer module and updates the configuration.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -95,7 +102,8 @@ class ToolComposer extends Module
     /**
      * Gets the path to the Composer executable.
      *
-     * @return string The path to the Composer executable.
+     * @return string The path to the Composer executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;

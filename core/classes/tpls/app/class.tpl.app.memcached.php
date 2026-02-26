@@ -11,7 +11,8 @@
  * Class TplAppMemcached
  *
  * This class provides methods to generate menu items and actions for managing Memcached within the Bearsampp application.
- * It includes functionalities for enabling/disabling Memcached, switching versions, changing ports, and managing services.
+ * It includes functionalities for enabling/disabling Memcached, switching versions, changing ports, and managing services. * @since 2022.2.16
+     
  */
 class TplAppMemcached
 {
@@ -35,7 +36,8 @@ class TplAppMemcached
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated menu item for enabling/disabling Memcached.
+     * @return array The generated menu item for enabling/disabling Memcached. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -54,7 +56,8 @@ class TplAppMemcached
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated menu items and actions for managing Memcached.
+     * @return string The generated menu items and actions for managing Memcached. * @since 2022.2.16
+     
      */
     public static function getMenuMemcached()
     {
@@ -110,7 +113,8 @@ class TplAppMemcached
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for switching Memcached versions.
+     * @return string The generated menu items and actions for switching Memcached versions. * @since 2022.2.16
+     
      */
     public static function getMenuMemcachedVersions()
     {
@@ -144,7 +148,8 @@ class TplAppMemcached
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param int $enable The value indicating whether to enable or disable Memcached.
-     * @return string The generated action string for enabling or disabling Memcached.
+     * @return string The generated action string for enabling or disabling Memcached. * @since 2022.2.16
+     
      */
     public static function getActionEnableMemcached($enable)
     {
@@ -163,7 +168,8 @@ class TplAppMemcached
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param string $version The version to switch to.
-     * @return string The generated action string for switching Memcached versions.
+     * @return string The generated action string for switching Memcached versions. * @since 2022.2.16
+     
      */
     public static function getActionSwitchMemcachedVersion($version)
     {
@@ -183,7 +189,8 @@ class TplAppMemcached
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for managing Memcached services.
+     * @return string The generated menu items and actions for managing Memcached services. * @since 2022.2.16
+     
      */
     public static function getMenuMemcachedService()
     {
@@ -240,7 +247,8 @@ class TplAppMemcached
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing the Memcached port.
+     * @return string The generated action string for changing the Memcached port. * @since 2022.2.16
+     
      */
     public static function getActionChangeMemcachedPort()
     {
@@ -256,7 +264,8 @@ class TplAppMemcached
      * This method creates the action string for installing the Memcached service. It includes commands to reload
      * the application after the action is performed.
      *
-     * @return string The generated action string for installing the Memcached service.
+     * @return string The generated action string for installing the Memcached service. * @since 2022.2.16
+     
      */
     public static function getActionInstallMemcachedService()
     {
@@ -270,7 +279,8 @@ class TplAppMemcached
      * This method creates the action string for removing the Memcached service. It includes commands to reload
      * the application after the action is performed.
      *
-     * @return string The generated action string for removing the Memcached service.
+     * @return string The generated action string for removing the Memcached service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveMemcachedService()
     {

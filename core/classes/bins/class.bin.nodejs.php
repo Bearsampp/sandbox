@@ -43,7 +43,8 @@
  * - `getConf()`: Retrieves the configuration file path for Node.js.
  * - `getVars()`: Retrieves the variables file path for Node.js.
  * - `getNpm()`: Retrieves the npm executable path for Node.js.
- * - `getLaunch()`: Retrieves the launch script path for Node.js.
+ * - `getLaunch()`: Retrieves the launch script path for Node.js. * @since 2022.2.16
+     
  */
 class BinNodejs extends Module
 {
@@ -66,7 +67,8 @@ class BinNodejs extends Module
      * Constructs a BinNodejs object and initializes the module with the given ID and type.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -77,7 +79,8 @@ class BinNodejs extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -135,7 +138,8 @@ class BinNodejs extends Module
      *
      * @param string $version The version to switch to.
      * @param bool $showWindow Whether to show a window during the switch process.
-     * @return bool True if the switch was successful, false otherwise.
+     * @return bool True if the switch was successful, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false) {
         Util::logDebug('Switch ' . $this->name . ' version to ' . $version);
@@ -148,7 +152,8 @@ class BinNodejs extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a window during the update process.
-     * @return bool True if the update was successful, false otherwise.
+     * @return bool True if the update was successful, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppLang, $bearsamppWinbinder;
@@ -197,7 +202,8 @@ class BinNodejs extends Module
     /**
      * Sets the version of the module.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -210,7 +216,8 @@ class BinNodejs extends Module
      * Enables or disables the module.
      *
      * @param int $enabled The enable status (1 for enabled, 0 for disabled).
-     * @param bool $showWindow Whether to show a window during the enable/disable process.
+     * @param bool $showWindow Whether to show a window during the enable/disable process. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false) {
         global $bearsamppConfig, $bearsamppLang, $bearsamppWinbinder;
@@ -234,7 +241,8 @@ class BinNodejs extends Module
     /**
      * Retrieves the executable path for Node.js.
      *
-     * @return string The executable path.
+     * @return string The executable path. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -243,7 +251,8 @@ class BinNodejs extends Module
     /**
      * Retrieves the configuration file path for Node.js.
      *
-     * @return string The configuration file path.
+     * @return string The configuration file path. * @since 2022.2.16
+     
      */
     public function getConf() {
         return $this->conf;
@@ -252,7 +261,8 @@ class BinNodejs extends Module
     /**
      * Retrieves the variables file path for Node.js.
      *
-     * @return string The variables file path.
+     * @return string The variables file path. * @since 2022.2.16
+     
      */
     public function getVars() {
         return $this->vars;
@@ -261,7 +271,8 @@ class BinNodejs extends Module
     /**
      * Retrieves the npm executable path for Node.js.
      *
-     * @return string The npm executable path.
+     * @return string The npm executable path. * @since 2022.2.16
+     
      */
     public function getNpm() {
         return $this->npm;
@@ -270,7 +281,8 @@ class BinNodejs extends Module
     /**
      * Retrieves the launch script path for Node.js.
      *
-     * @return string The launch script path.
+     * @return string The launch script path. * @since 2022.2.16
+     
      */
     public function getLaunch() {
         return $this->launch;

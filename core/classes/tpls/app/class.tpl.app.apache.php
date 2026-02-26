@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate menu items and actions for managing Apache services
  * within the Bearsampp application. It includes functionalities for enabling/disabling Apache,
- * switching versions, changing ports, managing modules, aliases, and virtual hosts.
+ * switching versions, changing ports, managing modules, aliases, and virtual hosts. * @since 2022.2.16
+     
  */
 class TplAppApache
 {
@@ -42,7 +43,8 @@ class TplAppApache
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache.
+     * @return string The generated menu items and actions for Apache. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -57,7 +59,8 @@ class TplAppApache
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated menu items and actions for Apache.
+     * @return string The generated menu items and actions for Apache. * @since 2022.2.16
+     
      */
     public static function getMenuApache()
     {
@@ -137,7 +140,8 @@ class TplAppApache
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache versions.
+     * @return string The generated menu items and actions for Apache versions. * @since 2022.2.16
+     
      */
     public static function getMenuApacheVersions()
     {
@@ -176,7 +180,8 @@ class TplAppApache
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param int $enable The flag to enable (1) or disable (0) Apache.
-     * @return string The generated action to enable or disable Apache.
+     * @return string The generated action to enable or disable Apache. * @since 2022.2.16
+     
      */
     public static function getActionEnableApache($enable)
     {
@@ -192,7 +197,8 @@ class TplAppApache
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param string $version The version to switch to.
-     * @return string The generated action to switch the Apache version.
+     * @return string The generated action to switch the Apache version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchApacheVersion($version)
     {
@@ -208,7 +214,8 @@ class TplAppApache
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache service.
+     * @return string The generated menu items and actions for Apache service. * @since 2022.2.16
+     
      */
     public static function getMenuApacheService()
     {
@@ -266,7 +273,8 @@ class TplAppApache
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action to change the Apache port.
+     * @return string The generated action to change the Apache port. * @since 2022.2.16
+     
      */
     public static function getActionChangeApachePort()
     {
@@ -279,7 +287,8 @@ class TplAppApache
     /**
      * Generates the action to install the Apache service.
      *
-     * @return string The generated action to install the Apache service.
+     * @return string The generated action to install the Apache service. * @since 2022.2.16
+     
      */
     public static function getActionInstallApacheService()
     {
@@ -290,7 +299,8 @@ class TplAppApache
     /**
      * Generates the action to remove the Apache service.
      *
-     * @return string The generated action to remove the Apache service.
+     * @return string The generated action to remove the Apache service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveApacheService()
     {
@@ -303,7 +313,8 @@ class TplAppApache
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated menu items and actions for Apache debug.
+     * @return string The generated menu items and actions for Apache debug. * @since 2022.2.16
+     
      */
     public static function getMenuApacheDebug()
     {
@@ -344,7 +355,8 @@ class TplAppApache
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache modules.
+     * @return string The generated menu items and actions for Apache modules. * @since 2022.2.16
+     
      */
     public static function getMenuApacheModules()
     {
@@ -374,7 +386,8 @@ class TplAppApache
      *
      * @param string $module The module to switch.
      * @param string $switch The current switch state of the module.
-     * @return string The generated action to switch the Apache module.
+     * @return string The generated action to switch the Apache module. * @since 2022.2.16
+     
      */
     public static function getActionSwitchApacheModule($module, $switch)
     {
@@ -389,7 +402,8 @@ class TplAppApache
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache aliases.
+     * @return string The generated menu items and actions for Apache aliases. * @since 2022.2.16
+     
      */
     public static function getMenuApacheAlias()
     {
@@ -428,7 +442,8 @@ class TplAppApache
     /**
      * Generates the action to add an Apache alias.
      *
-     * @return string The generated action to add an Apache alias.
+     * @return string The generated action to add an Apache alias. * @since 2022.2.16
+     
      */
     public static function getActionAddAlias()
     {
@@ -440,7 +455,8 @@ class TplAppApache
      * Generates the action to edit an Apache alias.
      *
      * @param string $alias The alias to edit.
-     * @return string The generated action to edit an Apache alias.
+     * @return string The generated action to edit an Apache alias. * @since 2022.2.16
+     
      */
     public static function getActionEditAlias($alias)
     {
@@ -454,7 +470,8 @@ class TplAppApache
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated menu items and actions for Apache Vhosts.
+     * @return string The generated menu items and actions for Apache Vhosts. * @since 2022.2.16
+     
      */
     public static function getMenuApacheVhosts()
     {
@@ -493,7 +510,8 @@ class TplAppApache
     /**
      * Generates the action to add an Apache Virtual Host (Vhost).
      *
-     * @return string The generated action to add an Apache Vhost.
+     * @return string The generated action to add an Apache Vhost. * @since 2022.2.16
+     
      */
     public static function getActionAddVhost()
     {
@@ -505,7 +523,8 @@ class TplAppApache
      * Generates the action to edit an Apache Virtual Host (Vhost).
      *
      * @param string $vhost The Vhost to edit.
-     * @return string The generated action to edit an Apache Vhost.
+     * @return string The generated action to edit an Apache Vhost. * @since 2022.2.16
+     
      */
     public static function getActionEditVhost($vhost)
     {

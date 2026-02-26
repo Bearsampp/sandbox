@@ -12,7 +12,8 @@
  *
  * This class provides methods to manage Windows services using NSSM (Non-Sucking Service Manager).
  * It includes functionalities to create, delete, start, stop, and retrieve the status of services.
- * The class also logs operations and errors.
+ * The class also logs operations and errors. * @since 2022.2.16
+     
  */
 class Nssm
 {
@@ -63,7 +64,8 @@ class Nssm
      * Nssm constructor.
      * Initializes the Nssm class and logs the initialization.
      *
-     * @param   string  $name  The name of the service.
+     * @param   string  $name  The name of the service. * @since 2022.2.16
+     
      */
     public function __construct($name)
     {
@@ -74,7 +76,8 @@ class Nssm
     /**
      * Writes a log entry.
      *
-     * @param   string  $log  The log message to write.
+     * @param   string  $log  The log message to write. * @since 2022.2.16
+     
      */
     private function writeLog($log)
     {
@@ -85,7 +88,8 @@ class Nssm
     /**
      * Writes an informational log entry.
      *
-     * @param   string  $log  The log message to write.
+     * @param   string  $log  The log message to write. * @since 2022.2.16
+     
      */
     private function writeLogInfo($log)
     {
@@ -96,7 +100,8 @@ class Nssm
     /**
      * Writes an error log entry.
      *
-     * @param   string  $log  The log message to write.
+     * @param   string  $log  The log message to write. * @since 2022.2.16
+     
      */
     private function writeLogError($log)
     {
@@ -109,7 +114,8 @@ class Nssm
      *
      * @param   string  $args  The arguments for the NSSM command.
      *
-     * @return array|false The result of the execution, or false on failure.
+     * @return array|false The result of the execution, or false on failure. * @since 2022.2.16
+     
      */
     private function exec($args)
     {
@@ -143,7 +149,8 @@ class Nssm
      *
      * @param   bool  $timeout  Whether to apply a timeout for the status check.
      *
-     * @return string The status of the service.
+     * @return string The status of the service. * @since 2022.2.16
+     
      */
     public function status($timeout = true)
     {
@@ -178,7 +185,8 @@ class Nssm
     /**
      * Creates a new service.
      *
-     * @return bool True if the service was created successfully, false otherwise.
+     * @return bool True if the service was created successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function create()
     {
@@ -259,7 +267,8 @@ class Nssm
     /**
      * Deletes the service.
      *
-     * @return bool True if the service was deleted successfully, false otherwise.
+     * @return bool True if the service was deleted successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function delete()
     {
@@ -283,7 +292,8 @@ class Nssm
     /**
      * Starts the service.
      *
-     * @return bool True if the service was started successfully, false otherwise.
+     * @return bool True if the service was started successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function start()
     {
@@ -306,7 +316,8 @@ class Nssm
     /**
      * Stops the service.
      *
-     * @return bool True if the service was stopped successfully, false otherwise.
+     * @return bool True if the service was stopped successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function stop()
     {
@@ -329,7 +340,8 @@ class Nssm
     /**
      * Restarts the service.
      *
-     * @return bool True if the service was restarted successfully, false otherwise.
+     * @return bool True if the service was restarted successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function restart()
     {
@@ -343,7 +355,8 @@ class Nssm
     /**
      * Retrieves information about the service.
      *
-     * @return array|false The service information, or false on failure.
+     * @return array|false The service information, or false on failure. * @since 2022.2.16
+     
      */
     public function infos()
     {
@@ -389,7 +402,8 @@ class Nssm
     /**
      * Checks if the service is installed.
      *
-     * @return bool True if the service is installed, false otherwise.
+     * @return bool True if the service is installed, false otherwise. * @since 2022.2.16
+     
      */
     public function isInstalled()
     {
@@ -402,7 +416,8 @@ class Nssm
     /**
      * Checks if the service is running.
      *
-     * @return bool True if the service is running, false otherwise.
+     * @return bool True if the service is running, false otherwise. * @since 2022.2.16
+     
      */
     public function isRunning()
     {
@@ -415,7 +430,8 @@ class Nssm
     /**
      * Checks if the service is stopped.
      *
-     * @return bool True if the service is stopped, false otherwise.
+     * @return bool True if the service is stopped, false otherwise. * @since 2022.2.16
+     
      */
     public function isStopped()
     {
@@ -428,7 +444,8 @@ class Nssm
     /**
      * Checks if the service is paused.
      *
-     * @return bool True if the service is paused, false otherwise.
+     * @return bool True if the service is paused, false otherwise. * @since 2022.2.16
+     
      */
     public function isPaused()
     {
@@ -443,7 +460,8 @@ class Nssm
      *
      * @param   string  $status  The status to check.
      *
-     * @return bool True if the status is pending, false otherwise.
+     * @return bool True if the status is pending, false otherwise. * @since 2022.2.16
+     
      */
     public function isPending($status)
     {
@@ -456,7 +474,8 @@ class Nssm
      *
      * @param   string  $status  The status to describe.
      *
-     * @return string|null The description of the status, or null if not recognized.
+     * @return string|null The description of the status, or null if not recognized. * @since 2022.2.16
+     
      */
     private function getServiceStatusDesc($status)
     {
@@ -493,7 +512,8 @@ class Nssm
     /**
      * Gets the name of the service.
      *
-     * @return string The name of the service.
+     * @return string The name of the service. * @since 2022.2.16
+     
      */
     public function getName()
     {
@@ -503,7 +523,8 @@ class Nssm
     /**
      * Sets the name of the service.
      *
-     * @param   string  $name  The name to set.
+     * @param   string  $name  The name to set. * @since 2022.2.16
+     
      */
     public function setName($name)
     {
@@ -513,7 +534,8 @@ class Nssm
     /**
      * Gets the display name of the service.
      *
-     * @return string The display name of the service.
+     * @return string The display name of the service. * @since 2022.2.16
+     
      */
     public function getDisplayName()
     {
@@ -523,7 +545,8 @@ class Nssm
     /**
      * Sets the display name of the service.
      *
-     * @param   string  $displayName  The display name to set.
+     * @param   string  $displayName  The display name to set. * @since 2022.2.16
+     
      */
     public function setDisplayName($displayName)
     {
@@ -533,7 +556,8 @@ class Nssm
     /**
      * Gets the binary path of the service.
      *
-     * @return string The binary path of the service.
+     * @return string The binary path of the service. * @since 2022.2.16
+     
      */
     public function getBinPath()
     {
@@ -543,7 +567,8 @@ class Nssm
     /**
      * Sets the binary path of the service.
      *
-     * @param   string  $binPath  The binary path to set.
+     * @param   string  $binPath  The binary path to set. * @since 2022.2.16
+     
      */
     public function setBinPath($binPath)
     {
@@ -553,7 +578,8 @@ class Nssm
     /**
      * Gets the parameters of the service.
      *
-     * @return string The parameters of the service.
+     * @return string The parameters of the service. * @since 2022.2.16
+     
      */
     public function getParams()
     {
@@ -563,7 +589,8 @@ class Nssm
     /**
      * Sets the parameters of the service.
      *
-     * @param   string  $params  The parameters to set.
+     * @param   string  $params  The parameters to set. * @since 2022.2.16
+     
      */
     public function setParams($params)
     {
@@ -573,7 +600,8 @@ class Nssm
     /**
      * Gets the start type of the service.
      *
-     * @return string The start type of the service.
+     * @return string The start type of the service. * @since 2022.2.16
+     
      */
     public function getStart()
     {
@@ -583,7 +611,8 @@ class Nssm
     /**
      * Sets the start type of the service.
      *
-     * @param   string  $start  The start type to set.
+     * @param   string  $start  The start type to set. * @since 2022.2.16
+     
      */
     public function setStart($start)
     {
@@ -593,7 +622,8 @@ class Nssm
     /**
      * Gets the stdout path of the service.
      *
-     * @return string The stdout path of the service.
+     * @return string The stdout path of the service. * @since 2022.2.16
+     
      */
     public function getStdout()
     {
@@ -603,7 +633,8 @@ class Nssm
     /**
      * Sets the stdout path of the service.
      *
-     * @param   string  $stdout  The stdout path to set.
+     * @param   string  $stdout  The stdout path to set. * @since 2022.2.16
+     
      */
     public function setStdout($stdout)
     {
@@ -613,7 +644,8 @@ class Nssm
     /**
      * Gets the stderr path of the service.
      *
-     * @return string The stderr path of the service.
+     * @return string The stderr path of the service. * @since 2022.2.16
+     
      */
     public function getStderr()
     {
@@ -623,7 +655,8 @@ class Nssm
     /**
      * Sets the stderr path of the service.
      *
-     * @param   string  $stderr  The stderr path to set.
+     * @param   string  $stderr  The stderr path to set. * @since 2022.2.16
+     
      */
     public function setStderr($stderr)
     {
@@ -633,7 +666,8 @@ class Nssm
     /**
      * Gets the additional environment variables for the service.
      *
-     * @return string The additional environment variables.
+     * @return string The additional environment variables. * @since 2022.2.16
+     
      */
     public function getEnvironmentExtra()
     {
@@ -643,7 +677,8 @@ class Nssm
     /**
      * Sets the additional environment variables for the service.
      *
-     * @param   string  $environmentExtra  The additional environment variables to set.
+     * @param   string  $environmentExtra  The additional environment variables to set. * @since 2022.2.16
+     
      */
     public function setEnvironmentExtra($environmentExtra)
     {
@@ -653,7 +688,8 @@ class Nssm
     /**
      * Gets the latest status of the service.
      *
-     * @return string The latest status of the service.
+     * @return string The latest status of the service. * @since 2022.2.16
+     
      */
     public function getLatestStatus()
     {
@@ -663,7 +699,8 @@ class Nssm
     /**
      * Gets the latest error message related to the service.
      *
-     * @return string The latest error message.
+     * @return string The latest error message. * @since 2022.2.16
+     
      */
     public function getLatestError()
     {
@@ -673,7 +710,8 @@ class Nssm
     /**
      * Retrieves the error message or status description of the service.
      *
-     * @return string|null The error message or status description, or null if no error or status is available.
+     * @return string|null The error message or status description, or null if no error or status is available. * @since 2022.2.16
+     
      */
     public function getError()
     {

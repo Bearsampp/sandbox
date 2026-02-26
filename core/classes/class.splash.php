@@ -11,11 +11,13 @@
  * Class Splash
  *
  * This class represents a splash screen with a progress bar for the Bearsampp application.
- * It provides methods to initialize the splash screen, set loading text, and increment the progress bar.
+ * It provides methods to initialize the splash screen, set loading text, and increment the progress bar. * @since 2022.2.16
+     
  */
 class Splash
 {
-    /* Set progress bar "loading" modal size. */
+    /* Set progress bar "loading" modal size. * @since 2022.2.16
+      */
     const WINDOW_WIDTH = 460;
     const WINDOW_HEIGHT = 90;
 
@@ -29,7 +31,8 @@ class Splash
     /**
      * Splash constructor.
      *
-     * Initializes the Splash class and sets the current image to null.
+     * Initializes the Splash class and sets the current image to null. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -42,7 +45,8 @@ class Splash
      *
      * @param string $title The title of the splash screen window.
      * @param int $gauge The maximum value for the progress bar.
-     * @param string $text The initial loading text to display.
+     * @param string $text The initial loading text to display. * @since 2022.2.16
+     
      */
     public function init($title, $gauge, $text)
     {
@@ -78,7 +82,8 @@ class Splash
     /**
      * Sets the loading text on the splash screen.
      *
-     * @param string $caption The loading text to display.
+     * @param string $caption The loading text to display. * @since 2022.2.16
+     
      */
     public function setTextLoading($caption)
     {
@@ -91,7 +96,8 @@ class Splash
     /**
      * Increments the progress bar by a specified number of steps.
      *
-     * @param int $nb The number of steps to increment the progress bar by. Default is 1.
+     * @param int $nb The number of steps to increment the progress bar by. Default is 1. * @since 2022.2.16
+     
      */
     public function incrProgressBar($nb = 1)
     {
@@ -109,7 +115,8 @@ class Splash
     /**
      * Retrieves the window object of the splash screen.
      *
-     * @return mixed The window object of the splash screen.
+     * @return mixed The window object of the splash screen. * @since 2022.2.16
+     
      */
     public function getWbWindow()
     {

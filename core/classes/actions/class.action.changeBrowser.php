@@ -12,7 +12,8 @@
  *
  * This class handles the action of changing the default browser in the Bearsampp application.
  * It creates a window with options to select from installed browsers or browse for a different browser executable.
- * The selected browser is then saved in the configuration.
+ * The selected browser is then saved in the configuration. * @since 2022.2.16
+     
  */
 class ActionChangeBrowser
 {
@@ -33,7 +34,8 @@ class ActionChangeBrowser
      *
      * Initializes the window and its components, sets up event handlers, and starts the main loop.
      *
-     * @param array $args Arguments passed to the constructor.
+     * @param array $args Arguments passed to the constructor. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -82,7 +84,8 @@ class ActionChangeBrowser
      * @param int $id The ID of the control that triggered the event.
      * @param resource $ctrl The control resource.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

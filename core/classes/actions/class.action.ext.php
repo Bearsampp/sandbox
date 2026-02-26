@@ -8,7 +8,8 @@
  */
 
 /**
- * Class ActionExt handles the execution of various extended actions.
+ * Class ActionExt handles the execution of various extended actions. * @since 2022.2.16
+     
  */
 class ActionExt
 {
@@ -24,19 +25,22 @@ class ActionExt
     const STATUS_SUCCESS = 0;
 
     /**
-     * @var int Holds the current status of the action.
+     * @var int Holds the current status of the action. * @since 2022.2.16
+     
      */
     private $status = self::STATUS_SUCCESS;
 
     /**
-     * @var string Holds the logs generated during the action execution.
+     * @var string Holds the logs generated during the action execution. * @since 2022.2.16
+     
      */
     private $logs = '';
 
     /**
      * Constructor for the ActionExt class.
      *
-     * @param array $args The command line arguments passed to the action.
+     * @param array $args The command line arguments passed to the action. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -79,7 +83,8 @@ class ActionExt
     /**
      * Retrieves the list of available actions.
      *
-     * @return array The list of available actions.
+     * @return array The list of available actions. * @since 2022.2.16
+     
      */
     private function getProcs()
     {
@@ -94,7 +99,8 @@ class ActionExt
     /**
      * Adds a log entry to the logs.
      *
-     * @param string $data The log entry to add.
+     * @param string $data The log entry to add. * @since 2022.2.16
+     
      */
     private function addLog($data)
     {
@@ -104,7 +110,8 @@ class ActionExt
     /**
      * Sets the status of the action.
      *
-     * @param int $status The status code to set.
+     * @param int $status The status code to set. * @since 2022.2.16
+     
      */
     private function setStatus($status)
     {
@@ -112,7 +119,8 @@ class ActionExt
     }
 
     /**
-     * Sends the logs as a JSON-encoded response.
+     * Sends the logs as a JSON-encoded response. * @since 2022.2.16
+     
      */
     private function sendLogs()
     {
@@ -125,7 +133,8 @@ class ActionExt
     /**
      * Starts the application.
      *
-     * @param array $args The command line arguments passed to the action.
+     * @param array $args The command line arguments passed to the action. * @since 2022.2.16
+     
      */
     private function procStart($args)
     {
@@ -143,7 +152,8 @@ class ActionExt
     /**
      * Stops the application and removes services.
      *
-     * @param array $args The command line arguments passed to the action.
+     * @param array $args The command line arguments passed to the action. * @since 2022.2.16
+     
      */
     private function procStop($args)
     {
@@ -171,7 +181,8 @@ class ActionExt
     /**
      * Reloads the application by stopping and starting services.
      *
-     * @param array $args The command line arguments passed to the action.
+     * @param array $args The command line arguments passed to the action. * @since 2022.2.16
+     
      */
     private function procReload($args)
     {
@@ -212,7 +223,8 @@ class ActionExt
     /**
      * Refreshes the application by calling the reload action.
      *
-     * @param array $args The command line arguments passed to the action.
+     * @param array $args The command line arguments passed to the action. * @since 2022.2.16
+     
      */
     private function procRefresh($args)
     {

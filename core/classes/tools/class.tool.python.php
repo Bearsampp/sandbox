@@ -13,7 +13,8 @@
  *
  * This class represents a Python tool module in the Bearsampp application.
  * It extends the abstract Module class and provides specific functionalities
- * for managing Python executables and configurations.
+ * for managing Python executables and configurations. * @since 2022.2.16
+     
  */
 class ToolPython extends Module
 {
@@ -29,7 +30,8 @@ class ToolPython extends Module
      * Constructor for the ToolPython class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -40,7 +42,8 @@ class ToolPython extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -80,7 +83,8 @@ class ToolPython extends Module
     /**
      * Sets the version of the Python module and reloads the configuration.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -92,7 +96,8 @@ class ToolPython extends Module
     /**
      * Gets the path to the Python executable.
      *
-     * @return string The path to the Python executable.
+     * @return string The path to the Python executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -101,7 +106,8 @@ class ToolPython extends Module
     /**
      * Gets the path to the Python IDLE executable.
      *
-     * @return string The path to the Python IDLE executable.
+     * @return string The path to the Python IDLE executable. * @since 2022.2.16
+     
      */
     public function getIdleExe() {
         return $this->idleExe;

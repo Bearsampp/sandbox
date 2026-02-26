@@ -13,7 +13,8 @@
  *
  * The QuickPick class provides functionalities for managing and installing various modules
  * within the Bearsampp application. It includes methods for retrieving available modules,
- * fetching module versions, parsing release properties, and validating license keys.
+ * fetching module versions, parsing release properties, and validating license keys. * @since 2022.2.16
+     
  */
 class QuickPick
 {
@@ -24,7 +25,8 @@ class QuickPick
      * The module type can be one of the following:
      * - 'application'
      * - 'binary'
-     * - 'tool'
+     * - 'tool' * @since 2022.2.16
+     
      */
     public $modules = [
         'Apache'      => ['type' => 'binary'],
@@ -52,19 +54,22 @@ class QuickPick
     /**
      * @var array $versions
      *
-     * An associative array where the key is the module name and the value is an array containing the module versions.
+     * An associative array where the key is the module name and the value is an array containing the module versions. * @since 2022.2.16
+     
      */
     private $versions = [];
 
     /**
      * @var string $jsonFilePath
      *
-     * The file path to the local quickpick-releases.json file.
+     * The file path to the local quickpick-releases.json file. * @since 2022.2.16
+     
      */
     private $jsonFilePath;
 
     /**
-     * Constructor to initialize the jsonFilePath.
+     * Constructor to initialize the jsonFilePath. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -77,7 +82,8 @@ class QuickPick
      *
      * @param string $version The version to format
      * @param bool $isPrerelease Whether this version is a prerelease
-     * @return string Formatted version string
+     * @return string Formatted version string * @since 2022.2.16
+     
      */
     private function formatVersionLabel($version, $isPrerelease = false) {
         global $bearsamppConfig;
@@ -93,7 +99,8 @@ class QuickPick
     /**
      * Retrieves the list of available modules.
      *
-     * @return array An array of module names.
+     * @return array An array of module names. * @since 2022.2.16
+     
      */
     public function getModules(): array
     {
@@ -107,7 +114,8 @@ class QuickPick
      *
      * @return string The HTML content of the QuickPick interface.
      *
-     * @throws Exception
+     * @throws Exception * @since 2022.2.16
+     
      */
     public function loadQuickpick(string $imagesPath): string
     {
@@ -128,7 +136,8 @@ class QuickPick
      *
      * @return array|false Returns the JSON data if the remote file is newer or the local file does not exist,
      *                     otherwise returns false.
-     * @throws Exception
+     * @throws Exception * @since 2022.2.16
+     
      */
     public function checkQuickpickJson()
     {
@@ -158,7 +167,8 @@ class QuickPick
     /**
      * Returns the local file's creation time, or triggers and returns 0 if file does not exist.
      *
-     * @return int Local file's creation time or 0 if the file doesn't exist.
+     * @return int Local file's creation time or 0 if the file doesn't exist. * @since 2022.2.16
+     
      */
     private function getLocalFileCreationTime()
     {
@@ -174,7 +184,8 @@ class QuickPick
      * Determines whether the header response is valid and includes a 'Date' key.
      *
      * @param mixed $headers Headers retrieved from get_headers().
-     * @return bool True if headers are valid and contain 'Date', false otherwise.
+     * @return bool True if headers are valid and contain 'Date', false otherwise. * @since 2022.2.16
+     
      */
     private function isValidHeaderResponse($headers): bool
     {
@@ -188,7 +199,8 @@ class QuickPick
     /**
      * Logs the headers in debug mode if logsVerbose is set to 2.
      *
-     * @param array $headers The headers returned by get_headers().
+     * @param array $headers The headers returned by get_headers(). * @since 2022.2.16
+     
      */
     private function logHeaders(array $headers): void
     {
@@ -202,7 +214,8 @@ class QuickPick
     /**
      * Retrieves the QuickPick JSON data from the local file.
      *
-     * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded.
+     * @return array The decoded JSON data, or an error message if the file cannot be fetched or decoded. * @since 2022.2.16
+     
      */
     public function getQuickpickJson(): array
     {
@@ -227,7 +240,8 @@ class QuickPick
      * Rebuilds the local quickpick-releases.json file by fetching the latest data from the remote URL.
      *
      * @return array An array containing the status and message of the rebuild process.
-     * @throws Exception If the JSON content cannot be fetched or saved.
+     * @throws Exception If the JSON content cannot be fetched or saved. * @since 2022.2.16
+     
      */
     public function rebuildQuickpickJson(): array
     {
@@ -259,7 +273,8 @@ class QuickPick
      * This method fetches the QuickPick JSON data and returns an array of versions or If no versions are found, an error
      * message is logged and returned.
      *
-     * @return array An array of version strings for the specified module, or an error message if no versions are found.
+     * @return array An array of version strings for the specified module, or an error message if no versions are found. * @since 2022.2.16
+     
      */
     public function getVersions(): array
     {
@@ -304,7 +319,8 @@ class QuickPick
      * @param   string  $module   The name of the module.
      * @param   string  $version  The version of the module.
      *
-     * @return string|array The URL of the specified module version or an error message if the version is not found.
+     * @return string|array The URL of the specified module version or an error message if the version is not found. * @since 2022.2.16
+     
      */
     public function getModuleUrl(string $module, string $version)
     {
@@ -336,7 +352,8 @@ class QuickPick
      * 7. Decodes the JSON response.
      * 8. Validates the response data.
      *
-     * @return bool True if the username key is valid, false otherwise.
+     * @return bool True if the username key is valid, false otherwise. * @since 2022.2.16
+     
      */
     public function checkDownloadId(): bool
     {
@@ -409,7 +426,8 @@ class QuickPick
      *
      * @return array An array containing the status and message of the installation process.
      *               If successful, it returns the response from the fetchAndUnzipModule method.
-     *               If unsuccessful, it returns an error message indicating the issue.
+     *               If unsuccessful, it returns an error message indicating the issue. * @since 2022.2.16
+     
      */
     public function installModule(string $module, string $version): array
     {
@@ -448,7 +466,8 @@ class QuickPick
      * @param   string  $moduleUrl  The URL of the module to fetch.
      * @param   string  $module     The name of the module.
      *
-     * @return array An array containing the status and message.
+     * @return array An array containing the status and message. * @since 2022.2.16
+     
      */
     public function fetchAndUnzipModule(string $moduleUrl, string $module): array
 {
@@ -525,7 +544,8 @@ class QuickPick
      * @param   string  $moduleType  The type of the module ('application', 'binary', or 'tools').
      * @param   string  $moduleName  The name of the module.
      *
-     * @return string The constructed destination path for the module.
+     * @return string The constructed destination path for the module. * @since 2022.2.16
+     
      */
     public function getModuleDestinationPath(string $moduleType, string $moduleName)
     {
@@ -558,7 +578,8 @@ class QuickPick
      * @param   array   $versions    An associative array where the key is the module name and the value is an array containing the module versions.
      * @param   string  $imagesPath  The path to the images directory.
      *
-     * @return string The HTML content of the QuickPick menu.
+     * @return string The HTML content of the QuickPick menu. * @since 2022.2.16
+     
      */
     public function getQuickpickMenu(array $modules, array $versions, string $imagesPath): string
     {

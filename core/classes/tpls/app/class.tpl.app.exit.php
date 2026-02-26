@@ -11,12 +11,14 @@
  * Class TplAppExit
  *
  * This class provides methods to handle the exit action within the Bearsampp application.
- * It includes functionalities to process the exit action and generate the necessary action strings.
+ * It includes functionalities to process the exit action and generate the necessary action strings. * @since 2022.2.16
+     
  */
 class TplAppExit
 {
     /**
-     * Constant representing the exit action.
+     * Constant representing the exit action. * @since 2022.2.16
+     
      */
     const ACTION = 'exit';
 
@@ -27,7 +29,8 @@ class TplAppExit
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array An array containing the call string and the section content for the exit action.
+     * @return array An array containing the call string and the section content for the exit action. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -47,7 +50,8 @@ class TplAppExit
      *
      * This method generates a run action string for the quit action and appends the exit action.
      *
-     * @return string The generated action string for the exit action.
+     * @return string The generated action string for the exit action. * @since 2022.2.16
+     
      */
     public static function getActionExit()
     {

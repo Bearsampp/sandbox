@@ -6,6 +6,7 @@
  *  * Website: https://bearsampp.com
  *  * Github: https://github.com/Bearsampp
  *
+ * @since 2022.2.16
  */
 
 class OpenSsl
@@ -15,7 +16,8 @@ class OpenSsl
      *
      * @param string $name The name of the certificate.
      * @param string|null $destPath The destination path where the certificate files will be saved. If null, the default SSL path is used.
-     * @return bool True if the certificate was created successfully, false otherwise.
+     * @return bool True if the certificate was created successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function createCrt($name, $destPath = null)
     {
@@ -72,7 +74,8 @@ class OpenSsl
      * Checks if a certificate with the specified name exists.
      *
      * @param string $name The name of the certificate.
-     * @return bool True if the certificate exists, false otherwise.
+     * @return bool True if the certificate exists, false otherwise. * @since 2022.2.16
+     
      */
     public function existsCrt($name)
     {
@@ -89,7 +92,8 @@ class OpenSsl
      * Removes a certificate with the specified name.
      *
      * @param string $name The name of the certificate.
-     * @return bool True if the certificate was removed successfully, false otherwise.
+     * @return bool True if the certificate was removed successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function removeCrt($name)
     {

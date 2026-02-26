@@ -12,7 +12,8 @@
  *
  * This class provides methods to interact with the Windows Registry using VBScript.
  * It includes functionalities to check the existence of registry keys, get and set values,
- * and delete registry entries. The class also logs operations and errors.
+ * and delete registry entries. The class also logs operations and errors. * @since 2022.2.16
+     
  */
 class Registry
 {
@@ -52,7 +53,8 @@ class Registry
 
     /**
      * Registry constructor.
-     * Initializes the Registry class and logs the initialization.
+     * Initializes the Registry class and logs the initialization. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -63,7 +65,8 @@ class Registry
     /**
      * Writes a log entry.
      *
-     * @param string $log The log message to write.
+     * @param string $log The log message to write. * @since 2022.2.16
+     
      */
     private function writeLog($log)
     {
@@ -77,7 +80,8 @@ class Registry
      * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
      * @param string $subkey The subkey path.
      * @param string|null $entry The entry name (optional).
-     * @return bool True if the key or entry exists, false otherwise.
+     * @return bool True if the key or entry exists, false otherwise. * @since 2022.2.16
+     
      */
     public function exists($key, $subkey, $entry = null)
     {
@@ -134,7 +138,8 @@ class Registry
      * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
      * @param string $subkey The subkey path.
      * @param string|null $entry The entry name (optional).
-     * @return mixed The value of the registry entry, or false on error.
+     * @return mixed The value of the registry entry, or false on error. * @since 2022.2.16
+     
      */
     public function getValue($key, $subkey, $entry = null)
     {
@@ -181,7 +186,8 @@ class Registry
      * @param string $subkey The subkey path.
      * @param string $entry The entry name.
      * @param string $value The value to set.
-     * @return bool True if the value was set successfully, false otherwise.
+     * @return bool True if the value was set successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function setStringValue($key, $subkey, $entry, $value)
     {
@@ -195,7 +201,8 @@ class Registry
      * @param string $subkey The subkey path.
      * @param string $entry The entry name.
      * @param string $value The value to set.
-     * @return bool True if the value was set successfully, false otherwise.
+     * @return bool True if the value was set successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function setExpandStringValue($key, $subkey, $entry, $value)
     {
@@ -208,7 +215,8 @@ class Registry
      * @param string $key The root key (e.g., HKEY_LOCAL_MACHINE).
      * @param string $subkey The subkey path.
      * @param string $entry The entry name.
-     * @return bool True if the entry was deleted successfully, false otherwise.
+     * @return bool True if the entry was deleted successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function deleteValue($key, $subkey, $entry)
     {
@@ -224,7 +232,8 @@ class Registry
      * @param string $entry The entry name.
      * @param string|null $value The value to set (optional).
      * @param string $type The type of value to set (e.g., SetStringValue).
-     * @return bool True if the value was set successfully, false otherwise.
+     * @return bool True if the value was set successfully, false otherwise. * @since 2022.2.16
+     
      */
     private function setValue($key, $subkey, $entry, $value, $type)
     {
@@ -306,7 +315,8 @@ class Registry
     /**
      * Retrieves the latest error message.
      *
-     * @return string|null The latest error message, or null if no error occurred.
+     * @return string|null The latest error message, or null if no error occurred. * @since 2022.2.16
+     
      */
     public function getLatestError()
     {

@@ -9,7 +9,8 @@
 
 /**
  * Class ActionRestart
- * Handles the restart action for the Bearsampp application.
+ * Handles the restart action for the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionRestart
 {
@@ -17,7 +18,8 @@ class ActionRestart
      * ActionRestart constructor.
      * Displays a message box with restart information.
      *
-     * @param array $args Command line arguments passed to the action.
+     * @param array $args Command line arguments passed to the action. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

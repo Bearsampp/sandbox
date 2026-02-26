@@ -5,6 +5,7 @@
  * Author: Bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ * @since 2022.2.16
  */
 
 class TplAppXlight
@@ -28,7 +29,8 @@ class TplAppXlight
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated menu for enabling or disabling Xlight.
+     * @return array The generated menu for enabling or disabling Xlight. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -48,7 +50,8 @@ class TplAppXlight
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated Xlight menu items and actions.
+     * @return string The generated Xlight menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuXlight()
     {
@@ -101,7 +104,8 @@ class TplAppXlight
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated Xlight versions menu items and actions.
+     * @return string The generated Xlight versions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuXlightVersions()
     {
@@ -134,7 +138,8 @@ class TplAppXlight
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param int $enable The enable flag (1 to enable, 0 to disable).
-     * @return string The generated action string for enabling or disabling Xlight.
+     * @return string The generated action string for enabling or disabling Xlight. * @since 2022.2.16
+     
      */
     public static function getActionEnableXlight($enable)
     {
@@ -152,7 +157,8 @@ class TplAppXlight
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param string $version The version to switch to.
-     * @return string The generated action string for switching the Xlight version.
+     * @return string The generated action string for switching the Xlight version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchXlightVersion($version)
     {
@@ -172,7 +178,8 @@ class TplAppXlight
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated Xlight service menu items and actions.
+     * @return string The generated Xlight service menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuXlightService()
     {
@@ -229,7 +236,8 @@ class TplAppXlight
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing the Xlight port.
+     * @return string The generated action string for changing the Xlight port. * @since 2022.2.16
+     
      */
     public static function getActionChangeXlightPort()
     {
@@ -244,7 +252,8 @@ class TplAppXlight
      *
      * This method creates the action string for installing the Xlight service and includes a command to reload the application.
      *
-     * @return string The generated action string for installing the Xlight service.
+     * @return string The generated action string for installing the Xlight service. * @since 2022.2.16
+     
      */
     public static function getActionInstallXlightService()
     {
@@ -257,7 +266,8 @@ class TplAppXlight
      *
      * This method creates the action string for removing the Xlight service and includes a command to reload the application.
      *
-     * @return string The generated action string for removing the Xlight service.
+     * @return string The generated action string for removing the Xlight service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveXlightService()
     {

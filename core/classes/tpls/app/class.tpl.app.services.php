@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate menu items and actions for managing multiple services
  * within the Bearsampp application. It includes functionalities for starting, stopping, and restarting
- * all services at once.
+ * all services at once. * @since 2022.2.16
+     
  */
 class TplAppServices
 {
@@ -26,7 +27,8 @@ class TplAppServices
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array An array containing the generated menu items and actions for services.
+     * @return array An array containing the generated menu items and actions for services. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -66,7 +68,8 @@ class TplAppServices
     /**
      * Generates the actions to start all services using a single splash screen.
      *
-     * @return string The generated action to start all services.
+     * @return string The generated action to start all services. * @since 2022.2.16
+     
      */
     public static function getActionStartServices()
     {
@@ -76,7 +79,8 @@ class TplAppServices
     /**
      * Generates the actions to stop all services using a single splash screen.
      *
-     * @return string The generated action to stop all services.
+     * @return string The generated action to stop all services. * @since 2022.2.16
+     
      */
     public static function getActionStopServices()
     {
@@ -86,7 +90,8 @@ class TplAppServices
     /**
      * Generates the actions to restart all services using a single splash screen.
      *
-     * @return string The generated action to restart all services.
+     * @return string The generated action to restart all services. * @since 2022.2.16
+     
      */
     public static function getActionRestartServices()
     {

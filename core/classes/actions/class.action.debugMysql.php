@@ -11,14 +11,16 @@
  * Class ActionDebugMysql
  *
  * This class handles the debugging actions for MySQL within the Bearsampp application.
- * It executes specific MySQL commands and displays the output in a message box or editor.
+ * It executes specific MySQL commands and displays the output in a message box or editor. * @since 2022.2.16
+     
  */
 class ActionDebugMysql extends ActionDebugBase
 {
     /**
      * Get the service name for language strings
      *
-     * @return string The language constant name for MySQL
+     * @return string The language constant name for MySQL * @since 2022.2.16
+     
      */
     protected function getServiceLangConstant()
     {
@@ -29,7 +31,8 @@ class ActionDebugMysql extends ActionDebugBase
      * Get the MySQL binary instance
      *
      * @param object $bearsamppBins The bins object containing all service binaries
-     * @return BinMysql The MySQL binary instance
+     * @return BinMysql The MySQL binary instance * @since 2022.2.16
+     
      */
     protected function getBinInstance($bearsamppBins)
     {
@@ -39,7 +42,8 @@ class ActionDebugMysql extends ActionDebugBase
     /**
      * Get the command-to-caption mapping for MySQL
      *
-     * @return array Command mapping configuration
+     * @return array Command mapping configuration * @since 2022.2.16
+     
      */
     protected function getCommandMapping()
     {

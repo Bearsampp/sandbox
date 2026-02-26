@@ -30,7 +30,8 @@ include $_mainpath . "db_" . strtolower(DB_DATABASE) . ".inc.php";
 * Returns database and wrapper version information
 *
 * @param string $what
-* @return string
+* @return string * @since 2022.2.16
+     
 */
 function db_get_info($info = "")
 {
@@ -57,7 +58,8 @@ function db_get_info($info = "")
 * @param string $server
 * @param string $username
 * @param string $password
-* @return resource or "FALSE"
+* @return resource or "FALSE" * @since 2022.2.16
+     
 */
 function db_open_database($database, $server = "", $username = "", $password = "")
 {
@@ -72,7 +74,8 @@ function db_open_database($database, $server = "", $username = "", $password = "
 * @param string $server
 * @param string $username
 * @param string $password
-* @return resource or "FALSE"
+* @return resource or "FALSE" * @since 2022.2.16
+     
 */
 function db_create_database($database, $server = "", $username = "", $password = "")
 {
@@ -83,7 +86,8 @@ function db_create_database($database, $server = "", $username = "", $password =
 * db_list_database_tables()
 * Returns an array with the list of tables of the current database
 *
-* @return result or "FALSE"
+* @return result or "FALSE" * @since 2022.2.16
+     
 */
 function db_list_database_tables()
 {
@@ -108,7 +112,8 @@ function db_list_database_tables()
 /**
 * db_close_database()
 *
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_close_database()
 {
@@ -119,7 +124,8 @@ function db_close_database()
 * db_table_exists()
 *
 * @param  $tablename of an opened database
-* @return bool "TRUE" if table $tablename exists in the current database
+* @return bool "TRUE" if table $tablename exists in the current database * @since 2022.2.16
+     
 */
 function db_table_exists($tablename)
 {
@@ -139,7 +145,8 @@ function db_table_exists($tablename)
 * @param  $fieldattrib
 * @param string $idfield ( set to "id" )
 * @param array $valarray ( $valarray[0] = 1.record, $valarray[1] = 2.record, ... )
-* @return bool "TRUE" or "FALSE" if Table already exists, could not create Table, could not create Records
+* @return bool "TRUE" or "FALSE" if Table already exists, could not create Table, could not create Records * @since 2022.2.16
+     
 */
 function db_create_table($tablename, $fieldnames, $fieldattrib, $idfield = "id", $valarray = null)
 {
@@ -191,7 +198,8 @@ function db_create_table($tablename, $fieldnames, $fieldattrib, $idfield = "id",
 * db_delete_table()
 *
 * @param  $tablename
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_delete_table($tablename)
 {
@@ -213,7 +221,8 @@ function db_delete_table($tablename)
 *
 * @param  $tablename
 * @param  $newname
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_rename_table($tablename, $newname)
 {
@@ -223,7 +232,8 @@ function db_rename_table($tablename, $newname)
 * db_list_table_fields()
 *
 * @param  $tablename
-* @return array with the names of the fields of table $tablename or FALSE
+* @return array with the names of the fields of table $tablename or FALSE * @since 2022.2.16
+     
 */
 function db_list_table_fields($tablename, $type = false)
 {
@@ -243,7 +253,8 @@ function db_list_table_fields($tablename, $type = false)
 * @param  $tablename
 * @param  $field
 * @param  $type
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_create_field($tablename, $field, $type)
 {
@@ -255,7 +266,8 @@ function db_create_field($tablename, $field, $type)
 *
 * @param  $tablename
 * @param  $field
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_delete_field($tablename, $field)
 {
@@ -269,7 +281,8 @@ function db_delete_field($tablename, $field)
 * @param  $field
 * @param  $newname
 * @param  $type
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_rename_field($tablename, $field, $newname, $type)
 {
@@ -283,7 +296,8 @@ function db_rename_field($tablename, $field, $newname, $type)
 * @param  $tablename
 * @param  $field
 * @param  $type
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_edit_field($tablename, $field, $type)
 {
@@ -299,7 +313,8 @@ function db_edit_field($tablename, $field, $type)
 * @param unknown $fieldnames Array or CSV string with field names, one per line.
 * @param unknown $fieldvalues Array or CSV string with field values, one per line.
 * @param string $idfield
-* @return id of the affected record, FALSE if not succeded
+* @return id of the affected record, FALSE if not succeded * @since 2022.2.16
+     
 */
 function db_create_record($tablename, $fieldnames = null, $fieldvalues = null, $idfield = "id")
 {
@@ -358,7 +373,8 @@ function db_create_record($tablename, $fieldnames = null, $fieldvalues = null, $
 *
 * @param  $tablename
 * @param  $idarray the id or id array
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_delete_records($tablename, $idarray, $idfield = "id")
 {
@@ -395,7 +411,8 @@ function db_delete_records($tablename, $idarray, $idfield = "id")
 * @param unknown $fieldnames Array or CSV string with field names, one per line. If NULL, affects all fields.
 * @param unknown $fieldvalues Array or CSV string with field values, one per line.
 * @param string $idfield
-* @return id of the affected record or FALSE on error
+* @return id of the affected record or FALSE on error * @since 2022.2.16
+     
 */
 function db_edit_record($tablename, $id = 0, $fieldnames = null, $fieldvalues = null, $idfield = "id")
 {
@@ -452,7 +469,8 @@ function db_edit_record($tablename, $id = 0, $fieldnames = null, $fieldvalues = 
 * @param  $id2
 * @param string $idfield
 * @param boolean $xchangeid
-* @return bool
+* @return bool * @since 2022.2.16
+     
 */
 function db_swap_records($tablename, $id1, $id2, $idfield = "id", $xchangeid = true)
 {
@@ -530,7 +548,8 @@ function db_swap_records($tablename, $id1, $id2, $idfield = "id", $xchangeid = t
 * @param unknown $result_type
 * @param string $idfield
 * @param string $orderby
-* @return result or FALSE
+* @return result or FALSE * @since 2022.2.16
+     
 */
 function db_get_data($tablename, $id = null, $col = null, $where = "", $result_type = FETCH_NUM, $idfield = "id", $orderby = "")
 {
@@ -606,7 +625,8 @@ function db_get_data($tablename, $id = null, $col = null, $where = "", $result_t
 * @param  $tablename
 * @param  $id
 * @param string $idfield
-* @return index or FALSE
+* @return index or FALSE * @since 2022.2.16
+     
 */
 
 function db_get_index($tablename, $id, $idfield = "id")
@@ -623,7 +643,8 @@ function db_get_index($tablename, $id, $idfield = "id")
 * @param  $tablename
 * @param  $index
 * @param string $idfield
-* @return id or FALSE
+* @return id or FALSE * @since 2022.2.16
+     
 */
 
 function db_get_id($tablename, $index, $idfield = "id")
@@ -662,7 +683,8 @@ function db_get_id($tablename, $index, $idfield = "id")
 *
 * @param  $tablename
 * @param string $idfield
-* @return id or FALSE
+* @return id or FALSE * @since 2022.2.16
+     
 */
 function db_get_next_free_id($tablename, $idfield = "id")
 {
@@ -687,7 +709,8 @@ function db_get_next_free_id($tablename, $idfield = "id")
 * depricated
 * exists only for compatibility to previous version
 * is the same as raw_db_query
-* does not handle APPPREFIX
+* does not handle APPPREFIX * @since 2022.2.16
+     
 */
 
 function db_query($query)
@@ -700,7 +723,8 @@ function db_query($query)
 *
 * @param  $result
 * @param  $type
-* @return array
+* @return array * @since 2022.2.16
+     
 */
 function db_fetch_array($result, $type = FETCH_NUM)
 {
@@ -716,7 +740,8 @@ function db_fetch_array($result, $type = FETCH_NUM)
 * db_free_result()
 *
 * @param  $result
-* @return bool "TRUE" or "FALSE"
+* @return bool "TRUE" or "FALSE" * @since 2022.2.16
+     
 */
 function db_free_result($result)
 {
@@ -727,7 +752,8 @@ function db_free_result($result)
 * db_escape_string()
 *
 * @param  $str
-* @return string escaped
+* @return string escaped * @since 2022.2.16
+     
 */
 function db_escape_string($str)
 {

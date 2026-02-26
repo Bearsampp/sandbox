@@ -11,7 +11,8 @@
  * Class ToolPowerShell
  *
  * This class represents the PowerShell tool in the Bearsampp application.
- * It extends the Module class and provides functionalities specific to PowerShell.
+ * It extends the Module class and provides functionalities specific to PowerShell. * @since 2022.2.16
+     
  */
 class ToolPowerShell extends Module
 {
@@ -33,7 +34,8 @@ class ToolPowerShell extends Module
      * Constructor for the ToolPowerShell class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -44,7 +46,8 @@ class ToolPowerShell extends Module
      * Reloads the configuration for the PowerShell tool.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -96,7 +99,8 @@ class ToolPowerShell extends Module
     /**
      * Sets the version of the PowerShell tool.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -108,7 +112,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the executable path for PowerShell.
      *
-     * @return string The executable path.
+     * @return string The executable path. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -117,7 +122,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the launch executable path for PowerShell.
      *
-     * @return string The launch executable path.
+     * @return string The launch executable path. * @since 2022.2.16
+     
      */
     public function getLaunchExe() {
         return $this->launchExe;
@@ -126,7 +132,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the configuration file path for PowerShell.
      *
-     * @return string The configuration file path.
+     * @return string The configuration file path. * @since 2022.2.16
+     
      */
     public function getConf() {
         return $this->conf;
@@ -135,7 +142,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the number of rows for the PowerShell window.
      *
-     * @return int The number of rows.
+     * @return int The number of rows. * @since 2022.2.16
+     
      */
     public function getRows() {
         return $this->rows;
@@ -144,7 +152,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the number of columns for the PowerShell window.
      *
-     * @return int The number of columns.
+     * @return int The number of columns. * @since 2022.2.16
+     
      */
     public function getCols() {
         return $this->cols;
@@ -154,7 +163,8 @@ class ToolPowerShell extends Module
      * Gets the shell command to launch PowerShell.
      *
      * @param string|null $args Additional arguments for the shell command.
-     * @return string The shell command.
+     * @return string The shell command. * @since 2022.2.16
+     
      */
     public function getShell($args = null) {
         if (empty($args)) {
@@ -167,7 +177,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the default tab title for PowerShell.
      *
-     * @return string The default tab title.
+     * @return string The default tab title. * @since 2022.2.16
+     
      */
     public function getTabTitleDefault() {
         return 'Bearsampp Powershell Console';
@@ -176,7 +187,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for PowerShell.
      *
-     * @return string The tab title for PowerShell.
+     * @return string The tab title for PowerShell. * @since 2022.2.16
+     
      */
     public function getTabTitlePowershell() {
         return 'PowerShell';
@@ -185,7 +197,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for PEAR.
      *
-     * @return string The tab title for PEAR.
+     * @return string The tab title for PEAR. * @since 2022.2.16
+     
      */
     public function getTabTitlePear() {
         global $bearsamppLang, $bearsamppBins;
@@ -195,7 +208,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for MySQL.
      *
-     * @return string The tab title for MySQL.
+     * @return string The tab title for MySQL. * @since 2022.2.16
+     
      */
     public function getTabTitleMysql() {
         global $bearsamppLang, $bearsamppBins;
@@ -205,7 +219,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for MariaDB.
      *
-     * @return string The tab title for MariaDB.
+     * @return string The tab title for MariaDB. * @since 2022.2.16
+     
      */
     public function getTabTitleMariadb() {
         global $bearsamppLang, $bearsamppBins;
@@ -215,7 +230,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for PostgreSQL.
      *
-     * @return string The tab title for PostgreSQL.
+     * @return string The tab title for PostgreSQL. * @since 2022.2.16
+     
      */
     public function getTabTitlePostgresql() {
         global $bearsamppLang, $bearsamppBins;
@@ -226,7 +242,8 @@ class ToolPowerShell extends Module
      * Gets the tab title for Git.
      *
      * @param string|null $repoPath The repository path.
-     * @return string The tab title for Git.
+     * @return string The tab title for Git. * @since 2022.2.16
+     
      */
     public function getTabTitleGit($repoPath = null) {
         global $bearsamppLang, $bearsamppTools;
@@ -240,7 +257,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Node.js.
      *
-     * @return string The tab title for Node.js.
+     * @return string The tab title for Node.js. * @since 2022.2.16
+     
      */
     public function getTabTitleNodejs() {
         global $bearsamppLang, $bearsamppBins;
@@ -250,7 +268,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Composer.
      *
-     * @return string The tab title for Composer.
+     * @return string The tab title for Composer. * @since 2022.2.16
+     
      */
     public function getTabTitleComposer() {
         global $bearsamppLang, $bearsamppTools;
@@ -260,7 +279,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Python.
      *
-     * @return string The tab title for Python.
+     * @return string The tab title for Python. * @since 2022.2.16
+     
      */
     public function getTabTitlePython() {
         global $bearsamppLang, $bearsamppTools;
@@ -270,7 +290,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Ruby.
      *
-     * @return string The tab title for Ruby.
+     * @return string The tab title for Ruby. * @since 2022.2.16
+     
      */
     public function getTabTitleRuby() {
         global $bearsamppLang, $bearsamppTools;
@@ -280,7 +301,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Perl.
      *
-     * @return string The tab title for Perl.
+     * @return string The tab title for Perl. * @since 2022.2.16
+     
      */
     public function getTabTitlePerl() {
         global $bearsamppLang, $bearsamppTools;
@@ -290,7 +312,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Ghostscript.
      *
-     * @return string The tab title for Ghostscript.
+     * @return string The tab title for Ghostscript. * @since 2022.2.16
+     
      */
     public function getTabTitleGhostscript() {
         global $bearsamppLang, $bearsamppTools;
@@ -300,7 +323,8 @@ class ToolPowerShell extends Module
     /**
      * Gets the tab title for Ngrok.
      *
-     * @return string The tab title for Ngrok.
+     * @return string The tab title for Ngrok. * @since 2022.2.16
+     
      */
     public function getTabTitleNgrok() {
         global $bearsamppLang, $bearsamppTools;

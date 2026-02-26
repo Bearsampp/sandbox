@@ -10,14 +10,16 @@
 /**
  * Class ActionSwitchLogsVerbose
  *
- * This class handles the action of switching the verbosity level of logs.
+ * This class handles the action of switching the verbosity level of logs. * @since 2022.2.16
+     
  */
 class ActionSwitchLogsVerbose
 {
     /**
      * ActionSwitchLogsVerbose constructor.
      *
-     * @param array $args An array of arguments where the first element should be the verbosity level (0-3).
+     * @param array $args An array of arguments where the first element should be the verbosity level (0-3). * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

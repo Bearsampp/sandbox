@@ -9,7 +9,8 @@
 
 /**
  * Class ActionSwitchOnline
- * Handles the switching of the application between online and offline modes.
+ * Handles the switching of the application between online and offline modes. * @since 2022.2.16
+     
  */
 class ActionSwitchOnline
 {
@@ -17,7 +18,8 @@ class ActionSwitchOnline
      * ActionSwitchOnline constructor.
      * Initializes the online/offline switch based on the provided arguments.
      *
-     * @param array $args Arguments to determine the online/offline state.
+     * @param array $args Arguments to determine the online/offline state. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -37,7 +39,8 @@ class ActionSwitchOnline
     /**
      * Switches the Apache configuration based on the online/offline state.
      *
-     * @param bool $putOnline True to put online, false to put offline.
+     * @param bool $putOnline True to put online, false to put offline. * @since 2022.2.16
+     
      */
     private function switchApache($putOnline)
     {
@@ -48,7 +51,8 @@ class ActionSwitchOnline
     /**
      * Switches the Apache aliases based on the online/offline state.
      *
-     * @param bool $putOnline True to put online, false to put offline.
+     * @param bool $putOnline True to put online, false to put offline. * @since 2022.2.16
+     
      */
     private function switchAlias($putOnline)
     {
@@ -59,7 +63,8 @@ class ActionSwitchOnline
     /**
      * Switches the Apache virtual hosts based on the online/offline state.
      *
-     * @param bool $putOnline True to put online, false to put offline.
+     * @param bool $putOnline True to put online, false to put offline. * @since 2022.2.16
+     
      */
     private function switchVhosts($putOnline)
     {

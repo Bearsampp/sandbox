@@ -10,7 +10,8 @@
 
 /**
  * Class ActionSwitchVersion
- * Handles the switching of versions for various services and binaries in the Bearsampp application.
+ * Handles the switching of versions for various services and binaries in the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionSwitchVersion
 {
@@ -44,7 +45,8 @@ class ActionSwitchVersion
      * ActionSwitchVersion constructor.
      * Initializes the class with the provided arguments and sets up the splash screen.
      *
-     * @param   array  $args  Command line arguments for switching versions.
+     * @param   array  $args  Command line arguments for switching versions. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -193,7 +195,8 @@ class ActionSwitchVersion
      * @param   int    $id      The event ID.
      * @param   mixed  $ctrl    The control handle.
      * @param   mixed  $param1  The first parameter.
-     * @param   mixed  $param2  The second parameter.
+     * @param   mixed  $param2  The second parameter. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
@@ -322,7 +325,8 @@ class ActionSwitchVersion
     
     /**
      * Updates the configuration file with the new version of the binary
-     * This ensures version persistence across restarts
+     * This ensures version persistence across restarts * @since 2022.2.16
+     
      */
     private function updateConfigVersion(): void
     {

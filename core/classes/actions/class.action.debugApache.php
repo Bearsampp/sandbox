@@ -12,14 +12,16 @@
  *
  * This class handles the debugging of Apache configurations and settings.
  * It retrieves various Apache debug information based on the provided arguments
- * and displays the information in a message box or editor.
+ * and displays the information in a message box or editor. * @since 2022.2.16
+     
  */
 class ActionDebugApache extends ActionDebugBase
 {
     /**
      * Get the service name for language strings
      *
-     * @return string The language constant name for Apache
+     * @return string The language constant name for Apache * @since 2022.2.16
+     
      */
     protected function getServiceLangConstant()
     {
@@ -30,7 +32,8 @@ class ActionDebugApache extends ActionDebugBase
      * Get the Apache binary instance
      *
      * @param object $bearsamppBins The bins object containing all service binaries
-     * @return BinApache The Apache binary instance
+     * @return BinApache The Apache binary instance * @since 2022.2.16
+     
      */
     protected function getBinInstance($bearsamppBins)
     {
@@ -40,7 +43,8 @@ class ActionDebugApache extends ActionDebugBase
     /**
      * Get the command-to-caption mapping for Apache
      *
-     * @return array Command mapping configuration
+     * @return array Command mapping configuration * @since 2022.2.16
+     
      */
     protected function getCommandMapping()
     {

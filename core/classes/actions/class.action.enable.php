@@ -10,7 +10,8 @@
 /**
  * Class ActionEnable
  *
- * This class is responsible for enabling various services (Apache, PHP, MySQL, etc.) based on the provided arguments.
+ * This class is responsible for enabling various services (Apache, PHP, MySQL, etc.) based on the provided arguments. * @since 2022.2.16
+     
  */
 class ActionEnable
 {
@@ -19,7 +20,8 @@ class ActionEnable
      *
      * @param   array  $args          An array of arguments where the first element is the service name and the second element is the enable flag.
      *
-     * @global object  $bearsamppBins Global object containing instances of various services.
+     * @global object  $bearsamppBins Global object containing instances of various services. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

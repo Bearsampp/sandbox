@@ -11,7 +11,8 @@
  * Class TplAppBrowser
  *
  * This class provides methods to generate actions and menu items for changing the browser in the Bearsampp application.
- * It includes functionalities for creating change browser actions and processing change browser commands.
+ * It includes functionalities for creating change browser actions and processing change browser commands. * @since 2022.2.16
+     
  */
 class TplAppBrowser
 {
@@ -27,7 +28,8 @@ class TplAppBrowser
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated menu item and actions for changing the browser.
+     * @return array The generated menu item and actions for changing the browser. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -46,7 +48,8 @@ class TplAppBrowser
      * This method creates the action string for changing the browser. It includes commands to reload the application
      * after changing the browser. The action string is used to define what happens when the change browser action is triggered.
      *
-     * @return string The generated action string for changing the browser.
+     * @return string The generated action string for changing the browser. * @since 2022.2.16
+     
      */
     public static function getActionChangeBrowser()
     {

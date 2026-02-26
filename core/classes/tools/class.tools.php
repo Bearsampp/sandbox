@@ -12,69 +12,82 @@
  * Class Tools
  *
  * This class manages various tool modules in the Bearsampp application.
- * It provides methods to retrieve and update the configuration of these tools.
+ * It provides methods to retrieve and update the configuration of these tools. * @since 2022.2.16
+     
  */
 class Tools
 {
     /**
-     * The type of the tools.
+     * The type of the tools. * @since 2022.2.16
+     
      */
     const TYPE = 'tools';
 
     /**
-     * @var ToolComposer|null The Composer tool instance.
+     * @var ToolComposer|null The Composer tool instance. * @since 2022.2.16
+     
      */
     private $composer;
 
     /**
-     * @var ToolBruno|null The Bruno tool instance.
+     * @var ToolBruno|null The Bruno tool instance. * @since 2022.2.16
+     
      */
     private $bruno;
 
     /**
-     * @var ToolPowerShell|null The PowerShell tool instance.
+     * @var ToolPowerShell|null The PowerShell tool instance. * @since 2022.2.16
+     
      */
     private $powershell;
 
     /**
-     * @var ToolGhostscript|null The Ghostscript tool instance.
+     * @var ToolGhostscript|null The Ghostscript tool instance. * @since 2022.2.16
+     
      */
     private $ghostscript;
 
     /**
-     * @var ToolGit|null The Git tool instance.
+     * @var ToolGit|null The Git tool instance. * @since 2022.2.16
+     
      */
     private $git;
 
     /**
-     * @var ToolNgrok|null The Ngrok tool instance.
+     * @var ToolNgrok|null The Ngrok tool instance. * @since 2022.2.16
+     
      */
     private $ngrok;
 
     /**
-     * @var ToolPerl|null The Perl tool instance.
+     * @var ToolPerl|null The Perl tool instance. * @since 2022.2.16
+     
      */
     private $perl;
 
     /**
-     * @var ToolPython|null The Python tool instance.
+     * @var ToolPython|null The Python tool instance. * @since 2022.2.16
+     
      */
     private $python;
 
     /**
-     * @var ToolRuby|null The Ruby tool instance.
+     * @var ToolRuby|null The Ruby tool instance. * @since 2022.2.16
+     
      */
     private $ruby;
 
     /**
-     * Constructor for the Tools class.
+     * Constructor for the Tools class. * @since 2022.2.16
+     
      */
     public function __construct()
     {
     }
 
     /**
-     * Updates the configuration of all tools.
+     * Updates the configuration of all tools. * @since 2022.2.16
+     
      */
     public function update()
     {
@@ -87,7 +100,8 @@ class Tools
     /**
      * Retrieves all tool instances.
      *
-     * @return array An array of all tool instances.
+     * @return array An array of all tool instances. * @since 2022.2.16
+     
      */
     public function getAll()
     {
@@ -107,7 +121,8 @@ class Tools
     /**
      * Retrieves the Bruno tool instance.
      *
-     * @return ToolBruno The Bruno tool instance.
+     * @return ToolBruno The Bruno tool instance. * @since 2022.2.16
+     
      */
     public function getBruno()
     {
@@ -120,7 +135,8 @@ class Tools
     /**
      * Retrieves the Composer tool instance.
      *
-     * @return ToolComposer The Composer tool instance.
+     * @return ToolComposer The Composer tool instance. * @since 2022.2.16
+     
      */
     public function getComposer()
     {
@@ -133,7 +149,8 @@ class Tools
     /**
      * Retrieves the PowerShell tool instance.
      *
-     * @return ToolPowerShell The PowerShell tool instance.
+     * @return ToolPowerShell The PowerShell tool instance. * @since 2022.2.16
+     
      */
     public function getPowerShell()
     {
@@ -146,7 +163,8 @@ class Tools
     /**
      * Retrieves the Ghostscript tool instance.
      *
-     * @return ToolGhostscript The Ghostscript tool instance.
+     * @return ToolGhostscript The Ghostscript tool instance. * @since 2022.2.16
+     
      */
     public function getGhostscript()
     {
@@ -159,7 +177,8 @@ class Tools
     /**
      * Retrieves the Git tool instance.
      *
-     * @return ToolGit The Git tool instance.
+     * @return ToolGit The Git tool instance. * @since 2022.2.16
+     
      */
     public function getGit()
     {
@@ -172,7 +191,8 @@ class Tools
     /**
      * Retrieves the Git GUI tool instance.
      *
-     * @return ToolGit The Git GUI tool instance.
+     * @return ToolGit The Git GUI tool instance. * @since 2022.2.16
+     
      */
     public function getGitGui()
     {
@@ -185,7 +205,8 @@ class Tools
     /**
      * Retrieves the Ngrok tool instance.
      *
-     * @return ToolNgrok The Ngrok tool instance.
+     * @return ToolNgrok The Ngrok tool instance. * @since 2022.2.16
+     
      */
     public function getNgrok()
     {
@@ -198,7 +219,8 @@ class Tools
     /**
      * Retrieves the Perl tool instance.
      *
-     * @return ToolPerl The Perl tool instance.
+     * @return ToolPerl The Perl tool instance. * @since 2022.2.16
+     
      */
     public function getPerl()
     {
@@ -211,7 +233,8 @@ class Tools
     /**
      * Retrieves the Python tool instance.
      *
-     * @return ToolPython The Python tool instance.
+     * @return ToolPython The Python tool instance. * @since 2022.2.16
+     
      */
     public function getPython()
     {
@@ -224,7 +247,8 @@ class Tools
     /**
      * Retrieves the Ruby tool instance.
      *
-     * @return ToolRuby The Ruby tool instance.
+     * @return ToolRuby The Ruby tool instance. * @since 2022.2.16
+     
      */
     public function getRuby()
     {

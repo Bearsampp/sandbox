@@ -11,7 +11,8 @@
  * Class ToolGit
  *
  * This class represents the Git tool module in the Bearsampp application.
- * It handles the configuration, initialization, and management of Git-related settings and repositories.
+ * It handles the configuration, initialization, and management of Git-related settings and repositories. * @since 2022.2.16
+     
  */
 class ToolGit extends Module
 {
@@ -36,7 +37,8 @@ class ToolGit extends Module
      * Constructs a ToolGit object and initializes the Git tool module.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -47,7 +49,8 @@ class ToolGit extends Module
      * Reloads the Git tool module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppLang;
@@ -114,7 +117,8 @@ class ToolGit extends Module
      * @param string|null $version The version to update to. If null, the current version is used.
      * @param int $sub The sub-level for logging indentation.
      * @param bool $showWindow Whether to show a window during the update process.
-     * @return bool True if the update was successful, false otherwise.
+     * @return bool True if the update was successful, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false) {
         global $bearsamppWinbinder;
@@ -140,7 +144,8 @@ class ToolGit extends Module
      * Finds Git repositories either from cache or by scanning the directories.
      *
      * @param bool $cache Whether to use the cached repositories list.
-     * @return array The list of found repositories.
+     * @return array The list of found repositories. * @since 2022.2.16
+     
      */
     public function findRepos($cache = true) {
         $result = array();
@@ -173,7 +178,8 @@ class ToolGit extends Module
     /**
      * Sets the version of the Git tool module.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -185,7 +191,8 @@ class ToolGit extends Module
     /**
      * Retrieves the list of repositories.
      *
-     * @return array The list of repositories.
+     * @return array The list of repositories. * @since 2022.2.16
+     
      */
     public function getRepos() {
         return $this->repos;
@@ -194,7 +201,8 @@ class ToolGit extends Module
     /**
      * Retrieves the path to the Git executable.
      *
-     * @return string The path to the Git executable.
+     * @return string The path to the Git executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -203,7 +211,8 @@ class ToolGit extends Module
     /**
      * Retrieves the path to the Git Bash executable.
      *
-     * @return string The path to the Git Bash executable.
+     * @return string The path to the Git Bash executable. * @since 2022.2.16
+     
      */
     public function getBash() {
         return $this->bash;
@@ -212,7 +221,8 @@ class ToolGit extends Module
     /**
      * Checks if the Git tool module is set to scan repositories at startup.
      *
-     * @return bool True if set to scan at startup, false otherwise.
+     * @return bool True if set to scan at startup, false otherwise. * @since 2022.2.16
+     
      */
     public function isScanStartup() {
         return $this->scanStartup == Config::ENABLED;
@@ -221,7 +231,8 @@ class ToolGit extends Module
     /**
      * Sets whether the Git tool module should scan repositories at startup.
      *
-     * @param bool $scanStartup True to enable scanning at startup, false to disable.
+     * @param bool $scanStartup True to enable scanning at startup, false to disable. * @since 2022.2.16
+     
      */
     public function setScanStartup($scanStartup) {
         $this->scanStartup = $scanStartup;

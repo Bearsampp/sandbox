@@ -12,7 +12,8 @@
  * Class BinMailpit
  *
  * This class represents the Mailpit module in the Bearsampp application.
- * It handles the configuration, initialization, and management of the Mailpit service.
+ * It handles the configuration, initialization, and management of the Mailpit service. * @since 2022.2.16
+     
  */
 class BinMailpit extends Module
 {
@@ -41,7 +42,8 @@ class BinMailpit extends Module
      * Constructs a BinMailpit object and initializes the module.
      *
      * @param   string  $id    The ID of the module.
-     * @param   string  $type  The type of the module.
+     * @param   string  $type  The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type)
     {
@@ -53,7 +55,8 @@ class BinMailpit extends Module
      * Reloads the module configuration based on the provided ID and type.
      *
      * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null)
     {
@@ -136,7 +139,8 @@ class BinMailpit extends Module
     /**
      * Replaces multiple key-value pairs in the configuration file.
      *
-     * @param   array  $params  An associative array of key-value pairs to replace.
+     * @param   array  $params  An associative array of key-value pairs to replace. * @since 2022.2.16
+     
      */
     protected function replaceAll($params)
     {
@@ -161,7 +165,8 @@ class BinMailpit extends Module
     /**
      * Rebuilds the configuration for the Mailpit service in the Windows Registry.
      *
-     * @return bool True if the configuration was successfully rebuilt, false otherwise.
+     * @return bool True if the configuration was successfully rebuilt, false otherwise. * @since 2022.2.16
+     
      */
     public function rebuildConf()
     {
@@ -207,7 +212,8 @@ class BinMailpit extends Module
      * @param   bool   $checkUsed      Whether to check if the port is already in use.
      * @param   mixed  $wbProgressBar  The progress bar object for UI updates.
      *
-     * @return bool|int True if the port was successfully changed, or the process using the port if it is in use.
+     * @return bool|int True if the port was successfully changed, or the process using the port if it is in use. * @since 2022.2.16
+     
      */
     public function changePort($port, $checkUsed = false, $wbProgressBar = null)
     {
@@ -246,7 +252,8 @@ class BinMailpit extends Module
      * @param   int   $port        The port number to check.
      * @param   bool  $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the port is used by the Mailpit service, false otherwise.
+     * @return bool True if the port is used by the Mailpit service, false otherwise. * @since 2022.2.16
+     
      */
     public function checkPort($port, $showWindow = false)
     {
@@ -299,7 +306,8 @@ class BinMailpit extends Module
      * @param   string  $version     The version to switch to.
      * @param   bool    $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the version was successfully switched, false otherwise.
+     * @return bool True if the version was successfully switched, false otherwise. * @since 2022.2.16
+     
      */
     public function switchVersion($version, $showWindow = false)
     {
@@ -315,7 +323,8 @@ class BinMailpit extends Module
      * @param   int          $sub         The sub-level for logging indentation.
      * @param   bool         $showWindow  Whether to show a message box with the result.
      *
-     * @return bool True if the configuration was successfully updated, false otherwise.
+     * @return bool True if the configuration was successfully updated, false otherwise. * @since 2022.2.16
+     
      */
     protected function updateConfig($version = null, $sub = 0, $showWindow = false)
     {
@@ -365,7 +374,8 @@ class BinMailpit extends Module
     /**
      * Sets the version of the Mailpit service.
      *
-     * @param   string  $version  The version to set.
+     * @param   string  $version  The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version)
     {
@@ -378,7 +388,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the service object for the Mailpit service.
      *
-     * @return Win32Service The service object.
+     * @return Win32Service The service object. * @since 2022.2.16
+     
      */
     public function getService()
     {
@@ -389,7 +400,8 @@ class BinMailpit extends Module
      * Enables or disables the Mailpit service.
      *
      * @param   bool  $enabled     Whether to enable or disable the service.
-     * @param   bool  $showWindow  Whether to show a message box with the result.
+     * @param   bool  $showWindow  Whether to show a message box with the result. * @since 2022.2.16
+     
      */
     public function setEnable($enabled, $showWindow = false)
     {
@@ -422,7 +434,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the log file path for the Mailpit service.
      *
-     * @return string The log file path.
+     * @return string The log file path. * @since 2022.2.16
+     
      */
     public function getLog()
     {
@@ -432,7 +445,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the executable file path for the Mailpit service.
      *
-     * @return string The executable file path.
+     * @return string The executable file path. * @since 2022.2.16
+     
      */
     public function getExe()
     {
@@ -442,7 +456,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the web root directory for the Mailpit service.
      *
-     * @return string The web root directory.
+     * @return string The web root directory. * @since 2022.2.16
+     
      */
     public function getWebRoot()
     {
@@ -452,7 +467,8 @@ class BinMailpit extends Module
     /**
      * Sets the web root directory for the Mailpit service.
      *
-     * @param   string  $webRoot  The web root directory to set.
+     * @param   string  $webRoot  The web root directory to set. * @since 2022.2.16
+     
      */
     public function setWebRoot($webRoot)
     {
@@ -462,7 +478,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the UI port for the Mailpit service.
      *
-     * @return int The UI port.
+     * @return int The UI port. * @since 2022.2.16
+     
      */
     public function getUiPort()
     {
@@ -472,7 +489,8 @@ class BinMailpit extends Module
     /**
      * Sets the UI port for the Mailpit service.
      *
-     * @param   int  $uiPort  The UI port to set.
+     * @param   int  $uiPort  The UI port to set. * @since 2022.2.16
+     
      */
     public function setUiPort($uiPort)
     {
@@ -482,7 +500,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the SMTP port for the Mailpit service.
      *
-     * @return int The SMTP port.
+     * @return int The SMTP port. * @since 2022.2.16
+     
      */
     public function getSmtpPort()
     {
@@ -492,7 +511,8 @@ class BinMailpit extends Module
     /**
      * Sets the SMTP port for the Mailpit service.
      *
-     * @param   int  $smtpPort  The SMTP port to set.
+     * @param   int  $smtpPort  The SMTP port to set. * @since 2022.2.16
+     
      */
     public function setSmtpPort($smtpPort)
     {
@@ -502,7 +522,8 @@ class BinMailpit extends Module
     /**
      * Retrieves the listen address for the Mailpit service.
      *
-     * @return string The listen address.
+     * @return string The listen address. * @since 2022.2.16
+     
      */
     public function getListen()
     {
@@ -512,7 +533,8 @@ class BinMailpit extends Module
     /**
      * Sets the listen address for the Mailpit service.
      *
-     * @return bool True if the listen address was successfully set, false otherwise.
+     * @return bool True if the listen address was successfully set, false otherwise. * @since 2022.2.16
+     
      */
     public function setListen()
     {

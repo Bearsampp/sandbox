@@ -15,7 +15,8 @@
  * with the latest version information if an update is available. It also handles the user interaction with
  * the window, such as clicking on links or buttons.
  *
- * @package Bearsampp
+ * @package Bearsampp * @since 2022.2.16
+     
  */
 class ActionCheckVersion
 {
@@ -34,7 +35,8 @@ class ActionCheckVersion
     /**
      * Constructor for the ActionCheckVersion class.
      *
-     * @param array $args Command line arguments passed to the script.
+     * @param array $args Command line arguments passed to the script. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -69,7 +71,8 @@ class ActionCheckVersion
      * @param Lang $lang Language processor instance.
      * @param WinBinder $winbinder WinBinder instance for creating windows and controls.
      * @param Core $core Core instance for accessing application resources.
-     * @param string $githubLatestVersion The latest version available on GitHub.
+     * @param string $githubLatestVersion The latest version available on GitHub. * @since 2022.2.16
+     
      */
     private function showVersionUpdateWindow($lang, $winbinder, $core, $githubLatestVersion)
     {
@@ -95,7 +98,8 @@ class ActionCheckVersion
      * Displays a message box indicating that the current version is the latest.
      *
      * @param Lang $lang Language processor instance.
-     * @param WinBinder $winbinder WinBinder instance for creating windows and controls.
+     * @param WinBinder $winbinder WinBinder instance for creating windows and controls. * @since 2022.2.16
+     
      */
     private function showVersionOkMessageBox($lang, $winbinder)
     {
@@ -113,7 +117,8 @@ class ActionCheckVersion
      * @param int $id The control ID that triggered the event.
      * @param resource $ctrl The control resource.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

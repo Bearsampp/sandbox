@@ -11,7 +11,8 @@
  * Class Root
  *
  * This class represents the root of the Bearsampp application. It handles the initialization,
- * configuration, and management of various components and settings within the application.
+ * configuration, and management of various components and settings within the application. * @since 2022.2.16
+     
  */
 class Root
 {
@@ -24,7 +25,8 @@ class Root
     /**
      * Constructs a Root object with the specified root path.
      *
-     * @param string $rootPath The root path of the application.
+     * @param string $rootPath The root path of the application. * @since 2022.2.16
+     
      */
     public function __construct($rootPath)
     {
@@ -33,7 +35,8 @@ class Root
     }
 
     /**
-     * Registers the application components and initializes error handling.
+     * Registers the application components and initializes error handling. * @since 2022.2.16
+     
      */
     public function register()
     {
@@ -72,7 +75,8 @@ class Root
     }
 
     /**
-     * Initializes error handling settings for the application.
+     * Initializes error handling settings for the application. * @since 2022.2.16
+     
      */
     public function initErrorHandling()
     {
@@ -83,7 +87,8 @@ class Root
     }
 
     /**
-     * Removes the custom error handling, reverting to the default PHP error handling.
+     * Removes the custom error handling, reverting to the default PHP error handling. * @since 2022.2.16
+     
      */
     public function removeErrorHandling()
     {
@@ -96,7 +101,8 @@ class Root
     /**
      * Retrieves the list of processes.
      *
-     * @return array The list of processes.
+     * @return array The list of processes. * @since 2022.2.16
+     
      */
     public function getProcs()
     {
@@ -106,7 +112,8 @@ class Root
     /**
      * Checks if the current script is executed from the root path.
      *
-     * @return bool True if executed from the root, false otherwise.
+     * @return bool True if executed from the root, false otherwise. * @since 2022.2.16
+     
      */
     public function isRoot()
     {
@@ -117,7 +124,8 @@ class Root
      * Gets the root path, optionally formatted for AeTrayMenu.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The root path.
+     * @return string The root path. * @since 2022.2.16
+     
      */
     public function getRootPath($aetrayPath = false)
     {
@@ -129,7 +137,8 @@ class Root
      * Formats a path for AeTrayMenu.
      *
      * @param string $path The path to format.
-     * @return string The formatted path.
+     * @return string The formatted path. * @since 2022.2.16
+     
      */
     private function aetrayPath($path)
     {
@@ -141,7 +150,8 @@ class Root
      * Gets the path to the alias directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The alias path.
+     * @return string The alias path. * @since 2022.2.16
+     
      */
     public function getAliasPath($aetrayPath = false)
     {
@@ -152,7 +162,8 @@ class Root
      * Gets the path to the apps directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The apps path.
+     * @return string The apps path. * @since 2022.2.16
+     
      */
     public function getAppsPath($aetrayPath = false)
     {
@@ -163,7 +174,8 @@ class Root
      * Gets the path to the bin directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The bin path.
+     * @return string The bin path. * @since 2022.2.16
+     
      */
     public function getBinPath($aetrayPath = false)
     {
@@ -174,7 +186,8 @@ class Root
      * Gets the path to the core directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The core path.
+     * @return string The core path. * @since 2022.2.16
+     
      */
     public function getCorePath($aetrayPath = false)
     {
@@ -185,7 +198,8 @@ class Root
      * Gets the path to the logs directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The logs path.
+     * @return string The logs path. * @since 2022.2.16
+     
      */
     public function getLogsPath($aetrayPath = false)
     {
@@ -196,7 +210,8 @@ class Root
      * Gets the path to the SSL directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The SSL path.
+     * @return string The SSL path. * @since 2022.2.16
+     
      */
     public function getSslPath($aetrayPath = false)
     {
@@ -207,7 +222,8 @@ class Root
      * Gets the path to the temporary directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The temporary path.
+     * @return string The temporary path. * @since 2022.2.16
+     
      */
     public function getTmpPath($aetrayPath = false)
     {
@@ -218,7 +234,8 @@ class Root
      * Gets the path to the tools directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The tools path.
+     * @return string The tools path. * @since 2022.2.16
+     
      */
     public function getToolsPath($aetrayPath = false)
     {
@@ -229,7 +246,8 @@ class Root
      * Gets the path to the virtual hosts directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The virtual hosts path.
+     * @return string The virtual hosts path. * @since 2022.2.16
+     
      */
     public function getVhostsPath($aetrayPath = false)
     {
@@ -240,7 +258,8 @@ class Root
      * Gets the path to the WWW directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The WWW path.
+     * @return string The WWW path. * @since 2022.2.16
+     
      */
     public function getWwwPath($aetrayPath = false)
     {
@@ -251,7 +270,8 @@ class Root
      * Gets the path to the executable file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The executable file path.
+     * @return string The executable file path. * @since 2022.2.16
+     
      */
     public function getExeFilePath($aetrayPath = false)
     {
@@ -262,7 +282,8 @@ class Root
      * Gets the path to the configuration file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The configuration file path.
+     * @return string The configuration file path. * @since 2022.2.16
+     
      */
     public function getConfigFilePath($aetrayPath = false)
     {
@@ -273,7 +294,8 @@ class Root
      * Gets the path to the INI file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The INI file path.
+     * @return string The INI file path. * @since 2022.2.16
+     
      */
     public function getIniFilePath($aetrayPath = false)
     {
@@ -284,7 +306,8 @@ class Root
      * Gets the path to the SSL configuration file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The SSL configuration file path.
+     * @return string The SSL configuration file path. * @since 2022.2.16
+     
      */
     public function getSslConfPath($aetrayPath = false)
     {
@@ -295,7 +318,8 @@ class Root
      * Gets the path to the log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The log file path.
+     * @return string The log file path. * @since 2022.2.16
+     
      */
     public function getLogFilePath($aetrayPath = false)
     {
@@ -306,7 +330,8 @@ class Root
      * Gets the path to the error log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The error log file path.
+     * @return string The error log file path. * @since 2022.2.16
+     
      */
     public function getErrorLogFilePath($aetrayPath = false)
     {
@@ -317,7 +342,8 @@ class Root
      * Gets the path to the homepage log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The homepage log file path.
+     * @return string The homepage log file path. * @since 2022.2.16
+     
      */
     public function getHomepageLogFilePath($aetrayPath = false)
     {
@@ -328,7 +354,8 @@ class Root
      * Gets the path to the services log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The services log file path.
+     * @return string The services log file path. * @since 2022.2.16
+     
      */
     public function getServicesLogFilePath($aetrayPath = false)
     {
@@ -339,7 +366,8 @@ class Root
      * Gets the path to the registry log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The registry log file path.
+     * @return string The registry log file path. * @since 2022.2.16
+     
      */
     public function getRegistryLogFilePath($aetrayPath = false)
     {
@@ -350,7 +378,8 @@ class Root
      * Gets the path to the startup log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The startup log file path.
+     * @return string The startup log file path. * @since 2022.2.16
+     
      */
     public function getStartupLogFilePath($aetrayPath = false)
     {
@@ -361,7 +390,8 @@ class Root
      * Gets the path to the batch log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The batch log file path.
+     * @return string The batch log file path. * @since 2022.2.16
+     
      */
     public function getBatchLogFilePath($aetrayPath = false)
     {
@@ -372,7 +402,8 @@ class Root
      * Gets the path to the VBS log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The VBS log file path.
+     * @return string The VBS log file path. * @since 2022.2.16
+     
      */
     public function getVbsLogFilePath($aetrayPath = false)
     {
@@ -383,7 +414,8 @@ class Root
      * Gets the path to the Winbinder log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The Winbinder log file path.
+     * @return string The Winbinder log file path. * @since 2022.2.16
+     
      */
     public function getWinbinderLogFilePath($aetrayPath = false)
     {
@@ -394,7 +426,8 @@ class Root
      * Gets the path to the NSSM log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The NSSM log file path.
+     * @return string The NSSM log file path. * @since 2022.2.16
+     
      */
     public function getNssmLogFilePath($aetrayPath = false)
     {
@@ -405,7 +438,8 @@ class Root
      * Gets the path to the homepage file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The homepage file path.
+     * @return string The homepage file path. * @since 2022.2.16
+     
      */
     public function getHomepageFilePath($aetrayPath = false)
     {
@@ -415,7 +449,8 @@ class Root
     /**
      * Gets the name of the process.
      *
-     * @return string The process name.
+     * @return string The process name. * @since 2022.2.16
+     
      */
     public function getProcessName()
     {
@@ -426,7 +461,8 @@ class Root
      * Constructs a local URL with the specified request.
      *
      * @param string|null $request The specific request to append to the URL.
-     * @return string The constructed local URL.
+     * @return string The constructed local URL. * @since 2022.2.16
+     
      */
     public function getLocalUrl($request = null)
     {
@@ -438,7 +474,8 @@ class Root
     }
 
     /**
-     * Loads the core components of the application.
+     * Loads the core components of the application. * @since 2022.2.16
+     
      */
     public static function loadCore()
     {
@@ -447,7 +484,8 @@ class Root
     }
 
     /**
-     * Loads the configuration settings of the application.
+     * Loads the configuration settings of the application. * @since 2022.2.16
+     
      */
     public static function loadConfig()
     {
@@ -456,7 +494,8 @@ class Root
     }
 
     /**
-     * Loads the language settings of the application.
+     * Loads the language settings of the application. * @since 2022.2.16
+     
      */
     public static function loadLang()
     {
@@ -465,7 +504,8 @@ class Root
     }
 
     /**
-     * Loads the OpenSSL settings of the application.
+     * Loads the OpenSSL settings of the application. * @since 2022.2.16
+     
      */
     public static function loadOpenSsl()
     {
@@ -474,7 +514,8 @@ class Root
     }
 
     /**
-     * Loads the binary components of the application.
+     * Loads the binary components of the application. * @since 2022.2.16
+     
      */
     public static function loadBins()
     {
@@ -483,7 +524,8 @@ class Root
     }
 
     /**
-     * Loads the tools components of the application.
+     * Loads the tools components of the application. * @since 2022.2.16
+     
      */
     public static function loadTools()
     {
@@ -492,7 +534,8 @@ class Root
     }
 
     /**
-     * Loads the apps components of the application.
+     * Loads the apps components of the application. * @since 2022.2.16
+     
      */
     public static function loadApps()
     {
@@ -501,7 +544,8 @@ class Root
     }
 
     /**
-     * Loads the Winbinder extension if available.
+     * Loads the Winbinder extension if available. * @since 2022.2.16
+     
      */
     public static function loadWinbinder()
     {
@@ -512,7 +556,8 @@ class Root
     }
 
     /**
-     * Loads the registry settings of the application.
+     * Loads the registry settings of the application. * @since 2022.2.16
+     
      */
     public static function loadRegistry()
     {
@@ -521,7 +566,8 @@ class Root
     }
 
     /**
-     * Loads the homepage settings of the application.
+     * Loads the homepage settings of the application. * @since 2022.2.16
+     
      */
     public static function loadHomepage()
     {
@@ -535,7 +581,8 @@ class Root
      * @param int $errno The level of the error raised.
      * @param string $errstr The error message.
      * @param string $errfile The filename that the error was raised in.
-     * @param int $errline The line number the error was raised at.
+     * @param int $errline The line number the error was raised at. * @since 2022.2.16
+     
      */
     public function errorHandler($errno, $errstr, $errfile, $errline)
     {
@@ -578,7 +625,8 @@ class Root
     /**
      * Generates a debug backtrace string.
      *
-     * @return string The debug backtrace.
+     * @return string The debug backtrace. * @since 2022.2.16
+     
      */
     private static function debugStringBacktrace()
     {
@@ -598,7 +646,8 @@ class Root
      * Adjusts the trace number in debug backtrace.
      *
      * @param array $match The matches from the regular expression.
-     * @return string The adjusted trace number.
+     * @return string The adjusted trace number. * @since 2022.2.16
+     
      */
     function debugStringPregReplace($match)
     {

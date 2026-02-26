@@ -10,7 +10,8 @@
 
 /**
  * Class ActionEditVhost
- * Handles the editing of virtual hosts within the Bearsampp application.
+ * Handles the editing of virtual hosts within the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionEditVhost
 {
@@ -34,7 +35,8 @@ class ActionEditVhost
      * ActionEditVhost constructor.
      * Initializes the virtual host editing window and its components.
      *
-     * @param array $args Arguments passed to the constructor, typically containing the server name.
+     * @param array $args Arguments passed to the constructor, typically containing the server name. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -78,7 +80,8 @@ class ActionEditVhost
      * @param int $id The ID of the control that triggered the event.
      * @param mixed $ctrl The control object.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

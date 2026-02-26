@@ -13,32 +13,38 @@
  * This class represents a Ruby tool module in the Bearsampp application.
  * It extends the Module class and provides functionalities specific to managing
  * Ruby tools, including loading configurations, setting versions, and retrieving
- * executable paths.
+ * executable paths. * @since 2022.2.16
+     
  */
 class ToolRuby extends Module
 {
     /**
-     * Configuration key for the Ruby version in the root configuration.
+     * Configuration key for the Ruby version in the root configuration. * @since 2022.2.16
+     
      */
     const ROOT_CFG_VERSION = 'rubyVersion';
 
     /**
-     * Configuration key for the Ruby executable in the local configuration.
+     * Configuration key for the Ruby executable in the local configuration. * @since 2022.2.16
+     
      */
     const LOCAL_CFG_EXE = 'rubyExe';
 
     /**
-     * Configuration key for the Ruby console executable in the local configuration.
+     * Configuration key for the Ruby console executable in the local configuration. * @since 2022.2.16
+     
      */
     const LOCAL_CFG_CONSOLE_EXE = 'rubyConsoleExe';
 
     /**
-     * @var string Path to the Ruby executable.
+     * @var string Path to the Ruby executable. * @since 2022.2.16
+     
      */
     private $exe;
 
     /**
-     * @var string Path to the Ruby console executable.
+     * @var string Path to the Ruby console executable. * @since 2022.2.16
+     
      */
     private $consoleExe;
 
@@ -46,7 +52,8 @@ class ToolRuby extends Module
      * Constructor for the ToolRuby class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -57,7 +64,8 @@ class ToolRuby extends Module
      * Reloads the Ruby tool configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -97,7 +105,8 @@ class ToolRuby extends Module
     /**
      * Sets the version of the Ruby tool and reloads the configuration.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -109,7 +118,8 @@ class ToolRuby extends Module
     /**
      * Gets the path to the Ruby executable.
      *
-     * @return string The path to the Ruby executable.
+     * @return string The path to the Ruby executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -118,7 +128,8 @@ class ToolRuby extends Module
     /**
      * Gets the path to the Ruby console executable.
      *
-     * @return string The path to the Ruby console executable.
+     * @return string The path to the Ruby console executable. * @since 2022.2.16
+     
      */
     public function getConsoleExe() {
         return $this->consoleExe;

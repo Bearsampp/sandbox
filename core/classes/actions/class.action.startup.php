@@ -11,7 +11,8 @@
 /**
  * Class ActionStartup
  * Handles the startup process of the Bearsampp application, including initializing services,
- * cleaning temporary files, refreshing configurations, and more.
+ * cleaning temporary files, refreshing configurations, and more. * @since 2022.2.16
+     
  */
 class ActionStartup
 {
@@ -30,7 +31,8 @@ class ActionStartup
      * ActionStartup constructor.
      * Initializes the startup process, including the splash screen and various configurations.
      *
-     * @param   array  $args  Command line arguments.
+     * @param   array  $args  Command line arguments. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -68,7 +70,8 @@ class ActionStartup
      * @param   int    $id      The event ID.
      * @param   mixed  $ctrl    The control that triggered the event.
      * @param   mixed  $param1  Additional parameter 1.
-     * @param   mixed  $param2  Additional parameter 2.
+     * @param   mixed  $param2  Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {
@@ -260,7 +263,8 @@ class ActionStartup
 
     /**
      * Rotates the logs by archiving old logs and purging old archives.
-     * Enhanced with file lock checking to prevent permission denied errors.
+     * Enhanced with file lock checking to prevent permission denied errors. * @since 2022.2.16
+     
      */
     private function rotationLogs()
     {
@@ -474,7 +478,8 @@ class ActionStartup
     }
 
     /**
-     * Cleans temporary folders by removing unnecessary files.
+     * Cleans temporary folders by removing unnecessary files. * @since 2022.2.16
+     
      */
     private function cleanTmpFolders()
     {
@@ -489,7 +494,8 @@ class ActionStartup
     }
 
     /**
-     * Cleans old behaviors by removing outdated registry entries.
+     * Cleans old behaviors by removing outdated registry entries. * @since 2022.2.16
+     
      */
     private function cleanOldBehaviors()
     {
@@ -509,7 +515,8 @@ class ActionStartup
     }
 
     /**
-     * Kills old instances of Bearsampp processes.
+     * Kills old instances of Bearsampp processes. * @since 2022.2.16
+     
      */
     private function killOldInstances()
     {
@@ -544,7 +551,8 @@ class ActionStartup
     }
 
     /**
-     * Refreshes the hostname in the configuration.
+     * Refreshes the hostname in the configuration. * @since 2022.2.16
+     
      */
     private function refreshHostname()
     {
@@ -558,7 +566,8 @@ class ActionStartup
     }
 
     /**
-     * Checks and sets the launch startup configuration.
+     * Checks and sets the launch startup configuration. * @since 2022.2.16
+     
      */
     private function checkLaunchStartup()
     {
@@ -575,7 +584,8 @@ class ActionStartup
     }
 
     /**
-     * Checks and sets the default browser configuration.
+     * Checks and sets the default browser configuration. * @since 2022.2.16
+     
      */
     private function checkBrowser()
     {
@@ -592,7 +602,8 @@ class ActionStartup
     }
 
     /**
-     * Logs system information.
+     * Logs system information. * @since 2022.2.16
+     
      */
     private function sysInfos()
     {
@@ -606,7 +617,8 @@ class ActionStartup
     }
 
     /**
-     * Refreshes the aliases in the Apache configuration.
+     * Refreshes the aliases in the Apache configuration. * @since 2022.2.16
+     
      */
     private function refreshAliases()
     {
@@ -620,7 +632,8 @@ class ActionStartup
     }
 
     /**
-     * Refreshes the virtual hosts in the Apache configuration.
+     * Refreshes the virtual hosts in the Apache configuration. * @since 2022.2.16
+     
      */
     private function refreshVhosts()
     {
@@ -634,7 +647,8 @@ class ActionStartup
     }
 
     /**
-     * Checks the application path and logs the last path content.
+     * Checks the application path and logs the last path content. * @since 2022.2.16
+     
      */
     private function checkPath()
     {
@@ -647,7 +661,8 @@ class ActionStartup
     }
 
     /**
-     * Scans folders and logs the number of files to scan.
+     * Scans folders and logs the number of files to scan. * @since 2022.2.16
+     
      */
     private function scanFolders()
     {
@@ -661,7 +676,8 @@ class ActionStartup
     }
 
     /**
-     * Changes the application path and logs the number of files and occurrences changed.
+     * Changes the application path and logs the number of files and occurrences changed. * @since 2022.2.16
+     
      */
     private function changePath()
     {
@@ -676,7 +692,8 @@ class ActionStartup
     }
 
     /**
-     * Saves the current application path.
+     * Saves the current application path. * @since 2022.2.16
+     
      */
     private function savePath()
     {
@@ -687,7 +704,8 @@ class ActionStartup
     }
 
     /**
-     * Checks and updates the application path registry key.
+     * Checks and updates the application path registry key. * @since 2022.2.16
+     
      */
     private function checkPathRegKey()
     {
@@ -720,7 +738,8 @@ class ActionStartup
      * If the current registry key does not match the generated key, it updates the registry key.
      * Logs the current and generated registry keys.
      * Sets an error message if the registry key update fails.
-     * Sets a restart flag if the registry key is updated.
+     * Sets a restart flag if the registry key is updated. * @since 2022.2.16
+     
      */
     private function checkBinsRegKey()
     {
@@ -753,7 +772,8 @@ class ActionStartup
      * Ensures the application bins registry entry is at the beginning of the system PATH.
      * Logs the current and new system PATH.
      * Sets an error message if the system PATH update fails.
-     * Sets a restart flag if the system PATH is updated.
+     * Sets a restart flag if the system PATH is updated. * @since 2022.2.16
+     
      */
     private function checkSystemPathRegKey()
     {
@@ -792,7 +812,8 @@ class ActionStartup
 
     /**
      * Updates the configuration for bins, tools, and apps.
-     * Logs the update process.
+     * Logs the update process. * @since 2022.2.16
+     
      */
     private function updateConfig()
     {
@@ -809,7 +830,8 @@ class ActionStartup
 
     /**
      * Creates SSL certificates if they do not already exist.
-     * Logs the creation process.
+     * Logs the creation process. * @since 2022.2.16
+     
      */
     private function createSslCrts()
     {
@@ -825,7 +847,8 @@ class ActionStartup
     /**
      * Installs and starts services for the application.
      * Checks if services are already installed and updates them if necessary.
-     * Logs the installation process and any errors encountered.
+     * Logs the installation process and any errors encountered. * @since 2022.2.16
+     
      */
 
     private function installServices()
@@ -1106,7 +1129,8 @@ class ActionStartup
 
     /**
      * Refreshes Git repositories if the scan on startup is enabled.
-     * Logs the number of repositories found.
+     * Logs the number of repositories found. * @since 2022.2.16
+     
      */
     private function refreshGitRepos()
     {
@@ -1126,7 +1150,8 @@ class ActionStartup
      * Apache service checks can sometimes hang, so this method provides a safer way to check.
      *
      * @param object $service The Apache service object
-     * @return mixed Service info array or false if service not installed or check timed out
+     * @return mixed Service info array or false if service not installed or check timed out * @since 2022.2.16
+     
      */
     private function checkApacheServiceWithTimeout($service)
     {
@@ -1175,7 +1200,8 @@ class ActionStartup
      *
      * @param object $service The MySQL service object
      * @param object $bin The MySQL bin object
-     * @return mixed Service info array or false if service not installed or check timed out
+     * @return mixed Service info array or false if service not installed or check timed out * @since 2022.2.16
+     
      */
     private function checkMySQLServiceWithTimeout($service, $bin)
     {
@@ -1220,7 +1246,8 @@ class ActionStartup
     /**
      * Writes a log message to the startup log file.
      *
-     * @param   string  $log  The log message to write.
+     * @param   string  $log  The log message to write. * @since 2022.2.16
+     
      */
     private function writeLog($log)
     {

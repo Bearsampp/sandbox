@@ -13,7 +13,8 @@
  *
  * This class provides various utility functions for interacting with Windows processes.
  * It includes methods for retrieving process information, checking process existence,
- * finding processes by PID or path, and terminating processes.
+ * finding processes by PID or path, and terminating processes. * @since 2022.2.16
+     
  */
 class Win32Ps
 {
@@ -31,7 +32,8 @@ class Win32Ps
      * Calls a specified function if it exists.
      *
      * @param string $function The name of the function to call.
-     * @return mixed The result of the function call, or false if the function does not exist.
+     * @return mixed The result of the function call, or false if the function does not exist. * @since 2022.2.16
+     
      */
     private static function callWin32Ps($function)
     {
@@ -47,7 +49,8 @@ class Win32Ps
     /**
      * Retrieves the keys used for process information.
      *
-     * @return array An array of keys used for process information.
+     * @return array An array of keys used for process information. * @since 2022.2.16
+     
      */
     public static function getKeys()
     {
@@ -63,7 +66,8 @@ class Win32Ps
     /**
      * Retrieves the current process ID.
      *
-     * @return int The current process ID, or 0 if not found.
+     * @return int The current process ID, or 0 if not found. * @since 2022.2.16
+     
      */
     public static function getCurrentPid()
     {
@@ -74,7 +78,8 @@ class Win32Ps
     /**
      * Retrieves a list of running processes.
      *
-     * @return array|false An array of process information, or false on failure.
+     * @return array|false An array of process information, or false on failure. * @since 2022.2.16
+     
      */
     public static function getListProcs()
     {
@@ -84,7 +89,8 @@ class Win32Ps
     /**
      * Retrieves the status of the current process.
      *
-     * @return array|null An array containing the process ID and executable path, or null on failure.
+     * @return array|null An array containing the process ID and executable path, or null on failure. * @since 2022.2.16
+     
      */
     public static function getStatProc()
     {
@@ -104,7 +110,8 @@ class Win32Ps
      * Checks if a process with the specified PID exists.
      *
      * @param int $pid The process ID to check.
-     * @return bool True if the process exists, false otherwise.
+     * @return bool True if the process exists, false otherwise. * @since 2022.2.16
+     
      */
     public static function exists($pid)
     {
@@ -115,7 +122,8 @@ class Win32Ps
      * Finds a process by its PID.
      *
      * @param int $pid The process ID to find.
-     * @return array|false An array of process information, or false if not found.
+     * @return array|false An array of process information, or false if not found. * @since 2022.2.16
+     
      */
     public static function findByPid($pid)
     {
@@ -137,7 +145,8 @@ class Win32Ps
      * Finds a process by its executable path.
      *
      * @param string $path The path to the executable.
-     * @return array|false An array of process information, or false if not found.
+     * @return array|false An array of process information, or false if not found. * @since 2022.2.16
+     
      */
     public static function findByPath($path)
     {
@@ -160,7 +169,8 @@ class Win32Ps
     /**
      * Terminates a process by its PID.
      *
-     * @param int $pid The process ID to terminate.
+     * @param int $pid The process ID to terminate. * @since 2022.2.16
+     
      */
     public static function kill($pid)
     {
@@ -174,7 +184,8 @@ class Win32Ps
      * Terminates all Bearsampp-related processes except the current one.
      *
      * @param bool $refreshProcs Whether to refresh the list of processes before terminating.
-     * @return array An array of terminated processes.
+     * @return array An array of terminated processes. * @since 2022.2.16
+     
      */
     public static function killBins($refreshProcs = false)
     {

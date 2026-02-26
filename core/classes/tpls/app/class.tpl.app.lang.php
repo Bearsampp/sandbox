@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate and manage language-related menu items and actions
  * within the Bearsampp application. It includes functionalities for creating language switch
- * actions and processing language menus.
+ * actions and processing language menus. * @since 2022.2.16
+     
  */
 class TplAppLang
 {
@@ -27,7 +28,8 @@ class TplAppLang
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated language menu and actions.
+     * @return array The generated language menu and actions. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -45,7 +47,8 @@ class TplAppLang
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated language menu items and actions.
+     * @return string The generated language menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuLang()
     {
@@ -79,7 +82,8 @@ class TplAppLang
      *
      * @param string $lang The language code to switch to.
      *
-     * @return string The generated action string for switching the language.
+     * @return string The generated action string for switching the language. * @since 2022.2.16
+     
      */
     public static function getActionSwitchLang($lang)
     {

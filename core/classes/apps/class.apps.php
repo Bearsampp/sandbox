@@ -11,27 +11,32 @@
  * Class Apps
  *
  * This class manages various application modules within the Bearsampp application.
- * It provides methods to retrieve and update configurations for different tools such as PhpMyAdmin and PhpPgAdmin.
+ * It provides methods to retrieve and update configurations for different tools such as PhpMyAdmin and PhpPgAdmin. * @since 2022.2.16
+     
  */
 class Apps
 {
     /**
-     * The type of the module.
+     * The type of the module. * @since 2022.2.16
+     
      */
     const TYPE = 'apps';
 
     /**
-     * @var AppPhpmyadmin|null Instance of the PhpMyAdmin module.
+     * @var AppPhpmyadmin|null Instance of the PhpMyAdmin module. * @since 2022.2.16
+     
      */
     private $phpmyadmin;
 
     /**
-     * @var AppPhppgadmin|null Instance of the PhpPgAdmin module.
+     * @var AppPhppgadmin|null Instance of the PhpPgAdmin module. * @since 2022.2.16
+     
      */
     private $phppgadmin;
 
     /**
-     * Constructor for the Apps class.
+     * Constructor for the Apps class. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -40,7 +45,8 @@ class Apps
     /**
      * Reloads the configuration for all application modules.
      *
-     * This method logs the reload process and iterates through all the apps to reload their configurations.
+     * This method logs the reload process and iterates through all the apps to reload their configurations. * @since 2022.2.16
+     
      */
     public function reload()
     {
@@ -53,7 +59,8 @@ class Apps
     /**
      * Updates the configuration for all application modules.
      *
-     * This method logs the update process and iterates through all the tools to update their configurations.
+     * This method logs the update process and iterates through all the tools to update their configurations. * @since 2022.2.16
+     
      */
     public function update()
     {
@@ -66,7 +73,8 @@ class Apps
     /**
      * Retrieves all application modules.
      *
-     * @return array An array containing instances of all application modules.
+     * @return array An array containing instances of all application modules. * @since 2022.2.16
+     
      */
     public function getAll()
     {
@@ -81,7 +89,8 @@ class Apps
      *
      * If the instance is not already created, it initializes a new AppPhpmyadmin object.
      *
-     * @return AppPhpmyadmin The instance of the PhpMyAdmin module.
+     * @return AppPhpmyadmin The instance of the PhpMyAdmin module. * @since 2022.2.16
+     
      */
     public function getPhpmyadmin()
     {
@@ -96,7 +105,8 @@ class Apps
      *
      * If the instance is not already created, it initializes a new AppPhppgadmin object.
      *
-     * @return AppPhppgadmin The instance of the PhpPgAdmin module.
+     * @return AppPhppgadmin The instance of the PhpPgAdmin module. * @since 2022.2.16
+     
      */
     public function getPhppgadmin()
     {

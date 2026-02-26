@@ -12,7 +12,8 @@
  *
  * This class provides methods to handle the online/offline status of the Bearsampp application.
  * It includes functionalities for generating actions and menu items to switch the application
- * between online and offline states.
+ * between online and offline states. * @since 2022.2.16
+     
  */
 class TplAppOnline
 {
@@ -29,7 +30,8 @@ class TplAppOnline
      * @global object $bearsamppConfig Provides access to the application's configuration settings.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated menu item and actions for switching the online/offline status.
+     * @return array The generated menu item and actions for switching the online/offline status. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -51,7 +53,8 @@ class TplAppOnline
      *
      * @param int $status The status to switch to (enabled or disabled).
      *
-     * @return string The generated action string for switching the online/offline status.
+     * @return string The generated action string for switching the online/offline status. * @since 2022.2.16
+     
      */
     public static function getActionStatus($status)
     {

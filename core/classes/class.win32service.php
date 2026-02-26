@@ -12,7 +12,8 @@
  * Class Win32Service
  *
  * This class provides an interface to manage Windows services. It includes methods to create, delete, start, stop, and query the status of services.
- * It also handles logging and error reporting for service operations.
+ * It also handles logging and error reporting for service operations. * @since 2022.2.16
+     
  */
 class Win32Service
 {
@@ -91,7 +92,8 @@ class Win32Service
     /**
      * Constructor for the Win32Service class.
      *
-     * @param   string  $name  The name of the service.
+     * @param   string  $name  The name of the service. * @since 2022.2.16
+     
      */
     public function __construct($name)
     {
@@ -102,7 +104,8 @@ class Win32Service
     /**
      * Writes a log entry.
      *
-     * @param   string  $log  The log message.
+     * @param   string  $log  The log message. * @since 2022.2.16
+     
      */
     private function writeLog($log): void
     {
@@ -113,7 +116,8 @@ class Win32Service
     /**
      * Returns an array of VBS keys used for service information.
      *
-     * @return array The array of VBS keys.
+     * @return array The array of VBS keys. * @since 2022.2.16
+     
      */
     public static function getVbsKeys(): array
     {
@@ -133,7 +137,8 @@ class Win32Service
      * @param   mixed   $param       The parameter to pass to the function.
      * @param   bool    $checkError  Whether to check for errors.
      *
-     * @return mixed The result of the function call.
+     * @return mixed The result of the function call. * @since 2022.2.16
+     
      */
     private function callWin32Service($function, $param, $checkError = false): mixed
     {
@@ -246,7 +251,8 @@ class Win32Service
      *
      * @param   bool  $timeout  Whether to use a timeout.
      *
-     * @return string The status of the service.
+     * @return string The status of the service. * @since 2022.2.16
+     
      */
     public function status($timeout = true): string
     {
@@ -346,7 +352,8 @@ class Win32Service
     /**
      * Creates the service.
      *
-     * @return bool True if the service was created successfully, false otherwise.
+     * @return bool True if the service was created successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function create(): bool
     {
@@ -448,7 +455,8 @@ class Win32Service
     /**
      * Deletes the service.
      *
-     * @return bool True if the service was deleted successfully, false otherwise.
+     * @return bool True if the service was deleted successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function delete(): bool
     {
@@ -493,7 +501,8 @@ class Win32Service
     /**
      * Resets the service by deleting and recreating it.
      *
-     * @return bool True if the service was reset successfully, false otherwise.
+     * @return bool True if the service was reset successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function reset(): bool
     {
@@ -509,7 +518,8 @@ class Win32Service
     /**
      * Starts the service.
      *
-     * @return bool True if the service was started successfully, false otherwise.
+     * @return bool True if the service was started successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function start(): bool
     {
@@ -596,7 +606,8 @@ class Win32Service
     /**
      * Stops the service.
      *
-     * @return bool True if the service was stopped successfully, false otherwise.
+     * @return bool True if the service was stopped successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function stop(): bool
     {
@@ -631,7 +642,8 @@ class Win32Service
     /**
      * Restarts the service by stopping and then starting it.
      *
-     * @return bool True if the service was restarted successfully, false otherwise.
+     * @return bool True if the service was restarted successfully, false otherwise. * @since 2022.2.16
+     
      */
     public function restart(): bool
     {
@@ -645,7 +657,8 @@ class Win32Service
     /**
      * Retrieves information about the service.
      *
-     * @return array|false The service information, or false on failure.
+     * @return array|false The service information, or false on failure. * @since 2022.2.16
+     
      */
     public function infos()
     {
@@ -695,7 +708,8 @@ class Win32Service
     /**
      * Checks if the service is installed.
      *
-     * @return bool True if the service is installed, false otherwise.
+     * @return bool True if the service is installed, false otherwise. * @since 2022.2.16
+     
      */
     public function isInstalled(): bool
     {
@@ -736,7 +750,8 @@ class Win32Service
     /**
      * Checks if the service is running.
      *
-     * @return bool True if the service is running, false otherwise.
+     * @return bool True if the service is running, false otherwise. * @since 2022.2.16
+     
      */
     public function isRunning(): bool
     {
@@ -754,7 +769,8 @@ class Win32Service
     /**
      * Checks if the service is stopped.
      *
-     * @return bool True if the service is stopped, false otherwise.
+     * @return bool True if the service is stopped, false otherwise. * @since 2022.2.16
+     
      */
     public function isStopped(): bool
     {
@@ -772,7 +788,8 @@ class Win32Service
     /**
      * Checks if the service is paused.
      *
-     * @return bool True if the service is paused, false otherwise.
+     * @return bool True if the service is paused, false otherwise. * @since 2022.2.16
+     
      */
     public function isPaused(): bool
     {
@@ -792,7 +809,8 @@ class Win32Service
      *
      * @param   string  $status  The status to check.
      *
-     * @return bool True if the service is in a pending state, false otherwise.
+     * @return bool True if the service is in a pending state, false otherwise. * @since 2022.2.16
+     
      */
     public function isPending($status): bool
     {
@@ -821,7 +839,8 @@ class Win32Service
      *
      * @param   string  $status  The status code.
      *
-     * @return string|null The status description.
+     * @return string|null The status description. * @since 2022.2.16
+     
      */
     private function getWin32ServiceStatusDesc($status): ?string
     {
@@ -860,7 +879,8 @@ class Win32Service
      *
      * @param   string  $code  The error code.
      *
-     * @return string|null The description of the error code, or null if the code is not recognized.
+     * @return string|null The description of the error code, or null if the code is not recognized. * @since 2022.2.16
+     
      */
     private function getWin32ErrorCodeDesc($code): ?string
     {
@@ -876,7 +896,8 @@ class Win32Service
     /**
      * Gets the name of the service.
      *
-     * @return string The name of the service.
+     * @return string The name of the service. * @since 2022.2.16
+     
      */
     public function getName(): string
     {
@@ -886,7 +907,8 @@ class Win32Service
     /**
      * Sets the name of the service.
      *
-     * @param   string  $name  The name to set.
+     * @param   string  $name  The name to set. * @since 2022.2.16
+     
      */
     public function setName($name): void
     {
@@ -896,7 +918,8 @@ class Win32Service
     /**
      * Gets the display name of the service.
      *
-     * @return string The display name of the service.
+     * @return string The display name of the service. * @since 2022.2.16
+     
      */
     public function getDisplayName(): string
     {
@@ -906,7 +929,8 @@ class Win32Service
     /**
      * Sets the display name of the service.
      *
-     * @param   string  $displayName  The display name to set.
+     * @param   string  $displayName  The display name to set. * @since 2022.2.16
+     
      */
     public function setDisplayName($displayName): void
     {
@@ -916,7 +940,8 @@ class Win32Service
     /**
      * Gets the binary path of the service.
      *
-     * @return string The binary path of the service.
+     * @return string The binary path of the service. * @since 2022.2.16
+     
      */
     public function getBinPath(): string
     {
@@ -926,7 +951,8 @@ class Win32Service
     /**
      * Sets the binary path of the service.
      *
-     * @param   string  $binPath  The binary path to set.
+     * @param   string  $binPath  The binary path to set. * @since 2022.2.16
+     
      */
     public function setBinPath($binPath): void
     {
@@ -936,7 +962,8 @@ class Win32Service
     /**
      * Gets the parameters for the service.
      *
-     * @return string The parameters for the service.
+     * @return string The parameters for the service. * @since 2022.2.16
+     
      */
     public function getParams(): string
     {
@@ -946,7 +973,8 @@ class Win32Service
     /**
      * Sets the parameters for the service.
      *
-     * @param   string  $params  The parameters to set.
+     * @param   string  $params  The parameters to set. * @since 2022.2.16
+     
      */
     public function setParams($params): void
     {
@@ -956,7 +984,8 @@ class Win32Service
     /**
      * Gets the start type of the service.
      *
-     * @return string The start type of the service.
+     * @return string The start type of the service. * @since 2022.2.16
+     
      */
     public function getStartType(): string
     {
@@ -966,7 +995,8 @@ class Win32Service
     /**
      * Sets the start type of the service.
      *
-     * @param   string  $startType  The start type to set.
+     * @param   string  $startType  The start type to set. * @since 2022.2.16
+     
      */
     public function setStartType($startType): void
     {
@@ -976,7 +1006,8 @@ class Win32Service
     /**
      * Gets the error control setting of the service.
      *
-     * @return string The error control setting of the service.
+     * @return string The error control setting of the service. * @since 2022.2.16
+     
      */
     public function getErrorControl(): string
     {
@@ -986,7 +1017,8 @@ class Win32Service
     /**
      * Sets the error control setting of the service.
      *
-     * @param   string  $errorControl  The error control setting to set.
+     * @param   string  $errorControl  The error control setting to set. * @since 2022.2.16
+     
      */
     public function setErrorControl($errorControl): void
     {
@@ -996,7 +1028,8 @@ class Win32Service
     /**
      * Gets the NSSM instance associated with the service.
      *
-     * @return Nssm The NSSM instance.
+     * @return Nssm The NSSM instance. * @since 2022.2.16
+     
      */
     public function getNssm()
     {
@@ -1006,7 +1039,8 @@ class Win32Service
     /**
      * Sets the NSSM instance associated with the service.
      *
-     * @param   Nssm  $nssm  The NSSM instance to set.
+     * @param   Nssm  $nssm  The NSSM instance to set. * @since 2022.2.16
+     
      */
     public function setNssm($nssm)
     {
@@ -1022,7 +1056,8 @@ class Win32Service
     /**
      * Gets the latest status of the service.
      *
-     * @return string The latest status of the service.
+     * @return string The latest status of the service. * @since 2022.2.16
+     
      */
     public function getLatestStatus()
     {
@@ -1032,7 +1067,8 @@ class Win32Service
     /**
      * Gets the latest error encountered by the service.
      *
-     * @return string The latest error encountered by the service.
+     * @return string The latest error encountered by the service. * @since 2022.2.16
+     
      */
     public function getLatestError()
     {
@@ -1042,7 +1078,8 @@ class Win32Service
     /**
      * Gets a detailed error message for the latest error encountered by the service.
      *
-     * @return string|null The detailed error message, or null if no error.
+     * @return string|null The detailed error message, or null if no error. * @since 2022.2.16
+     
      */
     public function getError()
     {

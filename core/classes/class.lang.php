@@ -15,7 +15,8 @@
  * within the Bearsampp application. The constants are categorized into various
  * sections such as General, Single, Menu, Bins, Apps, Tools, Errors, Actions,
  * Windows forms, and Homepage. Each constant represents a key that can be used
- * to retrieve localized strings from a language file or database.
+ * to retrieve localized strings from a language file or database. * @since 2022.2.16
+     
  */
 class Lang
 {
@@ -386,7 +387,8 @@ class Lang
      * These constants are used as keys for localization and internationalization
      * purposes within the Bearsampp application.
      *
-     * @return array An array of all the localization keys.
+     * @return array An array of all the localization keys. * @since 2022.2.16
+     
      */
     public static function getKeys()
     {

@@ -11,12 +11,14 @@
  * Class TplAppApps
  *
  * This class provides methods to generate and manage the "Apps" menu within the Bearsampp application.
- * It includes functionalities for creating the menu and adding specific application links.
+ * It includes functionalities for creating the menu and adding specific application links. * @since 2022.2.16
+     
  */
 class TplAppApps
 {
     /**
-     * Constant representing the menu identifier for apps.
+     * Constant representing the menu identifier for apps. * @since 2022.2.16
+     
      */
     const MENU = 'apps';
 
@@ -27,7 +29,8 @@ class TplAppApps
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array An array containing the call string and the menu content.
+     * @return array An array containing the call string and the menu content. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -44,7 +47,8 @@ class TplAppApps
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated menu content as a concatenated string.
+     * @return string The generated menu content as a concatenated string. * @since 2022.2.16
+     
      */
     public static function getMenuApps()
     {

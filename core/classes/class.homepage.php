@@ -12,7 +12,8 @@
  * Class Homepage
  *
  * This class handles the homepage functionalities of the Bearsampp application.
- * It manages the page navigation, resource paths, and content refresh operations.
+ * It manages the page navigation, resource paths, and content refresh operations. * @since 2022.2.16
+     
  */
 class Homepage
 {
@@ -22,7 +23,8 @@ class Homepage
     private $page;
 
     /**
-     * @var array List of valid pages for the homepage.
+     * @var array List of valid pages for the homepage. * @since 2022.2.16
+     
      */
     private $pageList = array(
         self::PAGE_INDEX,
@@ -31,7 +33,8 @@ class Homepage
 
     /**
      * Homepage constructor.
-     * Initializes the homepage class and sets the current page based on the query parameter.
+     * Initializes the homepage class and sets the current page based on the query parameter. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -44,7 +47,8 @@ class Homepage
     /**
      * Gets the current page.
      *
-     * @return string The current page.
+     * @return string The current page. * @since 2022.2.16
+     
      */
     public function getPage()
     {
@@ -55,7 +59,8 @@ class Homepage
      * Constructs the page query string based on the provided query.
      *
      * @param string $query The query string to construct.
-     * @return string The constructed page query string.
+     * @return string The constructed page query string. * @since 2022.2.16
+     
      */
     public function getPageQuery($query)
     {
@@ -74,7 +79,8 @@ class Homepage
      * Constructs the full URL for the given page query.
      *
      * @param string $query The query string to construct the URL for.
-     * @return string The constructed page URL.
+     * @return string The constructed page URL. * @since 2022.2.16
+     
      */
     public function getPageUrl($query)
     {
@@ -85,7 +91,8 @@ class Homepage
     /**
      * Gets the path to the homepage directory.
      *
-     * @return string The homepage directory path.
+     * @return string The homepage directory path. * @since 2022.2.16
+     
      */
     public function getHomepagePath()
     {
@@ -96,7 +103,8 @@ class Homepage
     /**
      * Gets the path to the images directory.
      *
-     * @return string The images directory path.
+     * @return string The images directory path. * @since 2022.2.16
+     
      */
     public function getImagesPath()
     {
@@ -106,7 +114,8 @@ class Homepage
     /**
      * Gets the path to the icons directory.
      *
-     * @return string The icons directory path.
+     * @return string The icons directory path. * @since 2022.2.16
+     
      */
     public function getIconsPath()
     {
@@ -116,7 +125,8 @@ class Homepage
     /**
      * Gets the path to the resources directory.
      *
-     * @return string The resources directory path.
+     * @return string The resources directory path. * @since 2022.2.16
+     
      */
     public function getResourcesPath()
     {
@@ -127,7 +137,8 @@ class Homepage
     /**
      * Gets the URL to the resources directory.
      *
-     * @return string The resources directory URL.
+     * @return string The resources directory URL. * @since 2022.2.16
+     
      */
     public function getResourcesUrl()
     {
@@ -138,7 +149,8 @@ class Homepage
     /**
      * Refreshes the alias content by updating the alias configuration file.
      *
-     * @return bool True if the alias content was successfully refreshed, false otherwise.
+     * @return bool True if the alias content was successfully refreshed, false otherwise. * @since 2022.2.16
+     
      */
     public function refreshAliasContent()
     {
@@ -153,7 +165,8 @@ class Homepage
     }
 
     /**
-     * Refreshes the commons JavaScript content by updating the _commons.js file.
+     * Refreshes the commons JavaScript content by updating the _commons.js file. * @since 2022.2.16
+     
      */
     public function refreshCommonsJsContent()
     {

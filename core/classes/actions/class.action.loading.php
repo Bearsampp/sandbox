@@ -11,26 +11,33 @@
 /**
  * Class ActionLoading
  *
- * This class handles the loading action, including the creation and management of a progress bar window.
+ * This class handles the loading action, including the creation and management of a progress bar window. * @since 2022.2.16
+     
  */
 class ActionLoading
 {
-    /** @var int The width of the progress bar window. */
+    /** @var int The width of the progress bar window. * @since 2022.2.16
+      */
     const WINDOW_WIDTH = 360;
 
-    /** @var int The height of the progress bar window. */
+    /** @var int The height of the progress bar window. * @since 2022.2.16
+      */
     const WINDOW_HEIGHT = 90;
 
-    /** @var int The maximum value of the progress bar. */
+    /** @var int The maximum value of the progress bar. * @since 2022.2.16
+      */
     const GAUGE = 20;
 
-    /** @var mixed The window object created by WinBinder. */
+    /** @var mixed The window object created by WinBinder. * @since 2022.2.16
+      */
     private $wbWindow;
 
-    /** @var mixed The label control for displaying status text. */
+    /** @var mixed The label control for displaying status text. * @since 2022.2.16
+      */
     private $wbLabel;
 
-    /** @var mixed The progress bar object created by WinBinder. */
+    /** @var mixed The progress bar object created by WinBinder. * @since 2022.2.16
+      */
     private $wbProgressBar;
 
     /**
@@ -38,7 +45,8 @@ class ActionLoading
      *
      * Initializes the loading action, creates the progress bar window, and starts the main loop.
      *
-     * @param array $args The arguments passed to the constructor.
+     * @param array $args The arguments passed to the constructor. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -101,7 +109,8 @@ class ActionLoading
     /**
      * Increments the progress bar by a specified number of steps.
      *
-     * @param int $nb The number of steps to increment the progress bar by. Default is 1.
+     * @param int $nb The number of steps to increment the progress bar by. Default is 1. * @since 2022.2.16
+     
      */
     public function incrProgressBar($nb = 1)
     {
@@ -123,7 +132,8 @@ class ActionLoading
      * @param int $id The ID of the event.
      * @param mixed $ctrl The control object.
      * @param mixed $param1 The first parameter of the event.
-     * @param mixed $param2 The second parameter of the event.
+     * @param mixed $param2 The second parameter of the event. * @since 2022.2.16
+     
      */
     public function processLoading($window, $id, $ctrl, $param1, $param2)
     {
@@ -185,7 +195,8 @@ class ActionLoading
     /**
      * Updates the loading text on the window
      * 
-     * @param string $text The text to display
+     * @param string $text The text to display * @since 2022.2.16
+     
      */
     private function updateLoadingText($text)
     {
@@ -199,7 +210,8 @@ class ActionLoading
 
     /**
      * Updates the label text from status file if it exists
-     * This allows external processes to update the loading screen text dynamically
+     * This allows external processes to update the loading screen text dynamically * @since 2022.2.16
+     
      */
     private function updateLabelFromStatusFile()
     {
@@ -223,7 +235,8 @@ class ActionLoading
     /**
      * Checks if all services have started successfully
      * 
-     * @return bool True if all services are running, false otherwise
+     * @return bool True if all services are running, false otherwise * @since 2022.2.16
+     
      */
     private function checkAllServicesStarted()
     {

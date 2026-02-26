@@ -10,14 +10,16 @@
 /**
  * Class ActionSwitchLang
  *
- * This class handles the action of switching the language configuration for the Bearsampp application.
+ * This class handles the action of switching the language configuration for the Bearsampp application. * @since 2022.2.16
+     
  */
 class ActionSwitchLang
 {
     /**
      * ActionSwitchLang constructor.
      *
-     * @param array $args An array of arguments where the first element is expected to be the new language code.
+     * @param array $args An array of arguments where the first element is expected to be the new language code. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

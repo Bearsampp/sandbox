@@ -9,67 +9,80 @@
 
 /**
  * Class ActionChangeDbRootPwd
- * Handles the process of changing the root password for various database systems.
+ * Handles the process of changing the root password for various database systems. * @since 2022.2.16
+     
  */
 class ActionChangeDbRootPwd
 {
     /**
-     * @var object The database binary object (MySQL, MariaDB, PostgreSQL).
+     * @var object The database binary object (MySQL, MariaDB, PostgreSQL). * @since 2022.2.16
+     
      */
     private $bin;
 
     /**
-     * @var int The count of process actions required for the progress bar.
+     * @var int The count of process actions required for the progress bar. * @since 2022.2.16
+     
      */
     private $cntProcessActions;
 
     /**
-     * @var object The main window object created by WinBinder.
+     * @var object The main window object created by WinBinder. * @since 2022.2.16
+     
      */
     private $wbWindow;
 
     /**
-     * @var object The label for the current password input field.
+     * @var object The label for the current password input field. * @since 2022.2.16
+     
      */
     private $wbLabelCurrentPwd;
 
     /**
-     * @var object The input field for the current password.
+     * @var object The input field for the current password. * @since 2022.2.16
+     
      */
     private $wbInputCurrentPwd;
 
     /**
-     * @var object The label for the new password input field.
+     * @var object The label for the new password input field. * @since 2022.2.16
+     
      */
     private $wbLabelNewPwd1;
 
     /**
-     * @var object The input field for the new password.
+     * @var object The input field for the new password. * @since 2022.2.16
+     
      */
     private $wbInputNewPwd1;
 
     /**
-     * @var object The label for the confirmation of the new password input field.
+     * @var object The label for the confirmation of the new password input field. * @since 2022.2.16
+     
      */
     private $wbLabelNewPwd2;
 
     /**
-     * @var object The input field for the confirmation of the new password.
+     * @var object The input field for the confirmation of the new password. * @since 2022.2.16
+     
      */
     private $wbInputNewPwd2;
 
     /**
-     * @var object The progress bar to show the progress of the password change process.
+     * @var object The progress bar to show the progress of the password change process. * @since 2022.2.16
+     
      */
     private $wbProgressBar;
 
     /**
-     * @var object The finish button to submit the password change.
+     * @var object The finish button to submit the password change. * @since 2022.2.16
+     
      */
     private $wbBtnFinish;
 
     /**
-     * @var object The cancel button to abort the password change process.
+     * @var object The cancel button to abort the password change process. * @since 2022.2.16
+     
      */
     private $wbBtnCancel;
 
@@ -77,7 +90,8 @@ class ActionChangeDbRootPwd
      * ActionChangeDbRootPwd constructor.
      * Initializes the window and controls for changing the database root password.
      *
-     * @param array $args The arguments passed to the constructor, typically containing the database type.
+     * @param array $args The arguments passed to the constructor, typically containing the database type. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {
@@ -124,7 +138,8 @@ class ActionChangeDbRootPwd
      * @param int $id The control ID that triggered the event.
      * @param object $ctrl The control object that triggered the event.
      * @param mixed $param1 Additional parameter 1.
-     * @param mixed $param2 Additional parameter 2.
+     * @param mixed $param2 Additional parameter 2. * @since 2022.2.16
+     
      */
     public function processWindow($window, $id, $ctrl, $param1, $param2)
     {

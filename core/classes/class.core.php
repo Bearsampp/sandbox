@@ -13,7 +13,8 @@
  *
  * This class provides core functionalities and constants for the Bearsampp application.
  * It includes methods for retrieving paths, managing application versions, and handling
- * various executable files and configurations.
+ * various executable files and configurations. * @since 2022.2.16
+     
  */
 class Core
 {
@@ -41,7 +42,8 @@ class Core
     /**
      * Core constructor.
      *
-     * Loads the WinBinder extension if available.
+     * Loads the WinBinder extension if available. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -55,7 +57,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the language files.
+     * @return string The path to the language files. * @since 2022.2.16
+     
      */
     public function getLangsPath($aetrayPath = false)
     {
@@ -69,7 +72,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the libraries.
+     * @return string The path to the libraries. * @since 2022.2.16
+     
      */
     public function getLibsPath($aetrayPath = false)
     {
@@ -83,7 +87,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the resources.
+     * @return string The path to the resources. * @since 2022.2.16
+     
      */
     public function getResourcesPath($aetrayPath = false)
     {
@@ -97,7 +102,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the icons.
+     * @return string The path to the icons. * @since 2022.2.16
+     
      */
     public function getIconsPath($aetrayPath = false)
     {
@@ -109,7 +115,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the images.
+     * @return string The path to the images. * @since 2022.2.16
+     
      */
     public function getImagesPath($aetrayPath = false)
     {
@@ -123,7 +130,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the scripts.
+     * @return string The path to the scripts. * @since 2022.2.16
+     
      */
     public function getScriptsPath($aetrayPath = false)
     {
@@ -147,7 +155,8 @@ class Core
      *
      * @param   string  $type  The type of script.
      *
-     * @return string The path to the script.
+     * @return string The path to the script. * @since 2022.2.16
+     
      */
     public function getScript($type)
     {
@@ -159,7 +168,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the temporary directory.
+     * @return string The path to the temporary directory. * @since 2022.2.16
+     
      */
     public function getTmpPath($aetrayPath = false)
     {
@@ -173,7 +183,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the root file.
+     * @return string The path to the root file. * @since 2022.2.16
+     
      */
     public function getisRootFilePath($aetrayPath = false)
     {
@@ -185,7 +196,8 @@ class Core
     /**
      * Retrieves the application version.
      *
-     * @return string|null The application version or null if not found.
+     * @return string|null The application version or null if not found. * @since 2022.2.16
+     
      */
     public function getAppVersion()
     {
@@ -206,7 +218,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the last path file.
+     * @return string The path to the last path file. * @since 2022.2.16
+     
      */
     public function getLastPath($aetrayPath = false)
     {
@@ -216,7 +229,8 @@ class Core
     /**
      * Retrieves the content of the last path file.
      *
-     * @return string|false The content of the last path file or false on failure.
+     * @return string|false The content of the last path file or false on failure. * @since 2022.2.16
+     
      */
     public function getLastPathContent()
     {
@@ -228,7 +242,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the exec file.
+     * @return string The path to the exec file. * @since 2022.2.16
+     
      */
     public function getExec($aetrayPath = false)
     {
@@ -238,7 +253,8 @@ class Core
     /**
      * Sets the content of the exec file.
      *
-     * @param   string  $action  The content to set in the exec file.
+     * @param   string  $action  The content to set in the exec file. * @since 2022.2.16
+     
      */
     public function setExec($action)
     {
@@ -250,7 +266,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the loading PID file.
+     * @return string The path to the loading PID file. * @since 2022.2.16
+     
      */
     public function getLoadingPid($aetrayPath = false)
     {
@@ -260,7 +277,8 @@ class Core
     /**
      * Adds a PID to the loading PID file.
      *
-     * @param   int  $pid  The PID to add.
+     * @param   int  $pid  The PID to add. * @since 2022.2.16
+     
      */
     public function addLoadingPid($pid)
     {
@@ -272,7 +290,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the PHP directory.
+     * @return string The path to the PHP directory. * @since 2022.2.16
+     
      */
     public function getPhpPath($aetrayPath = false)
     {
@@ -284,7 +303,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the PHP executable.
+     * @return string The path to the PHP executable. * @since 2022.2.16
+     
      */
     public function getPhpExe($aetrayPath = false)
     {
@@ -296,7 +316,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the SetEnv directory.
+     * @return string The path to the SetEnv directory. * @since 2022.2.16
+     
      */
     public function getSetEnvPath($aetrayPath = false)
     {
@@ -308,7 +329,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the SetEnv executable.
+     * @return string The path to the SetEnv executable. * @since 2022.2.16
+     
      */
     public function getSetEnvExe($aetrayPath = false)
     {
@@ -320,7 +342,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the NSSM directory.
+     * @return string The path to the NSSM directory. * @since 2022.2.16
+     
      */
     public function getNssmPath($aetrayPath = false)
     {
@@ -332,7 +355,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the NSSM executable.
+     * @return string The path to the NSSM executable. * @since 2022.2.16
+     
      */
     public function getNssmExe($aetrayPath = false)
     {
@@ -344,7 +368,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the OpenSSL directory.
+     * @return string The path to the OpenSSL directory. * @since 2022.2.16
+     
      */
     public function getOpenSslPath($aetrayPath = false)
     {
@@ -356,7 +381,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the OpenSSL executable.
+     * @return string The path to the OpenSSL executable. * @since 2022.2.16
+     
      */
     public function getOpenSslExe($aetrayPath = false)
     {
@@ -368,7 +394,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the OpenSSL configuration file.
+     * @return string The path to the OpenSSL configuration file. * @since 2022.2.16
+     
      */
     public function getOpenSslConf($aetrayPath = false)
     {
@@ -380,7 +407,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the HostsEditor directory.
+     * @return string The path to the HostsEditor directory. * @since 2022.2.16
+     
      */
     public function getHostsEditorPath($aetrayPath = false)
     {
@@ -392,7 +420,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the HostsEditor executable.
+     * @return string The path to the HostsEditor executable. * @since 2022.2.16
+     
      */
     public function getHostsEditorExe($aetrayPath = false)
     {
@@ -404,7 +433,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the LN directory.
+     * @return string The path to the LN directory. * @since 2022.2.16
+     
      */
     public function getLnPath($aetrayPath = false)
     {
@@ -416,7 +446,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the LN executable.
+     * @return string The path to the LN executable. * @since 2022.2.16
+     
      */
     public function getLnExe($aetrayPath = false)
     {
@@ -428,7 +459,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the PWGen directory.
+     * @return string The path to the PWGen directory. * @since 2022.2.16
+     
      */
     public function getPwgenPath($aetrayPath = false)
     {
@@ -440,7 +472,8 @@ class Core
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
      *
-     * @return string The path to the PWGen executable.
+     * @return string The path to the PWGen executable. * @since 2022.2.16
+     
      */
     public function getPwgenExe($aetrayPath = false)
     {
@@ -450,7 +483,8 @@ class Core
     /**
      * Provides a string representation of the core object.
      *
-     * @return string A string describing the core object.
+     * @return string A string describing the core object. * @since 2022.2.16
+     
      */
     public function __toString()
     {
@@ -475,7 +509,8 @@ class Core
      * @return array|false An array containing the result of the extraction on success or failure:
      *                     - On success: ['success' => true, 'numFiles' => int]
      *                     - On failure: ['error' => string, 'numFiles' => int]
-     *                     - Returns false if the 7-Zip executable is not found.
+     *                     - Returns false if the 7-Zip executable is not found. * @since 2022.2.16
+     
      */
     public function unzipFile($filePath, $destination, $progressCallback = null)
     {
@@ -601,7 +636,8 @@ class Core
      * @param   string  $filePath     The path where the file content should be saved.
      * @param   bool    $progressBar  Optional. Whether to display a progress bar during the download process. Default is false.
      *
-     * @return array Returns the file path if successful, or an array with an error message if an error occurs.
+     * @return array Returns the file path if successful, or an array with an error message if an error occurs. * @since 2022.2.16
+     
      */
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
     {

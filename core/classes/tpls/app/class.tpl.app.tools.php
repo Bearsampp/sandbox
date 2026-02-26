@@ -13,7 +13,8 @@
  *
  * This class provides methods to generate menu items and actions for managing various tools
  * within the Bearsampp application. It includes functionalities for accessing tools like Git, Python,
- * Composer, Ghostscript, Ngrok, Pear, Perl, Ruby and more.
+ * Composer, Ghostscript, Ngrok, Pear, Perl, Ruby and more. * @since 2022.2.16
+     
  */
 class TplAppTools
 {
@@ -26,7 +27,8 @@ class TplAppTools
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return array The generated menu items and actions for Tools.
+     * @return array The generated menu items and actions for Tools. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -42,7 +44,8 @@ class TplAppTools
      * @global object $bearsamppCore Provides access to core functionalities and configurations.
      * @global object $bearsamppTools Provides access to various tools and their configurations.
      *
-     * @return string The generated menu items and actions for Tools.
+     * @return string The generated menu items and actions for Tools. * @since 2022.2.16
+     
      */
     public static function getMenuTools()
     {
@@ -164,7 +167,8 @@ class TplAppTools
     /**
      * Generates the action to generate an SSL certificate.
      *
-     * @return string The generated action to generate an SSL certificate.
+     * @return string The generated action to generate an SSL certificate. * @since 2022.2.16
+     
      */
     public static function getActionGenSslCertificate()
     {

@@ -10,7 +10,8 @@
 /**
  * Class ActionSwitchPhpExtension
  *
- * This class is responsible for enabling or disabling PHP extensions by modifying the php.ini configuration file.
+ * This class is responsible for enabling or disabling PHP extensions by modifying the php.ini configuration file. * @since 2022.2.16
+     
  */
 class ActionSwitchPhpExtension
 {
@@ -20,7 +21,8 @@ class ActionSwitchPhpExtension
     /**
      * ActionSwitchPhpExtension constructor.
      *
-     * @param   array  $args  An array containing the extension name and the action (on/off).
+     * @param   array  $args  An array containing the extension name and the action (on/off). * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

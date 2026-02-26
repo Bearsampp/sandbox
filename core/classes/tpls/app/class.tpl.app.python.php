@@ -13,7 +13,8 @@
  *
  * This class provides methods to generate menu items and actions for managing Python tools
  * within the Bearsampp application. It includes functionalities for accessing Python console,
- * IDLE, and other Python-related executables.
+ * IDLE, and other Python-related executables. * @since 2022.2.16
+     
  */
 class TplAppPython
 {
@@ -25,7 +26,8 @@ class TplAppPython
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated menu items and actions for Python.
+     * @return string The generated menu items and actions for Python. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -40,7 +42,8 @@ class TplAppPython
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppTools Provides access to various tools and their configurations.
      *
-     * @return string The generated menu items and actions for Python tools.
+     * @return string The generated menu items and actions for Python tools. * @since 2022.2.16
+     
      */
     public static function getMenuPython()
     {

@@ -10,7 +10,8 @@
 /**
  * Class ActionSwitchApacheModule
  *
- * This class is responsible for enabling or disabling Apache modules by modifying the Apache configuration file.
+ * This class is responsible for enabling or disabling Apache modules by modifying the Apache configuration file. * @since 2022.2.16
+     
  */
 class ActionSwitchApacheModule
 {
@@ -20,7 +21,8 @@ class ActionSwitchApacheModule
     /**
      * ActionSwitchApacheModule constructor.
      *
-     * @param array $args An array containing the module name and the action (either 'on' or 'off').
+     * @param array $args An array containing the module name and the action (either 'on' or 'off'). * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

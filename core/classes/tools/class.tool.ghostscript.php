@@ -12,7 +12,8 @@
  *
  * This class represents the Ghostscript tool module in the Bearsampp application.
  * It extends the Module class and provides functionalities specific to Ghostscript,
- * such as loading configurations, setting versions, and retrieving executable paths.
+ * such as loading configurations, setting versions, and retrieving executable paths. * @since 2022.2.16
+     
  */
 class ToolGhostscript extends Module
 {
@@ -27,7 +28,8 @@ class ToolGhostscript extends Module
      * Constructor for the ToolGhostscript class.
      *
      * @param string $id The ID of the module.
-     * @param string $type The type of the module.
+     * @param string $type The type of the module. * @since 2022.2.16
+     
      */
     public function __construct($id, $type) {
         Util::logInitClass($this);
@@ -38,7 +40,8 @@ class ToolGhostscript extends Module
      * Reloads the Ghostscript module configuration based on the provided ID and type.
      *
      * @param string|null $id The ID of the module. If null, the current ID is used.
-     * @param string|null $type The type of the module. If null, the current type is used.
+     * @param string|null $type The type of the module. If null, the current type is used. * @since 2022.2.16
+     
      */
     public function reload($id = null, $type = null) {
         global $bearsamppConfig, $bearsamppLang;
@@ -78,7 +81,8 @@ class ToolGhostscript extends Module
     /**
      * Sets the version of the Ghostscript module and reloads the configuration.
      *
-     * @param string $version The version to set.
+     * @param string $version The version to set. * @since 2022.2.16
+     
      */
     public function setVersion($version) {
         global $bearsamppConfig;
@@ -90,7 +94,8 @@ class ToolGhostscript extends Module
     /**
      * Gets the path to the Ghostscript executable.
      *
-     * @return string The path to the Ghostscript executable.
+     * @return string The path to the Ghostscript executable. * @since 2022.2.16
+     
      */
     public function getExe() {
         return $this->exe;
@@ -99,7 +104,8 @@ class ToolGhostscript extends Module
     /**
      * Gets the path to the Ghostscript console executable.
      *
-     * @return string The path to the Ghostscript console executable.
+     * @return string The path to the Ghostscript console executable. * @since 2022.2.16
+     
      */
     public function getExeConsole() {
         return $this->exeConsole;

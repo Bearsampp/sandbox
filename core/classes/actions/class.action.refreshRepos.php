@@ -10,12 +10,14 @@
 /**
  * Class ActionRefreshRepos
  *
- * This class is responsible for handling the action of refreshing repositories.
+ * This class is responsible for handling the action of refreshing repositories. * @since 2022.2.16
+     
  */
 class ActionRefreshRepos
 {
     /**
-     * Constant representing the 'git' command.
+     * Constant representing the 'git' command. * @since 2022.2.16
+     
      */
     const GIT = 'git';
 
@@ -24,7 +26,8 @@ class ActionRefreshRepos
      *
      * This constructor initializes the action to refresh repositories based on the provided arguments.
      *
-     * @param array $args An array of arguments where the first argument can be 'git' to trigger the git repository refresh.
+     * @param array $args An array of arguments where the first argument can be 'git' to trigger the git repository refresh. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

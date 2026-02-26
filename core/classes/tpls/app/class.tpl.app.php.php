@@ -5,6 +5,7 @@
  * Author: bear
  * Website: https://bearsampp.com
  * Github: https://github.com/Bearsampp
+ * @since 2022.2.16
  */
 
 class TplAppPhp
@@ -25,7 +26,8 @@ class TplAppPhp
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated menu items and actions for the PHP menu.
+     * @return array The generated menu items and actions for the PHP menu. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -40,7 +42,8 @@ class TplAppPhp
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated PHP menu items and actions.
+     * @return string The generated PHP menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuPhp()
     {
@@ -98,7 +101,8 @@ class TplAppPhp
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated PHP versions menu items and actions.
+     * @return string The generated PHP versions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuPhpVersions()
     {
@@ -138,7 +142,8 @@ class TplAppPhp
      *
      * @param int $enable The enable flag (1 to enable, 0 to disable).
      *
-     * @return string The generated action string to enable or disable PHP.
+     * @return string The generated action string to enable or disable PHP. * @since 2022.2.16
+     
      */
     public static function getActionEnablePhp($enable)
     {
@@ -155,7 +160,8 @@ class TplAppPhp
      *
      * @param string $version The PHP version to switch to.
      *
-     * @return string The generated action string to switch the PHP version.
+     * @return string The generated action string to switch the PHP version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchPhpVersion($version)
     {
@@ -170,7 +176,8 @@ class TplAppPhp
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated PHP settings menu items and actions.
+     * @return string The generated PHP settings menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuPhpSettings()
     {
@@ -226,7 +233,8 @@ class TplAppPhp
      * @param array $settings The settings array to process.
      * @param bool $sectionCall Whether to generate section calls or content.
      *
-     * @return string The generated submenu items and actions for PHP settings.
+     * @return string The generated submenu items and actions for PHP settings. * @since 2022.2.16
+     
      */
     private static function getSubmenuPhpSettings($passThr = array(), $result = array(), $settings = array(), $sectionCall = true)
     {
@@ -284,7 +292,8 @@ class TplAppPhp
      * @param string $setting The PHP setting to switch.
      * @param bool $enabled The current state of the setting (true if enabled, false otherwise).
      *
-     * @return string The generated action string to switch the PHP setting.
+     * @return string The generated action string to switch the PHP setting. * @since 2022.2.16
+     
      */
     public static function getActionSwitchPhpSetting($setting, $enabled)
     {
@@ -299,7 +308,8 @@ class TplAppPhp
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated PHP extensions menu items and actions.
+     * @return string The generated PHP extensions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuPhpExtensions()
     {
@@ -330,7 +340,8 @@ class TplAppPhp
      * @param string $extension The PHP extension to switch.
      * @param string $switch The current state of the extension (on or off).
      *
-     * @return string The generated action string to switch the PHP extension.
+     * @return string The generated action string to switch the PHP extension. * @since 2022.2.16
+     
      */
     public static function getActionSwitchPhpExtension($extension, $switch)
     {

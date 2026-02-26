@@ -11,7 +11,8 @@
  * Class ActionLaunchStartup
  *
  * This class manages the application's launch startup settings.
- * It initializes the settings based on the provided arguments and updates the configuration accordingly.
+ * It initializes the settings based on the provided arguments and updates the configuration accordingly. * @since 2022.2.16
+     
  */
 class ActionLaunchStartup
 {
@@ -23,7 +24,8 @@ class ActionLaunchStartup
      * the provided argument, and modifies the system's startup settings accordingly.
      *
      * @param array $args An array of arguments where the first element should be either Config::ENABLED or Config::DISABLED
-     *                    to indicate the desired launch startup setting.
+     *                    to indicate the desired launch startup setting. * @since 2022.2.16
+     
      */
     public function __construct($args)
     {

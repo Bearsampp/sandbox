@@ -11,7 +11,8 @@
 /**
  * The `Bins` class manages various bin modules such as Mailpit, Memcached, Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js and Xlight.
  * It provides methods to initialize, reload, update, and retrieve these modules.
- * The class also handles logging and service management for the enabled bin modules.
+ * The class also handles logging and service management for the enabled bin modules. * @since 2022.2.16
+     
  */
 class Bins
 {
@@ -29,7 +30,8 @@ class Bins
 
     /**
      * Constructor for the Bins class.
-     * Initializes the Bins object and logs the initialization.
+     * Initializes the Bins object and logs the initialization. * @since 2022.2.16
+     
      */
     public function __construct()
     {
@@ -38,7 +40,8 @@ class Bins
 
     /**
      * Reloads the configuration for all bin modules.
-     * Logs the reload action and calls the reload method on each bin module.
+     * Logs the reload action and calls the reload method on each bin module. * @since 2022.2.16
+     
      */
     public function reload()
     {
@@ -50,7 +53,8 @@ class Bins
 
     /**
      * Updates the configuration for all bin modules.
-     * Logs the update action and calls the update method on each bin module.
+     * Logs the update action and calls the update method on each bin module. * @since 2022.2.16
+     
      */
     public function update()
     {
@@ -63,7 +67,8 @@ class Bins
     /**
      * Retrieves all bin modules.
      *
-     * @return array An array of all bin modules.
+     * @return array An array of all bin modules. * @since 2022.2.16
+     
      */
     public function getAll()
     {
@@ -84,7 +89,8 @@ class Bins
      * Retrieves the Mailpit bin module.
      * If the Mailpit module is not initialized, it creates a new instance.
      *
-     * @return BinMailpit The Mailpit bin module.
+     * @return BinMailpit The Mailpit bin module. * @since 2022.2.16
+     
      */
     public function getMailpit()
     {
@@ -98,7 +104,8 @@ class Bins
      * Retrieves the Memcached bin module.
      * If the Memcached module is not initialized, it creates a new instance.
      *
-     * @return BinMemcached The Memcached bin module.
+     * @return BinMemcached The Memcached bin module. * @since 2022.2.16
+     
      */
     public function getMemcached()
     {
@@ -112,7 +119,8 @@ class Bins
      * Retrieves the Apache bin module.
      * If the Apache module is not initialized, it creates a new instance.
      *
-     * @return BinApache The Apache bin module.
+     * @return BinApache The Apache bin module. * @since 2022.2.16
+     
      */
     public function getApache()
     {
@@ -126,7 +134,8 @@ class Bins
      * Retrieves the PHP bin module.
      * If the PHP module is not initialized, it creates a new instance.
      *
-     * @return BinPhp The PHP bin module.
+     * @return BinPhp The PHP bin module. * @since 2022.2.16
+     
      */
     public function getPhp()
     {
@@ -140,7 +149,8 @@ class Bins
      * Retrieves the MySQL bin module.
      * If the MySQL module is not initialized, it creates a new instance.
      *
-     * @return BinMysql The MySQL bin module.
+     * @return BinMysql The MySQL bin module. * @since 2022.2.16
+     
      */
     public function getMysql()
     {
@@ -154,7 +164,8 @@ class Bins
      * Retrieves the MariaDB bin module.
      * If the MariaDB module is not initialized, it creates a new instance.
      *
-     * @return BinMariadb The MariaDB bin module.
+     * @return BinMariadb The MariaDB bin module. * @since 2022.2.16
+     
      */
     public function getMariadb()
     {
@@ -168,7 +179,8 @@ class Bins
      * Retrieves the PostgreSQL bin module.
      * If the PostgreSQL module is not initialized, it creates a new instance.
      *
-     * @return BinPostgresql The PostgreSQL bin module.
+     * @return BinPostgresql The PostgreSQL bin module. * @since 2022.2.16
+     
      */
     public function getPostgresql()
     {
@@ -182,7 +194,8 @@ class Bins
      * Retrieves the Node.js bin module.
      * If the Node.js module is not initialized, it creates a new instance.
      *
-     * @return BinNodejs The Node.js bin module.
+     * @return BinNodejs The Node.js bin module. * @since 2022.2.16
+     
      */
     public function getNodejs()
     {
@@ -196,7 +209,8 @@ class Bins
      * Retrieves the Xlight bin module.
      * If the Xlight module is not initialized, it creates a new instance.
      *
-     * @return BinXlight The Xlight bin module.
+     * @return BinXlight The Xlight bin module. * @since 2022.2.16
+     
      */
     public function getXlight()
     {
@@ -209,7 +223,8 @@ class Bins
     /**
      * Retrieves the services for all enabled bin modules.
      *
-     * @return array An associative array of service names and their corresponding service objects.
+     * @return array An associative array of service names and their corresponding service objects. * @since 2022.2.16
+     
      */
     public function getServices()
     {

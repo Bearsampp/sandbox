@@ -12,7 +12,8 @@
  *
  * This class provides methods to generate and manage menu items, actions, and sections
  * related to MySQL within the Bearsampp application. It includes functionalities for
- * enabling/disabling MySQL, switching versions, changing ports, managing services, and debugging.
+ * enabling/disabling MySQL, switching versions, changing ports, managing services, and debugging. * @since 2022.2.16
+     
  */
 class TplAppMysql
 {
@@ -37,7 +38,8 @@ class TplAppMysql
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return array The generated MySQL menu.
+     * @return array The generated MySQL menu. * @since 2022.2.16
+     
      */
     public static function process()
     {
@@ -56,7 +58,8 @@ class TplAppMysql
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppTools Provides access to various tools used in the application.
      *
-     * @return string The generated MySQL menu items and actions.
+     * @return string The generated MySQL menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMysql()
     {
@@ -126,7 +129,8 @@ class TplAppMysql
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated MySQL versions menu items and actions.
+     * @return string The generated MySQL versions menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMysqlVersions()
     {
@@ -159,7 +163,8 @@ class TplAppMysql
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param int $enable The enable/disable flag (1 for enable, 0 for disable).
-     * @return string The generated action string for enabling/disabling MySQL.
+     * @return string The generated action string for enabling/disabling MySQL. * @since 2022.2.16
+     
      */
     public static function getActionEnableMysql($enable)
     {
@@ -177,7 +182,8 @@ class TplAppMysql
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
      * @param string $version The version to switch to.
-     * @return string The generated action string for switching MySQL version.
+     * @return string The generated action string for switching MySQL version. * @since 2022.2.16
+     
      */
     public static function getActionSwitchMysqlVersion($version)
     {
@@ -196,7 +202,8 @@ class TplAppMysql
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated MySQL service menu items and actions.
+     * @return string The generated MySQL service menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMysqlService()
     {
@@ -265,7 +272,8 @@ class TplAppMysql
      *
      * @global object $bearsamppLang Provides language support for retrieving language-specific values.
      *
-     * @return string The generated MySQL debug menu items and actions.
+     * @return string The generated MySQL debug menu items and actions. * @since 2022.2.16
+     
      */
     public static function getMenuMysqlDebug()
     {
@@ -292,7 +300,8 @@ class TplAppMysql
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing MySQL port.
+     * @return string The generated action string for changing MySQL port. * @since 2022.2.16
+     
      */
     public static function getActionChangeMysqlPort()
     {
@@ -309,7 +318,8 @@ class TplAppMysql
      *
      * @global object $bearsamppBins Provides access to system binaries and their configurations.
      *
-     * @return string The generated action string for changing MySQL root password.
+     * @return string The generated action string for changing MySQL root password. * @since 2022.2.16
+     
      */
     public static function getActionChangeMysqlRootPwd()
     {
@@ -324,7 +334,8 @@ class TplAppMysql
      *
      * This method creates the action string for installing the MySQL service.
      *
-     * @return string The generated action string for installing MySQL service.
+     * @return string The generated action string for installing MySQL service. * @since 2022.2.16
+     
      */
     public static function getActionInstallMysqlService()
     {
@@ -337,7 +348,8 @@ class TplAppMysql
      *
      * This method creates the action string for removing the MySQL service.
      *
-     * @return string The generated action string for removing MySQL service.
+     * @return string The generated action string for removing MySQL service. * @since 2022.2.16
+     
      */
     public static function getActionRemoveMysqlService()
     {
