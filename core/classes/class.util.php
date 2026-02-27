@@ -71,6 +71,28 @@ class Util
     ];
 
     /**
+     * Cache for file scan results
+     * @var array|null
+     */
+    private static $fileScanCache = null;
+
+    /**
+     * Cache validity duration in seconds (default: 1 hour)
+     * @var int
+     */
+    private static $fileScanCacheDuration = 3600;
+
+    /**
+     * Statistics for monitoring file scan cache effectiveness
+     * @var array
+     */
+    private static $fileScanStats = [
+        'hits' => 0,
+        'misses' => 0,
+        'invalidations' => 0
+    ];
+
+    /**
      * Cleans and returns a specific command line argument based on the type specified.
      *
      * @param   string  $name  The index of the argument in the $_SERVER['argv'] array.
@@ -1173,25 +1195,209 @@ class Util
 
     /**
      * Retrieves a list of files to scan from specified paths or default paths.
+     * Implements caching to avoid repeated expensive file system scans.
      *
-     * @param   string|null  $path  Optional. The path to start scanning from. If null, uses default paths.
+     * @param   string|null  $path          Optional. The path to start scanning from. If null, uses default paths.
+     * @param   bool         $useCache      Whether to use cached results (default: true).
+     * @param   bool         $forceRefresh  Force refresh the cache even if valid (default: false).
      *
      * @return array Returns an array of files found during the scan.
      */
-    public static function getFilesToScan($path = null)
+    public static function getFilesToScan($path = null, $useCache = true, $forceRefresh = false)
     {
+        // Generate cache key based on path parameter
+        $cacheKey = md5(serialize($path));
+
+        // Try to get from cache if enabled and not forcing refresh
+        if ($useCache && !$forceRefresh) {
+            $cachedResult = self::getFileScanCache($cacheKey);
+            if ($cachedResult !== false) {
+                self::$fileScanStats['hits']++;
+                self::logDebug('File scan cache HIT (saved expensive scan operation)');
+                return $cachedResult;
+            }
+        }
+
+        self::$fileScanStats['misses']++;
+        self::logDebug('File scan cache MISS (performing full scan)');
+
+        // Perform the actual scan
+        $startTime = self::getMicrotime();
         $result      = array();
         $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
+
         foreach ($pathsToScan as $pathToScan) {
-            $startTime = self::getMicrotime();
+            $pathStartTime = self::getMicrotime();
             $findFiles = self::findFiles($pathToScan['path'], $pathToScan['includes'], $pathToScan['recursive']);
             foreach ($findFiles as $findFile) {
                 $result[] = $findFile;
             }
-            self::logDebug($pathToScan['path'] . ' scanned in ' . round(self::getMicrotime() - $startTime, 3) . 's');
+            self::logDebug($pathToScan['path'] . ' scanned in ' . round(self::getMicrotime() - $pathStartTime, 3) . 's');
+        }
+
+        $totalTime = round(self::getMicrotime() - $startTime, 3);
+        self::logInfo('Full file scan completed in ' . $totalTime . 's (' . count($result) . ' files found)');
+
+        // Store in cache if enabled
+        if ($useCache) {
+            self::setFileScanCache($cacheKey, $result);
         }
 
         return $result;
+    }
+
+    /**
+     * Gets cached file scan results if valid.
+     *
+     * @param   string  $cacheKey  The cache key to retrieve.
+     *
+     * @return array|false Returns cached results or false if cache is invalid/missing.
+     */
+    private static function getFileScanCache($cacheKey)
+    {
+        global $bearsamppRoot;
+
+        // Check if we have in-memory cache first
+        if (self::$fileScanCache !== null && isset(self::$fileScanCache[$cacheKey])) {
+            $cache = self::$fileScanCache[$cacheKey];
+
+            // Check if cache is still valid
+            if (time() - $cache['timestamp'] < self::$fileScanCacheDuration) {
+                return $cache['data'];
+            } else {
+                self::$fileScanStats['invalidations']++;
+                unset(self::$fileScanCache[$cacheKey]);
+            }
+        }
+
+        // Try to load from file cache
+        if (!isset($bearsamppRoot)) {
+            return false;
+        }
+
+        $cacheFile = $bearsamppRoot->getTmpPath() . '/filescan_cache_' . $cacheKey . '.dat';
+
+        if (file_exists($cacheFile)) {
+            $cacheData = @unserialize(file_get_contents($cacheFile));
+
+            if ($cacheData !== false && isset($cacheData['timestamp']) && isset($cacheData['data'])) {
+                // Check if file cache is still valid
+                if (time() - $cacheData['timestamp'] < self::$fileScanCacheDuration) {
+                    // Store in memory cache for faster subsequent access
+                    if (self::$fileScanCache === null) {
+                        self::$fileScanCache = [];
+                    }
+                    self::$fileScanCache[$cacheKey] = $cacheData;
+
+                    return $cacheData['data'];
+                } else {
+                    // Cache expired, delete file
+                    self::$fileScanStats['invalidations']++;
+                    @unlink($cacheFile);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Stores file scan results in cache.
+     *
+     * @param   string  $cacheKey  The cache key to store under.
+     * @param   array   $data      The scan results to cache.
+     *
+     * @return void
+     */
+    private static function setFileScanCache($cacheKey, $data)
+    {
+        global $bearsamppRoot;
+
+        $cacheData = [
+            'timestamp' => time(),
+            'data' => $data
+        ];
+
+        // Store in memory cache
+        if (self::$fileScanCache === null) {
+            self::$fileScanCache = [];
+        }
+        self::$fileScanCache[$cacheKey] = $cacheData;
+
+        // Store in file cache
+        if (isset($bearsamppRoot)) {
+            $cacheFile = $bearsamppRoot->getTmpPath() . '/filescan_cache_' . $cacheKey . '.dat';
+            @file_put_contents($cacheFile, serialize($cacheData), LOCK_EX);
+            self::logDebug('File scan results cached to: ' . $cacheFile);
+        }
+    }
+
+    /**
+     * Clears all file scan caches.
+     *
+     * @return void
+     */
+    public static function clearFileScanCache()
+    {
+        global $bearsamppRoot;
+
+        // Clear memory cache
+        self::$fileScanCache = null;
+
+        // Clear file caches
+        if (isset($bearsamppRoot)) {
+            $tmpPath = $bearsamppRoot->getTmpPath();
+            $cacheFiles = glob($tmpPath . '/filescan_cache_*.dat');
+
+            if ($cacheFiles !== false) {
+                foreach ($cacheFiles as $cacheFile) {
+                    @unlink($cacheFile);
+                }
+                self::logInfo('Cleared ' . count($cacheFiles) . ' file scan cache files');
+            }
+        }
+
+        // Reset stats
+        self::$fileScanStats = [
+            'hits' => 0,
+            'misses' => 0,
+            'invalidations' => 0
+        ];
+    }
+
+    /**
+     * Gets file scan cache statistics.
+     *
+     * @return array Array containing hits, misses, and invalidations counts
+     */
+    public static function getFileScanStats()
+    {
+        return self::$fileScanStats;
+    }
+
+    /**
+     * Sets the file scan cache duration.
+     *
+     * @param   int  $seconds  Cache duration in seconds (default: 3600 = 1 hour).
+     *
+     * @return void
+     */
+    public static function setFileScanCacheDuration($seconds)
+    {
+        if ($seconds > 0 && $seconds <= 86400) { // Max 24 hours
+            self::$fileScanCacheDuration = $seconds;
+            self::logDebug('File scan cache duration set to ' . $seconds . ' seconds');
+        }
+    }
+
+    /**
+     * Gets the current file scan cache duration.
+     *
+     * @return int Cache duration in seconds
+     */
+    public static function getFileScanCacheDuration()
+    {
+        return self::$fileScanCacheDuration;
     }
 
     /**
