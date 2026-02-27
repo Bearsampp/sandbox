@@ -234,11 +234,20 @@ class QuickPick
         Util::logDebug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
         // Fetch the JSON content from the URL
-        $jsonContent = file_get_contents( QUICKPICK_JSON_URL );
+        $jsonContent = @file_get_contents( QUICKPICK_JSON_URL );
 
         if ( $jsonContent === false ) {
-            // Handle error if the file could not be fetched
-            throw new Exception( 'Failed to fetch JSON content from the URL.' );
+            // Log the error but don't throw exception - use local file if it exists
+            Util::logWarning( 'Failed to fetch JSON content from the URL: ' . QUICKPICK_JSON_URL );
+
+            // If local file exists, use it instead of failing
+            if ( file_exists( $this->jsonFilePath ) ) {
+                Util::logInfo( 'Using existing local quickpick-releases.json file' );
+                return ['info' => 'Using existing local JSON file'];
+            }
+
+            // Only throw exception if we have no local file to fall back on
+            throw new Exception( 'Failed to fetch JSON content from the URL and no local file exists.' );
         }
 
         // Save the JSON content to the specified path
@@ -564,7 +573,7 @@ class QuickPick
     {
         global $bearsamppConfig;
         $includePr = $bearsamppConfig->getIncludePr();
-        
+
         ob_start();
         if ( Util::checkInternetState() ) {
 
@@ -592,7 +601,7 @@ class QuickPick
                                         </li>
 
                                         <?php
-                                        foreach ( $versions['module-' . strtolower( $module )] as $version_array ): 
+                                        foreach ( $versions['module-' . strtolower( $module )] as $version_array ):
                                             // Skip prerelease versions if includePr is not enabled
                                             if (isset($version_array['prerelease']) && $version_array['prerelease'] === true && $includePr != 1) {
                                                 continue;

@@ -43,6 +43,34 @@ class Util
     const LOG_TRACE = 'TRACE';
 
     /**
+     * Log buffer for batching log writes
+     * @var array
+     */
+    private static $logBuffer = [];
+
+    /**
+     * Maximum number of log entries to buffer before flushing
+     * @var int
+     */
+    private static $logBufferSize = 50;
+
+    /**
+     * Flag to track if shutdown handler is registered
+     * @var bool
+     */
+    private static $shutdownRegistered = false;
+
+    /**
+     * Statistics for monitoring log buffer effectiveness
+     * @var array
+     */
+    private static $logStats = [
+        'buffered' => 0,
+        'flushed' => 0,
+        'writes' => 0
+    ];
+
+    /**
      * Cleans and returns a specific command line argument based on the type specified.
      *
      * @param   string  $name  The index of the argument in the $_SERVER['argv'] array.
@@ -711,6 +739,7 @@ class Util
 
     /**
      * Logs a message to a specified file or default log file based on the log type.
+     * Implements buffering to reduce file I/O operations and improve performance.
      *
      * @param   string       $data  The message to log.
      * @param   string       $type  The type of log message: 'ERROR', 'WARNING', 'INFO', 'DEBUG', or 'TRACE'.
@@ -719,6 +748,19 @@ class Util
     private static function log($data, $type, $file = null)
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppConfig;
+
+        // Safety check: if globals aren't initialized, use error_log as fallback
+        if (!isset($bearsamppRoot) || !isset($bearsamppCore) || !isset($bearsamppConfig)) {
+            error_log('[' . $type . '] ' . $data);
+            return;
+        }
+
+        // Register shutdown handler on first log call
+        if (!self::$shutdownRegistered) {
+            register_shutdown_function([__CLASS__, 'flushLogBuffer']);
+            self::$shutdownRegistered = true;
+        }
+
         $file = $file == null ? ($type == self::LOG_ERROR ? $bearsamppRoot->getErrorLogFilePath() : $bearsamppRoot->getLogFilePath()) : $file;
         if (!$bearsamppRoot->isRoot()) {
             $file = $bearsamppRoot->getHomepageLogFilePath();
@@ -742,12 +784,96 @@ class Util
         }
 
         if ($writeLog) {
-            file_put_contents(
-                $file,
-                '[' . date('Y-m-d H:i:s', time()) . '] # ' . APP_TITLE . ' ' . $bearsamppCore->getAppVersion() . ' # ' . $type . ': ' . $data . PHP_EOL,
-                FILE_APPEND
-            );
+            // Add to buffer instead of writing immediately
+            self::$logBuffer[] = [
+                'file' => $file,
+                'data' => $data,
+                'type' => $type,
+                'time' => time()
+            ];
+            self::$logStats['buffered']++;
+
+            // Flush if buffer is full or if it's an error (errors should be written immediately)
+            if (count(self::$logBuffer) >= self::$logBufferSize || $type == self::LOG_ERROR) {
+                self::flushLogBuffer();
+            }
         }
+    }
+
+    /**
+     * Flushes the log buffer to disk.
+     * Groups log entries by file to minimize file operations.
+     *
+     * @return void
+     */
+    public static function flushLogBuffer()
+    {
+        if (empty(self::$logBuffer)) {
+            return;
+        }
+
+        global $bearsamppCore;
+
+        // Group logs by file
+        $logsByFile = [];
+        foreach (self::$logBuffer as $log) {
+            if (!isset($logsByFile[$log['file']])) {
+                $logsByFile[$log['file']] = [];
+            }
+            $logsByFile[$log['file']][] = $log;
+        }
+
+        // Write all logs at once per file
+        foreach ($logsByFile as $file => $logs) {
+            $content = '';
+            foreach ($logs as $log) {
+                $content .= '[' . date('Y-m-d H:i:s', $log['time']) . '] # ' .
+                           APP_TITLE . ' ' . $bearsamppCore->getAppVersion() . ' # ' .
+                           $log['type'] . ': ' . $log['data'] . PHP_EOL;
+            }
+
+            // Use LOCK_EX to prevent race conditions
+            @file_put_contents($file, $content, FILE_APPEND | LOCK_EX);
+            self::$logStats['writes']++;
+        }
+
+        self::$logStats['flushed'] += count(self::$logBuffer);
+        self::$logBuffer = [];
+    }
+
+    /**
+     * Gets the current log buffer statistics.
+     * Useful for monitoring and debugging log buffer effectiveness.
+     *
+     * @return array Array containing buffered, flushed, and writes counts
+     */
+    public static function getLogStats()
+    {
+        return self::$logStats;
+    }
+
+    /**
+     * Sets the log buffer size.
+     * Allows dynamic adjustment of buffer size based on application needs.
+     *
+     * @param int $size The new buffer size
+     * @return void
+     */
+    public static function setLogBufferSize($size)
+    {
+        if ($size > 0 && $size <= 1000) {
+            self::$logBufferSize = $size;
+        }
+    }
+
+    /**
+     * Gets the current log buffer size.
+     *
+     * @return int The current buffer size
+     */
+    public static function getLogBufferSize()
+    {
+        return self::$logBufferSize;
     }
 
     /**
