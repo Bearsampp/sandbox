@@ -93,6 +93,13 @@ class Util
     ];
 
     /**
+     * Secret key for cache file integrity verification
+     * Generated once per session to prevent cache tampering
+     * @var string|null
+     */
+    private static $cacheIntegrityKey = null;
+
+    /**
      * Cleans and returns a specific command line argument based on the type specified.
      *
      * @param   string  $name  The index of the argument in the $_SERVER['argv'] array.
@@ -1248,6 +1255,7 @@ class Util
 
     /**
      * Gets cached file scan results if valid.
+     * Includes integrity verification to prevent cache tampering.
      *
      * @param   string  $cacheKey  The cache key to retrieve.
      *
@@ -1278,9 +1286,22 @@ class Util
         $cacheFile = $bearsamppRoot->getTmpPath() . '/filescan_cache_' . $cacheKey . '.dat';
 
         if (file_exists($cacheFile)) {
-            $cacheData = @unserialize(file_get_contents($cacheFile));
+            $fileContents = @file_get_contents($cacheFile);
 
-            if ($cacheData !== false && isset($cacheData['timestamp']) && isset($cacheData['data'])) {
+            if ($fileContents === false) {
+                return false;
+            }
+
+            // Verify file integrity before unserializing
+            if (!self::verifyCacheIntegrity($fileContents, $cacheKey)) {
+                self::logWarning('File scan cache integrity check failed for key: ' . $cacheKey . '. Possible tampering detected.');
+                @unlink($cacheFile);
+                return false;
+            }
+
+            $cacheData = @unserialize($fileContents);
+
+            if ($cacheData !== false && isset($cacheData['timestamp']) && isset($cacheData['data']) && isset($cacheData['hmac'])) {
                 // Check if file cache is still valid
                 if (time() - $cacheData['timestamp'] < self::$fileScanCacheDuration) {
                     // Store in memory cache for faster subsequent access
@@ -1295,6 +1316,10 @@ class Util
                     self::$fileScanStats['invalidations']++;
                     @unlink($cacheFile);
                 }
+            } else {
+                // Invalid cache structure, delete file
+                self::logWarning('Invalid cache structure detected for key: ' . $cacheKey);
+                @unlink($cacheFile);
             }
         }
 
@@ -1302,7 +1327,7 @@ class Util
     }
 
     /**
-     * Stores file scan results in cache.
+     * Stores file scan results in cache with integrity protection.
      *
      * @param   string  $cacheKey  The cache key to store under.
      * @param   array   $data      The scan results to cache.
@@ -1313,9 +1338,13 @@ class Util
     {
         global $bearsamppRoot;
 
+        // Generate HMAC for integrity verification
+        $hmac = self::generateCacheHMAC($data, $cacheKey);
+
         $cacheData = [
             'timestamp' => time(),
-            'data' => $data
+            'data' => $data,
+            'hmac' => $hmac
         ];
 
         // Store in memory cache
@@ -1330,6 +1359,88 @@ class Util
             @file_put_contents($cacheFile, serialize($cacheData), LOCK_EX);
             self::logDebug('File scan results cached to: ' . $cacheFile);
         }
+    }
+
+    /**
+     * Generates or retrieves the cache integrity key.
+     * This key is unique per session to prevent cross-session cache tampering.
+     *
+     * @return string The cache integrity key
+     */
+    private static function getCacheIntegrityKey()
+    {
+        if (self::$cacheIntegrityKey === null) {
+            global $bearsamppRoot;
+
+            // Try to load existing key from session file
+            if (isset($bearsamppRoot)) {
+                $keyFile = $bearsamppRoot->getTmpPath() . '/cache_integrity.key';
+
+                if (file_exists($keyFile)) {
+                    $key = @file_get_contents($keyFile);
+                    if ($key !== false && strlen($key) === 64) {
+                        self::$cacheIntegrityKey = $key;
+                        return self::$cacheIntegrityKey;
+                    }
+                }
+
+                // Generate new key if none exists or invalid
+                try {
+                    self::$cacheIntegrityKey = bin2hex(random_bytes(32));
+                    @file_put_contents($keyFile, self::$cacheIntegrityKey, LOCK_EX);
+                } catch (Exception $e) {
+                    self::logError('Failed to generate cache integrity key: ' . $e->getMessage());
+                    // Fallback to a less secure but functional key
+                    self::$cacheIntegrityKey = hash('sha256', uniqid('bearsampp_cache_', true));
+                }
+            } else {
+                // Fallback if bearsamppRoot not available
+                try {
+                    self::$cacheIntegrityKey = bin2hex(random_bytes(32));
+                } catch (Exception $e) {
+                    self::$cacheIntegrityKey = hash('sha256', uniqid('bearsampp_cache_', true));
+                }
+            }
+        }
+
+        return self::$cacheIntegrityKey;
+    }
+
+    /**
+     * Generates HMAC for cache data integrity verification.
+     *
+     * @param   array   $data      The data to generate HMAC for
+     * @param   string  $cacheKey  The cache key
+     *
+     * @return string The HMAC hash
+     */
+    private static function generateCacheHMAC($data, $cacheKey)
+    {
+        $key = self::getCacheIntegrityKey();
+        $message = serialize($data) . $cacheKey;
+        return hash_hmac('sha256', $message, $key);
+    }
+
+    /**
+     * Verifies cache file integrity using HMAC.
+     *
+     * @param   string  $fileContents  The serialized cache file contents
+     * @param   string  $cacheKey      The cache key
+     *
+     * @return bool True if integrity check passes, false otherwise
+     */
+    private static function verifyCacheIntegrity($fileContents, $cacheKey)
+    {
+        $cacheData = @unserialize($fileContents);
+
+        if ($cacheData === false || !isset($cacheData['hmac']) || !isset($cacheData['data'])) {
+            return false;
+        }
+
+        $expectedHmac = self::generateCacheHMAC($cacheData['data'], $cacheKey);
+
+        // Use hash_equals to prevent timing attacks
+        return hash_equals($expectedHmac, $cacheData['hmac']);
     }
 
     /**
