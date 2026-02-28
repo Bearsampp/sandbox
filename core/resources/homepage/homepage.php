@@ -157,11 +157,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     } catch (Exception $e) {
         // Log the error but continue with the page
         error_log('Error loading QuickPick: ' . $e->getMessage());
-        error_log('QuickPick Stack Trace: ' . $e->getTraceAsString());
-        Util::logError('QuickPick Error: ' . $e->getMessage());
         echo '<div id="quickPickError" class="text-center mt-3 pe-3">
             <span>QuickPick unavailable</span>
-            <!-- Debug: ' . htmlspecialchars($e->getMessage()) . ' -->
         </div>';
     }
     ?>
