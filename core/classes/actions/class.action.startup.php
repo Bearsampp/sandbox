@@ -488,10 +488,18 @@ class ActionStartup
         Util::clearFolder( $bearsamppCore->getTmpPath(), array('.gitignore') );
 
         // Ensure opcache directory exists for persistent file cache
-        $opcachePath = $bearsamppRoot->getTmpPath() . '/opcache';
+        $opcachePath = $bearsamppRoot->getTmpPath() . DIRECTORY_SEPARATOR . 'opcache';
+
         if (!is_dir($opcachePath)) {
             $this->writeLog('Creating opcache directory: ' . $opcachePath);
-            mkdir($opcachePath, 0777, true);
+            if (!@mkdir($opcachePath, 0755, true) && !is_dir($opcachePath)) {
+                $this->writeLog('Failed to create opcache directory: ' . $opcachePath);
+                return;
+            }
+        }
+
+        if (!is_writable($opcachePath)) {
+            $this->writeLog('Opcache directory is not writable: ' . $opcachePath);
         }
     }
 
