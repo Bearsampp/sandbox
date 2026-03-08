@@ -43,18 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Util::logDebug('QuickPick initialized for module: ' . $module . ', version: ' . $version);
             
             // Install the module
+            // Note: installModule() now handles config update FIRST, then reload
             $response = $QuickPick->installModule($module, $version);
             
             if (!isset($response['error'])) {
                 // Build success message
-                $successMessage = "Module $module version $version installed successfully.";
-                
-                // Add appropriate instructions based on module type
-                if (isset($QuickPick->modules[$module]) && $QuickPick->modules[$module]['type'] === "binary") {
-                    $successMessage .= "\nReload needed...\nWhen you are done installing modules then\nRight click on menu and choose reload.";
-                } else {
-                    $successMessage .= "\nEdit Bearsampp.conf to use new version(s) then\nWhen you are done installing modules\nRight click on menu and choose reload.";
-                }
+                $successMessage = "Module $module version $version installed successfully!";
+                $successMessage .= "\n\n✓ Files extracted";
+                $successMessage .= "\n✓ Configuration updated";
+                $successMessage .= "\n\n⚠ IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.";
                 
                 $response['message'] = $successMessage;
                 $response['success'] = true;

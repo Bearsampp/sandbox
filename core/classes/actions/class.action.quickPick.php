@@ -433,6 +433,39 @@ class QuickPick
             $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
             Util::logDebug( 'Response is: ' . print_r( $response, true ) );
 
+            // If installation was successful, update config FIRST, then reload to apply changes
+            if (isset($response['success'])) {
+                // Step 1: Update config FIRST (so reload can pick up the new version)
+                Util::logDebug('Updating config before reload...');
+                $configUpdated = $this->updateModuleConfig($module, $version);
+                
+                if ($configUpdated) {
+                    // Step 2: Trigger reload AFTER config update (reload will apply the new version)
+                    Util::logDebug('Config updated, triggering reload to apply changes...');
+                    
+                    // Send progress update to user - temporarily stop output buffering
+                    $obLevel = ob_get_level();
+                    while (ob_get_level() > 0) {
+                        ob_end_flush();
+                    }
+                    
+                    echo json_encode(['phase' => 'updating', 'message' => 'Updating system configuration...']);
+                    flush();
+                    
+                    // Restart output buffering
+                    for ($i = 0; $i < $obLevel; $i++) {
+                        ob_start();
+                    }
+                    
+                    // Note: User must manually reload from tray menu to activate the new version
+                    Util::logDebug('Installation complete - user must manually reload from tray menu');
+                    $response['reload_required'] = true;
+                } else {
+                    Util::logWarning('Config update failed, skipping reload');
+                    $response['reload_triggered'] = false;
+                }
+            }
+
             return $response;
         }
         else {
@@ -544,6 +577,87 @@ class QuickPick
         }
 
         return $destination;
+    }
+
+    /**
+     * Regenerates the bearsampp.ini menu file without VBS checks (AJAX-safe version).
+     * This is a simplified version of TplApp::process() that avoids VBS errors in web context.
+     *
+     * @return string The generated INI content
+     */
+    private function regenerateMenuSafe(): string
+    {
+        Util::logDebug('Regenerating menu (AJAX-safe mode)...');
+        
+        // Suppress errors temporarily during menu generation
+        $oldErrorReporting = error_reporting();
+        error_reporting($oldErrorReporting & ~E_WARNING);
+        
+        try {
+            // Generate the menu content
+            $menuContent = TplApp::process();
+            
+            // Restore error reporting
+            error_reporting($oldErrorReporting);
+            
+            Util::logDebug('Menu regenerated successfully');
+            return $menuContent;
+            
+        } catch (Exception $e) {
+            // Restore error reporting
+            error_reporting($oldErrorReporting);
+            
+            Util::logWarning('Error during menu regeneration: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * Updates the bearsampp.conf configuration file with the new module version.
+     * This method handles all module types: binaries, apps, and tools.
+     *
+     * @param   string  $module   The name of the module (e.g., 'Apache', 'PhpMyAdmin', 'Git').
+     * @param   string  $version  The version to set in the configuration.
+     *
+     * @return bool True if the configuration was updated successfully, false otherwise.
+     */
+    private function updateModuleConfig(string $module, string $version): bool
+    {
+        try {
+            $bearsamppConfig = new Config();
+            
+            // Remove 'module-' prefix if present
+            $moduleName = str_replace('module-', '', strtolower($module));
+            
+            // Determine the config section name based on module type
+            $moduleType = isset($this->modules[$module]) ? $this->modules[$module]['type'] : null;
+            
+            if (!$moduleType) {
+                Util::logError("Unknown module type for: $module");
+                return false;
+            }
+            
+            // Map module names to their config section names
+            // For binaries, use the exact lowercase name
+            // For apps and tools, use the lowercase name as well
+            $configSection = $moduleName;
+            
+            Util::logDebug("Updating config for module: $module (type: $moduleType) to version: $version");
+            Util::logDebug("Config section: $configSection");
+            
+            // Update the configuration file
+            // The Config class expects a flat key like "nodejsVersion" not a section
+            $configKey = $configSection . 'Version';
+            $bearsamppConfig->replace($configKey, $version);
+            
+            Util::logInfo("Successfully updated $configSection version to $version in bearsampp.conf");
+            
+            return true;
+            
+        } catch (Exception $e) {
+            Util::logError("Failed to update module config: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**
