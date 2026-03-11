@@ -39,19 +39,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ob_start();
         
         try {
+            global $bearsamppConfig;
             $QuickPick = new QuickPick();
             Util::logDebug('QuickPick initialized for module: ' . $module . ', version: ' . $version);
             
+            // Check if enhanced mode is enabled
+            $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
+            Util::logDebug('Enhanced QuickPick mode: ' . ($enhancedMode ? 'enabled' : 'disabled'));
+            
             // Install the module
-            // Note: installModule() now handles config update FIRST, then reload
             $response = $QuickPick->installModule($module, $version);
             
             if (!isset($response['error'])) {
-                // Build success message
-                $successMessage = "Module $module version $version installed successfully!";
-                $successMessage .= "\n\n✓ Files extracted";
-                $successMessage .= "\n✓ Configuration updated";
-                $successMessage .= "\n\n⚠ IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.";
+                // Build success message based on mode
+                if ($enhancedMode == 1) {
+                    // Enhanced mode: new method with config update and reload instructions
+                    $successMessage = "Module $module version $version installed successfully!";
+                    $successMessage .= "\n\n✓ Files extracted";
+                    $successMessage .= "\n✓ Configuration updated";
+                    $successMessage .= "\n\n⚠ IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.";
+                } else {
+                    // Old mode: simple message
+                    $successMessage = "Module $module version $version has been downloaded and extracted successfully!";
+                    $successMessage .= "\n\nPlease restart Bearsampp to use the new version.";
+                }
                 
                 $response['message'] = $successMessage;
                 $response['success'] = true;

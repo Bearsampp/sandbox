@@ -369,7 +369,11 @@ class QuickPick
         // Check if the response is false
         if ( $response === false ) {
             $error = error_get_last();
-            Util::logError( 'Error fetching API response: ' . $error['message'] );
+            if ($error && isset($error['message'])) {
+                Util::logError( 'Error fetching API response: ' . $error['message'] );
+            } else {
+                Util::logError( 'Error fetching API response: Unknown error' );
+            }
 
             return false;
         }
@@ -433,10 +437,14 @@ class QuickPick
             $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
             Util::logDebug( 'Response is: ' . print_r( $response, true ) );
 
-            // If installation was successful, update config FIRST, then reload to apply changes
-            if (isset($response['success'])) {
+            // Check if enhanced mode is enabled
+            global $bearsamppConfig;
+            $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
+            
+            // If installation was successful and enhanced mode is enabled, update config
+            if (isset($response['success']) && $enhancedMode == 1) {
                 // Step 1: Update config FIRST (so reload can pick up the new version)
-                Util::logDebug('Updating config before reload...');
+                Util::logDebug('Enhanced mode enabled - Updating config before reload...');
                 $configUpdated = $this->updateModuleConfig($module, $version);
                 
                 if ($configUpdated) {
@@ -464,6 +472,8 @@ class QuickPick
                     Util::logWarning('Config update failed, skipping reload');
                     $response['reload_triggered'] = false;
                 }
+            } else if (isset($response['success']) && $enhancedMode == 0) {
+                Util::logDebug('Enhanced mode disabled - skipping config update');
             }
 
             return $response;
@@ -500,7 +510,14 @@ class QuickPick
     $moduleName = str_replace('module-', '', $module);
     Util::logDebug('Module Name: ' . $moduleName);
 
-    $moduleType = $this->modules[$module]['type'];
+    // Ensure we're using the correct module key (capitalize first letter)
+    $moduleKey = ucfirst($moduleName);
+    if (!isset($this->modules[$moduleKey])) {
+        Util::logError("Module not found in modules array: $moduleKey");
+        return ['error' => 'Module configuration not found'];
+    }
+    
+    $moduleType = $this->modules[$moduleKey]['type'];
     Util::logDebug('Module Type: ' . $moduleType);
 
     // Get module type
@@ -629,11 +646,14 @@ class QuickPick
             // Remove 'module-' prefix if present
             $moduleName = str_replace('module-', '', strtolower($module));
             
+            // Ensure we're using the correct module key (capitalize first letter)
+            $moduleKey = ucfirst($moduleName);
+            
             // Determine the config section name based on module type
-            $moduleType = isset($this->modules[$module]) ? $this->modules[$module]['type'] : null;
+            $moduleType = isset($this->modules[$moduleKey]) ? $this->modules[$moduleKey]['type'] : null;
             
             if (!$moduleType) {
-                Util::logError("Unknown module type for: $module");
+                Util::logError("Unknown module type for: $moduleKey");
                 return false;
             }
             
@@ -678,6 +698,7 @@ class QuickPick
     {
         global $bearsamppConfig;
         $includePr = $bearsamppConfig->getIncludePr();
+        $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
 
         ob_start();
         if ( Util::checkInternetState() ) {
@@ -735,6 +756,17 @@ class QuickPick
                         </div>
                         <div id = "download-module" style = "display: none">ModuleName</div>
                         <div id = "download-version" style = "display: none">Version</div>
+                    </div>
+                    <div class = "enhanced-quickpick-toggle ms-3" style = "display: flex; align-items: center;">
+                        <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch" style = "color: #fff; font-size: 0.9rem; white-space: nowrap;">
+                            Enhanced Mode
+                        </label>
+                        <div class = "form-check form-switch mb-0">
+                            <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch" 
+                                   <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
+                                   data-bs-toggle = "tooltip" data-bs-placement = "bottom" 
+                                   title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
+                        </div>
                     </div>
                 </div>
             <?php else: ?>

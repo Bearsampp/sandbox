@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
     let progressValue = 0; // Initialize progressValue as a number
 
+    // Initialize Enhanced QuickPick toggle switch
+    const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');
+    if (enhancedQuickPickSwitch) {
+        enhancedQuickPickSwitch.addEventListener('change', function() {
+            toggleEnhancedQuickPick(this.checked ? 1 : 0);
+        });
+    }
+
     const customSelect = document.querySelector(".custom-select"); // parent div of quickpick select
     const selectBtn = document.querySelector(".select-button"); // trigger button to pop down ul
     const selectDropdown = document.querySelector(".select-dropdown"); // the dropdown menu
@@ -270,5 +278,72 @@ async function installModule(moduleName, version) {
         setTimeout(() => {
             location.reload();
         }, 100); // Delay of 100 milliseconds
+    }
+}
+
+/**
+ * Toggles the EnhancedQuickPick setting via AJAX.
+ *
+ * @param {number} value - The value to set (0 or 1).
+ */
+async function toggleEnhancedQuickPick(value) {
+    const url = AJAX_URL;
+    const senddata = new URLSearchParams();
+    senddata.append('proc', 'toggleenhancedquickpick');
+    senddata.append('value', value);
+
+    const options = {
+        method: 'POST',
+        body: senddata,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        
+        if (data.success) {
+            console.log('EnhancedQuickPick mode changed to:', data.mode);
+            
+            // Show a brief notification to the user
+            const modeName = data.mode === 'enhanced' ? 'Enhanced' : 'Standard';
+            const message = `QuickPick mode switched to ${modeName}`;
+            
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.className = 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3';
+            notification.style.zIndex = '9999';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        } else if (data.error) {
+            console.error('Error toggling EnhancedQuickPick:', data.error);
+            window.alert(`Error: ${data.error}`);
+            
+            // Revert the switch state
+            const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');
+            if (enhancedQuickPickSwitch) {
+                enhancedQuickPickSwitch.checked = !enhancedQuickPickSwitch.checked;
+            }
+        }
+    } catch (error) {
+        console.error('Failed to toggle EnhancedQuickPick:', error);
+        window.alert('Failed to toggle EnhancedQuickPick: ' + error.message);
+        
+        // Revert the switch state
+        const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');
+        if (enhancedQuickPickSwitch) {
+            enhancedQuickPickSwitch.checked = !enhancedQuickPickSwitch.checked;
+        }
     }
 }
