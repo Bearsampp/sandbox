@@ -703,7 +703,7 @@ class QuickPick
             // Check if the license key is valid
             if ( $this->checkDownloadId() ): ?>
                 <div id = 'quickPickContainer'>
-                    <div class = 'quickpick me-5'>
+                    <div class = 'quickpick'>
 
                         <div class = "custom-select">
                             <button class = "select-button" role = "combobox"

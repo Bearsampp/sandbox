@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function positionEnhancedToggle() {
         if (!enhancedToggle) return;
         
-        if (window.innerWidth <= 767) {
-            // Mobile: put in quickPickContainer
+        if (window.innerWidth <= 1200) {
+            // Mobile & Tablet: put in quickPickContainer
             const quickPickContainer = document.getElementById('quickPickContainer');
             if (quickPickContainer && !quickPickContainer.contains(enhancedToggle)) {
                 enhancedToggle.style.display = 'flex';

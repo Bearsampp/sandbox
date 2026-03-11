@@ -251,7 +251,7 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 /* Enhanced Mode Toggle - responsive positioning */
 @media (max-width: 767px) {
-    /* On mobile screens, center everything with Enhanced above dropdown */
+    /* Enhanced Mode Toggle - responsive positioning */
     #quickPickContainer {
         display: flex;
         flex-direction: column;
@@ -259,24 +259,41 @@ nav.navbar .svg-inline--fa.fa-discord {
         justify-content: center;
         gap: 10px;
         width: 100%;
-        padding: 0 10px;
+        padding: 0; /* Remove padding that might cause offset */
+        overflow: visible; /* Ensure dropdown can overflow the container */
     }
     
     .quickpick {
         margin-right: 0 !important;
         margin-left: 0 !important;
         padding: 0 !important;
-        width: auto; /* Don't expand, just fit content */
-        max-width: 90%;
+        width: 100% !important; /* Force to take full width of container */
+        max-width: 100%;
         display: flex;
         justify-content: center;
         background-color: transparent !important; /* Remove dark background on mobile */
     }
     
     .custom-select {
-        width: auto; /* Don't expand to full width */
+        width: auto !important; /* Keep original size (inner size) */
+        min-width: 165px; /* Match desktop min-width */
         max-width: 100%;
-        margin: 0 auto; /* Center the select */
+        margin: 0 auto; /* Center the select button container */
+        position: relative; /* Ensure it's the anchor for the absolute dropdown */
+    }
+    
+    .select-dropdown {
+        left: 50%;
+        right: auto;
+        transform: scaleY(0) translateX(-50%); /* Combine centering with scale transition */
+        transform-origin: top center;
+        margin: 10px 0 0; /* Center dropdown below select button */
+        width: 320px; /* Fixed width for the menu on mobile */
+        max-width: 90vw; /* Ensure it doesn't overflow the screen */
+    }
+    
+    .custom-select.active .select-dropdown {
+        transform: scaleY(1) translateX(-50%); /* Keep both transforms */
     }
     
     .custom-select .select-button {
@@ -291,6 +308,13 @@ nav.navbar .svg-inline--fa.fa-discord {
     .custom-select .arrow {
         position: absolute;
         right: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform ease-in-out 0.3s;
+    }
+    
+    .custom-select.active .arrow {
+        transform: translateY(-50%) rotate(180deg);
     }
     
     .enhanced-quickpick-toggle {
@@ -304,6 +328,7 @@ nav.navbar .svg-inline--fa.fa-discord {
     .collapse.navbar-collapse.icons {
         justify-content: center !important;
         margin-top: 10px;
+        margin-right: 0 !important; /* Remove right margin from desktop */
     }
     
     /* Hide icons on very small screens to save space */
@@ -313,21 +338,56 @@ nav.navbar .svg-inline--fa.fa-discord {
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-    /* On tablet screens, move Enhanced toggle below QuickPick */
+    /* On tablet screens, move Enhanced toggle below QuickPick and center */
     #quickPickContainer {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center; /* Center horizontally */
+        justify-content: center;
+        padding-right: 1rem; /* Clear desktop-specific padding */
+        gap: 10px;
+    }
+    
+    .quickpick {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-right: 0 !important; /* Clear desktop margin */
+    }
+    
+    .custom-select {
+        width: auto !important;
+        min-width: 165px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .select-dropdown {
+        left: 50%;
+        right: auto;
+        transform: scaleY(0) translateX(-50%);
+        transform-origin: top center;
+        margin: 10px 0 0;
+        width: 320px;
+        max-width: 90vw;
+    }
+    
+    .custom-select.active .select-dropdown {
+        transform: scaleY(1) translateX(-50%);
     }
     
     .enhanced-quickpick-toggle {
-        margin-top: 10px;
+        margin-top: 0;
         margin-left: 0 !important;
+        display: flex !important;
+        order: -1; /* Keep consistency with mobile: Enhanced above dropdown */
     }
     
     /* Keep icons in their normal position */
     .collapse.navbar-collapse.icons {
         margin-top: 10px;
+        justify-content: center; /* Also center icons on tablet for better look */
+        margin-right: 0 !important;
     }
 }
 
@@ -335,6 +395,7 @@ nav.navbar .svg-inline--fa.fa-discord {
     /* On larger screens, keep Enhanced toggle with icons */
     #quickPickContainer {
         display: block;
+        padding-right: 1rem;
     }
 }
 
@@ -430,7 +491,7 @@ div#InternetState {
 .custom-select.active .select-dropdown {
     opacity: 1;
     visibility: visible;
-    transform: scaleY(1);
+    transform: scaleY(1) translateX(0); /* Default for desktop */
 }
 
 .select-dropdown {
@@ -447,7 +508,7 @@ div#InternetState {
     max-height: 300px;
     overflow-y: auto;
     transition: 0.5s ease;
-    transform: scaleY(0);
+    transform: scaleY(0) translateX(0); /* Add translateX for base style */
     opacity: 0;
     visibility: hidden;
 }
