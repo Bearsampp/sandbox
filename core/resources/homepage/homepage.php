@@ -163,8 +163,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     }
     ?>
 
-    <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
-        <div class = "d-flex flex-row justify-content-space-between align-items-center flex-fill mb-0">
+    <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent" style="overflow: hidden;">
+        <div class = "d-flex flex-row flex-wrap align-items-center justify-content-space-between mb-0" style="margin-right: 30px; max-width: 100%;">
             <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
                href = "https://discord.gg/AgwVNAzV" aria-label = "Discord">
                 <i class = 'fa-brands fa-discord'></i>
@@ -180,6 +180,8 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
                href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class = "donate" src = "<?php echo $imagesPath . 'donate.png'; ?>" alt = 'Donation Icon' />
             </a>
+            <!-- Enhanced Mode Toggle - on the same line, far right -->
+            <div id="enhancedModeContainer"></div>
         </div>
     </div>
 </nav>

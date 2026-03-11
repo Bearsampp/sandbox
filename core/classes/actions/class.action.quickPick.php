@@ -364,17 +364,14 @@ class QuickPick
         $url = QUICKPICK_API_URL . QUICKPICK_API_KEY . '&download_id=' . $DownloadId;
         Util::logDebug( 'API URL: ' . $url );
 
-        $response = @file_get_contents( $url );
+        // Attempt to fetch the API response
+        // Note: If this fails, PHP will generate a warning which will be logged by the error handler
+        // This is expected behavior when the API server is unavailable
+        $response = file_get_contents( $url );
 
         // Check if the response is false
         if ( $response === false ) {
-            $error = error_get_last();
-            if ($error && isset($error['message'])) {
-                Util::logError( 'Error fetching API response: ' . $error['message'] );
-            } else {
-                Util::logError( 'Error fetching API response: Unknown error' );
-            }
-
+            Util::logError( 'Failed to validate QuickPick license - API server unavailable' );
             return false;
         }
 
@@ -757,16 +754,17 @@ class QuickPick
                         <div id = "download-module" style = "display: none">ModuleName</div>
                         <div id = "download-version" style = "display: none">Version</div>
                     </div>
-                    <div class = "enhanced-quickpick-toggle ms-3" style = "display: flex; align-items: center;">
-                        <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch" style = "color: #fff; font-size: 0.9rem; white-space: nowrap;">
-                            Enhanced Mode
-                        </label>
-                        <div class = "form-check form-switch mb-0">
-                            <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch" 
-                                   <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
-                                   data-bs-toggle = "tooltip" data-bs-placement = "bottom" 
-                                   title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
-                        </div>
+                </div>
+                <!-- Enhanced Mode Toggle will be moved to enhancedModeContainer by JavaScript -->
+                <div class = "enhanced-quickpick-toggle" style = "display: none;">
+                    <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch" style = "color: #fff; font-size: 0.9rem; white-space: nowrap;">
+                        Enhanced
+                    </label>
+                    <div class = "form-check form-switch mb-0">
+                        <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch" 
+                               <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
+                               data-bs-toggle = "tooltip" data-bs-placement = "bottom" 
+                               title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
                     </div>
                 </div>
             <?php else: ?>
