@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 quickPickContainer.appendChild(enhancedToggle);
             }
         } else {
-            // Desktop/Tablet: put in enhancedModeContainer
+            // Desktop (>1200px): put in enhancedModeContainer (inline with icons)
             const enhancedContainer = document.getElementById('enhancedModeContainer');
             if (enhancedContainer && !enhancedContainer.contains(enhancedToggle)) {
                 enhancedToggle.style.display = 'flex';
@@ -44,8 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Position on load
     positionEnhancedToggle();
     
-    // Reposition on resize
-    window.addEventListener('resize', positionEnhancedToggle);
+    // Reposition on resize with debounce to avoid excessive calls
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(positionEnhancedToggle, 100);
+    });
 
     // Initialize Enhanced QuickPick toggle switch
     const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');

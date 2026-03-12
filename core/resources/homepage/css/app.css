@@ -397,6 +397,20 @@ nav.navbar .svg-inline--fa.fa-discord {
         display: block;
         padding-right: 1rem;
     }
+    
+    /* Enhanced toggle inline with icons */
+    .enhanced-quickpick-toggle {
+        display: flex !important;
+        align-items: center;
+        margin-left: 15px; /* Match icon spacing */
+    }
+    
+    /* Ensure icons container displays as flex to keep everything inline */
+    .collapse.navbar-collapse.icons .d-flex {
+        display: flex !important;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
 }
 
 .svg-inline--fa.fa-cloud-arrow-down {
