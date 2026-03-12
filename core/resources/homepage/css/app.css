@@ -268,7 +268,9 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 /* Enhanced Mode Toggle - base styles */
 .enhanced-mode-toggle {
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-check-label[for="enhancedQuickPickSwitch"] {
@@ -298,7 +300,7 @@ nav.navbar .svg-inline--fa.fa-discord {
         width: 100% !important;
     }
     
-    /* Stack Enhanced Mode and QuickPick vertically on mobile */
+    /* Stack Enhanced Mode and QuickPick vertically on mobile PORTRAIT */
     .quickpick-menu {
         flex-direction: column !important;
         align-items: center !important;
@@ -306,6 +308,11 @@ nav.navbar .svg-inline--fa.fa-discord {
         gap: 0 !important;
         flex-wrap: wrap !important;
         margin: 0 auto !important;
+    }
+    
+    /* Portrait mode - center the toggle */
+    .enhanced-mode-toggle {
+        justify-content: center !important;
     }
     
     /* Container for Enhanced Mode toggle and QuickPick dropdown */
@@ -385,11 +392,9 @@ nav.navbar .svg-inline--fa.fa-discord {
         transform: translateY(-50%) rotate(180deg);
     }
     
-    .enhanced-quickpick-toggle {
-        margin-top: 0 !important;
-        margin-left: 0 !important;
-        order: -1; /* Put Enhanced above the dropdown */
-        display: flex !important;
+    .enhanced-mode-toggle {
+        margin: 0 auto !important;
+        justify-content: center !important;
     }
     
     /* Hide social icons wrapper on mobile */

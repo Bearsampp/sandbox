@@ -161,7 +161,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                     // Get enhanced mode setting
                     $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
                     ?>
-                    <div class = "d-flex align-items-center enhanced-mode-toggle">
+                    <div class = "enhanced-mode-toggle">
                         <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch">
                             Enhanced Mode
                         </label>
