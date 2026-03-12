@@ -410,6 +410,28 @@ nav.navbar .svg-inline--fa.fa-discord {
         padding-left: 15px;
     }
     
+    /* Stack Enhanced Mode toggle above QuickPick on tablets */
+    .quickpick-menu {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+    
+    .quickpick-controls {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100%;
+    }
+    
+    .enhanced-mode-toggle {
+        margin-right: 0 !important;
+        justify-content: center !important;
+    }
+    
     /* Reduce margins on tablet to fit content */
     .collapse.navbar-collapse.icons .d-flex {
         margin-right: 15px !important;
