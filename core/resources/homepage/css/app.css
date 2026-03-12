@@ -251,7 +251,7 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 /* Ensure icons don't wrap and stay on one line */
 .collapse.navbar-collapse.icons .d-flex {
-    flex-wrap: nowrap !important;
+    flex-wrap: nowrap;
 }
 
 /* Make QuickPick container flexible to accommodate icons */
@@ -267,12 +267,58 @@ nav.navbar .svg-inline--fa.fa-discord {
 }
 
 /* Enhanced Mode Toggle - base styles */
+.enhanced-mode-toggle {
+    margin-right: 20px;
+}
+
 .form-check-label[for="enhancedQuickPickSwitch"] {
-    margin-left: 15px; /* Match icon spacing */
+    color: #fff;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Hide social icons wrapper on all mobile devices */
+@media (max-width: 767px) {
+    .social-icons-wrapper {
+        display: none !important;
+    }
 }
 
 /* Enhanced Mode Toggle - responsive positioning */
 @media (max-width: 767px) {
+    /* Center the wrapper on mobile vertical layouts */
+    .quickpick-menu-wrapper {
+        margin: 0 auto !important;
+    }
+    
+    /* Center the collapse container on mobile */
+    .collapse.navbar-collapse.icons {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    
+    /* Stack Enhanced Mode and QuickPick vertically on mobile */
+    .quickpick-menu {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        flex-wrap: wrap !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Container for Enhanced Mode toggle and QuickPick dropdown */
+    .quickpick-controls {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100%;
+        margin: 0 auto !important;
+    }
+    
     /* Enhanced Mode Toggle - responsive positioning */
     #quickPickContainer {
         display: flex;
@@ -280,7 +326,7 @@ nav.navbar .svg-inline--fa.fa-discord {
         align-items: center;
         justify-content: center;
         gap: 10px;
-        width: 100%;
+        width: auto;
         padding: 0; /* Remove padding that might cause offset */
         overflow: visible; /* Ensure dropdown can overflow the container */
     }
@@ -346,70 +392,47 @@ nav.navbar .svg-inline--fa.fa-discord {
         display: flex !important;
     }
     
-    /* Center icons below on mobile */
-    .collapse.navbar-collapse.icons {
-        justify-content: center !important;
-        margin-top: 10px;
-        margin-right: 0 !important; /* Remove right margin from desktop */
-    }
-    
-    /* Hide icons on very small screens to save space */
-    .collapse.navbar-collapse.icons {
+    /* Hide social icons wrapper on mobile */
+    .social-icons-wrapper {
         display: none !important;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-    /* On tablet screens, move Enhanced toggle below QuickPick and center */
-    #quickPickContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Center horizontally */
-        justify-content: center;
-        padding-right: 1rem; /* Clear desktop-specific padding */
-        gap: 10px;
+    /* On tablet screens, ensure navbar content is visible */
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
     }
     
-    .quickpick {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-right: 0 !important; /* Clear desktop margin */
+    /* Reduce margins on tablet to fit content */
+    .collapse.navbar-collapse.icons .d-flex {
+        margin-right: 15px !important;
     }
     
-    .custom-select {
-        width: auto !important;
-        min-width: 165px;
-        margin: 0 auto;
-        position: relative;
+    /* Reduce Enhanced Mode toggle spacing on tablet */
+    .collapse.navbar-collapse.icons .d-flex > div:first-child {
+        margin-right: 10px !important;
+    }
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+    /* iPad portrait mode - hide social icons wrapper, keep Enhanced Mode toggle */
+    .social-icons-wrapper {
+        display: none !important;
+        width: 0 !important;
+        overflow: hidden !important;
     }
     
-    .select-dropdown {
-        left: 50%;
-        right: auto;
-        transform: scaleY(0) translateX(-50%);
-        transform-origin: top center;
-        margin: 10px 0 0;
-        width: 320px;
-        max-width: 90vw;
-    }
-    
-    .custom-select.active .select-dropdown {
-        transform: scaleY(1) translateX(-50%);
-    }
-    
-    .enhanced-quickpick-toggle {
-        margin-top: 0;
-        margin-left: 0 !important;
+    /* Keep Enhanced Mode toggle visible and remove right margin */
+    .collapse.navbar-collapse.icons .d-flex > div:first-child {
         display: flex !important;
-        order: -1; /* Keep consistency with mobile: Enhanced above dropdown */
+        margin-right: 0 !important;
     }
     
-    /* Keep icons in their normal position */
-    .collapse.navbar-collapse.icons {
-        margin-top: 10px;
-        justify-content: center; /* Also center icons on tablet for better look */
-        margin-right: 0 !important;
+    /* Reduce icons container margin */
+    .collapse.navbar-collapse.icons .d-flex {
+        margin-right: 15px !important;
     }
 }
 
