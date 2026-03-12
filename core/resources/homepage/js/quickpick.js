@@ -15,42 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedHeader = null; // Store which module has been selected to allow open/close of versions
     let progressValue = 0; // Initialize progressValue as a number
 
-    // Move Enhanced Mode toggle - responsive positioning
-    const enhancedToggle = document.querySelector('.enhanced-quickpick-toggle');
-    
-    // Check screen size and move to appropriate container
-    function positionEnhancedToggle() {
-        if (!enhancedToggle) return;
-        
-        if (window.innerWidth <= 1200) {
-            // Mobile & Tablet: put in quickPickContainer
-            const quickPickContainer = document.getElementById('quickPickContainer');
-            if (quickPickContainer && !quickPickContainer.contains(enhancedToggle)) {
-                enhancedToggle.style.display = 'flex';
-                enhancedToggle.style.alignItems = 'center';
-                quickPickContainer.appendChild(enhancedToggle);
-            }
-        } else {
-            // Desktop (>1200px): put in enhancedModeContainer (inline with icons)
-            const enhancedContainer = document.getElementById('enhancedModeContainer');
-            if (enhancedContainer && !enhancedContainer.contains(enhancedToggle)) {
-                enhancedToggle.style.display = 'flex';
-                enhancedToggle.style.alignItems = 'center';
-                enhancedContainer.appendChild(enhancedToggle);
-            }
-        }
-    }
-    
-    // Position on load
-    positionEnhancedToggle();
-    
-    // Reposition on resize with debounce to avoid excessive calls
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(positionEnhancedToggle, 100);
-    });
-
     // Initialize Enhanced QuickPick toggle switch
     const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');
     if (enhancedQuickPickSwitch) {

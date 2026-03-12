@@ -249,6 +249,28 @@ nav.navbar .svg-inline--fa.fa-discord {
     margin-right: 30px;
 }
 
+/* Ensure icons don't wrap and stay on one line */
+.collapse.navbar-collapse.icons .d-flex {
+    flex-wrap: nowrap !important;
+}
+
+/* Make QuickPick container flexible to accommodate icons */
+#quickPickContainer {
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+/* Enhanced Mode Container - ensure it's inline */
+#enhancedModeContainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Enhanced Mode Toggle - base styles */
+.form-check-label[for="enhancedQuickPickSwitch"] {
+    margin-left: 15px; /* Match icon spacing */
+}
+
 /* Enhanced Mode Toggle - responsive positioning */
 @media (max-width: 767px) {
     /* Enhanced Mode Toggle - responsive positioning */
@@ -395,14 +417,12 @@ nav.navbar .svg-inline--fa.fa-discord {
     /* On larger screens, keep Enhanced toggle with icons */
     #quickPickContainer {
         display: block;
-        padding-right: 1rem;
     }
     
     /* Enhanced toggle inline with icons */
     .enhanced-quickpick-toggle {
         display: flex !important;
         align-items: center;
-        margin-left: 15px; /* Match icon spacing */
     }
     
     /* Ensure icons container displays as flex to keep everything inline */
@@ -425,21 +445,21 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 /* Enhanced Mode Toggle - Switch Colors */
 /* OFF state - Red background */
-.enhanced-quickpick-toggle .form-check-input[type="checkbox"] {
+#enhancedQuickPickSwitch {
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
 }
 
 /* ON state - Green background */
-.enhanced-quickpick-toggle .form-check-input[type="checkbox"]:checked {
+#enhancedQuickPickSwitch:checked {
     background-color: #28a745 !important;
     border-color: #28a745 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
 }
 
 /* Focus state */
-.enhanced-quickpick-toggle .form-check-input[type="checkbox"]:focus {
+#enhancedQuickPickSwitch:focus {
     box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25) !important;
     border-color: #28a745 !important;
 }

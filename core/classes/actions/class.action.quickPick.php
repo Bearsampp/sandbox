@@ -755,18 +755,6 @@ class QuickPick
                         <div id = "download-version" style = "display: none">Version</div>
                     </div>
                 </div>
-                <!-- Enhanced Mode Toggle will be moved to enhancedModeContainer by JavaScript -->
-                <div class = "enhanced-quickpick-toggle" style = "display: none;">
-                    <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch" style = "color: #fff; font-size: 0.9rem; white-space: nowrap;">
-                        Enhanced
-                    </label>
-                    <div class = "form-check form-switch mb-0">
-                        <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch" 
-                               <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
-                               data-bs-toggle = "tooltip" data-bs-placement = "bottom" 
-                               title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
-                    </div>
-                </div>
             <?php else: ?>
                 <div id = "subscribeContainer" class = "text-center mt-3 pe-3">
                     <a href = "<?php echo Util::getWebsiteUrl( 'subscribe' ); ?>" class = "btn btn-dark d-inline-flex align-items-center">

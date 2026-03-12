@@ -139,7 +139,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
 
 <body>
 <nav class = "navbar navbar-expand-md navbar-light bg-dark fixed-top" role = "navigation">
-    <div class = "container-fluid">
+    <div class = "container-fluid d-flex justify-content-between align-items-center">
         <div class = "d-inline-block">
             <a class = "navbar-brand" href = "<?php echo Util::getWebsiteUrl(); ?>" aria-label = 'Home'>
                 <img class = "p-1" alt = "<?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?>"
@@ -150,38 +150,54 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                 <span class = "navbar-toggler-icon"></span>
             </button>
         </div>
-    </div>
-    <?php
-    try {
-        echo $quickPick->loadQuickpick($imagesPath);
-    } catch (Exception $e) {
-        // Log the error but continue with the page
-        error_log('Error loading QuickPick: ' . $e->getMessage());
-        echo '<div id="quickPickError" class="text-center mt-3 pe-3">
-            <span>QuickPick unavailable</span>
-        </div>';
-    }
-    ?>
 
-    <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent" style="overflow: hidden;">
-        <div class = "d-flex flex-row flex-wrap align-items-center justify-content-space-between mb-0" style="margin-right: 30px; max-width: 100%;">
-            <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
-               href = "https://discord.gg/AgwVNAzV" aria-label = "Discord">
-                <i class = 'fa-brands fa-discord'></i>
-            </a>
-            <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
-               href = "https://www.facebook.com/groups/bearsampp" aria-label = "Facebook">
-                <i class = "fa-brands fa-facebook"></i>
-            </a>
-            <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
-               href = "<?php echo Util::getGithubUrl(); ?>" aria-label = "GitHub">
-                <i class = "fa-brands fa-github"></i>
-            </a>
-            <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
-               href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class = "donate" src = "<?php echo $imagesPath . 'donate.png'; ?>" alt = 'Donation Icon' />
-            </a>
-            <!-- Enhanced Mode Toggle - on the same line, far right -->
-            <div id="enhancedModeContainer"></div>
+        <div class = "d-flex align-items-center">
+        <?php
+        try {
+            echo $quickPick->loadQuickpick($imagesPath);
+        } catch (Exception $e) {
+            // Log the error but continue with the page
+            error_log('Error loading QuickPick: ' . $e->getMessage());
+            echo '<div id="quickPickError" class="text-center mt-3 pe-3">
+                <span>QuickPick unavailable</span>
+            </div>';
+        }
+        ?>
+        
+        <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent" style="overflow: hidden;">
+            <div class = "d-flex flex-row flex-nowrap align-items-center mb-0" style="margin-right: 30px;">
+                <!-- Enhanced Mode Toggle - inline with icons, FIRST -->
+                <?php
+                // Get enhanced mode setting
+                $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
+                ?>
+                <div class = "d-flex align-items-center" style="margin-right: 20px;">
+                    <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch" style = "color: #fff; font-size: 0.9rem; white-space: nowrap;">
+                        Enhanced Mode
+                    </label>
+                    <div class = "form-check form-switch mb-0">
+                        <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch" 
+                               <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
+                               data-bs-toggle = "tooltip" data-bs-placement = "bottom" 
+                               title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
+                    </div>
+                </div>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
+                   href = "https://discord.gg/AgwVNAzV" aria-label = "Discord">
+                    <i class = 'fa-brands fa-discord'></i>
+                </a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
+                   href = "https://www.facebook.com/groups/bearsampp" aria-label = "Facebook">
+                    <i class = "fa-brands fa-facebook"></i>
+                </a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
+                   href = "<?php echo Util::getGithubUrl(); ?>" aria-label = "GitHub">
+                    <i class = "fa-brands fa-github"></i>
+                </a>
+                <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
+                   href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class = "donate" src = "<?php echo $imagesPath . 'donate.png'; ?>" alt = 'Donation Icon' />
+                </a>
+            </div>
         </div>
     </div>
 </nav>
