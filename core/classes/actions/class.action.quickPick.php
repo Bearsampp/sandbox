@@ -91,6 +91,29 @@ class QuickPick
     }
 
     /**
+     * Normalizes a module name to find the correct module key from the modules array.
+     * Handles case-insensitive matching for all module types.
+     *
+     * @param string $moduleName The module name to normalize (may include 'module-' prefix)
+     * @return string|null The correctly capitalized module key, or null if not found
+     */
+    public function normalizeModuleName(string $moduleName): ?string
+    {
+        // Remove 'module-' prefix if present
+        $moduleName = str_replace('module-', '', $moduleName);
+        
+        // Find the correct module key by searching through the modules array
+        // This handles proper capitalization for all module types
+        foreach ($this->modules as $key => $moduleInfo) {
+            if (strtolower($key) === strtolower($moduleName)) {
+                return $key;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
      * Retrieves the list of available modules.
      *
      * @return array An array of module names.
@@ -438,15 +461,17 @@ class QuickPick
             global $bearsamppConfig;
             $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
             
+            Util::logDebug('Enhanced mode: ' . ($enhancedMode ? 'enabled' : 'disabled'));
+            
             // If installation was successful and enhanced mode is enabled, update config
             if (isset($response['success']) && $enhancedMode == 1) {
                 // Step 1: Update config FIRST (so reload can pick up the new version)
-                Util::logDebug('Enhanced mode enabled - Updating config before reload...');
+                Util::logDebug('Enhanced mode enabled - Updating config for module: ' . $module . ' version: ' . $version);
                 $configUpdated = $this->updateModuleConfig($module, $version);
                 
                 if ($configUpdated) {
                     // Step 2: Trigger reload AFTER config update (reload will apply the new version)
-                    Util::logDebug('Config updated, triggering reload to apply changes...');
+                    Util::logDebug('Config updated successfully, triggering reload to apply changes...');
                     
                     // Send progress update to user - temporarily stop output buffering
                     $obLevel = ob_get_level();
@@ -466,7 +491,7 @@ class QuickPick
                     Util::logDebug('Installation complete - user must manually reload from tray menu');
                     $response['reload_required'] = true;
                 } else {
-                    Util::logWarning('Config update failed, skipping reload');
+                    Util::logError('Config update failed for module: ' . $module);
                     $response['reload_triggered'] = false;
                 }
             } else if (isset($response['success']) && $enhancedMode == 0) {
@@ -507,10 +532,18 @@ class QuickPick
     $moduleName = str_replace('module-', '', $module);
     Util::logDebug('Module Name: ' . $moduleName);
 
-    // Ensure we're using the correct module key (capitalize first letter)
-    $moduleKey = ucfirst($moduleName);
-    if (!isset($this->modules[$moduleKey])) {
-        Util::logError("Module not found in modules array: $moduleKey");
+    // Find the correct module key by searching through the modules array
+    // This handles proper capitalization for all module types
+    $moduleKey = null;
+    foreach ($this->modules as $key => $moduleInfo) {
+        if (strtolower($key) === strtolower($moduleName)) {
+            $moduleKey = $key;
+            break;
+        }
+    }
+    
+    if (!$moduleKey) {
+        Util::logError("Module not found in modules array: $moduleName");
         return ['error' => 'Module configuration not found'];
     }
     
@@ -640,26 +673,31 @@ class QuickPick
         try {
             $bearsamppConfig = new Config();
             
-            // Remove 'module-' prefix if present
-            $moduleName = str_replace('module-', '', strtolower($module));
+            // Remove 'module-' prefix if present and normalize the module name
+            $moduleName = str_replace('module-', '', $module);
             
-            // Ensure we're using the correct module key (capitalize first letter)
-            $moduleKey = ucfirst($moduleName);
+            // Find the correct module key by searching through the modules array
+            // This handles proper capitalization for all module types
+            $moduleKey = null;
+            foreach ($this->modules as $key => $moduleInfo) {
+                if (strtolower($key) === strtolower($moduleName)) {
+                    $moduleKey = $key;
+                    break;
+                }
+            }
             
-            // Determine the config section name based on module type
-            $moduleType = isset($this->modules[$moduleKey]) ? $this->modules[$moduleKey]['type'] : null;
-            
-            if (!$moduleType) {
-                Util::logError("Unknown module type for: $moduleKey");
+            if (!$moduleKey) {
+                Util::logError("Module not found in modules array: $moduleName");
                 return false;
             }
             
-            // Map module names to their config section names
-            // For binaries, use the exact lowercase name
-            // For apps and tools, use the lowercase name as well
-            $configSection = $moduleName;
+            $moduleType = $this->modules[$moduleKey]['type'];
             
-            Util::logDebug("Updating config for module: $module (type: $moduleType) to version: $version");
+            // Map module names to their config section names
+            // For all types, use the lowercase name for the config key
+            $configSection = strtolower($moduleKey);
+            
+            Util::logDebug("Updating config for module: $module (key: $moduleKey, type: $moduleType) to version: $version");
             Util::logDebug("Config section: $configSection");
             
             // Update the configuration file

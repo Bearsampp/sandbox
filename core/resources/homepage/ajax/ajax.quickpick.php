@@ -52,9 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             if (!isset($response['error'])) {
                 // Determine module type for appropriate messaging
-                $moduleName = str_replace('module-', '', strtolower($module));
-                $moduleKey = ucfirst($moduleName);
-                $moduleType = isset($QuickPick->modules[$moduleKey]) ? $QuickPick->modules[$moduleKey]['type'] : 'binary';
+                // Use the helper method to normalize the module name consistently
+                $moduleKey = $QuickPick->normalizeModuleName($module);
+                $moduleName = strtolower($moduleKey ?? $module);
+                $moduleType = ($moduleKey && isset($QuickPick->modules[$moduleKey])) ? $QuickPick->modules[$moduleKey]['type'] : 'binary';
                 
                 // Build success message based on mode and module type
                 if ($enhancedMode == 1) {
@@ -64,25 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $successMessage .= "\n✓ Configuration updated";
                     $successMessage .= "\n\n<span class='text-warning'><i class='fas fa-exclamation-triangle'></i> IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.</span>";
                 } else {
-                    // Standard mode: different instructions based on module type
+                    // Standard mode: offer to update config for all module types
                     $successMessage = "Module $module version $version has been downloaded and extracted successfully!";
+                    $successMessage .= "\n\nNext steps:";
+                    $successMessage .= "\n1. Click 'Apply Config' below to update bearsampp.conf";
+                    $successMessage .= "\n2. Right-click the Bearsampp tray icon and select 'Reload'";
                     
-                    if ($moduleType === 'binary') {
-                        // Binaries: reload, then switch version via menu
-                        $successMessage .= "\n\nNext steps:";
-                        $successMessage .= "\n1. Right-click the Bearsampp tray icon and select 'Reload'";
-                        $successMessage .= "\n2. Use the tray menu to switch to version $version";
-                    } else {
-                        // Apps/Tools: offer to update config automatically
-                        $successMessage .= "\n\nNext steps:";
-                        $successMessage .= "\n1. Click 'Apply Config' below to update bearsampp.conf";
-                        $successMessage .= "\n2. Right-click the Bearsampp tray icon and select 'Reload'";
-                        
-                        // Include module info for the apply button
-                        $response['moduleType'] = $moduleType;
-                        $response['moduleName'] = $moduleName;
-                        $response['showApplyButton'] = true;
-                    }
+                    // Include module info for the apply button
+                    $response['moduleType'] = $moduleType;
+                    $response['moduleName'] = $moduleName;
+                    $response['showApplyButton'] = true;
                 }
                 
                 $response['message'] = $successMessage;
