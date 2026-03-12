@@ -524,7 +524,16 @@ async function toggleEnhancedQuickPick(value) {
             }, 3000);
         } else if (data.error) {
             console.error('Error toggling EnhancedQuickPick:', data.error);
-            window.alert(`Error: ${data.error}`);
+            
+            // Check if it's an "Invalid proc parameter" error
+            if (data.error.includes('Invalid proc parameter')) {
+                // Extract the proc value from the error message if available
+                const procMatch = data.error.match(/"([^"]+)"/);
+                const procValue = procMatch ? procMatch[1] : 'unknown';
+                window.alert(`Configuration Error: The requested procedure "${procValue}" is not recognized.\n\nThe EnhancedQuickPick parameter may be missing from bearsampp.conf. Please add it manually or reload the application.`);
+            } else {
+                window.alert(`Error: ${data.error}`);
+            }
             
             // Revert the switch state
             const enhancedQuickPickSwitch = document.getElementById('enhancedQuickPickSwitch');

@@ -236,4 +236,32 @@ class Config
     {
         return isset($this->raw[self::CFG_ENHANCED_QUICKPICK]) ? intval($this->raw[self::CFG_ENHANCED_QUICKPICK]) : 0;
     }
+
+    /**
+     * Validates that the EnhancedQuickPick parameter exists and has a valid value.
+     *
+     * @return array An array with 'valid' boolean and optional 'error' message
+     */
+    public function validateEnhancedQuickPick()
+    {
+        // Check if the parameter exists in the config
+        if (!isset($this->raw[self::CFG_ENHANCED_QUICKPICK])) {
+            return [
+                'valid' => false,
+                'error' => 'Missing parameter: EnhancedQuickPick is not defined in bearsampp.conf'
+            ];
+        }
+
+        $value = $this->raw[self::CFG_ENHANCED_QUICKPICK];
+
+        // Check if the value is either "0" or "1"
+        if ($value !== "0" && $value !== "1") {
+            return [
+                'valid' => false,
+                'error' => 'Invalid parameter: EnhancedQuickPick must be set to "0" or "1" in bearsampp.conf'
+            ];
+        }
+
+        return ['valid' => true];
+    }
 }

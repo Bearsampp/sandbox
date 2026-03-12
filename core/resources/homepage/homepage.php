@@ -187,7 +187,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                 <!-- Social media icons wrapper -->
                 <div class = "social-icons-wrapper d-none d-lg-flex align-items-center">
                     <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
-                       href = "https://discord.gg/AgwVNAzV" aria-label = "Discord">
+                       href = "https://discord.gg/UEczsEkG4A" aria-label = "Discord">
                         <i class = 'fa-brands fa-discord'></i>
                     </a>
                     <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"

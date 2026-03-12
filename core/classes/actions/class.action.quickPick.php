@@ -134,6 +134,14 @@ class QuickPick
      */
     public function loadQuickpick(string $imagesPath): string
     {
+        global $bearsamppConfig;
+
+        // Validate EnhancedQuickPick parameter
+        $validation = $bearsamppConfig->validateEnhancedQuickPick();
+        if (!$validation['valid']) {
+            return $this->getErrorModal($validation['error']);
+        }
+
         $this->checkQuickpickJson();
 
         $modules  = $this->getModules();
@@ -713,6 +721,36 @@ class QuickPick
             Util::logError("Failed to update module config: " . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * Generates an error modal for configuration validation failures.
+     *
+     * @param   string  $errorMessage  The error message to display.
+     *
+     * @return string The HTML content of the error modal.
+     */
+    public function getErrorModal(string $errorMessage): string
+    {
+        ob_start();
+        ?>
+        <div id="configErrorContainer" class="text-center mt-3 pe-3">
+            <div class="alert alert-danger d-inline-block" role="alert" style="max-width: 500px;">
+                <h4 class="alert-heading">
+                    <i class="fas fa-exclamation-circle"></i> Configuration Error
+                </h4>
+                <hr>
+                <p class="mb-0">
+                    <?php echo htmlspecialchars($errorMessage); ?>
+                </p>
+                <hr>
+                <small class="text-muted">
+                    Please add the missing parameter to the <code>bearsampp.conf</code> file in the Bearsampp root directory.
+                </small>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
     }
 
     /**
