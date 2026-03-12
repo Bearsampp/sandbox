@@ -443,6 +443,13 @@ nav.navbar .svg-inline--fa.fa-discord {
     }
 }
 
+@media (min-width: 1025px) and (max-width: 1366px) and (orientation: landscape) {
+    /* iPad 11" landscape - add margin to quickpick-controls */
+    .quickpick-controls {
+        margin-right: 20px;
+    }
+}
+
 @media (max-width: 1024px) and (orientation: portrait) {
     /* iPad portrait mode - hide social icons wrapper, keep Enhanced Mode toggle */
     .social-icons-wrapper {
