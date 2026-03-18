@@ -455,7 +455,7 @@ class ActionStartup
             }
 
             try {
-                if (unlink($filePath)) {
+                if (file_exists($filePath) && unlink($filePath)) {
                     $logsDeleted++;
                     Util::logTrace("Purged log file: " . $file);
                 } else {
