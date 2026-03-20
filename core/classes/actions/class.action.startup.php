@@ -1149,6 +1149,16 @@ class ActionStartup
         // Check port availability (no progress increment - part of check phase)
         $isPortInUse = Util::isPortInUse($port);
         if ($isPortInUse !== false) {
+            // Port is in use - check if it's our service that's already running
+            if ($service->isRunning()) {
+                // Service is already running and owns the port - this is OK
+                $this->writeLog($name . ' service already running on port ' . $port);
+                Util::logTrace('Service ' . $name . ' already running - no need to start');
+                $serviceInfo['needsStart'] = false;
+                return $serviceInfo;
+            }
+
+            // Port is in use by something else - this is an error
             $serviceInfo['error'] = sprintf($bearsamppLang->getValue(Lang::STARTUP_SERVICE_PORT_ERROR), $port, $isPortInUse);
             return $serviceInfo;
         }
