@@ -899,10 +899,10 @@ class ActionStartup
      */
     private function installServicesSequential($bearsamppBins, $bearsamppLang)
     {
-        Util::logTrace('Starting Service installation');
-        $parallelStartTime = Util::getMicrotime();
+        Util::logTrace('Starting sequential service installation');
+        $installStartTime = Util::getMicrotime();
 
-        // Step 1: Check and prepare all services (sequential - must be done first)
+        // Step 1: Check and prepare all services
         $servicesToStart = [];
         $serviceErrors = [];
 
@@ -944,7 +944,7 @@ class ActionStartup
 
         // Step 2: Start all services sequentially with progress updates
         if (!empty($servicesToStart)) {
-            Util::logTrace('Starting ' . count($servicesToStart) . ' services');
+            Util::logTrace('Starting ' . count($servicesToStart) . ' services sequentially');
 
             $serviceCount = 0;
             $totalServices = count($servicesToStart);
@@ -959,12 +959,12 @@ class ActionStartup
                 $this->splash->incrProgressBar();
 
                 Util::logTrace('Starting service: ' . $sName);
-                $startTime = Util::getMicrotime();
+                $serviceStartTime = Util::getMicrotime();
 
-                // Start the service using the existing optimized method
+                // Start the service
                 $success = $service->start();
 
-                $duration = round(Util::getMicrotime() - $startTime, 3);
+                $duration = round(Util::getMicrotime() - $serviceStartTime, 3);
 
                 if ($success) {
                     $this->writeLog($name . ' service started in ' . $duration . 's');
@@ -1011,17 +1011,9 @@ class ActionStartup
             }
         }
 
-        $parallelDuration = round(Util::getMicrotime() - $parallelStartTime, 3);
-        $this->writeLog('Service installation completed in ' . $parallelDuration . 's');
-        Util::logTrace('Service installation completed in ' . $parallelDuration . ' seconds');
-
-        // Calculate time saved (estimate: sequential would take ~8-15s per service)
-        $estimatedSequentialTime = count($servicesToStart) * 10; // Average 10s per service
-        $timeSaved = $estimatedSequentialTime - $parallelDuration;
-        if ($timeSaved > 0) {
-            $this->writeLog('Performance: Saved approximately ' . round($timeSaved, 1) . ' seconds with parallel startup');
-            Util::logDebug('Performance: Saved approximately ' . round($timeSaved, 1) . ' seconds with parallel startup');
-        }
+        $installDuration = round(Util::getMicrotime() - $installStartTime, 3);
+        $this->writeLog('Service installation completed in ' . $installDuration . 's');
+        Util::logTrace('Service installation completed in ' . $installDuration . ' seconds');
     }
 
     /**
@@ -1171,159 +1163,6 @@ class ActionStartup
 
         $serviceInfo['needsStart'] = true;
         return $serviceInfo;
-    }
-
-    /**
-     * Starts multiple services in parallel using PowerShell background jobs
-     *
-     * @param array $servicesToStart Array of service info arrays
-     * @param object $bearsamppLang Language object
-     * @return array Results array with success/failure for each service
-     */
-    private function startServicesParallel($servicesToStart, $bearsamppLang)
-    {
-        Util::logTrace('Starting service startup for ' . count($servicesToStart) . ' services');
-        $startTime = Util::getMicrotime();
-        $results = [];
-
-        // Update splash to show we're starting services in parallel
-        $totalServices = count($servicesToStart);
-        $this->splash->setTextLoading('Starting ' . $totalServices . ' service(s) in parallel...');
-        $this->splash->incrProgressBar();
-
-        // Start all services simultaneously using sc.exe start command (truly parallel)
-        $serviceJobs = [];
-
-        Util::logTrace('Initiating all service starts simultaneously');
-
-        foreach ($servicesToStart as $sName => $serviceInfo) {
-            $serviceName = $serviceInfo['service']->getName();
-            $name = $serviceInfo['name'];
-            Util::logTrace('Queuing start for service: ' . $serviceName);
-
-            // Use sc.exe to start the service (fast, native Windows command)
-            // Start in background using START command to avoid blocking
-            $cmd = 'start /B sc start "' . $serviceName . '" 2>&1';
-            $jobStartTime = Util::getMicrotime();
-
-            // Execute the command in background (non-blocking)
-            pclose(popen($cmd, 'r'));
-
-            $serviceJobs[$sName] = [
-                'startTime' => $jobStartTime,
-                'output' => [],
-                'returnCode' => 0,
-                'serviceInfo' => $serviceInfo
-            ];
-        }
-
-        Util::logTrace('All service start commands issued, now monitoring status');
-
-        // Wait for all services to actually start (check status)
-        $maxWaitTime = 30; // 30 seconds max wait
-        $checkInterval = 0.5; // Check every 500ms
-        $elapsed = 0;
-        $startedServices = 0;
-        $lastUpdateTime = 0;
-
-        while ($elapsed < $maxWaitTime && !empty($serviceJobs)) {
-            usleep(500000); // 500ms
-            $elapsed += $checkInterval;
-
-            foreach ($serviceJobs as $sName => $job) {
-                $serviceInfo = $job['serviceInfo'];
-                $service = $serviceInfo['service'];
-                $name = $serviceInfo['name'];
-
-                // Check if service is running
-                try {
-                    $status = $service->status();
-                    if ($status == Win32Service::STATUS_RUNNING) {
-                        $duration = Util::getMicrotime() - $job['startTime'];
-                        $results[$sName] = [
-                            'success' => true,
-                            'duration' => $duration,
-                            'error' => ''
-                        ];
-                        $startedServices++;
-                        Util::logTrace('Service ' . $service->getName() . ' started successfully in ' . round($duration, 3) . 's (' . $startedServices . '/' . $totalServices . ')');
-
-                        // Update splash to show service started
-                        $this->splash->setTextLoading($name . ' started (' . $startedServices . '/' . $totalServices . ')');
-
-                        unset($serviceJobs[$sName]);
-                    }
-                } catch (\Exception $e) {
-                    // Service check failed, will retry
-                }
-            }
-
-            // Update splash text periodically to show progress
-            if ($startedServices < $totalServices && ($elapsed - $lastUpdateTime) >= 1.0) {
-                $remainingServices = $totalServices - $startedServices;
-                $this->splash->setTextLoading('Waiting for ' . $remainingServices . ' service(s) to start...');
-                Util::logTrace('Waiting for ' . $remainingServices . ' service(s) to start...');
-                $lastUpdateTime = $elapsed;
-            }
-        }
-
-        // Handle any services that didn't start
-        foreach ($serviceJobs as $sName => $job) {
-            $serviceInfo = $job['serviceInfo'];
-            $name = $serviceInfo['name'];
-            $duration = Util::getMicrotime() - $job['startTime'];
-
-            // Update splash to show we're checking this service
-            $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_CHECK_SERVICE_TEXT), $name));
-
-            // Check one more time
-            try {
-                $status = $serviceInfo['service']->status();
-                if ($status == Win32Service::STATUS_RUNNING) {
-                    $results[$sName] = [
-                        'success' => true,
-                        'duration' => $duration,
-                        'error' => ''
-                    ];
-                    Util::logTrace('Service ' . $serviceInfo['service']->getName() . ' started (final check)');
-
-                    // Update splash to show service started
-                    $this->splash->setTextLoading($name . ' started successfully');
-                    continue;
-                }
-            } catch (\Exception $e) {
-                // Fall through to error handling
-            }
-
-            // Service failed to start
-            $error = sprintf($bearsamppLang->getValue(Lang::STARTUP_SERVICE_START_ERROR),
-                'Timeout or failed to start (return code: ' . $job['returnCode'] . ')');
-
-            // Run syntax check if available
-            if (!empty($serviceInfo['syntaxCheckCmd'])) {
-                try {
-                    $cmdSyntaxCheck = $serviceInfo['bin']->getCmdLineOutput($serviceInfo['syntaxCheckCmd']);
-                    if (!$cmdSyntaxCheck['syntaxOk']) {
-                        $error .= PHP_EOL . sprintf($bearsamppLang->getValue(Lang::STARTUP_SERVICE_SYNTAX_ERROR),
-                            $cmdSyntaxCheck['content']);
-                    }
-                } catch (\Exception $e) {
-                    // Ignore syntax check errors
-                }
-            }
-
-            $results[$sName] = [
-                'success' => false,
-                'duration' => $duration,
-                'error' => $error
-            ];
-            Util::logTrace('Service ' . $serviceInfo['service']->getName() . ' failed to start');
-        }
-
-        $totalDuration = round(Util::getMicrotime() - $startTime, 3);
-        Util::logTrace('service startup completed in ' . $totalDuration . 's');
-
-        return $results;
     }
 
     /**
