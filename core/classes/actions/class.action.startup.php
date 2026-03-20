@@ -1112,6 +1112,9 @@ class ActionStartup
             } catch (\Exception $e) {
                 Util::logTrace("Exception during service check: " . $e->getMessage());
                 $serviceInfos = false;
+            } catch (\Throwable $e) {
+                Util::logTrace("Throwable during service check: " . $e->getMessage());
+                $serviceInfos = false;
             }
         }
 
