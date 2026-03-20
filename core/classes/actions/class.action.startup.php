@@ -891,8 +891,8 @@ class ActionStartup
 
     /**
      * Service Installation
-     * Installs and starts services in parallel for maximum performance.
-     * This method can save 33-70 seconds compared to sequential startup.
+     * Installs and starts services sequentially with proper progress tracking.
+     * Ensures exactly GAUGE_SERVICES (5) progress steps per service.
      *
      * @param object $bearsamppBins The bins object
      * @param object $bearsamppLang The language object
@@ -914,19 +914,22 @@ class ActionStartup
 
             Util::logTrace('Preparing service: ' . $sName);
 
+            // prepareService() increments 1 step
             $serviceInfo = $this->prepareService($sName, $service, $bearsamppBins, $bearsamppLang, $currentServiceIndex, $totalServiceCount);
 
             if ($serviceInfo['restart']) {
                 $this->writeLog('Need restart: installService ' . $serviceInfo['bin']->getName());
                 Util::logTrace('Restart required for service: ' . $serviceInfo['bin']->getName());
                 $this->restart = true;
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES);
+                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
                 continue;
             }
 
             if (!empty($serviceInfo['error'])) {
                 $serviceErrors[$sName] = $serviceInfo;
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES);
+                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
                 continue;
             }
 
@@ -934,7 +937,8 @@ class ActionStartup
                 $servicesToStart[$sName] = $serviceInfo;
             } else {
                 // Service already running or doesn't need to start
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES);
+                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
             }
         }
 
@@ -950,7 +954,7 @@ class ActionStartup
                 $name = $serviceInfo['name'];
                 $service = $serviceInfo['service'];
 
-                // Update splash before starting
+                // Update splash before starting (1 step - 2nd of 5)
                 $this->splash->setTextLoading('Starting ' . $name . ' (' . $serviceCount . '/' . $totalServices . ')');
                 $this->splash->incrProgressBar();
 
@@ -991,7 +995,8 @@ class ActionStartup
                     }
                 }
 
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
+                // Complete remaining steps: prepareService=1, pre-start=1, now add 3 more = 5 total
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 2);
             }
         }
 
@@ -1089,7 +1094,7 @@ class ActionStartup
         $serviceInfo['port'] = $port;
         $serviceInfo['syntaxCheckCmd'] = $syntaxCheckCmd;
 
-        // Update splash with current service being checked
+        // Update splash with current service being checked (1 step)
         if ($currentIndex > 0 && $totalCount > 0) {
             $this->splash->setTextLoading('Checking ' . $bin->getName() . ' service (' . $currentIndex . '/' . $totalCount . ')');
         }
@@ -1141,7 +1146,7 @@ class ActionStartup
             }
         }
 
-        $this->splash->incrProgressBar();
+        // Remove service if needed (no progress increment - part of check phase)
         if ($serviceToRemove) {
             if (!$service->delete()) {
                 $serviceInfo['restart'] = true;
@@ -1149,16 +1154,14 @@ class ActionStartup
             }
         }
 
-        // Check port availability
+        // Check port availability (no progress increment - part of check phase)
         $isPortInUse = Util::isPortInUse($port);
         if ($isPortInUse !== false) {
             $serviceInfo['error'] = sprintf($bearsamppLang->getValue(Lang::STARTUP_SERVICE_PORT_ERROR), $port, $isPortInUse);
-            $this->splash->incrProgressBar(3);
             return $serviceInfo;
         }
 
-        // Install service if needed
-        $this->splash->incrProgressBar();
+        // Install service if needed (no progress increment - part of check phase)
         if (!$serviceAlreadyInstalled || $serviceToRemove) {
             if (!$service->create()) {
                 $serviceInfo['error'] = sprintf($bearsamppLang->getValue(Lang::STARTUP_SERVICE_CREATE_ERROR), $service->getError());
