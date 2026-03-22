@@ -100,7 +100,8 @@ class Csrf
             unset($_SESSION[self::SESSION_KEY][$oldestToken]);
         }
 
-        Util::logDebug('CSRF token generated: ' . substr($token, 0, 16) . '...');
+        // Log token generation without exposing token material
+        Util::logDebug('CSRF token generated successfully');
 
         return $token;
     }
