@@ -240,15 +240,15 @@ class Util
      */
     public static function sanitizePort($port)
     {
-        // Remove all non-numeric characters
-        $sanitized = preg_replace('/[^0-9]/', '', (string)$port);
+        $portStr = trim((string)$port);
 
-        if (empty($sanitized)) {
+        // Require strictly digits to avoid silently changing meaning
+        if ($portStr === '' || !preg_match('/^\d+$/', $portStr)) {
             self::logWarning('Invalid port provided: ' . var_export($port, true));
             return false;
         }
 
-        $portInt = (int)$sanitized;
+        $portInt = (int)$portStr;
 
         // Validate range (1-65535)
         if ($portInt < 1 || $portInt > 65535) {
