@@ -177,7 +177,7 @@ class Csrf
 
     /**
      * Validates a CSRF token from the request (POST or GET).
-     * Checks $_POST['csrf_token'] first, then $_GET['csrf_token'].
+     * Checks $_POST['csrf_token'] first, then $_GET['csrf_token'], then headers.
      *
      * @param bool $removeAfterValidation Whether to remove the token after successful validation
      * @return bool True if token is valid, false otherwise
@@ -195,13 +195,52 @@ class Csrf
         }
 
         // Check custom header (for AJAX requests)
-        $headers = getallheaders();
-        if (isset($headers['X-CSRF-Token'])) {
-            return self::validateToken($headers['X-CSRF-Token'], $removeAfterValidation);
+        $headers = self::getAllHeaders();
+
+        // Check for X-CSRF-Token header (case-insensitive)
+        foreach ($headers as $key => $value) {
+            if (strtolower($key) === 'x-csrf-token') {
+                return self::validateToken($value, $removeAfterValidation);
+            }
         }
 
         Util::logWarning('CSRF validation failed: No token in request');
         return false;
+    }
+
+    /**
+     * Gets all HTTP headers in a cross-compatible way.
+     * Works with both Apache and FastCGI/CGI environments.
+     *
+     * @return array Associative array of headers
+     */
+    private static function getAllHeaders()
+    {
+        // Use getallheaders() if available (Apache)
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            if ($headers !== false) {
+                return $headers;
+            }
+        }
+
+        // Fallback for FastCGI/CGI environments
+        $headers = [];
+        foreach ($_SERVER as $key => $value) {
+            // Extract HTTP headers from $_SERVER
+            if (substr($key, 0, 5) === 'HTTP_') {
+                // Convert HTTP_X_CSRF_TOKEN to X-Csrf-Token
+                $headerName = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($key, 5)))));
+                $headers[$headerName] = $value;
+            }
+            // Handle CONTENT_TYPE and CONTENT_LENGTH specially
+            elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH'])) {
+                $headerName = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', $key))));
+                $headers[$headerName] = $value;
+            }
+        }
+
+        return $headers;
     }
 
     /**
