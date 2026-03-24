@@ -36,6 +36,9 @@ class ActionQuit
     {
         global $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder, $arrayOfCurrents;
 
+        Util::logInfo('ActionQuit constructor called - starting exit process');
+        Util::logDebug('Number of services to stop: ' . count($bearsamppBins->getServices()));
+
         // Start splash screen
         $this->splash = new Splash();
         $this->splash->init(
@@ -44,16 +47,88 @@ class ActionQuit
             sprintf( $bearsamppLang->getValue( Lang::EXIT_LEAVING_TEXT ), APP_TITLE . ' ' . $bearsamppCore->getAppVersion() )
         );
 
+        Util::logDebug('Splash screen initialized');
+
         // Set handler for the splash screen window
         $bearsamppWinbinder->setHandler( $this->splash->getWbWindow(), $this, 'processWindow', 2000 );
+        Util::logDebug('Window handler set, starting main loop');
+
         $bearsamppWinbinder->mainLoop();
+        Util::logDebug('Main loop exited');
+
         $bearsamppWinbinder->reset();
+        Util::logInfo('ActionQuit constructor completed');
     }
 
 
     /**
+     * Get the optimal service shutdown order based on dependencies.
+     * Services are ordered to stop dependent services first, then core services.
+     *
+     * @return array Array of service names in shutdown order
+     */
+    private function getServiceShutdownOrder()
+    {
+        // Define shutdown order: dependent services first, then core services
+        // This prevents connection errors and ensures clean shutdown
+        return [
+            // Tier 1: Application services (no dependencies on other services)
+            BinMailpit::SERVICE_NAME,      // Mail testing tool
+            BinMemcached::SERVICE_NAME,    // Caching service
+            BinXlight::SERVICE_NAME,       // FTP server
+
+            // Tier 2: Database services (web server depends on these)
+            BinPostgresql::SERVICE_NAME,   // PostgreSQL database
+            BinMariadb::SERVICE_NAME,      // MariaDB database
+            BinMysql::SERVICE_NAME,        // MySQL database
+
+            // Tier 3: Web server (depends on databases and other services)
+            BinApache::SERVICE_NAME,       // Apache web server (stopped last)
+        ];
+    }
+
+    /**
+     * Get the display name for a service.
+     *
+     * @param   string  $sName    The service name constant
+     * @param   object  $service  The service object
+     * @return  string  The formatted display name
+     */
+    private function getServiceDisplayName($sName, $service)
+    {
+        global $bearsamppBins;
+
+        $name = '';
+
+        if ($sName == BinApache::SERVICE_NAME) {
+            $name = $bearsamppBins->getApache()->getName() . ' ' . $bearsamppBins->getApache()->getVersion();
+        }
+        elseif ($sName == BinMysql::SERVICE_NAME) {
+            $name = $bearsamppBins->getMysql()->getName() . ' ' . $bearsamppBins->getMysql()->getVersion();
+        }
+        elseif ($sName == BinMailpit::SERVICE_NAME) {
+            $name = $bearsamppBins->getMailpit()->getName() . ' ' . $bearsamppBins->getMailpit()->getVersion();
+        }
+        elseif ($sName == BinMariadb::SERVICE_NAME) {
+            $name = $bearsamppBins->getMariadb()->getName() . ' ' . $bearsamppBins->getMariadb()->getVersion();
+        }
+        elseif ($sName == BinPostgresql::SERVICE_NAME) {
+            $name = $bearsamppBins->getPostgresql()->getName() . ' ' . $bearsamppBins->getPostgresql()->getVersion();
+        }
+        elseif ($sName == BinMemcached::SERVICE_NAME) {
+            $name = $bearsamppBins->getMemcached()->getName() . ' ' . $bearsamppBins->getMemcached()->getVersion();
+        }
+        elseif ($sName == BinXlight::SERVICE_NAME) {
+            $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();
+        }
+
+        $name .= ' (' . $service->getName() . ')';
+        return $name;
+    }
+
+    /**
      * Processes the splash screen window events.
-     * Stops all services, deletes symlinks, and kills remaining processes.
+     * Stops all services in optimal order, deletes symlinks, and kills remaining processes.
      *
      * @param   resource  $window  The window resource.
      * @param   int       $id      The event ID.
@@ -65,33 +140,55 @@ class ActionQuit
     {
         global $bearsamppBins, $bearsamppLang, $bearsamppWinbinder;
 
-        // Stop all services
-        foreach ( $bearsamppBins->getServices() as $sName => $service ) {
-            $name = $bearsamppBins->getApache()->getName() . ' ' . $bearsamppBins->getApache()->getVersion();
-            if ( $sName == BinMysql::SERVICE_NAME ) {
-                $name = $bearsamppBins->getMysql()->getName() . ' ' . $bearsamppBins->getMysql()->getVersion();
+        Util::logInfo('Starting graceful shutdown process with optimized service order');
+
+        // Get all available services
+        $allServices = $bearsamppBins->getServices();
+
+        // Get optimal shutdown order
+        $shutdownOrder = $this->getServiceShutdownOrder();
+
+        Util::logDebug('Service shutdown order: ' . implode(' -> ', $shutdownOrder));
+
+        // Stop services in optimal order
+        foreach ($shutdownOrder as $sName) {
+            // Check if this service exists and is installed
+            if (!isset($allServices[$sName])) {
+                Util::logDebug('Service not found in available services: ' . $sName);
+                continue;
             }
-            elseif ( $sName == BinMailpit::SERVICE_NAME ) {
-                $name = $bearsamppBins->getMailpit()->getName() . ' ' . $bearsamppBins->getMailpit()->getVersion();
-            }
-            elseif ( $sName == BinMariadb::SERVICE_NAME ) {
-                $name = $bearsamppBins->getMariadb()->getName() . ' ' . $bearsamppBins->getMariadb()->getVersion();
-            }
-            elseif ( $sName == BinPostgresql::SERVICE_NAME ) {
-                $name = $bearsamppBins->getPostgresql()->getName() . ' ' . $bearsamppBins->getPostgresql()->getVersion();
-            }
-            elseif ( $sName == BinMemcached::SERVICE_NAME ) {
-                $name = $bearsamppBins->getMemcached()->getName() . ' ' . $bearsamppBins->getMemcached()->getVersion();
-            }
-            elseif ($sName == BinXlight::SERVICE_NAME) {
-                $name = $bearsamppBins->getXlight()->getName() . ' ' . $bearsamppBins->getXlight()->getVersion();
-            }
-            $name .= ' (' . $service->getName() . ')';
+
+            $service = $allServices[$sName];
+            $displayName = $this->getServiceDisplayName($sName, $service);
+
+            Util::logInfo('Stopping service: ' . $displayName);
 
             $this->splash->incrProgressBar();
-            $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::EXIT_REMOVE_SERVICE_TEXT ), $name ) );
-            $service->delete();
+            $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::EXIT_REMOVE_SERVICE_TEXT), $displayName));
+
+            // Delete (stop and remove) the service
+            $result = $service->delete();
+
+            if ($result) {
+                Util::logInfo('Successfully stopped and removed service: ' . $displayName);
+            } else {
+                Util::logWarning('Failed to stop/remove service: ' . $displayName . ' (may not be installed)');
+            }
         }
+
+        // Handle any services not in the shutdown order (for extensibility)
+        foreach ($allServices as $sName => $service) {
+            if (!in_array($sName, $shutdownOrder)) {
+                $displayName = $this->getServiceDisplayName($sName, $service);
+                Util::logWarning('Stopping unlisted service: ' . $displayName);
+
+                $this->splash->incrProgressBar();
+                $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::EXIT_REMOVE_SERVICE_TEXT), $displayName));
+                $service->delete();
+            }
+        }
+
+        Util::logInfo('All services stopped successfully');
 
         // Purge "current" symlinks
         Symlinks::deleteCurrentSymlinks();
@@ -109,7 +206,7 @@ class ActionQuit
 
             // Terminate PHP processes with a timeout of 15 seconds
             self::terminatePhpProcesses($currentPid, $window, $this->splash, 15);
-            
+
             // Force exit if still running
             exit(0);
         }
@@ -134,7 +231,7 @@ class ActionQuit
 
         $currentPid = Win32Ps::getCurrentPid();
         $startTime = microtime(true);
-        
+
         Util::logTrace('Starting PHP process termination (excluding PID: ' . $excludePid . ')');
 
         // Get list of loading PIDs to exclude from termination
@@ -154,7 +251,7 @@ class ActionQuit
                 Util::logTrace('Process termination timeout exceeded, continuing with remaining operations');
                 break;
             }
-            
+
             $exe = strtolower(basename($proc[Win32Ps::EXECUTABLE_PATH]));
             $pid = $proc[Win32Ps::PROCESS_ID];
 
@@ -172,7 +269,7 @@ class ActionQuit
         if ($splash !== null) {
             $splash->setTextLoading('Final cleanup...');
         }
-        
+
         try {
             Util::logTrace('Initiating self-termination for PID: ' . $currentPid);
             // Add a timeout wrapper around the killProc call
@@ -194,7 +291,7 @@ class ActionQuit
                 Util::logTrace('Exception during window destruction: ' . $e->getMessage());
             }
         }
-        
+
         // Force exit if still running after timeout
         if (microtime(true) - $startTime > $timeout * 1.5) {
             Util::logTrace('Forcing exit due to timeout');
