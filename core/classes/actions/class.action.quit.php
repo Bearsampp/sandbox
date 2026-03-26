@@ -1,4 +1,4 @@
-do <?php
+	<?php
 /*
  *
  *  * Copyright (c) 2022-2025 Bearsampp
@@ -554,6 +554,12 @@ class ActionQuit
 
                     // Skip www directory processes (user applications)
                     if (strpos($exePath, $bearsamppPath . '/www/') === 0) {
+                        continue;
+                    }
+
+                    // Skip the main Bearsampp executable
+                    if (strtolower($processName) === 'bearsampp.exe') {
+                        Util::logDebug('Skipping main Bearsampp process: ' . $processName . ' (PID: ' . $pid . ')');
                         continue;
                     }
 
