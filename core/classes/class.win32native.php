@@ -498,6 +498,99 @@ class Win32Native
     }
 
     // ========================================================================
+    // PHASE 5: Shortcuts & Special Paths (COM/WScript.Shell)
+    // ========================================================================
+
+    /**
+     * Gets a Windows special folder path using COM.
+     * PHASE 5: Replaces VBS with direct COM access.
+     *
+     * @param string $folderName The special folder name (Desktop, Startup, etc.)
+     * @return string|false The folder path, or false on failure
+     */
+    public static function getSpecialFolderPath($folderName)
+    {
+        Util::logDebug('getSpecialFolderPath: Getting ' . $folderName . ' path (COM)');
+
+        $startTime = microtime(true);
+
+        try {
+            $shell = new COM("WScript.Shell");
+
+            // Get the special folder path
+            $path = $shell->SpecialFolders($folderName);
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+
+            if ($path && !empty($path)) {
+                // Convert to Unix-style path
+                $path = str_replace('\\', '/', $path);
+                Util::logDebug('getSpecialFolderPath: Found ' . $folderName . ' in ' . $duration . 'ms (COM)');
+                return $path;
+            } else {
+                Util::logDebug('getSpecialFolderPath: ' . $folderName . ' not found');
+                return false;
+            }
+
+        } catch (Exception $e) {
+            Util::logError('getSpecialFolderPath: COM exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Creates a Windows shortcut using COM.
+     * PHASE 5: Replaces VBS with direct COM access.
+     *
+     * @param string $shortcutPath Full path where to save the shortcut (.lnk file)
+     * @param string $targetPath Path to the target executable
+     * @param string $workingDir Working directory for the shortcut
+     * @param string $description Shortcut description
+     * @param string $iconPath Path to icon file
+     * @return bool True on success, false on failure
+     */
+    public static function createShortcut($shortcutPath, $targetPath, $workingDir = '', $description = '', $iconPath = '')
+    {
+        Util::logDebug('createShortcut: Creating shortcut at ' . $shortcutPath . ' (COM)');
+
+        $startTime = microtime(true);
+
+        try {
+            $shell = new COM("WScript.Shell");
+
+            // Create the shortcut object
+            $shortcut = $shell->CreateShortcut($shortcutPath);
+
+            // Set shortcut properties
+            $shortcut->TargetPath = $targetPath;
+
+            if (!empty($workingDir)) {
+                $shortcut->WorkingDirectory = $workingDir;
+            }
+
+            if (!empty($description)) {
+                $shortcut->Description = $description;
+            }
+
+            if (!empty($iconPath)) {
+                $shortcut->IconLocation = $iconPath;
+            }
+
+            // Save the shortcut
+            $shortcut->Save();
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+            Util::logDebug('createShortcut: Successfully created shortcut in ' . $duration . 'ms (COM)');
+
+            return true;
+
+        } catch (Exception $e) {
+            Util::logError('createShortcut: COM exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    // ========================================================================
     // PHASE 4: Browser Detection (COM/Registry)
     // ========================================================================
 

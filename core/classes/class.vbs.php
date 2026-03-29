@@ -215,6 +215,7 @@ class Vbs
 
     /**
      * Retrieves a special folder path.
+     * PHASE 5: Now uses COM instead of VBScript.
      *
      * @param   string  $path  The VBScript path constant for the special folder.
      *
@@ -222,19 +223,15 @@ class Vbs
      */
     private static function getSpecialPath($path)
     {
-        $basename   = 'getSpecialPath';
-        $resultFile = self::getResultFile( $basename );
+        // Phase 5: Use COM implementation
+        Util::logDebug('getSpecialPath: Using COM (Phase 5)');
 
-        $content = 'Dim objShell, objFso, objResultFile' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objShell = Wscript.CreateObject("Wscript.Shell")' . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objResultFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL . PHP_EOL;
-        $content .= 'objResultFile.WriteLine(' . $path . ')' . PHP_EOL;
-        $content .= 'objResultFile.Close' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( !empty( $result ) && is_array( $result ) && count( $result ) == 1 ) {
-            return Util::formatUnixPath( $result[0] );
+        // Extract folder name from VBScript constant
+        // Format: objShell.SpecialFolders("Desktop")
+        if (preg_match('/"([^"]+)"/', $path, $matches)) {
+            $folderName = $matches[1];
+            $result = Win32Native::getSpecialFolderPath($folderName);
+            return $result !== false ? $result : null;
         }
 
         return null;
@@ -254,6 +251,7 @@ class Vbs
 
     /**
      * Creates a shortcut to the Bearsampp executable.
+     * PHASE 5: Now uses COM instead of VBScript.
      *
      * @param   string  $savePath  The path to save the shortcut.
      *
@@ -262,35 +260,16 @@ class Vbs
     public static function createShortcut($savePath)
     {
         global $bearsamppRoot, $bearsamppCore;
-        $basename   = 'createShortcut';
-        $resultFile = self::getResultFile( $basename );
 
-        $content = 'Dim objShell, objFso, objResultFile' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objShell = Wscript.CreateObject("Wscript.Shell")' . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objResultFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objShortcut = objShell.CreateShortcut("' . $savePath . '")' . PHP_EOL;
-        $content .= 'objShortCut.TargetPath = "' . $bearsamppRoot->getExeFilePath() . '"' . PHP_EOL;
-        $content .= 'objShortCut.WorkingDirectory = "' . $bearsamppRoot->getRootPath() . '"' . PHP_EOL;
-        $content .= 'objShortCut.Description = "' . APP_TITLE . ' ' . $bearsamppCore->getAppVersion() . '"' . PHP_EOL;
-        $content .= 'objShortCut.IconLocation = "' . $bearsamppCore->getIconsPath() . '/app.ico' . '"' . PHP_EOL;
-        $content .= 'objShortCut.Save' . PHP_EOL;
-        $content .= 'If Err.Number <> 0 Then' . PHP_EOL;
-        $content .= '    objResultFile.Write Err.Number & ": " & Err.Description' . PHP_EOL;
-        $content .= 'End If' . PHP_EOL;
-        $content .= 'objResultFile.Close' . PHP_EOL;
+        // Phase 5: Use COM implementation
+        Util::logDebug('createShortcut: Using COM (Phase 5)');
 
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
-            return true;
-        }
-        elseif ( isset( $result[0] ) ) {
-            Util::logError( 'createShortcut: ' . $result[0] );
+        $targetPath = $bearsamppRoot->getExeFilePath();
+        $workingDir = $bearsamppRoot->getRootPath();
+        $description = APP_TITLE . ' ' . $bearsamppCore->getAppVersion();
+        $iconPath = $bearsamppCore->getIconsPath() . '/app.ico';
 
-            return false;
-        }
-
-        return false;
+        return Win32Native::createShortcut($savePath, $targetPath, $workingDir, $description, $iconPath);
     }
 
     /**
