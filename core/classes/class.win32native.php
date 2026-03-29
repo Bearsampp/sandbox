@@ -744,6 +744,184 @@ class Win32Native
     }
 
     // ========================================================================
+    // PHASE 7: Service Operations (COM/WMI)
+    // ========================================================================
+
+    /**
+     * Gets information about a Windows service using COM/WMI.
+     * PHASE 7: Replaces VBS with direct COM/WMI access.
+     *
+     * @param string $serviceName The name of the service
+     * @param array $properties Optional array of properties to retrieve
+     * @return array|false Service information array, or false on failure
+     */
+    public static function getServiceInfo($serviceName, $properties = [])
+    {
+        Util::logDebug('getServiceInfo: Getting info for service ' . $serviceName . ' (COM/WMI)');
+
+        $startTime = microtime(true);
+
+        try {
+            // Create WMI connection
+            $wmi = new COM("winmgmts://./root/cimv2");
+
+            // Default properties if none specified
+            if (empty($properties)) {
+                $properties = [
+                    'Name',
+                    'DisplayName',
+                    'State',
+                    'Status',
+                    'StartMode',
+                    'PathName',
+                    'ProcessId',
+                    'Started',
+                    'StartName',
+                    'Description'
+                ];
+            }
+
+            // Build WQL query
+            $selectClause = implode(', ', $properties);
+            $query = "SELECT {$selectClause} FROM Win32_Service WHERE Name = '{$serviceName}'";
+
+            // Execute query
+            $services = $wmi->ExecQuery($query);
+
+            // Get the first (and should be only) result
+            foreach ($services as $service) {
+                $result = [];
+                foreach ($properties as $prop) {
+                    try {
+                        $value = $service->$prop;
+                        $result[$prop] = $value ?? '';
+                    } catch (Exception $e) {
+                        $result[$prop] = '';
+                    }
+                }
+
+                $duration = round((microtime(true) - $startTime) * 1000, 2);
+                Util::logDebug('getServiceInfo: Found service in ' . $duration . 'ms (COM/WMI)');
+
+                return $result;
+            }
+
+            // Service not found
+            Util::logDebug('getServiceInfo: Service not found');
+            return false;
+
+        } catch (Exception $e) {
+            Util::logError('getServiceInfo: COM exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Lists all Windows services using COM/WMI.
+     * PHASE 7: Additional helper method.
+     *
+     * @param array $properties Optional array of properties to retrieve
+     * @return array Array of service information
+     */
+    public static function listServices($properties = [])
+    {
+        Util::logDebug('listServices: Listing all services (COM/WMI)');
+
+        $startTime = microtime(true);
+
+        try {
+            // Create WMI connection
+            $wmi = new COM("winmgmts://./root/cimv2");
+
+            // Default properties if none specified
+            if (empty($properties)) {
+                $properties = ['Name', 'DisplayName', 'State', 'StartMode'];
+            }
+
+            // Build WQL query
+            $selectClause = implode(', ', $properties);
+            $query = "SELECT {$selectClause} FROM Win32_Service";
+
+            // Execute query
+            $services = $wmi->ExecQuery($query);
+
+            // Convert to array
+            $result = [];
+            foreach ($services as $service) {
+                $serviceInfo = [];
+                foreach ($properties as $prop) {
+                    try {
+                        $value = $service->$prop;
+                        $serviceInfo[$prop] = $value ?? '';
+                    } catch (Exception $e) {
+                        $serviceInfo[$prop] = '';
+                    }
+                }
+                $result[] = $serviceInfo;
+            }
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+            Util::logDebug('listServices: Found ' . count($result) . ' services in ' . $duration . 'ms (COM/WMI)');
+
+            return $result;
+
+        } catch (Exception $e) {
+            Util::logError('listServices: COM exception: ' . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Checks if a Windows service exists.
+     * PHASE 7: Additional helper method.
+     *
+     * @param string $serviceName The name of the service
+     * @return bool True if service exists, false otherwise
+     */
+    public static function serviceExists($serviceName)
+    {
+        try {
+            $wmi = new COM("winmgmts://./root/cimv2");
+            $query = "SELECT Name FROM Win32_Service WHERE Name = '{$serviceName}'";
+            $services = $wmi->ExecQuery($query);
+
+            foreach ($services as $service) {
+                return true;
+            }
+
+            return false;
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the state of a Windows service.
+     * PHASE 7: Additional helper method.
+     *
+     * @param string $serviceName The name of the service
+     * @return string|false The service state (Running, Stopped, etc.), or false if not found
+     */
+    public static function getServiceState($serviceName)
+    {
+        try {
+            $wmi = new COM("winmgmts://./root/cimv2");
+            $query = "SELECT State FROM Win32_Service WHERE Name = '{$serviceName}'";
+            $services = $wmi->ExecQuery($query);
+
+            foreach ($services as $service) {
+                return $service->State;
+            }
+
+            return false;
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    // ========================================================================
     // PHASE 4: Browser Detection (COM/Registry)
     // ========================================================================
 
