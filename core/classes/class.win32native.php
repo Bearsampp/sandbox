@@ -591,6 +591,159 @@ class Win32Native
     }
 
     // ========================================================================
+    // PHASE 6: File Operations (COM/FileSystemObject or Native PHP)
+    // ========================================================================
+
+    /**
+     * Counts files and folders recursively using native PHP.
+     * PHASE 6: Replaces VBS with native PHP (faster than COM FileSystemObject).
+     *
+     * @param string $path The path to count files and folders in
+     * @return int|false The count of files and folders, or false on failure
+     */
+    public static function countFilesFolders($path)
+    {
+        Util::logDebug('countFilesFolders: Counting in ' . $path . ' (Native PHP)');
+
+        $startTime = microtime(true);
+
+        try {
+            if (!is_dir($path)) {
+                Util::logError('countFilesFolders: Path is not a directory: ' . $path);
+                return false;
+            }
+
+            $count = 0;
+
+            // Use RecursiveDirectoryIterator for efficient recursive counting
+            try {
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+
+                foreach ($iterator as $item) {
+                    $count++;
+                }
+            } catch (Exception $e) {
+                // If RecursiveIterator fails, fall back to manual recursion
+                Util::logDebug('countFilesFolders: RecursiveIterator failed, using manual recursion');
+                $count = self::countFilesFoldersManual($path);
+            }
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+            Util::logDebug('countFilesFolders: Counted ' . $count . ' items in ' . $duration . 'ms (Native PHP)');
+
+            return $count;
+
+        } catch (Exception $e) {
+            Util::logError('countFilesFolders: Exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Manual recursive file/folder counting (fallback method).
+     * PHASE 6: Helper method for countFilesFolders.
+     *
+     * @param string $path The path to count
+     * @return int The count of files and folders
+     */
+    private static function countFilesFoldersManual($path)
+    {
+        $count = 0;
+
+        try {
+            $items = @scandir($path);
+
+            if ($items === false) {
+                return 0;
+            }
+
+            foreach ($items as $item) {
+                if ($item === '.' || $item === '..') {
+                    continue;
+                }
+
+                $fullPath = $path . DIRECTORY_SEPARATOR . $item;
+                $count++; // Count this item
+
+                if (is_dir($fullPath)) {
+                    // Recursively count subdirectory
+                    $count += self::countFilesFoldersManual($fullPath);
+                }
+            }
+        } catch (Exception $e) {
+            // Silently handle errors (permission denied, etc.)
+        }
+
+        return $count;
+    }
+
+    /**
+     * Counts files and folders recursively using COM FileSystemObject.
+     * PHASE 6: Alternative COM-based implementation (slower than native PHP).
+     *
+     * @param string $path The path to count files and folders in
+     * @return int|false The count of files and folders, or false on failure
+     */
+    public static function countFilesFoldersCOM($path)
+    {
+        Util::logDebug('countFilesFoldersCOM: Counting in ' . $path . ' (COM/FSO)');
+
+        $startTime = microtime(true);
+
+        try {
+            $fso = new COM("Scripting.FileSystemObject");
+
+            if (!$fso->FolderExists($path)) {
+                Util::logError('countFilesFoldersCOM: Path does not exist: ' . $path);
+                return false;
+            }
+
+            $count = self::countFolderItemsCOM($fso, $path);
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+            Util::logDebug('countFilesFoldersCOM: Counted ' . $count . ' items in ' . $duration . 'ms (COM/FSO)');
+
+            return $count;
+
+        } catch (Exception $e) {
+            Util::logError('countFilesFoldersCOM: COM exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Recursive helper for COM-based file/folder counting.
+     * PHASE 6: Helper method for countFilesFoldersCOM.
+     *
+     * @param COM $fso FileSystemObject instance
+     * @param string $path The path to count
+     * @return int The count of files and folders
+     */
+    private static function countFolderItemsCOM($fso, $path)
+    {
+        try {
+            $folder = $fso->GetFolder($path);
+
+            // Count files and subfolders in this folder
+            $count = $folder->Files->Count + $folder->SubFolders->Count;
+
+            // Recursively count subfolders
+            foreach ($folder->SubFolders as $subFolder) {
+                $count += self::countFolderItemsCOM($fso, $subFolder->Path);
+            }
+
+            return $count;
+
+        } catch (Exception $e) {
+            // Silently handle errors (permission denied, etc.)
+            return 0;
+        }
+    }
+
+    // ========================================================================
     // PHASE 4: Browser Detection (COM/Registry)
     // ========================================================================
 

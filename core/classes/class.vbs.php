@@ -42,6 +42,7 @@ class Vbs
 
     /**
      * Counts the number of files and folders in the specified path.
+     * PHASE 6: Now uses native PHP instead of VBScript.
      *
      * @param   string  $path  The path to count files and folders in.
      *
@@ -49,28 +50,10 @@ class Vbs
      */
     public static function countFilesFolders($path)
     {
-        $basename   = 'countFilesFolders';
-        $resultFile = self::getResultFile( $basename );
+        // Phase 6: Use native PHP implementation (faster than VBS and COM)
+        Util::logDebug('countFilesFolders: Using Native PHP (Phase 6)');
 
-        $content = 'Dim objFso, objResultFile, objCheckFile' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objResultFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL;
-        $content .= 'count = 0' . PHP_EOL;
-        $content .= 'CountFiles("' . $path . '")' . PHP_EOL . PHP_EOL;
-        $content .= 'Function CountFiles(ByVal path)' . PHP_EOL;
-        $content .= '    Dim parentFld, subFld' . PHP_EOL;
-        $content .= '    Set parentFld = objFso.GetFolder(path)' . PHP_EOL . PHP_EOL;
-        $content .= '    count = count + parentFld.Files.Count + parentFld.SubFolders.Count' . PHP_EOL;
-        $content .= '    For Each subFld In parentFld.SubFolders' . PHP_EOL;
-        $content .= '        count = count + CountFiles(subFld.Path)' . PHP_EOL;
-        $content .= '    Next' . PHP_EOL . PHP_EOL;
-        $content .= 'End Function' . PHP_EOL . PHP_EOL;
-        $content .= 'objResultFile.Write count' . PHP_EOL;
-        $content .= 'objResultFile.Close' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-
-        return isset( $result[0] ) && is_numeric( $result[0] ) ? intval( $result[0] ) : false;
+        return Win32Native::countFilesFolders($path);
     }
 
     /**
