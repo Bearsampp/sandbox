@@ -75,44 +75,29 @@ class Vbs
 
     /**
      * Retrieves the default browser's executable path.
+     * PHASE 4: Now uses COM registry access instead of VBScript.
      *
      * @return string|false The path to the default browser executable, or false on failure.
      */
     public static function getDefaultBrowser()
     {
-        $basename   = 'getDefaultBrowser';
-        $resultFile = self::getResultFile( $basename );
+        // Phase 4: Use COM implementation
+        Util::logDebug('getDefaultBrowser: Using COM (Phase 4)');
 
-        $content = 'On Error Resume Next' . PHP_EOL;
-        $content .= 'Err.Clear' . PHP_EOL . PHP_EOL;
-        $content .= 'Dim objShell, objFso, objFile' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objShell = WScript.CreateObject("WScript.Shell")' . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL . PHP_EOL;
-        $content .= 'objFile.Write objShell.RegRead("HKLM\SOFTWARE\Classes\http\shell\open\command\")' . PHP_EOL;
-        $content .= 'objFile.Close' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( $result !== false && !empty( $result ) ) {
-            if ( preg_match( '/"([^"]+)"/', $result[0], $matches ) ) {
-                return $matches[1];
-            }
-            else {
-                return str_replace( '"', '', $result[0] );
-            }
-        }
-        else {
-            return false;
-        }
+        return Win32Native::getDefaultBrowser();
     }
 
     /**
      * Retrieves a list of installed browsers' executable paths.
+     * PHASE 4: Kept VBS implementation (COM enumeration has limitations).
      *
      * @return array|false An array of paths to installed browser executables, or false on failure.
      */
     public static function getInstalledBrowsers()
     {
+        // Phase 4: Keep VBS implementation - COM StdRegProv.EnumKey() has issues in PHP
+        Util::logDebug('getInstalledBrowsers: Using VBS (Phase 4 - VBS kept for reliability)');
+
         $basename   = 'getInstalledBrowsers';
         $resultFile = self::getResultFile( $basename );
 
