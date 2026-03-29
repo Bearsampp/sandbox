@@ -618,7 +618,7 @@ class ActionStartup
 
         $currentBrowser = $bearsamppConfig->getBrowser();
         if ( empty( $currentBrowser ) || !file_exists( $currentBrowser ) ) {
-            $bearsamppConfig->replace( Config::CFG_BROWSER, Vbs::getDefaultBrowser() );
+            $bearsamppConfig->replace( Config::CFG_BROWSER, Win32Native::getDefaultBrowser() );
         }
     }
 

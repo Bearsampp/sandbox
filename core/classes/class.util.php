@@ -950,7 +950,8 @@ class Util
      */
     public static function getStartupLnkPath()
     {
-        return Vbs::getStartupPath(APP_TITLE . '.lnk');
+        $startupPath = Win32Native::getSpecialFolderPath('Startup');
+        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
     }
 
     /**
@@ -970,7 +971,19 @@ class Util
      */
     public static function enableLaunchStartup()
     {
-        return Vbs::createShortcut(self::getStartupLnkPath());
+        global $bearsamppRoot, $bearsamppCore;
+
+        $shortcutPath = self::getStartupLnkPath();
+        if (!$shortcutPath) {
+            return false;
+        }
+
+        $targetPath = $bearsamppRoot->getExeFilePath();
+        $workingDir = $bearsamppRoot->getRootPath();
+        $description = APP_TITLE . ' ' . $bearsamppCore->getAppVersion();
+        $iconPath = $bearsamppCore->getIconsPath() . '/app.ico';
+
+        return Win32Native::createShortcut($shortcutPath, $targetPath, $workingDir, $description, $iconPath);
     }
 
     /**
@@ -1147,7 +1160,6 @@ class Util
             $bearsamppRoot->getRegistryLogFilePath(),
             $bearsamppRoot->getStartupLogFilePath(),
             $bearsamppRoot->getBatchLogFilePath(),
-            $bearsamppRoot->getVbsLogFilePath(),
             $bearsamppRoot->getWinbinderLogFilePath(),
         );
 

@@ -248,17 +248,6 @@ class Win32Native
         return getmypid();
     }
 
-    /**
-     * Writes a log entry.
-     *
-     * @param string $log The log message.
-     */
-    private static function writeLog($log)
-    {
-        global $bearsamppRoot;
-        Util::logDebug($log, $bearsamppRoot->getVbsLogFilePath());
-    }
-
     // ========================================================================
     // Registry Operations (COM/WScript.Shell)
     // ========================================================================

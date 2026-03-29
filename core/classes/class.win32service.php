@@ -818,7 +818,7 @@ class Win32Service
             set_time_limit(15); // 15 seconds timeout
 
             // Create a separate process to get service info with a timeout
-            $result = Vbs::getServiceInfos($this->getName());
+            $result = Win32Native::getServiceInfo($this->getName());
 
             // Reset the timeout
             set_time_limit($originalTimeout);
