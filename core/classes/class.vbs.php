@@ -123,7 +123,7 @@ class Vbs
         $content .= 'Set objRegistry = GetObject("winmgmts://./root/default:StdRegProv")' . PHP_EOL;
         $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
         $content .= 'Set objFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL . PHP_EOL;
-        
+
         // Check HKLM (system-wide browsers)
         $content .= 'mainKey = "SOFTWARE\WOW6432Node\Clients\StartMenuInternet"' . PHP_EOL;
         $content .= 'checkKey = objShell.RegRead("HKLM\" & mainKey & "\")' . PHP_EOL;
@@ -147,7 +147,7 @@ class Vbs
         $content .= '        Err.Clear' . PHP_EOL;
         $content .= '    Next' . PHP_EOL;
         $content .= 'End If' . PHP_EOL . PHP_EOL;
-        
+
         // Check HKCU (user-installed browsers like Brave)
         $content .= 'Err.Clear' . PHP_EOL;
         $content .= 'userKey = "SOFTWARE\Clients\StartMenuInternet"' . PHP_EOL;
@@ -166,7 +166,7 @@ class Vbs
         $content .= '        Next' . PHP_EOL;
         $content .= '    End If' . PHP_EOL;
         $content .= 'End If' . PHP_EOL . PHP_EOL;
-        
+
         $content .= 'objFile.Close' . PHP_EOL;
 
         $result = self::exec( $basename, $resultFile, $content );
@@ -183,6 +183,7 @@ class Vbs
 
     /**
      * Retrieves a list of running processes with specified keys.
+     * PHASE 2: Now uses COM/WMI directly instead of VBScript.
      *
      * @param   array  $vbsKeys  The keys to retrieve for each process.
      *
@@ -190,59 +191,30 @@ class Vbs
      */
     public static function getListProcs($vbsKeys)
     {
-        $basename   = 'getListProcs';
-        $resultFile = self::getResultFile( $basename );
-        $sep        = ' & "' . self::STR_SEPARATOR . '" & _';
+        // Phase 2: Use COM/WMI implementation
+        Util::logDebug('getListProcs: Using COM/WMI (Phase 2)');
 
-        $content = 'Dim objFso, objResultFile, objWMIService' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objResultFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL;
-        $content .= 'strComputer = "."' . PHP_EOL;
-        $content .= 'Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\\\" & strComputer & "\root\cimv2")' . PHP_EOL;
-        $content .= 'Set listProcess = objWMIService.ExecQuery ("SELECT * FROM Win32_Process")' . PHP_EOL;
-        $content .= 'For Each process in listProcess' . PHP_EOL;
+        // Get processes from COM
+        $processes = Win32Native::getProcessList($vbsKeys);
 
-        $content .= '    objResultFile.WriteLine(_' . PHP_EOL;
-        foreach ( $vbsKeys as $vbsKey ) {
-            $content .= '        process.' . $vbsKey . $sep . PHP_EOL;
-        }
-        $content = substr( $content, 0, strlen( $content ) - strlen( $sep ) - 1 ) . ')' . PHP_EOL;
-
-        $content .= 'Next' . PHP_EOL;
-        $content .= 'objResultFile.WriteLine("' . self::END_PROCESS_STR . '")' . PHP_EOL;
-        $content .= 'objResultFile.Close' . PHP_EOL;
-        $content .= 'Err.Clear' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
+        if (empty($processes)) {
             return false;
         }
 
-        unset( $result[array_search( self::END_PROCESS_STR, $result )] );
-        if ( is_array( $result ) && count( $result ) > 0 ) {
-            $rebuildResult = array();
-            foreach ( $result as $row ) {
-                $row = explode( trim( self::STR_SEPARATOR ), $row );
-                if ( count( $row ) != count( $vbsKeys ) ) {
-                    continue;
-                }
-                $processInfo = array();
-                foreach ( $vbsKeys as $key => $vbsKey ) {
-                    $processInfo[$vbsKey] = trim( $row[$key] );
-                }
-                if ( !empty( $processInfo[Win32Ps::EXECUTABLE_PATH] ) ) {
-                    $rebuildResult[] = $processInfo;
-                }
+        // Filter out processes without ExecutablePath (to match VBS behavior)
+        $rebuildResult = [];
+        foreach ($processes as $proc) {
+            if (!empty($proc[Win32Ps::EXECUTABLE_PATH])) {
+                $rebuildResult[] = $proc;
             }
-
-            return $rebuildResult;
         }
 
-        return false;
+        return !empty($rebuildResult) ? $rebuildResult : false;
     }
 
     /**
      * Terminates a process by its PID.
+     * PHASE 2: Now uses COM/WMI directly instead of VBScript.
      *
      * @param   int  $pid  The process ID to terminate.
      *
@@ -250,46 +222,10 @@ class Vbs
      */
     public static function killProc($pid)
     {
-        $basename   = 'killProc';
-        $resultFile = self::getResultFile( $basename );
+        // Phase 2: Use COM/WMI implementation
+        Util::logDebug('killProc: Using COM/WMI (Phase 2)');
 
-        $content = 'Dim objFso, objResultFile, objWMIService, processFound' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objResultFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL;
-        $content .= 'strComputer = "."' . PHP_EOL;
-        $content .= 'strProcessKill = "' . $pid . '"' . PHP_EOL;
-        $content .= 'processFound = False' . PHP_EOL;
-        $content .= 'Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\\\" & strComputer & "\root\cimv2")' . PHP_EOL;
-        $content .= 'Set listProcess = objWMIService.ExecQuery ("Select * from Win32_Process Where ProcessID = " & strProcessKill)' . PHP_EOL;
-        $content .= 'For Each objProcess in listProcess' . PHP_EOL;
-        $content .= '    processFound = True' . PHP_EOL;
-        $content .= '    objResultFile.WriteLine(objProcess.Name & "' . self::STR_SEPARATOR . '" & objProcess.ProcessID & "' . self::STR_SEPARATOR . '" & objProcess.ExecutablePath)' . PHP_EOL;
-        $content .= '    objProcess.Terminate()' . PHP_EOL;
-        $content .= 'Next' . PHP_EOL;
-        $content .= 'If Not processFound Then' . PHP_EOL;
-        $content .= '    objResultFile.WriteLine("PROCESS_NOT_FOUND' . self::STR_SEPARATOR . '" & strProcessKill & "' . self::STR_SEPARATOR . '")' . PHP_EOL;
-        $content .= 'End If' . PHP_EOL;
-        $content .= 'objResultFile.Close' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( empty( $result ) ) {
-            return true;
-        }
-
-        if ( is_array( $result ) && count( $result ) > 0 ) {
-            foreach ( $result as $row ) {
-                $row = explode( self::STR_SEPARATOR, $row );
-                if ( count( $row ) == 3 ) {
-                    if ( $row[0] === 'PROCESS_NOT_FOUND' ) {
-                        Util::logDebug( 'Process with PID ' . $row[1] . ' not found' );
-                    } elseif ( !empty( $row[2] ) ) {
-                        Util::logDebug( 'Kill process ' . $row[2] . ' (PID ' . $row[1] . ')' );
-                    }
-                }
-            }
-        }
-
-        return true;
+        return Win32Native::killProcess($pid);
     }
 
     /**
@@ -484,7 +420,7 @@ class Vbs
             'Dim ' . $randomVarName . ', ' . $randomObjFso . ', ' . $randomObjErrFile . ', ' . $randomObjFile . PHP_EOL .
             'Set ' . $randomObjFso . ' = CreateObject("scripting.filesystemobject")' . PHP_EOL .
             'Set ' . $randomObjErrFile . ' = ' . $randomObjFso . '.CreateTextFile("' . $errFile . '", True)' . PHP_EOL .
-            'Set ' . $randomObjFile . ' = ' . $randomObjFso . '.CreateTextFile("' . $checkFile . '", True)' . PHP_EOL . 
+            'Set ' . $randomObjFile . ' = ' . $randomObjFso . '.CreateTextFile("' . $checkFile . '", True)' . PHP_EOL .
             // Add timeout mechanism to VBScript
             'startTime = Timer' . PHP_EOL .
             'timeoutSeconds = ' . $timeoutSeconds . PHP_EOL . PHP_EOL;
