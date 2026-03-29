@@ -42,7 +42,7 @@ class Vbs
 
     /**
      * Counts the number of files and folders in the specified path.
-     * PHASE 6: Now uses native PHP instead of VBScript.
+     * Now uses native PHP instead of VBScript.
      *
      * @param   string  $path  The path to count files and folders in.
      *
@@ -50,108 +50,43 @@ class Vbs
      */
     public static function countFilesFolders($path)
     {
-        // Phase 6: Use native PHP implementation (faster than VBS and COM)
-        Util::logDebug('countFilesFolders: Using Native PHP (Phase 6)');
+        // Use native PHP implementation (faster than VBS and COM)
+        Util::logDebug('countFilesFolders: Using Native PHP');
 
         return Win32Native::countFilesFolders($path);
     }
 
     /**
      * Retrieves the default browser's executable path.
-     * PHASE 4: Now uses COM registry access instead of VBScript.
+     * Now uses COM registry access instead of VBScript.
      *
      * @return string|false The path to the default browser executable, or false on failure.
      */
     public static function getDefaultBrowser()
     {
-        // Phase 4: Use COM implementation
-        Util::logDebug('getDefaultBrowser: Using COM (Phase 4)');
+        // Use COM implementation
+        Util::logDebug('getDefaultBrowser: Using COM');
 
         return Win32Native::getDefaultBrowser();
     }
 
     /**
      * Retrieves a list of installed browsers' executable paths.
-     * PHASE 4: Kept VBS implementation (COM enumeration has limitations).
+     * Now uses hybrid approach with COM registry access.
      *
      * @return array|false An array of paths to installed browser executables, or false on failure.
      */
     public static function getInstalledBrowsers()
     {
-        // Phase 4: Keep VBS implementation - COM StdRegProv.EnumKey() has issues in PHP
-        Util::logDebug('getInstalledBrowsers: Using VBS (Phase 4 - VBS kept for reliability)');
+        // Use hybrid COM implementation
+        Util::logDebug('getInstalledBrowsers: Using Hybrid COM');
 
-        $basename   = 'getInstalledBrowsers';
-        $resultFile = self::getResultFile( $basename );
-
-        $content = 'On Error Resume Next' . PHP_EOL;
-        $content .= 'Err.Clear' . PHP_EOL . PHP_EOL;
-        $content .= 'Dim objShell, objRegistry, objFso, objFile, browserPath' . PHP_EOL . PHP_EOL;
-        $content .= 'Set objShell = WScript.CreateObject("WScript.Shell")' . PHP_EOL;
-        $content .= 'Set objRegistry = GetObject("winmgmts://./root/default:StdRegProv")' . PHP_EOL;
-        $content .= 'Set objFso = CreateObject("scripting.filesystemobject")' . PHP_EOL;
-        $content .= 'Set objFile = objFso.CreateTextFile("' . $resultFile . '", True)' . PHP_EOL . PHP_EOL;
-
-        // Check HKLM (system-wide browsers)
-        $content .= 'mainKey = "SOFTWARE\WOW6432Node\Clients\StartMenuInternet"' . PHP_EOL;
-        $content .= 'checkKey = objShell.RegRead("HKLM\" & mainKey & "\")' . PHP_EOL;
-        $content .= 'If Err.Number <> 0 Then' . PHP_EOL;
-        $content .= '    Err.Clear' . PHP_EOL;
-        $content .= '    mainKey = "SOFTWARE\Clients\StartMenuInternet"' . PHP_EOL;
-        $content .= '    checkKey = objShell.RegRead("HKLM\" & mainKey & "\")' . PHP_EOL;
-        $content .= '    If Err.Number <> 0 Then' . PHP_EOL;
-        $content .= '        mainKey = ""' . PHP_EOL;
-        $content .= '    End If' . PHP_EOL;
-        $content .= 'End If' . PHP_EOL . PHP_EOL;
-        $content .= 'Err.Clear' . PHP_EOL;
-        $content .= 'If mainKey <> "" Then' . PHP_EOL;
-        $content .= '    objRegistry.EnumKey &H80000002, mainKey, arrSubKeys' . PHP_EOL;
-        $content .= '    For Each subKey In arrSubKeys' . PHP_EOL;
-        $content .= '        Err.Clear' . PHP_EOL;
-        $content .= '        browserPath = objShell.RegRead("HKLM\" & mainKey & "\" & subKey & "\shell\open\command\")' . PHP_EOL;
-        $content .= '        If Err.Number = 0 And browserPath <> "" Then' . PHP_EOL;
-        $content .= '            objFile.Write browserPath & vbCrLf' . PHP_EOL;
-        $content .= '        End If' . PHP_EOL;
-        $content .= '        Err.Clear' . PHP_EOL;
-        $content .= '    Next' . PHP_EOL;
-        $content .= 'End If' . PHP_EOL . PHP_EOL;
-
-        // Check HKCU (user-installed browsers like Brave)
-        $content .= 'Err.Clear' . PHP_EOL;
-        $content .= 'userKey = "SOFTWARE\Clients\StartMenuInternet"' . PHP_EOL;
-        $content .= 'checkKey = objShell.RegRead("HKCU\" & userKey & "\")' . PHP_EOL;
-        $content .= 'If Err.Number = 0 Then' . PHP_EOL;
-        $content .= '    Err.Clear' . PHP_EOL;
-        $content .= '    objRegistry.EnumKey &H80000001, userKey, arrUserSubKeys' . PHP_EOL;
-        $content .= '    If Not IsEmpty(arrUserSubKeys) Then' . PHP_EOL;
-        $content .= '        For Each subKey In arrUserSubKeys' . PHP_EOL;
-        $content .= '            Err.Clear' . PHP_EOL;
-        $content .= '            browserPath = objShell.RegRead("HKCU\" & userKey & "\" & subKey & "\shell\open\command\")' . PHP_EOL;
-        $content .= '            If Err.Number = 0 And browserPath <> "" Then' . PHP_EOL;
-        $content .= '                objFile.Write browserPath & vbCrLf' . PHP_EOL;
-        $content .= '            End If' . PHP_EOL;
-        $content .= '            Err.Clear' . PHP_EOL;
-        $content .= '        Next' . PHP_EOL;
-        $content .= '    End If' . PHP_EOL;
-        $content .= 'End If' . PHP_EOL . PHP_EOL;
-
-        $content .= 'objFile.Close' . PHP_EOL;
-
-        $result = self::exec( $basename, $resultFile, $content );
-        if ( $result !== false && !empty( $result ) ) {
-            $rebuildResult = array();
-            foreach ( $result as $browser ) {
-                $rebuildResult[] = str_replace( '"', '', $browser );
-            }
-            $result = $rebuildResult;
-        }
-
-        return $result;
+        return Win32Native::getInstalledBrowsers();
     }
 
     /**
      * Retrieves a list of running processes with specified keys.
-     * PHASE 2: Now uses COM/WMI directly instead of VBScript.
+     * Now uses COM/WMI directly instead of VBScript.
      *
      * @param   array  $vbsKeys  The keys to retrieve for each process.
      *
@@ -159,8 +94,8 @@ class Vbs
      */
     public static function getListProcs($vbsKeys)
     {
-        // Phase 2: Use COM/WMI implementation
-        Util::logDebug('getListProcs: Using COM/WMI (Phase 2)');
+        // Use COM/WMI implementation
+        Util::logDebug('getListProcs: Using COM/WMI');
 
         // Get processes from COM
         $processes = Win32Native::getProcessList($vbsKeys);
@@ -182,7 +117,7 @@ class Vbs
 
     /**
      * Terminates a process by its PID.
-     * PHASE 2: Now uses COM/WMI directly instead of VBScript.
+     * Now uses COM/WMI directly instead of VBScript.
      *
      * @param   int  $pid  The process ID to terminate.
      *
@@ -190,15 +125,15 @@ class Vbs
      */
     public static function killProc($pid)
     {
-        // Phase 2: Use COM/WMI implementation
-        Util::logDebug('killProc: Using COM/WMI (Phase 2)');
+        // Use COM/WMI implementation
+        Util::logDebug('killProc: Using COM/WMI');
 
         return Win32Native::killProcess($pid);
     }
 
     /**
      * Retrieves a special folder path.
-     * PHASE 5: Now uses COM instead of VBScript.
+     * Now uses COM instead of VBScript.
      *
      * @param   string  $path  The VBScript path constant for the special folder.
      *
@@ -206,8 +141,8 @@ class Vbs
      */
     private static function getSpecialPath($path)
     {
-        // Phase 5: Use COM implementation
-        Util::logDebug('getSpecialPath: Using COM (Phase 5)');
+        // Use COM implementation
+        Util::logDebug('getSpecialPath: Using COM');
 
         // Extract folder name from VBScript constant
         // Format: objShell.SpecialFolders("Desktop")
@@ -234,7 +169,7 @@ class Vbs
 
     /**
      * Creates a shortcut to the Bearsampp executable.
-     * PHASE 5: Now uses COM instead of VBScript.
+     * Now uses COM instead of VBScript.
      *
      * @param   string  $savePath  The path to save the shortcut.
      *
@@ -244,8 +179,8 @@ class Vbs
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        // Phase 5: Use COM implementation
-        Util::logDebug('createShortcut: Using COM (Phase 5)');
+        // Use COM implementation
+        Util::logDebug('createShortcut: Using COM');
 
         $targetPath = $bearsamppRoot->getExeFilePath();
         $workingDir = $bearsamppRoot->getRootPath();
@@ -257,7 +192,7 @@ class Vbs
 
     /**
      * Retrieves information about a Windows service.
-     * PHASE 7: Now uses COM/WMI instead of VBScript.
+     * Now uses COM/WMI instead of VBScript.
      *
      * @param   string  $serviceName  The name of the service to retrieve information about.
      *
@@ -265,8 +200,8 @@ class Vbs
      */
     public static function getServiceInfos($serviceName)
     {
-        // Phase 7: Use COM/WMI implementation
-        Util::logDebug('getServiceInfos: Using COM/WMI (Phase 7)');
+        // Use COM/WMI implementation
+        Util::logDebug('getServiceInfos: Using COM/WMI');
 
         // Get the VBS keys that are expected
         $vbsKeys = Win32Service::getVbsKeys();

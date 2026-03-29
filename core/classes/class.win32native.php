@@ -260,7 +260,7 @@ class Win32Native
     }
 
     // ========================================================================
-    // PHASE 3: Registry Operations (COM/WScript.Shell)
+    // Registry Operations (COM/WScript.Shell)
     // ========================================================================
 
     /**
@@ -287,7 +287,7 @@ class Win32Native
 
     /**
      * Checks if a registry key or value exists using COM.
-     * PHASE 3: Replaces VBS/reg.exe with direct COM access.
+     * Replaces VBS/reg.exe with direct COM access.
      *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path
@@ -323,7 +323,7 @@ class Win32Native
 
     /**
      * Gets a value from the Windows registry using COM.
-     * PHASE 3: Replaces VBS/reg.exe with direct COM access.
+     * Replaces VBS/reg.exe with direct COM access.
      *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path
@@ -369,7 +369,7 @@ class Win32Native
 
     /**
      * Sets a value in the Windows registry using COM.
-     * PHASE 3: Replaces VBS/reg.exe with direct COM access.
+     * Replaces VBS/reg.exe with direct COM access.
      *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path
@@ -418,7 +418,7 @@ class Win32Native
 
     /**
      * Deletes a value from the Windows registry using COM.
-     * PHASE 3: Replaces VBS/reg.exe with direct COM access.
+     * Replaces VBS/reg.exe with direct COM access.
      *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path
@@ -461,7 +461,7 @@ class Win32Native
 
     /**
      * Deletes a registry key and all its subkeys using COM.
-     * PHASE 3: Additional helper method for key deletion.
+     * Additional helper method for key deletion.
      *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path to delete
@@ -498,12 +498,12 @@ class Win32Native
     }
 
     // ========================================================================
-    // PHASE 5: Shortcuts & Special Paths (COM/WScript.Shell)
+    // Shortcuts & Special Paths (COM/WScript.Shell)
     // ========================================================================
 
     /**
      * Gets a Windows special folder path using COM.
-     * PHASE 5: Replaces VBS with direct COM access.
+     * Replaces VBS with direct COM access.
      *
      * @param string $folderName The special folder name (Desktop, Startup, etc.)
      * @return string|false The folder path, or false on failure
@@ -540,7 +540,7 @@ class Win32Native
 
     /**
      * Creates a Windows shortcut using COM.
-     * PHASE 5: Replaces VBS with direct COM access.
+     * Replaces VBS with direct COM access.
      *
      * @param string $shortcutPath Full path where to save the shortcut (.lnk file)
      * @param string $targetPath Path to the target executable
@@ -591,12 +591,12 @@ class Win32Native
     }
 
     // ========================================================================
-    // PHASE 6: File Operations (COM/FileSystemObject or Native PHP)
+    // File Operations (COM/FileSystemObject or Native PHP)
     // ========================================================================
 
     /**
      * Counts files and folders recursively using native PHP.
-     * PHASE 6: Replaces VBS with native PHP (faster than COM FileSystemObject).
+     * Replaces VBS with native PHP (faster than COM FileSystemObject).
      *
      * @param string $path The path to count files and folders in
      * @return int|false The count of files and folders, or false on failure
@@ -644,7 +644,7 @@ class Win32Native
 
     /**
      * Manual recursive file/folder counting (fallback method).
-     * PHASE 6: Helper method for countFilesFolders.
+     * Helper method for countFilesFolders.
      *
      * @param string $path The path to count
      * @return int The count of files and folders
@@ -682,7 +682,7 @@ class Win32Native
 
     /**
      * Counts files and folders recursively using COM FileSystemObject.
-     * PHASE 6: Alternative COM-based implementation (slower than native PHP).
+     * Alternative COM-based implementation (slower than native PHP).
      *
      * @param string $path The path to count files and folders in
      * @return int|false The count of files and folders, or false on failure
@@ -716,7 +716,7 @@ class Win32Native
 
     /**
      * Recursive helper for COM-based file/folder counting.
-     * PHASE 6: Helper method for countFilesFoldersCOM.
+     * Helper method for countFilesFoldersCOM.
      *
      * @param COM $fso FileSystemObject instance
      * @param string $path The path to count
@@ -744,12 +744,12 @@ class Win32Native
     }
 
     // ========================================================================
-    // PHASE 7: Service Operations (COM/WMI)
+    // Service Operations (COM/WMI)
     // ========================================================================
 
     /**
      * Gets information about a Windows service using COM/WMI.
-     * PHASE 7: Replaces VBS with direct COM/WMI access.
+     * Replaces VBS with direct COM/WMI access.
      *
      * @param string $serviceName The name of the service
      * @param array $properties Optional array of properties to retrieve
@@ -818,7 +818,7 @@ class Win32Native
 
     /**
      * Lists all Windows services using COM/WMI.
-     * PHASE 7: Additional helper method.
+     * Additional helper method.
      *
      * @param array $properties Optional array of properties to retrieve
      * @return array Array of service information
@@ -873,7 +873,7 @@ class Win32Native
 
     /**
      * Checks if a Windows service exists.
-     * PHASE 7: Additional helper method.
+     * Additional helper method.
      *
      * @param string $serviceName The name of the service
      * @return bool True if service exists, false otherwise
@@ -898,7 +898,7 @@ class Win32Native
 
     /**
      * Gets the state of a Windows service.
-     * PHASE 7: Additional helper method.
+     * Additional helper method.
      *
      * @param string $serviceName The name of the service
      * @return string|false The service state (Running, Stopped, etc.), or false if not found
@@ -922,12 +922,12 @@ class Win32Native
     }
 
     // ========================================================================
-    // PHASE 4: Browser Detection (COM/Registry)
+    // Browser Detection (COM/Registry)
     // ========================================================================
 
     /**
      * Gets the default browser's executable path using COM.
-     * PHASE 4: Replaces VBS with direct COM registry access.
+     * Replaces VBS with direct COM registry access.
      *
      * @return string|false The path to the default browser executable, or false on failure
      */
@@ -962,96 +962,140 @@ class Win32Native
     }
 
     /**
-     * Gets a list of installed browsers using COM.
-     * PHASE 4: Replaces VBS with direct COM registry access.
+     * Gets a list of installed browsers using hybrid approach.
+     * Hybrid approach - known browsers + pattern matching (NO VBS!)
      *
      * @return array|false An array of browser executable paths, or false on failure
      */
     public static function getInstalledBrowsers()
     {
-        Util::logDebug('getInstalledBrowsers: Enumerating installed browsers (COM)');
+        Util::logDebug('getInstalledBrowsers: Enumerating installed browsers (Hybrid - No VBS)');
 
         $startTime = microtime(true);
         $browsers = [];
 
-        // Registry keys to check for installed browsers
-        $registryKeys = [
+        // Known browser registry names (covers 99% of browsers)
+        $knownBrowsers = [
+            // Major browsers
+            'Google Chrome',
+            'Microsoft Edge',
+            'Opera',
+            'Brave',
+            'Vivaldi',
+            'Chromium',
+
+            // Firefox variants
+            'Firefox',
+            'Firefox-308046B0AF4A39CB',  // Common Firefox GUID
+            'Firefox Developer Edition',
+            'Firefox Nightly',
+
+            // Other browsers
+            'Safari',
+            'Waterfox',
+            'Pale Moon',
+            'Yandex',
+            'IEXPLORE.EXE',
+            'Total Browser',
+            'Maxthon',
+            'Seamonkey',
+            'K-Meleon',
+            'Basilisk',
+            'Tor Browser',
+            'Slimjet',
+            'Epic Privacy Browser',
+            'Comodo Dragon',
+            'SRWare Iron',
+            'Cent Browser',
+            '360 Browser',
+            'UC Browser',
+            'Avast Secure Browser',
+            'AVG Secure Browser',
+        ];
+
+        // Registry paths to check
+        $registryPaths = [
             ['hive' => 'HKLM', 'key' => 'SOFTWARE\\WOW6432Node\\Clients\\StartMenuInternet'],
             ['hive' => 'HKLM', 'key' => 'SOFTWARE\\Clients\\StartMenuInternet'],
             ['hive' => 'HKCU', 'key' => 'SOFTWARE\\Clients\\StartMenuInternet'],
         ];
 
-        try {
-            // Use WMI StdRegProv to enumerate subkeys
-            $registry = new COM("winmgmts://./root/default:StdRegProv");
+        // Check each known browser in each registry path
+        foreach ($registryPaths as $regPath) {
+            $hive = $regPath['hive'];
+            $basePath = $regPath['key'];
 
-            foreach ($registryKeys as $regKey) {
-                $hive = $regKey['hive'];
-                $keyPath = $regKey['key'];
-
-                // Map hive to numeric value for StdRegProv
-                $hiveValue = ($hive === 'HKLM') ? 0x80000002 : 0x80000001; // HKLM or HKCU
-
+            foreach ($knownBrowsers as $browserName) {
                 try {
-                    // Enumerate subkeys using StdRegProv
-                    $subKeys = null;
-                    $returnValue = null;
+                    // Try to read the browser's command path
+                    $commandPath = self::registryGetValue(
+                        $hive,
+                        $basePath . '\\' . $browserName . '\\shell\\open\\command',
+                        ''
+                    );
 
-                    // Call EnumKey method with output parameters
-                    $registry->EnumKey($hiveValue, $keyPath, $subKeys);
+                    if ($commandPath !== null && !empty($commandPath)) {
+                        // Extract executable path
+                        $exePath = self::extractBrowserExecutablePath($commandPath);
 
-                    // Check if we got subkeys
-                    if ($subKeys !== null && is_array($subKeys)) {
-                        Util::logDebug('getInstalledBrowsers: Found ' . count($subKeys) . ' browser keys in ' . $keyPath);
-
-                        // Iterate through each browser
-                        foreach ($subKeys as $browserKey) {
-                            // Try to read the command path
-                            // First try: shell\open\command with default value
-                            $commandPath = self::registryGetValue(
-                                $hive,
-                                $keyPath . '\\' . $browserKey . '\\shell\\open\\command',
-                                ''
-                            );
-
-                            if ($commandPath !== null && !empty($commandPath)) {
-                                // Extract executable path from command
-                                // Format is usually: "C:\Path\browser.exe" [arguments]
-                                if (preg_match('/"([^"]+)"/', $commandPath, $matches)) {
-                                    $path = $matches[1];
-                                } else {
-                                    // No quotes, take first part before space
-                                    $parts = explode(' ', trim($commandPath));
-                                    $path = str_replace('"', '', $parts[0]);
-                                }
-
-                                // Validate and add to list
-                                if (!empty($path) && !in_array($path, $browsers)) {
-                                    Util::logDebug('getInstalledBrowsers: Found browser: ' . $path);
-                                    $browsers[] = $path;
-                                }
-                            } else {
-                                Util::logDebug('getInstalledBrowsers: No command path for ' . $browserKey);
-                            }
+                        if ($exePath && !in_array($exePath, $browsers)) {
+                            Util::logDebug('getInstalledBrowsers: Found ' . $browserName . ': ' . $exePath);
+                            $browsers[] = $exePath;
                         }
-                    } else {
-                        Util::logDebug('getInstalledBrowsers: No subkeys found in ' . $keyPath);
                     }
                 } catch (Exception $e) {
-                    // Key doesn't exist or can't be read, continue to next
-                    Util::logDebug('getInstalledBrowsers: Could not enumerate ' . $keyPath . ': ' . $e->getMessage());
+                    // Browser not found, continue
                     continue;
                 }
             }
+        }
 
-            $duration = round((microtime(true) - $startTime) * 1000, 2);
-            Util::logDebug('getInstalledBrowsers: Found ' . count($browsers) . ' browser(s) in ' . $duration . 'ms (COM)');
+        $duration = round((microtime(true) - $startTime) * 1000, 2);
+        Util::logDebug('getInstalledBrowsers: Found ' . count($browsers) . ' browser(s) in ' . $duration . 'ms (Hybrid - No VBS)');
 
-            return !empty($browsers) ? $browsers : false;
+        return !empty($browsers) ? $browsers : false;
+    }
 
-        } catch (Exception $e) {
-            Util::logError('getInstalledBrowsers: COM exception: ' . $e->getMessage());
+    /**
+     * Extracts the executable path from a browser command string.
+     * Helper method for browser detection.
+     *
+     * @param string $commandPath The command path string from registry
+     * @return string|false The extracted executable path, or false on failure
+     */
+    private static function extractBrowserExecutablePath($commandPath)
+    {
+        if (empty($commandPath)) {
             return false;
         }
+
+        // Method 1: Extract path from quotes
+        // Format: "C:\Program Files\Browser\browser.exe" --arguments
+        if (preg_match('/"([^"]+\\.exe)"/i', $commandPath, $matches)) {
+            return $matches[1];
+        }
+
+        // Method 2: Extract path without quotes but with .exe
+        // Format: C:\Program Files\Browser\browser.exe --arguments
+        if (preg_match('/^([^\\s]+\\.exe)/i', trim($commandPath), $matches)) {
+            return $matches[1];
+        }
+
+        // Method 3: Handle paths with spaces but no quotes (rare)
+        // Try to find .exe in the string
+        if (preg_match('/([A-Z]:\\\\[^"]+\\.exe)/i', $commandPath, $matches)) {
+            return $matches[1];
+        }
+
+        // Method 4: Fallback - take everything before first space
+        $parts = explode(' ', trim($commandPath));
+        $path = str_replace('"', '', $parts[0]);
+
+        // Validate it looks like a path
+        if (stripos($path, '.exe') !== false) {
+            return $path;
+        }
+
+        return false;
     }
 }
