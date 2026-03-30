@@ -777,7 +777,8 @@ class Win32Native
 
             // Build WQL query
             $selectClause = implode(', ', $properties);
-            $query = "SELECT {$selectClause} FROM Win32_Service WHERE Name = '{$serviceName}'";
+            $safeServiceName = str_replace("'", "''", $serviceName);
+            $query = "SELECT {$selectClause} FROM Win32_Service WHERE Name = '{$safeServiceName}'";
 
             // Execute query
             $services = $wmi->ExecQuery($query);
