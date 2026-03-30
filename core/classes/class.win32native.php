@@ -213,7 +213,12 @@ class Win32Native
         try {
             $wmi = new COM("winmgmts://./root/cimv2");
             $selectClause = implode(', ', $properties);
-            $query = "SELECT {$selectClause} FROM Win32_Process WHERE Name = '{$name}'";
+
+            // Sanitize the name parameter to prevent WQL injection
+            // Escape single quotes by doubling them (WQL standard)
+            $safeName = str_replace("'", "''", $name);
+
+            $query = "SELECT {$selectClause} FROM Win32_Process WHERE Name = '{$safeName}'";
             $processes = $wmi->ExecQuery($query);
 
             $result = [];
