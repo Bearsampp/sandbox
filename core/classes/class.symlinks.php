@@ -104,12 +104,12 @@ class Symlinks
             if (empty($path)) {
                 continue;
             }
-            
+
             if (!file_exists($path)) {
                 // Skip if the symlink doesn't exist - no need to log an error
                 continue;
             }
-            
+
             // Simple approach: use rmdir for directories and unlink for files
             if (is_dir($path)) {
                 if (@rmdir($path)) {

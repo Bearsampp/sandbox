@@ -1943,6 +1943,15 @@ class Util
                 'includes'  => array('my.ini'),
                 'recursive' => false
             );
+            // Also scan data directory for my.ini (created during initialization)
+            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
+            if (is_dir($dataPath)) {
+                $paths[] = array(
+                    'path'      => $dataPath,
+                    'includes'  => array('my.ini'),
+                    'recursive' => false
+                );
+            }
         }
 
         // PostgreSQL

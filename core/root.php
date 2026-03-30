@@ -84,26 +84,26 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
         // Escape for PowerShell
         $title = str_replace("'", "''", $title);
 
-        // PowerShell script that kills processes IMMEDIATELY then shows message
-        $psContent = "# Kill ALL processes immediately and wait for completion\n";
-        $psContent .= "Stop-Process -Name php -Force -ErrorAction SilentlyContinue\n";
-        $psContent .= "Stop-Process -Name bearsampp -Force -ErrorAction SilentlyContinue\n";
-        $psContent .= "\n";
-        $psContent .= "# Brief pause to ensure processes are killed\n";
-        $psContent .= "Start-Sleep -Milliseconds 500\n";
-        $psContent .= "\n";
-        $psContent .= "# Show error message using Windows Forms\n";
+        // PowerShell script that shows message FIRST, then kills processes
+        $psContent = "# Show error message using Windows Forms\n";
         $psContent .= "Add-Type -AssemblyName System.Windows.Forms\n";
 
         // Build message from parts
         $psContent .= "\$messageParts = @(\n";
-        foreach ($messageParts as $part) {
+        $lastIndex = count($messageParts) - 1;
+        foreach ($messageParts as $index => $part) {
             $part = str_replace("'", "''", trim($part));
-            $psContent .= "    '" . $part . "',\n";
+            // Don't add comma after last item
+            $comma = ($index < $lastIndex) ? ',' : '';
+            $psContent .= "    '" . $part . "'" . $comma . "\n";
         }
         $psContent .= ")\n";
         $psContent .= "\$message = \$messageParts -join [Environment]::NewLine\n";
-        $psContent .= "[System.Windows.Forms.MessageBox]::Show(\$message, '" . $title . "', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)\n";
+        $psContent .= "[System.Windows.Forms.MessageBox]::Show(\$message, '" . $title . "', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error) | Out-Null\n";
+        $psContent .= "\n";
+        $psContent .= "# After user clicks OK, kill all processes\n";
+        $psContent .= "Stop-Process -Name php -Force -ErrorAction SilentlyContinue\n";
+        $psContent .= "Stop-Process -Name bearsampp -Force -ErrorAction SilentlyContinue\n";
         $psContent .= "\n";
         $psContent .= "# Clean up\n";
         $psContent .= "Remove-Item -Path '" . $flagFilePs . "' -Force -ErrorAction SilentlyContinue\n";
@@ -111,12 +111,10 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
 
         @file_put_contents($psFile, $psContent);
 
-        // Launch PowerShell hidden (no window flashing) and exit PHP immediately
-        // The PowerShell script will kill this PHP process within milliseconds
-        pclose(popen('powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "' . $psFile . '"', 'r'));
+        // Launch PowerShell to show the error message (hide console window, but message box will still show)
+        pclose(popen('start "" powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "' . $psFile . '"', 'r'));
 
-        // Give PowerShell a moment to start, then exit
-        usleep(100000); // 100ms
+        // Exit immediately - PowerShell will handle showing the message and cleanup
         exit(1);
     } else {
         // We're elevated, clean up any old flag
