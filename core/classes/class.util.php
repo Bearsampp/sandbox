@@ -961,7 +961,8 @@ class Util
      */
     public static function isLaunchStartup()
     {
-        return file_exists(self::getStartupLnkPath());
+        $lnk = self::getStartupLnkPath();
+        return $lnk ? file_exists($lnk) : false;
     }
 
     /**
