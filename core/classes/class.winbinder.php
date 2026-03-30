@@ -120,7 +120,7 @@ class WinBinder
 
         // Fix for PHP 8.4: Convert null to 0 for parent parameter
         $parent = $parent === null ? 0 : $parent;
-        
+
         // Fix for PHP 8.4: Ensure style and params are proper types
         $style = $style === null ? 0 : $style;
         $params = $params === null ? 0 : $params;
@@ -341,12 +341,18 @@ class WinBinder
      */
     public function exec($cmd, $params = null, $silent = false): mixed
     {
-        global $bearsamppCore;
-
         if ($silent) {
-            $silent = '"' . $bearsamppCore->getScript(Core::SCRIPT_EXEC_SILENT) . '" "' . $cmd . '"';
-            $cmd    = 'wscript.exe';
-            $params = !empty($params) ? $silent . ' "' . $params . '"' : $silent;
+            // Use PowerShell for silent execution (no window flashing)
+            $psCmd = 'Start-Process -FilePath "' . $cmd . '"';
+            if (!empty($params)) {
+                // Escape single quotes in params for PowerShell
+                $params = str_replace("'", "''", $params);
+                $psCmd .= ' -ArgumentList \'' . $params . '\'';
+            }
+            $psCmd .= ' -WindowStyle Hidden -Wait';
+
+            $cmd = 'powershell.exe';
+            $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -Command "' . $psCmd . '"';
         }
 
         $this->writeLog('exec: ' . $cmd . ' ' . $params);
@@ -731,7 +737,7 @@ class WinBinder
     public function createControl($parent, $ctlClass, $caption, $xPos, $yPos, $width, $height, $style = null, $params = null)
     {
         $this->countCtrls++;
-        
+
         // Fix for PHP 8.4: Ensure style and params are proper types
         $style = $style === null ? 0 : $style;
         $params = $params === null ? 0 : $params;
@@ -983,7 +989,7 @@ class WinBinder
             }
             if (is_numeric($value)) {
                 $this->gauge[$progressBar[self::CTRL_OBJ]] = $value;
-                
+
                 // Check if the control is still valid before setting the value
                 // This prevents errors when the parent window has been destroyed
                 $this->callWinBinder('wb_set_value', array($progressBar[self::CTRL_OBJ], $value), true);

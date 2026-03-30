@@ -36,8 +36,6 @@ class Core
     const EXEC = 'exec.dat';
     const LOADING_PID = 'loading.pid';
 
-    const SCRIPT_EXEC_SILENT = 'execSilent.vbs';
-
     /**
      * Core constructor.
      *
