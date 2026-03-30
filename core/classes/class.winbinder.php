@@ -342,17 +342,29 @@ class WinBinder
     public function exec($cmd, $params = null, $silent = false): mixed
     {
         if ($silent) {
-            // Use PowerShell for silent execution (no window flashing)
-            $psCmd = 'Start-Process -FilePath "' . $cmd . '"';
+            // Use PowerShell with -EncodedCommand for silent execution (no window flashing)
+            // This avoids all quoting/escaping issues by encoding the command in UTF-16LE base64
+
+            // Build the PowerShell command using single quotes to avoid nested quote issues
+            $psCmd = 'Start-Process -FilePath \'' . str_replace("'", "''", $cmd) . '\'';
             if (!empty($params)) {
                 // Escape single quotes in params for PowerShell
-                $params = str_replace("'", "''", $params);
-                $psCmd .= ' -ArgumentList \'' . $params . '\'';
+                $psCmd .= ' -ArgumentList \'' . str_replace("'", "''", $params) . '\'';
             }
             $psCmd .= ' -WindowStyle Hidden -Wait';
 
+            // Encode the command in UTF-16LE and then base64
+            $encodedCmd = base64_encode(mb_convert_encoding($psCmd, 'UTF-16LE', 'UTF-8'));
+
+            // Log the original PowerShell command at TRACE level for debugging
+            global $bearsamppConfig;
+            if ($bearsamppConfig && $bearsamppConfig->getLogsVerbose() == Config::VERBOSE_TRACE) {
+                $this->writeLog('[TRACE] PowerShell command: ' . $psCmd);
+                $this->writeLog('[TRACE] Encoded command length: ' . strlen($encodedCmd));
+            }
+
             $cmd = 'powershell.exe';
-            $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -Command "' . $psCmd . '"';
+            $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand ' . $encodedCmd;
         }
 
         $this->writeLog('exec: ' . $cmd . ' ' . $params);
