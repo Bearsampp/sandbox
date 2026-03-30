@@ -954,7 +954,7 @@ class Win32Native
      * Gets a list of installed browsers using hybrid approach.
      * Hybrid approach - known browsers + pattern matching (NO VBS!)
      *
-     * @return array|false An array of browser executable paths, or false on failure
+     * @return array An array of browser executable paths (empty array if none found)
      */
     public static function getInstalledBrowsers()
     {
@@ -1042,7 +1042,8 @@ class Win32Native
         $duration = round((microtime(true) - $startTime) * 1000, 2);
         Util::logDebug('getInstalledBrowsers: Found ' . count($browsers) . ' browser(s) in ' . $duration . 'ms (Hybrid - No VBS)');
 
-        return !empty($browsers) ? $browsers : false;
+        // Always return an array (possibly empty) to simplify call sites
+        return $browsers;
     }
 
     /**
