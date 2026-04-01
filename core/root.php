@@ -119,6 +119,132 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
     } else {
         // We're elevated, clean up any old flag
         @unlink($flagFile);
+
+        /**
+         * CRITICAL: Check for Visual C++ Redistributable IMMEDIATELY after admin check
+         * Uses Microsoft's official registry keys for VC++ 2015-2022 (v14.0)
+         * Supports VC++ 2015, 2017, 2019, and 2022 (VC 14, 15, 16, 17, 18)
+         * This must be FAST to minimize startup delay
+         */
+        $msvcrtFlagFile = sys_get_temp_dir() . '/bearsampp_no_vcredist.lock';
+
+        // Quick exit if we already determined VC++ missing recently
+        if (file_exists($msvcrtFlagFile) && (time() - filemtime($msvcrtFlagFile)) < 10) {
+            // Use PowerShell to kill processes silently (no window flashing)
+            $killCmd = 'powershell.exe -WindowStyle Hidden -Command "Stop-Process -Name bearsampp,php -Force -ErrorAction SilentlyContinue"';
+            pclose(popen($killCmd, 'r'));
+            exit(1);
+        }
+
+        /**
+         * FAST Visual C++ Redistributable detection using Microsoft's official registry keys
+         * Checks: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\{x86|x64|arm64}
+         * Looks for: DWORD "Installed" = 1 and REG_SZ "Version"
+         */
+        $hasVcRedist = false;
+        $diagnosticFile = sys_get_temp_dir() . '/bearsampp-vcredist-diagnostic.log';
+        $diagnosticLog = "=== Visual C++ Redistributable Diagnostic Log ===\n";
+        $diagnosticLog .= "Timestamp: " . date('Y-m-d H:i:s') . "\n\n";
+
+        // Microsoft's official registry paths for VC++ 2015-2022 (v14.0)
+        $registryPaths = array(
+            'HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64',
+            'HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86',
+            'HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64',
+            'HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86',
+        );
+
+        // Check each registry path for the "Installed" DWORD value
+        foreach ($registryPaths as $regPath) {
+            $diagnosticLog .= "Checking: " . $regPath . "\n";
+            
+            // Query for the Installed DWORD value
+            $regOutput = @shell_exec('reg query "' . $regPath . '" /v Installed 2>&1');
+            
+            if ($regOutput !== null && stripos($regOutput, '0x1') !== false) {
+                // Found Installed=1, now check for Version string
+                $versionOutput = @shell_exec('reg query "' . $regPath . '" /v Version 2>&1');
+                
+                if ($versionOutput !== null && preg_match('/Version\s+REG_SZ\s+v14\.\d+\.\d+\.\d+/i', $versionOutput)) {
+                    $diagnosticLog .= "  ✓ FOUND: Installed=1 with valid Version\n";
+                    $hasVcRedist = true;
+                    break;
+                } else {
+                    $diagnosticLog .= "  ✓ Found Installed=1 but Version check inconclusive\n";
+                    $hasVcRedist = true;
+                    break;
+                }
+            } else {
+                $diagnosticLog .= "  ✗ Not found or Installed != 1\n";
+            }
+        }
+
+        $diagnosticLog .= "\nFinal Result: " . ($hasVcRedist ? "VC++ FOUND" : "VC++ NOT FOUND") . "\n";
+        @file_put_contents($diagnosticFile, $diagnosticLog);
+
+        if (!$hasVcRedist) {
+            // Create flag file immediately
+            @file_put_contents($msvcrtFlagFile, time());
+
+            // Load language file for error message
+            $langFile = dirname(__FILE__) . '/langs/english.lang';
+            $langData = @parse_ini_file($langFile);
+
+            // Get localized messages or use defaults
+            $title = isset($langData['errorVcRedistRequiredTitle']) ? $langData['errorVcRedistRequiredTitle'] : 'Visual C++ Redistributable Required';
+            $messageText = isset($langData['errorVcRedistRequiredText']) ? $langData['errorVcRedistRequiredText'] : '%s requires Microsoft Visual C++ Redistributable (2015 or later) to be installed.@nl@@nl@Please download and install the latest Visual C++ Redistributable from Microsoft:@nl@https://support.microsoft.com/en-us/help/2977003@nl@@nl@Supported versions: VC++ 2015, 2017, 2019, 2022@nl@@nl@Diagnostic log: ' . $diagnosticFile;
+
+            // Replace placeholders
+            $messageText = sprintf($messageText, APP_TITLE);
+            $messageText = str_replace('@nl@', '|||NEWLINE|||', $messageText);
+
+            // Split by newline placeholder
+            $messageParts = explode('|||NEWLINE|||', $messageText);
+
+            // Create PowerShell script that handles everything (no window flashing)
+            $psFile = sys_get_temp_dir() . '/bearsampp_vcredist_error.ps1';
+            $flagFilePs = str_replace('/', '\\', $msvcrtFlagFile);
+            $psFilePs = str_replace('/', '\\', $psFile);
+
+            // Escape for PowerShell
+            $title = str_replace("'", "''", $title);
+
+            // PowerShell script that shows message FIRST, then kills processes
+            $psContent = "# Show error message using Windows Forms\n";
+            $psContent .= "Add-Type -AssemblyName System.Windows.Forms\n";
+
+            // Build message from parts
+            $psContent .= "\$messageParts = @(\n";
+            $lastIndex = count($messageParts) - 1;
+            foreach ($messageParts as $index => $part) {
+                $part = str_replace("'", "''", trim($part));
+                // Don't add comma after last item
+                $comma = ($index < $lastIndex) ? ',' : '';
+                $psContent .= "    '" . $part . "'" . $comma . "\n";
+            }
+            $psContent .= ")\n";
+            $psContent .= "\$message = \$messageParts -join [Environment]::NewLine\n";
+            $psContent .= "[System.Windows.Forms.MessageBox]::Show(\$message, '" . $title . "', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error) | Out-Null\n";
+            $psContent .= "\n";
+            $psContent .= "# After user clicks OK, kill all processes\n";
+            $psContent .= "Stop-Process -Name php -Force -ErrorAction SilentlyContinue\n";
+            $psContent .= "Stop-Process -Name bearsampp -Force -ErrorAction SilentlyContinue\n";
+            $psContent .= "\n";
+            $psContent .= "# Clean up\n";
+            $psContent .= "Remove-Item -Path '" . $flagFilePs . "' -Force -ErrorAction SilentlyContinue\n";
+            $psContent .= "Remove-Item -Path '" . $psFilePs . "' -Force -ErrorAction SilentlyContinue\n";
+
+            @file_put_contents($psFile, $psContent);
+
+            // Launch PowerShell to show the error message (hide console window, but message box will still show)
+            pclose(popen('start "" powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "' . $psFile . '"', 'r'));
+
+            // Exit immediately - PowerShell will handle showing the message and cleanup
+            exit(1);
+        } else {
+            // VC++ Redistributable is available, clean up any old flag
+            @unlink($msvcrtFlagFile);
+        }
     }
 }
 
