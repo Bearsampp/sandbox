@@ -882,6 +882,9 @@ class Win32Native
             $safeServiceName = str_replace("'", "''", $serviceName);
             $query = "SELECT Name FROM Win32_Service WHERE Name = '{$safeServiceName}'";
 
+            // Execute query
+            $services = $wmi->ExecQuery($query);
+
             foreach ($services as $service) {
                 return true;
             }
@@ -908,6 +911,9 @@ class Win32Native
             // Escape single quotes by doubling them (WQL standard)
             $safeServiceName = str_replace("'", "''", $serviceName);
             $query = "SELECT State FROM Win32_Service WHERE Name = '{$safeServiceName}'";
+
+            // Execute query
+            $services = $wmi->ExecQuery($query);
 
             foreach ($services as $service) {
                 return $service->State;
