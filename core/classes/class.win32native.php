@@ -877,8 +877,10 @@ class Win32Native
     {
         try {
             $wmi = new COM("winmgmts://./root/cimv2");
-            $query = "SELECT Name FROM Win32_Service WHERE Name = '{$serviceName}'";
-            $services = $wmi->ExecQuery($query);
+            // Sanitize the serviceName parameter to prevent WQL injection
+            // Escape single quotes by doubling them (WQL standard)
+            $safeServiceName = str_replace("'", "''", $serviceName);
+            $query = "SELECT Name FROM Win32_Service WHERE Name = '{$safeServiceName}'";
 
             foreach ($services as $service) {
                 return true;
@@ -902,8 +904,10 @@ class Win32Native
     {
         try {
             $wmi = new COM("winmgmts://./root/cimv2");
-            $query = "SELECT State FROM Win32_Service WHERE Name = '{$serviceName}'";
-            $services = $wmi->ExecQuery($query);
+            // Sanitize the serviceName parameter to prevent WQL injection
+            // Escape single quotes by doubling them (WQL standard)
+            $safeServiceName = str_replace("'", "''", $serviceName);
+            $query = "SELECT State FROM Win32_Service WHERE Name = '{$safeServiceName}'";
 
             foreach ($services as $service) {
                 return $service->State;
