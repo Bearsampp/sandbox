@@ -422,6 +422,16 @@ class Win32Service
         $create = $result !== null ? dechex( $resultInt ) : '0';
         Util::logTrace("win32_create_service result code: " . $create);
 
+        // Retry once if the SCM has the service marked for deletion from a recent delete()
+        if ( $create == self::WIN32_ERROR_SERVICE_MARKED_FOR_DELETE ) {
+            Util::logTrace("Service marked for delete, waiting 2s before retry: " . $this->getName());
+            usleep( 2000000 );
+            $result   = $this->callWin32Service( 'win32_create_service', $serviceParams, true );
+            $resultInt = is_numeric($result) ? (int)$result : 0;
+            $create   = $result !== null ? dechex( $resultInt ) : '0';
+            Util::logTrace("win32_create_service retry result code: " . $create);
+        }
+
         $this->writeLog( 'Create service: ' . $create . ' (status: ' . $this->status() . ')' );
         $this->writeLog( '-> service: ' . $this->getName() );
         $this->writeLog( '-> display: ' . $this->getDisplayName() );
@@ -462,6 +472,12 @@ class Win32Service
 
         Util::logTrace("Stopping service before deletion: " . $this->getName());
         $this->stop();
+
+        if ( $this->getNssm() instanceof Nssm ) {
+            $childExe = basename( $this->getNssm()->getBinPath() );
+            Util::logTrace("Killing NSSM child process after stop: " . $childExe);
+            Win32Ps::killBins( [$childExe] );
+        }
 
         if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
             Util::logTrace("PostgreSQL service detected - using specialized uninstallation");
