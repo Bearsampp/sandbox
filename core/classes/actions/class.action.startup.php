@@ -217,7 +217,7 @@ class ActionStartup
             global $bearsamppConfig;
             if ($bearsamppConfig->getLogsVerbose() == Config::VERBOSE_TRACE) {
                 $minutes = floor($startupTime / 60);  // floor() returns int-compatible value
-                $seconds = round($startupTime % 60, 2);
+                $seconds = fmod($startupTime, 60);
                 $formattedTime = sprintf('%d:%05.2f', $minutes, $seconds);
                 Util::logTrace('=== TOTAL STARTUP TIME: ' . $formattedTime . ' ===');
             }
