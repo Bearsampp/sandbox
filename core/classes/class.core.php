@@ -222,6 +222,20 @@ class Core
     }
 
     /**
+     * Retrieves the content of the exec file without unlinking it.
+     *
+     * @return string|false The content of the exec file or false if it doesn't exist.
+     */
+    public function getPreviousExec()
+    {
+        $file = $this->getExec();
+        if (file_exists($file)) {
+            return trim(file_get_contents($file));
+        }
+        return false;
+    }
+
+    /**
      * Retrieves the path to the exec file.
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.

@@ -223,6 +223,8 @@ class ActionSwitchVersion
             $this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STOP_SERVICE_TITLE), $binName));
             $this->bearsamppSplash->incrProgressBar();
             $this->service->stop();
+            // Wait for SCM to stop the service
+            usleep(2000000); // 2 seconds
         } else {
             $this->bearsamppSplash->incrProgressBar();
         }
@@ -300,13 +302,28 @@ class ActionSwitchVersion
         ));
         
         $this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RESET_SERVICES));
-        foreach ($bearsamppBins->getServices() as $sName => $service) {
-            Util::logTrace(sprintf('Deleting service: %s', $sName));
+        
+        // Only delete the service that is actually being switched
+        // This prevents race conditions and ensures other services like Mailpit remain active
+        if ($this->service != null) {
+            Util::logTrace(sprintf('Deleting target service: %s', $this->service->getName()));
             $this->bearsamppSplash->incrProgressBar();
-            $service->delete();
-            Util::logTrace(sprintf('Service deleted: %s', $sName));
+            $this->service->delete();
+            Util::logTrace(sprintf('Target service deleted: %s', $this->service->getName()));
+            // Give SCM time to release resources
+            usleep(2000000); // 2 seconds
+        } else {
+            Util::logTrace('No service to delete for this binary switch');
+            $this->bearsamppSplash->incrProgressBar();
         }
-        Util::logTrace('All services reset completed');
+        
+        // Compensate progress bar for remaining services that we are NOT deleting
+        $remainingServicesCount = count($bearsamppBins->getServices()) - ($this->service != null ? 1 : 0);
+        if ($remainingServicesCount > 0) {
+            $this->bearsamppSplash->incrProgressBar($remainingServicesCount);
+        }
+        
+        Util::logTrace('Service reset phase completed');
 
         $bearsamppWinbinder->messageBoxInfo(
             sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK_RESTART), $this->bin->getName(), $this->version, APP_TITLE),
