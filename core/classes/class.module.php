@@ -94,16 +94,35 @@ abstract class Module
                 Util::logError('Removing . ' . $this->symlinkPath . ' file. It should not be a regular file');
                 unlink($dest);
             } elseif (is_dir($dest)) {
-                if (!(new \FilesystemIterator($dest))->valid()) {
-                    rmdir($dest);
-                } else {
-                    Util::logError($this->symlinkPath . ' should be a symlink to ' . $this->currentPath . '. Please remove this dir and restart bearsampp.');
-                    return;
-                }
+                $this->removeDirectory($dest);
             }
         }
 
         Batch::createSymlink($src, $dest);
+    }
+
+    /**
+     * Recursively removes a directory and its contents.
+     *
+     * @param string $dir The directory to remove.
+     */
+    private function removeDirectory($dir)
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        $files = array_diff(scandir($dir), array('.', '..'));
+        foreach ($files as $file) {
+            $path = $dir . '/' . $file;
+            if (is_dir($path)) {
+                $this->removeDirectory($path);
+            } else {
+                unlink($path);
+            }
+        }
+
+        rmdir($dir);
     }
 
     /**
