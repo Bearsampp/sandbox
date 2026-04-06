@@ -292,15 +292,6 @@ class ActionSwitchVersion
         Util::logTrace('Updating ini & menu...');
         $this->updateConfigVersion();
 
-        Util::logTrace('Creating modal...');
-        $bearsamppWinbinder->messageBoxInfo(
-            sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
-            $this->boxTitle
-        );
-
-        Util::logTrace('Destroying modal window...');
-        $bearsamppWinbinder->destroyWindow($window);
-
         // Store current registry value for comparison
         $currentRegValue = Util::getAppBinsRegKey(false);
         $regEntry = Registry::APP_BINS_REG_ENTRY;
@@ -327,11 +318,6 @@ class ActionSwitchVersion
             $currentRegValue
         ));
 
-        Util::logTrace(sprintf(
-            'Resetting services: %s',
-            $bearsamppLang->getValue(Lang::SWITCH_VERSION_RESET_SERVICES)
-        ));
-        
         $this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RESET_SERVICES));
         
         // For version switches, services are properly restarted above
@@ -348,7 +334,13 @@ class ActionSwitchVersion
         
         Util::logTrace('Version switch process completed successfully');
 
-        Util::logTrace('Destroying final window...');
+        Util::logTrace('Creating modal...');
+        $bearsamppWinbinder->messageBoxInfo(
+            sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
+            $this->boxTitle
+        );
+
+        Util::logTrace('Destroying splash window...');
         $bearsamppWinbinder->destroyWindow($window);
     }
     
