@@ -348,14 +348,6 @@ class ActionSwitchVersion
         
         Util::logTrace('Version switch process completed successfully');
 
-        $bearsamppWinbinder->messageBoxInfo(
-            sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK_RESTART), $this->bin->getName(), $this->version, APP_TITLE),
-            $this->boxTitle
-        );
-
-        Util::logTrace('Running setExec line 317..');
-        $bearsamppCore->setExec(ActionExec::RESTART);
-
         Util::logTrace('Destroying final window...');
         $bearsamppWinbinder->destroyWindow($window);
     }
