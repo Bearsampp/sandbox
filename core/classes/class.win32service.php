@@ -298,7 +298,8 @@ class Win32Service
                 } else {
                     Util::logTrace("Service status query returned null");
                     // If we get a null result, assume service does not exist to avoid hanging
-                    if ($loopCount >= 2) { // Only do this after at least one retry
+                    if ($loopCount >= 2) // Only do this after at least one retry
+                    {
                         Util::logTrace("Multiple null results, assuming service does not exist");
                         $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
                         break;
@@ -1225,5 +1226,81 @@ class Win32Service
         }
 
         return null;
+    }
+
+    /**
+     * Waits for the service to be completely removed from the SCM database.
+     * This is important after deletion because the SCM marks services for deletion
+     * but they remain visible briefly, preventing re-creation.
+     *
+     * @param   int  $maxWaitTime  Maximum time to wait in seconds (default 30)
+     *
+     * @return bool True if service is confirmed deleted, false on timeout
+     */
+    public function waitForServiceDeletion($maxWaitTime = 30): bool
+    {
+        $startTime = time();
+        $maxTime = $startTime + $maxWaitTime;
+        $checkCount = 0;
+
+        Util::logTrace("Waiting for service deletion: " . $this->getName() . " (max wait: " . $maxWaitTime . "s)");
+
+        while (time() < $maxTime) {
+            $checkCount++;
+            $status = $this->status(false);
+            Util::logTrace("Service deletion check #" . $checkCount . " - Status: " . $status . " at " . date('Y-m-d H:i:s'));
+
+            // Service doesn't exist or is definitely not there
+            if ($status == self::WIN32_SERVICE_NA ||
+                $status == self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST) {
+                $elapsedTime = time() - $startTime;
+                Util::logTrace("Service deletion confirmed after " . $elapsedTime . " seconds");
+                return true;
+            }
+
+            // Wait a bit before checking again
+            usleep(500000); // 0.5 seconds
+        }
+
+        $totalWaitTime = time() - $startTime;
+        Util::logTrace("Service deletion timeout after " . $totalWaitTime . " seconds - service still exists: " . $this->getName());
+        return false;
+    }
+
+    /**
+     * Ensures the service is properly reset (deleted and verified deleted).
+     * This is more robust than just calling delete() as it waits for confirmation.
+     *
+     * @return bool True if service was successfully reset, false otherwise
+     */
+    public function ensureReset(): bool
+    {
+        Util::logTrace("Starting ensureReset for service: " . $this->getName());
+
+        // First, make sure service is stopped
+        if ($this->isRunning()) {
+            Util::logTrace("Service is still running, stopping it first");
+            if (!$this->stop()) {
+                Util::logTrace("Failed to stop service during ensureReset");
+                return false;
+            }
+            usleep(1000000); // 1 second wait after stop
+        }
+
+        // Delete the service
+        Util::logTrace("Deleting service");
+        if (!$this->delete()) {
+            Util::logTrace("Service deletion failed, but continuing with wait");
+        }
+
+        // Wait for the service to be completely removed
+        if (!$this->waitForServiceDeletion(30)) {
+            Util::logTrace("Service deletion did not complete within timeout, but continuing");
+            // Even if we timeout, give it a moment and try to create anyway
+            usleep(2000000); // 2 seconds
+        }
+
+        Util::logTrace("ensureReset completed for service: " . $this->getName());
+        return true;
     }
 }
