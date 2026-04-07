@@ -99,21 +99,35 @@ class Win32Native
 
             // Terminate the process
             $found = false;
+            $terminateResult = null;
             foreach ($processes as $proc) {
-                $proc->Terminate();
+                $terminateResult = $proc->Terminate();
                 $found = true;
                 break;
             }
 
             $duration = round((microtime(true) - $startTime) * 1000, 2);
 
-            if ($found) {
-                Util::logDebug('killProcess: Successfully killed process ' . $pid . ' in ' . $duration . 'ms (COM/WMI)');
-                return true;
-            } else {
+            if (!$found) {
                 Util::logDebug('killProcess: Process ' . $pid . ' not found');
                 return false;
             }
+
+            // Check if Terminate() returned success (0 = success)
+            if ($terminateResult !== 0) {
+                Util::logError('killProcess: Terminate() failed with status code: ' . $terminateResult);
+                return false;
+            }
+
+            // Additional verification: check if process still exists after a short delay
+            usleep(100000); // Wait 100ms for termination to take effect
+            if (self::processExists($pid)) {
+                Util::logError('killProcess: Process ' . $pid . ' still exists after termination attempt');
+                return false;
+            }
+
+            Util::logDebug('killProcess: Successfully killed process ' . $pid . ' in ' . $duration . 'ms (COM/WMI)');
+            return true;
 
         } catch (Exception $e) {
             Util::logError('killProcess: COM exception: ' . $e->getMessage());
