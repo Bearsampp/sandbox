@@ -35,7 +35,8 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
     // Quick exit if we already determined no admin recently
     if (file_exists($flagFile) && (time() - filemtime($flagFile)) < 10) {
         // Use PowerShell to kill processes silently (no window flashing)
-        $killCmd = 'powershell.exe -WindowStyle Hidden -Command "Stop-Process -Name bearsampp,php -Force -ErrorAction SilentlyContinue"';
+        $currentPid = getmypid();
+        $killCmd = 'powershell.exe -WindowStyle Hidden -Command "Stop-Process -Id ' . (int)$currentPid . ' -Force -ErrorAction SilentlyContinue; Stop-Process -Name bearsampp -Force -ErrorAction SilentlyContinue"';
         pclose(popen($killCmd, 'r'));
         exit(1);
     }
@@ -83,6 +84,7 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
 
         // Escape for PowerShell
         $title = str_replace("'", "''", $title);
+        $currentPid = getmypid();
 
         // PowerShell script that shows message FIRST, then kills processes
         $psContent = "# Show error message using Windows Forms\n";
@@ -101,8 +103,8 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
         $psContent .= "\$message = \$messageParts -join [Environment]::NewLine\n";
         $psContent .= "[System.Windows.Forms.MessageBox]::Show(\$message, '" . $title . "', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error) | Out-Null\n";
         $psContent .= "\n";
-        $psContent .= "# After user clicks OK, kill all processes\n";
-        $psContent .= "Stop-Process -Name php -Force -ErrorAction SilentlyContinue\n";
+        $psContent .= "# After user clicks OK, kill only Bearsampp-related processes\n";
+        $psContent .= "Stop-Process -Id " . (int)$currentPid . " -Force -ErrorAction SilentlyContinue\n";
         $psContent .= "Stop-Process -Name bearsampp -Force -ErrorAction SilentlyContinue\n";
         $psContent .= "\n";
         $psContent .= "# Clean up\n";
