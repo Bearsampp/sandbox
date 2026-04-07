@@ -297,6 +297,9 @@ class Win32Native
      * Checks if a registry key or value exists using COM.
      * Replaces VBS/reg.exe with direct COM access.
      *
+     * Uses StdRegProv for key existence checks (more reliable than WScript.Shell::RegRead).
+     * Uses WScript.Shell::RegRead for value existence checks.
+     *
      * @param string $hive The registry hive (HKLM, HKCU, etc.)
      * @param string $key The registry key path
      * @param string|null $value The value name (null to check key existence only)
@@ -307,24 +310,86 @@ class Win32Native
         $hive = self::mapRegistryHive($hive);
         $regPath = $hive . '\\' . $key;
 
-        if ($value !== null) {
-            $regPath .= '\\' . $value;
-        }
-
-        Util::logDebug('registryExists: Checking ' . $regPath . ' (COM)');
+        Util::logDebug('registryExists: Checking ' . $regPath . ($value !== null ? '\\' . $value : ' (key)') . ' (COM)');
 
         try {
-            $shell = new COM("WScript.Shell");
+            if ($value === null) {
+                // Check if the key itself exists
+                // Use StdRegProv::EnumKey for reliable key existence checking
+                // This avoids false negatives from checking for a default value that may not exist
+                try {
+                    $wmi = new COM("winmgmts://./root/default:StdRegProv");
 
-            // Try to read the value/key
-            $result = $shell->RegRead($regPath);
+                    // Map hive names to WMI constants
+                    $hiveConstMap = [
+                        'HKCR' => 0x80000000,  // HKEY_CLASSES_ROOT
+                        'HKCU' => 0x80000001,  // HKEY_CURRENT_USER
+                        'HKLM' => 0x80000002,  // HKEY_LOCAL_MACHINE
+                        'HKU'  => 0x80000003,  // HKEY_USERS
+                    ];
+                    
+                    $hConst = $hiveConstMap[$hive] ?? 0x80000002;  // Default to HKLM
 
-            Util::logDebug('registryExists: Found');
-            return true;
+                    // EnumKey checks if parent key's subkeys contain the requested key
+                    // For root-level checks, pass empty parent
+                    $pathParts = explode('\\', $key);
+                    
+                    if (count($pathParts) === 1) {
+                        // Top-level key: parent is root
+                        $parentKey = '';
+                        $keyName = $pathParts[0];
+                    } else {
+                        // Nested key: split parent from key name
+                        $keyName = array_pop($pathParts);
+                        $parentKey = implode('\\', $pathParts);
+                    }
+                    
+                    $subKeys = null;
+                    $rc = $wmi->EnumKey($hConst, $parentKey, $subKeys);
+                    
+                    if ($rc !== 0 || !is_array($subKeys)) {
+                        Util::logDebug('registryExists: Key not found (EnumKey failed)');
+                        return false;
+                    }
+                    
+                    // Check if our key name is in the list of subkeys
+                    $exists = false;
+                    foreach ($subKeys as $subKey) {
+                        if (strcasecmp($subKey, $keyName) === 0) {
+                            $exists = true;
+                            break;
+                        }
+                    }
+                    
+                    if ($exists) {
+                        Util::logDebug('registryExists: Key found');
+                        return true;
+                    } else {
+                        Util::logDebug('registryExists: Key not found');
+                        return false;
+                    }
+
+                } catch (Exception $e) {
+                    Util::logError('registryExists: StdRegProv exception during key check: ' . $e->getMessage());
+                    return false;
+                }
+            } else {
+                // Check if a specific value exists within the key
+                // Use WScript.Shell::RegRead for value existence
+                try {
+                    $shell = new COM("WScript.Shell");
+                    $valuePath = $regPath . '\\' . $value;
+                    $shell->RegRead($valuePath);
+                    Util::logDebug('registryExists: Value found');
+                    return true;
+                } catch (Exception $e) {
+                    Util::logDebug('registryExists: Value not found');
+                    return false;
+                }
+            }
 
         } catch (Exception $e) {
-            // If we get an exception, the key/value doesn't exist
-            Util::logDebug('registryExists: Not found');
+            Util::logError('registryExists: COM exception: ' . $e->getMessage());
             return false;
         }
     }

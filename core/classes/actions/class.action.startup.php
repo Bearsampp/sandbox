@@ -253,7 +253,7 @@ class ActionStartup
         }
 
         Util::logTrace('Starting loading screen');
-        Util::startLoading();
+        // Moved Util::startLoading() to after splash window destruction to prevent double progress bars
 
         // Give the loading window time to initialize before we terminate this process
         Util::logTrace('Waiting for loading window to initialize');
@@ -267,6 +267,9 @@ class ActionStartup
         // Safely reset WinBinder and destroy the splash window
         $bearsamppWinbinder->destroyWindow($window);
         $bearsamppWinbinder->reset();
+
+        // Start loading screen AFTER splash window is destroyed to prevent double progress bars
+        Util::startLoading();
 
         // Exit this startup process cleanly - the loading window will continue running
         Util::logTrace('Exiting startup process cleanly');
