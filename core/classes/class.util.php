@@ -159,7 +159,7 @@ class Util
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                $value = (isset($_GET[$name]) && !empty($_GET[$name])) ? stripslashes($_GET[$name]) : '';
+                $value = (isset($_GET[$name]) && !empty($_GET[$name])) ? $_GET[$name] : '';
                 // Additional sanitization: remove null bytes and control characters
                 return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'numeric') {
@@ -186,7 +186,7 @@ class Util
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                return (isset($_POST[$name]) && !empty($_POST[$name])) ? stripslashes(trim($_POST[$name])) : '';
+                return (isset($_POST[$name]) && !empty($_POST[$name])) ? trim($_POST[$name]) : '';
             } elseif ($type == 'number') {
                 return (isset($_POST[$name]) && is_numeric($_POST[$name])) ? intval($_POST[$name]) : '';
             } elseif ($type == 'float') {
