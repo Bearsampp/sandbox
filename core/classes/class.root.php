@@ -46,7 +46,7 @@ class Root
 
         // External classes
         require_once $this->getCorePath() . '/classes/class.util.php';
-        Util::logSeparator();
+        require_once $this->getCorePath() . '/classes/class.log.php';
 
         // Autoloader
         require_once $this->getCorePath() . '/classes/class.autoloader.php';
@@ -56,6 +56,7 @@ class Root
         // Load
         self::loadCore();
         self::loadConfig();
+        Log::separator();
         self::loadLang();
         self::loadOpenSsl();
         self::loadBins();

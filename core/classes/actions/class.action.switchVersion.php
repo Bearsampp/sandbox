@@ -245,28 +245,28 @@ class ActionSwitchVersion
             // Get the reloaded bin and its fresh service instance
             if ($this->bin->getName() == $bearsamppBins->getApache()->getName()) {
                 $this->service = $bearsamppBins->getApache()->getService();
-                Util::logTrace("Refreshed service reference from reloaded Apache bin");
+                Log::trace("Refreshed service reference from reloaded Apache bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getPhp()->getName()) {
                 $this->service = $bearsamppBins->getApache()->getService();
-                Util::logTrace("Refreshed service reference from reloaded Apache bin (for PHP)");
+                Log::trace("Refreshed service reference from reloaded Apache bin (for PHP)");
             } elseif ($this->bin->getName() == $bearsamppBins->getMysql()->getName()) {
                 $this->service = $bearsamppBins->getMysql()->getService();
-                Util::logTrace("Refreshed service reference from reloaded MySQL bin");
+                Log::trace("Refreshed service reference from reloaded MySQL bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getMariadb()->getName()) {
                 $this->service = $bearsamppBins->getMariadb()->getService();
-                Util::logTrace("Refreshed service reference from reloaded MariaDB bin");
+                Log::trace("Refreshed service reference from reloaded MariaDB bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getPostgresql()->getName()) {
                 $this->service = $bearsamppBins->getPostgresql()->getService();
-                Util::logTrace("Refreshed service reference from reloaded PostgreSQL bin");
+                Log::trace("Refreshed service reference from reloaded PostgreSQL bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getMemcached()->getName()) {
                 $this->service = $bearsamppBins->getMemcached()->getService();
-                Util::logTrace("Refreshed service reference from reloaded Memcached bin");
+                Log::trace("Refreshed service reference from reloaded Memcached bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getMailpit()->getName()) {
                 $this->service = $bearsamppBins->getMailpit()->getService();
-                Util::logTrace("Refreshed service reference from reloaded Mailpit bin");
+                Log::trace("Refreshed service reference from reloaded Mailpit bin");
             } elseif ($this->bin->getName() == $bearsamppBins->getXlight()->getName()) {
                 $this->service = $bearsamppBins->getXlight()->getService();
-                Util::logTrace("Refreshed service reference from reloaded Xlight bin");
+                Log::trace("Refreshed service reference from reloaded Xlight bin");
             }
         }
 
@@ -289,14 +289,14 @@ class ActionSwitchVersion
         $this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + 1);
 
         // Update configuration file with the new version
-        Util::logTrace('Updating ini & menu...');
+        Log::trace('Updating ini & menu...');
         $this->updateConfigVersion();
 
         // Store current registry value for comparison
         $currentRegValue = Util::getAppBinsRegKey(false);
         $regEntry = Registry::APP_BINS_REG_ENTRY;
 
-        Util::logTrace(sprintf(
+        Log::trace(sprintf(
             'Starting registry adjustment for key: %s | Current value: %s',
             $regEntry,
             $currentRegValue
@@ -311,7 +311,7 @@ class ActionSwitchVersion
 
         // Perform the registry update
         $newRegValue = Util::setAppBinsRegKey($currentRegValue);
-        Util::logTrace(sprintf(
+        Log::trace(sprintf(
             'Registry update completed | Key: %s | New value: %s | Previous value: %s',
             $regEntry,
             $newRegValue,
@@ -323,7 +323,7 @@ class ActionSwitchVersion
         // For version switches, services are properly restarted above
         // No additional service reset/delete is needed
         // The service is now running with the new version
-        Util::logTrace('Version switch complete - service restarted with new version');
+        Log::trace('Version switch complete - service restarted with new version');
         $this->bearsamppSplash->incrProgressBar();
 
         // Compensate progress bar for all services (none are being reset)
@@ -332,15 +332,15 @@ class ActionSwitchVersion
             $this->bearsamppSplash->incrProgressBar($remainingServicesCount);
         }
         
-        Util::logTrace('Version switch process completed successfully');
+        Log::trace('Version switch process completed successfully');
 
-        Util::logTrace('Creating modal...');
+        Log::trace('Creating modal...');
         $bearsamppWinbinder->messageBoxInfo(
             sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
             $this->boxTitle
         );
 
-        Util::logTrace('Destroying splash window...');
+        Log::trace('Destroying splash window...');
         $bearsamppWinbinder->destroyWindow($window);
     }
     
@@ -357,40 +357,40 @@ class ActionSwitchVersion
         // Determine the correct configuration section based on binary type
         if ($this->bin->getName() == $GLOBALS['bearsamppBins']->getApache()->getName()) {
             $configSection = self::CONFIG_SECTION_APACHE;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPhp()->getName()) {
             $configSection = self::CONFIG_SECTION_PHP;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMysql()->getName()) {
             $configSection = self::CONFIG_SECTION_MYSQL;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMariadb()->getName()) {
             $configSection = self::CONFIG_SECTION_MARIADB;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPostgresql()->getName()) {
             $configSection = self::CONFIG_SECTION_POSTGRESQL;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getNodejs()->getName()) {
             $configSection = self::CONFIG_SECTION_NODEJS;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMemcached()->getName()) {
             $configSection = self::CONFIG_SECTION_MEMCACHED;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMailpit()->getName()) {
             $configSection = self::CONFIG_SECTION_MAILPIT;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getXlight()->getName()) {
             $configSection = self::CONFIG_SECTION_XLIGHT;
-            Util::logTrace(sprintf('Switch %s version to %s', $configSection, $version));
+            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
         }
         
         // Update the configuration if a valid section was found
         if (!empty($configSection)) {
-            Util::logTrace('Updating .ini file...');
+            Log::trace('Updating .ini file...');
             $bearsamppConfig->replace($configSection, self::CONFIG_KEY_VERSION, $version);
 
             // Update tray menu display if TrayMenu class is available
-            Util::logTrace('Updating TrayMenu...');
+            Log::trace('Updating TrayMenu...');
             if (class_exists('TrayMenu')) {
                 $trayMenu = TrayMenu::getInstance();
                 if (method_exists($trayMenu, 'updateSectionVersion')) {
@@ -401,6 +401,6 @@ class ActionSwitchVersion
                 }
             }
         }
-        Util::logTrace('Returning to parent call');
+        Log::trace('Returning to parent call');
     }
 }
