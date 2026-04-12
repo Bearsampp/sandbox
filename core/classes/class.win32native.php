@@ -18,7 +18,8 @@ class Win32Native
     // ========================================================================
     // COM Connection Cache
     // Each COM object is created once per PHP process and reused across calls.
-    // Call resetConnections() if a COM operation fails and you need a fresh object.
+    // On a COM/WMI failure the catching method calls resetConnections() so the
+    // next call gets a fresh object instead of reusing a broken cached instance.
     // ========================================================================
 
     /** @var COM|null Cached WMI connection to root/cimv2 (process/service queries) */
@@ -124,6 +125,7 @@ class Win32Native
             return $result;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('getProcessList: COM exception: ' . $e->getMessage());
             return [];
         }
@@ -189,6 +191,7 @@ class Win32Native
             return true;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('killProcess: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -218,6 +221,7 @@ class Win32Native
             return false;
 
         } catch (Exception $e) {
+            self::resetConnections();
             return false;
         }
     }
@@ -261,6 +265,7 @@ class Win32Native
             return false;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('getProcessInfo: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -311,6 +316,7 @@ class Win32Native
             return $result;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('findProcessesByName: COM exception: ' . $e->getMessage());
             return [];
         }
@@ -429,6 +435,7 @@ class Win32Native
                     }
 
                 } catch (Exception $e) {
+                    self::$wmiStdRegProv = null;
                     Util::logError('registryExists: StdRegProv exception during key check: ' . $e->getMessage());
                     return false;
                 }
@@ -448,6 +455,7 @@ class Win32Native
             }
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('registryExists: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -543,6 +551,7 @@ class Win32Native
             return true;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('registrySetValue: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -586,6 +595,7 @@ class Win32Native
                 return true;
             }
 
+            self::resetConnections();
             Util::logError('registryDeleteValue: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -624,6 +634,7 @@ class Win32Native
                 return true;
             }
 
+            self::resetConnections();
             Util::logError('registryDeleteKey: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -665,6 +676,7 @@ class Win32Native
             }
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('getSpecialFolderPath: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -717,6 +729,7 @@ class Win32Native
             return true;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('createShortcut: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -944,6 +957,7 @@ class Win32Native
             return false;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('getServiceInfo: COM exception: ' . $e->getMessage());
             return false;
         }
@@ -999,6 +1013,7 @@ class Win32Native
             return $result;
 
         } catch (Exception $e) {
+            self::resetConnections();
             Util::logError('listServices: COM exception: ' . $e->getMessage());
             return [];
         }
@@ -1030,6 +1045,7 @@ class Win32Native
             return false;
 
         } catch (Exception $e) {
+            self::resetConnections();
             return false;
         }
     }
@@ -1060,6 +1076,7 @@ class Win32Native
             return false;
 
         } catch (Exception $e) {
+            self::resetConnections();
             return false;
         }
     }
