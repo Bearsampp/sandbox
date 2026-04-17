@@ -65,7 +65,7 @@ if ($githubVersionData === null) {
 $githubLatestVersion = $githubVersionData['version'];
 $githubLatestVersionUrl = $githubVersionData['html_url']; // URL of the latest version
 $githubVersionName = $githubVersionData['name'];
-Log::debug($githubLatestVersion, $githubLatestVersionUrl);
+Log::debug('Latest version: ' . $githubLatestVersion . ' (' . $githubLatestVersionUrl . ')');
 
 /**
  * Compares the current version with the latest version.
