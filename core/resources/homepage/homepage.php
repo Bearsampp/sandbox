@@ -185,7 +185,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                     } catch (Exception $e) {
                         // Log the error but continue with the page
                         error_log('Error loading QuickPick: ' . $e->getMessage());
-                        echo '<div id="quickPickError" class="text-center mt-3 pe-3">
+                        echo '<div id="quickPickError" class="text-center">
                             <span>QuickPick unavailable</span>
                         </div>';
                     }
