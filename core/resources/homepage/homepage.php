@@ -163,22 +163,6 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
             <div class = "d-flex flex-row flex-nowrap align-items-center mb-0 quickpick-menu">
                 <!-- Enhanced Mode Toggle and QuickPick Container -->
                 <div class = "quickpick-controls">
-                    <!-- Enhanced Mode Toggle - inline with icons, FIRST -->
-                    <?php
-                    // Get enhanced mode setting
-                    $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
-                    ?>
-                    <div class = "enhanced-mode-toggle">
-                        <label class = "form-check-label me-2" for = "enhancedQuickPickSwitch">
-                            Enhanced Mode
-                        </label>
-                        <div class = "form-check form-switch mb-0">
-                            <input class = "form-check-input" type = "checkbox" role = "switch" id = "enhancedQuickPickSwitch"
-                                   <?php echo $enhancedMode == 1 ? 'checked' : ''; ?>
-                                   data-bs-toggle = "tooltip" data-bs-placement = "bottom"
-                                   title = "Toggle between enhanced (auto-config update) and standard QuickPick mode">
-                        </div>
-                    </div>
                     <?php
                     try {
                         echo $quickPick->loadQuickpick($imagesPath);
@@ -211,6 +195,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </nav>
 
