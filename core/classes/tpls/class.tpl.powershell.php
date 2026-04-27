@@ -53,14 +53,13 @@ class TplPowerShell
 
         $fontName = 'CaskaydiaMono NF'; // Default Nerd Font
 
-        // Get all possible titles
+        // Collect all console window titles that need font configuration
         $titles = [];
         $titles[] = $bearsamppTools->getPowerShell()->getTabTitleDefault();
         $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePowershell();
         $titles[] = 'Console';
         $titles[] = 'Bearsampp Powershell Console'; // Fallback casing
 
-        // Add tool titles (these might include versions)
         try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePear(); } catch (Exception $e) {}
         try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleMysql(); } catch (Exception $e) {}
         try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleMariadb(); } catch (Exception $e) {}
@@ -74,62 +73,44 @@ class TplPowerShell
         try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleGhostscript(); } catch (Exception $e) {}
         try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleNgrok(); } catch (Exception $e) {}
 
-        // Pre-register each title in the registry
-        foreach (array_unique($titles) as $title) {
-            if (empty($title)) continue;
-            
-            $key = "HKCU\\Console\\" . $title;
-            @exec("reg add \"$key\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-            @exec("reg add \"$key\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
-            @exec("reg add \"$key\" /v FontSize /t REG_DWORD /d 0x00100000 /f >nul 2>&1");
-            @exec("reg add \"$key\" /v FontWeight /t REG_DWORD /d 400 /f >nul 2>&1");
-            @exec("reg add \"$key\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
-            @exec("reg add \"$key\" /v ScreenBufferSize /t REG_DWORD /d 0x0bb8006e /f >nul 2>&1");
-            @exec("reg add \"$key\" /v WindowSize /t REG_DWORD /d 0x001e006e /f >nul 2>&1");
-        }
-
-        // Also pre-register generic/short titles to be safe
+        // Also include generic/short titles
         $shortTitles = ["Composer", "Ghostscript", "ngrok", "PEAR", "Perl", "Ruby", "Git", "Python", "MariaDB", "MySQL", "PostgreSQL", "Node.js"];
-        foreach ($shortTitles as $st) {
-            $key = "HKCU\\Console\\" . $st;
-            @exec("reg add \"$key\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-            @exec("reg add \"$key\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
-            @exec("reg add \"$key\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
+        $allTitles = array_unique(array_merge($titles, $shortTitles));
+
+        // Build a single .reg file with all HKCU Console font settings.
+        // This replaces ~140 individual exec("reg add ...") calls, each of which
+        // would spawn a separate process and potentially flash a console window.
+        $regContent = "Windows Registry Editor Version 5.00\r\n";
+
+        // Global HKCU\Console defaults
+        $regContent .= "\r\n[HKEY_CURRENT_USER\\Console]\r\n";
+        $regContent .= '"FaceName"="' . $fontName . '"' . "\r\n";
+        $regContent .= '"FontFamily"=dword:00000036' . "\r\n";
+        $regContent .= '"CodePage"=dword:0000fde9' . "\r\n";
+
+        // Per-title settings
+        foreach ($allTitles as $title) {
+            if (empty($title)) continue;
+            $regContent .= "\r\n[HKEY_CURRENT_USER\\Console\\" . $title . "]\r\n";
+            $regContent .= '"FaceName"="' . $fontName . '"' . "\r\n";
+            $regContent .= '"FontFamily"=dword:00000036' . "\r\n";
+            $regContent .= '"FontSize"=dword:00100000' . "\r\n";
+            $regContent .= '"FontWeight"=dword:00000190' . "\r\n";
+            $regContent .= '"CodePage"=dword:0000fde9' . "\r\n";
+            $regContent .= '"ScreenBufferSize"=dword:0bb8006e' . "\r\n";
+            $regContent .= '"WindowSize"=dword:001e006e' . "\r\n";
         }
 
-        // Also set global default
-        @exec("reg add \"HKCU\\Console\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-        @exec("reg add \"HKCU\\Console\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
-        @exec("reg add \"HKCU\\Console\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
+        // Register as a valid TrueType console font (HKCU only — no elevation needed)
+        $regContent .= "\r\n[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Console\\TrueTypeFont]\r\n";
+        $regContent .= '"0"="' . $fontName . '"' . "\r\n";
+        $regContent .= '"00"="' . $fontName . '"' . "\r\n";
+        $regContent .= '"000"="' . $fontName . '"' . "\r\n";
 
-        // Register as valid console font in multiple slots to ensure it's picked up
-        // We use HKLM because conhost.exe (launched by Aestan Tray Menu) often ignores HKCU for font registration
-        $ttKey = "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Console\\TrueTypeFont";
-        $fontsKey = "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
-        
-        // Ensure the font is actually registered in HKLM Fonts list so conhost sees it
-        // We check HKCU first to see where it is installed
-        $fontPath = '';
-        $output = [];
-        @exec("reg query \"HKCU\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\" /v \"$fontName (TrueType)\"", $output);
-        foreach ($output as $line) {
-            if (preg_match('/REG_SZ\s+(.*)$/', $line, $matches)) {
-                $fontPath = trim($matches[1]);
-                break;
-            }
-        }
-        
-        if ($fontPath) {
-            @exec("reg add \"$fontsKey\" /v \"$fontName (TrueType)\" /t REG_SZ /d \"$fontPath\" /f >nul 2>&1");
-        }
-
-        @exec("reg add \"$ttKey\" /v \"000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-        @exec("reg add \"$ttKey\" /v \"0000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-        
-        $ttKeyHkcu = "HKCU\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Console\\TrueTypeFont";
-        @exec("reg add \"$ttKeyHkcu\" /v \"0\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-        @exec("reg add \"$ttKeyHkcu\" /v \"00\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
-        @exec("reg add \"$ttKeyHkcu\" /v \"000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        // Write and import the .reg file in a single process — zero flashing windows
+        $tmpReg = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'bearsampp_console_font.reg';
+        file_put_contents($tmpReg, $regContent);
+        @exec("reg import \"$tmpReg\"");
 
         return true;
     }
