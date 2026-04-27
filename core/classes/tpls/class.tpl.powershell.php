@@ -49,8 +49,88 @@ class TplPowerShell
      */
     public static function process()
     {
-        // PowerShell uses profile scripts (Microsoft.PowerShell_profile.ps1)
-        // and Oh My Posh for configuration - no processing needed here
+        global $bearsamppTools;
+
+        $fontName = 'CaskaydiaMono NF'; // Default Nerd Font
+
+        // Get all possible titles
+        $titles = [];
+        $titles[] = $bearsamppTools->getPowerShell()->getTabTitleDefault();
+        $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePowershell();
+        $titles[] = 'Console';
+        $titles[] = 'Bearsampp Powershell Console'; // Fallback casing
+
+        // Add tool titles (these might include versions)
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePear(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleMysql(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleMariadb(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePostgresql(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleGit(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleNodejs(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleComposer(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePython(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleRuby(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitlePerl(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleGhostscript(); } catch (Exception $e) {}
+        try { $titles[] = $bearsamppTools->getPowerShell()->getTabTitleNgrok(); } catch (Exception $e) {}
+
+        // Pre-register each title in the registry
+        foreach (array_unique($titles) as $title) {
+            if (empty($title)) continue;
+            
+            $key = "HKCU\\Console\\" . $title;
+            @exec("reg add \"$key\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+            @exec("reg add \"$key\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
+            @exec("reg add \"$key\" /v FontSize /t REG_DWORD /d 0x00100000 /f >nul 2>&1");
+            @exec("reg add \"$key\" /v FontWeight /t REG_DWORD /d 400 /f >nul 2>&1");
+            @exec("reg add \"$key\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
+            @exec("reg add \"$key\" /v ScreenBufferSize /t REG_DWORD /d 0x0bb8006e /f >nul 2>&1");
+            @exec("reg add \"$key\" /v WindowSize /t REG_DWORD /d 0x001e006e /f >nul 2>&1");
+        }
+
+        // Also pre-register generic/short titles to be safe
+        $shortTitles = ["Composer", "Ghostscript", "ngrok", "PEAR", "Perl", "Ruby", "Git", "Python", "MariaDB", "MySQL", "PostgreSQL", "Node.js"];
+        foreach ($shortTitles as $st) {
+            $key = "HKCU\\Console\\" . $st;
+            @exec("reg add \"$key\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+            @exec("reg add \"$key\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
+            @exec("reg add \"$key\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
+        }
+
+        // Also set global default
+        @exec("reg add \"HKCU\\Console\" /v FaceName /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        @exec("reg add \"HKCU\\Console\" /v FontFamily /t REG_DWORD /d 54 /f >nul 2>&1");
+        @exec("reg add \"HKCU\\Console\" /v CodePage /t REG_DWORD /d 65001 /f >nul 2>&1");
+
+        // Register as valid console font in multiple slots to ensure it's picked up
+        // We use HKLM because conhost.exe (launched by Aestan Tray Menu) often ignores HKCU for font registration
+        $ttKey = "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Console\\TrueTypeFont";
+        $fontsKey = "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+        
+        // Ensure the font is actually registered in HKLM Fonts list so conhost sees it
+        // We check HKCU first to see where it is installed
+        $fontPath = '';
+        $output = [];
+        @exec("reg query \"HKCU\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\" /v \"$fontName (TrueType)\"", $output);
+        foreach ($output as $line) {
+            if (preg_match('/REG_SZ\s+(.*)$/', $line, $matches)) {
+                $fontPath = trim($matches[1]);
+                break;
+            }
+        }
+        
+        if ($fontPath) {
+            @exec("reg add \"$fontsKey\" /v \"$fontName (TrueType)\" /t REG_SZ /d \"$fontPath\" /f >nul 2>&1");
+        }
+
+        @exec("reg add \"$ttKey\" /v \"000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        @exec("reg add \"$ttKey\" /v \"0000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        
+        $ttKeyHkcu = "HKCU\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Console\\TrueTypeFont";
+        @exec("reg add \"$ttKeyHkcu\" /v \"0\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        @exec("reg add \"$ttKeyHkcu\" /v \"00\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+        @exec("reg add \"$ttKeyHkcu\" /v \"000\" /t REG_SZ /d \"$fontName\" /f >nul 2>&1");
+
         return true;
     }
 

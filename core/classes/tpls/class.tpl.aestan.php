@@ -151,10 +151,11 @@ class TplAestan
         // Build the parameters using Windows Terminal switches
         $params = '';
         
-        // Add title if provided (using -w for compatibility)
-        if ($title != null) {
-            $params .= '--title ""' . $title . '""';
+        // Add title (using -w for compatibility)
+        if ($title == null) {
+            $title = $bearsamppTools->getPowerShell()->getTabTitleDefault();
         }
+        $params .= '--title ""' . $title . '""';
         
         // Add starting directory if provided (using -d for compatibility)
         if ($initDir != null) {
