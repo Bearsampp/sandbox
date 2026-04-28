@@ -11,12 +11,13 @@
 /**
  * Utility class providing a wide range of static methods for various purposes including:
  * - Cleaning and retrieving command line, GET, and POST variables based on type specifications.
- * - String manipulation methods to check if strings contain, start with, or end with specified substrings.
+ * - String manipulation methods have been moved to UtilString. @see UtilString
  * - File and directory management functions for deleting, clearing, or finding files and directories.
  * - System utilities for handling registry operations, managing environment variables, and executing system commands.
  * - Network utilities to validate IPs, domains, and manage HTTP requests.
  * - Helper functions for encoding, decoding, and file operations.
  *
+ * Path formatting (formatWindowsPath / formatUnixPath) has been moved to UtilPath. @see UtilPath
  * Logging is handled by the Log class. @see Log
  *
  * This class is designed to be used as a helper or utility class where methods are accessed statically.
@@ -61,29 +62,6 @@ class Util
      * @var string|null
      */
     private static $cacheIntegrityKey = null;
-
-    /**
-     * Cache for path formatting operations to avoid redundant string replacements
-     * @var array
-     */
-    private static $pathFormatCache = [];
-
-    /**
-     * Maximum size for path format cache to prevent memory issues
-     * @var int
-     */
-    private static $pathFormatCacheMaxSize = 500;
-
-    /**
-     * Statistics for monitoring path format cache effectiveness
-     * @var array
-     */
-    private static $pathFormatStats = [
-        'unix_hits' => 0,
-        'unix_misses' => 0,
-        'windows_hits' => 0,
-        'windows_misses' => 0
-    ];
 
     /**
      * Cleans and returns a specific command line argument based on the type specified.
@@ -303,138 +281,6 @@ class Util
     }
 
     /**
-     * Checks if a string contains a specified substring.
-     *
-     * @param   string  $string  The string to search in.
-     * @param   string  $search  The substring to search for.
-     *
-     * @return bool Returns true if the substring is found in the string, otherwise false.
-     */
-    public static function contains($string, $search)
-    {
-        if (!empty($string) && !empty($search)) {
-            $result = stripos($string, $search);
-            if ($result !== false) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Checks if a string starts with a specified substring.
-     *
-     * @param   string  $string  The string to check.
-     * @param   string  $search  The substring to look for at the start of the string.
-     *
-     * @return bool Returns true if the string starts with the search substring, otherwise false.
-     */
-    public static function startWith($string, $search)
-    {
-        // Return false if string is NULL or empty
-        if ($string === null || $string === '') {
-            return false;
-        }
-
-        $length = strlen($search);
-
-        return (substr($string, 0, $length) === $search);
-    }
-
-    /**
-     * Checks if a string ends with a specified substring.
-     *
-     * This method trims the right side whitespace of the input string before checking
-     * if it ends with the specified search substring.
-     *
-     * @param   string  $string  The string to check.
-     * @param   string  $search  The substring to look for at the end of the string.
-     *
-     * @return bool Returns true if the string ends with the search substring, otherwise false.
-     */
-    public static function endWith($string, $search)
-    {
-        $length = strlen($search);
-        $start  = $length * -1;
-
-        return (substr($string, $start) === $search);
-    }
-
-    /**
-     * Generates a cryptographically secure random string of specified length and character set.
-     *
-     * @param   int   $length       The length of the random string to generate.
-     * @param   bool  $withNumeric  Whether to include numeric characters in the random string.
-     *
-     * @return string Returns the generated random string.
-     * @throws Exception If an appropriate source of randomness cannot be found.
-     */
-    public static function random($length = 32, $withNumeric = true)
-    {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if ($withNumeric) {
-            $characters .= '0123456789';
-        }
-
-        $charactersLength = strlen($characters);
-        $randomString = '';
-
-        try {
-            for ($i = 0; $i < $length; $i++) {
-                // Use cryptographically secure random_int() instead of rand()
-                $randomIndex = random_int(0, $charactersLength - 1);
-                $randomString .= $characters[$randomIndex];
-            }
-        } catch (Exception $e) {
-            Log::error('Failed to generate cryptographically secure random string: ' . $e->getMessage());
-            throw $e;
-        }
-
-        return $randomString;
-    }
-
-    /**
-     * Generates a cryptographically secure random token as a hexadecimal string.
-     * This is ideal for security tokens, session IDs, CSRF tokens, etc.
-     *
-     * @param   int  $length  The length in bytes (output will be double this in hex characters).
-     *
-     * @return string Returns a hexadecimal string of cryptographically secure random bytes.
-     * @throws Exception If an appropriate source of randomness cannot be found.
-     */
-    public static function generateSecureToken($length = 32)
-    {
-        try {
-            return bin2hex(random_bytes($length));
-        } catch (Exception $e) {
-            Log::error('Failed to generate secure token: ' . $e->getMessage());
-            throw $e;
-        }
-    }
-
-    /**
-     * Generates a cryptographically secure random bytes string.
-     * Useful for encryption keys, initialization vectors, etc.
-     *
-     * @param   int  $length  The length in bytes.
-     *
-     * @return string Returns raw binary random bytes.
-     * @throws Exception If an appropriate source of randomness cannot be found.
-     */
-    public static function generateSecureBytes($length = 32)
-    {
-        try {
-            return random_bytes($length);
-        } catch (Exception $e) {
-            Log::error('Failed to generate secure bytes: ' . $e->getMessage());
-            throw $e;
-        }
-    }
-
-    /**
      * Recursively deletes files from a specified directory while excluding certain files.
      *
      * @param   string  $path     The path to the directory to clear.
@@ -549,7 +395,7 @@ class Util
                     break;
                 }
             } elseif ($file == $findFile) {
-                $result = self::formatUnixPath($startPath . '/' . $file);
+                $result = UtilPath::formatUnixPath($startPath . '/' . $file);
                 break;
             }
         }
@@ -794,7 +640,7 @@ class Util
             if ($bearsamppTools->getRuby()->isEnable()) {
                 $value .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
             }
-            $value = self::formatWindowsPath($value);
+            $value = UtilPath::formatWindowsPath($value);
             Log::debug('Generated app bins reg key: ' . $value);
         }
 
@@ -1012,137 +858,13 @@ class Util
                     $result[] = $tmpResult;
                 }
             } elseif (is_file($startPath . '/' . $checkFile) && !in_array($startPath, $result)) {
-                $result[] = self::formatUnixPath($startPath);
+                $result[] = UtilPath::formatUnixPath($startPath);
             }
         }
 
         closedir($handle);
 
         return $result;
-    }
-
-    /**
-     * Converts a Unix-style path to a Windows-style path with caching.
-     * This is a Windows application, so paths use backslashes (\) as separators.
-     *
-     * Performance optimization: Caches results to avoid redundant string replacements
-     * for frequently used paths (e.g., root paths, bin paths).
-     *
-     * @param   string  $path  The Unix-style path to convert.
-     *
-     * @return string Returns the converted Windows-style path.
-     */
-    public static function formatWindowsPath($path)
-    {
-        // Return early for empty strings
-        if (empty($path)) {
-            return $path;
-        }
-
-        // Check cache first
-        $cacheKey = 'w_' . $path;
-        if (isset(self::$pathFormatCache[$cacheKey])) {
-            self::$pathFormatStats['windows_hits']++;
-            return self::$pathFormatCache[$cacheKey];
-        }
-
-        self::$pathFormatStats['windows_misses']++;
-
-        // Perform the conversion
-        $result = str_replace('/', '\\', $path);
-
-        // Store in cache if under size limit
-        if (count(self::$pathFormatCache) < self::$pathFormatCacheMaxSize) {
-            self::$pathFormatCache[$cacheKey] = $result;
-        } else {
-            // Cache is full - implement LRU by removing first 10% of entries
-            $removeCount = (int)(self::$pathFormatCacheMaxSize * 0.1);
-            self::$pathFormatCache = array_slice(self::$pathFormatCache, $removeCount, null, true);
-            self::$pathFormatCache[$cacheKey] = $result;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Converts a Windows-style path to a Unix-style path with caching.
-     * Unix-style paths use forward slashes (/) as separators.
-     *
-     * Performance optimization: Caches results to avoid redundant string replacements
-     * for frequently used paths (e.g., root paths, bin paths).
-     *
-     * @param   string  $path  The Windows-style path to convert.
-     *
-     * @return string Returns the converted Unix-style path.
-     */
-    public static function formatUnixPath($path)
-    {
-        // Return early for empty strings
-        if (empty($path)) {
-            return $path;
-        }
-
-        // Check cache first
-        $cacheKey = 'u_' . $path;
-        if (isset(self::$pathFormatCache[$cacheKey])) {
-            self::$pathFormatStats['unix_hits']++;
-            return self::$pathFormatCache[$cacheKey];
-        }
-
-        self::$pathFormatStats['unix_misses']++;
-
-        // Perform the conversion
-        $result = str_replace('\\', '/', $path);
-
-        // Store in cache if under size limit
-        if (count(self::$pathFormatCache) < self::$pathFormatCacheMaxSize) {
-            self::$pathFormatCache[$cacheKey] = $result;
-        } else {
-            // Cache is full - implement LRU by removing first 10% of entries
-            $removeCount = (int)(self::$pathFormatCacheMaxSize * 0.1);
-            self::$pathFormatCache = array_slice(self::$pathFormatCache, $removeCount, null, true);
-            self::$pathFormatCache[$cacheKey] = $result;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Gets path format cache statistics.
-     * Useful for monitoring cache effectiveness and tuning cache size.
-     *
-     * @return array Array containing unix_hits, unix_misses, windows_hits, windows_misses
-     */
-    public static function getPathFormatStats()
-    {
-        return self::$pathFormatStats;
-    }
-
-    /**
-     * Clears the path format cache.
-     * Useful when paths change or for testing purposes.
-     *
-     * @return void
-     */
-    public static function clearPathFormatCache()
-    {
-        self::$pathFormatCache = [];
-        self::$pathFormatStats = [
-            'unix_hits' => 0,
-            'unix_misses' => 0,
-            'windows_hits' => 0,
-            'windows_misses' => 0
-        ];
-    }
-
-    /**
-     * Gets the current size of the path format cache.
-     *
-     * @return int Number of cached path conversions
-     */
-    public static function getPathFormatCacheSize()
-    {
-        return count(self::$pathFormatCache);
     }
 
     /**
@@ -1769,15 +1491,15 @@ class Util
                 }
             } elseif (is_file($startPath . '/' . $file)) {
                 foreach ($includes as $include) {
-                    if (self::startWith($include, '!')) {
+                    if (UtilString::startWith($include, '!')) {
                         $include = ltrim($include, '!');
-                        if (self::startWith($file, '.') && !self::endWith($file, $include)) {
-                            $result[] = self::formatUnixPath($startPath . '/' . $file);
+                        if (UtilString::startWith($file, '.') && !UtilString::endWith($file, $include)) {
+                            $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
                         } elseif ($file != $include) {
-                            $result[] = self::formatUnixPath($startPath . '/' . $file);
+                            $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
                         }
-                    } elseif (self::endWith($file, $include) || $file == $include || empty($include)) {
-                        $result[] = self::formatUnixPath($startPath . '/' . $file);
+                    } elseif (UtilString::endWith($file, $include) || $file == $include || empty($include)) {
+                        $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
                     }
                 }
             }
@@ -1806,10 +1528,10 @@ class Util
         );
 
         $rootPath           = $rootPath != null ? $rootPath : $bearsamppRoot->getRootPath();
-        $unixOldPath        = self::formatUnixPath($bearsamppCore->getLastPathContent());
-        $windowsOldPath     = self::formatWindowsPath($bearsamppCore->getLastPathContent());
-        $unixCurrentPath    = self::formatUnixPath($rootPath);
-        $windowsCurrentPath = self::formatWindowsPath($rootPath);
+        $unixOldPath        = UtilPath::formatUnixPath($bearsamppCore->getLastPathContent());
+        $windowsOldPath     = UtilPath::formatWindowsPath($bearsamppCore->getLastPathContent());
+        $unixCurrentPath    = UtilPath::formatUnixPath($rootPath);
+        $windowsCurrentPath = UtilPath::formatWindowsPath($rootPath);
 
         foreach ($filesToScan as $fileToScan) {
             $tmpCountChangedOcc = 0;
@@ -1989,7 +1711,7 @@ class Util
     {
         $processor = self::getProcessorRegKey();
 
-        return self::contains($processor, 'x86');
+        return UtilString::contains($processor, 'x86');
     }
 
     /**
@@ -2222,18 +1944,6 @@ class Util
         return preg_match('/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i', $domainName)
             && preg_match('/^.{1,253}$/', $domainName)
             && preg_match('/^[^\.]{1,63}(\.[^\.]{1,63})*$/', $domainName);
-    }
-
-    /**
-     * Checks if a string is alphanumeric.
-     *
-     * @param   string  $string  The string to check.
-     *
-     * @return bool Returns true if the string is alphanumeric, false otherwise.
-     */
-    public static function isAlphanumeric($string)
-    {
-        return ctype_alnum($string);
     }
 
     /**
@@ -2489,7 +2199,7 @@ class Util
                     $path = $bearsamppRoot->getRootPath() . '/' . $path;
                 }
                 if (is_dir($path)) {
-                    $result .= self::formatUnixPath($path) . ';';
+                    $result .= UtilPath::formatUnixPath($path) . ';';
                 } else {
                     Log::warning('Path not found in nssmEnvPaths.dat: ' . $path);
                 }
@@ -2514,12 +2224,12 @@ class Util
     {
         global $bearsamppRoot, $bearsamppConfig, $bearsamppWinbinder;
 
-        $folderPath = $bearsamppRoot->getTmpPath() . '/openFileContent-' . self::random();
+        $folderPath = $bearsamppRoot->getTmpPath() . '/openFileContent-' . UtilString::random();
         if (!is_dir($folderPath)) {
             mkdir($folderPath, 0777, true);
         }
 
-        $filepath = self::formatWindowsPath($folderPath . '/' . $caption);
+        $filepath = UtilPath::formatWindowsPath($folderPath . '/' . $caption);
         file_put_contents($filepath, $content);
 
         $bearsamppWinbinder->exec($bearsamppConfig->getNotepad(), '"' . $filepath . '"');
