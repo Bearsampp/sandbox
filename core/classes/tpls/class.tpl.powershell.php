@@ -109,8 +109,22 @@ class TplPowerShell
 
         // Write and import the .reg file in a single process — zero flashing windows
         $tmpReg = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'bearsampp_console_font.reg';
-        file_put_contents($tmpReg, $regContent);
-        @exec("reg import \"$tmpReg\"");
+
+        $bytes = file_put_contents($tmpReg, $regContent);
+        if ($bytes === false || $bytes === 0) {
+            return false;
+        }
+
+        $cmd = 'reg import "' . $tmpReg . '"';
+        $output = [];
+        $exitCode = 0;
+        exec($cmd, $output, $exitCode);
+
+        @unlink($tmpReg);
+
+        if ($exitCode !== 0) {
+            return false;
+        }
 
         return true;
     }
