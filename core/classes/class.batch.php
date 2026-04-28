@@ -59,7 +59,7 @@ class Batch
     public static function findExeByPid($pid)
     {
         // Sanitize PID to prevent command injection
-        $sanitizedPid = Util::sanitizePID($pid);
+        $sanitizedPid = UtilInput::sanitizePID($pid);
         if ($sanitizedPid === false) {
             self::writeLog('Invalid PID provided to findExeByPid: ' . var_export($pid, true));
             return false;
@@ -85,7 +85,7 @@ class Batch
     public static function getProcessUsingPort($port)
     {
         // Sanitize port to prevent command injection
-        $sanitizedPort = Util::sanitizePort($port);
+        $sanitizedPort = UtilInput::sanitizePort($port);
         if ($sanitizedPort === false) {
             self::writeLog('Invalid port provided to getProcessUsingPort: ' . var_export($port, true));
             return null;
@@ -341,7 +341,7 @@ class Batch
     public static function setServiceDisplayName($serviceName, $displayName)
     {
         // Sanitize service name to prevent command injection
-        $sanitizedName = Util::sanitizeServiceName($serviceName);
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
         if ($sanitizedName === false) {
             self::writeLog('Invalid service name provided to setServiceDisplayName: ' . $serviceName);
             return;
@@ -364,7 +364,7 @@ class Batch
     public static function setServiceDescription($serviceName, $desc)
     {
         // Sanitize service name to prevent command injection
-        $sanitizedName = Util::sanitizeServiceName($serviceName);
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
         if ($sanitizedName === false) {
             self::writeLog('Invalid service name provided to setServiceDescription: ' . $serviceName);
             return;
@@ -387,7 +387,7 @@ class Batch
     public static function setServiceStartType($serviceName, $startType)
     {
         // Sanitize service name to prevent command injection
-        $sanitizedName = Util::sanitizeServiceName($serviceName);
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
         if ($sanitizedName === false) {
             self::writeLog('Invalid service name provided to setServiceStartType: ' . $serviceName);
             return;
