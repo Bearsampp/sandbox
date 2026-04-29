@@ -212,7 +212,8 @@ class UtilInput
         }
 
         // Remove dangerous characters — preserve : for drive letters and ; for PATH
-        $sanitized = preg_replace('/[<>"|?*\x00-\x1F]/', '', $sanitized);
+        // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
+        $sanitized = preg_replace('/[<>"|?*&^`\x00-\x1F]/', '', $sanitized);
 
         return $sanitized;
     }
