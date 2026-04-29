@@ -107,7 +107,7 @@ class Autoloader
     {
         $file = $rootPath . '/classes/class.' . $class . '.php';
 
-        if (UtilString::startWith($class, 'util') && $class !== 'util') {
+        if (in_array($class, ['utilpath', 'utilstring', 'utilinput'], true)) {
             $class = substr_replace($class, '.', 4, 0);
             $file = $rootPath . '/classes/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'bin')) {
