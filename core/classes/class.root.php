@@ -41,6 +41,9 @@ class Root
         set_time_limit(0);
         clearstatcache();
 
+        // External classes required for error handling and path utilities
+        require_once $this->getCorePath() . '/classes/class.util.path.php';
+
         // Error log
         $this->initErrorHandling();
 
