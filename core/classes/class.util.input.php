@@ -87,7 +87,11 @@ class UtilInput
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                return (isset($_POST[$name]) && !empty($_POST[$name])) ? trim($_POST[$name]) : '';
+                $value = (isset($_POST[$name]) && $_POST[$name] !== '') ? (string)$_POST[$name] : '';
+                $value = str_replace("\0", '', $value);
+                $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+                $value = trim($value);
+                return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'number') {
                 return (isset($_POST[$name]) && is_numeric($_POST[$name])) ? intval($_POST[$name]) : '';
             } elseif ($type == 'float') {
