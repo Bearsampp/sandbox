@@ -60,8 +60,10 @@ class UtilInput
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                $value = (isset($_GET[$name]) && !empty($_GET[$name])) ? $_GET[$name] : '';
-                // Additional sanitization: remove null bytes and control characters
+                $value = (isset($_GET[$name]) && $_GET[$name] !== '') ? (string)$_GET[$name] : '';
+                $value = str_replace("\0", '', $value);
+                $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+                $value = trim($value);
                 return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'numeric') {
                 return (isset($_GET[$name]) && is_numeric($_GET[$name])) ? intval($_GET[$name]) : '';
@@ -87,7 +89,11 @@ class UtilInput
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                return (isset($_POST[$name]) && !empty($_POST[$name])) ? trim($_POST[$name]) : '';
+                $value = (isset($_POST[$name]) && $_POST[$name] !== '') ? (string)$_POST[$name] : '';
+                $value = str_replace("\0", '', $value);
+                $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+                $value = trim($value);
+                return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'number') {
                 return (isset($_POST[$name]) && is_numeric($_POST[$name])) ? intval($_POST[$name]) : '';
             } elseif ($type == 'float') {
@@ -207,9 +213,10 @@ class UtilInput
         // Check for path traversal attempts (but allow environment variables)
         $pathWithoutEnvVars = preg_replace('/%[^%]+%/', '', $sanitized);
         if (strpos($pathWithoutEnvVars, '..') !== false) {
-            Log::warning('Path traversal attempt detected: ' . $path);
-            return false;
-        }
+         // Remove dangerous characters — preserve : for drive letters and ; for PATH
+         // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
+         $sanitized = preg_replace('/[<>"|?*&^`\x00-\x1F]/', '', $sanitized);
+
 
         // Remove dangerous characters — preserve : for drive letters and ; for PATH
         // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
