@@ -60,8 +60,10 @@ class UtilInput
     {
         if (is_string($name)) {
             if ($type == 'text') {
-                $value = (isset($_GET[$name]) && !empty($_GET[$name])) ? $_GET[$name] : '';
-                // Additional sanitization: remove null bytes and control characters
+                $value = (isset($_GET[$name]) && $_GET[$name] !== '') ? (string)$_GET[$name] : '';
+                $value = str_replace("\0", '', $value);
+                $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+                $value = trim($value);
                 return filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             } elseif ($type == 'numeric') {
                 return (isset($_GET[$name]) && is_numeric($_GET[$name])) ? intval($_GET[$name]) : '';
