@@ -213,10 +213,9 @@ class UtilInput
         // Check for path traversal attempts (but allow environment variables)
         $pathWithoutEnvVars = preg_replace('/%[^%]+%/', '', $sanitized);
         if (strpos($pathWithoutEnvVars, '..') !== false) {
-         // Remove dangerous characters — preserve : for drive letters and ; for PATH
-         // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
-         $sanitized = preg_replace('/[<>"|?*&^`\x00-\x1F]/', '', $sanitized);
-
+            Log::warning('Path traversal attempt detected: ' . $path);
+            return false;
+        }
 
         // Remove dangerous characters — preserve : for drive letters and ; for PATH
         // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
