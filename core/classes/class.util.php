@@ -1917,14 +1917,14 @@ class Util
     /**
      * Generates various GitHub URLs based on the specified type.
      *
-     * @param string $type The type of URL ('user', 'repo', 'raw').
-     * @param string $user The GitHub username.
+     * @param string $type The type of URL ('user', 'repo', 'raw'). Defaults to 'user'.
+     * @param string $user The GitHub username. Defaults to 'Bearsampp'.
      * @param string|null $repo The repository name (required for 'repo' and 'raw' types).
      * @param string|null $branch The branch name (required for 'raw' type).
      * @param string|null $path The file path (required for 'raw' type).
      * @return string|false The generated URL or false on invalid input.
      */
-    public static function getGithubUrl($type, $user, $repo = null, $branch = null, $path = null) {
+    public static function getGithubUrl($type = 'user', $user = 'Bearsampp', $repo = null, $branch = null, $path = null) {
         // Basic validation
         if (empty($user) || !is_string($user)) {
             return false;
@@ -1959,6 +1959,16 @@ class Util
     }
 
     /**
+     * Gets the GitHub user URL for Bearsampp.
+     *
+     * @return string The GitHub user URL.
+     */
+    public static function getGithubUserUrl()
+    {
+        return self::getGithubUrl('user', 'Bearsampp');
+    }
+
+    /**
      * Checks the current state of the internet connection.
      *
      * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
@@ -1976,5 +1986,116 @@ class Util
         } else {
             return false; // Internet connection is not active
         }
+    }
+
+    /**
+     * Gets the list of folders in the specified path.
+     *
+     * @param   string  $path  The directory path to scan for folders.
+     *
+     * @return array|false Returns a sorted array of folder names, or false if the directory cannot be opened.
+     */
+    public static function getFolderList($path)
+    {
+        $result = array();
+
+        $handle = @opendir($path);
+        if (!$handle) {
+            return false;
+        }
+
+        while (false !== ($file = readdir($handle))) {
+            $filePath = $path . '/' . $file;
+            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
+                $result[] = $file;
+            }
+        }
+
+        closedir($handle);
+        natcasesort($result);
+
+        return $result;
+    }
+
+    /**
+     * Gets the NSSM environment paths.
+     *
+     * @return string The NSSM environment paths string.
+     */
+    public static function getNssmEnvPaths()
+    {
+        global $bearsamppBins, $bearsamppTools;
+
+        $paths = '';
+
+        // Add paths for enabled bins
+        if ($bearsamppBins->getApache()->isEnable()) {
+            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppBins->getPhp()->isEnable()) {
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
+        }
+        if ($bearsamppBins->getNodejs()->isEnable()) {
+            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
+        }
+        if ($bearsamppTools->getComposer()->isEnable()) {
+            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
+            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
+        }
+        if ($bearsamppTools->getGhostscript()->isEnable()) {
+            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getGit()->isEnable()) {
+            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getNgrok()->isEnable()) {
+            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
+        }
+        if ($bearsamppTools->getPerl()->isEnable()) {
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
+        }
+        if ($bearsamppTools->getPython()->isEnable()) {
+            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getRuby()->isEnable()) {
+            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
+        }
+
+        return UtilPath::formatWindowsPath($paths);
+    }
+
+    /**
+     * Opens the given content in a temporary file using the system's default editor.
+     *
+     * @param   string  $caption  The caption/title for the temporary file.
+     * @param   string  $content  The content to write to the temporary file.
+     *
+     * @return void
+     */
+    public static function openFileContent($caption, $content)
+    {
+        global $bearsamppCore;
+
+        $tmpFile = $bearsamppCore->getTmpPath() . '/' . $caption . '.txt';
+        file_put_contents($tmpFile, $content);
+
+        // Open the file with the default editor
+        $bearsamppCore->getWinbinder()->exec('notepad.exe', $tmpFile);
+    }
+
+    /**
+     * Sets up cURL headers with token for API requests.
+     *
+     * @return array The array of cURL headers.
+     */
+    public static function setupCurlHeaderWithToken()
+    {
+        // Return empty array as token setup is no longer needed
+        return array();
     }
 }
