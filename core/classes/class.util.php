@@ -333,11 +333,12 @@ class Util
     }
 
     /**
-     * Retrieves a list of version directories within a specified path.
+     * Gets the list of version directories in the specified path.
+     * Returns version suffixes by stripping the common prefix (basename of path) if present.
      *
-     * @param   string  $path  The path to search for version directories.
+     * @param   string  $path  The directory path to scan for version directories.
      *
-     * @return array|false Returns a sorted array of version names, or false if the directory cannot be opened.
+     * @return array|false Returns a sorted array of version suffixes, or false if the directory cannot be opened.
      */
     public static function getVersionList($path)
     {
@@ -348,10 +349,17 @@ class Util
             return false;
         }
 
+        $prefix = basename($path);
+
         while (false !== ($file = readdir($handle))) {
             $filePath = $path . '/' . $file;
             if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                $result[] = $file;
+                if (strpos($file, $prefix) === 0) {
+                    $version = substr($file, strlen($prefix));
+                } else {
+                    $version = $file;
+                }
+                $result[] = $version;
             }
         }
 
