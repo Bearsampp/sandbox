@@ -1925,38 +1925,39 @@ class Util
      * @return string|false The generated URL or false on invalid input.
      */
     public static function getGithubUrl($type = 'user', $user = 'Bearsampp', $repo = null, $branch = null, $path = null) {
-        // Basic validation
         if (empty($user) || !is_string($user)) {
             return false;
         }
-        
-        // URL-encode components to handle special characters
-        $user = urlencode($user);
-        
+
+        // Encode as URL path segment (not query encoding)
+        $user = rawurlencode($user);
+
         switch ($type) {
             case 'user':
                 return "https://github.com/{$user}";
-            
+
             case 'repo':
                 if (empty($repo) || !is_string($repo)) {
                     return false;
                 }
-                $repo = urlencode($repo);
+                $repo = rawurlencode($repo);
                 return "https://github.com/{$user}/{$repo}";
-            
+
             case 'raw':
                 if (empty($repo) || empty($branch) || empty($path) || !is_string($repo) || !is_string($branch) || !is_string($path)) {
                     return false;
                 }
-                $repo = urlencode($repo);
+                $repo = rawurlencode($repo);
                 $branch = rawurlencode($branch);
-                // Encode path segments individually to preserve slashes
+
+                $path = ltrim($path, '/');
                 $segments = array_map('rawurlencode', explode('/', $path));
                 $pathEncoded = implode('/', $segments);
+
                 return "https://raw.githubusercontent.com/{$user}/{$repo}/{$branch}/{$pathEncoded}";
 
             default:
-                return false; // Invalid type
+                return false;
         }
     }
 
