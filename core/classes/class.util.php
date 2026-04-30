@@ -2088,7 +2088,7 @@ class Util
 
         // Open the file with the configured editor from bearsampp.conf
         $editor = $bearsamppConfig->getNotepad();
-        $bearsamppCore->getWinbinder()->exec($editor, $tmpFile);
+        $bearsamppCore->getWinbinder()->exec($editor, '"' . $tmpFile . '"');
     }
 
     /**
