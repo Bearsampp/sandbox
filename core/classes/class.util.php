@@ -351,7 +351,7 @@ class Util
         while (false !== ($file = readdir($handle))) {
             $filePath = $path . '/' . $file;
             if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                $result[] = str_replace(basename($path), '', $file);
+                $result[] = $file;
             }
         }
 
@@ -663,6 +663,23 @@ class Util
         $data = file_get_contents($path);
 
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
+
+    /**
+     * Converts data between UTF-8 and Windows-1252 encodings.
+     *
+     * @param   string  $data      The data to convert.
+     * @param   string  $direction The conversion direction: 'to_cp1252' or 'to_utf8'. Defaults to 'to_cp1252'.
+     *
+     * @return string The converted data.
+     */
+    public static function convertEncoding($data, $direction = 'to_cp1252')
+    {
+        if ($direction === 'to_utf8') {
+            return self::cp1252ToUtf8($data);
+        } else {
+            return self::utf8ToCp1252($data);
+        }
     }
 
     /**
@@ -1391,24 +1408,11 @@ class Util
     }
 
     /**
-     * Constructs a website URL without UTM parameters.
-     *
-     * @param   string  $path      Optional path to append to the base URL.
-     * @param   string  $fragment  Optional fragment to append to the URL.
-     *
-     * @return string The constructed URL without UTM parameters.
-     */
-    public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
-    {
-        return self::getWebsiteUrl($path, $fragment, false);
-    }
-
-    /**
      * Constructs a complete website URL with optional path, fragment, and UTM source parameters.
      *
      * @param   string  $path       Optional path to append to the base URL.
      * @param   string  $fragment   Optional fragment to append to the URL.
-     * @param   bool    $utmSource  Whether to include UTM source parameters.
+     * @param   bool    $utmSource  Whether to include UTM source parameters. Defaults to true.
      *
      * @return string The constructed URL.
      */
@@ -1428,6 +1432,19 @@ class Util
         }
 
         return $url;
+    }
+
+    /**
+     * Constructs a website URL without UTM parameters.
+     *
+     * @param   string  $path      Optional path to append to the base URL.
+     * @param   string  $fragment  Optional fragment to append to the URL.
+     *
+     * @return string The constructed URL without UTM parameters.
+     */
+    public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
+    {
+        return self::getWebsiteUrl($path, $fragment, false);
     }
 
     /**
@@ -1890,206 +1907,47 @@ class Util
     }
 
     /**
-     * Constructs a GitHub user URL with an optional path.
+     * Generates various GitHub URLs based on the specified type.
      *
-     * @param   string|null  $part  Optional path to append to the URL.
-     *
-     * @return string The full GitHub user URL.
+     * @param string $type The type of URL ('user', 'repo', 'raw').
+     * @param string $user The GitHub username.
+     * @param string|null $repo The repository name (required for 'repo' and 'raw' types).
+     * @param string|null $branch The branch name (required for 'raw' type).
+     * @param string|null $path The file path (required for 'raw' type).
+     * @return string|false The generated URL or false on invalid input.
      */
-    public static function getGithubUserUrl($part = null)
-    {
-        $part = !empty($part) ? '/' . $part : null;
-
-        return 'https://github.com/' . APP_GITHUB_USER . $part;
-    }
-
-    /**
-     * Constructs a GitHub repository URL with an optional path.
-     *
-     * @param   string|null  $part  Optional path to append to the URL.
-     *
-     * @return string The full GitHub repository URL.
-     */
-    public static function getGithubUrl($part = null)
-    {
-        $part = !empty($part) ? '/' . $part : null;
-
-        return self::getGithubUserUrl(APP_GITHUB_REPO . $part);
-    }
-
-    /**
-     * Constructs a URL for raw content from a GitHub repository.
-     *
-     * @param   string  $file  The file path to append to the base URL.
-     *
-     * @return string The full URL to the raw content on GitHub.
-     */
-    public static function getGithubRawUrl($file)
-    {
-        $file = !empty($file) ? '/' . $file : null;
-
-        return 'https://raw.githubusercontent.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . '/main' . $file;
-    }
-
-    /**
-     * Retrieves a list of folders from a specified directory, excluding certain directories.
-     *
-     * @param   string  $path  The directory path from which to list folders.
-     *
-     * @return array|bool An array of folder names, or false if the directory cannot be opened.
-     */
-    public static function getFolderList($path)
-    {
-        $result = array();
-
-        $handle = @opendir($path);
-        if (!$handle) {
+    public static function getGithubUrl($type, $user, $repo = null, $branch = null, $path = null) {
+        // Basic validation
+        if (empty($user) || !is_string($user)) {
             return false;
         }
-
-        while (false !== ($file = readdir($handle))) {
-            $filePath = $path . '/' . $file;
-            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                $result[] = $file;
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Retrieves and formats environment paths from a data file.
-     * Paths are verified to be directories and formatted to Unix style.
-     * Warnings are logged for paths that do not exist.
-     *
-     * @return string A semicolon-separated string of formatted environment paths.
-     * @global object $bearsamppRoot Global object containing root path methods.
-     */
-    public static function getNssmEnvPaths()
-    {
-        global $bearsamppRoot;
-
-        $result           = '';
-        $nssmEnvPathsFile = $bearsamppRoot->getRootPath() . '/nssmEnvPaths.dat';
-
-        if (is_file($nssmEnvPathsFile)) {
-            $paths = explode(PHP_EOL, file_get_contents($nssmEnvPathsFile));
-            foreach ($paths as $path) {
-                $path = trim($path);
-                if (stripos($path, ':') === false) {
-                    $path = $bearsamppRoot->getRootPath() . '/' . $path;
+        
+        // URL-encode components to handle special characters
+        $user = urlencode($user);
+        
+        switch ($type) {
+            case 'user':
+                return "https://github.com/{$user}";
+            
+            case 'repo':
+                if (empty($repo) || !is_string($repo)) {
+                    return false;
                 }
-                if (is_dir($path)) {
-                    $result .= UtilPath::formatUnixPath($path) . ';';
-                } else {
-                    Log::warning('Path not found in nssmEnvPaths.dat: ' . $path);
+                $repo = urlencode($repo);
+                return "https://github.com/{$user}/{$repo}";
+            
+            case 'raw':
+                if (empty($repo) || empty($branch) || empty($path) || !is_string($repo) || !is_string($branch) || !is_string($path)) {
+                    return false;
                 }
-            }
+                $repo = urlencode($repo);
+                $branch = urlencode($branch);
+                $path = urlencode($path);
+                return "https://raw.githubusercontent.com/{$user}/{$repo}/{$branch}/{$path}";
+            
+            default:
+                return false; // Invalid type
         }
-
-        return $result;
-    }
-
-    /**
-     * Opens a file with a given caption and content in the default text editor.
-     * The file is created in a temporary directory with a unique name.
-     *
-     * @param   string  $caption            The filename to use when saving the content.
-     * @param   string  $content            The content to write to the file.
-     *
-     * @global object   $bearsamppRoot      Global object to access temporary path.
-     * @global object   $bearsamppConfig    Global configuration object.
-     * @global object   $bearsamppWinbinder Global object to execute external programs.
-     */
-    public static function openFileContent($caption, $content)
-    {
-        global $bearsamppRoot, $bearsamppConfig, $bearsamppWinbinder;
-
-        $folderPath = $bearsamppRoot->getTmpPath() . '/openFileContent-' . UtilString::random();
-        if (!is_dir($folderPath)) {
-            mkdir($folderPath, 0777, true);
-        }
-
-        $filepath = UtilPath::formatWindowsPath($folderPath . '/' . $caption);
-        file_put_contents($filepath, $content);
-
-        $bearsamppWinbinder->exec($bearsamppConfig->getNotepad(), '"' . $filepath . '"');
-    }
-
-    /**
-     * Decrypts a file encrypted with a specified method and returns the content.
-     *
-     * @return string|false Decrypted content or false on failure.
-     */
-    public static function decryptFile()
-    {
-        global $bearsamppCore, $bearsamppConfig;
-
-        $stringfile = $bearsamppCore->getResourcesPath() . '/string.dat';
-        $encryptedFile = $bearsamppCore->getResourcesPath() . '/github.dat';
-        $method        = 'AES-256-CBC'; // The same encryption method used
-
-        // Get key string
-        $stringPhrase = @file_get_contents($stringfile);
-        if ($stringPhrase === false) {
-            Log::debug("Failed to read the file at path: {$stringfile}");
-
-            return false;
-        }
-
-        $stringKey = convert_uudecode($stringPhrase);
-
-        // Read the encrypted data from the file
-        $encryptedData = file_get_contents($encryptedFile);
-        if ($encryptedData === false) {
-            Log::debug("Failed to read the file at path: {$encryptedFile}");
-
-            return false;
-        }
-
-        // Decode the base64 encoded data
-        $data = base64_decode($encryptedData);
-        if ($data === false) {
-            Log::debug("Failed to decode the data from path: {$encryptedFile}");
-
-            return false;
-        }
-
-        // Extract the IV which was prepended to the encrypted data
-        $ivLength  = openssl_cipher_iv_length($method);
-        $iv        = substr($data, 0, $ivLength);
-        $encrypted = substr($data, $ivLength);
-
-        // Decrypt the data
-        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
-        if ($decrypted === false) {
-            Log::debug("Decryption failed for data from path: {$encryptedFile}");
-
-            return false;
-        }
-
-        return $decrypted;
-    }
-
-    /**
-     * Sets up a cURL header array using a decrypted GitHub Personal Access Token.
-     *
-     * @return array The header array for cURL with authorization and other necessary details.
-     */
-    public static function setupCurlHeaderWithToken()
-    {
-        // Usage
-        global $bearsamppCore, $bearsamppConfig;
-        $Token = self::decryptFile();
-
-        return [
-            'Accept: application/vnd.github+json',
-            'Authorization: Token ' . $Token,
-            'User-Agent: ' . APP_GITHUB_USERAGENT,
-            'X-GitHub-Api-Version: 2022-11-28'
-        ];
     }
 
     /**
