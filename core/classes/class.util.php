@@ -1949,10 +1949,12 @@ class Util
                     return false;
                 }
                 $repo = urlencode($repo);
-                $branch = urlencode($branch);
-                $path = urlencode($path);
-                return "https://raw.githubusercontent.com/{$user}/{$repo}/{$branch}/{$path}";
-            
+                $branch = rawurlencode($branch);
+                // Encode path segments individually to preserve slashes
+                $segments = array_map('rawurlencode', explode('/', $path));
+                $pathEncoded = implode('/', $segments);
+                return "https://raw.githubusercontent.com/{$user}/{$repo}/{$branch}/{$pathEncoded}";
+
             default:
                 return false; // Invalid type
         }
@@ -2095,7 +2097,10 @@ class Util
      */
     public static function setupCurlHeaderWithToken()
     {
-        // Return empty array as token setup is no longer needed
-        return array();
+        // Return headers with User-Agent, which is required by GitHub API
+        return array(
+            'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
+            'Accept: application/vnd.github.v3+json'
+        );
     }
 }
