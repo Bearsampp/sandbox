@@ -2072,7 +2072,7 @@ class Util
     }
 
     /**
-     * Opens the given content in a temporary file using the system's default editor.
+     * Opens the given content in a temporary file using the editor configured in bearsampp.conf.
      *
      * @param   string  $caption  The caption/title for the temporary file.
      * @param   string  $content  The content to write to the temporary file.
@@ -2081,13 +2081,14 @@ class Util
      */
     public static function openFileContent($caption, $content)
     {
-        global $bearsamppCore;
+        global $bearsamppCore, $bearsamppConfig;
 
         $tmpFile = $bearsamppCore->getTmpPath() . '/' . $caption . '.txt';
         file_put_contents($tmpFile, $content);
 
-        // Open the file with the default editor
-        $bearsamppCore->getWinbinder()->exec('notepad.exe', $tmpFile);
+        // Open the file with the configured editor from bearsampp.conf
+        $editor = $bearsamppConfig->getNotepad();
+        $bearsamppCore->getWinbinder()->exec($editor, $tmpFile);
     }
 
     /**
