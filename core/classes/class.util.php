@@ -1635,8 +1635,11 @@ class Util
      */
     public static function isValidDomainName($domainName)
     {
-        $valid = filter_var($domain, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
-        return $valid;
+        // This will return the string if valid, or FALSE if not.
+        // It checks syntax rules (RFC 1034/1035) but doesn't check if the domain is "real."
+        $isValidSyntax = filter_var($domainName, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+
+        return $isValidSyntax;
     }
 
     /**
