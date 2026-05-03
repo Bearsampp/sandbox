@@ -131,7 +131,7 @@ class HttpClient
      * @param array $headers Optional additional headers to include in the request.
      * @return array The headers array with 'headers' key on success, or 'headers' and 'error' keys on failure.
      */
-    public static function getHeaders($url, $headers = array())
+    public static function getCurlHeaders($url, $headers = array())
     {
         $ch = curl_init();
 
@@ -297,5 +297,115 @@ class HttpClient
 
         // Other errors
         return 'other';
+    }
+
+    /**
+     * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
+     *
+     * @param   string  $pingUrl  The URL to ping for headers.
+     *
+     * @return array An array of HTTP headers.
+     */
+    public static function getHttpHeaders($pingUrl)
+    {
+        if (function_exists('curl_version')) {
+            $result = self::getCurlHttpHeaders($pingUrl);
+        } else {
+            $result = self::getFopenHttpHeaders($pingUrl);
+        }
+
+        if (!empty($result)) {
+            $rebuildResult = array();
+            foreach ($result as $row) {
+                $row = trim($row);
+                if (!empty($row)) {
+                    $rebuildResult[] = $row;
+                }
+            }
+            $result = $rebuildResult;
+
+            Log::debug('getHttpHeaders:');
+            foreach ($result as $header) {
+                Log::debug('-> ' . $header);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieves HTTP headers from a given URL using the fopen function.
+     *
+     * This method creates a stream context with SSL verification enabled for security.
+     * It attempts to open the URL and read the HTTP response headers.
+     *
+     * @param   string  $url  The URL from which to fetch the headers.
+     *
+     * @return array An array of headers if successful, otherwise an empty array.
+     */
+    public static function getFopenHttpHeaders($url)
+    {
+        $result = array();
+
+        $context = stream_context_create(array(
+            'ssl' => array(
+                'verify_peer'       => true,
+                'verify_peer_name'  => true,
+                'allow_self_signed' => false,
+            )
+        ));
+
+        $fp = @fopen($url, 'r', false, $context);
+        if ($fp) {
+            $meta   = stream_get_meta_data($fp);
+            $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
+            fclose($fp);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieves HTTP headers from a given URL using cURL.
+     *
+     * This method uses HttpClient for secure TLS verification.
+     *
+     * @param   string  $url  The URL from which to fetch the headers.
+     *
+     * @return array An array of headers if successful, otherwise an empty array.
+     */
+    public static function getCurlHttpHeaders($url)
+    {
+        $result = self::getCurlHeaders($url);
+
+        // Handle error response from HttpClient
+        if (is_array($result) && isset($result['error'])) {
+            Log::error('Failed to get headers via Util::getHeaders: ' . $result['error']);
+            return array();
+        }
+
+        // Extract headers array from consistent HttpClient response structure
+        return isset($result['headers']) ? $result['headers'] : array();
+    }
+
+
+    /**
+     * Checks the current state of the internet connection.
+     *
+     * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
+     * It returns `true` if the connection is successful, otherwise it returns `false`.
+     *
+     * @return bool True if the internet connection is active, false otherwise.
+     */
+    public static function checkInternetState()
+    {
+        $connected = @fsockopen('www.google.com', 80);
+        if ($connected) {
+            fclose($connected);
+
+            return true; // Internet connection is active
+        } else {
+            return false; // Internet connection is not active
+        }
     }
 }

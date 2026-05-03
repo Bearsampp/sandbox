@@ -1532,96 +1532,6 @@ class Util
     }
 
     /**
-     * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
-     *
-     * @param   string  $pingUrl  The URL to ping for headers.
-     *
-     * @return array An array of HTTP headers.
-     */
-    public static function getHttpHeaders($pingUrl)
-    {
-        if (function_exists('curl_version')) {
-            $result = self::getCurlHttpHeaders($pingUrl);
-        } else {
-            $result = self::getFopenHttpHeaders($pingUrl);
-        }
-
-        if (!empty($result)) {
-            $rebuildResult = array();
-            foreach ($result as $row) {
-                $row = trim($row);
-                if (!empty($row)) {
-                    $rebuildResult[] = $row;
-                }
-            }
-            $result = $rebuildResult;
-
-            Log::debug('getHttpHeaders:');
-            foreach ($result as $header) {
-                Log::debug('-> ' . $header);
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieves HTTP headers from a given URL using the fopen function.
-     *
-     * This method creates a stream context with SSL verification enabled for security.
-     * It attempts to open the URL and read the HTTP response headers.
-     *
-     * @param   string  $url  The URL from which to fetch the headers.
-     *
-     * @return array An array of headers if successful, otherwise an empty array.
-     */
-    public static function getFopenHttpHeaders($url)
-    {
-        $result = array();
-
-        $context = stream_context_create(array(
-            'ssl' => array(
-                'verify_peer'       => true,
-                'verify_peer_name'  => true,
-                'allow_self_signed' => false,
-            )
-        ));
-
-        $fp = @fopen($url, 'r', false, $context);
-        if ($fp) {
-            $meta   = stream_get_meta_data($fp);
-            $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
-            fclose($fp);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieves HTTP headers from a given URL using cURL.
-     *
-     * This method uses HttpClient for secure TLS verification.
-     *
-     * @param   string  $url  The URL from which to fetch the headers.
-     *
-     * @return array An array of headers if successful, otherwise an empty array.
-     */
-    public static function getCurlHttpHeaders($url)
-    {
-        $result = HttpClient::getHeaders($url);
-
-        // Handle error response from HttpClient
-        if (is_array($result) && isset($result['error'])) {
-            Log::error('Failed to get headers via HttpClient: ' . $result['error']);
-            return array();
-        }
-
-        // Extract headers array from consistent HttpClient response structure
-        return isset($result['headers']) ? $result['headers'] : array();
-    }
-
-
-    /**
      * Retrieves the initial response line from a specified host and port using a socket connection.
      *
      * This method optionally uses SSL and creates a stream context with SSL verification enabled for security.
@@ -1948,26 +1858,6 @@ class Util
     }
 
     /**
-     * Checks the current state of the internet connection.
-     *
-     * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
-     * It returns `true` if the connection is successful, otherwise it returns `false`.
-     *
-     * @return bool True if the internet connection is active, false otherwise.
-     */
-    public static function checkInternetState()
-    {
-        $connected = @fsockopen('www.google.com', 80);
-        if ($connected) {
-            fclose($connected);
-
-            return true; // Internet connection is active
-        } else {
-            return false; // Internet connection is not active
-        }
-    }
-
-    /**
      * Gets the list of folders in the specified path.
      *
      * @param   string  $path  The directory path to scan for folders.
@@ -1994,58 +1884,6 @@ class Util
         natcasesort($result);
 
         return $result;
-    }
-
-    /**
-     * Gets the NSSM environment paths.
-     *
-     * @return string The NSSM environment paths string.
-     */
-    public static function getNssmEnvPaths()
-    {
-        global $bearsamppBins, $bearsamppTools;
-
-        $paths = '';
-
-        // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
-        }
-
-        return UtilPath::formatWindowsPath($paths);
     }
 
     /**

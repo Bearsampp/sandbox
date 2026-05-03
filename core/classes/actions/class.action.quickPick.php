@@ -460,7 +460,7 @@ class QuickPick
             return ['error' => 'Module URL not found'];
         }
 
-        $state = Util::checkInternetState();
+        $state = HttpClient::checkInternetState();
         if ( $state ) {
             $response = $this->fetchAndUnzipModule( $moduleUrl, $module );
             Log::debug( 'Response is: ' . print_r( $response, true ) );
@@ -774,7 +774,7 @@ class QuickPick
         $enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
 
         ob_start();
-        if ( Util::checkInternetState() ) {
+        if ( HttpClient::checkInternetState() ) {
 
             // Check if the license key is valid
             if ( $this->checkDownloadId() ): ?>

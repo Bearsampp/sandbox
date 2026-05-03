@@ -688,4 +688,56 @@ class Nssm
 
         return null;
     }
+
+    /**
+     * Gets the NSSM environment paths.
+     *
+     * @return string The NSSM environment paths string.
+     */
+    public static function getNssmEnvPaths()
+    {
+        global $bearsamppBins, $bearsamppTools;
+
+        $paths = '';
+
+        // Add paths for enabled bins
+        if ($bearsamppBins->getApache()->isEnable()) {
+            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppBins->getPhp()->isEnable()) {
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
+            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
+        }
+        if ($bearsamppBins->getNodejs()->isEnable()) {
+            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
+        }
+        if ($bearsamppTools->getComposer()->isEnable()) {
+            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
+            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
+        }
+        if ($bearsamppTools->getGhostscript()->isEnable()) {
+            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getGit()->isEnable()) {
+            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getNgrok()->isEnable()) {
+            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
+        }
+        if ($bearsamppTools->getPerl()->isEnable()) {
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
+            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
+        }
+        if ($bearsamppTools->getPython()->isEnable()) {
+            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
+        }
+        if ($bearsamppTools->getRuby()->isEnable()) {
+            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
+        }
+
+        return UtilPath::formatWindowsPath($paths);
+    }
 }

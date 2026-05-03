@@ -374,7 +374,7 @@ class Win32Service
             $nssmEnvPath = Util::getAppBinsRegKey( false );
             Log::trace("NSSM environment path (bins): " . $nssmEnvPath);
 
-            $nssmEnvPath .= Util::getNssmEnvPaths();
+            $nssmEnvPath .= Nssm::getNssmEnvPaths();
             Log::trace("NSSM environment path (with additional paths): " . $nssmEnvPath);
 
             $nssmEnvPath .= '%SystemRoot%/system32;';
