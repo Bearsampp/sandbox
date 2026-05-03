@@ -1371,7 +1371,7 @@ class Util
             }
 
             if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc'   += $tmpCountChangedOcc;
+                $result['countChangedOcc'] += $tmpCountChangedOcc;
                 $result['countChangedFiles'] += 1;
                 file_put_contents($fileToScan, $fileContent);
             }
@@ -1392,13 +1392,22 @@ class Util
     public static function getLatestVersion($url)
     {
         $result = HttpClient::getApiJson($url);
-        if (empty($result)) {
-            Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
 
+        // Handle error response from HttpClient
+        if (is_array($result) && isset($result['error'])) {
+            Log::error('Cannot retrieve latest github info: ' . $result['error']);
             return null;
         }
 
-        $resultArray = json_decode($result, true);
+        // Extract data from consistent array structure
+        $responseData = is_array($result) && isset($result['data']) ? $result['data'] : $result;
+
+        if (empty($responseData)) {
+            Log::error('Cannot retrieve latest github info: empty result');
+            return null;
+        }
+
+        $resultArray = json_decode($responseData, true);
         if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
             $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
@@ -1559,9 +1568,8 @@ class Util
     /**
      * Retrieves HTTP headers from a given URL using the fopen function.
      *
-     * This method creates a stream context to disable SSL peer and peer name verification,
-     * which allows self-signed certificates. It attempts to open the URL and read the HTTP
-     * response headers.
+     * This method creates a stream context with SSL verification enabled for security.
+     * It attempts to open the URL and read the HTTP response headers.
      *
      * @param   string  $url  The URL from which to fetch the headers.
      *
@@ -1573,9 +1581,9 @@ class Util
 
         $context = stream_context_create(array(
             'ssl' => array(
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
+                'verify_peer'       => true,
+                'verify_peer_name'  => true,
+                'allow_self_signed' => false,
             )
         ));
 
@@ -1592,9 +1600,7 @@ class Util
     /**
      * Retrieves HTTP headers from a given URL using cURL.
      *
-     * This method initializes a cURL session, sets various options to fetch headers
-     * including disabling SSL peer verification, and executes the request. It logs
-     * the raw response for debugging purposes and parses the headers from the response.
+     * This method uses HttpClient for secure TLS verification.
      *
      * @param   string  $url  The URL from which to fetch the headers.
      *
@@ -1602,33 +1608,23 @@ class Util
      */
     public static function getCurlHttpHeaders($url)
     {
-        $result = array();
+        $result = HttpClient::getHeaders($url);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        $response = @curl_exec($ch);
-        if (empty($response)) {
-            return $result;
+        // Handle error response from HttpClient
+        if (is_array($result) && isset($result['error'])) {
+            Log::error('Failed to get headers via HttpClient: ' . $result['error']);
+            return array();
         }
 
-        Log::trace('getCurlHttpHeaders:' . $response);
-        $responseHeaders = explode("\r\n\r\n", $response, 2);
-        if (!isset($responseHeaders[0]) || empty($responseHeaders[0])) {
-            return $result;
-        }
-
-        return explode("\n", $responseHeaders[0]);
+        // Extract headers array from consistent HttpClient response structure
+        return isset($result['headers']) ? $result['headers'] : array();
     }
+
 
     /**
      * Retrieves the initial response line from a specified host and port using a socket connection.
      *
-     * This method optionally uses SSL and creates a stream context similar to `getFopenHttpHeaders`.
+     * This method optionally uses SSL and creates a stream context with SSL verification enabled for security.
      * It attempts to connect to the host and port, reads the first line of the response, and parses it.
      * Detailed debug information is logged for each header line received.
      *
@@ -1643,9 +1639,9 @@ class Util
         $result  = array();
         $context = stream_context_create(array(
             'ssl' => array(
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
+                'verify_peer'       => true,
+                'verify_peer_name'  => true,
+                'allow_self_signed' => false,
             )
         ));
 
@@ -1684,27 +1680,7 @@ class Util
      */
     public static function getApiJson($url)
     {
-        $header = self::setupCurlHeaderWithToken();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        $data = curl_exec($ch);
-        if (curl_errno($ch)) {
-            Log::error('CURL Error: ' . curl_error($ch));
-        }
-
-        // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
-        // The resource is automatically closed when it goes out of scope
-        if (PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
-
-        return trim($data);
+        return HttpClient::getApiJson($url);
     }
 
     /**

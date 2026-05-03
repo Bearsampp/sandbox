@@ -51,6 +51,7 @@ class Root
         require_once $this->getCorePath() . '/classes/class.log.php';
         require_once $this->getCorePath() . '/classes/class.util.php';
         require_once $this->getCorePath() . '/classes/class.util.string.php';
+        require_once $this->getCorePath() . '/classes/class.httpclient.php';
         Log::init();
 
         // Autoloader
