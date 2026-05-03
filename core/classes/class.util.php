@@ -1371,7 +1371,7 @@ class Util
             }
 
             if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc']   += $tmpCountChangedOcc;
+                $result['countChangedOcc'   += $tmpCountChangedOcc;
                 $result['countChangedFiles'] += 1;
                 file_put_contents($fileToScan, $fileContent);
             }
@@ -1391,7 +1391,7 @@ class Util
      */
     public static function getLatestVersion($url)
     {
-        $result = self::getApiJson($url);
+        $result = HttpClient::getApiJson($url);
         if (empty($result)) {
             Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
 
@@ -2090,19 +2090,5 @@ class Util
         // Open the file with the configured editor from bearsampp.conf
         $editor = $bearsamppConfig->getNotepad();
         $bearsamppCore->getWinbinder()->exec($editor, '"' . $tmpFile . '"');
-    }
-
-    /**
-     * Sets up cURL headers with token for API requests.
-     *
-     * @return array The array of cURL headers.
-     */
-    public static function setupCurlHeaderWithToken()
-    {
-        // Return headers with User-Agent, which is required by GitHub API
-        return array(
-            'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
-            'Accept: application/vnd.github.v3+json'
-        );
     }
 }
