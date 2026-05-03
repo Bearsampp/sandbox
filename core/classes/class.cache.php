@@ -94,16 +94,24 @@ class Cache
                 return false;
             }
 
-            // Verify file integrity before unserializing
+            // Verify HMAC over the raw file bytes BEFORE any parsing.
+            // This prevents PHP object injection via magic methods (__wakeup /
+            // __destruct) that would fire during unserialize() even when the
+            // HMAC subsequently fails.
             if (!self::verifyCacheIntegrity($fileContents, $cacheKey)) {
                 Log::warning('File scan cache integrity check failed for key: ' . $cacheKey . '. Possible tampering detected.');
                 @unlink($cacheFile);
                 return false;
             }
 
-            $cacheData = @unserialize($fileContents);
+            // Integrity confirmed – now it is safe to decode.
+            $cacheData = @json_decode($fileContents, true);
 
-            if ($cacheData !== false && isset($cacheData['timestamp']) && isset($cacheData['data']) && isset($cacheData['hmac'])) {
+            if (is_array($cacheData)
+                && isset($cacheData['timestamp']) && is_int($cacheData['timestamp'])
+                && isset($cacheData['data'])      && is_array($cacheData['data'])
+                && isset($cacheData['hmac'])      && is_string($cacheData['hmac'])
+            ) {
                 // Check if file cache is still valid
                 if (time() - $cacheData['timestamp'] < self::$fileScanCacheDuration) {
                     // Store in memory cache for faster subsequent access
@@ -158,7 +166,9 @@ class Cache
         // Store in file cache
         if (isset($bearsamppRoot)) {
             $cacheFile = $bearsamppRoot->getTmpPath() . '/filescan_cache_' . $cacheKey . '.dat';
-            @file_put_contents($cacheFile, serialize($cacheData), LOCK_EX);
+            // JSON is used instead of serialize() to eliminate the PHP object-injection
+            // attack surface entirely – no magic methods can fire during json_decode().
+            @file_put_contents($cacheFile, json_encode($cacheData), LOCK_EX);
             Log::debug('File scan results cached to: ' . $cacheFile);
         }
     }
@@ -219,23 +229,31 @@ class Cache
     private static function generateCacheHMAC($data, $cacheKey)
     {
         $key = self::getCacheIntegrityKey();
-        $message = serialize($data) . $cacheKey;
+        // Bind the HMAC to the cache key so a valid payload for key A cannot
+        // be replayed under key B.
+        $message = json_encode($data) . $cacheKey;
         return hash_hmac('sha256', $message, $key);
     }
 
     /**
      * Verifies cache file integrity using HMAC.
      *
-     * @param   string  $fileContents  The serialized cache file contents
+     * @param   string  $fileContents  The JSON-encoded cache file contents
      * @param   string  $cacheKey      The cache key
      *
      * @return bool True if integrity check passes, false otherwise
      */
     private static function verifyCacheIntegrity($fileContents, $cacheKey)
     {
-        $cacheData = @unserialize($fileContents);
+        // Decode with json_decode() – unlike unserialize(), this cannot
+        // instantiate PHP objects or invoke any magic methods, so it is safe
+        // to call before the HMAC is confirmed.
+        $cacheData = @json_decode($fileContents, true);
 
-        if ($cacheData === false || !isset($cacheData['hmac']) || !isset($cacheData['data'])) {
+        if (!is_array($cacheData)
+            || !isset($cacheData['hmac']) || !is_string($cacheData['hmac'])
+            || !isset($cacheData['data']) || !is_array($cacheData['data'])
+        ) {
             return false;
         }
 
