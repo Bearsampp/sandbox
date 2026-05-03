@@ -1387,27 +1387,29 @@ class Util
      *
      * @param   string  $url  The URL to fetch version information from.
      *
-     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise.
+     * @return array|null Returns an array with 'version', 'html_url', and 'name' if successful, null otherwise.
      */
     public static function getLatestVersion($url)
     {
         $result = HttpClient::getApiJson($url);
 
-        // Handle error response from HttpClient
-        if (is_array($result) && isset($result['error'])) {
+        // HttpClient::getApiJson() always returns an array
+        if (isset($result['error'])) {
             Log::error('Cannot retrieve latest github info: ' . $result['error']);
             return null;
         }
 
-        // Extract data from consistent array structure
-        $responseData = is_array($result) && isset($result['data']) ? $result['data'] : $result;
+        // Extract the JSON string from the 'data' key
+        $responseData = isset($result['data']) ? $result['data'] : '';
 
         if (empty($responseData)) {
             Log::error('Cannot retrieve latest github info: empty result');
             return null;
         }
 
+        // Now decode the JSON string
         $resultArray = json_decode($responseData, true);
+
         if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
             $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
@@ -1418,8 +1420,7 @@ class Util
 
             return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];
         } else {
-            Log::error('Tag name, download URL, or name not found in the response: ' . $result);
-
+            Log::error('Tag name, download URL, or name not found in the response');
             return null;
         }
     }

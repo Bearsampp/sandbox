@@ -113,14 +113,14 @@ class HttpClient
      *
      * @param string $url The API URL to request.
      * @param array $headers Optional additional headers to include in the request.
-     * @return string|array The JSON response data or array with 'data' and 'error' keys on failure.
+     * @return array An array with 'data' key containing the JSON response string on success,
+     *               or 'data', 'error', and 'error_type' keys on failure.
+     *               Structure: ['data' => string, 'error' => string, 'error_type' => string]
      */
     public static function getApiJson($url, $headers = array())
     {
-        // Add GitHub API headers by default for API requests
         $apiHeaders = self::getApiHeaders();
         $allHeaders = array_merge($apiHeaders, $headers);
-
         return self::get($url, $allHeaders);
     }
 
