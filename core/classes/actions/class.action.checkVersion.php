@@ -121,14 +121,13 @@ class ActionCheckVersion
 
         switch ($id) {
             case $this->wbLinkFull[WinBinder::CTRL_ID]:
-                $latestVersionInfo = Util::getLatestVersion(APP_GITHUB_LATEST_URL);
-                if ($latestVersionInfo && isset($latestVersionInfo['html_url'])) {
+                if ($this->githubLatestVersionUrl) {
                     $browserPath = $bearsamppConfig->getBrowser();
-                    if (!$bearsamppWinbinder->exec($browserPath, $latestVersionInfo['html_url'])) {
-                        Log::error("Failed to open browser at path: $browserPath with URL: " . $latestVersionInfo['html_url']);
+                    if (!$bearsamppWinbinder->exec($browserPath, $this->githubLatestVersionUrl)) {
+                        Log::error("Failed to open browser at path: $browserPath with URL: " . $this->githubLatestVersionUrl);
                     }
                 } else {
-                    Log::error("Failed to retrieve latest version info or 'html_url' not set.");
+                    Log::error("GitHub latest version URL is not set.");
                 }
                 break;
             case IDCLOSE:

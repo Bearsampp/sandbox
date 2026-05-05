@@ -1391,19 +1391,10 @@ class Util
      */
     public static function getLatestVersion($url)
     {
-        $result = HttpClient::getApiJson($url);
-
-        // HttpClient::getApiJson() always returns an array
-        if (isset($result['error'])) {
-            Log::error('Cannot retrieve latest github info: ' . $result['error']);
-            return null;
-        }
-
-        // Extract the JSON string from the 'data' key
-        $responseData = isset($result['data']) ? $result['data'] : '';
+        $responseData = self::getApiJson($url);
 
         if (empty($responseData)) {
-            Log::error('Cannot retrieve latest github info: empty result');
+            Log::error('Cannot retrieve latest github info: empty result or error');
             return null;
         }
 
@@ -1583,15 +1574,21 @@ class Util
     }
 
     /**
-     * Sends a GET request to the specified URL and returns the response.
+     * Sends a GET request to the specified URL and returns the response as a JSON string.
      *
      * @param   string  $url  The URL to send the GET request to.
      *
-     * @return string The trimmed response data from the URL.
+     * @return string|null The response data as a JSON string from the URL, or null on failure.
      */
     public static function getApiJson($url)
     {
-        return HttpClient::getApiJson($url);
+        $result = HttpClient::getApiJson($url);
+
+        if (isset($result['error'])) {
+            return null;
+        }
+
+        return isset($result['data']) ? $result['data'] : null;
     }
 
     /**

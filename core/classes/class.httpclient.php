@@ -380,7 +380,7 @@ class HttpClient
 
         // Handle error response from HttpClient
         if (is_array($result) && isset($result['error'])) {
-            Log::error('Failed to get headers via Util::getHeaders: ' . $result['error']);
+            Log::error('Failed to get headers via HttpClient::getCurlHeaders: ' . $result['error']);
             return array();
         }
 
