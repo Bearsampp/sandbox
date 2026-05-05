@@ -31,7 +31,7 @@
 					<div> <?php echo $bearsamppLang->getValue(Lang::HOMEPAGE_QUESTIONS_TEXT); ?></div>
 					<div>
 						<a class = "btn btn-dark text-light" href = "
-							<?php echo HttpClient::getGithubUrl('issues'); ?>" role = "button" target = "_blank">
+							<?php echo HttpClient::getGithubUrl('issues', APP_GITHUB_USER, APP_GITHUB_REPO); ?>" role = "button" target = "_blank">
 							<i class = 'fa-brands fa-github'></i> <?php echo $bearsamppLang->getValue(Lang::HOMEPAGE_POST_ISSUE); ?> </a>
 					</div>
 				</div>

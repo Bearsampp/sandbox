@@ -203,6 +203,13 @@ class HttpClient
                 $repo = rawurlencode($repo);
                 return "https://github.com/{$user}/{$repo}";
 
+            case 'issues':
+                if (empty($repo) || !is_string($repo)) {
+                    return false;
+                }
+                $repo = rawurlencode($repo);
+                return "https://github.com/{$user}/{$repo}/issues";
+
             case 'raw':
                 if (empty($repo) || empty($branch) || empty($path) || !is_string($repo) || !is_string($branch) || !is_string($path)) {
                     return false;
@@ -295,14 +302,19 @@ class HttpClient
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, false); // Set to false to avoid polluting logs unless needed
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
-            Log::error('CURL Error: ' . curl_error($ch));
+            Log::error('CURL Error (' . curl_errno($ch) . '): ' . curl_error($ch) . ' (URL: ' . $url . ')');
+        }
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ($httpCode >= 400) {
+            Log::error('HTTP Error ' . $httpCode . ' for URL: ' . $url);
         }
 
         // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
@@ -311,7 +323,7 @@ class HttpClient
             curl_close($ch);
         }
 
-        return trim($data);
+        return $data === false ? '' : trim($data);
     }
 
     /**
@@ -325,12 +337,17 @@ class HttpClient
     {
         $result = self::getApiJson($url);
         if (empty($result)) {
-            Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
+            Log::error('Cannot retrieve latest github info: empty result or error for URL: ' . $url);
 
             return null;
         }
 
         $resultArray = json_decode($result, true);
+        if ($resultArray === null) {
+            Log::error('Failed to decode JSON response from: ' . $url . '. Response snippet: ' . substr($result, 0, 100));
+            return null;
+        }
+
         if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
             $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];

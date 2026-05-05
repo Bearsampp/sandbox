@@ -30,6 +30,7 @@ class ActionCheckVersion
     private $currentVersion;
     private $latestVersion;
     private $githubLatestVersionUrl;
+    private $didStartLoading = false;
 
     /**
      * Constructor for the ActionCheckVersion class.
@@ -48,6 +49,7 @@ class ActionCheckVersion
             if ($isMenuCheck) {
                 Log::debug('ActionCheckVersion: Manual check detected, starting loading');
                 Util::startLoading();
+                $this->didStartLoading = true;
             }
             $this->currentVersion = $bearsamppCore->getAppVersion();
             Log::debug('ActionCheckVersion: Current version: ' . $this->currentVersion);
@@ -68,12 +70,16 @@ class ActionCheckVersion
                     $this->showVersionOkMessageBox($bearsamppLang, $bearsamppWinbinder);
                 } else {
                     Log::debug('ActionCheckVersion: Version is up to date (background check)');
-                    Util::stopLoading();
+                    if ($this->didStartLoading) {
+                        Util::stopLoading();
+                    }
                 }
             } elseif ($isMenuCheck) {
                 Log::debug('ActionCheckVersion: Failed to retrieve version data during manual check');
                 // If it's a menu check but we couldn't get version data, we must stop loading
-                Util::stopLoading();
+                if ($this->didStartLoading) {
+                    Util::stopLoading();
+                }
                 Log::debug('ActionCheckVersion: Showing error message box');
                 $bearsamppWinbinder->messageBoxError(
                     'Failed to retrieve version data from GitHub during manual check.',
@@ -83,8 +89,10 @@ class ActionCheckVersion
                 Log::error('Failed to retrieve version data from GitHub during manual check.');
             } else {
                 Log::debug('ActionCheckVersion: Failed to retrieve version data (background check)');
-                // Not a menu check, just stop loading
-                Util::stopLoading();
+                // Not a menu check, only stop loading if we started it
+                if ($this->didStartLoading) {
+                    Util::stopLoading();
+                }
             }
         }
     }
