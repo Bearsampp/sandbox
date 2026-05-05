@@ -152,9 +152,13 @@ $bearsamppAction->process();
 
 /**
  * Checks if the current user has root privileges and stops loading if true.
+ * We must NOT stop loading if the current action is actually 'loading'.
  */
 if ($bearsamppRoot->isRoot()) {
-    Util::stopLoading();
+    $currentAction = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
+    if ($currentAction !== Action::LOADING) {
+        Util::stopLoading();
+    }
 }
 
 /**

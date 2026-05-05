@@ -1176,6 +1176,7 @@ class Util
 
     /**
      * Validates a domain name based on specific criteria.
+     * Supports standard domains as well as local TLDs like .local, .test, .example, .invalid.
      *
      * @param   string  $domainName  The domain name to validate.
      *
@@ -1183,7 +1184,18 @@ class Util
      */
     public static function isValidDomainName($domainName)
     {
-        return filter_var($domainName, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== false;
+        if (empty($domainName) || !is_string($domainName)) {
+            return false;
+        }
+
+        // Check if it's a valid domain name using filter_var
+        if (filter_var($domainName, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== false) {
+            return true;
+        }
+
+        // Fallback for local TLDs that FILTER_VALIDATE_DOMAIN might reject
+        // Regex for a basic domain validation that allows custom TLDs
+        return (bool)preg_match('/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/i', $domainName);
     }
 
     /**

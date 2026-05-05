@@ -45,7 +45,9 @@ class ActionCheckVersion
 
         // Start loading only if the exec file doesn't exist or if we're doing a menu check
         if (!file_exists($bearsamppCore->getExec()) || $isMenuCheck) {
-            Util::startLoading();
+            if ($isMenuCheck) {
+                Util::startLoading();
+            }
             $this->currentVersion = $bearsamppCore->getAppVersion();
 
             // Assuming getLatestVersion now returns an array with version and URL
@@ -59,6 +61,17 @@ class ActionCheckVersion
                 } elseif ($isMenuCheck) {
                     $this->showVersionOkMessageBox($bearsamppLang, $bearsamppWinbinder);
                 }
+            } elseif ($isMenuCheck) {
+                // If it's a menu check but we couldn't get version data, we must stop loading
+                Util::stopLoading();
+                $bearsamppWinbinder->messageBoxError(
+                    'Failed to retrieve version data from GitHub during manual check.',
+                    $bearsamppLang->getValue(Lang::CHECK_VERSION_TITLE)
+                );
+                Log::error('Failed to retrieve version data from GitHub during manual check.');
+            } else {
+                // Not a menu check, just stop loading
+                Util::stopLoading();
             }
         }
     }
