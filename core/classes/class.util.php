@@ -713,12 +713,23 @@ class Util
     public static function stopLoading()
     {
         global $bearsamppCore;
-        if (file_exists($bearsamppCore->getLoadingPid())) {
-            $pids = file($bearsamppCore->getLoadingPid());
+        $pidFile = $bearsamppCore->getLoadingPid();
+        Log::trace('stopLoading() called, PID file: ' . $pidFile);
+        if (file_exists($pidFile)) {
+            $pids = file($pidFile);
+            Log::trace('PIDs found in file: ' . implode(', ', array_map('trim', $pids)));
             foreach ($pids as $pid) {
-                Win32Ps::kill($pid);
+                $pid = trim($pid);
+                if (!empty($pid)) {
+                    Log::trace('Killing loading PID: ' . $pid);
+                    Win32Ps::kill($pid);
+                    // Give the OS a moment to kill the process before we continue
+                    usleep(50000);
+                }
             }
-            @unlink($bearsamppCore->getLoadingPid());
+            @unlink($pidFile);
+        } else {
+            Log::trace('PID file not found');
         }
 
         // Clean up status file
