@@ -42,7 +42,7 @@ class Root
         clearstatcache();
 
         // External classes required for error handling and path utilities
-        require_once $this->getCorePath() . '/classes/class.util.path.php';
+        require_once $this->getCorePath() . '/classes/class.path.php';
 
         // Error log
         $this->initErrorHandling();
