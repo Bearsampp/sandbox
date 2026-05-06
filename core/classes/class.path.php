@@ -230,7 +230,7 @@ class Path
     public static function getPowerShellPath()
     {
         if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
-            return self::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
+            return Util::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
         }
 
         return false;
@@ -294,7 +294,7 @@ class Path
         );
 
         // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getApache()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
@@ -304,7 +304,7 @@ class Path
         }
 
         // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getPhp()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
@@ -314,7 +314,7 @@ class Path
         }
 
         // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getMysql()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
@@ -324,7 +324,7 @@ class Path
         }
 
         // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getMariadb()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
@@ -343,7 +343,7 @@ class Path
         }
 
         // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
@@ -353,7 +353,7 @@ class Path
         }
 
         // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppBins->getNodejs()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
@@ -368,7 +368,7 @@ class Path
         }
 
         // Composer
-        $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppTools->getComposer()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppTools->getComposer()->getRootPath() . '/' . $folder,
@@ -378,7 +378,7 @@ class Path
         }
 
         // PowerShell
-        $folderList = self::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppTools->getPowerShell()->getRootPath() . '/' . $folder,
@@ -388,7 +388,7 @@ class Path
         }
 
         // Python
-        $folderList = self::getFolderList($bearsamppTools->getPython()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppTools->getPython()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/bin',
@@ -403,7 +403,7 @@ class Path
         }
 
         // Ruby
-        $folderList = self::getFolderList($bearsamppTools->getRuby()->getRootPath());
+        $folderList = Util::getFolderList($bearsamppTools->getRuby()->getRootPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
@@ -456,12 +456,12 @@ class Path
             }
 
             // placeholders
-            preg_match('#' . Core::PATH_LIN_PLACEHOLDER . '#i', $fileContent, $unixMatches);
+            preg_match('#' . preg_quote($unixOldPath, '#') . '#i', $fileContent, $unixMatches);
             if (!empty($unixMatches)) {
                 $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
-            preg_match('#' . Core::PATH_WIN_PLACEHOLDER . '#i', $fileContent, $windowsMatches);
+            preg_match('#' . preg_quote($windowsOldPath, '#') . '#i', $fileContent, $windowsMatches);
             if (!empty($windowsMatches)) {
                 $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;

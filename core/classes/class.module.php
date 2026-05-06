@@ -22,7 +22,7 @@ abstract class Module
     protected $version;
     protected $release = 'N/A';
 
-    protected $rootpath;
+    protected $rootPath;
     protected $currentPath;
     protected $symlinkPath;
     protected $enable;

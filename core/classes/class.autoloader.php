@@ -80,8 +80,8 @@ class Autoloader
 
         self::$stats['misses']++;
 
-        $rootpath = $bearsamppRoot->getCorePath();
-        $file = $this->resolveClassPath($class, $rootpath);
+        $rootPath = $bearsamppRoot->getCorePath();
+        $file = $this->resolveClassPath($class, $rootPath);
 
         if (!file_exists($file)) {
             // Cache the failed lookup
@@ -100,34 +100,34 @@ class Autoloader
      * Extracted into separate method for better maintainability and testability.
      *
      * @param string $class The lowercase class name
-     * @param string $rootpath The root path to the classes directory
+     * @param string $rootPath The root path to the classes directory
      * @return string The resolved file path
      */
-    private function resolveClassPath($class, $rootpath)
+    private function resolveClassPath($class, $rootPath)
     {
-        $file = $rootpath . '/classes/class.' . $class . '.php';
+        $file = $rootPath . '/classes/class.' . $class . '.php';
 
         if (in_array($class, ['utilstring', 'utilinput'], true)) {
             $class = substr_replace($class, '.', 4, 0);
-            $file = $rootpath . '/classes/class.' . $class . '.php';
+            $file = $rootPath . '/classes/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'bin')) {
             $class = $class != 'bins' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootpath . '/classes/bins/class.' . $class . '.php';
+            $file = $rootPath . '/classes/bins/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'tool')) {
             $class = $class != 'tools' ? substr_replace($class, '.', 4, 0) : $class;
-            $file = $rootpath . '/classes/tools/class.' . $class . '.php';
+            $file = $rootPath . '/classes/tools/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'app')) {
             $class = $class != 'apps' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootpath . '/classes/apps/class.' . $class . '.php';
+            $file = $rootPath . '/classes/apps/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'action')) {
             $class = $class != 'action' ? substr_replace($class, '.', 6, 0) : $class;
-            $file = $rootpath . '/classes/actions/class.' . $class . '.php';
+            $file = $rootPath . '/classes/actions/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'tplapp') && $class != 'tplapp') {
             $class = substr_replace(substr_replace($class, '.', 3, 0), '.', 7, 0);
-            $file = $rootpath . '/classes/tpls/app/class.' . $class . '.php';
+            $file = $rootPath . '/classes/tpls/app/class.' . $class . '.php';
         } elseif (UtilString::startWith($class, 'tpl')) {
             $class = $class != 'tpls' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootpath . '/classes/tpls/class.' . $class . '.php';
+            $file = $rootPath . '/classes/tpls/class.' . $class . '.php';
         }
 
         return $file;
