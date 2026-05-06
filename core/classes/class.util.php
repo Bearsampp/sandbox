@@ -130,7 +130,7 @@ class Util
      *
      * @return string|false Returns the path to the file if found, or false if not found.
      */
-    private static function findFile($startPath, $findFile)
+    public static function findFile($startPath, $findFile)
     {
         $result = false;
 
@@ -451,7 +451,7 @@ class Util
      */
     public static function isLaunchStartup()
     {
-        $lnk = Path::getStartupLinkPath();
+        $lnk = Path::getStartupLnkPath();
         return $lnk ? file_exists($lnk) : false;
     }
 
@@ -464,7 +464,7 @@ class Util
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        $shortcutPath = Path::getStartupLinkPath();
+        $shortcutPath = Path::getStartupLnkPath();
         if (!$shortcutPath) {
             return false;
         }
@@ -484,7 +484,7 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        $startupLnkPath = Path::getStartupLinkPath();
+        $startupLnkPath = Path::getStartupLnkPath();
 
         // Check if file exists before attempting to delete
         if (file_exists($startupLnkPath)) {

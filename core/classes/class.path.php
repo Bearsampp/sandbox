@@ -260,7 +260,7 @@ class Path
      *
      * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
      */
-    private static function getPathsToScan()
+    public static function getPathsToScan()
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
         $paths = array();

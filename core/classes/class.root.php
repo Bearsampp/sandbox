@@ -24,11 +24,11 @@ class Root
     /**
      * Constructs a Root object with the specified root path.
      *
-     * @param string $rootPath The root path of the application.
+     * @param string $rootpath The root path of the application.
      */
-    public function __construct($rootPath)
+    public function __construct($rootpath)
     {
-        $this->path = str_replace('\\', '/', rtrim($rootPath, '/\\'));
+        $this->path = str_replace('\\', '/', rtrim($rootpath, '/\\'));
         $this->isRoot = $_SERVER['PHP_SELF'] == 'root.php';
     }
 
