@@ -98,7 +98,7 @@ class ActionStartup
             $this->writeLog('List procs:');
             $listProcs = array();
             foreach ($bearsamppRoot->getProcs() as $proc) {
-                $unixExePath = UtilPath::formatUnixPath($proc[Win32Ps::EXECUTABLE_PATH]);
+                $unixExePath = Path::formatUnixPath($proc[Win32Ps::EXECUTABLE_PATH]);
                 $listProcs[] = '-> ' . basename($unixExePath) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
             }
             sort($listProcs);
@@ -567,7 +567,7 @@ class ActionStartup
             $this->writeLog( 'Procs killed:' );
             $procsKilledSort = array();
             foreach ( $procsKilled as $proc ) {
-                $unixExePath       = UtilPath::formatUnixPath( $proc[Win32Ps::EXECUTABLE_PATH] );
+                $unixExePath       = Path::formatUnixPath( $proc[Win32Ps::EXECUTABLE_PATH] );
                 $procsKilledSort[] = '-> ' . basename( $unixExePath ) . ' (PID ' . $proc[Win32Ps::PROCESS_ID] . ') in ' . $unixExePath;
             }
             sort( $procsKilledSort );
@@ -755,12 +755,12 @@ class ActionStartup
         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::APP_PATH_REG_ENTRY ) );
         $this->splash->incrProgressBar();
 
-        $currentAppPathRegKey = Util::getAppPathRegKey();
-        $genAppPathRegKey     = UtilPath::formatWindowsPath( $bearsamppRoot->getRootPath() );
+        $currentAppPathRegKey = Path::getAppPathRegKey();
+        $genAppPathRegKey     = Path::formatWindowsPath( $bearsamppRoot->getRootPath() );
         $this->writeLog( 'Current app path reg key: ' . $currentAppPathRegKey );
         $this->writeLog( 'Gen app path reg key: ' . $genAppPathRegKey );
         if ( $currentAppPathRegKey != $genAppPathRegKey ) {
-            if ( !Util::setAppPathRegKey( $genAppPathRegKey ) ) {
+            if ( !Path::setAppPathRegKey( $genAppPathRegKey ) ) {
                 if ( !empty( $this->error ) ) {
                     $this->error .= PHP_EOL . PHP_EOL;
                 }
@@ -788,12 +788,12 @@ class ActionStartup
         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::APP_BINS_REG_ENTRY ) );
         $this->splash->incrProgressBar();
 
-        $currentAppBinsRegKey = Util::getAppBinsRegKey();
-        $genAppBinsRegKey     = Util::getAppBinsRegKey( false );
+        $currentAppBinsRegKey = Path::getAppBinsRegKey();
+        $genAppBinsRegKey     = Path::getAppBinsRegKey( false );
         $this->writeLog( 'Current app bins reg key: ' . $currentAppBinsRegKey );
         $this->writeLog( 'Gen app bins reg key: ' . $genAppBinsRegKey );
         if ( $currentAppBinsRegKey != $genAppBinsRegKey ) {
-            if ( !Util::setAppBinsRegKey( $genAppBinsRegKey ) ) {
+            if ( !Path::setAppBinsRegKey( $genAppBinsRegKey ) ) {
                 if ( !empty( $this->error ) ) {
                     $this->error .= PHP_EOL . PHP_EOL;
                 }
@@ -821,7 +821,7 @@ class ActionStartup
         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_REGISTRY_TEXT ), Registry::SYSPATH_REG_ENTRY ) );
         $this->splash->incrProgressBar();
 
-        $currentSysPathRegKey = Util::getSysPathRegKey();
+        $currentSysPathRegKey = Path::getSysPathRegKey();
         $this->writeLog( 'Current system PATH: ' . $currentSysPathRegKey );
 
         $newSysPathRegKey = str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%;', '', $currentSysPathRegKey );
@@ -830,7 +830,7 @@ class ActionStartup
         $this->writeLog( 'New system PATH: ' . $newSysPathRegKey );
 
         if ( $currentSysPathRegKey != $newSysPathRegKey ) {
-            if ( !Util::setSysPathRegKey( $newSysPathRegKey ) ) {
+            if ( !Path::setSysPathRegKey( $newSysPathRegKey ) ) {
                 if ( !empty( $this->error ) ) {
                     $this->error .= PHP_EOL . PHP_EOL;
                 }
@@ -844,8 +844,8 @@ class ActionStartup
         }
         else {
             $this->writeLog( 'Refresh system PATH: ' . $currentSysPathRegKey );
-            Util::setSysPathRegKey( str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%', '', $currentSysPathRegKey ) );
-            Util::setSysPathRegKey( $currentSysPathRegKey );
+            Path::setSysPathRegKey( str_replace( '%' . Registry::APP_BINS_REG_ENTRY . '%', '', $currentSysPathRegKey ) );
+            Path::setSysPathRegKey( $currentSysPathRegKey );
         }
     }
 

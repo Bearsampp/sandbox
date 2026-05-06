@@ -278,7 +278,7 @@ class ActionSwitchVersion
         $this->updateConfigVersion();
 
         // Store current registry value for comparison
-        $currentRegValue = Util::getAppBinsRegKey(false);
+        $currentRegValue = Path::getAppBinsRegKey(false);
         $regEntry = Registry::APP_BINS_REG_ENTRY;
 
         Log::trace(sprintf(
@@ -295,7 +295,7 @@ class ActionSwitchVersion
         $this->bearsamppSplash->incrProgressBar(2);
 
         // Perform the registry update
-        $newRegValue = Util::setAppBinsRegKey($currentRegValue);
+        $newRegValue = Path::setAppBinsRegKey($currentRegValue);
         Log::trace(sprintf(
             'Registry update completed | Key: %s | New value: %s | Previous value: %s',
             $regEntry,

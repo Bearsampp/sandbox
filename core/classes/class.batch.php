@@ -174,7 +174,7 @@ class Batch
     public static function refreshEnvVars()
     {
         global $bearsamppRoot, $bearsamppCore;
-        self::execStandalone('refreshEnvVars', '"' . $bearsamppCore->getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . UtilPath::formatWindowsPath($bearsamppRoot->getRootPath()) . '"');
+        self::execStandalone('refreshEnvVars', '"' . $bearsamppCore->getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . Path::formatWindowsPath($bearsamppRoot->getRootPath()) . '"');
     }
 
     /**
@@ -200,9 +200,9 @@ class Batch
     {
         global $bearsamppBins;
 
-        $cmd = '"' . UtilPath::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" register -N "' . BinPostgresql::SERVICE_NAME . '"';
-        $cmd .= ' -U "LocalSystem" -D "' . UtilPath::formatWindowsPath($bearsamppBins->getPostgresql()->getSymlinkPath()) . '\\data"';
-        $cmd .= ' -l "' . UtilPath::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
+        $cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" register -N "' . BinPostgresql::SERVICE_NAME . '"';
+        $cmd .= ' -U "LocalSystem" -D "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getSymlinkPath()) . '\\data"';
+        $cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
         self::exec('installPostgresqlService', $cmd, true, false);
 
         if (!$bearsamppBins->getPostgresql()->getService()->isInstalled()) {
@@ -225,8 +225,8 @@ class Batch
     {
         global $bearsamppBins;
 
-        $cmd = '"' . UtilPath::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" unregister -N "' . BinPostgresql::SERVICE_NAME . '"';
-        $cmd .= ' -l "' . UtilPath::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
+        $cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" unregister -N "' . BinPostgresql::SERVICE_NAME . '"';
+        $cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
         self::exec('uninstallPostgresqlService', $cmd, true, false);
         return !$bearsamppBins->getPostgresql()->getService()->isInstalled();
     }
@@ -268,8 +268,8 @@ class Batch
     public static function createSymlink($src, $dest)
     {
         global $bearsamppCore;
-        $src = UtilPath::formatWindowsPath($src);
-        $dest = UtilPath::formatWindowsPath($dest);
+        $src = Path::formatWindowsPath($src);
+        $dest = Path::formatWindowsPath($dest);
         self::exec('createSymlink', '"' . $bearsamppCore->getLnExe() . '" --absolute --symbolic --traditional --1023safe "' . $src . '" ' . '"' . $dest . '"', true, false);
     }
 
@@ -288,7 +288,7 @@ class Batch
 
         // Check if it's a directory symlink
         $isDirectory = is_dir($link);
-        $formattedLink = UtilPath::formatWindowsPath($link);
+        $formattedLink = Path::formatWindowsPath($link);
 
         try {
             // Use different commands based on whether it's a directory or file symlink
@@ -510,6 +510,6 @@ class Batch
     private static function getTmpFile($ext, $customName = null)
     {
         global $bearsamppCore;
-        return UtilPath::formatWindowsPath($bearsamppCore->getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . UtilString::random() . $ext);
+        return Path::formatWindowsPath($bearsamppCore->getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . UtilString::random() . $ext);
     }
 }

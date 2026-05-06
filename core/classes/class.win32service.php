@@ -371,7 +371,7 @@ class Win32Service
         if ( $this->getNssm() instanceof Nssm ) {
             Log::trace("Using NSSM for service installation");
 
-            $nssmEnvPath = Util::getAppBinsRegKey( false );
+            $nssmEnvPath = Path::getAppBinsRegKey( false );
             Log::trace("NSSM environment path (bins): " . $nssmEnvPath);
 
             $nssmEnvPath .= Util::getNssmEnvPaths();
@@ -1046,7 +1046,7 @@ class Win32Service
      */
     public function setBinPath($binPath): void
     {
-        $this->binPath = str_replace( '"', '', UtilPath::formatWindowsPath( $binPath ) );
+        $this->binPath = str_replace( '"', '', Path::formatWindowsPath( $binPath ) );
     }
 
     /**
