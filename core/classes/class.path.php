@@ -9,16 +9,18 @@
  */
 
 /**
- * Path formatting utilities with a write-through cache.
+ * Path formatting utilities and registry path management with a write-through cache.
  *
- * Converts between Windows (backslash) and Unix (forward-slash) path styles and
- * caches the results to avoid redundant string replacements for frequently used
- * paths such as root, bin, and tool paths.
+ * Converts between Windows (backslash) and Unix (forward-slash) path styles,
+ * manages path-related registry keys for the application and system environment,
+ * and caches formatting results to avoid redundant string replacements for
+ * frequently used paths such as root, bin, and tool paths.
  *
  * Usage:
  * ```
  * $win = Path::formatWindowsPath('/some/unix/path');
  * $unix = Path::formatUnixPath('C:\some\windows\path');
+ * $regKey = Path::getAppBinsRegKey();
  * ```
  */
 class Path

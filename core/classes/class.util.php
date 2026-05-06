@@ -9,28 +9,30 @@
  */
 
 /**
- * Utility class providing a wide range of static methods for various purposes including:
+ * Utility class providing a wide range of static methods for application management and system operations.
+ *
+ * Responsibilities include:
+ * - File and directory management: clearing folders, deleting directories, finding files, and scanning paths.
+ * - System integration: managing startup links, detecting OS architecture (32/64-bit), and retrieving system paths.
+ * - Network and HTTP: validating IPs/ports, checking internet connectivity, and handling HTTP/CURL requests.
+ * - Service management: installing, starting, and removing Windows services.
+ * - GitHub integration: fetching latest version info, constructing GitHub URLs, and API communication.
+ * - UI/UX helpers: managing loading states and text, converting sizes to human-readable format.
+ * - Encoding utilities: UTF-8 and CP1252 conversion.
+ *
+ * Note on refactored methods:
  * - Input cleaning and sanitization have been moved to UtilInput. @see UtilInput
  * - String manipulation methods have been moved to UtilString. @see UtilString
- * - File and directory management functions for deleting, clearing, or finding files and directories.
- * - System utilities for handling registry operations, managing environment variables, and executing system commands.
- * - Network utilities to validate IPs, domains, and manage HTTP requests.
- * - Helper functions for encoding, decoding, and file operations.
+ * - Path formatting (formatWindowsPath / formatUnixPath) has been moved to Path. @see Path
  *
- * Path formatting (formatWindowsPath / formatUnixPath) has been moved to UtilPath. @see UtilPath
- * Logging is handled by the Log class. @see Log
- *
- * This class is designed to be used as a helper or utility class where methods are accessed statically.
- * This means you do not need to instantiate it to use the methods, but can simply call them using the Util::methodName() syntax.
+ * This class uses static methods for common operations needed across the Bearsampp environment.
  *
  * Usage Example:
  * ```
- * $cleanedData = UtilInput::cleanGetVar('data', 'text');
- * $isAvailable = Util::isValidIp('192.168.1.1');
+ * $isAdmin = Util::isAdmin();
+ * $isPortUsed = Util::isPortInUse(80);
+ * $latest = Util::getLatestVersion($githubApiUrl);
  * ```
- *
- * Each method is self-contained and provides specific functionality, making this class a central point for
- * common utility operations needed across a PHP application, especially in environments like web servers or command-line interfaces.
  */
 class Util
 {
