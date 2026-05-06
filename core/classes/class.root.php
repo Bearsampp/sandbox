@@ -538,7 +538,7 @@ class Root
             return;
         }
 
-        $errfile = UtilPath::formatUnixPath($errfile);
+        $errfile = Path::formatUnixPath($errfile);
         $errfile = str_replace($this->getRootPath(), '', $errfile);
 
         if (!defined('E_DEPRECATED')) {

@@ -488,7 +488,7 @@ class BinPostgresql extends Module
                 )
             ) );
             if ( !empty( $filesToScan ) ) {
-                Util::changePath( $filesToScan );
+                Path::changePath( $filesToScan );
             }
             return;
         }
@@ -504,7 +504,7 @@ class BinPostgresql extends Module
             )
         ) );
         if ( !empty( $filesToScan ) ) {
-            Util::changePath( $filesToScan );
+            Path::changePath( $filesToScan );
         }
     }
 

@@ -17,7 +17,6 @@
  * - Network utilities to validate IPs, domains, and manage HTTP requests.
  * - Helper functions for encoding, decoding, and file operations.
  *
- * Path formatting (formatWindowsPath / formatUnixPath) has been moved to UtilPath. @see UtilPath
  * Logging is handled by the Log class. @see Log
  *
  * This class is designed to be used as a helper or utility class where methods are accessed statically.
@@ -150,7 +149,7 @@ class Util
                     break;
                 }
             } elseif ($file == $findFile) {
-                $result = UtilPath::formatUnixPath($startPath . '/' . $file);
+                $result = Path::formatUnixPath($startPath . '/' . $file);
                 break;
             }
         }
@@ -403,7 +402,7 @@ class Util
             if ($bearsamppTools->getRuby()->isEnable()) {
                 $value .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
             }
-            $value = UtilPath::formatWindowsPath($value);
+            $value = Path::formatWindowsPath($value);
             Log::debug('Generated app bins reg key: ' . $value);
         }
 
@@ -430,76 +429,6 @@ class Util
     }
 
     /**
-     * Retrieves the application path from the registry.
-     *
-     * @return mixed The value of the application path registry key or false on error.
-     */
-    public static function getAppPathRegKey()
-    {
-        global $bearsamppRegistry;
-
-        return $bearsamppRegistry->getValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            Registry::ENV_KEY,
-            Registry::APP_PATH_REG_ENTRY
-        );
-    }
-
-    /**
-     * Sets the application path in the registry.
-     *
-     * @param   string  $value  The new value for the application path.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public static function setAppPathRegKey($value)
-    {
-        global $bearsamppRegistry;
-
-        return $bearsamppRegistry->setStringValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            Registry::ENV_KEY,
-            Registry::APP_PATH_REG_ENTRY,
-            $value
-        );
-    }
-
-    /**
-     * Retrieves the system path from the registry.
-     *
-     * @return mixed The value of the system path registry key or false on error.
-     */
-    public static function getSysPathRegKey()
-    {
-        global $bearsamppRegistry;
-
-        return $bearsamppRegistry->getValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            Registry::ENV_KEY,
-            Registry::SYSPATH_REG_ENTRY
-        );
-    }
-
-    /**
-     * Sets the system path in the registry.
-     *
-     * @param   string  $value  The new value for the system path.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public static function setSysPathRegKey($value)
-    {
-        global $bearsamppRegistry;
-
-        return $bearsamppRegistry->setExpandStringValue(
-            Registry::HKEY_LOCAL_MACHINE,
-            Registry::ENV_KEY,
-            Registry::SYSPATH_REG_ENTRY,
-            $value
-        );
-    }
-
-    /**
      * Retrieves the processor identifier from the registry.
      *
      * @return mixed The value of the processor identifier registry key or false on error.
@@ -516,24 +445,13 @@ class Util
     }
 
     /**
-     * Retrieves the path for the startup link file.
-     *
-     * @return string The full path to the startup link file.
-     */
-    public static function getStartupLnkPath()
-    {
-        $startupPath = Win32Native::getSpecialFolderPath('Startup');
-        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
-    }
-
-    /**
      * Checks if the application is set to launch at startup.
      *
      * @return bool True if the startup link exists, false otherwise.
      */
     public static function isLaunchStartup()
     {
-        $lnk = self::getStartupLnkPath();
+        $lnk = Path::getStartupLinkPath();
         return $lnk ? file_exists($lnk) : false;
     }
 
@@ -546,7 +464,7 @@ class Util
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        $shortcutPath = self::getStartupLnkPath();
+        $shortcutPath = Path::getStartupLinkPath();
         if (!$shortcutPath) {
             return false;
         }
@@ -566,7 +484,7 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        $startupLnkPath = self::getStartupLnkPath();
+        $startupLnkPath = Path::getStartupLinkPath();
 
         // Check if file exists before attempting to delete
         if (file_exists($startupLnkPath)) {
@@ -575,20 +493,6 @@ class Util
 
         // Return true if the file doesn't exist (already disabled)
         return true;
-    }
-
-    /**
-     * Finds the path to the PowerShell executable in the Windows System32 directory.
-     *
-     * @return string|false Returns the path to powershell.exe if found, otherwise false.
-     */
-    public static function getPowerShellPath()
-    {
-        if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
-            return self::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
-        }
-
-        return false;
     }
 
     /**
@@ -621,7 +525,7 @@ class Util
                     $result[] = $tmpResult;
                 }
             } elseif (is_file($startPath . '/' . $checkFile) && !in_array($startPath, $result)) {
-                $result[] = UtilPath::formatUnixPath($startPath);
+                $result[] = Path::formatUnixPath($startPath);
             }
         }
 
@@ -783,7 +687,7 @@ class Util
         // Perform the actual scan
         $startTime = self::getMicrotime();
         $result      = array();
-        $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
+        $pathsToScan = !empty($path) ? $path : Path::getPathsToScan();
 
         foreach ($pathsToScan as $pathToScan) {
             $pathStartTime = self::getMicrotime();
@@ -803,187 +707,6 @@ class Util
         }
 
         return $result;
-    }
-
-
-
-    /**
-     * Retrieves a list of directories and file types to scan within the BEARSAMPP environment.
-     *
-     * This method compiles an array of paths from various components of the BEARSAMPP stack,
-     * including Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js, Composer, PowerShell,
-     * Python and Ruby. Each path entry includes the directory path, file types to include
-     * in the scan, and whether the scan should be recursive.
-     *
-     * The method uses global variables to access the root paths of each component. It then
-     * dynamically fetches specific subdirectories using the `getFolderList` method (which is
-     * assumed to be defined elsewhere in this class or in the global scope) and constructs
-     * an array of path specifications.
-     *
-     * Each path specification is an associative array with the following keys:
-     * - 'path': The full directory path to scan.
-     * - 'includes': An array of file extensions or filenames to include in the scan.
-     * - 'recursive': A boolean indicating whether the scan should include subdirectories.
-     *
-     * The method is designed to be used for setting up scans of configuration files and other
-     * important files within the BEARSAMPP environment, possibly for purposes like configuration
-     * management, backup, or security auditing.
-     *
-     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
-     */
-    private static function getPathsToScan()
-    {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
-        $paths = array();
-
-        // Alias
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getAliasPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // Vhosts
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getVhostsPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // OpenSSL
-        $paths[] = array(
-            'path'      => $bearsamppCore->getOpenSslPath(),
-            'includes'  => array('openssl.cfg'),
-            'recursive' => false
-        );
-
-        // Homepage
-        $paths[] = array(
-            'path'      => $bearsamppCore->getResourcesPath() . '/homepage',
-            'includes'  => array('alias.conf'),
-            'recursive' => false
-        );
-
-        // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
-                'includes'  => array('.ini', '.conf'),
-                'recursive' => true
-            );
-        }
-
-        // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
-                'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
-                'recursive' => true
-            );
-        }
-
-        // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-        }
-
-        // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-            // Also scan data directory for my.ini (created during initialization)
-            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
-            if (is_dir($dataPath)) {
-                $paths[] = array(
-                    'path'      => $dataPath,
-                    'includes'  => array('my.ini'),
-                    'recursive' => false
-                );
-            }
-        }
-
-        // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
-                'includes'  => array( '.conf', '.bat', '.ber'),
-                'recursive' => true
-            );
-        }
-
-        // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
-                'includes'  => array('npmrc'),
-                'recursive' => true
-            );
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/node_modules/npm',
-                'includes'  => array('npmrc'),
-                'recursive' => false
-            );
-        }
-
-        // Composer
-        $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getComposer()->getRootPath() . '/' . $folder,
-                'includes'  => array('giscus.json'),
-                'recursive' => false
-            );
-        }
-
-        // PowerShell
-        $folderList = self::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPowerShell()->getRootPath() . '/' . $folder,
-                'includes'  => array('console.xml', '.ini', '.btm'),
-                'recursive' => true
-            );
-        }
-
-        // Python
-        $folderList = self::getFolderList($bearsamppTools->getPython()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('.bat'),
-                'recursive' => false
-            );
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/settings',
-                'includes'  => array('winpython.ini'),
-                'recursive' => false
-            );
-        }
-
-        // Ruby
-        $folderList = self::getFolderList($bearsamppTools->getRuby()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('!.dll', '!.exe'),
-                'recursive' => false
-            );
-        }
-
-        return $paths;
     }
 
     /**
@@ -1018,82 +741,18 @@ class Util
                     if (UtilString::startWith($include, '!')) {
                         $include = ltrim($include, '!');
                         if (UtilString::startWith($file, '.') && !UtilString::endWith($file, $include)) {
-                            $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
+                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         } elseif ($file != $include) {
-                            $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
+                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         }
                     } elseif (UtilString::endWith($file, $include) || $file == $include || empty($include)) {
-                        $result[] = UtilPath::formatUnixPath($startPath . '/' . $file);
+                        $result[] = Path::formatUnixPath($startPath . '/' . $file);
                     }
                 }
             }
         }
 
         closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Replaces old path references with new path references in the specified files.
-     *
-     * @param   array        $filesToScan  Array of file paths to scan and modify.
-     * @param   string|null  $rootPath     The new root path to replace the old one. If null, uses a default root path.
-     *
-     * @return array Returns an array with the count of occurrences changed and the count of files changed.
-     */
-    public static function changePath($filesToScan, $rootPath = null)
-    {
-        global $bearsamppRoot, $bearsamppCore;
-
-        $result = array(
-            'countChangedOcc'   => 0,
-            'countChangedFiles' => 0
-        );
-
-        $rootPath           = $rootPath != null ? $rootPath : $bearsamppRoot->getRootPath();
-        $unixOldPath        = UtilPath::formatUnixPath($bearsamppCore->getLastPathContent());
-        $windowsOldPath     = UtilPath::formatWindowsPath($bearsamppCore->getLastPathContent());
-        $unixCurrentPath    = UtilPath::formatUnixPath($rootPath);
-        $windowsCurrentPath = UtilPath::formatWindowsPath($rootPath);
-
-        foreach ($filesToScan as $fileToScan) {
-            $tmpCountChangedOcc = 0;
-            $fileContentOr      = file_get_contents($fileToScan);
-            $fileContent        = $fileContentOr;
-
-            // old path
-            preg_match('#' . $unixOldPath . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . str_replace('\\', '\\\\', $windowsOldPath) . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            // placeholders
-            preg_match('#' . Core::PATH_LIN_PLACEHOLDER . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . Core::PATH_WIN_PLACEHOLDER . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc']   += $tmpCountChangedOcc;
-                $result['countChangedFiles'] += 1;
-                file_put_contents($fileToScan, $fileContent);
-            }
-        }
-
-        Log::debug('changePath() completed: ' . $result['countChangedFiles'] . ' files changed, ' . $result['countChangedOcc'] . ' total occurrences');
 
         return $result;
     }
@@ -1732,58 +1391,6 @@ class Util
         natcasesort($result);
 
         return $result;
-    }
-
-    /**
-     * Gets the NSSM environment paths.
-     *
-     * @return string The NSSM environment paths string.
-     */
-    public static function getNssmEnvPaths()
-    {
-        global $bearsamppBins, $bearsamppTools;
-
-        $paths = '';
-
-        // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
-        }
-
-        return UtilPath::formatWindowsPath($paths);
     }
 
     /**
