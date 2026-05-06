@@ -456,12 +456,12 @@ class Path
             }
 
             // placeholders
-            preg_match('#' . preg_quote($unixOldPath, '#') . '#i', $fileContent, $unixMatches);
+            preg_match('#' . preg_quote(Core::PATH_LIN_PLACEHOLDER, '#') . '#i', $fileContent, $unixMatches);
             if (!empty($unixMatches)) {
                 $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
-            preg_match('#' . preg_quote($windowsOldPath, '#') . '#i', $fileContent, $windowsMatches);
+            preg_match('#' . preg_quote(Core::PATH_WIN_PLACEHOLDER, '#') . '#i', $fileContent, $windowsMatches);
             if (!empty($windowsMatches)) {
                 $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
