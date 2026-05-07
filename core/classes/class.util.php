@@ -373,24 +373,13 @@ class Util
     }
 
     /**
-     * Retrieves the path for the startup link file.
-     *
-     * @return string The full path to the startup link file.
-     */
-    public static function getStartupLnkPath()
-    {
-        $startupPath = Win32Native::getSpecialFolderPath('Startup');
-        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
-    }
-
-    /**
      * Checks if the application is set to launch at startup.
      *
      * @return bool True if the startup link exists, false otherwise.
      */
     public static function isLaunchStartup()
     {
-        $lnk = self::getStartupLnkPath();
+        $lnk = Path::getStartupLnkPath();
         return $lnk ? file_exists($lnk) : false;
     }
 
@@ -403,7 +392,7 @@ class Util
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        $shortcutPath = self::getStartupLnkPath();
+        $shortcutPath = Path::getStartupLnkPath();
         if (!$shortcutPath) {
             return false;
         }
@@ -423,7 +412,7 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        $startupLnkPath = self::getStartupLnkPath();
+        $startupLnkPath = Path::getStartupLnkPath();
 
         // Check if file exists before attempting to delete
         if (file_exists($startupLnkPath)) {
@@ -432,20 +421,6 @@ class Util
 
         // Return true if the file doesn't exist (already disabled)
         return true;
-    }
-
-    /**
-     * Finds the path to the PowerShell executable in the Windows System32 directory.
-     *
-     * @return string|false Returns the path to powershell.exe if found, otherwise false.
-     */
-    public static function getPowerShellPath()
-    {
-        if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
-            return self::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
-        }
-
-        return false;
     }
 
     /**
@@ -640,7 +615,7 @@ class Util
         // Perform the actual scan
         $startTime = self::getMicrotime();
         $result      = array();
-        $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
+        $pathsToScan = !empty($path) ? $path : Path::getPathsToScan();
 
         foreach ($pathsToScan as $pathToScan) {
             $pathStartTime = self::getMicrotime();
@@ -662,186 +637,6 @@ class Util
         return $result;
     }
 
-
-
-    /**
-     * Retrieves a list of directories and file types to scan within the BEARSAMPP environment.
-     *
-     * This method compiles an array of paths from various components of the BEARSAMPP stack,
-     * including Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js, Composer, PowerShell,
-     * Python and Ruby. Each path entry includes the directory path, file types to include
-     * in the scan, and whether the scan should be recursive.
-     *
-     * The method uses global variables to access the root paths of each component. It then
-     * dynamically fetches specific subdirectories using the `getFolderList` method (which is
-     * assumed to be defined elsewhere in this class or in the global scope) and constructs
-     * an array of path specifications.
-     *
-     * Each path specification is an associative array with the following keys:
-     * - 'path': The full directory path to scan.
-     * - 'includes': An array of file extensions or filenames to include in the scan.
-     * - 'recursive': A boolean indicating whether the scan should include subdirectories.
-     *
-     * The method is designed to be used for setting up scans of configuration files and other
-     * important files within the BEARSAMPP environment, possibly for purposes like configuration
-     * management, backup, or security auditing.
-     *
-     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
-     */
-    private static function getPathsToScan()
-    {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
-        $paths = array();
-
-        // Alias
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getAliasPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // Vhosts
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getVhostsPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // OpenSSL
-        $paths[] = array(
-            'path'      => $bearsamppCore->getOpenSslPath(),
-            'includes'  => array('openssl.cfg'),
-            'recursive' => false
-        );
-
-        // Homepage
-        $paths[] = array(
-            'path'      => $bearsamppCore->getResourcesPath() . '/homepage',
-            'includes'  => array('alias.conf'),
-            'recursive' => false
-        );
-
-        // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
-                'includes'  => array('.ini', '.conf'),
-                'recursive' => true
-            );
-        }
-
-        // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
-                'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
-                'recursive' => true
-            );
-        }
-
-        // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-        }
-
-        // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-            // Also scan data directory for my.ini (created during initialization)
-            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
-            if (is_dir($dataPath)) {
-                $paths[] = array(
-                    'path'      => $dataPath,
-                    'includes'  => array('my.ini'),
-                    'recursive' => false
-                );
-            }
-        }
-
-        // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
-                'includes'  => array( '.conf', '.bat', '.ber'),
-                'recursive' => true
-            );
-        }
-
-        // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
-                'includes'  => array('npmrc'),
-                'recursive' => true
-            );
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/node_modules/npm',
-                'includes'  => array('npmrc'),
-                'recursive' => false
-            );
-        }
-
-        // Composer
-        $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getComposer()->getRootPath() . '/' . $folder,
-                'includes'  => array('giscus.json'),
-                'recursive' => false
-            );
-        }
-
-        // PowerShell
-        $folderList = self::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPowerShell()->getRootPath() . '/' . $folder,
-                'includes'  => array('console.xml', '.ini', '.btm'),
-                'recursive' => true
-            );
-        }
-
-        // Python
-        $folderList = self::getFolderList($bearsamppTools->getPython()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('.bat'),
-                'recursive' => false
-            );
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/settings',
-                'includes'  => array('winpython.ini'),
-                'recursive' => false
-            );
-        }
-
-        // Ruby
-        $folderList = self::getFolderList($bearsamppTools->getRuby()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('!.dll', '!.exe'),
-                'recursive' => false
-            );
-        }
-
-        return $paths;
-    }
 
     /**
      * Recursively finds files in a directory that match a set of inclusion patterns.
@@ -1589,58 +1384,6 @@ class Util
         natcasesort($result);
 
         return $result;
-    }
-
-    /**
-     * Gets the NSSM environment paths.
-     *
-     * @return string The NSSM environment paths string.
-     */
-    public static function getNssmEnvPaths()
-    {
-        global $bearsamppBins, $bearsamppTools;
-
-        $paths = '';
-
-        // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
-        }
-
-        return Path::formatWindowsPath($paths);
     }
 
     /**

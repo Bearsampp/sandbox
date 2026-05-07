@@ -194,7 +194,7 @@ class TplPowerShell
     {
         global $bearsamppRoot, $bearsamppTools;
 
-        $powerShellPath = Util::getPowerShellPath();
+        $powerShellPath = Path::getPowerShellPath();
         if ($powerShellPath !== false) {
             return self::getTab(
                     $bearsamppTools->getPowerShell()->getTabTitlePowershell(),
@@ -462,7 +462,7 @@ class TplPowerShell
             // Use irb (Interactive Ruby) for an interactive shell
             $rubyDir = dirname($bearsamppTools->getRuby()->getExe());
             $irbExe = $rubyDir . '/irb.bat';
-            
+
             // Check if irb.bat exists, otherwise try irb.cmd or just use ruby with -i flag
             if (file_exists($irbExe)) {
                 $shell = $bearsamppTools->getPowerShell()->getShell('&quot;' . $irbExe . '&quot;');
