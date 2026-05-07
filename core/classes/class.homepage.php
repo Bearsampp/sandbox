@@ -89,7 +89,8 @@ class Homepage
      */
     public function getHomepagePath()
     {
-        return Path::getHomepagePath();
+        global $bearsamppCore;
+        return $bearsamppCore->getResourcesPath(false) . '/homepage';
     }
 
     /**
