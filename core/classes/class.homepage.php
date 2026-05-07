@@ -100,7 +100,7 @@ class Homepage
      */
     public function getImagesPath()
     {
-        return $this->getResourcesPath(false) . '/img/';
+        return $this->getResourceAlias(false) . '/img/';
     }
 
     /**
@@ -110,7 +110,7 @@ class Homepage
      */
     public function getIconsPath()
     {
-        return $this->getResourcesPath(false) . '/img/icons/';
+        return $this->getResourceAlias(false) . '/img/icons/';
     }
 
     /**
@@ -118,7 +118,7 @@ class Homepage
      *
      * @return string The resources directory path.
      */
-    public function getResourcesPath()
+    public function getResourceAlias()
     {
         global $bearsamppCore;
         return md5(APP_TITLE);
@@ -132,7 +132,7 @@ class Homepage
     public function getResourcesUrl()
     {
         global $bearsamppRoot;
-        return $bearsamppRoot->getLocalUrl($this->getResourcesPath());
+        return $bearsamppRoot->getLocalUrl($this->getResourceAlias());
     }
 
     /**
@@ -145,7 +145,7 @@ class Homepage
         global $bearsamppBins;
 
         $result = $bearsamppBins->getApache()->getAliasContent(
-            $this->getResourcesPath(),
+            $this->getResourceAlias(),
             $this->getHomepagePath()
         );
 
@@ -158,8 +158,8 @@ class Homepage
     public function refreshCommonsJsContent()
     {
         Util::replaceInFile($this->getHomepagePath() . '/js/_commons.js', array(
-            '/^\s\surl:.*/' => '  url: "' . $this->getResourcesPath() . '/ajax.php"',
-            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . $this->getResourcesPath() . '/ajax.php"',
+            '/^\s\surl:.*/' => '  url: "' . $this->getResourceAlias() . '/ajax.php"',
+            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . $this->getResourceAlias() . '/ajax.php"',
         ));
     }
 }

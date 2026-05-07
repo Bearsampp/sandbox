@@ -43,7 +43,7 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $be
 /**
  * Set the base path for resources, ensuring there is a trailing slash.
  */
-$resourcesPath = rtrim( $bearsamppHomepage->getResourcesPath(), '/' ) . '/';
+$resourcesPath = rtrim( $bearsamppHomepage->getResourceAlias(), '/' ) . '/';
 
 /**
  * Define paths for icons and images used in the homepage.
