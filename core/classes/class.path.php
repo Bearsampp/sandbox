@@ -9,12 +9,15 @@
  */
 
 /**
- * Path formatting utilities and registry path management with a write-through cache.
+ * Path formatting utilities and registry path management with an in-memory read-through cache for formatting results.
  *
  * Converts between Windows (backslash) and Unix (forward-slash) path styles,
  * manages path-related registry keys for the application and system environment,
  * and caches formatting results to avoid redundant string replacements for
  * frequently used paths such as root, bin, and tool paths.
+ *
+ * Note: Caching only applies to formatWindowsPath and formatUnixPath. Registry
+ * operations perform direct registry calls and do not use the cache.
  *
  * Usage:
  * ```
