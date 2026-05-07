@@ -394,7 +394,7 @@ class Path
 
         // Homepage
         $paths[] = array(
-            'path'      => $bearsamppCore->getResourcesPath() . '/homepage',
+            'path'      => self::getHomepagePath(),
             'includes'  => array('alias.conf'),
             'recursive' => false
         );
@@ -519,6 +519,18 @@ class Path
         }
 
         return $paths;
+    }
+
+    /**
+     * Gets the path to the homepage directory.
+     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
+     * @return string The homepage directory path.
+     */
+    public static function getHomepagePath($aetrayPath = false)
+    {
+        global $bearsamppCore;
+        return $bearsamppCore->getResourcesPath($aetrayPath) . '/homepage';
     }
 
     /**

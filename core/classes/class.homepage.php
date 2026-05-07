@@ -89,34 +89,33 @@ class Homepage
      */
     public function getHomepagePath()
     {
-        global $bearsamppCore;
-        return $bearsamppCore->getResourcesPath(false) . '/homepage';
+        return Path::getHomepagePath();
     }
 
     /**
-     * Gets the path to the images directory.
+     * Gets the URL alias for the images directory.
      *
-     * @return string The images directory path.
+     * @return string The images directory URL alias.
      */
-    public function getImagesPath()
+    public function getImagesAlias()
     {
         return $this->getResourceAlias(false) . '/img/';
     }
 
     /**
-     * Gets the path to the icons directory.
+     * Gets the URL alias for the icons directory.
      *
-     * @return string The icons directory path.
+     * @return string The icons directory URL alias.
      */
-    public function getIconsPath()
+    public function getIconsAlias()
     {
         return $this->getResourceAlias(false) . '/img/icons/';
     }
 
     /**
-     * Gets the path to the resources directory.
+     * Gets the URL alias for the resources directory.
      *
-     * @return string The resources directory path.
+     * @return string The resources directory URL alias.
      */
     public function getResourceAlias()
     {

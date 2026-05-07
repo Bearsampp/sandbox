@@ -48,8 +48,8 @@ $resourcesPath = rtrim( $bearsamppHomepage->getResourceAlias(), '/' ) . '/';
 /**
  * Define paths for icons and images used in the homepage.
  */
-$iconsPath  = $bearsamppHomepage->getIconsPath();
-$imagesPath = $bearsamppHomepage->getImagesPath();
+$iconsPath  = $bearsamppHomepage->getIconsAlias();
+$imagesPath = $bearsamppHomepage->getImagesAlias();
 
 // Instantiate the QuickPick class
 $quickPick = new QuickPick();

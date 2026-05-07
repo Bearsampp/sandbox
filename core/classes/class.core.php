@@ -111,9 +111,7 @@ class Core
      */
     public function getImagesPath($aetrayPath = false)
     {
-        global $bearsamppCore;
-
-        return $bearsamppCore->getHomepagePath($aetrayPath) . '/img';
+        return Path::getHomepagePath($aetrayPath) . '/img';
     }
 
     /**
@@ -132,7 +130,7 @@ class Core
 
     public function getHomepagePath($aetrayPath = false)
     {
-        return $this->getResourcesPath( $aetrayPath ) . '/homepage';
+        return Path::getHomepagePath($aetrayPath);
     }
 
     public function getAjaxPath($aetrayPath = false)
