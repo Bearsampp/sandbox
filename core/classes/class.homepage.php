@@ -94,31 +94,31 @@ class Homepage
     }
 
     /**
-     * Gets the URL alias for the images directory.
+     * Gets the path to the images directory.
      *
-     * @return string The images directory URL alias.
+     * @return string The images directory path.
      */
-    public function getImagesAlias()
+    public function getImagesPath()
     {
-        return $this->getResourceAlias(false) . '/img/';
+        return $this->getResourcesPath(false) . '/img/';
     }
 
     /**
-     * Gets the URL alias for the icons directory.
+     * Gets the path to the icons directory.
      *
-     * @return string The icons directory URL alias.
+     * @return string The icons directory path.
      */
-    public function getIconsAlias()
+    public function getIconsPath()
     {
-        return $this->getResourceAlias(false) . '/img/icons/';
+        return $this->getResourcesPath(false) . '/img/icons/';
     }
 
     /**
-     * Gets the URL alias for the resources directory.
+     * Gets the path to the resources directory.
      *
-     * @return string The resources directory URL alias.
+     * @return string The resources directory path.
      */
-    public function getResourceAlias()
+    public function getResourcesPath()
     {
         global $bearsamppCore;
         return md5(APP_TITLE);
@@ -132,7 +132,7 @@ class Homepage
     public function getResourcesUrl()
     {
         global $bearsamppRoot;
-        return $bearsamppRoot->getLocalUrl($this->getResourceAlias());
+        return $bearsamppRoot->getLocalUrl($this->getResourcesPath());
     }
 
     /**
@@ -145,7 +145,7 @@ class Homepage
         global $bearsamppBins;
 
         $result = $bearsamppBins->getApache()->getAliasContent(
-            $this->getResourceAlias(),
+            $this->getResourcesPath(),
             $this->getHomepagePath()
         );
 
@@ -158,8 +158,8 @@ class Homepage
     public function refreshCommonsJsContent()
     {
         Util::replaceInFile($this->getHomepagePath() . '/js/_commons.js', array(
-            '/^\s\surl:.*/' => '  url: "' . $this->getResourceAlias() . '/ajax.php"',
-            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . $this->getResourceAlias() . '/ajax.php"',
+            '/^\s\surl:.*/' => '  url: "' . $this->getResourcesPath() . '/ajax.php"',
+            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . $this->getResourcesPath() . '/ajax.php"',
         ));
     }
 }
