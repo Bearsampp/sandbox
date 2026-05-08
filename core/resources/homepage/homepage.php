@@ -43,13 +43,13 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $be
 /**
  * Set the base path for resources, ensuring there is a trailing slash.
  */
-$resourcesPath = rtrim( $bearsamppHomepage->getResourceAlias(), '/' ) . '/';
+$resourcesPath = rtrim( $bearsamppHomepage->getResourcesPath(), '/' ) . '/';
 
 /**
  * Define paths for icons and images used in the homepage.
  */
-$iconsPath  = $bearsamppHomepage->getIconsAlias();
-$imagesPath = $bearsamppHomepage->getImagesAlias();
+$iconsPath  = $bearsamppHomepage->getIconsPath();
+$imagesPath = $bearsamppHomepage->getImagesPath();
 
 // Instantiate the QuickPick class
 $quickPick = new QuickPick();
@@ -109,7 +109,7 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         "/js/postgresql.js",
         "/js/xlight.js",
         "/js/quickpick.js",
-	    "/js/loading-cursor.js"
+        "/js/loading-cursor.js"
     ];
 
     /**
@@ -159,43 +159,43 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
         </div>
 
         <div class = "d-flex align-items-center quickpick-menu-wrapper">
-        <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
-            <div class = "d-flex flex-row flex-nowrap align-items-center mb-0 quickpick-menu">
-                <!-- Enhanced Mode Toggle and QuickPick Container -->
-                <div class = "quickpick-controls">
-                    <?php
-                    try {
-                        echo $quickPick->loadQuickpick($imagesPath);
-                    } catch (Exception $e) {
-                        // Log the error but continue with the page
-                        error_log('Error loading QuickPick: ' . $e->getMessage());
-                        echo '<div id="quickPickError" class="text-center">
+            <div class = "collapse navbar-collapse icons" id = "navbarSupportedContent">
+                <div class = "d-flex flex-row flex-nowrap align-items-center mb-0 quickpick-menu">
+                    <!-- Enhanced Mode Toggle and QuickPick Container -->
+                    <div class = "quickpick-controls">
+                        <?php
+                        try {
+                            echo $quickPick->loadQuickpick($imagesPath);
+                        } catch (Exception $e) {
+                            // Log the error but continue with the page
+                            error_log('Error loading QuickPick: ' . $e->getMessage());
+                            echo '<div id="quickPickError" class="text-center">
                             <span>QuickPick unavailable</span>
                         </div>';
-                    }
-                    ?>
-                </div>
-                <!-- Social media icons wrapper -->
-                <div class = "social-icons-wrapper d-none d-lg-flex align-items-center">
-                    <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
-                       href = "https://discord.gg/UEczsEkG4A" aria-label = "Discord">
-                        <i class = 'fa-brands fa-discord'></i>
-                    </a>
-                    <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
-                       href = "https://www.facebook.com/groups/bearsampp" aria-label = "Facebook">
-                        <i class = "fa-brands fa-facebook"></i>
-                    </a>
-                    <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
-                       href = "<?php echo Util::getGithubUrl(); ?>" aria-label = "GitHub">
-                        <i class = "fa-brands fa-github"></i>
-                    </a>
-                    <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
-                       href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class = "donate" src = "<?php echo $imagesPath . 'donate.png'; ?>" alt = 'Donation Icon' />
-                    </a>
+                        }
+                        ?>
+                    </div>
+                    <!-- Social media icons wrapper -->
+                    <div class = "social-icons-wrapper d-none d-lg-flex align-items-center">
+                        <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DISCORD ); ?>" target = "_blank"
+                           href = "https://discord.gg/UEczsEkG4A" aria-label = "Discord">
+                            <i class = 'fa-brands fa-discord'></i>
+                        </a>
+                        <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::FACEBOOK ); ?>" target = "_blank"
+                           href = "https://www.facebook.com/groups/bearsampp" aria-label = "Facebook">
+                            <i class = "fa-brands fa-facebook"></i>
+                        </a>
+                        <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::GITHUB ); ?>" target = "_blank"
+                           href = "<?php echo Util::getGithubUrl(); ?>" aria-label = "GitHub">
+                            <i class = "fa-brands fa-github"></i>
+                        </a>
+                        <a data-bs-toggle = "tooltip" data-bs-placement = "top" data-bs-title = "<?php echo $bearsamppLang->getValue( Lang::DONATE ); ?>" target = "_blank"
+                           href = "<?php echo Util::getWebsiteUrl( 'donate' ); ?>"><img class = "donate" src = "<?php echo $imagesPath . 'donate.png'; ?>" alt = 'Donation Icon' />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </nav>
 
