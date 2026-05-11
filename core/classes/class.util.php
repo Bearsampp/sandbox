@@ -1172,18 +1172,6 @@ class Util
     }
 
     /**
-     * Constructs the URL to the changelog page, optionally including UTM parameters.
-     *
-     * @param   bool  $utmSource  Whether to include UTM source parameters.
-     *
-     * @return string The URL to the changelog page.
-     */
-    public static function getChangelogUrl($utmSource = true)
-    {
-        return self::getWebsiteUrl('doc/changelog', null, $utmSource);
-    }
-
-    /**
      * Retrieves the file size of a remote file.
      *
      * @param   string  $url            The URL of the remote file.
