@@ -15,6 +15,8 @@ abstract class Module
 {
     const BUNDLE_RELEASE = 'bundleRelease';
 
+    private static $configCache = array();
+
     private $type;
     private $id;
 
@@ -67,7 +69,12 @@ abstract class Module
         $this->symlinkPath = $this->rootPath . '/current';
         $this->enable = is_dir($this->currentPath);
         $this->bearsamppConf = $this->currentPath . '/bearsampp.conf';
-        $this->bearsamppConfRaw = @parse_ini_file($this->bearsamppConf);
+
+        $cacheKey = md5($this->bearsamppConf);
+        if (!isset(self::$configCache[$cacheKey])) {
+            self::$configCache[$cacheKey] = @parse_ini_file($this->bearsamppConf);
+        }
+        $this->bearsamppConfRaw = self::$configCache[$cacheKey];
 
         if ($bearsamppRoot->isRoot()) {
             $this->createSymlink();
@@ -83,19 +90,20 @@ abstract class Module
         $src = Path::formatWindowsPath($this->currentPath);
         $dest = Path::formatWindowsPath($this->symlinkPath);
 
-        if(file_exists($dest)) {
-            if (is_link($dest)) {
-                $target = readlink($dest);
-                if ($target == $src) {
-                    return;
-                }
-                Batch::removeSymlink($dest);
-            } elseif (is_file($dest)) {
+        if (is_link($dest)) {
+            if (readlink($dest) === $src) {
+                return;
+            }
+            Batch::removeSymlink($dest);
+            Batch::createSymlink($src, $dest);
+            return;
+        }
+
+        if (file_exists($dest)) {
+            if (is_file($dest)) {
                 Log::error('Removing . ' . $this->symlinkPath . ' file. It should not be a regular file');
                 unlink($dest);
             } elseif (is_dir($dest)) {
-                // Never recursively delete here: this path is expected to be a symlink.
-                // Only remove empty directories; otherwise abort to avoid data loss.
                 $it = new \FilesystemIterator($dest);
                 if (!$it->valid()) {
                     rmdir($dest);
@@ -133,6 +141,9 @@ abstract class Module
         }
 
         file_put_contents($this->bearsamppConf, $content);
+
+        $cacheKey = md5($this->bearsamppConf);
+        unset(self::$configCache[$cacheKey]);
     }
 
     /**
