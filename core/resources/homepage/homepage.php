@@ -54,9 +54,6 @@ $imagesPath = $bearsamppHomepage->getWebImagesPath();
 // Instantiate the QuickPick class
 $quickPick = new QuickPick();
 
-$ajaxUrl = Path::getAjaxPath() . '/ajax.getmodule_versions.php';
-
-
 /**
  * Retrieve and store the localized string for the 'Download More' label.
  */
