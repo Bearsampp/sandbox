@@ -70,11 +70,19 @@ abstract class Module
         $this->enable = is_dir($this->currentPath);
         $this->bearsamppConf = $this->currentPath . '/bearsampp.conf';
 
+        // Use disk cache (warm starts) + memory cache (within session)
         $cacheKey = md5($this->bearsamppConf);
         if (!isset(self::$configCache[$cacheKey])) {
-            self::$configCache[$cacheKey] = @parse_ini_file($this->bearsamppConf);
+            // CacheManager handles both disk cache and parsing
+            $this->bearsamppConfRaw = CacheManager::load(
+                $this->bearsamppConf,
+                function($path) { return @parse_ini_file($path) ?: []; },
+                $cacheKey
+            );
+            self::$configCache[$cacheKey] = $this->bearsamppConfRaw;
+        } else {
+            $this->bearsamppConfRaw = self::$configCache[$cacheKey];
         }
-        $this->bearsamppConfRaw = self::$configCache[$cacheKey];
 
         if ($bearsamppRoot->isRoot()) {
             $this->createSymlink();
@@ -142,8 +150,10 @@ abstract class Module
 
         file_put_contents($this->bearsamppConf, $content);
 
+        // Invalidate both memory cache and disk cache
         $cacheKey = md5($this->bearsamppConf);
         unset(self::$configCache[$cacheKey]);
+        CacheManager::invalidate($this->bearsamppConf);
     }
 
     /**

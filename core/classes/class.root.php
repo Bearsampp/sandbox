@@ -59,8 +59,16 @@ class Root
         $bearsamppAutoloader = new Autoloader();
         $bearsamppAutoloader->register();
 
-        // Module loader for async initialization
+        // Module loaders for async initialization
         require_once $this->getCorePath() . '/classes/class.moduleloader.php';
+        require_once $this->getCorePath() . '/classes/class.cachemanager.php';
+        require_once $this->getCorePath() . '/classes/class.fibermoduleloader.php';
+
+        // Initialize cache system (Phase 4: Disk caching for warm starts)
+        CacheManager::init($this->getTmpPath() . '/cache');
+
+        // Initialize fiber loader (Phase 4: True async for 8.1+)
+        $useFibers = FiberModuleLoader::init();
 
         // Load critical modules synchronously (required for main functionality)
         self::loadCore();
@@ -71,12 +79,20 @@ class Root
         Log::separator();
 
         // Load non-critical modules asynchronously (for UI/admin functions)
-        // These will load in background, accessor methods will block if needed
-        self::loadToolsAsync();
-        self::loadAppsAsync();
+        // Uses Fibers if PHP 8.1+, fallback to Phase 3 deferred loading
+        if ($useFibers) {
+            self::loadToolsFiber();
+            self::loadAppsFiber();
+            self::loadRegistryFiber();
+            self::loadHomepageFiber();
+        } else {
+            self::loadToolsAsync();
+            self::loadAppsAsync();
+            self::loadRegistryAsync();
+            self::loadHomepageAsync();
+        }
+
         self::loadWinbinder();
-        self::loadRegistryAsync();
-        self::loadHomepageAsync();
     }
 
     /**
@@ -119,6 +135,7 @@ class Root
     /**
      * Ensures a module is loaded, waiting if it's still loading asynchronously.
      * Safe to call for modules that may be loading in background.
+     * Supports both Phase 3 (ModuleLoader) and Phase 4 (Fibers).
      *
      * @param string $module The module name (use ModuleLoader constants)
      * @param int $timeout Maximum wait time in milliseconds
@@ -126,7 +143,35 @@ class Root
      */
     public static function ensureModuleLoaded($module, $timeout = 5000)
     {
+        // Try Fiber loader first (Phase 4)
+        if (FiberModuleLoader::isAvailable()) {
+            return FiberModuleLoader::waitForModule($module, $timeout);
+        }
+
+        // Fallback to ModuleLoader (Phase 3)
         return ModuleLoader::waitForModule($module, $timeout);
+    }
+
+    /**
+     * Get cache manager statistics (Phase 4 disk caching)
+     * Useful for monitoring warm start performance
+     *
+     * @return array Cache statistics
+     */
+    public static function getCacheStats(): array
+    {
+        return CacheManager::getStats();
+    }
+
+    /**
+     * Clear all configuration caches (Phase 4)
+     * Used on version upgrade or manual reset
+     *
+     * @return int Number of cache files deleted
+     */
+    public static function clearCaches(): int
+    {
+        return CacheManager::clearAll();
     }
 
     /**
@@ -587,6 +632,54 @@ class Root
     public static function loadHomepageAsync()
     {
         ModuleLoader::loadAsync(ModuleLoader::HOMEPAGE, function() {
+            global $bearsamppHomepage;
+            $bearsamppHomepage = new Homepage();
+        });
+    }
+
+    /**
+     * Loads the tools components in a Fiber (true async, PHP 8.1+)
+     * Tools module loads concurrently with main startup.
+     */
+    public static function loadToolsFiber()
+    {
+        FiberModuleLoader::loadInFiber(ModuleLoader::TOOLS, function() {
+            global $bearsamppTools;
+            $bearsamppTools = new Tools();
+        });
+    }
+
+    /**
+     * Loads the apps components in a Fiber (true async, PHP 8.1+)
+     * Apps module loads concurrently with main startup.
+     */
+    public static function loadAppsFiber()
+    {
+        FiberModuleLoader::loadInFiber(ModuleLoader::APPS, function() {
+            global $bearsamppApps;
+            $bearsamppApps = new Apps();
+        });
+    }
+
+    /**
+     * Loads the registry settings in a Fiber (true async, PHP 8.1+)
+     * Registry operations are slow (COM), loads concurrently.
+     */
+    public static function loadRegistryFiber()
+    {
+        FiberModuleLoader::loadInFiber(ModuleLoader::REGISTRY, function() {
+            global $bearsamppRegistry;
+            $bearsamppRegistry = new Registry();
+        });
+    }
+
+    /**
+     * Loads the homepage settings in a Fiber (true async, PHP 8.1+)
+     * Homepage is for UI display, loads concurrently.
+     */
+    public static function loadHomepageFiber()
+    {
+        FiberModuleLoader::loadInFiber(ModuleLoader::HOMEPAGE, function() {
             global $bearsamppHomepage;
             $bearsamppHomepage = new Homepage();
         });
