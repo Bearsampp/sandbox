@@ -16,6 +16,7 @@ abstract class Module
     const BUNDLE_RELEASE = 'bundleRelease';
 
     private static $configCache = array();
+    private static $skipSymlinkCreation = false;
 
     private $type;
     private $id;
@@ -84,7 +85,7 @@ abstract class Module
             $this->bearsamppConfRaw = self::$configCache[$cacheKey];
         }
 
-        if ($bearsamppRoot->isRoot()) {
+        if ($bearsamppRoot->isRoot() && !self::$skipSymlinkCreation) {
             $this->createSymlink();
         }
     }
@@ -282,6 +283,28 @@ abstract class Module
      */
     public function isEnable() {
         return $this->enable;
+    }
+
+    /**
+     * Skip symlink creation during module reload
+     * Useful for performance optimization during service checking phase
+     *
+     * @param bool $skip True to skip symlink creation
+     * @return void
+     */
+    public static function setSkipSymlinkCreation(bool $skip): void
+    {
+        self::$skipSymlinkCreation = $skip;
+    }
+
+    /**
+     * Check if symlink creation is being skipped
+     *
+     * @return bool True if symlink creation is skipped
+     */
+    public static function isSkippingSymlinkCreation(): bool
+    {
+        return self::$skipSymlinkCreation;
     }
 }
 
