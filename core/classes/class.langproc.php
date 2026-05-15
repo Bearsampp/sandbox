@@ -108,7 +108,7 @@ class LangProc
             $content = '[' . date('Y-m-d H:i:s', time()) . '] ';
             $content .= 'ERROR: Lang var missing ' . $key;
             $content .= ' for ' . $this->current . ' language.' . PHP_EOL;
-            file_put_contents($bearsamppRoot->getErrorLogFilePath(), $content, FILE_APPEND);
+            file_put_contents(Path::getErrorLogFilePath(), $content, FILE_APPEND);
             return $key;
         }
 
@@ -119,4 +119,5 @@ class LangProc
         return str_replace($replace, $with, $this->raw[$key]);
     }
 }
+
 

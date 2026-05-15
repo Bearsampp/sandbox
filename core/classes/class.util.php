@@ -123,42 +123,6 @@ class Util
         }
     }
 
-    /**
-     * Recursively searches for a file starting from a specified directory.
-     *
-     * @param   string  $startPath  The directory path to start the search.
-     * @param   string  $findFile   The filename to search for.
-     *
-     * @return string|false Returns the path to the file if found, or false if not found.
-     */
-    private static function findFile($startPath, $findFile)
-    {
-        $result = false;
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return false;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file)) {
-                $result = self::findFile($startPath . '/' . $file, $findFile);
-                if ($result !== false) {
-                    break;
-                }
-            } elseif ($file == $findFile) {
-                $result = Path::formatUnixPath($startPath . '/' . $file);
-                break;
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
 
     /**
      * Validates an IP address.
@@ -304,42 +268,6 @@ class Util
         }
     }
 
-    /**
-     * Gets the list of version directories in the specified path.
-     * Returns version suffixes by stripping the common prefix (basename of path) if present.
-     *
-     * @param   string  $path  The directory path to scan for version directories.
-     *
-     * @return array|false Returns a sorted array of version suffixes, or false if the directory cannot be opened.
-     */
-    public static function getVersionList($path)
-    {
-        $result = array();
-
-        $handle = @opendir($path);
-        if (!$handle) {
-            return false;
-        }
-
-        $prefix = basename($path);
-
-        while (false !== ($file = readdir($handle))) {
-            $filePath = $path . '/' . $file;
-            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                if (strpos($file, $prefix) === 0) {
-                    $version = substr($file, strlen($prefix));
-                } else {
-                    $version = $file;
-                }
-                $result[] = $version;
-            }
-        }
-
-        closedir($handle);
-        natcasesort($result);
-
-        return $result;
-    }
 
     /**
      * Gets the current Unix timestamp with microseconds.
@@ -355,24 +283,13 @@ class Util
 
 
     /**
-     * Retrieves the path for the startup link file.
-     *
-     * @return string The full path to the startup link file.
-     */
-    public static function getStartupLnkPath()
-    {
-        $startupPath = Win32Native::getSpecialFolderPath('Startup');
-        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
-    }
-
-    /**
      * Checks if the application is set to launch at startup.
      *
      * @return bool True if the startup link exists, false otherwise.
      */
     public static function isLaunchStartup()
     {
-        $lnk = self::getStartupLnkPath();
+        $lnk = Path::getStartupLnkPath();
         return $lnk ? file_exists($lnk) : false;
     }
 
@@ -385,13 +302,13 @@ class Util
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        $shortcutPath = self::getStartupLnkPath();
+        $shortcutPath = Path::getStartupLnkPath();
         if (!$shortcutPath) {
             return false;
         }
 
-        $targetPath = $bearsamppRoot->getExeFilePath();
-        $workingDir = $bearsamppRoot->getRootPath();
+        $targetPath = Path::getExeFilePath();
+        $workingDir = Path::getRootPath();
         $description = APP_TITLE . ' ' . $bearsamppCore->getAppVersion();
         $iconPath = Path::getIconsPath() . '/app.ico';
 
@@ -405,7 +322,7 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        $startupLnkPath = self::getStartupLnkPath();
+        $startupLnkPath = Path::getStartupLnkPath();
 
         // Check if file exists before attempting to delete
         if (file_exists($startupLnkPath)) {
@@ -416,73 +333,7 @@ class Util
         return true;
     }
 
-    /**
-     * Finds the path to the PowerShell executable in the Windows System32 directory.
-     *
-     * @return string|false Returns the path to powershell.exe if found, otherwise false.
-     */
-    public static function getPowerShellPath()
-    {
-        if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
-            return self::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
-        }
 
-        return false;
-    }
-
-    /**
-     * Recursively searches for repositories starting from a given path up to a specified depth.
-     *
-     * @param   string  $initPath   The initial path from where the search begins.
-     * @param   string  $startPath  The current path from where to search.
-     * @param   string  $checkFile  The file name to check for in the directory to consider it a repository.
-     * @param   int     $maxDepth   The maximum depth of directories to search into.
-     *
-     * @return array Returns an array of paths that contain the specified file.
-     */
-    public static function findRepos($initPath, $startPath, $checkFile, $maxDepth = 1)
-    {
-        $depth  = substr_count(str_replace($initPath, '', $startPath), '/');
-        $result = array();
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return $result;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file) && ($initPath == $startPath || $depth <= $maxDepth)) {
-                $tmpResults = self::findRepos($initPath, $startPath . '/' . $file, $checkFile, $maxDepth);
-                foreach ($tmpResults as $tmpResult) {
-                    $result[] = $tmpResult;
-                }
-            } elseif (is_file($startPath . '/' . $checkFile) && !in_array($startPath, $result)) {
-                $result[] = Path::formatUnixPath($startPath);
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Converts an image file to a base64 encoded string.
-     *
-     * @param   string  $path  The path to the image file.
-     *
-     * @return string Returns the base64 encoded string of the image.
-     */
-    public static function imgToBase64($path)
-    {
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-
-        return 'data:image/' . $type . ';base64,' . base64_encode($data);
-    }
 
     /**
      * Converts data between UTF-8 and Windows-1252 encodings.
@@ -533,14 +384,14 @@ class Util
         global $bearsamppCore, $bearsamppWinbinder;
 
         Log::trace('startLoading() called');
-        Log::trace('PHP executable: ' . Path::getPhpExe());
+        Log::trace('PHP executable: ' . self::getPhpExe());
         Log::trace('Root file: ' . Core::isRoot_FILE);
         Log::trace('Action: ' . Action::LOADING);
 
         $command = Core::isRoot_FILE . ' ' . Action::LOADING;
-        Log::trace('Executing command: ' . Path::getPhpExe() . ' ' . $command);
+        Log::trace('Executing command: ' . self::getPhpExe() . ' ' . $command);
 
-        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), $command);
+        $result = $bearsamppWinbinder->exec(self::getPhpExe(), $command);
         Log::trace('exec() returned: ' . var_export($result, true));
 
         Log::trace('startLoading() completed');
@@ -591,444 +442,7 @@ class Util
         }
     }
 
-    /**
-     * Retrieves a list of files to scan from specified paths or default paths.
-     * Implements caching to avoid repeated expensive file system scans.
-     *
-     * @param   string|null  $path          Optional. The path to start scanning from. If null, uses default paths.
-     * @param   bool         $useCache      Whether to use cached results (default: true).
-     * @param   bool         $forceRefresh  Force refresh the cache even if valid (default: false).
-     *
-     * @return array Returns an array of files found during the scan.
-     */
-    public static function getFilesToScan($path = null, $useCache = true, $forceRefresh = false)
-    {
-        // Generate cache key based on path parameter
-        $cacheKey = md5(serialize($path));
 
-        // Try to get from cache if enabled and not forcing refresh
-        if ($useCache && !$forceRefresh) {
-            $cachedResult = Cache::get($cacheKey);
-            if ($cachedResult !== false) {
-                Cache::recordHit();
-                Log::debug('File scan cache HIT (saved expensive scan operation)');
-                return $cachedResult;
-            }
-        }
-
-        Cache::recordMiss();
-        Log::debug('File scan cache MISS (performing full scan)');
-
-        // Perform the actual scan
-        $startTime = self::getMicrotime();
-        $result      = array();
-        $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
-
-        foreach ($pathsToScan as $pathToScan) {
-            $pathStartTime = self::getMicrotime();
-            $findFiles = self::findFiles($pathToScan['path'], $pathToScan['includes'], $pathToScan['recursive']);
-            foreach ($findFiles as $findFile) {
-                $result[] = $findFile;
-            }
-            Log::debug($pathToScan['path'] . ' scanned in ' . round(self::getMicrotime() - $pathStartTime, 3) . 's');
-        }
-
-        $totalTime = round(self::getMicrotime() - $startTime, 3);
-        Log::info('Full file scan completed in ' . $totalTime . 's (' . count($result) . ' files found)');
-
-        // Store in cache if enabled
-        if ($useCache) {
-            Cache::set($cacheKey, $result);
-        }
-
-        return $result;
-    }
-
-
-
-    /**
-     * Retrieves a list of directories and file types to scan within the BEARSAMPP environment.
-     *
-     * This method compiles an array of paths from various components of the BEARSAMPP stack,
-     * including Apache, PHP, MySQL, MariaDB, PostgreSQL, Node.js, Composer, PowerShell,
-     * Python and Ruby. Each path entry includes the directory path, file types to include
-     * in the scan, and whether the scan should be recursive.
-     *
-     * The method uses global variables to access the root paths of each component. It then
-     * dynamically fetches specific subdirectories using the `getFolderList` method (which is
-     * assumed to be defined elsewhere in this class or in the global scope) and constructs
-     * an array of path specifications.
-     *
-     * Each path specification is an associative array with the following keys:
-     * - 'path': The full directory path to scan.
-     * - 'includes': An array of file extensions or filenames to include in the scan.
-     * - 'recursive': A boolean indicating whether the scan should include subdirectories.
-     *
-     * The method is designed to be used for setting up scans of configuration files and other
-     * important files within the BEARSAMPP environment, possibly for purposes like configuration
-     * management, backup, or security auditing.
-     *
-     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
-     */
-    private static function getPathsToScan()
-    {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
-        $paths = array();
-
-        // Alias
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getAliasPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // Vhosts
-        $paths[] = array(
-            'path'      => $bearsamppRoot->getVhostsPath(),
-            'includes'  => array(''),
-            'recursive' => false
-        );
-
-        // OpenSSL
-        $paths[] = array(
-            'path'      => Path::getOpenSslPath(),
-            'includes'  => array('openssl.cfg'),
-            'recursive' => false
-        );
-
-        // Homepage
-        $paths[] = array(
-            'path'      => Path::getResourcesPath() . '/homepage',
-            'includes'  => array('alias.conf'),
-            'recursive' => false
-        );
-
-        // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
-                'includes'  => array('.ini', '.conf'),
-                'recursive' => true
-            );
-        }
-
-        // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
-                'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
-                'recursive' => true
-            );
-        }
-
-        // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-        }
-
-        // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-            // Also scan data directory for my.ini (created during initialization)
-            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
-            if (is_dir($dataPath)) {
-                $paths[] = array(
-                    'path'      => $dataPath,
-                    'includes'  => array('my.ini'),
-                    'recursive' => false
-                );
-            }
-        }
-
-        // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
-                'includes'  => array( '.conf', '.bat', '.ber'),
-                'recursive' => true
-            );
-        }
-
-        // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
-                'includes'  => array('npmrc'),
-                'recursive' => true
-            );
-            $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/node_modules/npm',
-                'includes'  => array('npmrc'),
-                'recursive' => false
-            );
-        }
-
-        // Composer
-        $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getComposer()->getRootPath() . '/' . $folder,
-                'includes'  => array('giscus.json'),
-                'recursive' => false
-            );
-        }
-
-        // PowerShell
-        $folderList = self::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPowerShell()->getRootPath() . '/' . $folder,
-                'includes'  => array('console.xml', '.ini', '.btm'),
-                'recursive' => true
-            );
-        }
-
-        // Python
-        $folderList = self::getFolderList($bearsamppTools->getPython()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('.bat'),
-                'recursive' => false
-            );
-            $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/settings',
-                'includes'  => array('winpython.ini'),
-                'recursive' => false
-            );
-        }
-
-        // Ruby
-        $folderList = self::getFolderList($bearsamppTools->getRuby()->getRootPath());
-        foreach ($folderList as $folder) {
-            $paths[] = array(
-                'path'      => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
-                'includes'  => array('!.dll', '!.exe'),
-                'recursive' => false
-            );
-        }
-
-        return $paths;
-    }
-
-    /**
-     * Recursively finds files in a directory that match a set of inclusion patterns.
-     *
-     * @param   string  $startPath  The directory path to start the search from.
-     * @param   array   $includes   An array of file patterns to include in the search. Patterns starting with '!' are excluded.
-     * @param   bool    $recursive  Determines whether the search should be recursive.
-     *
-     * @return array An array of files that match the inclusion patterns.
-     */
-    private static function findFiles($startPath, $includes = array(''), $recursive = true)
-    {
-        $result = array();
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return $result;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file) && $recursive) {
-                $tmpResults = self::findFiles($startPath . '/' . $file, $includes);
-                foreach ($tmpResults as $tmpResult) {
-                    $result[] = $tmpResult;
-                }
-            } elseif (is_file($startPath . '/' . $file)) {
-                foreach ($includes as $include) {
-                    if (UtilString::startWith($include, '!')) {
-                        $include = ltrim($include, '!');
-                        if (UtilString::startWith($file, '.') && !UtilString::endWith($file, $include)) {
-                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
-                        } elseif ($file != $include) {
-                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
-                        }
-                    } elseif (UtilString::endWith($file, $include) || $file == $include || empty($include)) {
-                        $result[] = Path::formatUnixPath($startPath . '/' . $file);
-                    }
-                }
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Replaces old path references with new path references in the specified files.
-     *
-     * @param   array        $filesToScan  Array of file paths to scan and modify.
-     * @param   string|null  $rootPath     The new root path to replace the old one. If null, uses a default root path.
-     *
-     * @return array Returns an array with the count of occurrences changed and the count of files changed.
-     */
-    public static function changePath($filesToScan, $rootPath = null)
-    {
-        global $bearsamppRoot, $bearsamppCore;
-
-        $result = array(
-            'countChangedOcc'   => 0,
-            'countChangedFiles' => 0
-        );
-
-        $rootPath           = $rootPath != null ? $rootPath : $bearsamppRoot->getRootPath();
-        $unixOldPath        = Path::formatUnixPath($bearsamppCore->getLastPathContent());
-        $windowsOldPath     = Path::formatWindowsPath($bearsamppCore->getLastPathContent());
-        $unixCurrentPath    = Path::formatUnixPath($rootPath);
-        $windowsCurrentPath = Path::formatWindowsPath($rootPath);
-
-        foreach ($filesToScan as $fileToScan) {
-            $tmpCountChangedOcc = 0;
-            $fileContentOr      = file_get_contents($fileToScan);
-            $fileContent        = $fileContentOr;
-
-            // old path
-            preg_match('#' . $unixOldPath . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . str_replace('\\', '\\\\', $windowsOldPath) . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            // placeholders
-            preg_match('#' . Core::PATH_LIN_PLACEHOLDER . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . Core::PATH_WIN_PLACEHOLDER . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc']   += $tmpCountChangedOcc;
-                $result['countChangedFiles'] += 1;
-                file_put_contents($fileToScan, $fileContent);
-            }
-        }
-
-        Log::debug('changePath() completed: ' . $result['countChangedFiles'] . ' files changed, ' . $result['countChangedOcc'] . ' total occurrences');
-
-        return $result;
-    }
-
-    /**
-     * Fetches the latest version information from a given url.
-     *
-     * @param   string  $url  The URL to fetch version information from.
-     *
-     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise.
-     */
-    public static function getLatestVersion($url)
-    {
-        $result = self::getApiJson($url);
-        if (empty($result)) {
-            Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
-
-            return null;
-        }
-
-        $resultArray = json_decode($result, true);
-        if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
-            $tagName     = $resultArray['tag_name'];
-            $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            $name        = $resultArray['name'];
-            Log::debug('Latest version tag name: ' . $tagName);
-            Log::debug('Download URL: ' . $downloadUrl);
-            Log::debug('Name: ' . $name);
-
-            return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];
-        } else {
-            Log::error('Tag name, download URL, or name not found in the response: ' . $result);
-
-            return null;
-        }
-    }
-
-    /**
-     * Constructs a complete website URL with optional path, fragment, and UTM source parameters.
-     *
-     * @param   string  $path       Optional path to append to the base URL.
-     * @param   string  $fragment   Optional fragment to append to the URL.
-     * @param   bool    $utmSource  Whether to include UTM source parameters. Defaults to true.
-     *
-     * @return string The constructed URL.
-     */
-    public static function getWebsiteUrl($path = '', $fragment = '', $utmSource = true)
-    {
-        global $bearsamppCore;
-
-        $url = APP_WEBSITE;
-        if (!empty($path)) {
-            $url .= '/' . ltrim($path, '/');
-        }
-        if ($utmSource) {
-            $url = rtrim($url, '/') . '/?utm_source=bearsampp-' . $bearsamppCore->getAppVersion();
-        }
-        if (!empty($fragment)) {
-            $url .= $fragment;
-        }
-
-        return $url;
-    }
-
-    /**
-     * Constructs a website URL without UTM parameters.
-     *
-     * @param   string  $path      Optional path to append to the base URL.
-     * @param   string  $fragment  Optional fragment to append to the URL.
-     *
-     * @return string The constructed URL without UTM parameters.
-     */
-    public static function getWebsiteUrlNoUtm($path = '', $fragment = '')
-    {
-        return self::getWebsiteUrl($path, $fragment, false);
-    }
-
-    /**
-     * Retrieves the file size of a remote file.
-     *
-     * @param   string  $url            The URL of the remote file.
-     * @param   bool    $humanFileSize  Whether to return the size in a human-readable format.
-     *
-     * @return mixed The file size, either in bytes or as a formatted string.
-     */
-    public static function getRemoteFilesize($url, $humanFileSize = true)
-    {
-        $size = 0;
-
-        $data = get_headers($url, true);
-        if (isset($data['Content-Length'])) {
-            $size = intval($data['Content-Length']);
-        }
-
-        return $humanFileSize ? self::humanFileSize($size) : $size;
-    }
 
     /**
      * Converts a file size in bytes to a human-readable format.
@@ -1070,190 +484,8 @@ class Util
         return UtilString::contains($processor, 'x86');
     }
 
-    /**
-     * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
-     *
-     * @param   string  $pingUrl  The URL to ping for headers.
-     *
-     * @return array An array of HTTP headers.
-     */
-    public static function getHttpHeaders($pingUrl)
-    {
-        if (function_exists('curl_version')) {
-            $result = self::getCurlHttpHeaders($pingUrl);
-        } else {
-            $result = self::getFopenHttpHeaders($pingUrl);
-        }
 
-        if (!empty($result)) {
-            $rebuildResult = array();
-            foreach ($result as $row) {
-                $row = trim($row);
-                if (!empty($row)) {
-                    $rebuildResult[] = $row;
-                }
-            }
-            $result = $rebuildResult;
 
-            Log::debug('getHttpHeaders:');
-            foreach ($result as $header) {
-                Log::debug('-> ' . $header);
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieves HTTP headers from a given URL using the fopen function.
-     *
-     * This method creates a stream context to disable SSL peer and peer name verification,
-     * which allows self-signed certificates. It attempts to open the URL and read the HTTP
-     * response headers.
-     *
-     * @param   string  $url  The URL from which to fetch the headers.
-     *
-     * @return array An array of headers if successful, otherwise an empty array.
-     */
-    public static function getFopenHttpHeaders($url)
-    {
-        $result = array();
-
-        $context = stream_context_create(array(
-            'ssl' => array(
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
-            )
-        ));
-
-        $fp = @fopen($url, 'r', false, $context);
-        if ($fp) {
-            $meta   = stream_get_meta_data($fp);
-            $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
-            fclose($fp);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieves HTTP headers from a given URL using cURL.
-     *
-     * This method initializes a cURL session, sets various options to fetch headers
-     * including disabling SSL peer verification, and executes the request. It logs
-     * the raw response for debugging purposes and parses the headers from the response.
-     *
-     * @param   string  $url  The URL from which to fetch the headers.
-     *
-     * @return array An array of headers if successful, otherwise an empty array.
-     */
-    public static function getCurlHttpHeaders($url)
-    {
-        $result = array();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        $response = @curl_exec($ch);
-        if (empty($response)) {
-            return $result;
-        }
-
-        Log::trace('getCurlHttpHeaders:' . $response);
-        $responseHeaders = explode("\r\n\r\n", $response, 2);
-        if (!isset($responseHeaders[0]) || empty($responseHeaders[0])) {
-            return $result;
-        }
-
-        return explode("\n", $responseHeaders[0]);
-    }
-
-    /**
-     * Retrieves the initial response line from a specified host and port using a socket connection.
-     *
-     * This method optionally uses SSL and creates a stream context similar to `getFopenHttpHeaders`.
-     * It attempts to connect to the host and port, reads the first line of the response, and parses it.
-     * Detailed debug information is logged for each header line received.
-     *
-     * @param   string  $host  The host name or IP address to connect to.
-     * @param   int     $port  The port number to connect to.
-     * @param   bool    $ssl   Whether to use SSL (defaults to false).
-     *
-     * @return array An array containing the first line of the response, split into parts, or an empty array if unsuccessful.
-     */
-    public static function getHeaders($host, $port, $ssl = false)
-    {
-        $result  = array();
-        $context = stream_context_create(array(
-            'ssl' => array(
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-                'allow_self_signed' => true,
-            )
-        ));
-
-        $fp = @stream_socket_client(($ssl ? 'ssl://' : '') . $host . ':' . $port, $errno, $errstr, 5, STREAM_CLIENT_CONNECT, $context);
-        if ($fp) {
-            $out    = fgets($fp);
-            $result = explode(PHP_EOL, $out);
-            @fclose($fp);
-        }
-
-        if (!empty($result)) {
-            $rebuildResult = array();
-            foreach ($result as $row) {
-                $row = trim($row);
-                if (!empty($row)) {
-                    $rebuildResult[] = $row;
-                }
-            }
-            $result = $rebuildResult;
-
-            Log::debug('getHeaders:');
-            foreach ($result as $header) {
-                Log::debug('-> ' . $header);
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Sends a GET request to the specified URL and returns the response.
-     *
-     * @param   string  $url  The URL to send the GET request to.
-     *
-     * @return string The trimmed response data from the URL.
-     */
-    public static function getApiJson($url)
-    {
-        $header = self::setupCurlHeaderWithToken();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        $data = curl_exec($ch);
-        if (curl_errno($ch)) {
-            Log::error('CURL Error: ' . curl_error($ch));
-        }
-
-        // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
-        // The resource is automatically closed when it goes out of scope
-        if (PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
-
-        return trim($data);
-    }
 
     /**
      * Checks if a specific port is in use.
@@ -1460,81 +692,139 @@ class Util
         return true;
     }
 
+
+
+
+
     /**
-     * Generates various GitHub URLs based on the specified type.
+     * Opens the given content in a temporary file using the editor configured in bearsampp.conf.
      *
-     * @param string $type The type of URL ('user', 'repo', 'raw'). Defaults to 'user'.
-     * @param string $user The GitHub username. Defaults to 'Bearsampp'.
-     * @param string|null $repo The repository name (required for 'repo' and 'raw' types).
-     * @param string|null $branch The branch name (required for 'raw' type).
-     * @param string|null $path The file path (required for 'raw' type).
-     * @return string|false The generated URL or false on invalid input.
+     * @param   string  $caption  The caption/title for the temporary file.
+     * @param   string  $content  The content to write to the temporary file.
+     *
+     * @return void
      */
-    public static function getGithubUrl($type = 'user', $user = APP_GITHUB_USER, $repo = null, $branch = null, $path = null) {
-        if (empty($user) || !is_string($user)) {
+    public static function openFileContent($caption, $content)
+    {
+        global $bearsamppCore, $bearsamppConfig;
+
+        $tmpFile = Path::getTmpPath() . '/' . $caption . '.txt';
+        file_put_contents($tmpFile, $content);
+
+        // Open the file with the configured editor from bearsampp.conf
+        $editor = $bearsamppConfig->getNotepad();
+
+        if (empty($editor) || !file_exists($editor)) {
+            $editor = 'notepad.exe';
+        }
+
+        $bearsamppCore->getWinbinder()->exec('"' . $editor . '"', '"' . $tmpFile . '"');
+    }
+
+    /**
+     * Finds a file in a given path.
+     *
+     * @param   string  $startPath  The path where to start the search.
+     * @param   string  $findFile   The name of the file to find.
+     *
+     * @return string|false Returns the full path to the file if found, false otherwise.
+     */
+    public static function findFile($startPath, $findFile)
+    {
+        $handle = @opendir($startPath);
+        if (!$handle) {
             return false;
         }
 
-        // Encode as URL path segment (not query encoding)
-        $user = rawurlencode($user);
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            if (is_dir($startPath . '/' . $file)) {
+                $res = self::findFile($startPath . '/' . $file, $findFile);
+                if ($res !== false) {
+                    closedir($handle);
 
-        switch ($type) {
-            case 'user':
-                return "https://github.com/{$user}";
-
-            case 'repo':
-                if (empty($repo) || !is_string($repo)) {
-                    return false;
+                    return $res;
                 }
-                $repo = rawurlencode($repo);
-                return "https://github.com/{$user}/{$repo}";
+            } elseif ($file == $findFile) {
+                closedir($handle);
 
-            case 'raw':
-                if (empty($repo) || empty($branch) || empty($path) || !is_string($repo) || !is_string($branch) || !is_string($path)) {
-                    return false;
-                }
-                $repo = rawurlencode($repo);
-                $branch = rawurlencode($branch);
-
-                $path = ltrim($path, '/');
-                $segments = array_map('rawurlencode', explode('/', $path));
-                $pathEncoded = implode('/', $segments);
-
-                return "https://raw.githubusercontent.com/{$user}/{$repo}/{$branch}/{$pathEncoded}";
-
-            default:
-                return false;
+                return Path::formatUnixPath($startPath . '/' . $file);
+            }
         }
+
+        closedir($handle);
+
+        return false;
     }
 
     /**
-     * Gets the GitHub user URL for Bearsampp.
+     * Recursively searches for repositories starting from a given path up to a specified depth.
      *
-     * @return string The GitHub user URL.
+     * @param   string  $initPath   The initial path from where the search begins.
+     * @param   string  $startPath  The current path from where to search.
+     * @param   string  $checkFile  The file name to check for in the directory to consider it a repository.
+     * @param   int     $maxDepth   The maximum depth of directories to search into.
+     *
+     * @return array Returns an array of paths that contain the specified file.
      */
-    public static function getGithubUserUrl()
+    public static function findRepos($initPath, $startPath, $checkFile, $maxDepth = 1)
     {
-        return self::getGithubUrl('user', APP_GITHUB_USER);
+        $depth  = substr_count(str_replace($initPath, '', $startPath), '/');
+        $result = array();
+
+        $handle = @opendir($startPath);
+        if (!$handle) {
+            return $result;
+        }
+
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            if (is_dir($startPath . '/' . $file) && ($initPath == $startPath || $depth <= $maxDepth)) {
+                $tmpResults = self::findRepos($initPath, $startPath . '/' . $file, $checkFile, $maxDepth);
+                foreach ($tmpResults as $tmpResult) {
+                    $result[] = $tmpResult;
+                }
+            } elseif (is_file($startPath . '/' . $checkFile) && !in_array($startPath, $result)) {
+                $result[] = Path::formatUnixPath($startPath);
+            }
+        }
+
+        closedir($handle);
+
+        return $result;
     }
 
     /**
-     * Checks the current state of the internet connection.
+     * Scans a directory for folders and returns their names.
      *
-     * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
-     * It returns `true` if the connection is successful, otherwise it returns `false`.
+     * @param   string  $path  The path to the directory to scan.
      *
-     * @return bool True if the internet connection is active, false otherwise.
+     * @return array Returns an array of version names found in the directory.
      */
-    public static function checkInternetState()
+    public static function getVersionList($path)
     {
-        $connected = @fsockopen('www.google.com', 80);
-        if ($connected) {
-            fclose($connected);
+        $result = array();
 
-            return true; // Internet connection is active
-        } else {
-            return false; // Internet connection is not active
+        if (is_dir($path)) {
+            $handle = @opendir($path);
+            if ($handle) {
+                $prefix = basename($path);
+                while (false !== ($file = readdir($handle))) {
+                    if ($file != '.' && $file != '..' && is_dir($path . '/' . $file) && $file != 'current') {
+                        $result[] = str_replace($prefix, '', $file);
+                    }
+                }
+                closedir($handle);
+            }
         }
+
+        natcasesort($result);
+
+        return $result;
     }
 
     /**
@@ -1567,88 +857,310 @@ class Util
     }
 
     /**
-     * Gets the NSSM environment paths.
+     * Gets the list of files to scan for path updates.
      *
-     * @return string The NSSM environment paths string.
+     * @param   array|null  $path          The paths to scan. If null, the default paths are used.
+     * @param   bool        $useCache      Whether to use the cached list of files.
+     * @param   bool        $forceRefresh  Whether to force a refresh of the file list.
+     *
+     * @return array The list of files to scan.
      */
-    public static function getNssmEnvPaths()
+    public static function getFilesToScan($path = null, $useCache = true, $forceRefresh = false)
     {
-        global $bearsamppBins, $bearsamppTools;
+        // Generate cache key based on path parameter
+        $cacheKey = md5(serialize($path));
 
-        $paths = '';
-
-        // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
+        // Try to get from cache if enabled and not forcing refresh
+        if ($useCache && !$forceRefresh) {
+            $cachedResult = Cache::get($cacheKey);
+            if ($cachedResult !== false) {
+                Cache::recordHit();
+                Log::debug('File scan cache HIT (saved expensive scan operation)');
+                return $cachedResult;
+            }
         }
 
-        return Path::formatWindowsPath($paths);
+        Cache::recordMiss();
+        Log::debug('File scan cache MISS (performing full scan)');
+
+        // Perform the actual scan
+        $startTime = self::getMicrotime();
+        $result      = array();
+        $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
+
+        foreach ($pathsToScan as $pathToScan) {
+            $pathStartTime = self::getMicrotime();
+            $findFiles = self::findFiles($pathToScan['path'], $pathToScan['includes'], $pathToScan['recursive']);
+            foreach ($findFiles as $findFile) {
+                $result[] = $findFile;
+            }
+            Log::debug($pathToScan['path'] . ' scanned in ' . round(self::getMicrotime() - $pathStartTime, 3) . 's');
+        }
+
+        $totalTime = round(self::getMicrotime() - $startTime, 3);
+        Log::info('Full file scan completed in ' . $totalTime . 's (' . count($result) . ' files found)');
+
+        // Store in cache if enabled
+        if ($useCache) {
+            Cache::set($cacheKey, $result);
+        }
+
+        return $result;
     }
 
     /**
-     * Opens the given content in a temporary file using the editor configured in bearsampp.conf.
+     * Retrieves a list of paths to scan for path changes.
      *
-     * @param   string  $caption  The caption/title for the temporary file.
-     * @param   string  $content  The content to write to the temporary file.
-     *
-     * @return void
+     * @return array The list of paths to scan.
      */
-    public static function openFileContent($caption, $content)
+    public static function getPathsToScan()
     {
-        global $bearsamppCore, $bearsamppConfig;
+        global $bearsamppRoot, $bearsamppBins;
+        $paths = array();
 
-        $tmpFile = Path::getTmpPath() . '/' . $caption . '.txt';
-        file_put_contents($tmpFile, $content);
-
-        // Open the file with the configured editor from bearsampp.conf
-        $editor = $bearsamppConfig->getNotepad();
-        $bearsamppCore->getWinbinder()->exec($editor, '"' . $tmpFile . '"');
-    }
-
-    /**
-     * Sets up cURL headers with token for API requests.
-     *
-     * @return array The array of cURL headers.
-     */
-    public static function setupCurlHeaderWithToken()
-    {
-        // Return headers with User-Agent, which is required by GitHub API
-        return array(
-            'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
-            'Accept: application/vnd.github.v3+json'
+        // Alias
+        $paths[] = array(
+            'path'      => Path::getAliasPath(),
+            'includes'  => array(''),
+            'recursive' => false
         );
+
+        // Vhosts
+        $paths[] = array(
+            'path'      => Path::getVhostsPath(),
+            'includes'  => array(''),
+            'recursive' => false
+        );
+
+        // OpenSSL
+        $paths[] = array(
+            'path'      => Path::getOpenSslPath(),
+            'includes'  => array('openssl.cfg'),
+            'recursive' => false
+        );
+
+        // Homepage
+        $paths[] = array(
+            'path'      => Path::getHomepagePath(),
+            'includes'  => array('alias.conf'),
+            'recursive' => false
+        );
+
+        // Apache
+        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // PHP
+        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // MySQL
+        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // MariaDB
+        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // PostgreSQL
+        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // Mailpit
+        $folderList = self::getFolderList($bearsamppBins->getMailpit()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getMailpit()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        // Xlight
+        $folderList = self::getFolderList($bearsamppBins->getXlight()->getRootPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => $bearsamppBins->getXlight()->getRootPath() . '/' . $folder,
+                'includes'  => array('.ini', '.conf'),
+                'recursive' => true
+            );
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Recursively finds files in a directory that match a set of inclusion patterns.
+     *
+     * @param   string  $startPath  The directory path to start the search from.
+     * @param   array   $includes   An array of file patterns to include in the search. Patterns starting with '!' are excluded.
+     * @param   bool    $recursive  Determines whether the search should be recursive.
+     *
+     * @return array An array of files that match the inclusion patterns.
+     */
+    public static function findFiles($startPath, $includes = array(''), $recursive = true)
+    {
+        $result = array();
+
+        $handle = @opendir($startPath);
+        if (!$handle) {
+            return $result;
+        }
+
+        while (false !== ($file = readdir($handle))) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            if (is_dir($startPath . '/' . $file) && $recursive) {
+                $tmpResults = self::findFiles($startPath . '/' . $file, $includes);
+                foreach ($tmpResults as $tmpResult) {
+                    $result[] = $tmpResult;
+                }
+            } elseif (is_file($startPath . '/' . $file)) {
+                foreach ($includes as $include) {
+                    if (UtilString::startWith($include, '!')) {
+                        $include = ltrim($include, '!');
+                        if (UtilString::startWith($file, '.') && !UtilString::endWith($file, $include)) {
+                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
+                        } elseif ($file != $include) {
+                            $result[] = Path::formatUnixPath($startPath . '/' . $file);
+                        }
+                    } elseif (UtilString::endWith($file, $include) || $file == $include || empty($include)) {
+                        $result[] = Path::formatUnixPath($startPath . '/' . $file);
+                    }
+                }
+            }
+        }
+
+        closedir($handle);
+
+        return $result;
+    }
+
+    /**
+     * Retrieves the path to the PHP executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the PHP executable.
+     */
+    public static function getPhpExe($aetrayPath = false)
+    {
+        return Path::getPhpPath( $aetrayPath ) . '/' . Core::PHP_EXE;
+    }
+
+    /**
+     * Retrieves the path to the SetEnv executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the SetEnv executable.
+     */
+    public static function getSetEnvExe($aetrayPath = false)
+    {
+        return Path::getSetEnvPath( $aetrayPath ) . '/' . Core::SETENV_EXE;
+    }
+
+    /**
+     * Retrieves the path to the NSSM executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the NSSM executable.
+     */
+    public static function getNssmExe($aetrayPath = false)
+    {
+        return Path::getNssmPath( $aetrayPath ) . '/' . Core::NSSM_EXE;
+    }
+
+    /**
+     * Retrieves the path to the OpenSSL executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the OpenSSL executable.
+     */
+    public static function getOpenSslExe($aetrayPath = false)
+    {
+        return Path::getOpenSslPath( $aetrayPath ) . '/' . Core::OPENSSL_EXE;
+    }
+
+    /**
+     * Retrieves the path to the OpenSSL configuration file.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the OpenSSL configuration file.
+     */
+    public static function getOpenSslConf($aetrayPath = false)
+    {
+        return Path::getOpenSslPath( $aetrayPath ) . '/' . Core::OPENSSL_CONF;
+    }
+
+    /**
+     * Retrieves the path to the HostsEditor executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the HostsEditor executable.
+     */
+    public static function getHostsEditorExe($aetrayPath = false)
+    {
+        return Path::getHostsEditorPath( $aetrayPath ) . '/' . Core::HOSTSEDITOR_EXE;
+    }
+
+    /**
+     * Retrieves the path to the LN executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the LN executable.
+     */
+    public static function getLnExe($aetrayPath = false)
+    {
+        return Path::getLnPath( $aetrayPath ) . '/' . Core::LN_EXE;
+    }
+
+    /**
+     * Retrieves the path to the PWGen executable.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the PWGen executable.
+     */
+    public static function getPwgenExe($aetrayPath = false)
+    {
+        return Path::getPwgenPath( $aetrayPath ) . '/' . Core::PWGEN_EXE;
     }
 }
+

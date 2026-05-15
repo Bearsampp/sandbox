@@ -47,7 +47,7 @@ class ActionStartup
         $this->startTime = Util::getMicrotime();
         $this->error     = '';
 
-        $this->rootPath    = $bearsamppRoot->getRootPath();
+        $this->rootPath    = Path::getRootPath();
         $this->filesToScan = array();
 
         $gauge = self::GAUGE_SERVICES * count( $bearsamppBins->getServices() );
@@ -289,7 +289,7 @@ class ActionStartup
         $this->splash->setTextLoading($bearsamppLang->getValue(Lang::STARTUP_ROTATION_LOGS_TEXT));
         $this->splash->incrProgressBar();
 
-        $archivesPath = $bearsamppRoot->getLogsPath() . '/archives';
+        $archivesPath = Path::getLogsPath() . '/archives';
         if (!is_dir($archivesPath)) {
             Log::trace("Creating archives directory: " . $archivesPath);
             mkdir($archivesPath, 0777, true);
@@ -363,7 +363,7 @@ class ActionStartup
 
         // Logs
         Log::trace("Archiving log files");
-        $srcPath = $bearsamppRoot->getLogsPath();
+        $srcPath = Path::getLogsPath();
         $handle = @opendir($srcPath);
         if (!$handle) {
             Log::trace("Failed to open logs directory: " . $srcPath);
@@ -449,7 +449,7 @@ class ActionStartup
 
         // Purge logs - only delete files that aren't locked
         Log::trace("Purging log files");
-        $logsPath = $bearsamppRoot->getLogsPath();
+        $logsPath = Path::getLogsPath();
         $handle = @opendir($logsPath);
         if (!$handle) {
             Log::trace("Failed to open logs directory for purging: " . $logsPath);
@@ -503,11 +503,11 @@ class ActionStartup
         $this->splash->incrProgressBar();
 
         $this->writeLog( 'Clear tmp folders' );
-        Util::clearFolder( $bearsamppRoot->getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'opcache', '.gitignore') );
+        Util::clearFolder( Path::getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'opcache', '.gitignore') );
         Util::clearFolder( Path::getTmpPath(), array('.gitignore') );
 
         // Ensure opcache directory exists for persistent file cache
-        $opcachePath = $bearsamppRoot->getTmpPath() . DIRECTORY_SEPARATOR . 'opcache';
+        $opcachePath = Path::getTmpPath() . DIRECTORY_SEPARATOR . 'opcache';
 
         if (!is_dir($opcachePath)) {
             $this->writeLog('Creating opcache directory: ' . $opcachePath);
@@ -729,7 +729,7 @@ class ActionStartup
         $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_CHANGE_PATH_TEXT ), $this->rootPath ) );
         $this->splash->incrProgressBar();
 
-        $result = Util::changePath( $this->filesToScan, $this->rootPath );
+        $result = Path::changePath( $this->filesToScan, $this->rootPath );
         $this->writeLog( 'Nb files changed: ' . $result['countChangedFiles'] );
         $this->writeLog( 'Nb occurences changed: ' . $result['countChangedOcc'] );
     }
@@ -756,7 +756,7 @@ class ActionStartup
         $this->splash->incrProgressBar();
 
         $currentAppPathRegKey = $bearsamppRegistry->getAppPathRegKey();
-        $genAppPathRegKey     = Path::formatWindowsPath( $bearsamppRoot->getRootPath() );
+        $genAppPathRegKey     = Path::formatWindowsPath( Path::getRootPath() );
         $this->writeLog( 'Current app path reg key: ' . $currentAppPathRegKey );
         $this->writeLog( 'Gen app path reg key: ' . $genAppPathRegKey );
         if ( $currentAppPathRegKey != $genAppPathRegKey ) {
@@ -1321,7 +1321,6 @@ class ActionStartup
     private function writeLog($log)
     {
         global $bearsamppRoot;
-        Log::debug( $log, $bearsamppRoot->getStartupLogFilePath() );
+        Log::debug( $log, Path::getStartupLogFilePath() );
     }
 }
-

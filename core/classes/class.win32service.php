@@ -107,7 +107,7 @@ class Win32Service
     private function writeLog($log): void
     {
         global $bearsamppRoot;
-        Log::debug( $log, $bearsamppRoot->getServicesLogFilePath() );
+        Log::debug( $log, Path::getServicesLogFilePath() );
     }
 
     /**
@@ -375,7 +375,7 @@ class Win32Service
             $nssmEnvPath = $bearsamppRegistry->getAppBinsRegKey( false );
             Log::trace("NSSM environment path (bins): " . $nssmEnvPath);
 
-            $nssmEnvPath .= Util::getNssmEnvPaths();
+            $nssmEnvPath .= Path::getNssmEnvPaths();
             Log::trace("NSSM environment path (with additional paths): " . $nssmEnvPath);
 
             $nssmEnvPath .= '%SystemRoot%/system32;';

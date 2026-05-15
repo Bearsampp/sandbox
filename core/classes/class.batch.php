@@ -47,7 +47,7 @@ class Batch
     private static function writeLog($log)
     {
         global $bearsamppRoot;
-        Log::debug($log, $bearsamppRoot->getBatchLogFilePath());
+        Log::debug($log, Path::getBatchLogFilePath());
     }
 
     /**
@@ -122,11 +122,11 @@ class Batch
         global $bearsamppRoot, $bearsamppCore;
 
         $content = 'PING 1.1.1.1 -n 1 -w 2000 > nul' . PHP_EOL;
-        $content .= '"' . $bearsamppRoot->getExeFilePath() . '" -quit -id={bearsampp}' . PHP_EOL;
+        $content .= '"' . Path::getExeFilePath() . '" -quit -id={bearsampp}' . PHP_EOL;
         if ($restart) {
             $basename = 'restartApp';
             Log::info('Restart App');
-            $content .= '"' . Path::getPhpExe() . '" "' . Core::isRoot_FILE . '" "' . Action::RESTART . '"' . PHP_EOL;
+            $content .= '"' . Util::getPhpExe() . '" "' . Core::isRoot_FILE . '" "' . Action::RESTART . '"' . PHP_EOL;
         } else {
             $basename = 'exitApp';
             Log::info('Exit App');
@@ -174,7 +174,7 @@ class Batch
     public static function refreshEnvVars()
     {
         global $bearsamppRoot, $bearsamppCore;
-        self::execStandalone('refreshEnvVars', '"' . Path::getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . Path::formatWindowsPath($bearsamppRoot->getRootPath()) . '"');
+        self::execStandalone('refreshEnvVars', '"' . Util::getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . Path::formatWindowsPath(Path::getRootPath()) . '"');
     }
 
     /**
@@ -270,7 +270,7 @@ class Batch
         global $bearsamppCore;
         $src = Path::formatWindowsPath($src);
         $dest = Path::formatWindowsPath($dest);
-        self::exec('createSymlink', '"' . Path::getLnExe() . '" --absolute --symbolic --traditional --1023safe "' . $src . '" ' . '"' . $dest . '"', true, false);
+        self::exec('createSymlink', '"' . Util::getLnExe() . '" --absolute --symbolic --traditional --1023safe "' . $src . '" ' . '"' . $dest . '"', true, false);
     }
 
     /**

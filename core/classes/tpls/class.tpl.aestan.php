@@ -190,7 +190,7 @@ class TplAestan
         global $bearsamppRoot, $bearsamppConfig;
 
         if ($local) {
-            $link = $bearsamppRoot->getLocalUrl($link);
+            $link = Path::getLocalUrl($link);
         }
 
         return self::getItemExe(
@@ -475,4 +475,5 @@ class TplAestan
             'SeparatorsSeparatorStyle=caption' . PHP_EOL;
     }
 }
+
 

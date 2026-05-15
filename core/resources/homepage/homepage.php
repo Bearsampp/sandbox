@@ -43,13 +43,13 @@ global $bearsamppLang, $bearsamppCore, $bearsamppHomepage, $bearsamppConfig, $be
 /**
  * Set the base path for resources, ensuring there is a trailing slash.
  */
-$resourcesPath = rtrim( $bearsamppHomepage->getWebResourcesPath(), '/' ) . '/';
+$resourcesPath = Path::getWebResourcesPath();
 
 /**
  * Define paths for icons and images used in the homepage.
  */
-$iconsPath  = $bearsamppHomepage->getWebIconsPath();
-$imagesPath = $bearsamppHomepage->getWebImagesPath();
+$iconsPath  = Path::getWebIconsPath();
+$imagesPath = Path::getWebImagesPath();
 
 // Instantiate the QuickPick class
 $quickPick = new QuickPick();
@@ -227,4 +227,3 @@ foreach ( $jsFiles as $file ) {
 ?>
 </body>
 </html>
-

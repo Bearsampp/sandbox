@@ -20,7 +20,7 @@ class OpenSsl
     public function createCrt($name, $destPath = null)
     {
         global $bearsamppRoot, $bearsamppCore;
-        $destPath = empty($destPath) ? $bearsamppRoot->getSslPath() : $destPath;
+        $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
 
         $subject = '"/C=US/O=Bearsampp/CN=' . $name . '"';
         $password = 'pass:bearsampp';
@@ -28,7 +28,7 @@ class OpenSsl
         $pubPath = '"' . $destPath . '/' . $name . '.pub"';
         $crtPath = '"' . $destPath . '/' . $name . '.crt"';
         $extension = 'SAN';
-        $exe = '"' . Path::getOpenSslExe() . '"';
+        $exe = '"' . Util::getOpenSslExe() . '"';
 
         // ext
         $extContent = PHP_EOL . '[' . $extension . ']' . PHP_EOL;
@@ -36,7 +36,7 @@ class OpenSsl
 
         // tmp openssl.cfg
         $conf = Path::getTmpPath() . '/openssl_' . $name . '_' . UtilString::random() . '.cfg';
-        file_put_contents($conf, file_get_contents(Path::getOpenSslConf()) . $extContent);
+        file_put_contents($conf, file_get_contents(Util::getOpenSslConf()) . $extContent);
 
         // Properly quote the config path for batch commands
         $confPath = '"' . $conf . '"';
@@ -78,9 +78,9 @@ class OpenSsl
     {
         global $bearsamppRoot;
 
-        $ppkPath = $bearsamppRoot->getSslPath() . '/' . $name . '.ppk';
-        $pubPath = $bearsamppRoot->getSslPath() . '/' . $name . '.pub';
-        $crtPath = $bearsamppRoot->getSslPath() . '/' . $name . '.crt';
+        $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
+        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
+        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
 
         return is_file($ppkPath) && is_file($pubPath) && is_file($crtPath);
     }
@@ -95,9 +95,9 @@ class OpenSsl
     {
         global $bearsamppRoot;
 
-        $ppkPath = $bearsamppRoot->getSslPath() . '/' . $name . '.ppk';
-        $pubPath = $bearsamppRoot->getSslPath() . '/' . $name . '.pub';
-        $crtPath = $bearsamppRoot->getSslPath() . '/' . $name . '.crt';
+        $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
+        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
+        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
 
         return @unlink($ppkPath) && @unlink($pubPath) && @unlink($crtPath);
     }

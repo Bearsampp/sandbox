@@ -24,7 +24,7 @@ const QUICKPICK_API_KEY = '4abe15e5-95f2-4663-ad12-eadb245b28b4';
 const QUICKPICK_API_URL = 'https://bearsampp.com/index.php?option=com_osmembership&task=api.get_active_plan_ids&api_key=';
 
 // URL where quickpick-releases.json lives
-const QUICKPICK_JSON_URL = 'https://raw.githubusercontent.com/Bearsampp/Bearsampp/main/core/resources/quickpick-releases.json';
+const QUICKPICK_JSON_URL = 'https://raw.githubusercontent.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . '/main/core/resources/quickpick-releases.json';
 
 /**
  * CRITICAL: Check for elevation IMMEDIATELY - must be FAST to minimize console window visibility
@@ -141,7 +141,7 @@ if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1]) && $_SERVER['argv'][1]
  * Registers the root directory of the application.
  */
 require_once dirname(__FILE__) . '/classes/class.root.php';
-$bearsamppRoot = new Root(dirname(__FILE__));
+$bearsamppRoot = new Root(dirname(dirname(__FILE__)));
 $bearsamppRoot->register();
 
 /**
@@ -167,4 +167,3 @@ if ($bearsamppRoot->isRoot()) {
  */
 global $bearsamppLang;
 $locale = $bearsamppLang->getValue('locale');
-

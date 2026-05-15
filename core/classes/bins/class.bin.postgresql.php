@@ -77,7 +77,7 @@ class BinPostgresql extends Module
 
         $this->enable   = $this->enable && $bearsamppConfig->getRaw( self::ROOT_CFG_ENABLE );
         $this->service  = new Win32Service( self::SERVICE_NAME );
-        $this->errorLog = $bearsamppRoot->getLogsPath() . '/postgresql.log';
+        $this->errorLog = Path::getLogsPath() . '/postgresql.log';
 
         if ( $this->bearsamppConfRaw !== false ) {
             $this->ctlExe     = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CTL_EXE];
@@ -480,7 +480,7 @@ class BinPostgresql extends Module
 
         if ( file_exists( $path . '/data' ) ) {
             // Even if it exists, ensure placeholders are replaced in the whole folder
-            $filesToScan = Util::getFilesToScan( array(
+            $filesToScan = Path::getFilesToScan( array(
                 array(
                     'path'      => $path,
                     'includes'  => array( '.conf', '.bat', '.ber' ),
@@ -488,7 +488,7 @@ class BinPostgresql extends Module
                 )
             ) );
             if ( !empty( $filesToScan ) ) {
-                Util::changePath( $filesToScan );
+                Path::changePath( $filesToScan );
             }
             return;
         }
@@ -504,7 +504,7 @@ class BinPostgresql extends Module
             )
         ) );
         if ( !empty( $filesToScan ) ) {
-            Util::changePath( $filesToScan );
+            Path::changePath( $filesToScan );
         }
     }
 
