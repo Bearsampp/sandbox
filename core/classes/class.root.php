@@ -59,18 +59,24 @@ class Root
         $bearsamppAutoloader = new Autoloader();
         $bearsamppAutoloader->register();
 
-        // Load
+        // Module loader for async initialization
+        require_once $this->getCorePath() . '/classes/class.moduleloader.php';
+
+        // Load critical modules synchronously (required for main functionality)
         self::loadCore();
         self::loadConfig();
         self::loadLang();
         self::loadOpenSsl();
         self::loadBins();
-        self::loadTools();
-        self::loadApps();
-        self::loadWinbinder();
-        self::loadRegistry();
-        self::loadHomepage();
         Log::separator();
+
+        // Load non-critical modules asynchronously (for UI/admin functions)
+        // These will load in background, accessor methods will block if needed
+        self::loadToolsAsync();
+        self::loadAppsAsync();
+        self::loadWinbinder();
+        self::loadRegistryAsync();
+        self::loadHomepageAsync();
     }
 
     /**
@@ -108,6 +114,19 @@ class Root
             $this->procsLoaded = true;
         }
         return $this->procs;
+    }
+
+    /**
+     * Ensures a module is loaded, waiting if it's still loading asynchronously.
+     * Safe to call for modules that may be loading in background.
+     *
+     * @param string $module The module name (use ModuleLoader constants)
+     * @param int $timeout Maximum wait time in milliseconds
+     * @return bool True if module loaded successfully
+     */
+    public static function ensureModuleLoaded($module, $timeout = 5000)
+    {
+        return ModuleLoader::waitForModule($module, $timeout);
     }
 
     /**
@@ -523,6 +542,54 @@ class Root
     {
         global $bearsamppHomepage;
         $bearsamppHomepage = new Homepage();
+    }
+
+    /**
+     * Loads the tools components asynchronously.
+     * Tools module loads in background without blocking main thread.
+     */
+    public static function loadToolsAsync()
+    {
+        ModuleLoader::loadAsync(ModuleLoader::TOOLS, function() {
+            global $bearsamppTools;
+            $bearsamppTools = new Tools();
+        });
+    }
+
+    /**
+     * Loads the apps components asynchronously.
+     * Apps module loads in background without blocking main thread.
+     */
+    public static function loadAppsAsync()
+    {
+        ModuleLoader::loadAsync(ModuleLoader::APPS, function() {
+            global $bearsamppApps;
+            $bearsamppApps = new Apps();
+        });
+    }
+
+    /**
+     * Loads the registry settings asynchronously.
+     * Registry operations are slow (COM), loads in background.
+     */
+    public static function loadRegistryAsync()
+    {
+        ModuleLoader::loadAsync(ModuleLoader::REGISTRY, function() {
+            global $bearsamppRegistry;
+            $bearsamppRegistry = new Registry();
+        });
+    }
+
+    /**
+     * Loads the homepage settings asynchronously.
+     * Homepage is for UI display, can load in background.
+     */
+    public static function loadHomepageAsync()
+    {
+        ModuleLoader::loadAsync(ModuleLoader::HOMEPAGE, function() {
+            global $bearsamppHomepage;
+            $bearsamppHomepage = new Homepage();
+        });
     }
 
     /**
