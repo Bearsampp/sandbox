@@ -19,6 +19,7 @@ class Root
 
     public $path;
     private $procs;
+    private $procsLoaded = false;
     private $isRoot;
 
     /**
@@ -70,11 +71,6 @@ class Root
         self::loadRegistry();
         self::loadHomepage();
         Log::separator();
-
-        // Init
-        if ($this->isRoot) {
-            $this->procs = Win32Ps::getListProcs();
-        }
     }
 
     /**
@@ -101,11 +97,16 @@ class Root
 
     /**
      * Retrieves the list of processes.
+     * Lazy loads process list only when accessed.
      *
      * @return array The list of processes.
      */
     public function getProcs()
     {
+        if (!$this->procsLoaded && $this->isRoot()) {
+            $this->procs = Win32Ps::getListProcs();
+            $this->procsLoaded = true;
+        }
         return $this->procs;
     }
 
