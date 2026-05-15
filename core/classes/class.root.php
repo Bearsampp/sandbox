@@ -64,10 +64,10 @@ class Root
         require_once $this->getCorePath() . '/classes/class.cachemanager.php';
         require_once $this->getCorePath() . '/classes/class.fibermoduleloader.php';
 
-        // Initialize cache system (Phase 4: Disk caching for warm starts)
+        // Initialize cache system (disk caching for warm starts)
         CacheManager::init($this->getTmpPath() . '/cache');
 
-        // Initialize fiber loader (Phase 4: True async for 8.1+)
+        // Initialize fiber loader (true async for 8.1+)
         $useFibers = FiberModuleLoader::init();
 
         // Load critical modules synchronously (required for main functionality)
@@ -79,7 +79,7 @@ class Root
         Log::separator();
 
         // Load non-critical modules asynchronously (for UI/admin functions)
-        // Uses Fibers if PHP 8.1+, fallback to Phase 3 deferred loading
+        // Uses Fibers if PHP 8.1+, fallback to deferred loading
         if ($useFibers) {
             self::loadToolsFiber();
             self::loadAppsFiber();
@@ -135,7 +135,7 @@ class Root
     /**
      * Ensures a module is loaded, waiting if it's still loading asynchronously.
      * Safe to call for modules that may be loading in background.
-     * Supports both Phase 3 (ModuleLoader) and Phase 4 (Fibers).
+     * Supports both fiber-based and deferred loading mechanisms.
      *
      * @param string $module The module name (use ModuleLoader constants)
      * @param int $timeout Maximum wait time in milliseconds
@@ -143,17 +143,17 @@ class Root
      */
     public static function ensureModuleLoaded($module, $timeout = 5000)
     {
-        // Try Fiber loader first (Phase 4)
+        // Try Fiber loader first (if available on PHP 8.1+)
         if (FiberModuleLoader::isAvailable()) {
             return FiberModuleLoader::waitForModule($module, $timeout);
         }
 
-        // Fallback to ModuleLoader (Phase 3)
+        // Fallback to deferred loading
         return ModuleLoader::waitForModule($module, $timeout);
     }
 
     /**
-     * Get cache manager statistics (Phase 4 disk caching)
+     * Get cache manager statistics
      * Useful for monitoring warm start performance
      *
      * @return array Cache statistics
@@ -164,7 +164,7 @@ class Root
     }
 
     /**
-     * Clear all configuration caches (Phase 4)
+     * Clear all configuration caches
      * Used on version upgrade or manual reset
      *
      * @return int Number of cache files deleted

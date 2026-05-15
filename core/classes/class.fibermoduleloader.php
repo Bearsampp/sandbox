@@ -30,7 +30,7 @@ class FiberModuleLoader
         self::$enabled = PHP_VERSION_ID >= 80100;
 
         if (!self::$enabled) {
-            Log::warning('FiberModuleLoader unavailable (requires PHP 8.1+, using Phase 3)');
+            Log::warning('FiberModuleLoader unavailable (requires PHP 8.1+, using fallback async)');
         }
 
         return self::$enabled;
