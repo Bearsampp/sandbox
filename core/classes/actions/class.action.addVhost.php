@@ -98,6 +98,13 @@ class ActionAddVhost extends ActionDialogBase
             ];
         }
 
+        if (Path::sanitizePath($values['documentRoot']) === false) {
+             return [
+                'valid' => false,
+                'error' => 'Invalid Document Root path'
+            ];
+        }
+
         return ['valid' => true];
     }
 
@@ -215,5 +222,3 @@ class ActionAddVhost extends ActionDialogBase
         }
     }
 }
-
-

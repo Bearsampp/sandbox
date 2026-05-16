@@ -730,6 +730,7 @@ class BinApache extends Module
     {
         global $bearsamppRoot;
 
+        $documentRoot = Path::sanitizePath( $documentRoot );
         $documentRoot = Path::formatUnixPath( $documentRoot );
 
         return '<VirtualHost *:' . $this->getPort() . '>' . PHP_EOL .
@@ -1067,4 +1068,3 @@ class BinApache extends Module
         return $this->opensslExe;
     }
 }
-

@@ -195,33 +195,16 @@ class UtilInput
     }
 
     /**
-     * Sanitizes a file path by removing null bytes and checking for path traversal attempts.
-     * This is a basic sanitization — paths should still be validated before use.
+     * Sanitizes a file path by removing dangerous characters and preventing traversal.
+     * Uses Path::sanitizePath for the core logic.
      *
      * @param   string  $path  The path to sanitize.
      *
-     * @return string|false Returns the sanitized path, or false if dangerous patterns detected.
+     * @return string|false Returns the sanitized path, or false if invalid.
      */
     public static function sanitizePath($path)
     {
-        if (!is_string($path) || empty($path)) {
-            return false;
-        }
-
-        $sanitized = str_replace("\0", '', $path);
-
-        // Check for path traversal attempts (but allow environment variables)
-        $pathWithoutEnvVars = preg_replace('/%[^%]+%/', '', $sanitized);
-        if (strpos($pathWithoutEnvVars, '..') !== false) {
-            Log::warning('Path traversal attempt detected: ' . $path);
-            return false;
-        }
-
-        // Remove dangerous characters — preserve : for drive letters and ; for PATH
-        // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
-        $sanitized = preg_replace('/[<>"|?*&^`\x00-\x1F]/', '', $sanitized);
-
-        return $sanitized;
+        return Path::sanitizePath($path);
     }
 
     /**
@@ -243,4 +226,3 @@ class UtilInput
         return htmlspecialchars($output, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 }
-
