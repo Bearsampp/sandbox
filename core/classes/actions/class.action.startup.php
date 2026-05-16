@@ -406,45 +406,53 @@ class ActionStartup
 
         // Scripts
         Log::trace("Archiving script files");
-        $srcPath = Path::getCoreTmpPath();
-        $handle = @opendir($srcPath);
-        if (!$handle) {
-            Log::trace("Failed to open tmp directory: " . $srcPath);
-            return;
-        }
+
+        $tmpPaths = array(
+            'core' => Path::getCoreTmpPath(),
+            'user' => Path::getTmpPath()
+        );
 
         $scriptsCopied = 0;
         $scriptsSkipped = 0;
 
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
+        foreach ($tmpPaths as $type => $srcPath) {
+            Log::trace("Archiving $type script files from: " . $srcPath);
+            $handle = @opendir($srcPath);
+            if (!$handle) {
+                Log::trace("Failed to open $type tmp directory: " . $srcPath);
                 continue;
             }
 
-            $sourceFile = $srcPath . '/' . $file;
-            $destFile = $archiveScriptsPath . '/' . $file;
-
-            // Check if file is locked before attempting to copy
-            if ($isFileLocked($sourceFile)) {
-                Log::trace("Skipping locked script file: " . $file);
-                $scriptsSkipped++;
-                continue;
-            }
-
-            try {
-                if (copy($sourceFile, $destFile)) {
-                    $scriptsCopied++;
-                    Log::trace("Archived script file: " . $file);
-                } else {
-                    $scriptsSkipped++;
-                    Log::trace("Failed to copy script file: " . $file);
+            while (false !== ($file = readdir($handle))) {
+                if ($file == '.' || $file == '..' || is_dir($srcPath . '/' . $file)) {
+                    continue;
                 }
-            } catch (Exception $e) {
-                $scriptsSkipped++;
-                Log::trace("Exception copying script file " . $file . ": " . $e->getMessage());
+
+                $sourceFile = $srcPath . '/' . $file;
+                $destFile = $archiveScriptsPath . '/' . $file;
+
+                // Check if file is locked before attempting to copy
+                if ($isFileLocked($sourceFile)) {
+                    Log::trace("Skipping locked $type script file: " . $file);
+                    $scriptsSkipped++;
+                    continue;
+                }
+
+                try {
+                    if (copy($sourceFile, $destFile)) {
+                        $scriptsCopied++;
+                        Log::trace("Archived $type script file: " . $file);
+                    } else {
+                        $scriptsSkipped++;
+                        Log::trace("Failed to copy $type script file: " . $file);
+                    }
+                } catch (Exception $e) {
+                    $scriptsSkipped++;
+                    Log::trace("Exception copying $type script file " . $file . ": " . $e->getMessage());
+                }
             }
+            closedir($handle);
         }
-        closedir($handle);
         Log::trace("Scripts archived: " . $scriptsCopied . " copied, " . $scriptsSkipped . " skipped");
 
         // Purge logs - only delete files that aren't locked
