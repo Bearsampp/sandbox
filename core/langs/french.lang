@@ -221,6 +221,7 @@ vhostNotValidDomain = "Le nom de serveur '%s' n'est pas un nom de domaine valide
 vhostAlreadyExists = "L'hôte virtuel '%s' existe déjà."
 vhostCreated = "Hôte virtuel '%s' créé avec succès.@nl@N'oubliez pas d'ajouter le nom de domaine à votre fichier hosts (via l'outil HostsEditor).@nl@@nl@Url : http://%s/@nl@Chemin : %s"
 vhostCreatedError = "Impossible de créer le fichier de configuration de l'hôte virtuel."
+vhostInvalidDocumentRoot = "Chemin de la racine du document non valide."
 editVhostTitle = "Modifier l'hôte virtuel %s"
 
 ; Action Change port

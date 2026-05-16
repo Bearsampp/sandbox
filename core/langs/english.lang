@@ -221,6 +221,7 @@ vhostNotValidDomain = "The server name '%s' is not a valid domain name."
 vhostAlreadyExists = "Virtual host '%s' already exists."
 vhostCreated = "Virtual host '%s' successfully created.@nl@Do not forget to add the domain name to your hosts file (via HostsEditor tool).@nl@@nl@Url: http://%s/@nl@Path: %s"
 vhostCreatedError = "Unable to create virtual host configuration file."
+vhostInvalidDocumentRoot = "Invalid Document Root path."
 editVhostTitle = "Edit virtual host %s"
 
 ; Action Change port

@@ -717,6 +717,18 @@ class Path
      */
     public static function getTmpPath($aetrayPath = false)
     {
+        return self::getRootPath( $aetrayPath ) . '/tmp';
+    }
+
+    /**
+     * Retrieves the path to the core temporary directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the core temporary directory.
+     */
+    public static function getCoreTmpPath($aetrayPath = false)
+    {
         return self::getCorePath( $aetrayPath ) . '/tmp';
     }
 
@@ -920,6 +932,11 @@ class Path
         // Remove dangerous characters — preserve : for drive letters and ; for PATH
         // Also strip common cmd.exe metacharacters to reduce command-injection risk when paths are interpolated.
         $sanitized = preg_replace('/[<>"|?*&^`\x00-\x1F]/', '', $sanitized);
+
+        $sanitized = trim($sanitized);
+        if ($sanitized === '') {
+            return false;
+        }
 
         return $sanitized;
     }

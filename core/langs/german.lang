@@ -221,6 +221,7 @@ vhostNotValidDomain = "Der Servername '%s' ist kein gültiger Domänenname."
 vhostAlreadyExists = "Der virtuelle Host '%s' existiert bereits."
 vhostCreated = "Der virtuelle Host '%s' wurde erfolgreich erstellt.@nl@Vergessen Sie nicht, den Domänennamen zu Ihrer Hosts-Datei hinzuzufügen (über das Tool HostsEditor).@nl@@nl@Url: http://%s/@nl@Pfad: %s"
 vhostCreatedError = "Konfiguration des virtuellen Hosts konnte nicht erstellt werden."
+vhostInvalidDocumentRoot = "Ungültiger Dokumentenstamm-Pfad."
 editVhostTitle = "Virtuellen Host %s bearbeiten"
 
 ; Action Change port

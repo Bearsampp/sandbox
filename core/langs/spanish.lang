@@ -221,6 +221,7 @@ vhostNotValidDomain = "El nombre del servidor '%s' no es un nombre de dominio v�
 vhostAlreadyExists = "El host virtual '%s' ya existe."
 vhostCreated = "Host virtual '%s' creado con éxito.@nl@No olvide agregar el nombre del dominio a su archivo de hosts (a través de la herramienta HostsEditor).@nl@@nl@Url: http://%s/@nl@Path: %s"
 vhostCreatedError = "No se puede crear el archivo de configuración del host virtual."
+vhostInvalidDocumentRoot = "Ruta de la raíz del documento no válida."
 editVhostTitle = "Editar host virtual %s"
 
 ; Cambiar puerto

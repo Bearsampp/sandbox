@@ -240,6 +240,7 @@ class Lang
     const VHOST_ALREADY_EXISTS = 'vhostAlreadyExists';
     const VHOST_CREATED = 'vhostCreated';
     const VHOST_CREATED_ERROR = 'vhostCreatedError';
+    const VHOST_INVALID_DOCUMENT_ROOT = 'vhostInvalidDocumentRoot';
     const EDIT_VHOST_TITLE = 'editVhostTitle';
 
     // Action Change port
@@ -607,6 +608,7 @@ class Lang
             self::VHOST_ALREADY_EXISTS,
             self::VHOST_CREATED,
             self::VHOST_CREATED_ERROR,
+            self::VHOST_INVALID_DOCUMENT_ROOT,
             self::EDIT_VHOST_TITLE,
 
             // Action Change port
@@ -742,4 +744,3 @@ class Lang
         );
     }
 }
-

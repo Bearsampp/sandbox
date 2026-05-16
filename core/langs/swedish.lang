@@ -221,6 +221,7 @@ vhostNotValidDomain = "#The server name '%s' is not a valid domain name."
 vhostAlreadyExists = "Virtuell värd '%s' finns redan."
 vhostCreated = "#Virtual host '%s' successfully created.@nl@Do not forget to add the domain name to your hosts file (via HostsEditor tool).@nl@@nl@Url: http://%s/@nl@Path: %s"
 vhostCreatedError = "Det går inte att skapa den virtuella värdens konfigurationsfil."
+vhostInvalidDocumentRoot = "#Invalid Document Root path."
 editVhostTitle = "Redigera virtuell värd %s"
 
 : Action Change port

@@ -132,6 +132,13 @@ class ActionEditVhost extends ActionDialogBase
             ];
         }
 
+        if (Path::sanitizePath($values['documentRoot']) === false) {
+             return [
+                'valid' => false,
+                'error' => $bearsamppLang->getValue(Lang::VHOST_INVALID_DOCUMENT_ROOT)
+            ];
+        }
+
         return ['valid' => true];
     }
 
@@ -155,6 +162,11 @@ class ActionEditVhost extends ActionDialogBase
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppOpenSsl;
 
+        $documentRoot = Path::sanitizePath($values['documentRoot']);
+        if ($documentRoot === false) {
+            return false;
+        }
+
         // Remove old vhost and certificate
         $bearsamppOpenSsl->removeCrt($this->initValue);
         @unlink(Path::getVhostsPath() . '/' . $this->initValue . '.conf');
@@ -165,9 +177,14 @@ class ActionEditVhost extends ActionDialogBase
         }
 
         // Create new vhost configuration file
+        $content = $bearsamppBins->getApache()->getVhostContent($values['serverName'], $documentRoot);
+        if ($content === false) {
+            return false;
+        }
+
         return file_put_contents(
             Path::getVhostsPath() . '/' . $values['serverName'] . '.conf',
-            $bearsamppBins->getApache()->getVhostContent($values['serverName'], $values['documentRoot'])
+            $content
         ) !== false;
     }
 
@@ -259,5 +276,3 @@ class ActionEditVhost extends ActionDialogBase
         }
     }
 }
-
-

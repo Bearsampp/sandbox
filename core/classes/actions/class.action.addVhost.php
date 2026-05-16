@@ -101,7 +101,7 @@ class ActionAddVhost extends ActionDialogBase
         if (Path::sanitizePath($values['documentRoot']) === false) {
              return [
                 'valid' => false,
-                'error' => 'Invalid Document Root path'
+                'error' => $bearsamppLang->getValue(Lang::VHOST_INVALID_DOCUMENT_ROOT)
             ];
         }
 
@@ -127,15 +127,25 @@ class ActionAddVhost extends ActionDialogBase
     {
         global $bearsamppRoot, $bearsamppBins, $bearsamppOpenSsl;
 
+        $documentRoot = Path::sanitizePath($values['documentRoot']);
+        if ($documentRoot === false) {
+            return false;
+        }
+
         // Create SSL certificate
         if (!$bearsamppOpenSsl->createCrt($values['serverName'])) {
             return false;
         }
 
         // Create vhost configuration file
+        $content = $bearsamppBins->getApache()->getVhostContent($values['serverName'], $documentRoot);
+        if ($content === false) {
+            return false;
+        }
+
         return file_put_contents(
             Path::getVhostsPath() . '/' . $values['serverName'] . '.conf',
-            $bearsamppBins->getApache()->getVhostContent($values['serverName'], $values['documentRoot'])
+            $content
         ) !== false;
     }
 

@@ -51,12 +51,9 @@ class ActionClearFolders
          * the '.gitignore' file. This ensures that the core temporary path is cleaned without
          * removing the '.gitignore' file which might be necessary for version control.
          *
-         * @param string Path::getTmpPath() The core temporary path to be cleared.
+         * @param string Path::getCoreTmpPath() The core temporary path to be cleared.
          * @param array $exclusions List of folders and files to be excluded from deletion.
          */
-        Util::clearFolder(Path::getTmpPath(), array('.gitignore'));
+        Util::clearFolder(Path::getCoreTmpPath(), array('.gitignore'));
     }
 }
-
-
-

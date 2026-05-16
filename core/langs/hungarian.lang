@@ -221,6 +221,7 @@ vhostNotValidDomain = "A(z) '%s' szervernév nem érvényes domain név"
 vhostAlreadyExists = "Virtuális hoszt '%s' már létezik"
 vhostCreated = "Virtuális hoszt '%s' sikeresen létrehozva@nl@Ne felejtse hozzáadni a domain nevet a hosts file-hoz(HostsEditor eszköz segítségével@nl@@nl@Url: http://%s/@nl@Path: %s"
 vhostCreatedError = "Virtuális hoszt konfig file nem hozható létre"
+vhostInvalidDocumentRoot = "Érvénytelen Document Root útvonal."
 editVhostTitle = "Virtuális hoszt %s szerkesztése"
 
 ; Action Change port

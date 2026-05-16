@@ -406,7 +406,7 @@ class ActionStartup
 
         // Scripts
         Log::trace("Archiving script files");
-        $srcPath = Path::getTmpPath();
+        $srcPath = Path::getCoreTmpPath();
         $handle = @opendir($srcPath);
         if (!$handle) {
             Log::trace("Failed to open tmp directory: " . $srcPath);
@@ -504,7 +504,7 @@ class ActionStartup
 
         $this->writeLog( 'Clear tmp folders' );
         Util::clearFolder( Path::getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'opcache', '.gitignore') );
-        Util::clearFolder( Path::getTmpPath(), array('.gitignore') );
+        Util::clearFolder( Path::getCoreTmpPath(), array('.gitignore') );
 
         // Ensure opcache directory exists for persistent file cache
         $opcachePath = Path::getTmpPath() . DIRECTORY_SEPARATOR . 'opcache';
