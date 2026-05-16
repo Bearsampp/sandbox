@@ -98,7 +98,7 @@ class ActionAddVhost extends ActionDialogBase
             ];
         }
 
-        if (Path::sanitizePath($values['documentRoot']) === false) {
+        if (Path::sanitizePath($values['documentRoot']) !== $values['documentRoot']) {
              return [
                 'valid' => false,
                 'error' => $bearsamppLang->getValue(Lang::VHOST_INVALID_DOCUMENT_ROOT)
