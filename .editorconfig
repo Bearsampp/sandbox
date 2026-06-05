@@ -14,7 +14,3 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
-
-# Vendored Font Awesome assets
-[core/resources/homepage/libs/fontawesome/**/*]
-insert_final_newline = true
