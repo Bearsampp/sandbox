@@ -1,21 +1,17 @@
-name: Build and Deploy on Release
-
+name: Sync Files
 on:
-    push:
-        branches:
-            - main
-    workflow_dispatch:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Run GitHub File Sync
         uses: BetaHuhn/repo-file-sync-action@latest
         with:
           GH_PAT: ${{ secrets.GH_PAT }}
-          CONFIG_PATH: .github/sync.yml
           SKIP_PR: true
-          COMMIT_BODY: "Automated core sync"
-          DELETE_ORPHANED_FILES: true
