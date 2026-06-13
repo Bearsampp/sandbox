@@ -391,15 +391,15 @@ class ActionQuit
 
         // Check common symlink locations
         $symlinkPaths = [
-            $bearsamppRoot->getCurrentPath() . '/apache',
-            $bearsamppRoot->getCurrentPath() . '/php',
-            $bearsamppRoot->getCurrentPath() . '/mysql',
-            $bearsamppRoot->getCurrentPath() . '/mariadb',
-            $bearsamppRoot->getCurrentPath() . '/postgresql',
-            $bearsamppRoot->getCurrentPath() . '/nodejs',
-            $bearsamppRoot->getCurrentPath() . '/memcached',
-            $bearsamppRoot->getCurrentPath() . '/mailpit',
-            $bearsamppRoot->getCurrentPath() . '/xlight'
+            Path::getBinPath() . '/apache',
+            Path::getBinPath() . '/php',
+            Path::getBinPath() . '/mysql',
+            Path::getBinPath() . '/mariadb',
+            Path::getBinPath() . '/postgresql',
+            Path::getBinPath() . '/nodejs',
+            Path::getBinPath() . '/memcached',
+            Path::getBinPath() . '/mailpit',
+            Path::getBinPath() . '/xlight'
         ];
 
         foreach ($symlinkPaths as $path) {
@@ -536,7 +536,7 @@ class ActionQuit
 
         try {
             $procs = Win32Ps::getListProcs();
-            $bearsamppPath = strtolower(Path::formatUnixPath($bearsamppRoot->getRootPath()));
+            $bearsamppPath = strtolower(Path::formatUnixPath(Path::getRootPath()));
             $currentPid = Win32Ps::getCurrentPid();
 
             foreach ($procs as $proc) {
@@ -700,4 +700,3 @@ class ActionQuit
         }
     }
 }
-

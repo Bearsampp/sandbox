@@ -91,11 +91,11 @@ class Log
         // Resolve default file path only when the caller did not supply one
         if ($file === null) {
             $file = $type === self::ERROR
-                ? $bearsamppRoot->getErrorLogFilePath()
-                : $bearsamppRoot->getLogFilePath();
+                ? $bearsamppRoot->path . '/logs/bearsampp-error.log'
+                : $bearsamppRoot->path . '/logs/bearsampp.log';
 
             if (!$bearsamppRoot->isRoot()) {
-                $file = $bearsamppRoot->getHomepageLogFilePath();
+                $file = $bearsamppRoot->path . '/logs/bearsampp-homepage.log';
             }
         }
 
@@ -246,13 +246,13 @@ class Log
         global $bearsamppRoot;
 
         $logs = [
-            $bearsamppRoot->getLogFilePath(),
-            $bearsamppRoot->getErrorLogFilePath(),
-            $bearsamppRoot->getServicesLogFilePath(),
-            $bearsamppRoot->getRegistryLogFilePath(),
-            $bearsamppRoot->getStartupLogFilePath(),
-            $bearsamppRoot->getBatchLogFilePath(),
-            $bearsamppRoot->getWinbinderLogFilePath(),
+            $bearsamppRoot->path . '/logs/bearsampp.log',
+            $bearsamppRoot->path . '/logs/bearsampp-error.log',
+            $bearsamppRoot->path . '/logs/bearsampp-services.log',
+            $bearsamppRoot->path . '/logs/bearsampp-registry.log',
+            $bearsamppRoot->path . '/logs/bearsampp-startup.log',
+            $bearsamppRoot->path . '/logs/bearsampp-batch.log',
+            $bearsamppRoot->path . '/logs/bearsampp-winbinder.log',
         ];
 
         $separator = '========================================================================================' . PHP_EOL;
@@ -343,4 +343,3 @@ class Log
         self::trace('Reload ' . get_class($classInstance));
     }
 }
-
