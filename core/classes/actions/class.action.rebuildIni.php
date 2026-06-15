@@ -45,12 +45,18 @@ ServiceCheckInterval=1
 TrayIconAllRunning=16
 TrayIconSomeRunning=17
 TrayIconNoneRunning=18
-ID={Bearsampp}
+ID={bearsampp}
 AboutHeader=Bearsampp
 AboutVersion=Version @RELEASE_VERSION@
 
 [Services]
+Name: bearsamppmailpit
+Name: bearsamppmemcached
 Name: bearsamppapache
+Name: bearsamppmysql
+Name: bearsamppmariadb
+Name: bearsampppostgresql
+Name: bearsamppxlight
 
 [Messages]
 AllRunningHint=All services running
@@ -76,4 +82,3 @@ EOD;
         Log::trace('Reload action: ' . $reloadAction);
     }
 }
-

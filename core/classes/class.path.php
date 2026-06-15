@@ -171,7 +171,8 @@ class Path
         global $bearsamppRoot;
         $rootPath = self::getRootPath();
         $path = str_replace($rootPath, '', $path);
-        return '%AeTrayMenuPath%' . substr($path, 1, strlen($path));
+        $path = ltrim(self::formatUnixPath($path), '/');
+        return '%AeTrayMenuPath%' . $path;
     }
 
     /**
