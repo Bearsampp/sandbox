@@ -153,6 +153,9 @@ class TplAppTools
                 TplAestan::GLYPH_PWGEN
             ) . PHP_EOL;
 
+        // Line Separator
+        $resultItems .= TplAestan::getItemSeparator() . PHP_EOL;
+
         // Generate SSL Certificate
         $tplGenSslCertificate = TplApp::getActionMulti(
             self::ACTION_GEN_SSL_CERTIFICATE, null,

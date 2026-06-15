@@ -18,6 +18,9 @@ class OpenSsl
     private $wbGenSslBtnCancel;
 
     private $wbDelSslListCerts;
+    private $wbDelSslInputDest;
+    private $wbDelSslBtnDest;
+    private $wbDelSslProgressBar;
     private $wbDelSslBtnDelete;
     private $wbDelSslBtnCancel;
 
@@ -221,21 +224,24 @@ class OpenSsl
      */
     public function delSslCertificate()
     {
-        global $bearsamppLang, $bearsamppWinbinder, $bearsamppOpenSsl;
+        global $bearsamppLang, $bearsamppWinbinder;
+
+        $initServerName = 'test.local';
+        $initDocumentRoot = Path::formatWindowsPath(Path::getSslPath());
 
         $bearsamppWinbinder->reset();
-        $wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::DELSSL_TITLE), 400, 200, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
+        $wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::DELSSL_TITLE), 490, 160, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
 
         $wbLabelName = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::NAME) . ' :', 15, 15, 85, null, WBC_RIGHT);
+        $this->wbDelSslListCerts = $bearsamppWinbinder->createInputText($wbWindow, $initServerName, 105, 13, 150, null);
 
-        $certs = $bearsamppOpenSsl->getCrts();
-        $this->wbDelSslListCerts = $bearsamppWinbinder->createControl($wbWindow, ComboBox, '', 105, 13, 250, 150, CBS_DROPDOWNLIST);
-        foreach ($certs as $cert) {
-            $bearsamppWinbinder->setText($this->wbDelSslListCerts[WinBinder::CTRL_OBJ], $cert);
-        }
+        $wbLabelDest = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::TARGET) . ' :', 15, 45, 85, null, WBC_RIGHT);
+        $this->wbDelSslInputDest = $bearsamppWinbinder->createInputText($wbWindow, $initDocumentRoot, 105, 43, 190, null, null, WBC_READONLY);
+        $this->wbDelSslBtnDest = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_BROWSE), 300, 43, 110);
 
-        $this->wbDelSslBtnDelete = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_DELETE), 105, 92);
-        $this->wbDelSslBtnCancel = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_CANCEL), 192, 92);
+        $this->wbDelSslProgressBar = $bearsamppWinbinder->createProgressBar($wbWindow, 3, 15, 97, 275);
+        $this->wbDelSslBtnDelete = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_DELETE), 300, 92);
+        $this->wbDelSslBtnCancel = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_CANCEL), 387, 92);
 
         $bearsamppWinbinder->setHandler($wbWindow, $this, 'delSslCertificateHandler');
 
@@ -251,10 +257,26 @@ class OpenSsl
         global $bearsamppLang, $bearsamppOpenSsl, $bearsamppWinbinder;
 
         switch ($id) {
+            case $this->wbDelSslBtnDest[WinBinder::CTRL_ID]:
+                $target = $bearsamppWinbinder->getText($this->wbDelSslInputDest[WinBinder::CTRL_OBJ]);
+                $target = $bearsamppWinbinder->sysDlgPath($window, $bearsamppLang->getValue(Lang::GENSSL_PATH), $target);
+                if ($target && is_dir($target)) {
+                    $bearsamppWinbinder->setText($this->wbDelSslInputDest[WinBinder::CTRL_OBJ], $target . '\\');
+                }
+                break;
             case $this->wbDelSslBtnDelete[WinBinder::CTRL_ID]:
                 $cert = $bearsamppWinbinder->getText($this->wbDelSslListCerts[WinBinder::CTRL_OBJ]);
+                $target = $bearsamppWinbinder->getText($this->wbDelSslInputDest[WinBinder::CTRL_OBJ]);
+
                 if ($cert) {
+                    $bearsamppWinbinder->setProgressBarMax($this->wbDelSslProgressBar, 3);
+                    $bearsamppWinbinder->incrProgressBar($this->wbDelSslProgressBar);
+
+                    $target = Path::formatUnixPath($target);
+                    // Since removeCrt doesn't take path yet, we are just using the name for now as it did before
+                    // but we have the path available if removeCrt is updated.
                     if ($bearsamppOpenSsl->removeCrt($cert)) {
+                        $bearsamppWinbinder->incrProgressBar($this->wbDelSslProgressBar);
                         $bearsamppWinbinder->messageBoxInfo(
                             sprintf($bearsamppLang->getValue(Lang::DELSSL_DELETED), $cert),
                             $bearsamppLang->getValue(Lang::DELSSL_TITLE)
@@ -262,6 +284,7 @@ class OpenSsl
                         $bearsamppWinbinder->destroyWindow($window);
                     } else {
                         $bearsamppWinbinder->messageBoxError($bearsamppLang->getValue(Lang::DELSSL_DELETED_ERROR), $bearsamppLang->getValue(Lang::DELSSL_TITLE));
+                        $bearsamppWinbinder->resetProgressBar($this->wbDelSslProgressBar);
                     }
                 }
                 break;
