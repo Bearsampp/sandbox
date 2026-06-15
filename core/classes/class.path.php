@@ -228,8 +228,7 @@ class Path
      */
     public static function getCorePath($aetrayPath = false)
     {
-        global $bearsamppRoot;
-        return $aetrayPath ? self::aetrayPath($bearsamppRoot->path) : $bearsamppRoot->path;
+        return self::getRootPath($aetrayPath) . '/core';
     }
 
     /**
@@ -731,7 +730,7 @@ class Path
      */
     public static function getOpenSslConf($aetrayPath = false)
     {
-        return self::getOpenSslPath( $aetrayPath ) . '/' . Core::OPENSSL_CONF;
+        return self::getSslPath( $aetrayPath ) . '/' . Core::OPENSSL_CONF;
     }
 
     /**
