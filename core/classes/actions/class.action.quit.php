@@ -389,37 +389,47 @@ class ActionQuit
             'remaining' => []
         ];
 
-        // Check common symlink locations
+        // Check the same current-symlink paths that Symlinks::deleteCurrentSymlinks() manages
+        $binPath   = Path::getBinPath();
+        $appsPath  = Path::getAppsPath();
+        $toolsPath = Path::getToolsPath();
         $symlinkPaths = [
-            Path::getBinPath() . '/apache',
-            Path::getBinPath() . '/php',
-            Path::getBinPath() . '/mysql',
-            Path::getBinPath() . '/mariadb',
-            Path::getBinPath() . '/postgresql',
-            Path::getBinPath() . '/nodejs',
-            Path::getBinPath() . '/memcached',
-            Path::getBinPath() . '/mailpit',
-            Path::getBinPath() . '/xlight'
+            $binPath   . '/apache/current',
+            $binPath   . '/php/current',
+            $binPath   . '/mysql/current',
+            $binPath   . '/mariadb/current',
+            $binPath   . '/postgresql/current',
+            $binPath   . '/nodejs/current',
+            $binPath   . '/memcached/current',
+            $binPath   . '/mailpit/current',
+            $binPath   . '/xlight/current',
+            $appsPath  . '/phpmyadmin/current',
+            $appsPath  . '/phppgadmin/current',
+            $toolsPath . '/composer/current',
+            $toolsPath . '/powershell/current',
+            $toolsPath . '/ghostscript/current',
+            $toolsPath . '/git/current',
+            $toolsPath . '/ngrok/current',
+            $toolsPath . '/perl/current',
+            $toolsPath . '/python/current',
+            $toolsPath . '/ruby/current',
+            $toolsPath . '/bruno/current',
         ];
 
         foreach ($symlinkPaths as $path) {
-            if (file_exists($path) || is_link($path)) {
+            if (is_link($path)) {
                 Log::warning('Symlink still exists: ' . $path);
-                $results['remaining'][] = basename($path);
+                $results['remaining'][] = $path;
                 $results['success'] = false;
 
                 // Attempt to remove it
                 try {
-                    if (is_link($path)) {
-                        @unlink($path);
-                    } elseif (is_dir($path)) {
-                        @rmdir($path);
-                    }
+                    @unlink($path);
 
                     // Verify removal
-                    if (!file_exists($path)) {
+                    if (!is_link($path)) {
                         Log::info('Successfully removed remaining symlink: ' . $path);
-                        $results['remaining'] = array_diff($results['remaining'], [basename($path)]);
+                        $results['remaining'] = array_diff($results['remaining'], [$path]);
                         if (empty($results['remaining'])) {
                             $results['success'] = true;
                         }
