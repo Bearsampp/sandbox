@@ -357,10 +357,13 @@ class Win32Service
 
         if ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
             Log::trace("PostgreSQL service detected - using specialized installation");
-            $bearsamppBins->getPostgresql()->rebuildConf();
+            $bin = $bearsamppBins->getPostgresql();
+            if (method_exists($bin, 'rebuildConf')) {
+                $bin->rebuildConf();
+            }
             Log::trace("PostgreSQL configuration rebuilt");
 
-            $bearsamppBins->getPostgresql()->initData();
+            $bin->initData();
             Log::trace("PostgreSQL data initialized");
 
             $result = Batch::installPostgresqlService();
@@ -542,17 +545,29 @@ class Win32Service
             $bearsamppBins->getMariadb()->initData();
         }
         elseif ( $this->getName() == BinMailpit::SERVICE_NAME ) {
-            $bearsamppBins->getMailpit()->rebuildConf();
+            $bin = $bearsamppBins->getMailpit();
+            if (method_exists($bin, 'rebuildConf')) {
+                $bin->rebuildConf();
+            }
         }
         elseif ( $this->getName() == BinMemcached::SERVICE_NAME ) {
-            $bearsamppBins->getMemcached()->rebuildConf();
+            $bin = $bearsamppBins->getMemcached();
+            if (method_exists($bin, 'rebuildConf')) {
+                $bin->rebuildConf();
+            }
         }
         elseif ( $this->getName() == BinPostgresql::SERVICE_NAME ) {
-            $bearsamppBins->getPostgresql()->rebuildConf();
-            $bearsamppBins->getPostgresql()->initData();
+            $bin = $bearsamppBins->getPostgresql();
+            if (method_exists($bin, 'rebuildConf')) {
+                $bin->rebuildConf();
+            }
+            $bin->initData();
         }
         elseif ( $this->getName() == BinXlight::SERVICE_NAME ) {
-            $bearsamppBins->getXlight()->rebuildConf();
+            $bin = $bearsamppBins->getXlight();
+            if (method_exists($bin, 'rebuildConf')) {
+                $bin->rebuildConf();
+            }
         }
 
 
@@ -568,30 +583,33 @@ class Win32Service
             Log::error('Failed to start service: ' . $this->getName() . ' with error code: ' . $start);
 
             if ( $this->getName() == BinApache::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getApache()->getCmdLineOutput( BinApache::CMD_SYNTAX_CHECK );
+                $bin = $bearsamppBins->getApache();
+                $cmdOutput = $bin->getCmdLineOutput( BinApache::CMD_SYNTAX_CHECK );
                 if ( !$cmdOutput['syntaxOk'] ) {
                     file_put_contents(
-                        $bearsamppBins->getApache()->getErrorLog(),
+                        $bin->getErrorLog(),
                         '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
             }
             elseif ( $this->getName() == BinMysql::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMysql()->getCmdLineOutput( BinMysql::CMD_SYNTAX_CHECK );
+                $bin = $bearsamppBins->getMysql();
+                $cmdOutput = $bin->getCmdLineOutput( BinMysql::CMD_SYNTAX_CHECK );
                 if ( !$cmdOutput['syntaxOk'] ) {
                     file_put_contents(
-                        $bearsamppBins->getMysql()->getErrorLog(),
+                        $bin->getErrorLog(),
                         '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
                 }
             }
             elseif ( $this->getName() == BinMariadb::SERVICE_NAME ) {
-                $cmdOutput = $bearsamppBins->getMariadb()->getCmdLineOutput( BinMariadb::CMD_SYNTAX_CHECK );
+                $bin = $bearsamppBins->getMariadb();
+                $cmdOutput = $bin->getCmdLineOutput( BinMariadb::CMD_SYNTAX_CHECK );
                 if ( !$cmdOutput['syntaxOk'] ) {
                     file_put_contents(
-                        $bearsamppBins->getMariadb()->getErrorLog(),
+                        $bin->getErrorLog(),
                         '[' . date( 'Y-m-d H:i:s', time() ) . '] [error] ' . $cmdOutput['content'] . PHP_EOL,
                         FILE_APPEND
                     );
@@ -1256,4 +1274,3 @@ class Win32Service
         return true;
     }
 }
-

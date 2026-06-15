@@ -686,6 +686,42 @@ class Path
     }
 
     /**
+     * Retrieves the path to the Mailpit directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the Mailpit directory.
+     */
+    public static function getMailpitPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/mailpit';
+    }
+
+    /**
+     * Retrieves the path to the Memcached directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the Memcached directory.
+     */
+    public static function getMemcachedPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/memcached';
+    }
+
+    /**
+     * Retrieves the path to the Xlight directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the Xlight directory.
+     */
+    public static function getXlightPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/xlight';
+    }
+
+    /**
      * Retrieves the current path.
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.

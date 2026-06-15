@@ -777,6 +777,36 @@ class Util
             );
         }
 
+        // Mailpit
+        $folderList = self::getFolderList(Path::getMailpitPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => Path::getMailpitPath() . '/' . $folder,
+                'includes'  => array('.ini'),
+                'recursive' => false
+            );
+        }
+
+        // Memcached
+        $folderList = self::getFolderList(Path::getMemcachedPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => Path::getMemcachedPath() . '/' . $folder,
+                'includes'  => array('.ini'),
+                'recursive' => false
+            );
+        }
+
+        // Xlight
+        $folderList = self::getFolderList(Path::getXlightPath());
+        foreach ($folderList as $folder) {
+            $paths[] = array(
+                'path'      => Path::getXlightPath() . '/' . $folder,
+                'includes'  => array('.ini'),
+                'recursive' => false
+            );
+        }
+
         // Composer
         $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
         foreach ($folderList as $folder) {
@@ -1579,16 +1609,17 @@ class Util
 
         // Add paths for enabled bins
         if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getApachePath() . '/bin;';
         }
         if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
+            $phpPath = Path::getPhpPath();
+            $paths .= $phpPath . ';';
+            $paths .= $phpPath . '/pear;';
+            $paths .= $phpPath . '/deps;';
+            $paths .= $phpPath . '/imagick;';
         }
         if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
+            $paths .= Path::getNodejsPath() . ';';
         }
         if ($bearsamppTools->getComposer()->isEnable()) {
             $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';

@@ -248,16 +248,17 @@ class Registry
             global $bearsamppBins, $bearsamppTools;
             $value = '';
             if ($bearsamppBins->getApache()->isEnable()) {
-                $value .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
+                $value .= Path::getApachePath() . '/bin;';
             }
             if ($bearsamppBins->getPhp()->isEnable()) {
-                $value .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-                $value .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-                $value .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-                $value .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
+                $phpPath = Path::getPhpPath();
+                $value .= $phpPath . ';';
+                $value .= $phpPath . '/pear;';
+                $value .= $phpPath . '/deps;';
+                $value .= $phpPath . '/imagick;';
             }
             if ($bearsamppBins->getNodejs()->isEnable()) {
-                $value .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
+                $value .= Path::getNodejsPath() . ';';
             }
             if ($bearsamppTools->getComposer()->isEnable()) {
                 $value .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
@@ -393,4 +394,3 @@ class Registry
         return $this->latestError;
     }
 }
-

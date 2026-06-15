@@ -203,9 +203,11 @@ class Root
     public function getLocalUrl($request = null)
     {
         global $bearsamppBins;
+        $apache = $bearsamppBins->getApache();
+
         return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
             (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
-            ($bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
+            ($apache->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $apache->getPort() : '') .
             (!empty($request) ? '/' . $request : '');
     }
 

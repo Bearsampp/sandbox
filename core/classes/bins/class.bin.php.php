@@ -199,8 +199,9 @@ class BinPhp extends Module
         $bearsamppConf = str_replace('php' . $this->getVersion(), 'php' . $version, $this->bearsamppConf);
         Log::trace('Current bearsampp.conf php version found: ' . $bearsamppConf);
 
+        $apache = $bearsamppBins->getApache();
         $tsDll = $this->getTsDll($version);
-        $apachePhpModulePath = $this->getApacheModule($bearsamppBins->getApache()->getVersion(), $version);
+        $apachePhpModulePath = $this->getApacheModule($apache->getVersion(), $version);
 
         Log::debug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'PHP TsDll found: ' . $tsDll);
         Log::debug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'PHP Apache module found: ' . $apachePhpModulePath);
@@ -229,10 +230,10 @@ class BinPhp extends Module
         }
 
         if ($tsDll === false || $apachePhpModulePath === false) {
-            Log::debug($this->getName() . ' ' . $version . ' does not seem to be compatible with Apache ' . $bearsamppBins->getApache()->getVersion());
+            Log::debug($this->getName() . ' ' . $version . ' does not seem to be compatible with Apache ' . $apache->getVersion());
             if ($showWindow) {
                 $bearsamppWinbinder->messageBoxError(
-                    sprintf($bearsamppLang->getValue(Lang::PHP_INCPT), $version, $bearsamppBins->getApache()->getVersion()),
+                    sprintf($bearsamppLang->getValue(Lang::PHP_INCPT), $version, $apache->getVersion()),
                     $boxTitle
                 );
             }
