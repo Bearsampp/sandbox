@@ -122,7 +122,7 @@ class BinPhp extends Module
         parent::reload($id, $type);
 
         $this->enable = $this->enable && $bearsamppConfig->getRaw(self::ROOT_CFG_ENABLE);
-        $this->apacheConf = $bearsamppBins->getApache()->getCurrentPath() . '/' . $this->apacheConf; //FIXME: Useful ?
+        $this->apacheConf = Path::getApachePath() . '/' . $this->apacheConf;
         $this->errorLog = Path::getLogsPath() . '/php_error.log';
 
         if ($this->bearsamppConfRaw !== false) {
@@ -561,7 +561,7 @@ class BinPhp extends Module
     public function getExtensionsFromFolder() {
         $result = array();
 
-        $handle = @opendir($this->getCurrentPath(). '/ext');
+        $handle = @opendir(Path::getPhpPath() . '/ext');
         if (!$handle) {
             return $result;
         }
@@ -592,7 +592,7 @@ class BinPhp extends Module
         $apacheVersion = substr(str_replace('.', '', $apacheVersion), 0, 2);
         $phpVersion = $phpVersion == null ? $this->getVersion() : $phpVersion;
 
-        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->getCurrentPath());
+        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, Path::getPhpPath());
         $bearsamppConf = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->bearsamppConf);
 
         if (in_array($phpVersion, $this->getVersionList()) && file_exists($bearsamppConf)) {
@@ -619,7 +619,7 @@ class BinPhp extends Module
      */
     public function getTsDll($phpVersion = null) {
         $phpVersion = $phpVersion == null ? $this->getVersion() : $phpVersion;
-        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, $this->getCurrentPath());
+        $currentPath = str_replace('php' . $this->getVersion(), 'php' . $phpVersion, Path::getPhpPath());
 
         if (file_exists($currentPath . '/php7ts.dll')) {
             return 'php7ts.dll';
@@ -729,10 +729,9 @@ class BinPhp extends Module
      * @return string|null The PEAR version, or null if not found.
      */
     public function getPearVersion($cache = false) {
-        $cacheFile = $this->getCurrentPath() . '/pear/version';
+        $cacheFile = Path::getPhpPath() . '/pear/version';
         if (!$cache) {
             file_put_contents($cacheFile, Batch::getPearVersion());
         }
         return file_exists($cacheFile) ? file_get_contents($cacheFile) : null;
     }}
-

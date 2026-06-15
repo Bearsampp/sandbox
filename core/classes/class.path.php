@@ -228,8 +228,7 @@ class Path
      */
     public static function getCorePath($aetrayPath = false)
     {
-        global $bearsamppRoot;
-        return $aetrayPath ? self::aetrayPath($bearsamppRoot->path) : $bearsamppRoot->path;
+        return self::getCurrentPath($aetrayPath);
     }
 
     /**
@@ -624,6 +623,78 @@ class Path
     public static function getLastPath($aetrayPath = false)
     {
         return self::getResourcesPath( $aetrayPath ) . '/' . Core::LAST_PATH;
+    }
+
+    /**
+     * Retrieves the path to the Node.js directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the Node.js directory.
+     */
+    public static function getNodejsPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/nodejs';
+    }
+
+    /**
+     * Retrieves the path to the Apache directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the Apache directory.
+     */
+    public static function getApachePath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/apache';
+    }
+
+    /**
+     * Retrieves the path to the MariaDB directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the MariaDB directory.
+     */
+    public static function getMariaDbPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/mariadb';
+    }
+
+    /**
+     * Retrieves the path to the MySQL directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the MySQL directory.
+     */
+    public static function getMysqlPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/mysql';
+    }
+
+    /**
+     * Retrieves the path to the PostgreSQL directory.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The path to the PostgreSQL directory.
+     */
+    public static function getPostgreSqlPath($aetrayPath = false)
+    {
+        return self::getBinPath( $aetrayPath ) . '/postgresql';
+    }
+
+    /**
+     * Retrieves the current path.
+     *
+     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
+     *
+     * @return string The current path.
+     */
+    public static function getCurrentPath($aetrayPath = false)
+    {
+        return self::getCorePath($aetrayPath);
     }
 
     /**

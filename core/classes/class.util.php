@@ -704,45 +704,45 @@ class Util
         );
 
         // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
+        $folderList = self::getFolderList(Path::getApachePath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
+                'path'      => Path::getApachePath() . '/' . $folder,
                 'includes'  => array('.ini', '.conf'),
                 'recursive' => true
             );
         }
 
         // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
+        $folderList = self::getFolderList(Path::getPhpPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
+                'path'      => Path::getPhpPath() . '/' . $folder,
                 'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
                 'recursive' => true
             );
         }
 
         // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
+        $folderList = self::getFolderList(Path::getMysqlPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
+                'path'      => Path::getMysqlPath() . '/' . $folder,
                 'includes'  => array('my.ini'),
                 'recursive' => false
             );
         }
 
         // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
+        $folderList = self::getFolderList(Path::getMariaDbPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
+                'path'      => Path::getMariaDbPath() . '/' . $folder,
                 'includes'  => array('my.ini'),
                 'recursive' => false
             );
             // Also scan data directory for my.ini (created during initialization)
-            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
+            $dataPath = Path::getMariaDbPath() . '/' . $folder . '/data';
             if (is_dir($dataPath)) {
                 $paths[] = array(
                     'path'      => $dataPath,
@@ -753,25 +753,25 @@ class Util
         }
 
         // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
+        $folderList = self::getFolderList(Path::getPostgreSqlPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
+                'path'      => Path::getPostgreSqlPath() . '/' . $folder,
                 'includes'  => array( '.conf', '.bat', '.ber'),
                 'recursive' => true
             );
         }
 
         // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
+        $folderList = self::getFolderList(Path::getNodejsPath());
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
+                'path'      => Path::getNodejsPath() . '/' . $folder . '/etc',
                 'includes'  => array('npmrc'),
                 'recursive' => true
             );
             $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/node_modules/npm',
+                'path'      => Path::getNodejsPath() . '/' . $folder . '/node_modules/npm',
                 'includes'  => array('npmrc'),
                 'recursive' => false
             );
