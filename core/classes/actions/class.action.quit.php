@@ -424,10 +424,11 @@ class ActionQuit
 
                 // Attempt to remove it
                 try {
-                    @unlink($path);
+                    // On Windows, directory junctions require rmdir(); fall back if unlink() fails
+                    @unlink($path) || @rmdir($path);
 
                     // Verify removal
-                    if (!is_link($path)) {
+                    if (!is_link($path) && !file_exists($path)) {
                         Log::info('Successfully removed remaining symlink: ' . $path);
                         $results['remaining'] = array_diff($results['remaining'], [$path]);
                         if (empty($results['remaining'])) {
