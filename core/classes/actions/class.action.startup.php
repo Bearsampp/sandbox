@@ -867,17 +867,31 @@ class ActionStartup
     }
 
     /**
-     * Creates SSL certificates if they do not already exist.
+     * Creates SSL certificates if they do not already exist or are expired.
      * Logs the creation process.
      */
     private function createSslCrts()
     {
-        global $bearsamppLang, $bearsamppOpenSsl;
+        global $bearsamppLang, $bearsamppOpenSsl, $bearsamppBins;
 
         $this->splash->incrProgressBar();
-        if ( !$bearsamppOpenSsl->existsCrt( 'localhost' ) ) {
-            $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_GEN_SSL_CRT_TEXT ), 'localhost' ) );
-            $bearsamppOpenSsl->createCrt( 'localhost' );
+
+        // Always ensure localhost exists and is valid
+        if ($bearsamppOpenSsl->isExpired('localhost')) {
+            $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), 'localhost'));
+            $bearsamppOpenSsl->createCrt('localhost');
+        }
+
+        // Also check all Apache vhosts
+        $apache = $bearsamppBins->getApache();
+        if ($apache) {
+            $vhosts = $apache->getVhosts();
+            foreach ($vhosts as $vhost) {
+                if ($bearsamppOpenSsl->isExpired($vhost)) {
+                    $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), $vhost));
+                    $bearsamppOpenSsl->createCrt($vhost);
+                }
+            }
         }
     }
 
