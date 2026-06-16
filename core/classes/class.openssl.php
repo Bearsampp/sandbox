@@ -69,7 +69,7 @@ class OpenSsl
 
         $batch .= ':EOF' . PHP_EOL;
         $batch .= 'SET RESULT=KO' . PHP_EOL;
-        $batch .= 'IF EXIST ' . $pubPath . ' IF EXIST ' . $crtPath . ' SET RESULT=OK' . PHP_EOL;
+        $batch .= 'IF EXIST ' . $ppkPath . ' IF EXIST ' . $pubPath . ' IF EXIST ' . $crtPath . ' SET RESULT=OK' . PHP_EOL;
         $batch .= 'ECHO %RESULT%';
 
         Log::trace('Creating SSL Certificate for "' . $name . '"');
@@ -87,153 +87,6 @@ class OpenSsl
         Log::trace('SSL Certificate generation for "' . $name . '": ' . ($success ? 'SUCCESS' : 'FAILURE'));
 
         return $success;
-    }
-
-    /**
-     * Checks if a certificate with the specified name exists.
-     *
-     * @param string $name The name of the certificate.
-     * @return bool True if the certificate exists, false otherwise.
-     */
-    public function existsCrt($name)
-    {
-        global $bearsamppRoot;
-
-        $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
-        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
-        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
-
-        return is_file($ppkPath) && is_file($pubPath) && is_file($crtPath);
-    }
-
-    /**
-     * Checks if a certificate with the specified name is expired or about to expire.
-     *
-     * @param string $name The name of the certificate.
-     * @return bool True if the certificate is expired or missing, false otherwise.
-     */
-    public function isExpired($name)
-    {
-        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
-        if (!is_file($crtPath)) {
-            Log::trace('SSL certificate file missing: ' . $crtPath);
-            return true;
-        }
-
-        $crtContent = file_get_contents($crtPath);
-        if ($crtContent === false) {
-            Log::error('Could not read certificate file: ' . $crtPath);
-            return true;
-        }
-
-        $certInfo = openssl_x509_parse($crtContent);
-        if ($certInfo === false) {
-            Log::error('Could not parse certificate: ' . $crtPath . '. OpenSSL error: ' . openssl_error_string());
-            return true;
-        }
-
-        if (isset($certInfo['validTo_time_t'])) {
-            $isExpired = $certInfo['validTo_time_t'] < time();
-            if ($isExpired) {
-                Log::trace('SSL certificate expired: ' . $name . ' (Expired on ' . date('Y-m-d H:i:s', $certInfo['validTo_time_t']) . ')');
-            }
-            return $isExpired;
-        }
-
-        Log::error('Could not find expiry date in certificate: ' . $crtPath);
-        return true;
-    }
-
-    /**
-     * Retrieves existing certificates from the SSL directory.
-     *
-     * @return array List of certificate names.
-     */
-    public function getCrts()
-    {
-        $sslPath = Path::getSslPath();
-        $certs = [];
-        if (is_dir($sslPath)) {
-            $files = glob($sslPath . '/*.crt');
-            if ($files !== false) {
-                foreach ($files as $file) {
-                    $certs[] = basename($file, '.crt');
-                }
-            }
-        }
-        sort($certs);
-        return $certs;
-    }
-
-    /**
-     * Displays a WinBinder GUI for generating an SSL certificate.
-     */
-    public function genSslCertificate()
-    {
-        global $bearsamppLang, $bearsamppWinbinder;
-
-        $initServerName = 'test.local';
-        $initDocumentRoot = Path::formatWindowsPath(Path::getSslPath());
-
-        $bearsamppWinbinder->reset();
-        $wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::GENSSL_TITLE), 490, 160, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
-
-        $wbLabelName = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::NAME) . ' :', 15, 15, 85, null, WBC_RIGHT);
-        $this->wbGenSslInputName = $bearsamppWinbinder->createInputText($wbWindow, $initServerName, 105, 13, 150, null);
-
-        $wbLabelDest = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::TARGET) . ' :', 15, 45, 85, null, WBC_RIGHT);
-        $this->wbGenSslInputDest = $bearsamppWinbinder->createInputText($wbWindow, $initDocumentRoot, 105, 43, 190, null, null, WBC_READONLY);
-        $this->wbGenSslBtnDest = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_BROWSE), 300, 43, 110);
-
-        $this->wbGenSslProgressBar = $bearsamppWinbinder->createProgressBar($wbWindow, 3, 15, 97, 275);
-        $this->wbGenSslBtnSave = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_SAVE), 300, 92);
-        $this->wbGenSslBtnCancel = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_CANCEL), 387, 92);
-
-        $bearsamppWinbinder->setHandler($wbWindow, $this, 'genSslCertificateHandler');
-
-        $bearsamppWinbinder->mainLoop();
-        $bearsamppWinbinder->reset();
-    }
-
-    /**
-     * Handler for the SSL certificate generation WinBinder GUI.
-     */
-    public function genSslCertificateHandler($window, $id, $ctrl, $param1, $param2)
-    {
-        global $bearsamppLang, $bearsamppOpenSsl, $bearsamppWinbinder;
-
-        switch ($id) {
-            case $this->wbGenSslBtnDest[WinBinder::CTRL_ID]:
-                $target = $bearsamppWinbinder->getText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ]);
-                $target = $bearsamppWinbinder->sysDlgPath($window, $bearsamppLang->getValue(Lang::GENSSL_PATH), $target);
-                if ($target && is_dir($target)) {
-                    $bearsamppWinbinder->setText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ], $target . '\\');
-                }
-                break;
-            case $this->wbGenSslBtnSave[WinBinder::CTRL_ID]:
-                $name = $bearsamppWinbinder->getText($this->wbGenSslInputName[WinBinder::CTRL_OBJ]);
-                $target = $bearsamppWinbinder->getText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ]);
-
-                $bearsamppWinbinder->setProgressBarMax($this->wbGenSslProgressBar, 3);
-                $bearsamppWinbinder->incrProgressBar($this->wbGenSslProgressBar);
-
-                $target = Path::formatUnixPath($target);
-                if ($bearsamppOpenSsl->createCrt($name, $target)) {
-                    $bearsamppWinbinder->incrProgressBar($this->wbGenSslProgressBar);
-                    $bearsamppWinbinder->messageBoxInfo(
-                        sprintf($bearsamppLang->getValue(Lang::GENSSL_CREATED), $name),
-                        $bearsamppLang->getValue(Lang::GENSSL_TITLE));
-                    $bearsamppWinbinder->destroyWindow($window);
-                } else {
-                    $bearsamppWinbinder->messageBoxError($bearsamppLang->getValue(Lang::GENSSL_CREATED_ERROR), $bearsamppLang->getValue(Lang::GENSSL_TITLE));
-                    $bearsamppWinbinder->resetProgressBar($this->wbGenSslProgressBar);
-                }
-                break;
-            case IDCLOSE:
-            case $this->wbGenSslBtnCancel[WinBinder::CTRL_ID]:
-                $bearsamppWinbinder->destroyWindow($window);
-                break;
-        }
     }
 
     /**
@@ -317,6 +170,153 @@ class OpenSsl
     }
 
     /**
+     * Checks if a certificate with the specified name exists.
+     *
+     * @param string $name The name of the certificate.
+     * @return bool True if the certificate exists, false otherwise.
+     */
+    public function existsCrt($name)
+    {
+        global $bearsamppRoot;
+
+        $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
+        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
+        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
+
+        return is_file($ppkPath) && is_file($pubPath) && is_file($crtPath);
+    }
+
+    /**
+     * Displays a WinBinder GUI for generating an SSL certificate.
+     */
+    public function genSslCertificate()
+    {
+        global $bearsamppLang, $bearsamppWinbinder;
+
+        $initServerName = 'test.local';
+        $initDocumentRoot = Path::formatWindowsPath(Path::getSslPath());
+
+        $bearsamppWinbinder->reset();
+        $wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::GENSSL_TITLE), 490, 160, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);
+
+        $wbLabelName = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::NAME) . ' :', 15, 15, 85, null, WBC_RIGHT);
+        $this->wbGenSslInputName = $bearsamppWinbinder->createInputText($wbWindow, $initServerName, 105, 13, 150, null);
+
+        $wbLabelDest = $bearsamppWinbinder->createLabel($wbWindow, $bearsamppLang->getValue(Lang::TARGET) . ' :', 15, 45, 85, null, WBC_RIGHT);
+        $this->wbGenSslInputDest = $bearsamppWinbinder->createInputText($wbWindow, $initDocumentRoot, 105, 43, 190, null, null, WBC_READONLY);
+        $this->wbGenSslBtnDest = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_BROWSE), 300, 43, 110);
+
+        $this->wbGenSslProgressBar = $bearsamppWinbinder->createProgressBar($wbWindow, 3, 15, 97, 275);
+        $this->wbGenSslBtnSave = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_SAVE), 300, 92);
+        $this->wbGenSslBtnCancel = $bearsamppWinbinder->createButton($wbWindow, $bearsamppLang->getValue(Lang::BUTTON_CANCEL), 387, 92);
+
+        $bearsamppWinbinder->setHandler($wbWindow, $this, 'genSslCertificateHandler');
+
+        $bearsamppWinbinder->mainLoop();
+        $bearsamppWinbinder->reset();
+    }
+
+    /**
+     * Handler for the SSL certificate generation WinBinder GUI.
+     */
+    public function genSslCertificateHandler($window, $id, $ctrl, $param1, $param2)
+    {
+        global $bearsamppLang, $bearsamppOpenSsl, $bearsamppWinbinder;
+
+        switch ($id) {
+            case $this->wbGenSslBtnDest[WinBinder::CTRL_ID]:
+                $target = $bearsamppWinbinder->getText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ]);
+                $target = $bearsamppWinbinder->sysDlgPath($window, $bearsamppLang->getValue(Lang::GENSSL_PATH), $target);
+                if ($target && is_dir($target)) {
+                    $bearsamppWinbinder->setText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ], $target . '\\');
+                }
+                break;
+            case $this->wbGenSslBtnSave[WinBinder::CTRL_ID]:
+                $name = $bearsamppWinbinder->getText($this->wbGenSslInputName[WinBinder::CTRL_OBJ]);
+                $target = $bearsamppWinbinder->getText($this->wbGenSslInputDest[WinBinder::CTRL_OBJ]);
+
+                $bearsamppWinbinder->setProgressBarMax($this->wbGenSslProgressBar, 3);
+                $bearsamppWinbinder->incrProgressBar($this->wbGenSslProgressBar);
+
+                $target = Path::formatUnixPath($target);
+                if ($bearsamppOpenSsl->createCrt($name, $target)) {
+                    $bearsamppWinbinder->incrProgressBar($this->wbGenSslProgressBar);
+                    $bearsamppWinbinder->messageBoxInfo(
+                        sprintf($bearsamppLang->getValue(Lang::GENSSL_CREATED), $name),
+                        $bearsamppLang->getValue(Lang::GENSSL_TITLE));
+                    $bearsamppWinbinder->destroyWindow($window);
+                } else {
+                    $bearsamppWinbinder->messageBoxError($bearsamppLang->getValue(Lang::GENSSL_CREATED_ERROR), $bearsamppLang->getValue(Lang::GENSSL_TITLE));
+                    $bearsamppWinbinder->resetProgressBar($this->wbGenSslProgressBar);
+                }
+                break;
+            case IDCLOSE:
+            case $this->wbGenSslBtnCancel[WinBinder::CTRL_ID]:
+                $bearsamppWinbinder->destroyWindow($window);
+                break;
+        }
+    }
+
+    /**
+     * Retrieves existing certificates from the SSL directory.
+     *
+     * @return array List of certificate names.
+     */
+    public function getCrts()
+    {
+        $sslPath = Path::getSslPath();
+        $certs = [];
+        if (is_dir($sslPath)) {
+            $files = glob($sslPath . '/*.crt');
+            if ($files !== false) {
+                foreach ($files as $file) {
+                    $certs[] = basename($file, '.crt');
+                }
+            }
+        }
+        sort($certs);
+        return $certs;
+    }
+
+    /**
+     * Checks if a certificate with the specified name is expired or about to expire.
+     *
+     * @param string $name The name of the certificate.
+     * @return bool True if the certificate is expired or missing, false otherwise.
+     */
+    public function isExpired($name)
+    {
+        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
+        if (!is_file($crtPath)) {
+            Log::trace('SSL certificate file missing: ' . $crtPath);
+            return true;
+        }
+
+        $crtContent = file_get_contents($crtPath);
+        if ($crtContent === false) {
+            Log::error('Could not read certificate file: ' . $crtPath);
+            return true;
+        }
+
+        $certInfo = openssl_x509_parse($crtContent);
+        if ($certInfo === false) {
+            Log::error('Could not parse certificate: ' . $crtPath . '. OpenSSL error: ' . openssl_error_string());
+            return true;
+        }
+
+        if (isset($certInfo['validTo_time_t'])) {
+            $isExpired = $certInfo['validTo_time_t'] < time();
+            if ($isExpired) {
+                Log::trace('SSL certificate expired: ' . $name . ' (Expired on ' . date('Y-m-d H:i:s', $certInfo['validTo_time_t']) . ')');
+            }
+            return $isExpired;
+        }
+
+        Log::error('Could not find expiry date in certificate: ' . $crtPath);
+        return true;
+    }
+
+    /**
      * Removes a certificate with the specified name.
      *
      * @param string $name The name of the certificate.
@@ -341,6 +341,7 @@ class OpenSsl
         $pubPath = $destPath . '/' . $name . '.pub';
         $crtPath = $destPath . '/' . $name . '.crt';
 
+        Log::info('Removing SSL certificate: ' . $name . ' from ' . $destPath);
         return @unlink($ppkPath) && @unlink($pubPath) && @unlink($crtPath);
     }
 }

@@ -878,9 +878,19 @@ class ActionStartup
 
         // Always ensure localhost exists and is valid
         if ($bearsamppOpenSsl->isExpired('localhost')) {
-            Log::info('SSL certificate for "localhost" is missing or expired. Creating new one...');
+            Log::info('SSL certificate for "localhost" is missing or expired. Checking if creation is necessary...');
             $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), 'localhost'));
+            
+            // Only create if NOT present or REALLY expired
+            // (isExpired already returns true if missing)
             $bearsamppOpenSsl->createCrt('localhost');
+            
+            // Re-verify after creation to log success/failure
+            if ($bearsamppOpenSsl->isExpired('localhost')) {
+                Log::error('FAILED to create/verify localhost SSL certificate.');
+            } else {
+                Log::info('Successfully verified localhost SSL certificate.');
+            }
         } else {
             Log::trace('SSL certificate for "localhost" is valid.');
         }

@@ -13,26 +13,26 @@
  */
 class Symlinks
 {
-    const PHPMYADMIN_SYMLINK = 'phpmyadmin';
-    const PHPPGADMIN_SYMLINK = 'phppgadmin';
     const APACHE_SYMLINK = 'apache';
+    const BRUNO_SYMLINK = 'bruno';
+    const COMPOSER_SYMLINK = 'composer';
+    const GHOSTSCRIPT_SYMLINK = 'ghostscript';
+    const GIT_SYMLINK = 'git';
+    const MAILPIT_SYMLINK = 'mailpit';
     const MARIADB_SYMLINK = 'mariadb';
     const MEMCACHED_SYMLINK = 'memcached';
     const MYSQL_SYMLINK = 'mysql';
-    const NODEJS_SYMLINK = 'nodejs';
-    const PHP_SYMLINK = 'php';
-    const POSTGRESQL_SYMLINK = 'postgresql';
-    const COMPOSER_SYMLINK = 'composer';
-    const POWERSHELL_SYMLINK = 'powershell';
-    const GHOSTSCRIPT_SYMLINK = 'ghostscript';
-    const GIT_SYMLINK = 'git';
     const NGROK_SYMLINK = 'ngrok';
+    const NODEJS_SYMLINK = 'nodejs';
     const PERL_SYMLINK = 'perl';
+    const PHP_SYMLINK = 'php';
+    const PHPMYADMIN_SYMLINK = 'phpmyadmin';
+    const PHPPGADMIN_SYMLINK = 'phppgadmin';
+    const POSTGRESQL_SYMLINK = 'postgresql';
+    const POWERSHELL_SYMLINK = 'powershell';
     const PYTHON_SYMLINK = 'python';
     const RUBY_SYMLINK = 'ruby';
     const XLIGHT_SYMLINK = 'xlight';
-    const MAILPIT_SYMLINK = 'mailpit';
-    const BRUNO_SYMLINK = 'bruno';
 
     /**
      * @var bool Whether to skip symlink creation.
@@ -276,26 +276,26 @@ class Symlinks
         $toolsPath = Path::getToolsPath();
 
         $array = [
-            self::PHPMYADMIN_SYMLINK => $appsPath . '/phpmyadmin/current',
-            self::PHPPGADMIN_SYMLINK => $appsPath . '/phppgadmin/current',
             self::APACHE_SYMLINK => $binPath . '/apache/current',
+            self::BRUNO_SYMLINK => $toolsPath . '/bruno/current',
+            self::COMPOSER_SYMLINK => $toolsPath . '/composer/current',
+            self::GHOSTSCRIPT_SYMLINK => $toolsPath . '/ghostscript/current',
+            self::GIT_SYMLINK => $toolsPath . '/git/current',
+            self::MAILPIT_SYMLINK => $binPath . '/mailpit/current',
             self::MARIADB_SYMLINK => $binPath . '/mariadb/current',
             self::MEMCACHED_SYMLINK => $binPath . '/memcached/current',
             self::MYSQL_SYMLINK => $binPath . '/mysql/current',
-            self::NODEJS_SYMLINK => $binPath . '/nodejs/current',
-            self::PHP_SYMLINK => $binPath . '/php/current',
-            self::POSTGRESQL_SYMLINK => $binPath . '/postgresql/current',
-            self::COMPOSER_SYMLINK => $toolsPath . '/composer/current',
-            self::POWERSHELL_SYMLINK => $toolsPath . '/powershell/current',
-            self::GHOSTSCRIPT_SYMLINK => $toolsPath . '/ghostscript/current',
-            self::GIT_SYMLINK => $toolsPath . '/git/current',
             self::NGROK_SYMLINK => $toolsPath . '/ngrok/current',
+            self::NODEJS_SYMLINK => $binPath . '/nodejs/current',
             self::PERL_SYMLINK => $toolsPath . '/perl/current',
+            self::PHP_SYMLINK => $binPath . '/php/current',
+            self::PHPMYADMIN_SYMLINK => $appsPath . '/phpmyadmin/current',
+            self::PHPPGADMIN_SYMLINK => $appsPath . '/phppgadmin/current',
+            self::POSTGRESQL_SYMLINK => $binPath . '/postgresql/current',
+            self::POWERSHELL_SYMLINK => $toolsPath . '/powershell/current',
             self::PYTHON_SYMLINK => $toolsPath . '/python/current',
             self::RUBY_SYMLINK => $toolsPath . '/ruby/current',
             self::XLIGHT_SYMLINK => $binPath . '/xlight/current',
-            self::MAILPIT_SYMLINK => $binPath . '/mailpit/current',
-            self::BRUNO_SYMLINK => $toolsPath . '/bruno/current'
         ];
 
         // Fix for PHP 8.2: Add null checks before accessing array elements
