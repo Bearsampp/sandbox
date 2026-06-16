@@ -54,13 +54,13 @@ abstract class Module
 
         switch ($this->type) {
             case Apps::TYPE:
-                $mainPath = Path::getAppsPath();
+                $mainPath = $bearsamppRoot->getAppsPath();
                 break;
             case Bins::TYPE:
-                $mainPath = Path::getBinPath();
+                $mainPath = $bearsamppRoot->getBinPath();
                 break;
             case Tools::TYPE:
-                $mainPath = Path::getToolsPath();
+                $mainPath = $bearsamppRoot->getToolsPath();
                 break;
         }
 

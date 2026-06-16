@@ -73,7 +73,7 @@ class TplAppTools
             TplAestan::GLYPH_COMPOSER,
             null,
             $bearsamppTools->getPowerShell()->getTabTitleComposer(),
-            Path::getWwwPath(),
+            $bearsamppRoot->getWwwPath(),
             null
         ) . PHP_EOL;
 
@@ -83,7 +83,7 @@ class TplAppTools
             TplAestan::GLYPH_GHOSTSCRIPT,
             null,
             $bearsamppTools->getPowerShell()->getTabTitleGhostscript(),
-            Path::getWwwPath(),
+            $bearsamppRoot->getWwwPath(),
             null
         ) . PHP_EOL;
 
@@ -93,7 +93,7 @@ class TplAppTools
             TplAestan::GLYPH_NGROK,
             null,
             $bearsamppTools->getPowerShell()->getTabTitleNgrok(),
-            Path::getWwwPath(),
+            $bearsamppRoot->getWwwPath(),
             null
         ) . PHP_EOL;
 
@@ -113,7 +113,7 @@ class TplAppTools
             TplAestan::GLYPH_PERL,
             null,
             $bearsamppTools->getPowerShell()->getTabTitlePerl(),
-            Path::getWwwPath(),
+            $bearsamppRoot->getWwwPath(),
             null
         ) . PHP_EOL;
 
@@ -123,7 +123,7 @@ class TplAppTools
             TplAestan::GLYPH_RUBY,
             null,
             $bearsamppTools->getPowerShell()->getTabTitleRuby(),
-            Path::getWwwPath(),
+            $bearsamppRoot->getWwwPath(),
             null
         ) . PHP_EOL;
 
@@ -136,7 +136,7 @@ class TplAppTools
             TplAestan::GLYPH_POWERSHELL,
             null,
             $bearsamppTools->getPowerShell()->getTabTitleDefault(),
-            Path::getRootPath()
+            $bearsamppRoot->getRootPath()
         ) . PHP_EOL;
 
         // HostsEditor
