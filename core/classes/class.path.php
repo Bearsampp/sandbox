@@ -24,6 +24,39 @@
 class Path
 {
     /**
+     * Retrieves the root path for a module.
+     *
+     * @param Module $module The module instance.
+     * @return string The module root path.
+     */
+    public static function getModuleRootPath($module)
+    {
+        return $module->rootPath;
+    }
+
+    /**
+     * Retrieves the current path for a module.
+     *
+     * @param Module $module The module instance.
+     * @return string The module current path.
+     */
+    public static function getModuleCurrentPath($module)
+    {
+        return $module->currentPath;
+    }
+
+    /**
+     * Retrieves the symlink path for a module.
+     *
+     * @param Module $module The module instance.
+     * @return string The module symlink path.
+     */
+    public static function getModuleSymlinkPath($module)
+    {
+        return $module->symlinkPath;
+    }
+
+    /**
      * Cache for path formatting operations to avoid redundant string replacements.
      * @var array
      */

@@ -704,45 +704,45 @@ class Util
         );
 
         // Apache
-        $folderList = self::getFolderList($bearsamppBins->getApache()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getApache()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getApache()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppBins->getApache()) . '/' . $folder,
                 'includes'  => array('.ini', '.conf'),
                 'recursive' => true
             );
         }
 
         // PHP
-        $folderList = self::getFolderList($bearsamppBins->getPhp()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPhp()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getPhp()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppBins->getPhp()) . '/' . $folder,
                 'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
                 'recursive' => true
             );
         }
 
         // MySQL
-        $folderList = self::getFolderList($bearsamppBins->getMysql()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getMysql()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
                 'includes'  => array('my.ini'),
                 'recursive' => false
             );
         }
 
         // MariaDB
-        $folderList = self::getFolderList($bearsamppBins->getMariadb()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
                 'includes'  => array('my.ini'),
                 'recursive' => false
             );
             // Also scan data directory for my.ini (created during initialization)
-            $dataPath = $bearsamppBins->getMariadb()->getRootPath() . '/' . $folder . '/data';
+            $dataPath = Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder . '/data';
             if (is_dir($dataPath)) {
                 $paths[] = array(
                     'path'      => $dataPath,
@@ -753,70 +753,70 @@ class Util
         }
 
         // PostgreSQL
-        $folderList = self::getFolderList($bearsamppBins->getPostgresql()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getPostgresql()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppBins->getPostgresql()) . '/' . $folder,
                 'includes'  => array( '.conf', '.bat', '.ber'),
                 'recursive' => true
             );
         }
 
         // Node.js
-        $folderList = self::getFolderList($bearsamppBins->getNodejs()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getNodejs()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/etc',
+                'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/etc',
                 'includes'  => array('npmrc'),
                 'recursive' => true
             );
             $paths[] = array(
-                'path'      => $bearsamppBins->getNodejs()->getRootPath() . '/' . $folder . '/node_modules/npm',
+                'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/node_modules/npm',
                 'includes'  => array('npmrc'),
                 'recursive' => false
             );
         }
 
         // Composer
-        $folderList = self::getFolderList($bearsamppTools->getComposer()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getComposer()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppTools->getComposer()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppTools->getComposer()) . '/' . $folder,
                 'includes'  => array('giscus.json'),
                 'recursive' => false
             );
         }
 
         // PowerShell
-        $folderList = self::getFolderList($bearsamppTools->getPowerShell()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPowerShell()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppTools->getPowerShell()->getRootPath() . '/' . $folder,
+                'path'      => Path::getModuleRootPath($bearsamppTools->getPowerShell()) . '/' . $folder,
                 'includes'  => array('console.xml', '.ini', '.btm'),
                 'recursive' => true
             );
         }
 
         // Python
-        $folderList = self::getFolderList($bearsamppTools->getPython()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPython()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/bin',
+                'path'      => Path::getModuleRootPath($bearsamppTools->getPython()) . '/' . $folder . '/bin',
                 'includes'  => array('.bat'),
                 'recursive' => false
             );
             $paths[] = array(
-                'path'      => $bearsamppTools->getPython()->getRootPath() . '/' . $folder . '/settings',
+                'path'      => Path::getModuleRootPath($bearsamppTools->getPython()) . '/' . $folder . '/settings',
                 'includes'  => array('winpython.ini'),
                 'recursive' => false
             );
         }
 
         // Ruby
-        $folderList = self::getFolderList($bearsamppTools->getRuby()->getRootPath());
+        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getRuby()));
         foreach ($folderList as $folder) {
             $paths[] = array(
-                'path'      => $bearsamppTools->getRuby()->getRootPath() . '/' . $folder . '/bin',
+                'path'      => Path::getModuleRootPath($bearsamppTools->getRuby()) . '/' . $folder . '/bin',
                 'includes'  => array('!.dll', '!.exe'),
                 'recursive' => false
             );
@@ -1579,40 +1579,40 @@ class Util
 
         // Add paths for enabled bins
         if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= $bearsamppBins->getApache()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getApache()) . '/bin;';
         }
         if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . ';';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/pear;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/deps;';
-            $paths .= $bearsamppBins->getPhp()->getSymlinkPath() . '/imagick;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . ';';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/pear;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/deps;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/imagick;';
         }
         if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= $bearsamppBins->getNodejs()->getSymlinkPath() . ';';
+            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getNodejs()) . ';';
         }
         if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . ';';
-            $paths .= $bearsamppTools->getComposer()->getSymlinkPath() . '/vendor/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getComposer()) . ';';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getComposer()) . '/vendor/bin;';
         }
         if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= $bearsamppTools->getGhostscript()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getGhostscript()) . '/bin;';
         }
         if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= $bearsamppTools->getGit()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getGit()) . '/bin;';
         }
         if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= $bearsamppTools->getNgrok()->getSymlinkPath() . ';';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getNgrok()) . ';';
         }
         if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/site/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/perl/bin;';
-            $paths .= $bearsamppTools->getPerl()->getSymlinkPath() . '/c/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/site/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/c/bin;';
         }
         if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= $bearsamppTools->getPython()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPython()) . '/bin;';
         }
         if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= $bearsamppTools->getRuby()->getSymlinkPath() . '/bin;';
+            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getRuby()) . '/bin;';
         }
 
         return Path::formatWindowsPath($paths);

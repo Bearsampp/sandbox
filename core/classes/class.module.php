@@ -25,9 +25,9 @@ abstract class Module
     protected $version;
     protected $release = 'N/A';
 
-    protected $rootPath;
-    protected $currentPath;
-    protected $symlinkPath;
+    public $rootPath;
+    public $currentPath;
+    public $symlinkPath;
     protected $enable;
     protected $bearsamppConf;
     protected $bearsamppConfRaw;
@@ -249,32 +249,6 @@ abstract class Module
         return $this->release;
     }
 
-    /**
-     * Gets the root path of the module.
-     *
-     * @return string The root path of the module.
-     */
-    public function getRootPath() {
-        return $this->rootPath;
-    }
-
-    /**
-     * Gets the current path of the module.
-     *
-     * @return string The current path of the module.
-     */
-    public function getCurrentPath() {
-        return $this->currentPath;
-    }
-
-    /**
-     * Gets the symlink path of the module.
-     *
-     * @return string The symlink path of the module.
-     */
-    public function getSymlinkPath() {
-        return $this->symlinkPath;
-    }
 
     /**
      * Checks if the module is enabled.
@@ -307,4 +281,3 @@ abstract class Module
         return self::$skipSymlinkCreation;
     }
 }
-

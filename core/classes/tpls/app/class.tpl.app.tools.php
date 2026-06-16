@@ -103,7 +103,7 @@ class TplAppTools
             TplAestan::GLYPH_PEAR,
             null,
             $bearsamppTools->getPowerShell()->getTabTitlePear(),
-            $bearsamppBins->getPhp()->getSymlinkPath() . '/pear',
+            Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/pear',
             null
         ) . PHP_EOL;
 
