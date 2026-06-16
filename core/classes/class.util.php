@@ -108,18 +108,36 @@ class Util
     public static function deleteFolder($path)
     {
         if (is_dir($path)) {
-            if (substr($path, strlen($path) - 1, 1) != '/') {
-                $path .= '/';
-            }
+            $path = rtrim($path, '/\\') . '/';
             $files = glob($path . '*', GLOB_MARK);
+
+            if ($files === false) {
+                Log::error("deleteFolder(): Failed to glob path: " . $path);
+                return;
+            }
+
             foreach ($files as $file) {
-                if (is_dir($file) && !is_link($file)) {
+                $normalizedFile = rtrim($file, '/\\');
+
+                if (is_link($normalizedFile)) {
+                    if (!@unlink($normalizedFile) && !@rmdir($normalizedFile)) {
+                        Log::error("deleteFolder(): Failed to unlink symlink: " . $normalizedFile);
+                    }
+                } elseif (is_dir($file)) {
                     self::deleteFolder($file);
                 } else {
-                    @unlink($file);
+                    if (!@unlink($normalizedFile)) {
+                        Log::error("deleteFolder(): Failed to unlink file: " . $normalizedFile);
+                    }
                 }
             }
-            rmdir($path);
+
+            if (!@rmdir($path)) {
+                // Only log error if directory still exists (might have been deleted by recursion)
+                if (is_dir($path)) {
+                    Log::error("deleteFolder(): Failed to remove directory: " . $path);
+                }
+            }
         }
     }
 
