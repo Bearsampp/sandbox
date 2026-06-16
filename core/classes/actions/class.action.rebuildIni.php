@@ -32,8 +32,12 @@ class ActionRebuildini
         // Step 0: Delete the existing bearsampp.ini file
         $iniFilePath = $bearsamppRoot->getIniFilePath();
 
-        if (file_exists($iniFilePath)) {
-            unlink($iniFilePath);
+        if (is_link($iniFilePath)) {
+            @unlink($iniFilePath);
+        } elseif (file_exists($iniFilePath)) {
+            @unlink($iniFilePath);
+        } else {
+            Log::trace('bearsampp.ini already deleted or missing: ' . $iniFilePath);
         }
 
         // Process and update the bearsampp.ini file

@@ -108,9 +108,9 @@ class Symlinks
         }
 
         if (file_exists($dest)) {
-            if (is_file($dest)) {
-                Log::error('Removing . ' . $module->symlinkPath . ' file. It should not be a regular file');
-                unlink($dest);
+            if (is_file($dest) || is_link($dest)) {
+                Log::error('Removing . ' . $module->symlinkPath . ' file/link. It should not be a regular file or misconfigured link at this stage.');
+                @unlink($dest);
             } elseif (is_dir($dest)) {
                 $it = new \FilesystemIterator($dest);
                 if (!$it->valid()) {
@@ -201,7 +201,7 @@ class Symlinks
 
         // Check if path exists
         if (!file_exists($path) && !is_link($path)) {
-            Log::debug('Symlink does not exist: ' . $path);
+            Log::trace('Symlink or directory already deleted or missing: ' . $path);
             return false;
         }
 
@@ -312,7 +312,8 @@ class Symlinks
             }
 
             if (!file_exists($path) && !is_link($path)) {
-                // Skip if the symlink doesn't exist - no need to log an error
+                // Log that the symlink was already missing
+                Log::trace('Symlink already deleted or missing: ' . $path);
                 continue;
             }
 

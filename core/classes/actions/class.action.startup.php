@@ -474,12 +474,25 @@ class ActionStartup
             }
 
             try {
-                if (file_exists($filePath) && unlink($filePath)) {
-                    $logsDeleted++;
-                    Log::trace("Purged log file: " . $file);
+                if (is_link($filePath)) {
+                    if (@unlink($filePath)) {
+                        $logsDeleted++;
+                        Log::trace("Purged log symlink: " . $file);
+                    } else {
+                        $logsPurgeSkipped++;
+                        Log::trace("Failed to purge log symlink: " . $file);
+                    }
+                } elseif (file_exists($filePath)) {
+                    if (@unlink($filePath)) {
+                        $logsDeleted++;
+                        Log::trace("Purged log file: " . $file);
+                    } else {
+                        $logsPurgeSkipped++;
+                        Log::trace("Failed to purge log file: " . $file);
+                    }
                 } else {
                     $logsPurgeSkipped++;
-                    Log::trace("Failed to purge log file: " . $file);
+                    Log::trace("Log file already removed or does not exist: " . $file);
                 }
             } catch (Exception $e) {
                 $logsPurgeSkipped++;
@@ -1369,4 +1382,3 @@ class ActionStartup
         Log::debug( $log, $bearsamppRoot->getStartupLogFilePath() );
     }
 }
-

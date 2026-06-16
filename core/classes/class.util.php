@@ -113,10 +113,10 @@ class Util
             }
             $files = glob($path . '*', GLOB_MARK);
             foreach ($files as $file) {
-                if (is_dir($file)) {
+                if (is_dir($file) && !is_link($file)) {
                     self::deleteFolder($file);
                 } else {
-                    unlink($file);
+                    @unlink($file);
                 }
             }
             rmdir($path);
