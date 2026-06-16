@@ -939,7 +939,7 @@ class ActionStartup
         $installStartTime = Util::getMicrotime();
 
         // Skip symlink creation during checking phase for performance
-        Module::setSkipSymlinkCreation(true);
+        Symlinks::setSkipSymlinkCreation(true);
 
         // Step 1: Check and prepare all services
         $servicesToStart = [];
@@ -982,7 +982,7 @@ class ActionStartup
         }
 
         // Re-enable symlink creation and reload bins with symlinks created
-        Module::setSkipSymlinkCreation(false);
+        Symlinks::setSkipSymlinkCreation(false);
         Log::trace('Re-enabling symlink creation after service checking');
         $bearsamppBins->reload();
 

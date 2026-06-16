@@ -16,7 +16,6 @@ abstract class Module
     const BUNDLE_RELEASE = 'bundleRelease';
 
     private static $configCache = array();
-    private static $skipSymlinkCreation = false;
 
     private $type;
     private $id;
@@ -85,46 +84,11 @@ abstract class Module
             $this->bearsamppConfRaw = self::$configCache[$cacheKey];
         }
 
-        if ($bearsamppRoot->isRoot() && !self::$skipSymlinkCreation) {
-            $this->createSymlink();
+        if ($bearsamppRoot->isRoot() && !Symlinks::isSkippingSymlinkCreation()) {
+            Symlinks::createModuleSymlink($this);
         }
     }
 
-    /**
-     * Creates a symbolic link from the current path to the symlink path.
-     * If the symlink already exists and points to the correct target, no action is taken.
-     */
-    private function createSymlink()
-    {
-        $src = Path::formatWindowsPath($this->currentPath);
-        $dest = Path::formatWindowsPath($this->symlinkPath);
-
-        if (is_link($dest)) {
-            if (readlink($dest) === $src) {
-                return;
-            }
-            Batch::removeSymlink($dest);
-            Batch::createSymlink($src, $dest);
-            return;
-        }
-
-        if (file_exists($dest)) {
-            if (is_file($dest)) {
-                Log::error('Removing . ' . $this->symlinkPath . ' file. It should not be a regular file');
-                unlink($dest);
-            } elseif (is_dir($dest)) {
-                $it = new \FilesystemIterator($dest);
-                if (!$it->valid()) {
-                    rmdir($dest);
-                } else {
-                    Log::error($this->symlinkPath . ' should be a symlink to ' . $this->currentPath . '. Please remove this dir and restart bearsampp.');
-                    return;
-                }
-            }
-        }
-
-        Batch::createSymlink($src, $dest);
-    }
 
     /**
      * Replaces a specific key-value pair in the configuration file.
@@ -259,25 +223,4 @@ abstract class Module
         return $this->enable;
     }
 
-    /**
-     * Skip symlink creation during module reload
-     * Useful for performance optimization during service checking phase
-     *
-     * @param bool $skip True to skip symlink creation
-     * @return void
-     */
-    public static function setSkipSymlinkCreation(bool $skip): void
-    {
-        self::$skipSymlinkCreation = $skip;
-    }
-
-    /**
-     * Check if symlink creation is being skipped
-     *
-     * @return bool True if symlink creation is skipped
-     */
-    public static function isSkippingSymlinkCreation(): bool
-    {
-        return self::$skipSymlinkCreation;
-    }
 }

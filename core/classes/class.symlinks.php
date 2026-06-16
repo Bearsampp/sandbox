@@ -35,6 +35,11 @@ class Symlinks
     const BRUNO_SYMLINK = 'bruno';
 
     /**
+     * @var bool Whether to skip symlink creation.
+     */
+    private static $skipSymlinkCreation = false;
+
+    /**
      * @var Root The root object providing access to system paths.
      */
     private $root;
@@ -47,7 +52,66 @@ class Symlinks
     public function __construct($root)
     {
         $this->root = $root;
-        $this->initializePaths();
+    }
+
+    /**
+     * Skip symlink creation during module reload
+     * Useful for performance optimization during service checking phase
+     *
+     * @param bool $skip True to skip symlink creation
+     * @return void
+     */
+    public static function setSkipSymlinkCreation(bool $skip): void
+    {
+        self::$skipSymlinkCreation = $skip;
+    }
+
+    /**
+     * Check if symlink creation is being skipped
+     *
+     * @return bool True if symlink creation is skipped
+     */
+    public static function isSkippingSymlinkCreation(): bool
+    {
+        return self::$skipSymlinkCreation;
+    }
+
+    /**
+     * Creates a symbolic link from the current path to the symlink path for a module.
+     * If the symlink already exists and points to the correct target, no action is taken.
+     *
+     * @param Module $module The module instance.
+     */
+    public static function createModuleSymlink($module)
+    {
+        $src = Path::formatWindowsPath($module->currentPath);
+        $dest = Path::formatWindowsPath($module->symlinkPath);
+
+        if (is_link($dest)) {
+            if (readlink($dest) === $src) {
+                return;
+            }
+            Batch::removeSymlink($dest);
+            Batch::createSymlink($src, $dest);
+            return;
+        }
+
+        if (file_exists($dest)) {
+            if (is_file($dest)) {
+                Log::error('Removing . ' . $module->symlinkPath . ' file. It should not be a regular file');
+                unlink($dest);
+            } elseif (is_dir($dest)) {
+                $it = new \FilesystemIterator($dest);
+                if (!$it->valid()) {
+                    rmdir($dest);
+                } else {
+                    Log::error($module->symlinkPath . ' should be a symlink to ' . $module->currentPath . '. Please remove this dir and restart bearsampp.');
+                    return;
+                }
+            }
+        }
+
+        Batch::createSymlink($src, $dest);
     }
 
     /**
@@ -248,4 +312,3 @@ class Symlinks
         }
     }
 }
-
