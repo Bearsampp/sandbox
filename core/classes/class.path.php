@@ -614,41 +614,47 @@ class Path
         $paths = '';
 
         // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getApache()) . '/bin;';
+        if (isset($bearsamppBins)) {
+            if ($bearsamppBins->getApache() && $bearsamppBins->getApache()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getApache()) . '/bin;';
+            }
+            if ($bearsamppBins->getPhp() && $bearsamppBins->getPhp()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . ';';
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/pear;';
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/deps;';
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/imagick;';
+            }
+            if ($bearsamppBins->getNodejs() && $bearsamppBins->getNodejs()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppBins->getNodejs()) . ';';
+            }
         }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . ';';
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/pear;';
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/deps;';
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppBins->getNodejs()) . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getComposer()) . ';';
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getComposer()) . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getGhostscript()) . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getGit()) . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getNgrok()) . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/site/bin;';
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/bin;';
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getPython()) . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= self::getModuleSymlinkPath($bearsamppTools->getRuby()) . '/bin;';
+
+        // Add paths for enabled tools
+        if (isset($bearsamppTools)) {
+            if ($bearsamppTools->getComposer() && $bearsamppTools->getComposer()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getComposer()) . ';';
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getComposer()) . '/vendor/bin;';
+            }
+            if ($bearsamppTools->getGhostscript() && $bearsamppTools->getGhostscript()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getGhostscript()) . '/bin;';
+            }
+            if ($bearsamppTools->getGit() && $bearsamppTools->getGit()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getGit()) . '/bin;';
+            }
+            if ($bearsamppTools->getNgrok() && $bearsamppTools->getNgrok()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getNgrok()) . ';';
+            }
+            if ($bearsamppTools->getPerl() && $bearsamppTools->getPerl()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/site/bin;';
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/bin;';
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/c/bin;';
+            }
+            if ($bearsamppTools->getPython() && $bearsamppTools->getPython()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getPython()) . '/bin;';
+            }
+            if ($bearsamppTools->getRuby() && $bearsamppTools->getRuby()->isEnable()) {
+                $paths .= self::getModuleSymlinkPath($bearsamppTools->getRuby()) . '/bin;';
+            }
         }
 
         return self::formatWindowsPath($paths);

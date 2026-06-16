@@ -371,6 +371,13 @@ class Win32Service
         if ( $this->getNssm() instanceof Nssm ) {
             Log::trace("Using NSSM for service installation");
 
+            // Ensure Tools are loaded before building environment paths
+            global $bearsamppTools;
+            if (!isset($bearsamppTools)) {
+                Log::trace("Tools not loaded, forcing synchronous load");
+                Root::loadTools();
+            }
+
             global $bearsamppRegistry;
             $nssmEnvPath = $bearsamppRegistry->getAppBinsRegKey( false );
             Log::trace("NSSM environment path (bins): " . $nssmEnvPath);
