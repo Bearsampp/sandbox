@@ -878,20 +878,29 @@ class ActionStartup
 
         // Always ensure localhost exists and is valid
         if ($bearsamppOpenSsl->isExpired('localhost')) {
+            Log::info('SSL certificate for "localhost" is missing or expired. Creating new one...');
             $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), 'localhost'));
             $bearsamppOpenSsl->createCrt('localhost');
+        } else {
+            Log::trace('SSL certificate for "localhost" is valid.');
         }
 
         // Also check all Apache vhosts
         $apache = $bearsamppBins->getApache();
         if ($apache) {
             $vhosts = $apache->getVhosts();
+            Log::trace('Checking SSL certificates for ' . count($vhosts) . ' vhosts');
             foreach ($vhosts as $vhost) {
                 if ($bearsamppOpenSsl->isExpired($vhost)) {
+                    Log::info('SSL certificate for "' . $vhost . '" is missing or expired. Creating new one...');
                     $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), $vhost));
                     $bearsamppOpenSsl->createCrt($vhost);
+                } else {
+                    Log::trace('SSL certificate for "' . $vhost . '" is valid.');
                 }
             }
+        } else {
+            Log::trace('Apache module not found, skipping vhost SSL check');
         }
     }
 

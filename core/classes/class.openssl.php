@@ -75,7 +75,15 @@ class OpenSsl
         Log::trace('Creating SSL Certificate for "' . $name . '"');
         $result = Batch::exec('createCertificate', $batch);
 
+        if ($result === false) {
+            Log::error('Batch execution failed for SSL Certificate generation of "' . $name . '"');
+            return false;
+        }
+
         $success = isset($result[0]) && $result[0] == 'OK';
+        if (!$success) {
+            Log::error('SSL Certificate generation for "' . $name . '" failed. Batch output: ' . (isset($result[0]) ? implode(' ', $result) : 'empty'));
+        }
         Log::trace('SSL Certificate generation for "' . $name . '": ' . ($success ? 'SUCCESS' : 'FAILURE'));
 
         return $success;
@@ -108,6 +116,7 @@ class OpenSsl
     {
         $crtPath = Path::getSslPath() . '/' . $name . '.crt';
         if (!is_file($crtPath)) {
+            Log::trace('SSL certificate file missing: ' . $crtPath);
             return true;
         }
 
@@ -119,14 +128,19 @@ class OpenSsl
 
         $certInfo = openssl_x509_parse($crtContent);
         if ($certInfo === false) {
-            Log::error('Could not parse certificate: ' . $crtPath);
+            Log::error('Could not parse certificate: ' . $crtPath . '. OpenSSL error: ' . openssl_error_string());
             return true;
         }
 
         if (isset($certInfo['validTo_time_t'])) {
-            return $certInfo['validTo_time_t'] < time();
+            $isExpired = $certInfo['validTo_time_t'] < time();
+            if ($isExpired) {
+                Log::trace('SSL certificate expired: ' . $name . ' (Expired on ' . date('Y-m-d H:i:s', $certInfo['validTo_time_t']) . ')');
+            }
+            return $isExpired;
         }
 
+        Log::error('Could not find expiry date in certificate: ' . $crtPath);
         return true;
     }
 
@@ -311,6 +325,10 @@ class OpenSsl
      */
     public function removeCrt($name, $destPath = null)
     {
+        if ($name === 'localhost') {
+            Log::warning('Attempted to remove protected "localhost" certificate. Operation cancelled.');
+            return false;
+        }
         $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
 
         // Basic validation for name to prevent arbitrary file deletion
