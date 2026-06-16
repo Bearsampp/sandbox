@@ -104,10 +104,14 @@ class Symlinks
             }
             Batch::removeSymlink($dest);
         } elseif (file_exists($dest)) {
-            Log::warning('Removing directory/file at symlink location: ' . $dest);
-            Util::deleteFolder($dest);
-            if (file_exists($dest)) {
-                @unlink($dest);
+            if (is_dir($dest)) {
+                Log::error('Cannot create symlink: a real directory exists at the destination: ' . $dest);
+                return;
+            }
+            Log::warning('Removing file at symlink location: ' . $dest);
+            if (!@unlink($dest)) {
+                Log::error('Failed to remove file at symlink location: ' . $dest);
+                return;
             }
         }
 
@@ -195,13 +199,11 @@ class Symlinks
                 return true;
             }
 
-            // If it failed and it's NOT a link, it might be a real directory with content
+            // If it failed and it's NOT a link, it's a real directory with content.
+            // We MUST NOT recursively delete it to avoid data loss.
             if (!is_link($path)) {
-                Log::debug('Attempting to remove directory at symlink path: ' . $path);
-                Util::deleteFolder($path);
-                if (!file_exists($path)) {
-                    return true;
-                }
+                Log::error('Symlink removal blocked - path is a real directory with content: ' . $path);
+                return false;
             } else {
                 // If it's a link but rmdir failed, try unlink (e.g. file symlink)
                 if (@unlink($path)) {
