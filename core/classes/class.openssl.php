@@ -85,9 +85,14 @@ class OpenSsl
             return false;
         }
 
+        if (!is_array($result)) {
+            Log::error('Batch output capture failed for SSL Certificate generation of "' . $name . '". Result: ' . var_export($result, true));
+            return false;
+        }
+
         $success = isset($result[0]) && $result[0] == 'OK';
         if (!$success) {
-            Log::error('SSL Certificate generation for "' . $name . '" failed. Batch output: ' . (isset($result[0]) ? implode(' ', $result) : 'empty'));
+            Log::error('SSL Certificate generation for "' . $name . '" failed. Batch output: ' . implode(' ', $result));
         }
         Log::trace('SSL Certificate generation for "' . $name . '": ' . ($success ? 'SUCCESS' : 'FAILURE'));
 

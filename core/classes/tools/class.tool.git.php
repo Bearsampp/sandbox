@@ -127,7 +127,7 @@ class ToolGit extends Module
         Log::debug(($sub > 0 ? str_repeat(' ', 2 * $sub) : '') . 'Update ' . $this->name . ' ' . $version . ' config');
 
         if (file_exists(Path::getModuleSymlinkPath($this) . '/post-install.bat')) {
-            $bearsamppWinbinder->exec($this->getBash(), '--no-needs-console --hide --no-cd --command=' . Path::getModuleSymlinkPath($this) . '/post-install.bat', true);
+            $bearsamppWinbinder->exec($this->getBash(), '--no-needs-console --hide --no-cd --command="' . Path::getModuleSymlinkPath($this) . '/post-install.bat"', true);
         }
 
         $bearsamppWinbinder->exec($this->getExe(), 'config --global core.autocrlf false', true);

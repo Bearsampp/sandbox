@@ -192,36 +192,41 @@ class Path
         foreach ($filesToScan as $fileToScan) {
             $tmpCountChangedOcc = 0;
             $fileContentOr      = file_get_contents($fileToScan);
-            $fileContent        = $fileContentOr;
+
+            if ($fileContentOr === false) {
+                Log::error("changePath(): Failed to read file: " . $fileToScan);
+                continue;
+            }
+
+            $fileContent = $fileContentOr;
 
             // old path
-            preg_match('#' . $unixOldPath . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
+            if (strpos($fileContent, $unixOldPath) !== false) {
                 $fileContent        = str_replace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
-            preg_match('#' . str_replace('\\', '\\\\', $windowsOldPath) . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
+            if (strpos($fileContent, $windowsOldPath) !== false) {
                 $fileContent        = str_replace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
 
             // placeholders
-            preg_match('#' . Core::PATH_LIN_PLACEHOLDER . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
+            if (strpos($fileContent, Core::PATH_LIN_PLACEHOLDER) !== false) {
                 $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
-            preg_match('#' . Core::PATH_WIN_PLACEHOLDER . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
+            if (strpos($fileContent, Core::PATH_WIN_PLACEHOLDER) !== false) {
                 $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
 
             if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc']   += $tmpCountChangedOcc;
-                $result['countChangedFiles'] += 1;
-                file_put_contents($fileToScan, $fileContent);
+                if (file_put_contents($fileToScan, $fileContent) !== false) {
+                    $result['countChangedOcc']   += $tmpCountChangedOcc;
+                    $result['countChangedFiles'] += 1;
+                } else {
+                    Log::error("changePath(): Failed to write to file: " . $fileToScan);
+                }
             }
         }
 

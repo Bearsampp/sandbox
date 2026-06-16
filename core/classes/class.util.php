@@ -131,7 +131,7 @@ class Util
      *
      * @return string|false Returns the path to the file if found, or false if not found.
      */
-    private static function findFile($startPath, $findFile)
+    public static function findFile($startPath, $findFile)
     {
         $result = false;
 
