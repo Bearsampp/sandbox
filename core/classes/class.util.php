@@ -873,69 +873,6 @@ class Util
         return $result;
     }
 
-    /**
-     * Replaces old path references with new path references in the specified files.
-     *
-     * @param   array        $filesToScan  Array of file paths to scan and modify.
-     * @param   string|null  $rootPath     The new root path to replace the old one. If null, uses a default root path.
-     *
-     * @return array Returns an array with the count of occurrences changed and the count of files changed.
-     */
-    public static function changePath($filesToScan, $rootPath = null)
-    {
-        global $bearsamppRoot, $bearsamppCore;
-
-        $result = array(
-            'countChangedOcc'   => 0,
-            'countChangedFiles' => 0
-        );
-
-        $rootPath           = $rootPath != null ? $rootPath : Path::getRootPath();
-        $unixOldPath        = Path::formatUnixPath($bearsamppCore->getLastPathContent());
-        $windowsOldPath     = Path::formatWindowsPath($bearsamppCore->getLastPathContent());
-        $unixCurrentPath    = Path::formatUnixPath($rootPath);
-        $windowsCurrentPath = Path::formatWindowsPath($rootPath);
-
-        foreach ($filesToScan as $fileToScan) {
-            $tmpCountChangedOcc = 0;
-            $fileContentOr      = file_get_contents($fileToScan);
-            $fileContent        = $fileContentOr;
-
-            // old path
-            preg_match('#' . $unixOldPath . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . str_replace('\\', '\\\\', $windowsOldPath) . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            // placeholders
-            preg_match('#' . Core::PATH_LIN_PLACEHOLDER . '#i', $fileContent, $unixMatches);
-            if (!empty($unixMatches)) {
-                $fileContent        = str_replace(Core::PATH_LIN_PLACEHOLDER, $unixCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-            preg_match('#' . Core::PATH_WIN_PLACEHOLDER . '#i', $fileContent, $windowsMatches);
-            if (!empty($windowsMatches)) {
-                $fileContent        = str_replace(Core::PATH_WIN_PLACEHOLDER, $windowsCurrentPath, $fileContent, $countChanged);
-                $tmpCountChangedOcc += $countChanged;
-            }
-
-            if ($fileContentOr != $fileContent) {
-                $result['countChangedOcc']   += $tmpCountChangedOcc;
-                $result['countChangedFiles'] += 1;
-                file_put_contents($fileToScan, $fileContent);
-            }
-        }
-
-        Log::debug('changePath() completed: ' . $result['countChangedFiles'] . ' files changed, ' . $result['countChangedOcc'] . ' total occurrences');
-
-        return $result;
-    }
 
     /**
      * Fetches the latest version information from a given url.
@@ -1566,57 +1503,6 @@ class Util
         return $result;
     }
 
-    /**
-     * Gets the NSSM environment paths.
-     *
-     * @return string The NSSM environment paths string.
-     */
-    public static function getNssmEnvPaths()
-    {
-        global $bearsamppBins, $bearsamppTools;
-
-        $paths = '';
-
-        // Add paths for enabled bins
-        if ($bearsamppBins->getApache()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getApache()) . '/bin;';
-        }
-        if ($bearsamppBins->getPhp()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . ';';
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/pear;';
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/deps;';
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getPhp()) . '/imagick;';
-        }
-        if ($bearsamppBins->getNodejs()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppBins->getNodejs()) . ';';
-        }
-        if ($bearsamppTools->getComposer()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getComposer()) . ';';
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getComposer()) . '/vendor/bin;';
-        }
-        if ($bearsamppTools->getGhostscript()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getGhostscript()) . '/bin;';
-        }
-        if ($bearsamppTools->getGit()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getGit()) . '/bin;';
-        }
-        if ($bearsamppTools->getNgrok()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getNgrok()) . ';';
-        }
-        if ($bearsamppTools->getPerl()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/site/bin;';
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/perl/bin;';
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPerl()) . '/c/bin;';
-        }
-        if ($bearsamppTools->getPython()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getPython()) . '/bin;';
-        }
-        if ($bearsamppTools->getRuby()->isEnable()) {
-            $paths .= Path::getModuleSymlinkPath($bearsamppTools->getRuby()) . '/bin;';
-        }
-
-        return Path::formatWindowsPath($paths);
-    }
 
     /**
      * Opens the given content in a temporary file using the editor configured in bearsampp.conf.
