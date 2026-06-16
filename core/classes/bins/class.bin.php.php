@@ -122,13 +122,8 @@ class BinPhp extends Module
         parent::reload($id, $type);
 
         $this->enable = $this->enable && $bearsamppConfig->getRaw(self::ROOT_CFG_ENABLE);
-<<<<<<< HEAD
         $this->apacheConf = Path::getModuleCurrentPath($bearsamppBins->getApache()) . '/' . $this->apacheConf; //FIXME: Useful ?
         $this->errorLog = Path::getLogsPath() . '/php_error.log';
-=======
-        $this->apacheConf = $bearsamppBins->getApache()->getCurrentPath() . '/' . $this->apacheConf; //FIXME: Useful ?
-        $this->errorLog = $bearsamppRoot->getLogsPath() . '/php_error.log';
->>>>>>> origin/main
 
         if ($this->bearsamppConfRaw !== false) {
             $this->cliExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CLI_EXE];

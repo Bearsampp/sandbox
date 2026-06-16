@@ -33,12 +33,7 @@ class OpenSsl
      */
     public function createCrt($name, $destPath = null)
     {
-<<<<<<< HEAD
         $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
-=======
-        global $bearsamppRoot, $bearsamppCore;
-        $destPath = empty($destPath) ? $bearsamppRoot->getSslPath() : $destPath;
->>>>>>> origin/main
 
         $subject = '"/C=US/O=Bearsampp/CN=' . $name . '"';
         $password = 'pass:bearsampp';
@@ -341,17 +336,11 @@ class OpenSsl
         }
         $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
 
-<<<<<<< HEAD
         // Basic validation for name to prevent arbitrary file deletion
         if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name)) {
             Log::error('Invalid certificate name for removal: ' . $name);
             return false;
         }
-=======
-        $ppkPath = $bearsamppRoot->getSslPath() . '/' . $name . '.ppk';
-        $pubPath = $bearsamppRoot->getSslPath() . '/' . $name . '.pub';
-        $crtPath = $bearsamppRoot->getSslPath() . '/' . $name . '.crt';
->>>>>>> origin/main
 
         $ppkPath = $destPath . '/' . $name . '.ppk';
         $pubPath = $destPath . '/' . $name . '.pub';
@@ -361,4 +350,3 @@ class OpenSsl
         return @unlink($ppkPath) && @unlink($pubPath) && @unlink($crtPath);
     }
 }
-
