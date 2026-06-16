@@ -973,50 +973,52 @@ class ActionStartup
         // Skip symlink creation during checking phase for performance
         Symlinks::setSkipSymlinkCreation(true);
 
-        // Step 1: Check and prepare all services
-        $servicesToStart = [];
-        $serviceErrors = [];
+        try {
+            // Step 1: Check and prepare all services
+            $servicesToStart = [];
+            $serviceErrors = [];
 
-        $totalServiceCount = count($bearsamppBins->getServices());
-        $currentServiceIndex = 0;
+            $totalServiceCount = count($bearsamppBins->getServices());
+            $currentServiceIndex = 0;
 
-        foreach ($bearsamppBins->getServices() as $sName => $service) {
-            $currentServiceIndex++;
+            foreach ($bearsamppBins->getServices() as $sName => $service) {
+                $currentServiceIndex++;
 
-            Log::trace('Preparing service: ' . $sName);
+                Log::trace('Preparing service: ' . $sName);
 
-            // prepareService() increments 1 step
-            $serviceInfo = $this->prepareService($sName, $service, $bearsamppBins, $bearsamppLang, $currentServiceIndex, $totalServiceCount);
+                // prepareService() increments 1 step
+                $serviceInfo = $this->prepareService($sName, $service, $bearsamppBins, $bearsamppLang, $currentServiceIndex, $totalServiceCount);
 
-            if ($serviceInfo['restart']) {
-                $this->writeLog('Need restart: installService ' . $serviceInfo['bin']->getName());
-                Log::trace('Restart required for service: ' . $serviceInfo['bin']->getName());
-                $this->restart = true;
-                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
-                continue;
+                if ($serviceInfo['restart']) {
+                    $this->writeLog('Need restart: installService ' . $serviceInfo['bin']->getName());
+                    Log::trace('Restart required for service: ' . $serviceInfo['bin']->getName());
+                    $this->restart = true;
+                    // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                    $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
+                    continue;
+                }
+
+                if (!empty($serviceInfo['error'])) {
+                    $serviceErrors[$sName] = $serviceInfo;
+                    // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                    $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
+                    continue;
+                }
+
+                if ($serviceInfo['needsStart']) {
+                    $servicesToStart[$sName] = $serviceInfo;
+                } else {
+                    // Service already running or doesn't need to start
+                    // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
+                    $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
+                }
             }
-
-            if (!empty($serviceInfo['error'])) {
-                $serviceErrors[$sName] = $serviceInfo;
-                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
-                continue;
-            }
-
-            if ($serviceInfo['needsStart']) {
-                $servicesToStart[$sName] = $serviceInfo;
-            } else {
-                // Service already running or doesn't need to start
-                // prepareService used 1 step, need 4 more to reach GAUGE_SERVICES (5 total)
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
-            }
+        } finally {
+            // Re-enable symlink creation and reload bins with symlinks created
+            Symlinks::setSkipSymlinkCreation(false);
+            Log::trace('Re-enabling symlink creation after service checking');
+            $bearsamppBins->reload();
         }
-
-        // Re-enable symlink creation and reload bins with symlinks created
-        Symlinks::setSkipSymlinkCreation(false);
-        Log::trace('Re-enabling symlink creation after service checking');
-        $bearsamppBins->reload();
 
         // Step 2: Start all services sequentially with progress updates
         if (!empty($servicesToStart)) {

@@ -201,12 +201,12 @@ class Path
             $fileContent = $fileContentOr;
 
             // old path
-            if (strpos($fileContent, $unixOldPath) !== false) {
-                $fileContent        = str_replace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
+            if (stripos($fileContent, $unixOldPath) !== false) {
+                $fileContent        = str_ireplace($unixOldPath, $unixCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
-            if (strpos($fileContent, $windowsOldPath) !== false) {
-                $fileContent        = str_replace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
+            if (stripos($fileContent, $windowsOldPath) !== false) {
+                $fileContent        = str_ireplace($windowsOldPath, $windowsCurrentPath, $fileContent, $countChanged);
                 $tmpCountChangedOcc += $countChanged;
             }
 

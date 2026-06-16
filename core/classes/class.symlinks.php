@@ -134,6 +134,8 @@ class Symlinks
      */
     private static function isPathWithinAllowedBase($path)
     {
+        global $bearsamppRoot;
+
         // Normalize paths for comparison
         $normalizedPath = realpath($path);
         if ($normalizedPath === false) {
