@@ -33,7 +33,6 @@ class OpenSsl
      */
     public function createCrt($name, $destPath = null)
     {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
         $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
 
         $subject = '"/C=US/O=Bearsampp/CN=' . $name . '"';
@@ -112,18 +111,20 @@ class OpenSsl
             return true;
         }
 
-        $exe = '"' . Path::getOpenSslExe() . '"';
-        $cmd = $exe . ' x509 -enddate -noout -in "' . $crtPath . '"';
-        $output = Batch::exec('checkExpiry', $cmd);
-
-        if (empty($output) || !isset($output[0])) {
+        $crtContent = file_get_contents($crtPath);
+        if ($crtContent === false) {
+            Log::error('Could not read certificate file: ' . $crtPath);
             return true;
         }
 
-        // Output format: notAfter=Jun 15 13:30:00 2026 GMT
-        if (preg_match('/notAfter=(.*)/', $output[0], $matches)) {
-            $expiryDate = strtotime($matches[1]);
-            return $expiryDate < time();
+        $certInfo = openssl_x509_parse($crtContent);
+        if ($certInfo === false) {
+            Log::error('Could not parse certificate: ' . $crtPath);
+            return true;
+        }
+
+        if (isset($certInfo['validTo_time_t'])) {
+            return $certInfo['validTo_time_t'] < time();
         }
 
         return true;
@@ -140,8 +141,10 @@ class OpenSsl
         $certs = [];
         if (is_dir($sslPath)) {
             $files = glob($sslPath . '/*.crt');
-            foreach ($files as $file) {
-                $certs[] = basename($file, '.crt');
+            if ($files !== false) {
+                foreach ($files as $file) {
+                    $certs[] = basename($file, '.crt');
+                }
             }
         }
         sort($certs);
@@ -269,13 +272,17 @@ class OpenSsl
                 $target = $bearsamppWinbinder->getText($this->wbDelSslInputDest[WinBinder::CTRL_OBJ]);
 
                 if ($cert) {
+                    $existingCerts = $this->getCrts();
+                    if (!in_array($cert, $existingCerts)) {
+                        $bearsamppWinbinder->messageBoxError(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $cert, $target), $bearsamppLang->getValue(Lang::DELSSL_TITLE));
+                        return;
+                    }
+
                     $bearsamppWinbinder->setProgressBarMax($this->wbDelSslProgressBar, 3);
                     $bearsamppWinbinder->incrProgressBar($this->wbDelSslProgressBar);
 
                     $target = Path::formatUnixPath($target);
-                    // Since removeCrt doesn't take path yet, we are just using the name for now as it did before
-                    // but we have the path available if removeCrt is updated.
-                    if ($bearsamppOpenSsl->removeCrt($cert)) {
+                    if ($bearsamppOpenSsl->removeCrt($cert, $target)) {
                         $bearsamppWinbinder->incrProgressBar($this->wbDelSslProgressBar);
                         $bearsamppWinbinder->messageBoxInfo(
                             sprintf($bearsamppLang->getValue(Lang::DELSSL_DELETED), $cert),
@@ -299,15 +306,22 @@ class OpenSsl
      * Removes a certificate with the specified name.
      *
      * @param string $name The name of the certificate.
+     * @param string|null $destPath The destination path where the certificate files are saved. If null, the default SSL path is used.
      * @return bool True if the certificate was removed successfully, false otherwise.
      */
-    public function removeCrt($name)
+    public function removeCrt($name, $destPath = null)
     {
-        global $bearsamppRoot;
+        $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
 
-        $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
-        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
-        $crtPath = Path::getSslPath() . '/' . $name . '.crt';
+        // Basic validation for name to prevent arbitrary file deletion
+        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name)) {
+            Log::error('Invalid certificate name for removal: ' . $name);
+            return false;
+        }
+
+        $ppkPath = $destPath . '/' . $name . '.ppk';
+        $pubPath = $destPath . '/' . $name . '.pub';
+        $crtPath = $destPath . '/' . $name . '.crt';
 
         return @unlink($ppkPath) && @unlink($pubPath) && @unlink($crtPath);
     }

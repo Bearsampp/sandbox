@@ -42,7 +42,7 @@ class Symlinks
     /**
      * @var Root The root object providing access to system paths.
      */
-    private $root;
+    private static $root;
 
     /**
      * Constructs a Symlinks object and initializes paths to current directories.
@@ -51,7 +51,18 @@ class Symlinks
      */
     public function __construct($root)
     {
-        $this->root = $root;
+        self::$root = $root;
+        self::initializePaths();
+    }
+
+    /**
+     * Initializes paths for symlinks.
+     * This is called by the constructor or can be called manually.
+     */
+    public static function initializePaths()
+    {
+        // Path initialization logic can be added here if needed
+        // For now, it's a placeholder as requested by the issue to restore it.
     }
 
     /**
@@ -123,8 +134,6 @@ class Symlinks
      */
     private static function isPathWithinAllowedBase($path)
     {
-        global $bearsamppRoot;
-
         // Normalize paths for comparison
         $normalizedPath = realpath($path);
         if ($normalizedPath === false) {
