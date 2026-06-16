@@ -194,7 +194,7 @@ class TplPowerShell
     {
         global $bearsamppRoot, $bearsamppTools;
 
-        $powerShellPath = Util::getPowerShellPath();
+        $powerShellPath = Path::getPowerShellPath();
         if ($powerShellPath !== false) {
             return self::getTab(
                     $bearsamppTools->getPowerShell()->getTabTitlePowershell(),

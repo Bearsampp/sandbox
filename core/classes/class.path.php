@@ -721,6 +721,20 @@ class Path
     }
 
     /**
+     * Finds the path to the PowerShell executable in the Windows System32 directory.
+     *
+     * @return string|false Returns the path to powershell.exe if found, otherwise false.
+     */
+    public static function getPowerShellPath()
+    {
+        if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
+            return Util::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves the path to the PWGen directory.
      *
      * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
@@ -753,6 +767,17 @@ class Path
     public static function getRegistryLogFilePath($aetrayPath = false)
     {
         return self::getLogsPath($aetrayPath) . '/bearsampp-registry.log';
+    }
+
+    /**
+     * Retrieves the path for the startup link file.
+     *
+     * @return string The full path to the startup link file.
+     */
+    public static function getStartupLnkPath()
+    {
+        $startupPath = Win32Native::getSpecialFolderPath('Startup');
+        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
     }
 
     /**

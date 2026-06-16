@@ -354,16 +354,6 @@ class Util
     }
 
 
-    /**
-     * Retrieves the path for the startup link file.
-     *
-     * @return string The full path to the startup link file.
-     */
-    public static function getStartupLnkPath()
-    {
-        $startupPath = Win32Native::getSpecialFolderPath('Startup');
-        return $startupPath ? $startupPath . '/' . APP_TITLE . '.lnk' : false;
-    }
 
     /**
      * Checks if the application is set to launch at startup.
@@ -372,7 +362,7 @@ class Util
      */
     public static function isLaunchStartup()
     {
-        $lnk = self::getStartupLnkPath();
+        $lnk = Path::getStartupLnkPath();
         return $lnk ? file_exists($lnk) : false;
     }
 
@@ -385,7 +375,7 @@ class Util
     {
         global $bearsamppRoot, $bearsamppCore;
 
-        $shortcutPath = self::getStartupLnkPath();
+        $shortcutPath = Path::getStartupLnkPath();
         if (!$shortcutPath) {
             return false;
         }
@@ -405,7 +395,7 @@ class Util
      */
     public static function disableLaunchStartup()
     {
-        $startupLnkPath = self::getStartupLnkPath();
+        $startupLnkPath = Path::getStartupLnkPath();
 
         // Check if file exists before attempting to delete
         if (file_exists($startupLnkPath)) {
@@ -416,19 +406,6 @@ class Util
         return true;
     }
 
-    /**
-     * Finds the path to the PowerShell executable in the Windows System32 directory.
-     *
-     * @return string|false Returns the path to powershell.exe if found, otherwise false.
-     */
-    public static function getPowerShellPath()
-    {
-        if (is_dir('C:\Windows\System32\WindowsPowerShell')) {
-            return self::findFile('C:\Windows\System32\WindowsPowerShell', 'powershell.exe');
-        }
-
-        return false;
-    }
 
     /**
      * Recursively searches for repositories starting from a given path up to a specified depth.
