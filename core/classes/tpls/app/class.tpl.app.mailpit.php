@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -99,7 +99,7 @@ class TplAppMailpit
                     $bearsamppLang->getValue(Lang::MAILPIT),
                     $bearsamppConfig->getBrowser(),
                     TplAestan::GLYPH_WEB_PAGE,
-                    $bearsamppRoot->getLocalUrl() . ':' . $bearsamppBins->getMailpit()->getUiPort() . '/' . $bearsamppBins->getMailpit()->getWebRoot()
+                    Path::getLocalUrl() . ':' . $bearsamppBins->getMailpit()->getUiPort() . '/' . $bearsamppBins->getMailpit()->getWebRoot()
                 ) . PHP_EOL;
 
             // Log

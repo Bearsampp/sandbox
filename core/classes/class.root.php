@@ -182,52 +182,6 @@ class Root
         return $this->isRoot;
     }
 
-    /**
-     * Retrieves the root path of the application.
-     *
-     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The root path.
-     */
-    public function getRootPath($aetrayPath = false)
-    {
-        return Path::getRootPath($aetrayPath);
-    }
-
-    /**
-     * Retrieves the core path of the application.
-     *
-     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
-     * @return string The core path.
-     */
-    public function getCorePath($aetrayPath = false)
-    {
-        return Path::getCorePath($aetrayPath);
-    }
-
-    /**
-     * Gets the name of the process.
-     *
-     * @return string The process name.
-     */
-    public function getProcessName()
-    {
-        return 'bearsampp';
-    }
-
-    /**
-     * Constructs a local URL with the specified request.
-     *
-     * @param string|null $request The specific request to append to the URL.
-     * @return string The constructed local URL.
-     */
-    public function getLocalUrl($request = null)
-    {
-        global $bearsamppBins;
-        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
-            (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
-            ($bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
-            (!empty($request) ? '/' . $request : '');
-    }
 
     /**
      * Loads the core components of the application.

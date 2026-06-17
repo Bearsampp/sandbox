@@ -391,6 +391,31 @@ class Path
     }
 
     /**
+     * Gets the name of the process.
+     *
+     * @return string The process name.
+     */
+    public static function getProcessName()
+    {
+        return 'bearsampp';
+    }
+
+    /**
+     * Constructs a local URL with the specified request.
+     *
+     * @param string|null $request The specific request to append to the URL.
+     * @return string The constructed local URL.
+     */
+    public static function getLocalUrl($request = null)
+    {
+        global $bearsamppBins;
+        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
+            (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
+            (isset($bearsamppBins) && $bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
+            (!empty($request) ? '/' . $request : '');
+    }
+
+    /**
      * Gets the path to the error log file.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.

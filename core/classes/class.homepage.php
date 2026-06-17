@@ -79,7 +79,7 @@ class Homepage
     public function getPageUrl($query)
     {
         global $bearsamppRoot;
-        return $bearsamppRoot->getLocalUrl($this->getPageQuery($query));
+        return Path::getLocalUrl($this->getPageQuery($query));
     }
 
     /**
