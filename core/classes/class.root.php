@@ -182,7 +182,6 @@ class Root
         return $this->isRoot;
     }
 
-
     /**
      * Loads the core components of the application.
      */

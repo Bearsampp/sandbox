@@ -194,9 +194,8 @@ class Path
     /**
      * Replaces old path references with new path references in the specified files.
      *
-     * @param   array        $filesToScan  Array of file paths to scan and modify.
-     * @param   string|null  $rootPath     The new root path to replace the old one. If null, uses a default root path.
-     *
+     * @param array $filesToScan Array of file paths to scan and modify.
+     * @param string|null $rootPath The new root path to replace the old one. If null, uses a default root path.
      * @return array Returns an array with the count of occurrences changed and the count of files changed.
      */
     public static function changePath($filesToScan, $rootPath = null)
@@ -302,7 +301,7 @@ class Path
     }
 
     /**
-     * Gets the root path, optionally formatted for AeTrayMenu.
+     * Retrieves the root path of the application.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The root path.
@@ -315,13 +314,12 @@ class Path
     /**
      * Retrieves the path to the ajax directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the ajax directory.
      */
     public static function getAjaxPath($aetrayPath = false)
     {
-        return self::getHomepagePath( $aetrayPath ) . '/ajax';
+        return self::getHomepagePath($aetrayPath) . '/ajax';
     }
 
     /**
@@ -380,7 +378,7 @@ class Path
     }
 
     /**
-     * Gets the path to the core directory.
+     * Retrieves the core path of the application.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The core path.
@@ -462,44 +460,40 @@ class Path
     /**
      * Retrieves the path to the homepage.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the homepage.
      */
     public static function getHomepagePath($aetrayPath = false)
     {
-        return self::getResourcesPath( $aetrayPath ) . '/homepage';
+        return self::getResourcesPath($aetrayPath) . '/homepage';
     }
 
     /**
      * Retrieves the path to the HostsEditor directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the HostsEditor directory.
      */
     public static function getHostsEditorPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/hostseditor';
+        return self::getLibsPath($aetrayPath) . '/hostseditor';
     }
 
     /**
      * Retrieves the path to the HostsEditor executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the HostsEditor executable.
      */
     public static function getHostsEditorExe($aetrayPath = false)
     {
-        return self::getHostsEditorPath( $aetrayPath ) . '/' . Core::HOSTSEDITOR_EXE;
+        return self::getHostsEditorPath($aetrayPath) . '/' . Core::HOSTSEDITOR_EXE;
     }
 
     /**
      * Retrieves the path to the icons.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the icons.
      */
     public static function getIconsPath($aetrayPath = false)
@@ -510,8 +504,7 @@ class Path
     /**
      * Retrieves the path to the images.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the images.
      */
     public static function getImagesPath($aetrayPath = false)
@@ -533,73 +526,67 @@ class Path
     /**
      * Retrieves the path to the root file.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the root file.
      */
     public static function getisRootFilePath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/' . Core::isRoot_FILE;
+        return self::getCorePath($aetrayPath) . '/' . Core::isRoot_FILE;
     }
 
     /**
      * Retrieves the path to the language files.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the language files.
      */
     public static function getLangsPath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/langs';
+        return self::getCorePath($aetrayPath) . '/langs';
     }
 
     /**
      * Retrieves the path to the last path file.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the last path file.
      */
     public static function getLastPath($aetrayPath = false)
     {
-        return self::getResourcesPath( $aetrayPath ) . '/' . Core::LAST_PATH;
+        return self::getResourcesPath($aetrayPath) . '/' . Core::LAST_PATH;
     }
 
     /**
      * Retrieves the path to the libraries.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the libraries.
      */
     public static function getLibsPath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/libs';
+        return self::getCorePath($aetrayPath) . '/libs';
     }
 
     /**
      * Retrieves the path to the LN directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the LN directory.
      */
     public static function getLnPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/ln';
+        return self::getLibsPath($aetrayPath) . '/ln';
     }
 
     /**
      * Retrieves the path to the LN executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the LN executable.
      */
     public static function getLnExe($aetrayPath = false)
     {
-        return self::getLnPath( $aetrayPath ) . '/' . Core::LN_EXE;
+        return self::getLnPath($aetrayPath) . '/' . Core::LN_EXE;
     }
 
     /**
@@ -627,25 +614,23 @@ class Path
     /**
      * Retrieves the path to the NSSM directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the NSSM directory.
      */
     public static function getNssmPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/nssm';
+        return self::getLibsPath($aetrayPath) . '/nssm';
     }
 
     /**
      * Retrieves the path to the NSSM executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the NSSM executable.
      */
     public static function getNssmExe($aetrayPath = false)
     {
-        return self::getNssmPath( $aetrayPath ) . '/' . Core::NSSM_EXE;
+        return self::getNssmPath($aetrayPath) . '/' . Core::NSSM_EXE;
     }
 
     /**
@@ -720,61 +705,56 @@ class Path
     /**
      * Retrieves the path to the OpenSSL configuration file.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the OpenSSL configuration file.
      */
     public static function getOpenSslConf($aetrayPath = false)
     {
-        return self::getOpenSslPath( $aetrayPath ) . '/' . Core::OPENSSL_CONF;
+        return self::getOpenSslPath($aetrayPath) . '/' . Core::OPENSSL_CONF;
     }
 
     /**
      * Retrieves the path to the OpenSSL executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the OpenSSL executable.
      */
     public static function getOpenSslExe($aetrayPath = false)
     {
-        return self::getOpenSslPath( $aetrayPath ) . '/' . Core::OPENSSL_EXE;
+        return self::getOpenSslPath($aetrayPath) . '/' . Core::OPENSSL_EXE;
     }
 
     /**
      * Retrieves the path to the OpenSSL directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the OpenSSL directory.
      */
     public static function getOpenSslPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/openssl';
+        return self::getLibsPath($aetrayPath) . '/openssl';
     }
 
     /**
      * Retrieves the path to the PHP directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the PHP directory.
      */
     public static function getPhpPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/php';
+        return self::getLibsPath($aetrayPath) . '/php';
     }
 
     /**
      * Retrieves the path to the PHP executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the PHP executable.
      */
     public static function getPhpExe($aetrayPath = false)
     {
-        return self::getPhpPath( $aetrayPath ) . '/' . Core::PHP_EXE;
+        return self::getPhpPath($aetrayPath) . '/' . Core::PHP_EXE;
     }
 
     /**
@@ -794,25 +774,23 @@ class Path
     /**
      * Retrieves the path to the PWGen directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the PWGen directory.
      */
     public static function getPwgenPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/pwgen';
+        return self::getLibsPath($aetrayPath) . '/pwgen';
     }
 
     /**
      * Retrieves the path to the PWGen executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the PWGen executable.
      */
     public static function getPwgenExe($aetrayPath = false)
     {
-        return self::getPwgenPath( $aetrayPath ) . '/' . Core::PWGEN_EXE;
+        return self::getPwgenPath($aetrayPath) . '/' . Core::PWGEN_EXE;
     }
 
     /**
@@ -840,20 +818,18 @@ class Path
     /**
      * Retrieves the path to the resources.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the resources.
      */
     public static function getResourcesPath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/resources';
+        return self::getCorePath($aetrayPath) . '/resources';
     }
 
     /**
      * Retrieves the path to a specific script.
      *
-     * @param   string  $type  The type of script.
-     *
+     * @param string $type The type of script.
      * @return string The path to the script.
      */
     public static function getScript($type)
@@ -864,13 +840,12 @@ class Path
     /**
      * Retrieves the path to the scripts.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the scripts.
      */
     public static function getScriptsPath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/scripts';
+        return self::getCorePath($aetrayPath) . '/scripts';
     }
 
     /**
@@ -887,25 +862,23 @@ class Path
     /**
      * Retrieves the path to the SetEnv directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the SetEnv directory.
      */
     public static function getSetEnvPath($aetrayPath = false)
     {
-        return self::getLibsPath( $aetrayPath ) . '/setenv';
+        return self::getLibsPath($aetrayPath) . '/setenv';
     }
 
     /**
      * Retrieves the path to the SetEnv executable.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the SetEnv executable.
      */
     public static function getSetEnvExe($aetrayPath = false)
     {
-        return self::getSetEnvPath( $aetrayPath ) . '/' . Core::SETENV_EXE;
+        return self::getSetEnvPath($aetrayPath) . '/' . Core::SETENV_EXE;
     }
 
     /**
@@ -944,13 +917,12 @@ class Path
     /**
      * Retrieves the path to the temporary directory.
      *
-     * @param   bool  $aetrayPath  Whether to format the path for AeTrayMenu.
-     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
      * @return string The path to the temporary directory.
      */
     public static function getTmpPath($aetrayPath = false)
     {
-        return self::getCorePath( $aetrayPath ) . '/tmp';
+        return self::getCorePath($aetrayPath) . '/tmp';
     }
 
     /**
