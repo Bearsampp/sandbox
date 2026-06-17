@@ -227,7 +227,7 @@ class ServiceHelper
      * @param int $shutdownTimeout Timeout in seconds (default: 15)
      * @return bool True if all services stopped successfully
      */
-    public static function stopAllServicesParallel($bearsamppBins, callable $progressCallback = null, $shutdownTimeout = 15)
+    public static function stopAllServicesParallel($bearsamppBins, ?callable $progressCallback = null, $shutdownTimeout = 15)
     {
         Log::trace('ServiceHelper::stopAllServicesParallel() starting');
         $startTime = microtime(true);
@@ -270,7 +270,7 @@ class ServiceHelper
      * @param callable|null $progressCallback Optional progress callback
      * @return bool True if all services stopped
      */
-    private static function shutdownServicesParallel($services, callable $progressCallback = null)
+    private static function shutdownServicesParallel($services, ?callable $progressCallback = null)
     {
         Log::trace('Phase 1: Sending stop commands to all services');
         $totalServices = count($services);
@@ -335,7 +335,7 @@ class ServiceHelper
      * @param callable|null $progressCallback Optional progress callback
      * @return bool True if all services stopped
      */
-    private static function shutdownServicesSequential($services, callable $progressCallback = null)
+    private static function shutdownServicesSequential($services, ?callable $progressCallback = null)
     {
         Log::trace('Starting sequential shutdown phase');
         $totalServices = count($services);
@@ -416,7 +416,7 @@ class ServiceHelper
      * @param int $startupTimeout Timeout in seconds (default: 30)
      * @return bool True if all services started successfully
      */
-    public static function startAllServicesParallel($serviceInfos, callable $progressCallback = null, $startupTimeout = 30)
+    public static function startAllServicesParallel($serviceInfos, ?callable $progressCallback = null, $startupTimeout = 30)
     {
         Log::trace('ServiceHelper::startAllServicesParallel() starting with ' . count($serviceInfos) . ' services');
         $startTime = microtime(true);
@@ -458,7 +458,7 @@ class ServiceHelper
      * @param callable|null $progressCallback Optional progress callback
      * @return bool True if all services started
      */
-    private static function startServicesParallel($serviceInfos, callable $progressCallback = null)
+    private static function startServicesParallel($serviceInfos, ?callable $progressCallback = null)
     {
         Log::trace('Phase 1: Sending start commands to all services');
         $totalServices = count($serviceInfos);
@@ -541,7 +541,7 @@ class ServiceHelper
      * @param callable|null $progressCallback Optional progress callback
      * @return bool True if all services started
      */
-    private static function startServicesSequential($serviceInfos, callable $progressCallback = null)
+    private static function startServicesSequential($serviceInfos, ?callable $progressCallback = null)
     {
         Log::trace('Starting sequential startup phase');
         $totalServices = count($serviceInfos);
