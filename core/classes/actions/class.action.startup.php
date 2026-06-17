@@ -1025,13 +1025,19 @@ class ActionStartup
             Log::trace('Starting ' . count($servicesToStart) . ' services in parallel');
 
             $parallelStartTime = Util::getMicrotime();
+            $serviceCount = 0;
+            $totalServices = count($servicesToStart);
 
             // Use parallel startup for optimized performance (40-60% faster)
             ServiceHelper::startAllServicesParallel(
                 $servicesToStart,
-                function($current, $total, $serviceName) {
+                function($current, $total, $serviceName) use (&$serviceCount) {
                     $this->splash->setTextLoading('Starting ' . $serviceName . ' (' . $current . '/' . $total . ')');
-                    // Don't increment progress bar here - we'll do it after all services complete
+                    // Increment progress bar as each start command is sent
+                    if ($current > $serviceCount) {
+                        $this->splash->incrProgressBar();
+                        $serviceCount = $current;
+                    }
                 }
             );
 
@@ -1039,18 +1045,18 @@ class ActionStartup
             $parallelDuration = round(Util::getMicrotime() - $parallelStartTime, 3);
             Log::trace('Parallel startup phase completed in ' . $parallelDuration . ' seconds');
 
-            $serviceCount = 0;
-            $totalServices = count($servicesToStart);
-
+            $verifyCount = 0;
             foreach ($servicesToStart as $sName => $serviceInfo) {
-                $serviceCount++;
+                $verifyCount++;
                 $name = $serviceInfo['name'];
                 $service = $serviceInfo['service'];
+
+                // Update splash during verification phase
+                $this->splash->setTextLoading('Verifying ' . $name . ' (' . $verifyCount . '/' . $totalServices . ')');
 
                 if ($service->isRunning()) {
                     $this->writeLog($name . ' service started successfully');
                     Log::trace('Service ' . $name . ' verified running');
-                    $this->splash->setTextLoading('Verifying ' . $name . ' (' . $serviceCount . '/' . $totalServices . ')');
                 } else {
                     $error = $service->getError();
                     if (empty($error)) {
@@ -1074,8 +1080,8 @@ class ActionStartup
                     }
                 }
 
-                // Complete remaining steps: prepareService=1, now add 4 more = 5 total
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES);
+                // Increment progress bar for verification step
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
             }
 
             Log::info('Parallel service startup completed: ' . count($servicesToStart) . ' services processed');
