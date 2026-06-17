@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  *
  *  * Copyright (c) 2022-2025 Bearsampp
@@ -380,7 +380,7 @@ class WinBinder
     private static function writeLog($log): void
     {
         global $bearsamppRoot;
-        Log::debug($log, $bearsamppRoot->getWinbinderLogFilePath());
+        Log::debug($log, Path::getWinbinderLogFilePath());
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -25,7 +25,7 @@ class TplAppEditConf
 
         return TplAestan::getItemNotepad(
             sprintf($bearsamppLang->getValue(Lang::MENU_EDIT_CONF), "bearsampp.conf"),
-            $bearsamppRoot->getConfigFilePath()
+            Path::getConfigFilePath()
         ) . PHP_EOL;
     }
 }

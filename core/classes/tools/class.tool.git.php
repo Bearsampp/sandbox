@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -96,7 +96,7 @@ class ToolGit extends Module
             foreach ($this->repos as $repo) {
                 $repo = trim($repo);
                 if (stripos($repo, ':') === false) {
-                    $repo = $bearsamppRoot->getRootPath() . '/' . $repo;
+                    $repo = Path::getRootPath() . '/' . $repo;
                 }
                 if (is_dir($repo)) {
                     $rebuildRepos[] = Path::formatUnixPath($repo);

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -34,7 +34,7 @@ class CommandRunner
     private static function writeLog(string $log): void
     {
         global $bearsamppRoot;
-        Log::debug($log, $bearsamppRoot->getBatchLogFilePath());
+        Log::debug($log, Path::getBatchLogFilePath());
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -40,7 +40,7 @@ class ActionGenSslCertificate
         global $bearsamppRoot, $bearsamppLang, $bearsamppWinbinder;
 
         $initServerName = 'test.local';
-        $initDocumentRoot = Path::formatWindowsPath($bearsamppRoot->getSslPath());
+        $initDocumentRoot = Path::formatWindowsPath(Path::getSslPath());
 
         $bearsamppWinbinder->reset();
         $this->wbWindow = $bearsamppWinbinder->createAppWindow($bearsamppLang->getValue(Lang::GENSSL_TITLE), 490, 160, WBC_NOTIFY, WBC_KEYDOWN | WBC_KEYUP);

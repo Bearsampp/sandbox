@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -125,7 +125,7 @@ class TplApp
         $result = 'Action: run; ' .
             'FileName: "' . Path::getPhpExe(true) . '"; ' .
             'Parameters: "' . Core::isRoot_FILE . ' ' . $action . $argImp . '"; ' .
-            'WorkingDir: "' . $bearsamppRoot->getCorePath(true) . '"';
+            'WorkingDir: "' . Path::getCorePath(true) . '"';
 
         if (!empty($item)) {
             $result = 'Type: item; ' . $result .
@@ -346,7 +346,7 @@ class TplApp
             '[Menu.Left]' . PHP_EOL .
             TplAestan::getItemLink($bearsamppLang->getValue(Lang::MENU_LOCALHOST), $httpUrl) . PHP_EOL .
             TplAestan::getItemLink($bearsamppLang->getValue(Lang::MENU_LOCALHOST) . ' (SSL)', $httpsUrl) . PHP_EOL .
-            TplAestan::getItemExplore($bearsamppLang->getValue(Lang::MENU_WWW_DIRECTORY), $bearsamppRoot->getWwwPath()) . PHP_EOL .
+            TplAestan::getItemExplore($bearsamppLang->getValue(Lang::MENU_WWW_DIRECTORY), Path::getWwwPath()) . PHP_EOL .
 
             //// Bins menus
             TplAestan::getItemSeparator() . PHP_EOL .

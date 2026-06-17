@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -78,7 +78,7 @@ class TplAppGit
                 TplAestan::GLYPH_GIT,
                 null,
                 $bearsamppTools->getPowerShell()->getTabTitleGit(),
-                $bearsamppRoot->getWwwPath(),
+                Path::getWwwPath(),
                 null
             ) . PHP_EOL .
             TplAestan::getItemExe(

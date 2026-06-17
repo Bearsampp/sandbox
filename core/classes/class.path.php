@@ -63,6 +63,31 @@ class Path
     private static $pathFormatCache = [];
 
     /**
+     * The root path of the application.
+     * @var string
+     */
+    private static $rootPath;
+
+    /**
+     * The path to the core directory.
+     * @var string
+     */
+    private static $corePath;
+
+    /**
+     * Initializes the Path class with root and core paths.
+     *
+     * @param string $rootPath The root path of the application.
+     * @param string $corePath The path to the core directory.
+     * @return void
+     */
+    public static function init($rootPath, $corePath)
+    {
+        self::$rootPath = str_replace('\\', '/', rtrim($rootPath, '/\\'));
+        self::$corePath = str_replace('\\', '/', rtrim($corePath, '/\\'));
+    }
+
+    /**
      * Maximum size for path format cache to prevent memory issues.
      * @var int
      */
@@ -270,7 +295,6 @@ class Path
      */
     public static function aetrayPath($path)
     {
-        global $bearsamppRoot;
         $rootPath = self::getRootPath();
         $path = str_replace($rootPath, '', $path);
         $path = ltrim(self::formatUnixPath($path), '/');
@@ -285,9 +309,7 @@ class Path
      */
     public static function getRootPath($aetrayPath = false)
     {
-        global $bearsamppRoot;
-        $path = dirname($bearsamppRoot->path);
-        return $aetrayPath ? self::aetrayPath($path) : $path;
+        return $aetrayPath ? self::aetrayPath(self::$rootPath) : self::$rootPath;
     }
 
     /**
@@ -365,8 +387,7 @@ class Path
      */
     public static function getCorePath($aetrayPath = false)
     {
-        global $bearsamppRoot;
-        return $aetrayPath ? self::aetrayPath($bearsamppRoot->path) : $bearsamppRoot->path;
+        return $aetrayPath ? self::aetrayPath(self::$corePath) : self::$corePath;
     }
 
     /**
@@ -966,8 +987,12 @@ class Path
      */
     public static function getWebResourcesUrl()
     {
-        global $bearsamppRoot;
-        return $bearsamppRoot->getLocalUrl(self::getWebResourcesPath());
+        global $bearsamppBins;
+        $request = self::getWebResourcesPath();
+        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
+            (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
+            ($bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
+            (!empty($request) ? '/' . $request : '');
     }
 
     /**

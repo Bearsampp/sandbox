@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -111,12 +111,12 @@ class LangProc
             $content = '[' . date('Y-m-d H:i:s', time()) . '] ';
             $content .= 'ERROR: Lang var missing ' . $key;
             $content .= ' for ' . $this->current . ' language.' . PHP_EOL;
-            file_put_contents($bearsamppRoot->getErrorLogFilePath(), $content, FILE_APPEND);
+            file_put_contents(Path::getErrorLogFilePath(), $content, FILE_APPEND);
             return $key;
         }
 
         // Special chars not handled by Aestan Tray Menu
-        $replace = array("ő", "Ő", "ű", "Ű");
+        $replace = array("Å‘", "Å", "Å±", "Å°");
         $with = array("o", "O", "u", "U");
 
         return str_replace($replace, $with, $this->raw[$key]);

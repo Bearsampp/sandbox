@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  *
  *  * Copyright (c) 2022-2025 Bearsampp
@@ -30,7 +30,7 @@ class ActionRebuildini
         global $bearsamppRoot, $bearsamppCore;
 
         // Step 0: Delete the existing bearsampp.ini file
-        $iniFilePath = $bearsamppRoot->getIniFilePath();
+        $iniFilePath = Path::getIniFilePath();
 
         if (is_link($iniFilePath)) {
             @unlink($iniFilePath);

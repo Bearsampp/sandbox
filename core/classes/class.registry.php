@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -68,7 +68,7 @@ class Registry
     private function writeLog($log)
     {
         global $bearsamppRoot;
-        Log::debug($log, $bearsamppRoot->getRegistryLogFilePath());
+        Log::debug($log, Path::getRegistryLogFilePath());
     }
 
     /**

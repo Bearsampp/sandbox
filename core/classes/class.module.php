@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -54,13 +54,13 @@ abstract class Module
 
         switch ($this->type) {
             case Apps::TYPE:
-                $mainPath = $bearsamppRoot->getAppsPath();
+                $mainPath = Path::getAppsPath();
                 break;
             case Bins::TYPE:
-                $mainPath = $bearsamppRoot->getBinPath();
+                $mainPath = Path::getBinPath();
                 break;
             case Tools::TYPE:
-                $mainPath = $bearsamppRoot->getToolsPath();
+                $mainPath = Path::getToolsPath();
                 break;
         }
 

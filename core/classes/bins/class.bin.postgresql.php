@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -77,7 +77,7 @@ class BinPostgresql extends Module
 
         $this->enable   = $this->enable && $bearsamppConfig->getRaw( self::ROOT_CFG_ENABLE );
         $this->service  = new Win32Service( self::SERVICE_NAME );
-        $this->errorLog = $bearsamppRoot->getLogsPath() . '/postgresql.log';
+        $this->errorLog = Path::getLogsPath() . '/postgresql.log';
 
         if ( $this->bearsamppConfRaw !== false ) {
             $this->ctlExe     = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CTL_EXE];

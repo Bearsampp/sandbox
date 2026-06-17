@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -100,7 +100,7 @@ class TplAppNodejs
                 TplAestan::GLYPH_NODEJS,
                 null,
                 $bearsamppTools->getPowerShell()->getTabTitleNodejs(),
-                $bearsamppRoot->getWwwPath(),
+                Path::getWwwPath(),
                 null
             ) . PHP_EOL;
 

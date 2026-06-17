@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Copyright (c) 2021-2024 Bearsampp
  * License:  GNU General Public License version 3 or later; see LICENSE.txt
@@ -79,7 +79,7 @@ class Nssm
     private function writeLog($log)
     {
         global $bearsamppRoot;
-        Log::debug( $log, $bearsamppRoot->getNssmLogFilePath() );
+        Log::debug( $log, Path::getNssmLogFilePath() );
     }
 
     /**
@@ -90,7 +90,7 @@ class Nssm
     private function writeLogInfo($log)
     {
         global $bearsamppRoot;
-        Log::info( $log, $bearsamppRoot->getNssmLogFilePath() );
+        Log::info( $log, Path::getNssmLogFilePath() );
     }
 
     /**
@@ -101,7 +101,7 @@ class Nssm
     private function writeLogError($log)
     {
         global $bearsamppRoot;
-        Log::error( $log, $bearsamppRoot->getNssmLogFilePath() );
+        Log::error( $log, Path::getNssmLogFilePath() );
     }
 
     /**
@@ -689,4 +689,3 @@ class Nssm
         return null;
     }
 }
-
