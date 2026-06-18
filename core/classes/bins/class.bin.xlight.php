@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  *
  *  * Copyright (c) 2021-2024 Bearsampp

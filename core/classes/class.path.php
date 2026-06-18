@@ -407,9 +407,11 @@ class Path
     public static function getLocalUrl($request = null)
     {
         global $bearsamppBins;
-        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
-            (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
-            (isset($bearsamppBins) && $bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
+        $port = (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) ? $bearsamppBins->getApache()->getPort() : 80;
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost';
+        return $scheme . $host .
+            ($port != 80 && !isset($_SERVER['HTTPS']) ? ':' . $port : '') .
             (!empty($request) ? '/' . $request : '');
     }
 
@@ -986,9 +988,11 @@ class Path
     {
         global $bearsamppBins;
         $request = self::getWebResourcesPath();
-        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') .
-            (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') .
-            ($bearsamppBins->getApache()->getPort() != 80 && !isset($_SERVER['HTTPS']) ? ':' . $bearsamppBins->getApache()->getPort() : '') .
+        $port = (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) ? $bearsamppBins->getApache()->getPort() : 80;
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost';
+        return $scheme . $host .
+            ($port != 80 && !isset($_SERVER['HTTPS']) ? ':' . $port : '') .
             (!empty($request) ? '/' . $request : '');
     }
 

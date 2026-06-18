@@ -105,8 +105,8 @@ class Homepage
     public function refreshCommonsJsContent()
     {
         Util::replaceInFile(Path::getHomepagePath() . '/js/_commons.js', array(
-            '/^\s\surl:.*/' => '  url: "' . Path::getWebResourcesPath() . '/ajax.php"',
-            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . Path::getWebResourcesPath() . '/ajax.php"',
+            '/^\s\surl:.*/' => '  url: "' . Path::getWebResourcesUrl() . '/ajax.php",',
+            '/AJAX_URL.*=.*/' => 'const AJAX_URL = "' . Path::getWebResourcesUrl() . '/ajax.php"',
         ));
     }
 }
