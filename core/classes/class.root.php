@@ -382,7 +382,7 @@ class Root
      */
     public function errorHandler($errno, $errstr, $errfile, $errline)
     {
-        if (error_reporting() === 0) {
+        if (!(error_reporting() & $errno)) {
             return;
         }
 
