@@ -567,6 +567,13 @@ class BinMysql extends Module
         // bearsampp.conf
         $this->setVersion($version);
 
+        // Invalidate cache for the new version's config
+        CacheManager::invalidate($bearsamppConf);
+        $cacheKey = md5($bearsamppConf);
+        if (isset(self::$configCache[$cacheKey])) {
+            unset(self::$configCache[$cacheKey]);
+        }
+
         // conf
         Util::replaceInFile($this->getConf(), array(
             '/^port(.*?)=(.*?)(\d+)/' => 'port = ' . $this->port

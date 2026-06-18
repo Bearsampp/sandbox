@@ -84,7 +84,7 @@ abstract class Module
             $this->bearsamppConfRaw = self::$configCache[$cacheKey];
         }
 
-        if ($bearsamppRoot->isRoot() && !Symlinks::isSkippingSymlinkCreation()) {
+        if (!Symlinks::isSkippingSymlinkCreation()) {
             Symlinks::createModuleSymlink($this);
         }
     }
