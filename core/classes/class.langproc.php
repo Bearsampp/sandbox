@@ -116,10 +116,9 @@ class LangProc
         }
 
         // Special chars not handled by Aestan Tray Menu
-        $replace = array("Å‘", "Å", "Å±", "Å°");
+        $replace = array("ő", "Ő", "ű", "Ű");
         $with = array("o", "O", "u", "U");
 
         return str_replace($replace, $with, $this->raw[$key]);
     }
 }
-

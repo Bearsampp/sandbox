@@ -568,11 +568,7 @@ class BinMysql extends Module
         $this->setVersion($version);
 
         // Invalidate cache for the new version's config
-        CacheManager::invalidate($bearsamppConf);
-        $cacheKey = md5($bearsamppConf);
-        if (isset(self::$configCache[$cacheKey])) {
-            unset(self::$configCache[$cacheKey]);
-        }
+        self::invalidateConfigCacheForPath($bearsamppConf);
 
         // conf
         Util::replaceInFile($this->getConf(), array(

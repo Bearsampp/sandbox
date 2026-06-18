@@ -116,9 +116,19 @@ abstract class Module
         file_put_contents($this->bearsamppConf, $content);
 
         // Invalidate both memory cache and disk cache
-        $cacheKey = md5($this->bearsamppConf);
+        self::invalidateConfigCacheForPath($this->bearsamppConf);
+    }
+
+    /**
+     * Invalidates the configuration cache for a given source path.
+     * Clears both in-memory cache and disk cache via CacheManager.
+     *
+     * @param string $sourcePath The path to the configuration file to invalidate cache for.
+     */
+    protected static function invalidateConfigCacheForPath($sourcePath) {
+        $cacheKey = md5($sourcePath);
         unset(self::$configCache[$cacheKey]);
-        CacheManager::invalidate($this->bearsamppConf);
+        CacheManager::invalidate($sourcePath);
     }
 
     /**
