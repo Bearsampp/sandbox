@@ -1081,7 +1081,8 @@ class ActionStartup
                 }
 
                 // Increment progress bar for verification step
-                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 1);
+                // Total for parallel path: 1 (prepare) + 1 (start callback) + 3 (verify) = 5
+                $this->splash->incrProgressBar(self::GAUGE_SERVICES - 2);
             }
 
             Log::info('Parallel service startup completed: ' . count($servicesToStart) . ' services processed');
