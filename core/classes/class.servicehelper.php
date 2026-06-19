@@ -241,7 +241,7 @@ class ServiceHelper
         Log::trace('Starting parallel shutdown of ' . count($services) . ' services');
 
         // Try parallel shutdown
-        $parallelSuccess = self::shutdownServicesParallel($services, $progressCallback);
+        $parallelSuccess = self::shutdownServicesParallel($services, $progressCallback, $shutdownTimeout);
 
         if ($parallelSuccess) {
             $duration = round(microtime(true) - $startTime, 3);
@@ -268,9 +268,10 @@ class ServiceHelper
      *
      * @param array $services Array of services
      * @param callable|null $progressCallback Optional progress callback
+     * @param int $shutdownTimeout Timeout in seconds
      * @return bool True if all services stopped
      */
-    private static function shutdownServicesParallel($services, ?callable $progressCallback = null)
+    private static function shutdownServicesParallel($services, ?callable $progressCallback = null, $shutdownTimeout = 15)
     {
         Log::trace('Phase 1: Sending stop commands to all services');
         $totalServices = count($services);
@@ -290,7 +291,7 @@ class ServiceHelper
         // Phase 2: Monitor status
         Log::trace('Phase 2: Monitoring service status');
         $monitorStartTime = microtime(true);
-        $monitorTimeout = 15;
+        $monitorTimeout = $shutdownTimeout;
         $checkInterval = 0.5;
         $allStopped = false;
 
@@ -429,7 +430,7 @@ class ServiceHelper
         Log::trace('Starting parallel startup of ' . count($serviceInfos) . ' services');
 
         // Try parallel startup
-        $parallelSuccess = self::startServicesParallel($serviceInfos, $progressCallback);
+        $parallelSuccess = self::startServicesParallel($serviceInfos, $progressCallback, $startupTimeout);
 
         if ($parallelSuccess) {
             $duration = round(microtime(true) - $startTime, 3);
@@ -456,9 +457,10 @@ class ServiceHelper
      *
      * @param array $serviceInfos Array of service information
      * @param callable|null $progressCallback Optional progress callback
+     * @param int $startupTimeout Timeout in seconds
      * @return bool True if all services started
      */
-    private static function startServicesParallel($serviceInfos, ?callable $progressCallback = null)
+    private static function startServicesParallel($serviceInfos, ?callable $progressCallback = null, $startupTimeout = 30)
     {
         Log::trace('Phase 1: Sending start commands to all services');
         $totalServices = count($serviceInfos);
@@ -473,8 +475,6 @@ class ServiceHelper
 
             Log::trace('Sending start to: ' . $serviceName);
             $service = $serviceInfo['service'];
-            $bin = $serviceInfo['bin'];
-            $syntaxCheckCmd = $serviceInfo['syntaxCheckCmd'] ?? null;
 
             // Start the service
             $service->start();
@@ -483,10 +483,9 @@ class ServiceHelper
         // Phase 2: Monitor status
         Log::trace('Phase 2: Monitoring service status');
         $monitorStartTime = microtime(true);
-        $monitorTimeout = 30;
+        $monitorTimeout = $startupTimeout;
         $checkInterval = 0.5;
         $allRunning = false;
-        $maxRetries = 3;
         $failedServices = [];
 
         while ((microtime(true) - $monitorStartTime) < $monitorTimeout) {
@@ -515,7 +514,6 @@ class ServiceHelper
 
             foreach ($failedServices as $serviceName => $serviceInfo) {
                 $service = $serviceInfo['service'];
-                $bin = $serviceInfo['bin'];
 
                 if (!$service->isRunning()) {
                     Log::trace('Retrying start for: ' . $serviceName);
@@ -555,10 +553,8 @@ class ServiceHelper
 
             Log::trace('Sequential start: ' . $serviceName);
             $service = $serviceInfo['service'];
-            $bin = $serviceInfo['bin'];
-            $syntaxCheckCmd = $serviceInfo['syntaxCheckCmd'] ?? null;
 
-            $success = $service->start();
+            $service->start();
 
             // Small delay between service starts
             usleep(200000);
