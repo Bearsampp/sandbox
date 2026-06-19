@@ -1031,8 +1031,8 @@ class ActionStartup
             // Use parallel startup for optimized performance (40-60% faster)
             ServiceHelper::startAllServicesParallel(
                 $servicesToStart,
-                function($current, $total, $serviceName) use (&$serviceCount) {
-                    $this->splash->setTextLoading('Starting ' . $serviceName . ' (' . $current . '/' . $total . ')');
+                function($current, $total, $serviceName) use (&$serviceCount, $bearsamppLang) {
+                    $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::LOADING_START_SERVICE), $serviceName) . ' (' . $current . '/' . $total . ')');
                     // Increment progress bar as each start command is sent
                     if ($current > $serviceCount) {
                         $this->splash->incrProgressBar();
@@ -1052,7 +1052,7 @@ class ActionStartup
                 $service = $serviceInfo['service'];
 
                 // Update splash during verification phase
-                $this->splash->setTextLoading('Verifying ' . $name . ' (' . $verifyCount . '/' . $totalServices . ')');
+                $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_CHECK_SERVICE_TEXT), $name) . ' (' . $verifyCount . '/' . $totalServices . ')');
 
                 if ($service->isRunning()) {
                     $this->writeLog($name . ' service started successfully');

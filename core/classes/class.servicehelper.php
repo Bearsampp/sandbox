@@ -280,7 +280,7 @@ class ServiceHelper
         foreach ($services as $serviceName => $service) {
             $currentIndex++;
             if ($progressCallback) {
-                $progressCallback($currentIndex, $totalServices, 'Stopping ' . $serviceName);
+                $progressCallback($currentIndex, $totalServices, $serviceName);
             }
 
             Log::trace('Sending stop to: ' . $serviceName);
@@ -344,7 +344,7 @@ class ServiceHelper
         foreach ($services as $serviceName => $service) {
             $currentIndex++;
             if ($progressCallback) {
-                $progressCallback($currentIndex, $totalServices, 'Stopping ' . $serviceName);
+                $progressCallback($currentIndex, $totalServices, $serviceName);
             }
 
             Log::trace('Sequential stop: ' . $serviceName);
@@ -468,7 +468,7 @@ class ServiceHelper
         foreach ($serviceInfos as $serviceName => $serviceInfo) {
             $currentIndex++;
             if ($progressCallback) {
-                $progressCallback($currentIndex, $totalServices, 'Starting ' . $serviceInfo['name']);
+                $progressCallback($currentIndex, $totalServices, $serviceInfo['name']);
             }
 
             Log::trace('Sending start to: ' . $serviceName);
@@ -550,7 +550,7 @@ class ServiceHelper
         foreach ($serviceInfos as $serviceName => $serviceInfo) {
             $currentIndex++;
             if ($progressCallback) {
-                $progressCallback($currentIndex, $totalServices, 'Starting ' . $serviceInfo['name']);
+                $progressCallback($currentIndex, $totalServices, $serviceInfo['name']);
             }
 
             Log::trace('Sequential start: ' . $serviceName);
@@ -591,4 +591,3 @@ class ServiceHelper
         return true;
     }
 }
-
