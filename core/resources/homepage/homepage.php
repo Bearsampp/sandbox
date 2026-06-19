@@ -32,7 +32,7 @@ header('X-Frame-Options: SAMEORIGIN');
 header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://bearsampp.com;");
+header("Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://api.github.com https://bearsampp.com https://* http://*; img-src 'self' data: https:; font-src 'self' data:;");
 
 /**
  * Declare global variables to access various parts of the application such as language settings,

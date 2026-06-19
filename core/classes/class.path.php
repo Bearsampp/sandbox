@@ -939,6 +939,38 @@ class Path
     }
 
     /**
+     * Gets the path to the mkcert directory.
+     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
+     * @return string The mkcert path.
+     */
+    public static function getMkcertPath($aetrayPath = false)
+    {
+        return self::getToolsPath($aetrayPath) . '/mkcert';
+    }
+
+    /**
+     * Gets the path to the mkcert executable.
+     *
+     * @param bool $aetrayPath Whether to format the path for AeTrayMenu.
+     * @return string The mkcert executable path.
+     */
+    public static function getMkcertExe($aetrayPath = false)
+    {
+        return self::getMkcertPath($aetrayPath) . '/mkcert.exe';
+    }
+
+    /**
+     * Gets the name of the mkcert root CA file.
+     *
+     * @return string The mkcert root CA filename.
+     */
+    public static function getMkcertRootCaName()
+    {
+        return 'rootCA.pem';
+    }
+
+    /**
      * Gets the path to the virtual hosts directory.
      *
      * @param bool $aetrayPath Whether to format the path for AeTrayMenu.

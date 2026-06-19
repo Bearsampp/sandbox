@@ -98,6 +98,7 @@ class Lang
     const MENU_ENABLE = 'menuEnable';
     const MENU_ERROR_LOGS = 'menuErrorLogs';
     const MENU_GEN_SSL_CERTIFICATE = 'menuGenSslCertificate';
+    const MENU_GEN_ROOT_CA = 'menuGenRootCa';
     const MENU_INSTALL_SERVICE = 'menuInstallService';
     const MENU_LAUNCH_STARTUP = 'menuLaunchStartup';
     const MENU_LOCALHOST = 'menuLocalhost';
@@ -470,6 +471,7 @@ class Lang
             self::MENU_EDIT_VHOST,
             self::MENU_ENABLE,
             self::MENU_ERROR_LOGS,
+            self::MENU_GEN_ROOT_CA,
             self::MENU_GEN_SSL_CERTIFICATE,
             self::MENU_INSTALL_SERVICE,
             self::MENU_LAUNCH_STARTUP,
