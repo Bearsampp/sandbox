@@ -291,7 +291,7 @@ async function installModule(moduleName, version) {
         }
         setTimeout(() => {
             location.reload();
-        }, 100); // Delay of 100 milliseconds
+        }, 500); // Increased delay to 500ms to allow core system to stabilize after installation
     }
 }
 
@@ -372,7 +372,7 @@ ${message}
     const closeModal = () => {
         modalContainer.remove();
         // Reload after closing
-        setTimeout(() => location.reload(), 100);
+        setTimeout(() => location.reload(), 500);
     };
 
     closeButton.onclick = closeModal;
@@ -427,7 +427,7 @@ function showInfoDialog(message) {
     const closeModal = () => {
         modalContainer.remove();
         // Reload after closing
-        setTimeout(() => location.reload(), 100);
+        setTimeout(() => location.reload(), 500);
     };
 
     okButton.onclick = closeModal;

@@ -978,6 +978,9 @@ class ActionStartup
         Log::trace('Starting sequential service installation');
         $installStartTime = Util::getMicrotime();
 
+        // Pre-fetch all services to speed up preparation phase
+        Win32Service::getServices(true);
+
         // Skip symlink creation during checking phase for performance
         Symlinks::setSkipSymlinkCreation(true);
 
@@ -1253,8 +1256,27 @@ class ActionStartup
         $isPortInUse = Util::isPortInUse($port);
         if ($isPortInUse !== false) {
             // Port is in use - check if it's our service that's already running
-            if ($service->isRunning()) {
+            $isRunning = false;
+            if ($serviceInfos !== false) {
+                // Determine if running from serviceInfos
+                if ($this->getNssm() instanceof Nssm) {
+                    $isRunning = ($serviceInfos == Nssm::STATUS_RUNNING);
+                } else {
+                    $isRunning = (isset($serviceInfos[Win32Service::VBS_STATE]) && $serviceInfos[Win32Service::VBS_STATE] == Win32Service::WIN32_SERVICE_RUNNING) ||
+                                 (isset($serviceInfos['CurrentState']) && $serviceInfos['CurrentState'] == Win32Service::WIN32_SERVICE_RUNNING);
+                }
+            }
+
+            if ($isRunning) {
                 // Service is already running and owns the port - this is OK
+                $this->writeLog($name . ' service already running on port ' . $port);
+                Log::trace('Service ' . $name . ' already running - no need to start');
+                $serviceInfo['needsStart'] = false;
+                return $serviceInfo;
+            }
+
+            // Fallback to a single status check if serviceInfos didn't give us the answer
+            if ($serviceInfos === false && $service->isRunning()) {
                 $this->writeLog($name . ' service already running on port ' . $port);
                 Log::trace('Service ' . $name . ' already running - no need to start');
                 $serviceInfo['needsStart'] = false;

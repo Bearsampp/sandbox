@@ -85,6 +85,9 @@ class Win32Service
     private $latestStatus;
     private $latestError;
 
+    // Cache for service list to speed up bulk operations
+    private static $serviceListCache = null;
+
     // Track which functions have been logged to avoid duplicate log entries
     private static $loggedFunctions = array();
 
@@ -124,6 +127,35 @@ class Win32Service
             self::VBS_PATH_NAME,
             self::VBS_STATE
         );
+    }
+
+    /**
+     * Retrieves all Windows services.
+     * Use $forceRefresh to ignore the cache.
+     *
+     * @param bool $forceRefresh Whether to force a refresh of the service list.
+     * @return array Array of services.
+     */
+    public static function getServices($forceRefresh = false)
+    {
+        if (self::$serviceListCache === null || $forceRefresh) {
+            Log::trace('Fetching service list from Windows (COM/WMI)');
+            $startTime = microtime(true);
+            $services = Win32Native::listServices(self::getVbsKeys());
+            
+            self::$serviceListCache = [];
+            if (is_array($services)) {
+                foreach ($services as $service) {
+                    if (isset($service[self::VBS_NAME])) {
+                        self::$serviceListCache[$service[self::VBS_NAME]] = $service;
+                    }
+                }
+            }
+            $duration = round(microtime(true) - $startTime, 3);
+            Log::trace('Service list fetched in ' . $duration . 's');
+        }
+        
+        return self::$serviceListCache;
     }
 
     /**
@@ -250,8 +282,6 @@ class Win32Service
      */
     public function status($timeout = true): string
     {
-        usleep( self::SLEEP_TIME );
-
         $this->latestStatus = self::WIN32_SERVICE_NA;
         $maxtime            = time() + self::PENDING_TIMEOUT;
 

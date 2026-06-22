@@ -481,19 +481,12 @@ class QuickPick
                     // Step 2: Trigger reload AFTER config update (reload will apply the new version)
                     Log::debug('Config updated successfully, triggering reload to apply changes...');
 
-                    // Send progress update to user - temporarily stop output buffering
-                    $obLevel = ob_get_level();
-                    while (ob_get_level() > 0) {
-                        ob_end_flush();
+                    // Send progress update to user - flush output
+                    if (ob_get_level() > 0) {
+                        ob_flush();
                     }
-
-                    echo json_encode(['phase' => 'updating', 'message' => 'Updating system configuration...']);
+                    echo json_encode(['phase' => 'updating', 'message' => 'Updating system configuration...']) . PHP_EOL;
                     flush();
-
-                    // Restart output buffering
-                    for ($i = 0; $i < $obLevel; $i++) {
-                        ob_start();
-                    }
 
                     // Note: User must manually reload from tray menu to activate the new version
                     Log::debug('Installation complete - user must manually reload from tray menu');
