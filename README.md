@@ -50,6 +50,7 @@ For those who wish to contribute, have an issue or questions, read the [Document
 
 ## Documentation
 
+* [User Friendly Documentation](https://documentation.bearsampp.com/)
 * [Get started](https://bearsampp.com/get-started)
 * [Screenshots](https://bearsampp.com/screenshots)
 * [FAQ](https://bearsampp.com/documentation/faqs/)
