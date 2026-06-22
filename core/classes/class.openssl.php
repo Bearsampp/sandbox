@@ -226,21 +226,32 @@ class OpenSsl
         
         Log::trace('Executing mkcert for "' . $name . '"');
         $batch .= '("' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . ') || (ECHO mkcert failed && EXIT /B 1)' . PHP_EOL;
-        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . ' >NUL' . PHP_EOL;
+        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . ' >NUL 2>&1' . PHP_EOL;
+        $batch .= 'IF NOT EXIST ' . $pubPath . ' (ECHO pub file missing && EXIT /B 1)' . PHP_EOL;
 
         $batch .= 'SET RESULT=KO' . PHP_EOL;
         $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' SET RESULT=OK' . PHP_EOL;
         $batch .= 'ECHO %RESULT%';
 
-        Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert');
+        Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert. Batch content: ' . $batch);
         $result = Batch::exec('createCertificateMkcert', $batch);
 
         if ($result === false || !is_array($result)) {
-            Log::error('Batch execution failed for mkcert generation of "' . $name . '"');
+            Log::error('Batch execution failed for mkcert generation of "' . $name . '". Check logs for createCertificateMkcert.');
             return false;
         }
 
-        $success = isset($result[0]) && $result[0] == 'OK';
+        $success = false;
+        foreach ($result as $line) {
+            if (trim($line) === 'OK') {
+                $success = true;
+                break;
+            }
+        }
+        
+        if (!$success) {
+            Log::error('mkcert generation for "' . $name . '" did not return OK. Output: ' . implode(' | ', $result));
+        }
         Log::trace('mkcert generation for "' . $name . '": ' . ($success ? 'SUCCESS' : 'FAILURE'));
 
         return $success;
@@ -371,9 +382,8 @@ class OpenSsl
     {
         $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
         $crtPath = Path::getSslPath() . '/' . $name . '.crt';
-        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
 
-        return is_file($ppkPath) && is_file($crtPath) && is_file($pubPath);
+        return is_file($ppkPath) && is_file($crtPath);
     }
 
     /**
@@ -460,11 +470,7 @@ class OpenSsl
             $files = glob($sslPath . '/*.crt');
             if ($files !== false) {
                 foreach ($files as $file) {
-                    $name = basename($file, '.crt');
-                    // Only include if both .crt and .pub exist
-                    if (is_file($sslPath . '/' . $name . '.pub')) {
-                        $certs[] = $name;
-                    }
+                    $certs[] = basename($file, '.crt');
                 }
             }
         }
