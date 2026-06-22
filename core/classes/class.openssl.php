@@ -138,21 +138,22 @@ class OpenSsl
 
         Log::info('Creating new Root CA and installing it...');
         
-        $batch = 'SET CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . PHP_EOL;
+        $rootCaPath = Path::getSslPath() . '/' . Path::getMkcertRootCaName();
+        $batch = 'SET "CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . '"' . PHP_EOL;
         $batch .= '"' . $mkcertExe . '" -uninstall' . PHP_EOL;
         $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
+        $batch .= 'IF EXIST "' . Path::formatWindowsPath($rootCaPath) . '" (ECHO OK)' . PHP_EOL;
         
         // Wait for the Root CA file to appear or timeout
         $result = Batch::exec('mkcertMakeRootCa', $batch);
         
-        $rootCaPath = Path::getSslPath() . '/' . Path::getMkcertRootCaName();
         if (!file_exists($rootCaPath)) {
             Log::error('Failed to create Root CA file at: ' . $rootCaPath);
             return false;
         }
 
         // Display info about the new Root CA
-        $batch = 'SET CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . PHP_EOL;
+        $batch = 'SET "CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . '"' . PHP_EOL;
         $batch .= '"' . $mkcertExe . '" -CAROOT' . PHP_EOL;
         $caRootInfo = Batch::exec('mkcertCaRootInfo', $batch);
         if ($caRootInfo && isset($caRootInfo[0])) {
@@ -211,11 +212,11 @@ class OpenSsl
             return false;
         }
 
-        $crtPath = '"' . $destPath . '/' . $name . '.crt"';
-        $pubPath = '"' . $destPath . '/' . $name . '.pub"';
-        $keyPath = '"' . $destPath . '/' . $name . '.ppk"'; // Using .ppk as requested in previous tasks
+        $crtPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.crt') . '"';
+        $pubPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.pub') . '"';
+        $keyPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.ppk') . '"'; // Using .ppk as requested in previous tasks
 
-        $batch = 'SET CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . PHP_EOL;
+        $batch = 'SET "CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . '"' . PHP_EOL;
         
         $mkcertNames = $name;
         if ($name === 'localhost') {
@@ -225,13 +226,9 @@ class OpenSsl
         }
         
         Log::trace('Executing mkcert for "' . $name . '"');
-        $batch .= '("' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . ') || (ECHO mkcert failed && EXIT /B 1)' . PHP_EOL;
-        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . ' >NUL 2>&1' . PHP_EOL;
-        $batch .= 'IF NOT EXIST ' . $pubPath . ' (ECHO pub file missing && EXIT /B 1)' . PHP_EOL;
-
-        $batch .= 'SET RESULT=KO' . PHP_EOL;
-        $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' SET RESULT=OK' . PHP_EOL;
-        $batch .= 'ECHO %RESULT%';
+        $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . PHP_EOL;
+        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . PHP_EOL;
+        $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' (ECHO OK)' . PHP_EOL;
 
         Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert. Batch content: ' . $batch);
         $result = Batch::exec('createCertificateMkcert', $batch);
@@ -273,8 +270,9 @@ class OpenSsl
         $rootCaPath = $destPath . '/' . Path::getMkcertRootCaName(); // mkcert default root CA name
         if (!file_exists($rootCaPath)) {
             Log::info('Root CA missing at ' . $rootCaPath . '. Running mkcert -install');
-            $batch = 'SET CAROOT=' . Path::formatWindowsPath($destPath) . PHP_EOL;
+            $batch = 'SET "CAROOT=' . Path::formatWindowsPath($destPath) . '"' . PHP_EOL;
             $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
+            $batch .= 'IF EXIST "' . Path::formatWindowsPath($rootCaPath) . '" (ECHO OK)' . PHP_EOL;
             $result = Batch::exec('mkcertInstall', $batch);
             
             if ($result === false) {
