@@ -27,12 +27,30 @@ class OpenSsl
 
 
     /**
+     * Ensures that the SSL directory exists, creating it if necessary.
+     *
+     * @return string The SSL path.
+     */
+    private function ensureSslDirExists()
+    {
+        $sslPath = Path::getSslPath();
+        if (!is_dir($sslPath)) {
+            Log::info('SSL directory missing, creating: ' . $sslPath);
+            if (!mkdir($sslPath, 0777, true)) {
+                Log::error('Failed to create SSL directory: ' . $sslPath);
+            }
+        }
+        return $sslPath;
+    }
+
+    /**
      * Creates a new Root CA and reinstalls it, then rebuilds all certificates.
      *
      * @return bool True if successful.
      */
     public function makeRootCa()
     {
+        $this->ensureSslDirExists();
         $destPath = Path::getSslPath();
         $mkcertExe = Path::getMkcertExe();
 
@@ -102,7 +120,9 @@ class OpenSsl
      */
     public function createCrt($name, $destPath = null)
     {
-        $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
+        if (empty($destPath)) {
+            $destPath = $this->ensureSslDirExists();
+        }
         $mkcertExe = Path::getMkcertExe();
 
         if (!file_exists($mkcertExe)) {
