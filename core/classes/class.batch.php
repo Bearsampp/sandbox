@@ -440,7 +440,7 @@ class Batch
 
         // Redirect output
         if ($catchOutput) {
-            $content .= '> "' . $resultFile . '"' . (!UtilString::endWith($content, '2') ? ' 2>&1' : '');
+            $content = '(' . PHP_EOL . $content . PHP_EOL . ') > "' . $resultFile . '"' . (!UtilString::endWith($content, '2') ? ' 2>&1' : '');
         }
 
         // Header

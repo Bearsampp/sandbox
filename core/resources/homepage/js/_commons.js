@@ -7,7 +7,7 @@
  *
  */
 
-const AJAX_URL = "/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
+const AJAX_URL = "http://localhost/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
 
 /**
  * StatusFetcher - Unified utility for fetching and displaying service status
@@ -64,7 +64,7 @@ class StatusFetcher {
     }
 
     try {
-      const url = AJAX_URL + (AJAX_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+const AJAX_URL = "http://localhost/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
       
       const fetchOptions = {
         method: 'POST',

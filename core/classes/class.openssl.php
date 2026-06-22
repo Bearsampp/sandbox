@@ -47,10 +47,12 @@ class OpenSsl
         $batch .= '"' . $mkcertExe . '" -uninstall' . PHP_EOL;
         $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
         
+        // Wait for the Root CA file to appear or timeout
         $result = Batch::exec('mkcertMakeRootCa', $batch);
         
-        if ($result === false) {
-            Log::error('Failed to run mkcert -install');
+        $rootCaPath = Path::getSslPath() . '/' . Path::getMkcertRootCaName();
+        if (!file_exists($rootCaPath)) {
+            Log::error('Failed to create Root CA file at: ' . $rootCaPath);
             return false;
         }
 
@@ -62,7 +64,11 @@ class OpenSsl
             Log::info('mkcert CAROOT is set to: ' . $caRootInfo[0]);
         }
 
-        Log::info('Root CA created. Rebuilding all existing certificates...');
+        Log::info('Root CA created. Rebuilding all existing certificates and ensuring localhost exists...');
+        
+        // Ensure localhost is created/rebuilt
+        $this->createCrt('localhost');
+        
         return $this->rebuildAllCerts();
     }
 
@@ -118,10 +124,8 @@ class OpenSsl
             $mkcertNames .= ' "*.' . $name . '" localhost 127.0.0.1 ::1';
         }
         
-        $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . PHP_EOL;
+        $batch .= '("' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . ') || (ECHO mkcert failed && EXIT /B 1)' . PHP_EOL;
 
-        $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
-        $batch .= ':EOF' . PHP_EOL;
         $batch .= 'SET RESULT=KO' . PHP_EOL;
         $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' SET RESULT=OK' . PHP_EOL;
         $batch .= 'ECHO %RESULT%';
@@ -155,10 +159,16 @@ class OpenSsl
 
         $rootCaPath = $destPath . '/' . Path::getMkcertRootCaName(); // mkcert default root CA name
         if (!file_exists($rootCaPath)) {
-            Log::info('Root CA missing. Running mkcert -install');
+            Log::info('Root CA missing at ' . $rootCaPath . '. Running mkcert -install');
             $batch = 'SET CAROOT=' . Path::formatWindowsPath($destPath) . PHP_EOL;
             $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
             Batch::exec('mkcertInstall', $batch);
+            
+            // Re-check after installation
+            if (!file_exists($rootCaPath)) {
+                Log::error('Root CA still missing after mkcert -install');
+                return false;
+            }
         }
         return true;
     }
