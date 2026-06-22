@@ -36,8 +36,20 @@ class OpenSsl
         $sslPath = Path::getSslPath();
         if (!is_dir($sslPath)) {
             Log::info('SSL directory missing, creating: ' . $sslPath);
-            if (!mkdir($sslPath, 0777, true)) {
+            if (mkdir($sslPath, 0777, true)) {
+                // Create .gitignore if the directory was just created
+                $gitignorePath = $sslPath . '/.gitignore';
+                if (!file_exists($gitignorePath)) {
+                    file_put_contents($gitignorePath, '# git holder' . PHP_EOL);
+                }
+            } else {
                 Log::error('Failed to create SSL directory: ' . $sslPath);
+            }
+        } else {
+            // Even if directory exists, ensure .gitignore is present
+            $gitignorePath = $sslPath . '/.gitignore';
+            if (!file_exists($gitignorePath)) {
+                file_put_contents($gitignorePath, '# git holder' . PHP_EOL);
             }
         }
         return $sslPath;
