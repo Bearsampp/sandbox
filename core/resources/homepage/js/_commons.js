@@ -7,7 +7,7 @@
  *
  */
 
-const AJAX_URL = "http://localhost/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
+const AJAX_URL = "/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
 
 /**
  * StatusFetcher - Unified utility for fetching and displaying service status
@@ -64,7 +64,17 @@ class StatusFetcher {
     }
 
     try {
-const AJAX_URL = "http://localhost/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
+      let url = AJAX_URL;
+
+      // Ensure URL is protocol-relative or absolute to the current host
+      // This handles custom vhosts, localhost, and both http/https
+      if (url.startsWith('http://localhost') || url.startsWith('https://localhost')) {
+          // If it was hardcoded to localhost, make it relative to the current origin
+          // to support both HTTPS and custom vhosts
+          url = "/1fd5bfc5c72323f1d019208088a6de21/ajax.php";
+      }
+
+      console.log(`[${this.serviceName}] Fetching status from: ${url} (Protocol: ${window.location.protocol}, Host: ${window.location.hostname})`);
       
       const fetchOptions = {
         method: 'POST',
@@ -77,18 +87,15 @@ const AJAX_URL = "http://localhost/1fd5bfc5c72323f1d019208088a6de21/ajax.php"
       };
 
       // Add credentials for HTTPS if needed
-      // Use 'include' for HTTPS to be more permissive with session cookies across same-site if needed, 
-      // but 'same-origin' is generally better. Re-evaluating.
       if (window.location.protocol === 'https:') {
           fetchOptions.credentials = 'same-origin';
       }
 
-      console.log(`[${this.serviceName}] Fetching status from: ${url}`);
       let response;
       try {
           response = await fetch(url, fetchOptions);
       } catch (fetchError) {
-          console.error(`[${this.serviceName}] Fetch failed:`, fetchError);
+          console.error(`[${this.serviceName}] Fetch failed for URL ${url}:`, fetchError);
           // Visual feedback for network error
           this.showErrorFeedback();
           return;
