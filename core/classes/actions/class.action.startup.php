@@ -1060,7 +1060,7 @@ class ActionStartup
                 $service = $serviceInfo['service'];
 
                 // Update splash during verification phase
-                $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_CHECK_SERVICE_TEXT), $name) . ' (' . $verifyCount . '/' . $totalServices . ')');
+                $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_VERIFY_SERVICE_TEXT), $name) . ' (' . $verifyCount . '/' . $totalServices . ')');
 
                 if ($service->isRunning()) {
                     $this->writeLog($name . ' service started successfully');

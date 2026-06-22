@@ -284,6 +284,7 @@ class Lang
     const STARTUP_REGISTRY_ERROR_TEXT = 'startupRegistryErrorText';
     const STARTUP_UPDATE_CONFIG_TEXT = 'startupUpdateConfigText';
     const STARTUP_CHECK_SERVICE_TEXT = 'startupCheckServiceText';
+    const STARTUP_VERIFY_SERVICE_TEXT = 'startupVerifyServiceText';
     const STARTUP_INSTALL_SERVICE_TEXT = 'startupInstallServiceText';
     const STARTUP_START_SERVICE_TEXT = 'startupStartServiceText';
     const STARTUP_PREPARE_RESTART_TEXT = 'startupPrepareRestartText';
@@ -649,6 +650,7 @@ class Lang
             self::STARTUP_REGISTRY_ERROR_TEXT,
             self::STARTUP_UPDATE_CONFIG_TEXT,
             self::STARTUP_CHECK_SERVICE_TEXT,
+            self::STARTUP_VERIFY_SERVICE_TEXT,
             self::STARTUP_INSTALL_SERVICE_TEXT,
             self::STARTUP_START_SERVICE_TEXT,
             self::STARTUP_PREPARE_RESTART_TEXT,
