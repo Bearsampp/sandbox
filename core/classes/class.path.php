@@ -946,7 +946,7 @@ class Path
      */
     public static function getMkcertPath($aetrayPath = false)
     {
-        return self::getToolsPath($aetrayPath) . '/mkcert';
+        return self::getLibsPath($aetrayPath) . '/mkcert';
     }
 
     /**

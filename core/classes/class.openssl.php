@@ -27,6 +27,74 @@ class OpenSsl
 
 
     /**
+     * Ensures that the mkcert executable exists, attempting to download it if missing.
+     *
+     * @return bool True if mkcert exists or was successfully downloaded.
+     */
+    private function ensureMkcertExeExists()
+    {
+        $mkcertExe = Path::getMkcertExe();
+        if (file_exists($mkcertExe)) {
+            return true;
+        }
+
+        Log::info('mkcert.exe missing at: ' . $mkcertExe . '. Attempting to download...');
+
+        $mkcertDir = Path::getMkcertPath();
+        if (!is_dir($mkcertDir)) {
+            if (!mkdir($mkcertDir, 0777, true)) {
+                Log::error('Failed to create mkcert directory: ' . $mkcertDir);
+                return false;
+            }
+        }
+
+        // Use GitHub API to find the latest release
+        $apiUrl = 'https://api.github.com/repos/FiloSottile/mkcert/releases/latest';
+        $latest = HttpClient::getApiJson($apiUrl);
+        $url = '';
+
+        if (!empty($latest)) {
+            $releaseData = json_decode($latest, true);
+            if (isset($releaseData['assets'])) {
+                foreach ($releaseData['assets'] as $asset) {
+                    if (isset($asset['name']) && UtilString::endWith($asset['name'], 'amd64.exe')) {
+                        $url = $asset['browser_download_url'];
+                        Log::info('Found latest mkcert download URL: ' . $url);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Fallback to v1.4.4 if API failed or asset not found
+        if (empty($url)) {
+            Log::warning('Failed to find latest mkcert via GitHub API. Falling back to v1.4.4.');
+            $url = 'https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-windows-amd64.exe';
+        }
+        
+        global $bearsamppCore;
+        if (!isset($bearsamppCore)) {
+            // If global not available, try to instantiate it (though it should be available)
+            $bearsamppCore = new Core();
+        }
+
+        $result = $bearsamppCore->getFileFromUrl($url, $mkcertExe);
+
+        if (isset($result['success']) && $result['success'] === true) {
+            // The getFileFromUrl uses the provided $filePath ($mkcertExe), 
+            // so it is already saved as mkcert.exe.
+            if (file_exists($mkcertExe)) {
+                Log::info('Successfully downloaded and saved mkcert.exe');
+                return true;
+            }
+            Log::error('mkcert.exe not found at expected path after download: ' . $mkcertExe);
+        }
+
+        Log::error('Failed to download mkcert.exe: ' . (isset($result['error']) ? $result['error'] : 'Unknown error'));
+        return false;
+    }
+
+    /**
      * Ensures that the SSL directory exists, creating it if necessary.
      *
      * @return string The SSL path.
@@ -62,14 +130,11 @@ class OpenSsl
      */
     public function makeRootCa()
     {
-        $this->ensureSslDirExists();
-        $destPath = Path::getSslPath();
-        $mkcertExe = Path::getMkcertExe();
-
-        if (!file_exists($mkcertExe)) {
-            Log::error('mkcert executable not found at: ' . $mkcertExe);
+        if (!$this->ensureMkcertExeExists()) {
             return false;
         }
+        $destPath = Path::getSslPath();
+        $mkcertExe = Path::getMkcertExe();
 
         Log::info('Creating new Root CA and installing it...');
         
@@ -133,15 +198,13 @@ class OpenSsl
     public function createCrt($name, $destPath = null)
     {
         Log::trace('createCrt called for: ' . $name . ($destPath ? ' (dest: ' . $destPath . ')' : ''));
+        if (!$this->ensureMkcertExeExists()) {
+            return false;
+        }
         if (empty($destPath)) {
             $destPath = $this->ensureSslDirExists();
         }
         $mkcertExe = Path::getMkcertExe();
-
-        if (!file_exists($mkcertExe)) {
-            Log::error('mkcert executable not found at: ' . $mkcertExe);
-            return false;
-        }
 
         if (!$this->ensureRootCaExists($destPath)) {
             Log::error('Failed to ensure Root CA exists for: ' . $name);
@@ -189,11 +252,10 @@ class OpenSsl
      */
     private function ensureRootCaExists($destPath)
     {
-        $mkcertExe = Path::getMkcertExe();
-        if (!file_exists($mkcertExe)) {
-             Log::error('mkcert.exe missing, cannot ensure Root CA');
-             return false;
+        if (!$this->ensureMkcertExeExists()) {
+            return false;
         }
+        $mkcertExe = Path::getMkcertExe();
 
         $rootCaPath = $destPath . '/' . Path::getMkcertRootCaName(); // mkcert default root CA name
         if (!file_exists($rootCaPath)) {
