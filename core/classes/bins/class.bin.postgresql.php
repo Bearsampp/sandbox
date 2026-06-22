@@ -253,7 +253,7 @@ class BinPostgresql extends Module
 
         $dbLink = @pg_connect("host=127.0.0.1 port=$port user={$this->rootUser} password={$this->rootPwd}");
         if (!$dbLink) {
-            Log::debug($this->getName() . ' connection failed: ' . pg_last_error());
+            Log::debug($this->getName() . ' connection failed: ' . error_get_last()['message']);
             return $this->handleNonPostgresUsage($port, $showWindow, $boxTitle);
         }
 
@@ -321,7 +321,7 @@ class BinPostgresql extends Module
         $dbLink = pg_connect( 'host=127.0.0.1 port=' . $this->port . ' user=' . $this->rootUser . ' password=' . $currentPwd );
 
         if ( !$dbLink ) {
-            $error = pg_last_error( $dbLink );
+            $error = error_get_last()['message'];
         }
 
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
@@ -370,7 +370,7 @@ class BinPostgresql extends Module
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
         $dbLink = pg_connect( 'host=127.0.0.1 port=' . $this->port . ' user=' . $this->rootUser . ' password=' . $currentPwd );
         if ( !$dbLink ) {
-            $error = pg_last_error( $dbLink );
+            $error = error_get_last()['message'];
         }
 
         $bearsamppWinbinder->incrProgressBar( $wbProgressBar );
