@@ -887,20 +887,26 @@ class ActionStartup
     {
         global $bearsamppLang, $bearsamppOpenSsl, $bearsamppBins;
 
+        Log::info('Checking SSL certificates during startup...');
         $this->splash->incrProgressBar();
 
         // Always ensure localhost exists and is valid
-        if ($bearsamppOpenSsl->isExpired('localhost')) {
+        $localhostExpired = $bearsamppOpenSsl->isExpired('localhost');
+        Log::trace('Localhost SSL expired status: ' . ($localhostExpired ? 'YES' : 'NO'));
+
+        if ($localhostExpired) {
             Log::info('SSL certificate for "localhost" is missing or expired. Checking if creation is necessary...');
             $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), 'localhost'));
             
             // Only create if NOT present or REALLY expired
             // (isExpired already returns true if missing)
-            $bearsamppOpenSsl->createCrt('localhost');
+            if (!$bearsamppOpenSsl->createCrt('localhost')) {
+                Log::error('FAILED call to createCrt("localhost")');
+            }
             
             // Re-verify after creation to log success/failure
             if ($bearsamppOpenSsl->isExpired('localhost')) {
-                Log::error('FAILED to create/verify localhost SSL certificate.');
+                Log::error('FAILED to verify localhost SSL certificate after creation attempt.');
             } else {
                 Log::info('Successfully verified localhost SSL certificate.');
             }
@@ -912,18 +918,20 @@ class ActionStartup
         $apache = $bearsamppBins->getApache();
         if ($apache) {
             $vhosts = $apache->getVhosts();
-            Log::trace('Checking SSL certificates for ' . count($vhosts) . ' vhosts');
+            Log::info('Checking SSL certificates for ' . count($vhosts) . ' vhosts');
             foreach ($vhosts as $vhost) {
                 if ($bearsamppOpenSsl->isExpired($vhost)) {
                     Log::info('SSL certificate for "' . $vhost . '" is missing or expired. Creating new one...');
                     $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STARTUP_GEN_SSL_CRT_TEXT), $vhost));
-                    $bearsamppOpenSsl->createCrt($vhost);
+                    if (!$bearsamppOpenSsl->createCrt($vhost)) {
+                        Log::error('FAILED call to createCrt("' . $vhost . '")');
+                    }
                 } else {
                     Log::trace('SSL certificate for "' . $vhost . '" is valid.');
                 }
             }
         } else {
-            Log::trace('Apache module not found, skipping vhost SSL check');
+            Log::info('Apache module not found or disabled, skipping vhost SSL check');
         }
     }
 

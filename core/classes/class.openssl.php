@@ -132,6 +132,7 @@ class OpenSsl
      */
     public function createCrt($name, $destPath = null)
     {
+        Log::trace('createCrt called for: ' . $name . ($destPath ? ' (dest: ' . $destPath . ')' : ''));
         if (empty($destPath)) {
             $destPath = $this->ensureSslDirExists();
         }
@@ -142,7 +143,10 @@ class OpenSsl
             return false;
         }
 
-        $this->ensureRootCaExists($destPath);
+        if (!$this->ensureRootCaExists($destPath)) {
+            Log::error('Failed to ensure Root CA exists for: ' . $name);
+            return false;
+        }
 
         $crtPath = '"' . $destPath . '/' . $name . '.crt"';
         $keyPath = '"' . $destPath . '/' . $name . '.ppk"'; // Using .ppk as requested in previous tasks
@@ -156,6 +160,7 @@ class OpenSsl
             $mkcertNames .= ' "*.' . $name . '" localhost 127.0.0.1 ::1';
         }
         
+        Log::trace('Executing mkcert for "' . $name . '"');
         $batch .= '("' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . ') || (ECHO mkcert failed && EXIT /B 1)' . PHP_EOL;
 
         $batch .= 'SET RESULT=KO' . PHP_EOL;
@@ -186,6 +191,7 @@ class OpenSsl
     {
         $mkcertExe = Path::getMkcertExe();
         if (!file_exists($mkcertExe)) {
+             Log::error('mkcert.exe missing, cannot ensure Root CA');
              return false;
         }
 
@@ -194,13 +200,19 @@ class OpenSsl
             Log::info('Root CA missing at ' . $rootCaPath . '. Running mkcert -install');
             $batch = 'SET CAROOT=' . Path::formatWindowsPath($destPath) . PHP_EOL;
             $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
-            Batch::exec('mkcertInstall', $batch);
+            $result = Batch::exec('mkcertInstall', $batch);
             
-            // Re-check after installation
-            if (!file_exists($rootCaPath)) {
-                Log::error('Root CA still missing after mkcert -install');
+            if ($result === false) {
+                Log::error('Batch execution failed for mkcert -install');
                 return false;
             }
+
+            // Re-check after installation
+            if (!file_exists($rootCaPath)) {
+                Log::error('Root CA still missing after mkcert -install at: ' . $rootCaPath);
+                return false;
+            }
+            Log::info('Root CA successfully created and verified.');
         }
         return true;
     }
@@ -403,6 +415,11 @@ class OpenSsl
         if (!is_file($crtPath)) {
             Log::trace('SSL certificate file missing: ' . $crtPath);
             return true;
+        }
+
+        if (!extension_loaded('openssl')) {
+            Log::warning('OpenSSL extension not loaded. Cannot parse certificate for expiry check. Assuming NOT expired if file exists.');
+            return false;
         }
 
         $crtContent = file_get_contents($crtPath);
