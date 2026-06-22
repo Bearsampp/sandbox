@@ -228,8 +228,8 @@ class OpenSsl
         
         Log::trace('Executing mkcert for "' . $name . '"');
         $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . PHP_EOL;
-        $batch .= $opensslExe . ' rsa -in ' . $keyPath . ' -out ' . $pubPath . PHP_EOL;
-        $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' (ECHO OK)' . PHP_EOL;
+        $batch .= $opensslExe . " rsa -in " . $keyPath . " -out " . $keyPath . " -passin pass:" . PHP_EOL;
+        $batch .= "COPY /Y " . $keyPath . " " . $pubPath . PHP_EOL;
 
         Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert. Batch content: ' . $batch);
         $result = Batch::exec('createCertificateMkcert', $batch);
