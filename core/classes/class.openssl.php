@@ -215,6 +215,7 @@ class OpenSsl
         $crtPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.crt') . '"';
         $pubPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.pub') . '"';
         $keyPath = '"' . Path::formatWindowsPath($destPath . '/' . $name . '.ppk') . '"'; // Using .ppk as requested in previous tasks
+        $opensslExe = '"' . Path::formatWindowsPath(Path::getOpenSslExe()) . '"';
 
         $batch = 'SET "CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . '"' . PHP_EOL;
         
@@ -227,7 +228,7 @@ class OpenSsl
         
         Log::trace('Executing mkcert for "' . $name . '"');
         $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . PHP_EOL;
-        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . PHP_EOL;
+        $batch .= $opensslExe . ' rsa -in ' . $keyPath . ' -out ' . $pubPath . PHP_EOL;
         $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' (ECHO OK)' . PHP_EOL;
 
         Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert. Batch content: ' . $batch);
