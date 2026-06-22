@@ -371,8 +371,9 @@ class OpenSsl
     {
         $ppkPath = Path::getSslPath() . '/' . $name . '.ppk';
         $crtPath = Path::getSslPath() . '/' . $name . '.crt';
+        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
 
-        return is_file($ppkPath) && is_file($crtPath);
+        return is_file($ppkPath) && is_file($crtPath) && is_file($pubPath);
     }
 
     /**
@@ -459,7 +460,11 @@ class OpenSsl
             $files = glob($sslPath . '/*.crt');
             if ($files !== false) {
                 foreach ($files as $file) {
-                    $certs[] = basename($file, '.crt');
+                    $name = basename($file, '.crt');
+                    // Only include if both .crt and .pub exist
+                    if (is_file($sslPath . '/' . $name . '.pub')) {
+                        $certs[] = $name;
+                    }
                 }
             }
         }
@@ -476,8 +481,15 @@ class OpenSsl
     public function isExpired($name)
     {
         $crtPath = Path::getSslPath() . '/' . $name . '.crt';
+        $pubPath = Path::getSslPath() . '/' . $name . '.pub';
+
         if (!is_file($crtPath)) {
             Log::trace('SSL certificate file missing: ' . $crtPath);
+            return true;
+        }
+
+        if (!is_file($pubPath)) {
+            Log::trace('SSL public certificate file missing: ' . $pubPath);
             return true;
         }
 
