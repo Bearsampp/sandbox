@@ -21,7 +21,7 @@
 It also offers several versions of the various [modules](https://bearsampp.com/module) for download on the  
 [official website](https://bearsampp.com) and many other features.<br />
 
-For those who wish to contribute, have an issue or questions, read the [Documentation](https://bearsampp.com/documentation/faqs).
+For those who wish to contribute, have an issue or questions, read the [Documentation](https://documentation.bearsampp.com/) or visit our [FAQ section](https://bearsampp.com/documentation/faqs/).
 
 ### Modules
 
@@ -52,7 +52,7 @@ For those who wish to contribute, have an issue or questions, read the [Document
 
 * [Get started](https://bearsampp.com/get-started)
 * [Screenshots](https://bearsampp.com/screenshots)
-* [FAQ](https://bearsampp.com/faq)
+* [FAQ](https://bearsampp.com/documentation/faqs/)
 * [Upgrade notes](https://bearsampp.com/upgrade)
 * [Reporting an issue](https://github.com/Bearsampp/Bearsampp/issues)
 * [Request a module](https://bearsampp.com/request)
