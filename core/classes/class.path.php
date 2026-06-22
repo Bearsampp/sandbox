@@ -407,12 +407,27 @@ class Path
     public static function getLocalUrl($request = null)
     {
         global $bearsamppBins;
-        $port = (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) ? $bearsamppBins->getApache()->getPort() : 80;
-        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+        $scheme = $isHttps ? 'https://' : 'http://';
         $host = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost';
-        return $scheme . $host .
-            ($port != 80 && !isset($_SERVER['HTTPS']) ? ':' . $port : '') .
-            (!empty($request) ? '/' . $request : '');
+        
+        $port = 80;
+        if (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) {
+            $port = $isHttps ? $bearsamppBins->getApache()->getSslPort() : $bearsamppBins->getApache()->getPort();
+        }
+
+        $portSuffix = '';
+        if ($isHttps) {
+            if ($port != 443) {
+                $portSuffix = ':' . $port;
+            }
+        } else {
+            if ($port != 80) {
+                $portSuffix = ':' . $port;
+            }
+        }
+
+        return $scheme . $host . $portSuffix . (!empty($request) ? '/' . $request : '');
     }
 
     /**
@@ -1020,12 +1035,27 @@ class Path
     {
         global $bearsamppBins;
         $request = self::getWebResourcesPath();
-        $port = (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) ? $bearsamppBins->getApache()->getPort() : 80;
-        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+        $scheme = $isHttps ? 'https://' : 'http://';
         $host = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost';
-        return $scheme . $host .
-            ($port != 80 && !isset($_SERVER['HTTPS']) ? ':' . $port : '') .
-            (!empty($request) ? '/' . $request : '');
+        
+        $port = 80;
+        if (isset($bearsamppBins) && $bearsamppBins->getApache() !== null) {
+            $port = $isHttps ? $bearsamppBins->getApache()->getSslPort() : $bearsamppBins->getApache()->getPort();
+        }
+
+        $portSuffix = '';
+        if ($isHttps) {
+            if ($port != 443) {
+                $portSuffix = ':' . $port;
+            }
+        } else {
+            if ($port != 80) {
+                $portSuffix = ':' . $port;
+            }
+        }
+
+        return $scheme . $host . $portSuffix . (!empty($request) ? '/' . $request : '');
     }
 
     /**

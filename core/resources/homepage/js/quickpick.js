@@ -234,14 +234,16 @@ async function installModule(moduleName, version) {
 
         while (true) {
             const {done, value} = await reader.read();
-            responseText += decoder.decode(value || new Uint8Array(), {stream: !done});
+            if (done) break;
+            responseText += decoder.decode(value, {stream: true});
 
-            const chunks = responseText.split(/\r?\n/);
-            // The last part might be incomplete, keep it for next iteration
-            responseText = chunks.pop();
+            const parts = responseText.split('}{').map((part, index, arr) => {
+                if (index === 0) return part + '}';
+                if (index === arr.length - 1) return '{' + part;
+                return '{' + part + '}';
+            });
 
-            for (const part of chunks) {
-                if (!part.trim()) continue;
+            for (const part of parts) {
                 try {
                     const data = JSON.parse(part);
                     if (data.progress) {
@@ -264,10 +266,12 @@ async function installModule(moduleName, version) {
                         isDownloading = false;
                     }
                 } catch (error) {
-                    console.warn('Failed to parse JSON chunk:', part, error);
+                    // Ignore JSON parse errors for incomplete parts
                 }
             }
-            if (done) break;
+
+            // Clear responseText to keep only the unprocessed part
+            responseText = parts[parts.length - 1].startsWith('{') ? parts[parts.length - 1] : '';
         }
     } catch (error) {
         console.error('Failed to install module:', error);
@@ -291,7 +295,7 @@ async function installModule(moduleName, version) {
         }
         setTimeout(() => {
             location.reload();
-        }, 300); // Increased delay to 300ms to allow core system to stabilize after installation
+        }, 100); // Delay of 100 milliseconds
     }
 }
 
@@ -372,7 +376,7 @@ ${message}
     const closeModal = () => {
         modalContainer.remove();
         // Reload after closing
-        setTimeout(() => location.reload(), 300);
+        setTimeout(() => location.reload(), 100);
     };
 
     closeButton.onclick = closeModal;
@@ -427,7 +431,7 @@ function showInfoDialog(message) {
     const closeModal = () => {
         modalContainer.remove();
         // Reload after closing
-        setTimeout(() => location.reload(), 300);
+        setTimeout(() => location.reload(), 100);
     };
 
     okButton.onclick = closeModal;

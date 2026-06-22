@@ -120,6 +120,19 @@ $getLoader = '<span class = "loader float-end"><img src = "' . $imagesPath . 'lo
     <link href = "<?php echo $iconsPath . 'favicon.ico'; ?>" rel = "icon" />
     <title><?php echo APP_TITLE . ' ' . $bearsamppCore->getAppVersion(); ?></title>
 
+    <script>
+        var AJAX_URL = "<?php echo Path::getWebResourcesUrl(); ?>/ajax.php";
+        
+        // Protocol-relative URL handling for HTTPS and custom vhosts
+        if (AJAX_URL.startsWith('http://localhost') || AJAX_URL.startsWith('https://localhost')) {
+            var pathParts = AJAX_URL.split('/');
+            var ajaxIndex = pathParts.findIndex(function(p) { return p.endsWith('.php'); });
+            if (ajaxIndex > 0) {
+                AJAX_URL = "/" + pathParts.slice(ajaxIndex - 1).join("/");
+            }
+        }
+    </script>
+
     <!-- Inline script to set loading cursor immediately -->
     <script>
         // Set loading cursor immediately

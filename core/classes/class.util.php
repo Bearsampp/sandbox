@@ -298,17 +298,21 @@ class Util
                 $replaceDone = false;
                 foreach ($replaceList as $regex => $replace) {
                     if (preg_match($regex, $line, $matches)) {
-                        $countParams = preg_match_all('/{{(\d+)}}/', $replace, $paramsMatches);
+                        $currentReplace = $replace;
+                        $countParams = preg_match_all('/{{(\d+)}}/', $currentReplace, $paramsMatches);
                         if ($countParams > 0 && $countParams <= count($matches)) {
                             foreach ($paramsMatches[1] as $paramsMatch) {
-                                $replace = str_replace('{{' . $paramsMatch . '}}', $matches[$paramsMatch], $replace);
+                                $currentReplace = str_replace('{{' . $paramsMatch . '}}', $matches[$paramsMatch], $currentReplace);
                             }
                         }
                         Log::trace('Replace in file ' . $path . ' :');
                         Log::trace('## line_num: ' . trim($nb));
                         Log::trace('## old: ' . trim($line));
-                        Log::trace('## new: ' . trim($replace));
-                        fwrite($fp, $replace . PHP_EOL);
+                        Log::trace('## new: ' . trim($currentReplace));
+                        
+                        // Preserve original line ending if present in $line
+                        $ending = (preg_match("/\r\n$/", $line)) ? "\r\n" : (preg_match("/\n$/", $line) ? "\n" : "");
+                        fwrite($fp, rtrim($currentReplace) . $ending);
 
                         $replaceDone = true;
                         break;

@@ -810,7 +810,9 @@ class QuickPick
                                             }
                                         ?>
                                             <li role = "option" class = "moduleoption"
-                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li">
+                                                id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>-li"
+                                                data-module = "<?php echo htmlspecialchars( $module ); ?>"
+                                                data-value = "<?php echo htmlspecialchars( $version_array['version'] ); ?>">
                                                 <input type = "radio"
                                                        id = "<?php echo htmlspecialchars( $module ); ?>-version-<?php echo htmlspecialchars( $version_array['version'] ); ?>"
                                                        name = "module" data-module = "<?php echo htmlspecialchars( $module ); ?>"
