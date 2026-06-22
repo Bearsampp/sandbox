@@ -709,21 +709,29 @@ class ActionStartup
         $currentPath = $this->rootPath;
 
         // Performance optimization: Skip scan if path hasn't changed
-        if ($lastPath === $currentPath) {
+        // BUT always scan if it's the first time or if we need to ensure placeholders are replaced.
+        // We removed the optimization because it prevents newly added modules from being initialized
+        // with the correct paths if the main project path remains the same.
+        /*
+        if ($lastPath === $currentPath && !empty($lastPath)) {
             Log::debug('Path unchanged, skipping file scan (performance optimization)');
             Log::trace('Last path: "' . $lastPath . '" matches current path: "' . $currentPath . '"');
+            
             $this->filesToScan = [];
             $this->writeLog('Files to scan: 0 (path unchanged - scan skipped)');
-
-            // Log performance benefit
-            $this->writeLog('Performance: File scan skipped, saving 3-8 seconds');
             return;
         }
+        */
 
-        // Path changed, perform full scan
-        Log::debug('Path changed, performing full file scan');
-        Log::trace('Last path: "' . $lastPath . '" differs from current path: "' . $currentPath . '"');
-        $this->writeLog('Path changed detected - performing full scan');
+        // Path changed or first run, perform full scan
+        if ($lastPath !== $currentPath || empty($lastPath)) {
+            Log::debug('Path changed or first run, performing full file scan');
+            Log::trace('Last path: "' . $lastPath . '" differs from current path: "' . $currentPath . '"');
+            $this->writeLog('Path changed detected - performing full scan');
+        } else {
+            Log::debug('Ensuring configuration files are checked for placeholders');
+            $this->writeLog('Scanning configuration files for placeholders');
+        }
 
         $scanStartTime = Util::getMicrotime();
         $this->filesToScan = Util::getFilesToScan();
