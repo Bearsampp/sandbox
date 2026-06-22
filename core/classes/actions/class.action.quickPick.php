@@ -577,15 +577,14 @@ class QuickPick
     Log::debug('File extension: ' . $fileExtension);
 
     if ($fileExtension === '7z' || $fileExtension === 'zip') {
-        // Send phase indicator for extraction
-        echo json_encode(['phase' => 'extracting']);
+        echo json_encode(['phase' => 'extracting']) . PHP_EOL;
         if (ob_get_length()) {
             ob_flush();
         }
         flush();
 
         $unzipResult = $bearsamppCore->unzipFile($tmpFilePath, $destination, function ($currentPercentage) {
-            echo json_encode(['progress' => "$currentPercentage%"]);
+            echo json_encode(['progress' => "$currentPercentage%"]) . PHP_EOL;
             if (ob_get_length()) {
                 ob_flush();
             }
@@ -863,4 +862,3 @@ class QuickPick
         return ob_get_clean();
     }
 }
-

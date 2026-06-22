@@ -234,16 +234,14 @@ async function installModule(moduleName, version) {
 
         while (true) {
             const {done, value} = await reader.read();
-            if (done) break;
-            responseText += decoder.decode(value, {stream: true});
+            responseText += decoder.decode(value || new Uint8Array(), {stream: !done});
 
-            const parts = responseText.split('}{').map((part, index, arr) => {
-                if (index === 0) return part + '}';
-                if (index === arr.length - 1) return '{' + part;
-                return '{' + part + '}';
-            });
+            const chunks = responseText.split(/\r?\n/);
+            // The last part might be incomplete, keep it for next iteration
+            responseText = chunks.pop();
 
-            for (const part of parts) {
+            for (const part of chunks) {
+                if (!part.trim()) continue;
                 try {
                     const data = JSON.parse(part);
                     if (data.progress) {
@@ -266,12 +264,10 @@ async function installModule(moduleName, version) {
                         isDownloading = false;
                     }
                 } catch (error) {
-                    // Ignore JSON parse errors for incomplete parts
+                    console.warn('Failed to parse JSON chunk:', part, error);
                 }
             }
-
-            // Clear responseText to keep only the unprocessed part
-            responseText = parts[parts.length - 1].startsWith('{') ? parts[parts.length - 1] : '';
+            if (done) break;
         }
     } catch (error) {
         console.error('Failed to install module:', error);

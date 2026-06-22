@@ -271,7 +271,7 @@ class Core
             // Send progress update
             if ( $progressBar ) {
                 $progress = $chunksRead;
-                echo json_encode( ['progress' => $progress] );
+                echo json_encode( ['progress' => $progress] ) . PHP_EOL;
 
                 // Check if output buffering is active before calling ob_flush()
                 if ( ob_get_length() !== false ) {
