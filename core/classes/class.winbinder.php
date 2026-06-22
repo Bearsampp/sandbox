@@ -144,7 +144,8 @@ class WinBinder
         } else {
             $this->writeLog('Window created successfully: handle=' . $window);
             // Set tiny window icon
-            $this->setImage($window, Path::getIconsPath() . '/app.ico');
+            // Use bmp for window icon to ensure orange icon is used everywhere as requested
+            $this->setImage($window, Path::getImagesPath() . '/bearsampp.bmp');
         }
 
         return $window;
@@ -432,6 +433,9 @@ class WinBinder
     public function drawImage($wbobject, $path, $xPos = 0, $yPos = 0, $width = 0, $height = 0): mixed
     {
         $image = $this->callWinBinder('wb_load_image', array($path));
+        if ($image === null) {
+            return false;
+        }
 
         return $this->callWinBinder('wb_draw_image', array($wbobject, $image, $xPos, $yPos, $width, $height));
     }
@@ -1199,4 +1203,3 @@ function __winbinderEventHandler($window, $id, $ctrl, $param1, $param2)
         array($window, $id, $ctrl, $param1, $param2)
     );
 }
-
