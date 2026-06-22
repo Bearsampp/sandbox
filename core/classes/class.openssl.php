@@ -212,6 +212,7 @@ class OpenSsl
         }
 
         $crtPath = '"' . $destPath . '/' . $name . '.crt"';
+        $pubPath = '"' . $destPath . '/' . $name . '.pub"';
         $keyPath = '"' . $destPath . '/' . $name . '.ppk"'; // Using .ppk as requested in previous tasks
 
         $batch = 'SET CAROOT=' . Path::formatWindowsPath(Path::getSslPath()) . PHP_EOL;
@@ -225,9 +226,10 @@ class OpenSsl
         
         Log::trace('Executing mkcert for "' . $name . '"');
         $batch .= '("' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . ') || (ECHO mkcert failed && EXIT /B 1)' . PHP_EOL;
+        $batch .= 'COPY /Y ' . $crtPath . ' ' . $pubPath . ' >NUL' . PHP_EOL;
 
         $batch .= 'SET RESULT=KO' . PHP_EOL;
-        $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' SET RESULT=OK' . PHP_EOL;
+        $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' IF EXIST ' . $pubPath . ' SET RESULT=OK' . PHP_EOL;
         $batch .= 'ECHO %RESULT%';
 
         Log::trace('Creating SSL Certificate for "' . $name . '" using mkcert');
@@ -531,8 +533,9 @@ class OpenSsl
 
         $ppkPath = $destPath . '/' . $name . '.ppk';
         $crtPath = $destPath . '/' . $name . '.crt';
+        $pubPath = $destPath . '/' . $name . '.pub';
 
         Log::info('Removing SSL certificate: ' . $name . ' from ' . $destPath);
-        return @unlink($ppkPath) && @unlink($crtPath);
+        return @unlink($ppkPath) && @unlink($crtPath) && @unlink($pubPath);
     }
 }
