@@ -190,7 +190,7 @@ restartServiceError = "Fehler beim Neustarten von %s Dienst."
 
 ; Action Delete alias
 deleteAliasTitle = "Alias ​​löschen"
-deleteAlias ​​= "Möchten Sie den Alias ​​'%s' wirklich löschen ?"
+deleteAlias = "Möchten Sie den Alias ​​'%s' wirklich löschen ?"
 aliasRemoved = "Alias ​​'%s' erfolgreich gelöscht."
 aliasRemoveError = "Alias Konfigurationsdatei in:@nl@%s konnte nicht gelöscht werden"
 
