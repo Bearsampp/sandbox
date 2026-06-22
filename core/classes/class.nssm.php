@@ -46,7 +46,7 @@ class Nssm
     const INFO_APP_ENVIRONMENT_EXTRA = 'AppEnvironmentExtra';
 
     const PENDING_TIMEOUT = 10;
-    const SLEEP_TIME = 500000;
+    const SLEEP_TIME = 300000;
 
     private $name;
     private $displayName;
