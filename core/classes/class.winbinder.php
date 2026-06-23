@@ -343,29 +343,27 @@ class WinBinder
     public function exec($cmd, $params = null, $silent = false): mixed
     {
         if ($silent) {
-            // Use PowerShell with -EncodedCommand for silent execution (no window flashing)
-            // This avoids all quoting/escaping issues by encoding the command in UTF-16LE base64
-
-            // Build the PowerShell command using single quotes to avoid nested quote issues
-            $psCmd = 'Start-Process -FilePath \'' . str_replace("'", "''", $cmd) . '\'';
-            if (!empty($params)) {
-                // Escape single quotes in params for PowerShell
-                $psCmd .= ' -ArgumentList \'' . str_replace("'", "''", $params) . '\'';
+            // Use WScript.Shell via COM for true silent execution (zero window flashing)
+            // This is more reliable than powershell.exe -WindowStyle Hidden which can still flash
+            try {
+                $wsh = new COM('WScript.Shell');
+                $fullCmd = '"' . $cmd . '"' . (empty($params) ? '' : ' ' . $params);
+                // 0 = Hidden, true = wait for return
+                $exitCode = $wsh->Run($fullCmd, 0, true);
+                $this->writeLog('exec (silent via COM): ' . $fullCmd . ' [ExitCode: ' . $exitCode . ']');
+                return $exitCode === 0;
+            } catch (Exception $e) {
+                $this->writeLog('exec (silent via COM) failed: ' . $e->getMessage() . '. Falling back to PowerShell.');
+                // Fall back to PowerShell method if COM fails
+                $psCmd = 'Start-Process -FilePath \'' . str_replace("'", "''", $cmd) . '\'';
+                if (!empty($params)) {
+                    $psCmd .= ' -ArgumentList \'' . str_replace("'", "''", $params) . '\'';
+                }
+                $psCmd .= ' -WindowStyle Hidden -Wait';
+                $encodedCmd = base64_encode(mb_convert_encoding($psCmd, 'UTF-16LE', 'UTF-8'));
+                $cmd = 'powershell.exe';
+                $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand ' . $encodedCmd;
             }
-            $psCmd .= ' -WindowStyle Hidden -Wait';
-
-            // Encode the command in UTF-16LE and then base64
-            $encodedCmd = base64_encode(mb_convert_encoding($psCmd, 'UTF-16LE', 'UTF-8'));
-
-            // Log the original PowerShell command at TRACE level for debugging
-            global $bearsamppConfig;
-            if ($bearsamppConfig && $bearsamppConfig->getLogsVerbose() == Config::VERBOSE_TRACE) {
-                $this->writeLog('[TRACE] PowerShell command: ' . $psCmd);
-                $this->writeLog('[TRACE] Encoded command length: ' . strlen($encodedCmd));
-            }
-
-            $cmd = 'powershell.exe';
-            $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand ' . $encodedCmd;
         }
 
         $this->writeLog('exec: ' . $cmd . ' ' . $params);
