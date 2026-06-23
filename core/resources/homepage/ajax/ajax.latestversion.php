@@ -52,7 +52,6 @@ if (!empty($githubVersionData)) {
  */
 if ($githubVersionData === null) {
     Log::error('Failed to retrieve version data from GitHub URL: ' . APP_GITHUB_LATEST_URL);
-    echo json_encode($result);
     return;
 }
 
@@ -91,3 +90,4 @@ if (version_compare($bearsamppCurrentVersion, $githubLatestVersion, '<')) {
  * @return void Outputs the JSON-encoded result.
  */
 echo json_encode($result);
+
