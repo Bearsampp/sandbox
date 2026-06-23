@@ -40,14 +40,11 @@ class StatusFetcher {
   async fetchStatus() {
     const senddata = new URLSearchParams();
     senddata.append('proc', this.options.proc);
-    if (typeof CSRF_TOKEN !== 'undefined') {
-      senddata.append('csrf_token', CSRF_TOKEN);
-    }
-
+    
     let url = AJAX_URL;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetchWithCsrf(url, {
         method: 'POST',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         body: senddata
@@ -63,6 +60,33 @@ class StatusFetcher {
       }
     } catch (error) {
       console.error(`[${this.serviceName}] Fetch error:`, error);
+      this.showErrorFeedback();
+    }
+  }
+
+  showErrorFeedback() {
+    const selector = `.summary-${this.serviceName}`;
+    const element = document.querySelector(selector) || document.getElementById(this.serviceName);
+    if (element) {
+      const contentEl = element.querySelector('.status-content') || element;
+      const loaders = contentEl.querySelectorAll('.loader');
+      if (loaders.length > 0) {
+        loaders.forEach(loader => {
+          loader.classList.remove('fa-spin');
+          loader.style.filter = 'invert(16%) sepia(89%) saturate(6144%) hue-rotate(357deg) brightness(97%) contrast(113%)';
+          
+          // If the loader contains an image, we can try to make it look "errored"
+          const img = loader.querySelector('img');
+          if (img) {
+            img.style.filter = 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%)';
+          }
+        });
+      } else {
+        // If no loader and content is empty or only whitespace, show error icon
+        if (!contentEl.innerText.trim()) {
+           contentEl.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i></span>';
+        }
+      }
     }
   }
 
@@ -74,12 +98,29 @@ class StatusFetcher {
 
       elements.forEach(element => {
         const contentEl = element.querySelector('.status-content') || element;
+        
         if (data[field.data] !== undefined && data[field.data] !== null) {
           const content = data[field.data];
-          if (typeof content === 'string' && content.includes('<')) {
-            contentEl.innerHTML = content;
+          const loader = contentEl.querySelector('.loader');
+
+          if (loader) {
+            // Replace the loader specifically to preserve sibling labels/icons
+            loader.outerHTML = content;
+          } else if (contentEl === element && element.querySelector('.loader')) {
+            // Fallback: if we didn't use contentEl, but element has a loader
+            element.querySelector('.loader').outerHTML = content;
           } else {
-            contentEl.innerText = content;
+            // Standard behavior: replace content of the target container
+            if (typeof content === 'string' && content.includes('<')) {
+              // Only update if content is different to avoid flickering
+              if (contentEl.innerHTML !== content) {
+                contentEl.innerHTML = content;
+              }
+            } else {
+              if (contentEl.innerText !== String(content)) {
+                contentEl.innerText = content;
+              }
+            }
           }
         }
       });
