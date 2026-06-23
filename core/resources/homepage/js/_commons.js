@@ -59,6 +59,11 @@ class StatusFetcher {
         this.updateDOM(data);
       }
     } catch (error) {
+      // Don't log abort errors (common during page navigation/reload)
+      if (error.name === 'AbortError' || (error instanceof TypeError && error.message.includes('NetworkError'))) {
+         // Silently ignore or minimal log for network error during potential reload
+         return;
+      }
       console.error(`[${this.serviceName}] Fetch error:`, error);
       this.showErrorFeedback();
     }

@@ -428,7 +428,14 @@ class BinApache extends Module
             return $result;
         }
 
-        $confContent = file( $this->getConf() );
+        $confFile = $this->getConf();
+        if ( !is_file( $confFile ) ) {
+            Log::error( 'Apache config file not found: ' . $confFile );
+
+            return $result;
+        }
+
+        $confContent = file( $confFile );
         foreach ( $confContent as $row ) {
             $modMatch = array();
             if ( preg_match( '/^(#)?LoadModule\s*([a-z0-9_-]+)\s*"?(.*)"?/i', $row, $modMatch ) ) {

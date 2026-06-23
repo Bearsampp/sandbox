@@ -518,7 +518,13 @@ class BinPhp extends Module
     public function getExtensionsFromConf() {
         $result = array();
 
-        $confContent = file($this->getConf());
+        $confFile = $this->getConf();
+        if (!is_file($confFile)) {
+            Log::error('PHP config file not found: ' . $confFile);
+            return $result;
+        }
+
+        $confContent = file($confFile);
         foreach ($confContent as $row) {
             $extMatch = array();
             if (preg_match('/^(;)?extension\s*=\s*"?(.+)"?/i', $row, $extMatch)) {
