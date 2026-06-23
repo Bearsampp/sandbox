@@ -200,6 +200,8 @@ async function installModule(moduleName, version) {
     const downloadversion = document.getElementById('download-version');
     let isCompleted = false;
     let messageData = '';
+    progressbar.classList.add('progress-bar-animated', 'progress-bar-striped');
+    progressbar.style.width = '100%';
     progressbar.innerText = `Downloading ${moduleName} ${version}`;
     progress.style.display = "block";
     downloadmodule.innerText = moduleName;
@@ -273,20 +275,35 @@ async function installModule(moduleName, version) {
                     progressbar.style.width = '100%';
                     progressbar.innerText = `${progressValue} KBytes Downloaded`;
                 } else {
-                    progressbar.style.width = progressValue.includes('%') ? progressValue : '100%';
-                    progressbar.innerText = `Extraction: ${progressValue}`;
+                    const match = progressValue.match(/(\d+)%/);
+                    const percentage = match ? parseInt(match[1]) : null;
+
+                    if (progressValue.includes('...') || progressValue === 'Analyzing' || progressValue === 'Initializing' || !progressValue.includes('%') || percentage === 0) {
+                        progressbar.style.width = '100%';
+                        progressbar.classList.add('progress-bar-animated', 'progress-bar-striped');
+                        progressbar.innerText = progressValue.includes('%') ? `Extraction: ${progressValue}` : progressValue;
+                    } else {
+                        progressbar.classList.remove('progress-bar-animated', 'progress-bar-striped');
+                        const width = percentage !== null ? percentage + '%' : '100%';
+                        progressbar.style.width = width;
+                        progressbar.innerText = `Extraction: ${progressValue}`;
+                    }
                 }
             } else if (data.success) {
                 console.log('Installation success:', data);
+                progressbar.classList.remove('progress-bar-animated', 'progress-bar-striped');
+                progressbar.style.width = '100%';
                 isCompleted = true;
                 messageData = data; // Store the full response object, not just the message
             } else if (data.error) {
                 console.error('Error:', data.error);
+                progressbar.classList.remove('progress-bar-animated', 'progress-bar-striped');
                 window.alert(`Error: ${data.error}`);
             } else if (data.phase === 'extracting') {
                 isDownloading = false;
-                progressbar.style.width = '0%';
-                progressbar.innerText = 'Extracting...';
+                progressbar.classList.add('progress-bar-animated', 'progress-bar-striped');
+                progressbar.style.width = '100%';
+                progressbar.innerText = 'Initializing extraction...';
             }
         }
     } catch (error) {

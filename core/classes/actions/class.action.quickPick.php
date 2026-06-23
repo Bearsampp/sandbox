@@ -585,7 +585,8 @@ class QuickPick
         flush();
 
         $unzipResult = $bearsamppCore->unzipFile($tmpFilePath, $destination, function ($currentPercentage) {
-            echo json_encode(['progress' => "$currentPercentage%"]) . PHP_EOL;
+            $progressStr = is_numeric($currentPercentage) ? "$currentPercentage%" : $currentPercentage;
+            echo json_encode(['progress' => $progressStr]) . PHP_EOL;
             if (ob_get_length()) {
                 ob_flush();
             }
