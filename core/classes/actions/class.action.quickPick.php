@@ -491,12 +491,20 @@ class QuickPick
                     // Note: User must manually reload from tray menu to activate the new version
                     Log::debug('Installation complete - user must manually reload from tray menu');
                     $response['reload_required'] = true;
+
+                    // Clear both disk and memory caches to ensure the UI shows correct icons and labels
+                    Log::debug('Clearing caches after module installation...');
+                    CacheManager::clearAll();
                 } else {
                     Log::error('Config update failed for module: ' . $module);
                     $response['reload_triggered'] = false;
                 }
             } else if (isset($response['success']) && $enhancedMode == 0) {
                 Log::debug('Enhanced mode disabled - skipping config update');
+                
+                // Even if not updating config, clear cache to be safe as new files were added
+                Log::debug('Clearing caches after module installation (Standard mode)...');
+                CacheManager::clearAll();
             }
 
             return $response;

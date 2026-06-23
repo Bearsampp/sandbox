@@ -293,9 +293,13 @@ async function installModule(moduleName, version) {
                 return; // Exit early to prevent reload
             }
         }
-        setTimeout(() => {
-            location.reload();
-        }, 100); // Delay of 100 milliseconds
+        // Only reload if not completed (e.g. error or interrupted)
+        // because success paths handle reload via their own modals
+        if (!isCompleted) {
+            setTimeout(() => {
+                location.reload();
+            }, 100); // Delay of 100 milliseconds
+        }
     }
 }
 

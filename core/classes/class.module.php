@@ -131,10 +131,17 @@ abstract class Module
      *
      * @param string $sourcePath The path to the configuration file to invalidate cache for.
      */
-    protected static function invalidateConfigCacheForPath($sourcePath) {
+    public static function invalidateConfigCacheForPath($sourcePath) {
         $cacheKey = md5($sourcePath);
         unset(self::$configCache[$cacheKey]);
         CacheManager::invalidate($sourcePath);
+    }
+
+    /**
+     * Clears all in-memory configuration caches.
+     */
+    public static function clearMemoryCache() {
+        self::$configCache = array();
     }
 
     /**
