@@ -59,6 +59,10 @@ class StatusFetcher {
         this.updateDOM(data);
       }
     } catch (error) {
+      // Don't log abort errors (common during page navigation/reload)
+      if (error.name === 'AbortError' || (error instanceof TypeError && error.message.includes('NetworkError'))) {
+         return;
+      }
       console.error(`[${this.serviceName}] Fetch error:`, error);
       this.showErrorFeedback();
     }
@@ -68,24 +72,25 @@ class StatusFetcher {
     const selector = `.summary-${this.serviceName}`;
     const element = document.querySelector(selector) || document.getElementById(this.serviceName);
     if (element) {
-      const contentEl = element.querySelector('.status-content') || element;
+      // 1. Check if the element itself IS the designated container
+      const isContentEl = element.classList.contains('status-content');
+      
+      // 2. Prioritize .status-content for feedback, fallback to .loader, then element
+      const contentEl = isContentEl ? element : (element.querySelector('.status-content') || element.querySelector('.loader') || element);
+      
       const loaders = contentEl.querySelectorAll('.loader');
       if (loaders.length > 0) {
         loaders.forEach(loader => {
           loader.classList.remove('fa-spin');
           loader.style.filter = 'invert(16%) sepia(89%) saturate(6144%) hue-rotate(357deg) brightness(97%) contrast(113%)';
-          
-          // If the loader contains an image, we can try to make it look "errored"
           const img = loader.querySelector('img');
           if (img) {
             img.style.filter = 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%)';
           }
         });
-      } else {
+      } else if (!contentEl.innerText.trim()) {
         // If no loader and content is empty or only whitespace, show error icon
-        if (!contentEl.innerText.trim()) {
-           contentEl.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i></span>';
-        }
+        contentEl.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i></span>';
       }
     }
   }
@@ -97,29 +102,43 @@ class StatusFetcher {
       const elements = document.querySelectorAll(selector);
 
       elements.forEach(element => {
-        const contentEl = element.querySelector('.status-content') || element;
+        if (data[field.data] === undefined || data[field.data] === null) return;
         
-        if (data[field.data] !== undefined && data[field.data] !== null) {
-          const content = data[field.data];
-          const loader = contentEl.querySelector('.loader');
+        const content = data[field.data];
+        
+        // 1. Check if the element itself IS the designated container
+        const isContentEl = element.classList.contains('status-content');
+        
+        // 2. Try to find a specifically designated container for dynamic content
+        const contentEl = isContentEl ? element : element.querySelector('.status-content');
 
-          if (loader) {
-            // Replace the loader specifically to preserve sibling labels/icons
-            loader.outerHTML = content;
-          } else if (contentEl === element && element.querySelector('.loader')) {
-            // Fallback: if we didn't use contentEl, but element has a loader
-            element.querySelector('.loader').outerHTML = content;
+        // 3. Try to find a loader that should be replaced
+        const loader = element.querySelector('.loader');
+
+        if (loader) {
+          // Replace the loader specifically to preserve sibling labels/icons
+          loader.outerHTML = content;
+        } else if (contentEl) {
+          // If we have a .status-content container (or the element itself is one), update it safely
+          if (contentEl.innerHTML !== content) {
+             contentEl.innerHTML = content;
+          }
+        } else {
+          // Standard behavior: replace content of the target container
+          // BUT only if it doesn't look like it contains important labels
+          if (typeof content === 'string' && content.includes('<')) {
+            // Only update if content is different to avoid flickering
+            if (element.innerHTML !== content) {
+              // If this element contains a link or a label, we MUST NOT overwrite it
+              if (element.querySelector('a') || element.querySelector('i') || element.querySelector('img') || element.innerText.trim().length > 15) {
+                 console.warn(`[${this.serviceName}] Refusing to overwrite element with HTML content to avoid losing labels`, element);
+              } else {
+                element.innerHTML = content;
+              }
+            }
           } else {
-            // Standard behavior: replace content of the target container
-            if (typeof content === 'string' && content.includes('<')) {
-              // Only update if content is different to avoid flickering
-              if (contentEl.innerHTML !== content) {
-                contentEl.innerHTML = content;
-              }
-            } else {
-              if (contentEl.innerText !== String(content)) {
-                contentEl.innerText = content;
-              }
+            if (element.innerText !== String(content)) {
+              element.innerText = content;
             }
           }
         }
