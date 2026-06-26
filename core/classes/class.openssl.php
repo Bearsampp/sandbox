@@ -52,7 +52,8 @@ class OpenSsl
         $sslPath = Path::getSslPath();
         if (!is_dir($sslPath)) {
             Log::info('SSL directory missing, creating: ' . $sslPath);
-            if (mkdir($sslPath, 0777, true)) {
+            if (mkdir($sslPath, 0700, true)) {
+                @chmod($sslPath, 0700);
                 // Create .gitignore if the directory was just created
                 $gitignorePath = $sslPath . '/.gitignore';
                 if (!file_exists($gitignorePath)) {
@@ -68,6 +69,19 @@ class OpenSsl
                 file_put_contents($gitignorePath, '# git holder' . PHP_EOL);
             }
         }
+
+        if (!is_readable($sslPath) || !is_writable($sslPath)) {
+            Log::warning('SSL directory is not fully accessible. Attempting to relax permissions for portability: ' . $sslPath);
+
+            // First try secure owner-only mode
+            @chmod($sslPath, 0700);
+            clearstatcache(true, $sslPath);
+
+            if (!is_readable($sslPath) || !is_writable($sslPath)) {
+                Log::error('SSL directory is still not readable/writable after permission adjustment: ' . $sslPath);
+            }
+        }
+
         return $sslPath;
     }
 
@@ -412,7 +426,7 @@ class OpenSsl
      */
     public function getCrts()
     {
-        $sslPath = Path::getSslPath();
+        $sslPath = $this->ensureSslDirExists();
         $certs = [];
         if (is_dir($sslPath)) {
             $files = glob($sslPath . '/*.crt');
@@ -489,7 +503,7 @@ class OpenSsl
             Log::warning('Attempted to remove protected "localhost" certificate. Operation cancelled.');
             return false;
         }
-        $destPath = empty($destPath) ? Path::getSslPath() : $destPath;
+        $destPath = empty($destPath) ? $this->ensureSslDirExists() : $destPath;
 
         // Basic validation for name to prevent arbitrary file deletion
         if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name)) {
