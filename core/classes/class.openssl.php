@@ -38,59 +38,7 @@ class OpenSsl
             return true;
         }
 
-        Log::info('mkcert.exe missing at: ' . $mkcertExe . '. Attempting to download...');
-
-        $mkcertDir = Path::getMkcertPath();
-        if (!is_dir($mkcertDir)) {
-            if (!mkdir($mkcertDir, 0777, true)) {
-                Log::error('Failed to create mkcert directory: ' . $mkcertDir);
-                return false;
-            }
-        }
-
-        // Use GitHub API to find the latest release
-        $apiUrl = 'https://api.github.com/repos/FiloSottile/mkcert/releases/latest';
-        $latest = HttpClient::getApiJson($apiUrl);
-        $url = '';
-
-        if (!empty($latest)) {
-            $releaseData = json_decode($latest, true);
-            if (isset($releaseData['assets'])) {
-                foreach ($releaseData['assets'] as $asset) {
-                    if (isset($asset['name']) && UtilString::endWith($asset['name'], 'amd64.exe')) {
-                        $url = $asset['browser_download_url'];
-                        Log::info('Found latest mkcert download URL: ' . $url);
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Fallback to v1.4.4 if API failed or asset not found
-        if (empty($url)) {
-            Log::warning('Failed to find latest mkcert via GitHub API. Falling back to v1.4.4.');
-            $url = 'https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-windows-amd64.exe';
-        }
-        
-        global $bearsamppCore;
-        if (!isset($bearsamppCore)) {
-            // If global not available, try to instantiate it (though it should be available)
-            $bearsamppCore = new Core();
-        }
-
-        $result = $bearsamppCore->getFileFromUrl($url, $mkcertExe);
-
-        if (isset($result['success']) && $result['success'] === true) {
-            // The getFileFromUrl uses the provided $filePath ($mkcertExe), 
-            // so it is already saved as mkcert.exe.
-            if (file_exists($mkcertExe)) {
-                Log::info('Successfully downloaded and saved mkcert.exe');
-                return true;
-            }
-            Log::error('mkcert.exe not found at expected path after download: ' . $mkcertExe);
-        }
-
-        Log::error('Failed to download mkcert.exe: ' . (isset($result['error']) ? $result['error'] : 'Unknown error'));
+        Log::error('mkcert.exe missing at: ' . $mkcertExe . '. It must be fetched during build time (prepareBase/buildFull/buildLite).');
         return false;
     }
 
