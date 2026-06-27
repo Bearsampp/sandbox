@@ -253,7 +253,9 @@ class BinPostgresql extends Module
 
         $dbLink = @pg_connect("host=127.0.0.1 port=$port user={$this->rootUser} password={$this->rootPwd}");
         if (!$dbLink) {
-            Log::debug($this->getName() . ' connection failed: ' . error_get_last()['message']);
+            $lastError = error_get_last();
+            $errorMsg = $lastError ? $lastError['message'] : 'Unknown error';
+            Log::debug($this->getName() . ' connection failed: ' . $errorMsg);
             return $this->handleNonPostgresUsage($port, $showWindow, $boxTitle);
         }
 

@@ -153,7 +153,8 @@ class OpenSsl
 
     /**
      * Validates the certificate name to prevent command injection attacks.
-     * Allows localhost, domain names, and alphanumeric characters with dots and dashes.
+     * Uses filesystem-safe whitelist (same as removeCrt) to support existing cert names
+     * and prevent CMD metacharacter injection. Allows: alphanumeric, dots, dashes, underscores.
      *
      * @param string $name The certificate name to validate.
      * @return bool True if the name is valid, false otherwise.
@@ -164,14 +165,9 @@ class OpenSsl
             return false;
         }
 
-        // Allow 'localhost' as a special case
-        if ($name === 'localhost') {
-            return true;
-        }
-
-        // Validate domain names: alphanumeric, dots, dashes. No wildcards, spaces, or special chars.
-        // Pattern: labels separated by dots, each label is alphanumeric or dash (but not starting/ending with dash)
-        if (!preg_match('/^([a-z0-9]([a-z0-9\-]*[a-z0-9])?\.)*[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/i', $name)) {
+        // Filesystem-safe whitelist: allows names that can exist as valid filenames
+        // but still prevents command injection via CMD metacharacters
+        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name)) {
             return false;
         }
 
