@@ -334,14 +334,26 @@ class WinBinder
     /**
      * Executes a system command.
      *
-     * @param   string       $cmd     The command to execute.
-     * @param   string|null  $params  The parameters to pass to the command.
-     * @param   bool         $silent  Whether to execute the command silently.
+     * @param   string           $cmd     The command to execute.
+     * @param   string|array     $params  The parameters to pass to the command. Can be a pre-formed string
+     *                                   (for backwards compatibility) or array of individual arguments
+     *                                   (recommended for automatic quoting).
+     * @param   bool             $silent  Whether to execute the command silently.
+     * @param   bool             $wait    Whether to wait for the process to exit.
      *
      * @return mixed The result of the command execution.
      */
     public function exec($cmd, $params = null, $silent = false, $wait = true): mixed
     {
+        // Handle array of arguments by quoting each one individually
+        if (is_array($params)) {
+            $quotedParams = [];
+            foreach ($params as $arg) {
+                $quotedParams[] = $this->quoteWindowsArg((string)$arg);
+            }
+            $params = implode(' ', $quotedParams);
+        }
+
         if ($silent) {
             // Use WScript.Shell via COM for true silent execution (zero window flashing)
             // This is more reliable than powershell.exe -WindowStyle Hidden which can still flash
@@ -372,6 +384,35 @@ class WinBinder
         $this->writeLog('exec: ' . $cmd . ' ' . $params);
 
         return $this->callWinBinder('wb_exec', array($cmd, $params));
+    }
+
+    /**
+     * Quotes a Windows command-line argument for use in WScript.Shell or cmd.exe.
+     *
+     * Handles the following cases:
+     *  - Arguments with spaces need to be quoted
+     *  - Arguments with quotes need to have internal quotes escaped
+     *  - Empty arguments need to be represented as ""
+     *
+     * @param   string  $arg  The argument to quote.
+     *
+     * @return string The quoted argument, suitable for use in a Windows command line.
+     */
+    private function quoteWindowsArg(string $arg): string
+    {
+        // If argument is empty, return empty quotes
+        if ($arg === '') {
+            return '""';
+        }
+
+        // If argument contains spaces, quotes, or special shell characters, it needs quoting
+        if (preg_match('/[\s"&|<>^()]/', $arg)) {
+            // Escape any internal quotes by doubling them (Windows convention for cmd.exe/WScript.Shell)
+            $escaped = str_replace('"', '""', $arg);
+            return '"' . $escaped . '"';
+        }
+
+        return $arg;
     }
 
     /**

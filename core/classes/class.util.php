@@ -536,10 +536,9 @@ class Util
         Log::trace('Root file: ' . Core::isRoot_FILE);
         Log::trace('Action: ' . Action::LOADING);
 
-        $command = Core::isRoot_FILE . ' ' . Action::LOADING;
-        Log::trace('Executing command: ' . Path::getPhpExe() . ' ' . $command);
+        Log::trace('Executing command: ' . Path::getPhpExe() . ' ' . Core::isRoot_FILE . ' ' . Action::LOADING);
 
-        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), $command, true, false);
+        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), [Core::isRoot_FILE, Action::LOADING], true, false);
         Log::trace('exec() returned: ' . var_export($result, true));
 
         Log::trace('startLoading() completed');
