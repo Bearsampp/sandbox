@@ -352,7 +352,7 @@ class WinBinder
                 $exitCode = $wsh->Run($fullCmd, 0, $wait);
                 $this->writeLog('exec (silent via COM): ' . $fullCmd . ' [ExitCode: ' . $exitCode . ']');
                 return $exitCode === 0;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->writeLog('exec (silent via COM) failed: ' . $e->getMessage() . '. Falling back to PowerShell.');
                 // Fall back to PowerShell method if COM fails
                 $psCmd = 'Start-Process -FilePath \'' . str_replace("'", "''", $cmd) . '\'';

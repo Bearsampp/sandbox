@@ -120,7 +120,7 @@ class TplPowerShell
         try {
             $wsh = new COM('WScript.Shell');
             $exitCode = $wsh->Run($cmd, 0, true);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $output = [];
             exec($cmd, $output, $exitCode);
         }
