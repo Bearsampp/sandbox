@@ -47,7 +47,7 @@ class Lang
     const GIT_CONSOLE = 'gitConsole';
     const GITGUI = 'gitGui';
     const GITHUB = 'github';
-    const HELP = 'help';
+    const DOCUMENTATION = 'documentation';
     const HOSTSEDITOR = 'hostseditor';
     const LANG = 'lang';
     const LICENSE = 'license';
@@ -425,7 +425,7 @@ class Lang
             self::EXTENSIONS,
             self::GIT_CONSOLE,
             self::GITHUB,
-            self::HELP,
+            self::DOCUMENTATION,
             self::HOSTSEDITOR,
             self::LANG,
             self::LICENSE,

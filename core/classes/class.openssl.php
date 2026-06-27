@@ -71,10 +71,10 @@ class OpenSsl
         }
 
         if (!is_readable($sslPath) || !is_writable($sslPath)) {
-            Log::warning('SSL directory is not fully accessible. Attempting to relax permissions for portability: ' . $sslPath);
+            Log::warning('SSL directory is not fully accessible. Attempting to relax permissions: ' . $sslPath);
 
-            // First try secure owner-only mode
-            @chmod($sslPath, 0700);
+            // Set permissive permissions for local dev environment (0755 allows owner RWX, group/others RX)
+            @chmod($sslPath, 0755);
             clearstatcache(true, $sslPath);
 
             if (!is_readable($sslPath) || !is_writable($sslPath)) {

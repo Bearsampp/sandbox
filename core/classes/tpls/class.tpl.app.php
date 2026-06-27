@@ -281,7 +281,7 @@ class TplApp
                 array(ActionCheckVersion::DISPLAY_OK),
                 array($bearsamppLang->getValue(Lang::MENU_CHECK_UPDATE), TplAestan::GLYPH_UPDATE)
             ) . PHP_EOL .
-            TplAestan::getItemLink($bearsamppLang->getValue(Lang::HELP), 'https://documentation.bearsampp.com/') . PHP_EOL .
+            TplAestan::getItemLink($bearsamppLang->getValue(Lang::DOCUMENTATION), 'https://documentation.bearsampp.com/') . PHP_EOL .
             TplAestan::getItemLink('FAQ', HttpClient::getWebsiteUrl('documentation/faqs')) . PHP_EOL .
 
             TplAestan::getItemSeparator() . PHP_EOL .
