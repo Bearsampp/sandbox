@@ -72,7 +72,7 @@ class Win32Service
     const VBS_DISPLAY_NAME = 'DisplayName';
     const VBS_DESCRIPTION = 'Description';
     const VBS_PATH_NAME = 'PathName';
-    const VBS_STATE = 'State';
+    const SERVICE_STATE = 'State';
 
     private $name;
     private $displayName;
@@ -125,7 +125,7 @@ class Win32Service
             self::VBS_DISPLAY_NAME,
             self::VBS_DESCRIPTION,
             self::VBS_PATH_NAME,
-            self::VBS_STATE
+            self::SERVICE_STATE
         );
     }
 
@@ -763,7 +763,7 @@ class Win32Service
         // Extract state
         if (preg_match('/STATE\s*:\s*\d+\s+(\w+)/i', $output, $matches)) {
             $state = trim($matches[1]);
-            $serviceInfo[self::VBS_STATE] = $state;
+            $serviceInfo[self::SERVICE_STATE] = $state;
             Log::trace("Service state: " . $state);
         }
 

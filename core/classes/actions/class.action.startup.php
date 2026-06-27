@@ -1265,14 +1265,21 @@ class ActionStartup
         if ($isPortInUse !== false) {
             // Port is in use - check if it's our service that's already running
             $isRunning = false;
-            if ($serviceInfos !== false) {
-                // Determine if running from serviceInfos
-                if ($this->getNssm() instanceof Nssm) {
-                    $isRunning = ($serviceInfos == Nssm::STATUS_RUNNING);
+            if ($serviceInfos !== false && is_array($serviceInfos)) {
+                // Extract state from serviceInfos array (works for both NSSM and Win32Service)
+                $state = $serviceInfos[Win32Service::SERVICE_STATE] ?? $serviceInfos['CurrentState'] ?? null;
+
+                // Check if running: state can be numeric '4' or string 'RUNNING'
+                if ($state !== null) {
+                    $isRunning = ($state == Win32Service::WIN32_SERVICE_RUNNING) ||
+                                 (strtoupper((string)$state) === 'RUNNING');
                 } else {
-                    $isRunning = (isset($serviceInfos[Win32Service::VBS_STATE]) && $serviceInfos[Win32Service::VBS_STATE] == Win32Service::WIN32_SERVICE_RUNNING) ||
-                                 (isset($serviceInfos['CurrentState']) && $serviceInfos['CurrentState'] == Win32Service::WIN32_SERVICE_RUNNING);
+                    // Fallback to calling isRunning() if state is not found
+                    $isRunning = $service->isRunning();
                 }
+            } else if ($serviceInfos === false) {
+                // Fallback when serviceInfos is false
+                $isRunning = $service->isRunning();
             }
 
             if ($isRunning) {
