@@ -152,6 +152,33 @@ class OpenSsl
     }
 
     /**
+     * Validates the certificate name to prevent command injection attacks.
+     * Allows localhost, domain names, and alphanumeric characters with dots and dashes.
+     *
+     * @param string $name The certificate name to validate.
+     * @return bool True if the name is valid, false otherwise.
+     */
+    private function validateCertificateName($name)
+    {
+        if (empty($name)) {
+            return false;
+        }
+
+        // Allow 'localhost' as a special case
+        if ($name === 'localhost') {
+            return true;
+        }
+
+        // Validate domain names: alphanumeric, dots, dashes. No wildcards, spaces, or special chars.
+        // Pattern: labels separated by dots, each label is alphanumeric or dash (but not starting/ending with dash)
+        if (!preg_match('/^([a-z0-9]([a-z0-9\-]*[a-z0-9])?\.)*[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/i', $name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Creates a certificate with the specified name and destination path.
      *
      * @param string $name The name of the certificate.
@@ -161,6 +188,12 @@ class OpenSsl
     public function createCrt($name, $destPath = null)
     {
         Log::trace('createCrt called for: ' . $name . ($destPath ? ' (dest: ' . $destPath . ')' : ''));
+
+        if (!$this->validateCertificateName($name)) {
+            Log::error('Invalid certificate name: ' . $name);
+            return false;
+        }
+
         if (!$this->ensureMkcertExeExists()) {
             return false;
         }
@@ -180,8 +213,8 @@ class OpenSsl
         $opensslExe = '"' . Path::formatWindowsPath(Path::getOpenSslExe()) . '"';
 
         $batch = 'SET "CAROOT=' . Path::formatWindowsPath($destPath) . '"' . PHP_EOL;
-        
-        $mkcertNames = $name;
+
+        $mkcertNames = '"' . $name . '"';
         if ($name === 'localhost') {
             $mkcertNames .= ' 127.0.0.1 ::1';
         } else {
