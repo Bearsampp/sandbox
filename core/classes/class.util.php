@@ -539,7 +539,7 @@ class Util
         $command = Core::isRoot_FILE . ' ' . Action::LOADING;
         Log::trace('Executing command: ' . Path::getPhpExe() . ' ' . $command);
 
-        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), $command, true);
+        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), $command, true, false);
         Log::trace('exec() returned: ' . var_export($result, true));
 
         Log::trace('startLoading() completed');

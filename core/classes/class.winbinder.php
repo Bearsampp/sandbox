@@ -340,7 +340,7 @@ class WinBinder
      *
      * @return mixed The result of the command execution.
      */
-    public function exec($cmd, $params = null, $silent = false): mixed
+    public function exec($cmd, $params = null, $silent = false, $wait = true): mixed
     {
         if ($silent) {
             // Use WScript.Shell via COM for true silent execution (zero window flashing)
@@ -348,8 +348,8 @@ class WinBinder
             try {
                 $wsh = new COM('WScript.Shell');
                 $fullCmd = '"' . $cmd . '"' . (empty($params) ? '' : ' ' . $params);
-                // 0 = Hidden, true = wait for return
-                $exitCode = $wsh->Run($fullCmd, 0, true);
+                // 0 = Hidden, $wait = wait for process to exit
+                $exitCode = $wsh->Run($fullCmd, 0, $wait);
                 $this->writeLog('exec (silent via COM): ' . $fullCmd . ' [ExitCode: ' . $exitCode . ']');
                 return $exitCode === 0;
             } catch (Exception $e) {
@@ -359,7 +359,10 @@ class WinBinder
                 if (!empty($params)) {
                     $psCmd .= ' -ArgumentList \'' . str_replace("'", "''", $params) . '\'';
                 }
-                $psCmd .= ' -WindowStyle Hidden -Wait';
+                $psCmd .= ' -WindowStyle Hidden';
+                if ($wait) {
+                    $psCmd .= ' -Wait';
+                }
                 $encodedCmd = base64_encode(mb_convert_encoding($psCmd, 'UTF-16LE', 'UTF-8'));
                 $cmd = 'powershell.exe';
                 $params = '-WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand ' . $encodedCmd;
