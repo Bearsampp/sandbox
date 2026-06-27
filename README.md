@@ -21,7 +21,7 @@
 It also offers several versions of the various [modules](https://bearsampp.com/module) for download on the  
 [official website](https://bearsampp.com) and many other features.<br />
 
-For those who wish to contribute, have an issue or questions, read the [Documentation](https://bearsampp.com/documentation/faqs).
+For those who wish to contribute, have an issue or questions, read the [Documentation](https://documentation.bearsampp.com/) or visit our [FAQ section](https://bearsampp.com/documentation/faqs/).
 
 ### Modules
 
@@ -50,9 +50,10 @@ For those who wish to contribute, have an issue or questions, read the [Document
 
 ## Documentation
 
+* [User Friendly Documentation](https://documentation.bearsampp.com/)
 * [Get started](https://bearsampp.com/get-started)
 * [Screenshots](https://bearsampp.com/screenshots)
-* [FAQ](https://bearsampp.com/faq)
+* [FAQ](https://bearsampp.com/documentation/faqs/)
 * [Upgrade notes](https://bearsampp.com/upgrade)
 * [Reporting an issue](https://github.com/Bearsampp/Bearsampp/issues)
 * [Request a module](https://bearsampp.com/request)
@@ -75,8 +76,8 @@ Thanks again for your support, it is much appreciated! :pray:
 We would like to thank the following for supporting our project:
 
 
-| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://www.jetbrains.com/">Jetbrains<br> <img src="https://github.com/user-attachments/assets/20e6941a-1db6-4b88-a84b-c9df6749e210" height="100px"></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> |
-|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> |
+|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|
 
 <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>
 
