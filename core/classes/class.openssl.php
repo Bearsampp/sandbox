@@ -153,6 +153,7 @@ class OpenSsl
 
     /**
      * Validates the certificate name to prevent command injection attacks.
+     * Requires names to start with alphanumeric character to prevent mkcert flag injection.
      * Uses filesystem-safe whitelist (same as removeCrt) to support existing cert names
      * and prevent CMD metacharacter injection. Allows: alphanumeric, dots, dashes, underscores.
      *
@@ -165,9 +166,11 @@ class OpenSsl
             return false;
         }
 
-        // Filesystem-safe whitelist: allows names that can exist as valid filenames
-        // but still prevents command injection via CMD metacharacters
-        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name)) {
+        // Filesystem-safe whitelist with mandatory alphanumeric first character:
+        // - Prevents CLI flag injection (leading `-`)
+        // - Prevents relative path traversal (leading `.`)
+        // - Allows remaining chars to be alphanumeric, dots, dashes, underscores
+        if (!preg_match('/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/', $name)) {
             return false;
         }
 
@@ -216,9 +219,10 @@ class OpenSsl
         } else {
             $mkcertNames .= ' "*.' . $name . '" localhost 127.0.0.1 ::1';
         }
-        
+
         Log::trace('Executing mkcert for "' . $name . '"');
-        $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' ' . $mkcertNames . PHP_EOL;
+        // Use -- to terminate flag parsing before hostname arguments as defense-in-depth
+        $batch .= '"' . $mkcertExe . '" -cert-file ' . $crtPath . ' -key-file ' . $keyPath . ' -- ' . $mkcertNames . PHP_EOL;
         $batch .= $opensslExe . " rsa -in " . $keyPath . " -out " . $keyPath . " -passin pass:" . PHP_EOL;
         $batch .= "COPY /Y " . $keyPath . " " . $pubPath . PHP_EOL;
         $batch .= 'IF EXIST ' . $crtPath . ' IF EXIST ' . $keyPath . ' ECHO OK' . PHP_EOL;
