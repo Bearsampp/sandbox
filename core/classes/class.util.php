@@ -417,6 +417,28 @@ class Util
     }
 
     /**
+     * Trusts the root CA by adding it to the Windows Trusted Root Certification Authorities store.
+     *
+     * @return bool True if the root CA was trusted successfully, false otherwise.
+     */
+    public static function trustRootCA()
+    {
+        global $bearsamppRoot;
+
+        $rootCAPath = $bearsamppRoot->getSslPath() . '/rootCA.pem';
+
+        if (file_exists($rootCAPath)) {
+            Log::info('Trusting root CA: ' . $rootCAPath);
+            $command = 'certutil -addstore -f "Root" "' . UtilPath::formatWindowsPath($rootCAPath) . '"';
+            $result = Batch::exec('trustRootCA', $command);
+
+            return isset($result[0]) && strpos($result[0], 'certutil') !== false;
+        }
+
+        return false;
+    }
+
+    /**
      * Finds the path to the PowerShell executable in the Windows System32 directory.
      *
      * @return string|false Returns the path to powershell.exe if found, otherwise false.

@@ -875,6 +875,10 @@ class ActionStartup
         global $bearsamppLang, $bearsamppOpenSsl;
 
         $this->splash->incrProgressBar();
+        
+        // Trust root CA if it exists
+        Util::trustRootCA();
+        
         if ( !$bearsamppOpenSsl->existsCrt( 'localhost' ) ) {
             $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_GEN_SSL_CRT_TEXT ), 'localhost' ) );
             $bearsamppOpenSsl->createCrt( 'localhost' );

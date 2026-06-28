@@ -22,6 +22,10 @@ class OpenSsl
         global $bearsamppRoot, $bearsamppCore;
         $destPath = empty($destPath) ? $bearsamppRoot->getSslPath() : $destPath;
 
+        $rootCAPath = $bearsamppRoot->getSslPath() . '/rootCA.pem';
+        $rootCAKeyPath = $bearsamppRoot->getSslPath() . '/rootCA-key.pem';
+        $useCA = file_exists($rootCAPath) && file_exists($rootCAKeyPath);
+
         $subject = '"/C=US/O=Bearsampp/CN=' . $name . '"';
         $password = 'pass:bearsampp';
         $ppkPath = '"' . $destPath . '/' . $name . '.ppk"';
@@ -49,10 +53,21 @@ class OpenSsl
         $batch .= $exe . ' rsa -in ' . $ppkPath . ' -passin ' . $password . ' -out ' . $pubPath . PHP_EOL . PHP_EOL;
         $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
 
-        // crt
-        $batch .= $exe . ' req -x509 -nodes -sha256 -new -key ' . $pubPath . ' -out ' . $crtPath . ' -passin ' . $password;
-        $batch .= ' -subj ' . $subject . ' -reqexts ' . $extension . ' -extensions ' . $extension . ' -config ' . $confPath . PHP_EOL;
-        $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
+        if ($useCA) {
+            $csrPath = '"' . $destPath . '/' . $name . '.csr"';
+            // csr
+            $batch .= $exe . ' req -new -key ' . $pubPath . ' -out ' . $csrPath . ' -subj ' . $subject . ' -config ' . $confPath . PHP_EOL;
+            $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
+
+            // crt signed by CA
+            $batch .= $exe . ' x509 -req -in ' . $csrPath . ' -CA "' . $rootCAPath . '" -CAkey "' . $rootCAKeyPath . '" -CAcreateserial -out ' . $crtPath . ' -days 3650 -sha256 -extensions ' . $extension . ' -extfile ' . $confPath . PHP_EOL;
+            $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
+        } else {
+            // self-signed crt
+            $batch .= $exe . ' req -x509 -nodes -sha256 -new -days 3650 -key ' . $pubPath . ' -out ' . $crtPath . ' -passin ' . $password;
+            $batch .= ' -subj ' . $subject . ' -reqexts ' . $extension . ' -extensions ' . $extension . ' -config ' . $confPath . PHP_EOL;
+            $batch .= 'IF %ERRORLEVEL% GEQ 1 GOTO EOF' . PHP_EOL . PHP_EOL;
+        }
 
         $batch .= ':EOF' . PHP_EOL;
         $batch .= 'SET RESULT=KO' . PHP_EOL;
