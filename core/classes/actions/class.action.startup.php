@@ -872,12 +872,36 @@ class ActionStartup
      */
     private function createSslCrts()
     {
-        global $bearsamppLang, $bearsamppOpenSsl;
+        global $bearsamppLang, $bearsamppOpenSsl, $bearsamppRoot;
 
         $this->splash->incrProgressBar();
-        
-        // Trust root CA if it exists
-        Util::trustRootCA();
+
+        // Trust root CA only when CA-signed certificate mode is available
+        $rootCAPath = $bearsamppRoot->getSslPath() . '/rootCA.pem';
+        $rootCAKeyPath = $bearsamppRoot->getSslPath() . '/rootCA-key.pem';
+        $hasRootCA = file_exists($rootCAPath);
+        $hasRootCAKey = file_exists($rootCAKeyPath);
+
+        if ($hasRootCA && $hasRootCAKey) {
+            $trusted = Util::trustRootCA();
+            if ($trusted === false) {
+                $trustWarning = 'Unable to trust SSL root CA automatically. HTTPS certificates may be generated but not trusted by Windows. Run Bearsampp as Administrator (elevation required) and retry.';
+                $this->writeLog('WARNING: ' . $trustWarning . ' Root CA: ' . $rootCAPath);
+                Log::warning($trustWarning . ' Root CA: ' . $rootCAPath);
+                if (!empty($this->error)) {
+                    $this->error .= PHP_EOL . PHP_EOL;
+                }
+                $this->error .= $trustWarning;
+            }
+        } elseif ($hasRootCA && !$hasRootCAKey) {
+            $caModeWarning = 'SSL root CA found but rootCA-key.pem is missing. CA signing is unavailable, so localhost certificates will remain self-signed and may be untrusted.';
+            $this->writeLog('WARNING: ' . $caModeWarning . ' Root CA: ' . $rootCAPath . ' Root CA Key: ' . $rootCAKeyPath);
+            Log::warning($caModeWarning . ' Root CA: ' . $rootCAPath . ' Root CA Key: ' . $rootCAKeyPath);
+            if (!empty($this->error)) {
+                $this->error .= PHP_EOL . PHP_EOL;
+            }
+            $this->error .= $caModeWarning;
+        }
         
         if ( !$bearsamppOpenSsl->existsCrt( 'localhost' ) ) {
             $this->splash->setTextLoading( sprintf( $bearsamppLang->getValue( Lang::STARTUP_GEN_SSL_CRT_TEXT ), 'localhost' ) );

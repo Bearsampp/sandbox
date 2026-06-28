@@ -25,6 +25,9 @@ class OpenSsl
         $rootCAPath = $bearsamppRoot->getSslPath() . '/rootCA.pem';
         $rootCAKeyPath = $bearsamppRoot->getSslPath() . '/rootCA-key.pem';
         $useCA = file_exists($rootCAPath) && file_exists($rootCAKeyPath);
+        if (file_exists($rootCAPath) && !$useCA) {
+            Log::warning('Root CA found but rootCA-key.pem is missing; falling back to self-signed certificate for "' . $name . '". Root CA: ' . $rootCAPath . ' Root CA Key: ' . $rootCAKeyPath);
+        }
 
         $subject = '"/C=US/O=Bearsampp/CN=' . $name . '"';
         $password = 'pass:bearsampp';

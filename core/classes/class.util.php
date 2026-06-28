@@ -426,13 +426,26 @@ class Util
         global $bearsamppRoot;
 
         $rootCAPath = $bearsamppRoot->getSslPath() . '/rootCA.pem';
+        $rootCAKeyPath = $bearsamppRoot->getSslPath() . '/rootCA-key.pem';
+
+        if (file_exists($rootCAPath) && !file_exists($rootCAKeyPath)) {
+            Log::warning('Skipping root CA trust because CA signing is unavailable (missing rootCA-key.pem): ' . $rootCAKeyPath);
+
+            return false;
+        }
 
         if (file_exists($rootCAPath)) {
             Log::info('Trusting root CA: ' . $rootCAPath);
-            $command = 'certutil -addstore -f "Root" "' . UtilPath::formatWindowsPath($rootCAPath) . '"';
-            $result = Batch::exec('trustRootCA', $command);
+            $batch = 'certutil -addstore -f "Root" "' . UtilPath::formatWindowsPath($rootCAPath) . '"' . PHP_EOL;
+            $batch .= 'IF %ERRORLEVEL% EQU 0 (ECHO OK) ELSE (ECHO KO)';
+            $result = Batch::exec('trustRootCA', $batch);
+            $trusted = isset($result[0]) && $result[0] === 'OK';
+            if (!$trusted) {
+                $output = is_array($result) ? implode(' | ', $result) : '';
+                Log::warning('Failed to trust root CA: ' . $rootCAPath . (!empty($output) ? ' - Output: ' . $output : ''));
+            }
 
-            return isset($result[0]) && strpos($result[0], 'certutil') !== false;
+            return $trusted;
         }
 
         return false;
