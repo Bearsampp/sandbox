@@ -24,6 +24,7 @@ class OpenSsl
     private $wbDelSslBtnDelete;
     private $wbDelSslBtnCancel;
     private $rootCaName = 'BearsamppRootCA';
+    private $rootCaInstalledInCurrentRun = false;
 
 
     /**
@@ -178,6 +179,68 @@ class OpenSsl
     }
 
     /**
+     * Returns the SHA1 thumbprint of a certificate file (uppercase, no separators).
+     *
+     * @param string $certPath
+     * @return string|null
+     */
+    private function getCertificateThumbprint($certPath)
+    {
+        if (!file_exists($certPath) || !is_readable($certPath)) {
+            return null;
+        }
+
+        $certContent = @file_get_contents($certPath);
+        if ($certContent === false || $certContent === '') {
+            return null;
+        }
+
+        $thumbprint = @openssl_x509_fingerprint($certContent, 'sha1');
+        if ($thumbprint === false || $thumbprint === null || $thumbprint === '') {
+            return null;
+        }
+
+        return strtoupper(str_replace(':', '', $thumbprint));
+    }
+
+    /**
+     * Checks whether the given certificate is already trusted in Windows Root stores.
+     *
+     * @param string $rootCaPath
+     * @return bool
+     */
+    private function isRootCaTrustedInWindowsStores($rootCaPath)
+    {
+        $thumbprint = $this->getCertificateThumbprint($rootCaPath);
+        if (empty($thumbprint)) {
+            Log::warning('Unable to calculate Root CA thumbprint for trust pre-check.');
+            return false;
+        }
+
+        $psCommand = "\$thumb='" . $thumbprint . "';";
+        $psCommand .= "\$stores=@('Cert:\\CurrentUser\\Root','Cert:\\LocalMachine\\Root');";
+        $psCommand .= "\$trusted=\$false;";
+        $psCommand .= "foreach(\$store in \$stores){try{if(Get-ChildItem -Path \$store -ErrorAction Stop | Where-Object { \$_.Thumbprint -eq \$thumb }){\$trusted=\$true;break}}catch{}};";
+        $psCommand .= "if(\$trusted){Write-Output TRUSTED}else{Write-Output MISSING}";
+
+        $batch = 'powershell -NoProfile -ExecutionPolicy Bypass -Command "' . $psCommand . '"' . PHP_EOL;
+        $result = Batch::exec('mkcertCheckTrust', $batch);
+
+        if ($result === false || !is_array($result)) {
+            Log::warning('Failed to run Root CA trust pre-check. Falling back to mkcert -install.');
+            return false;
+        }
+
+        foreach ($result as $line) {
+            if (trim($line) === 'TRUSTED') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Creates a certificate with the specified name and destination path.
      *
      * @param string $name The name of the certificate.
@@ -284,6 +347,28 @@ class OpenSsl
             }
             Log::info('Root CA successfully created and verified.');
         }
+
+        if (!$this->rootCaInstalledInCurrentRun) {
+            if ($this->isRootCaTrustedInWindowsStores($rootCaPath)) {
+                Log::info('Root CA already trusted in Windows stores. Skipping mkcert -install for speed.');
+                $this->rootCaInstalledInCurrentRun = true;
+                return true;
+            }
+
+            Log::info('Root CA trust missing. Running mkcert -install to refresh Windows trust stores (Chrome uses OS trust store).');
+            $batch = 'SET "CAROOT=' . Path::formatWindowsPath($destPath) . '"' . PHP_EOL;
+            $batch .= '"' . $mkcertExe . '" -install' . PHP_EOL;
+            $result = Batch::exec('mkcertEnsureTrust', $batch);
+
+            if ($result === false) {
+                Log::error('Batch execution failed for mkcert trust refresh');
+                return false;
+            }
+
+            $this->rootCaInstalledInCurrentRun = true;
+            Log::info('Root CA trust refresh finished.');
+        }
+
         return true;
     }
 
