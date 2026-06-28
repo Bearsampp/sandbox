@@ -28,9 +28,9 @@ class OpenSsl
 
 
     /**
-     * Ensures that the mkcert executable exists, attempting to download it if missing.
+     * Ensures that the mkcert executable exists.
      *
-     * @return bool True if mkcert exists or was successfully downloaded.
+     * @return bool True if mkcert exists.
      */
     private function ensureMkcertExeExists()
     {
