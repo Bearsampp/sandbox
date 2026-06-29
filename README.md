@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="250" src="https://bearsampp.com/images/logo/Bearsampp%20with%20text-stroked.png"></a></p>  
+<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="250" src="https://raw.githubusercontent.com/Bearsampp/sandbox/main/core/resources/homepage/img/header-logo.png"></a></p>
 
 <p align="center">  
   <a href="https://github.com/Bearsampp/Bearsampp/releases/latest"><img src="https://img.shields.io/github/release/bearsampp/bearsampp.svg?style=flat-square" alt="GitHub release"></a>  
@@ -10,7 +10,9 @@
 
 ## About
 
-**Bearsampp** is a fully portable WAMP software stack involving useful binaries, tools and applications for your development projects.
+**Bearsampp Sandbox** is the dedicated development and testing environment for the [Bearsampp](https://github.com/Bearsampp/Bearsampp) project. This repository allows us to build, refine, and test features or bug fixes in a safe environment before they are synchronized to the main production repository via the `/core` directory.
+
+Bearsampp itself is a fully portable WAMP software stack involving useful binaries, tools and applications for your development projects.
 
 ![menu-right](https://github.com/user-attachments/assets/f58b3104-7732-402e-8599-0be47aab47c0)
 ![menu-left](https://github.com/user-attachments/assets/e235fdf4-dab2-4771-80dc-fb70519728b1)
@@ -61,6 +63,8 @@ For those who wish to contribute, have an issue or questions, read the [Document
 * [Translations](https://bearsampp.com/translations)
 
 ## Contributing
+
+This is a **Sandbox** repository. Contributions here are intended for testing and development. Once verified, changes to the `/core` directory and the `bearsampp.exe` binary are automatically synced to the [main Bearsampp repository](https://github.com/Bearsampp/Bearsampp).
 
 Want to contribute? Awesome! The most basic way to show your support is to star the project, or to raise issues. If  
 you want to open a pull request, please read the [contributing guidelines](.github/CONTRIBUTING.md).
