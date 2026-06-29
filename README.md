@@ -16,7 +16,7 @@ Bearsampp itself is a fully portable WAMP software stack involving useful binari
 
 ![menu-right](https://github.com/user-attachments/assets/f58b3104-7732-402e-8599-0be47aab47c0)
 ![menu-left](https://github.com/user-attachments/assets/e235fdf4-dab2-4771-80dc-fb70519728b1)
-![menu-tools](https://github.com/user-attachments/assets/2f18ea8c-373e-4064-b0eb-a6c70bf7468b)
+![menu-tools](https://github.com/user-attachments/assets/717af5c0-9365-4386-b0ef-ff1fe05a21b2)
 
 
 
