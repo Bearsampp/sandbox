@@ -76,10 +76,8 @@ Thanks again for your support, it is much appreciated! :pray:
 We would like to thank the following for supporting our project:
 
 
-| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> |
-|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|
-
-<a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>
+| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> | <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>|
+|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------- |
 
 
 ## Statistics
