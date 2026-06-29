@@ -12,7 +12,7 @@
 
 **Bearsampp Sandbox** is the dedicated development and testing environment for the [Bearsampp](https://github.com/Bearsampp/Bearsampp) project. This repository allows us to build, refine, and test features or bug fixes in a safe environment before they are synchronized to the main production repository via the `/core` directory.
 
-Bearsampp itself is a fully portable WAMP software stack involving useful binaries, tools and applications for your development projects.
+Bearsampp itself is a fully portable WAMP style software stack involving useful binaries, tools and applications for your development projects.
 
 ![menu-right](https://github.com/user-attachments/assets/f58b3104-7732-402e-8599-0be47aab47c0)
 ![menu-left](https://github.com/user-attachments/assets/e235fdf4-dab2-4771-80dc-fb70519728b1)
@@ -80,10 +80,8 @@ Thanks again for your support, it is much appreciated! :pray:
 We would like to thank the following for supporting our project:
 
 
-| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> |
-|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|
-
-<a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>
+| <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> | <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>|
+|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 
 
 ## Statistics
