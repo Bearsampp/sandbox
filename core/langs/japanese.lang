@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+
+; General
+allRunningHint = "すべてのサービスが実行中"
+someRunningHint = "%t 個のサービスのうち %n 個が実行中"
+noneRunningHint = "%t 個のサービスが停止中"
+locale = "ja-JP"
+
+; Single
+about = "バージョン情報"
+administration = "管理"
+aliases = "エイリアス"
+apps = "アプリケーション"
+bins = "バイナリ"
+changelog = "変更履歴"
+console = "コンソール"
+debug = "デバッグ"
+disabled = "無効"
+discord = "Discord"
+donate = "寄付"
+donateVia = "%s 経由で寄付"
+download = "ダウンロード"
+downloadMore = "さらにダウンロード"
+enabled = "有効"
+error = "エラー"
+executable = "実行ファイル"
+extensions = "拡張機能"
+facebook = "Facebook"
+gitConsole = "Git コンソール"
+gitGui = "Git GUI"
+github = "Github"
+documentation = "ドキュメント"
+hostseditor = "Hosts エディター"
+lang = "言語"
+license = "ライセンス"
+logs = "ログ"
+logsVerbose = "詳細ログ"
+modules = "モジュール"
+name = "名前"
+paypal = "Paypal"
+pwgen = "パスワードマネージャー"
+pythonConsole = "Python コンソール"
+quit = "終了"
+readChangelog = "%s最新の変更履歴%s を読む。"
+reload = "再読み込み"
+repos = "リポジトリ"
+restart = "再起動"
+service = "サービス"
+settings = "設定"
+ssl = "SSL"
+startup = "スタートアップ"
+status = "ステータス"
+statusPage = "ステータス画面"
+target = "ターゲット"
+tools = "ツール"
+verboseDebug = "デバッグ"
+verboseReport = "レポート"
+verboseSimple = "シンプル"
+verboseTrace = "トレース"
+version = "バージョン"
+versions = "バージョン"
+virtualHosts = "バーチャルホスト"
+website = "Webサイト"
+
+; Menu
+menuAbout = "バージョン情報"
+menuAccessLogs = "アクセスログ"
+menuAddAlias = "エイリアスを追加"
+menuAddVhost = "バーチャルホストを追加"
+menuChangePort = "ポートを変更"
+menuChangeRootPwd = "ルートパスワードを変更"
+menuCheckPort = "ポート %s を確認"
+menuCheckUpdate = "アップデートを確認"
+menuClearFolders = "一時フォルダをクリア"
+menuEditAlias = "%s を編集"
+menuEditConf = "%s を編集"
+menuEditVhost = "%s を編集"
+menuEnable = "有効 / 無効"
+menuErrorLogs = "エラーログ"
+menuGenRootCa = "rootCA 証明書を生成"
+menuGenSslCertificate = "SSL 証明書を生成"
+menuInstallService = "サービスをインストール"
+menuLaunchStartup = "Windows 起動時に実行"
+menuLocalhost = "Localhost"
+menuLogs = "ログ"
+menuPutOffline = "オフライン"
+menuPutOnline = "オンライン"
+menuRebuildIni = "bearsampp.ini を再構築"
+menuRefreshRepos = "リポジトリを更新"
+menuRemoveService = "サービスを削除"
+menuRestartService = "サービスを再起動"
+menuRestartServices = "すべてのサービスを再起動"
+menuRewriteLogs = "ログを書き換え"
+menuScanReposStartup = "起動時にリポジトリをスキャン"
+menuSessionLogs = "セッションログ"
+menuStartService = "サービスを開始"
+menuStartServices = "すべてのサービスを開始"
+menuStatsLogs = "統計ログ"
+menuStopService = "サービスを停止"
+menuStopServices = "すべてのサービスを停止"
+menuTransferLogs = "ログを転送"
+menuUpdateEnvPath = "環境変数 PATH を更新"
+menuWwwDirectory = "www ディレクトリ"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "%s の設定ファイルが %s に見つかりません"
+errorExeNotFound = "%s の実行ファイルが %s に見つかりません"
+errorFileNotFound = "%s が %s に見つかりません"
+errorInvalidParameter = "無効なパラメーター '%s' : %s"
+errorAdminRequiredTitle = "管理者権限が必要です"
+errorAdminRequiredText = "%s のインストールと Windows サービスの管理には管理者権限が必要です。@nl@@nl@アプリケーションを起動するには、bearsampp.exe を右クリックして「管理者として実行」を選択してください。"
+
+; Action Switch version
+switchVersionTitle = "%s バージョン %s に切り替え"
+switchVersionReloadConfig = "設定を再読み込み"
+switchVersionReloadBins = "バイナリを再読み込み"
+switchVersionRegistry = "%s レジストリキーをリセット"
+switchVersionResetServices = "すべてのサービスをリセット"
+switchVersionSameError = "すでに %s %s を使用しています。"
+switchVersionOk = "%s のバージョンを %s に正常に切り替えました"
+switchVersionOkRestart = "%s のバージョンを %s に正常に切り替えました"
+apacheIncpt = "Apache %s は PHP %s と互換性がないようです。"
+phpIncpt = "PHP %s は Apache %s と互換性がないようです。"
+bearsamppConfNotFoundError = "%s の Bearsampp 設定ファイルが見つかりません。"
+bearsamppConfMalformedError = "%s の Bearsampp 設定ファイルが破損しています。"
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "PHP 設定を切り替え"
+switchPhpSettingNotFound = "PHP %s の設定ファイルに PHP 設定 %s が見つかりません。"
+
+; Action Check port
+checkPortTitle = "%s ポート %s を確認"
+portUsedBy = "ポート %s は %s によって使用されています。"
+portNotUsed = "ポート %s は使用されていません。"
+portNotUsedBy = "ポート %s は他のアプリケーションによって使用されています。"
+portUsedByAnotherDbms = "ポート %s は他の DBMS によって使用されています。"
+portChanged = "%s ポートを %s に正常に変更しました"
+
+; Action Install service
+installServiceTitle = "%s サービスをインストール"
+serviceAlreadyInstalled = "%s サービスはすでにインストールされています。"
+serviceInstalled = "%s サービスをインストールしました。@nl@名前: %s@nl@ポート: %s"
+serviceInstallError = "%s サービスのインストール中にエラーが発生しました。"
+
+; Action Remove service
+removeServiceTitle = "%s サービスを削除"
+serviceNotExist = "%s サービスは存在しません。"
+serviceRemoved = "%s サービスを削除しました。"
+serviceRemoveError = "%s サービスのアンインストール中にエラーが発生しました。"
+
+; Action Start service
+startServiceTitle = "%s サービスを開始"
+startServiceError = "%s サービスの開始中にエラーが発生しました。"
+
+; Action Stop service
+stopServiceTitle = "%s サービスを停止"
+stopServiceError = "%s サービスの停止中にエラーが発生しました。"
+
+; Action Restart service
+restartServiceTitle = "%s サービスを再起動"
+restartServiceError = "%s サービスの再起動中にエラーが発生しました。"
+
+; Action Delete alias
+deleteAliasTitle = "エイリアスを削除"
+deleteAlias = "エイリアス '%s' を本当に削除しますか？"
+aliasRemoved = "エイリアス '%s' を削除しました。"
+aliasRemoveError = "以下の場所のエイリアス設定ファイルを削除できませんでした：@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "エイリアスを追加"
+aliasNameLabel = "名前"
+aliasDestLabel = "ターゲット"
+aliasExpLabel = "エイリアスは http://localhost%s/%s/ に配置され、@nl@%s を指します"
+aliasDestPath = "エイリアスのターゲットフォルダを選択してください："
+aliasNotValidAlpha = "エイリアス名 '%s' は有効な英数字文字列ではありません。"
+aliasAlreadyExists = "エイリアス '%s' はすでに存在します。"
+aliasCreated = "エイリアス '%s' を作成しました。@nl@@nl@Url: http://localhost%s/%s/@nl@パス: %s"
+aliasCreatedError = "エイリアス設定ファイルを作成できませんでした。"
+editAliasTitle = "エイリアス %s を編集"
+
+; Action Delete vhost
+deleteVhostTitle = "バーチャルホストを削除"
+deleteVhost = "バーチャルホスト '%s' を本当に削除しますか？"
+vhostRemoved = "バーチャルホスト '%s' を削除しました。"
+vhostRemoveError = "以下の場所のバーチャルホスト設定ファイルを削除できませんでした：@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "バーチャルホストを追加"
+vhostServerNameLabel = "サーバー名"
+vhostDocumentRootLabel = "ドキュメントルート"
+vhostExpLabel = "バーチャルホストは http://%s/ に配置され、@nl@%s を指します"
+vhostDocRootPath = "バーチャルホストのドキュメントルートを選択してください："
+vhostNotValidDomain = "サーバー名 '%s' は有効なドメイン名ではありません。"
+vhostAlreadyExists = "バーチャルホスト '%s' はすでに存在します。"
+vhostCreated = "バーチャルホスト '%s' を作成しました。@nl@ドメイン名を hosts ファイルに追加することを忘れないでください (Hosts エディターツール経由)。@nl@@nl@Url: http://%s/@nl@パス: %s"
+vhostCreatedError = "バーチャルホスト設定ファイルを作成できませんでした。"
+editVhostTitle = "バーチャルホスト %s を編集"
+
+; Action Change port
+changePortTitle = "%s ポートを変更"
+changePortCurrentLabel = "%s が現在使用しているポート : %s"
+changePortNewLabel = "新しいポート"
+changePortSameError = "現在使用されているポートと同じです。"
+
+; Action Change database root password
+changeDbRootPwdTitle = "%s ルートパスワードを変更"
+changeDbRootPwdCurrentpwdLabel = "現在のパスワード"
+changeDbRootPwdNewpwd1Label = "新しいパスワード"
+changeDbRootPwdNewpwd2Label = "新しいパスワード（確認）"
+changeDbRootPwdNotsameError = "入力されたパスワードが一致しません"
+changeDbRootPwdIncorrectError = "%s エラー: %s"
+changeDbRootPwdText = "ルートパスワードを正常に変更しました！"
+
+; Action Start All Services
+loadingStartServices = "すべてのサービスを開始中"
+loadingStartService = "%s を開始中..."
+loadingStopServices = "すべてのサービスを停止中"
+loadingStopService = "%s を停止中..."
+loadingRestartServices = "すべてのサービスを再起動中"
+loadingComplete = "完了"
+
+; Action Startup
+startupStartingText = "%s を開始中。お待ちください"
+startupRotationLogsText = "ログのアーカイブ"
+startupKillOldProcsText = "古いインスタンスを停止"
+startupRefreshHostnameText = "ホスト名を更新"
+startupCheckBrowserText = "ブラウザを確認"
+startupSysInfos = "システム情報を取得"
+startupCleanTmpText = "一時ファイルを削除"
+startupCleanOldBehaviorsText = "非推奨機能を削除"
+startupRefreshAliasText = "エイリアスを更新"
+startupRefreshVhostsText = "バーチャルホストを更新"
+startupCheckPathText = "現在のパスを確認"
+startupScanFoldersText = "フォルダをスキャン"
+startupChangePathText = "%s でパスを変更"
+startupRegistryText = "%s レジストリキーを確認"
+startupRegistryErrorText = "%s レジストリキーの設定エラー :"
+startupUpdateConfigText = "設定を更新"
+startupCheckServiceText = "%s サービスを確認中"
+startupVerifyServiceText = "%s サービスを検証中"
+startupInstallServiceText = "%s サービスをインストール"
+startupStartServiceText = "%s サービスを開始"
+startupPrepareRestartText = "%s の再起動を準備"
+startupRestartingText = "%s を再起動中。お待ちください"
+startupErrorTitle = "起動エラー"
+startupServiceError = "%s サービスをインストールできません :"
+startupServiceCreateError = "- サービスを作成できません : %s"
+startupServiceStartError = "- サービスを開始できません : %s"
+startupServiceSyntaxError = "- 設定エラーが検出されました : %s"
+startupServicePortError = "- ポート %s は他のアプリケーションによって使用されています : %s。"
+startupRefreshGitReposText = "Git リポジトリを更新"
+startupGenSslCrtText = "%s SSL 証明書を生成"
+
+; Action Quit
+exitLeavingText = "%s を終了中"
+exitRemoveServiceText = "%s サービスを削除"
+exitStopOtherProcessText = "サードパーティプロセスを停止"
+
+; Action Change browser
+changeBrowserTitle = "ブラウザを変更"
+changeBrowserExpLabel = "ブラウザを選択 :"
+changeBrowserOtherLabel = "その他 :"
+changeBrowserOk = "ブラウザを以下に変更しました：@nl@%s"
+
+; Action About
+aboutTitle = "バージョン情報"
+aboutText = "%s@nl@Copyright(C) 2014-%s %s@nl@@nl@Bearsampp はフリーソフトウェアです。GNU LESSER GENERAL PUBLIC LICENSE の条項に基づいて再配布および/または変更することができます。"
+
+; Action Debug Apache
+debugApacheVersionNumber = "バージョン番号"
+debugApacheCompileSettings = "コンパイル設定"
+debugApacheCompiledModules = "コンパイル済みモジュール"
+debugApacheConfigDirectives = "設定ディレクティブ"
+debugApacheVhostsSettings = "バーチャルホスト設定"
+debugApacheLoadedModules = "読み込み済みモジュール"
+debugApacheSyntaxCheck = "設定の構文チェック"
+
+; Action Debug MySQL
+debugMysqlVersion = "バージョン"
+debugMysqlVariables = "変数"
+debugMysqlSyntaxCheck = "設定の構文チェック"
+
+; Action Debug MariaDB
+debugMariadbVersion = "バージョン"
+debugMariadbVariables = "変数"
+debugMariadbSyntaxCheck = "設定の構文チェック"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "バージョン"
+
+; Action others
+registrySetErrorText = "レジストリ値が正しくありません : %s"
+
+; Action check version
+checkVersionTitle = "バージョンを確認"
+checkVersionAvailableText = "新しいバージョンが利用可能です！"
+checkVersionChangelogText = "アップデート前に変更履歴を読んでください : "
+checkVersionLatestText = "最新バージョンの Bearsampp を使用しています"
+
+; Action gen SSL certificate
+genSslTitle = "SSL 証明書を生成"
+genSslPath = "ターゲットフォルダを選択："
+genSslCreated = "SSL 証明書 '%s' を作成しました。"
+genSslCreatedError = "SSL 証明書を作成できませんでした。"
+
+; Action del SSL certificate
+delSslTitle = "SSL 証明書を削除"
+delSslDeleted = "SSL 証明書 '%s' を削除しました。"
+delSslDeletedError = "SSL 証明書を削除できませんでした。"
+
+; Action Restart
+restartTitle = "再起動"
+restartText = "新しい設定を適用するために %s を再起動してください"
+
+; Action enable
+enableTitle = "%s を有効 / 無効にする"
+enableBundleNotExist = "バンドル %s が %s に存在しないため、%s を有効にできません"
+
+; Windows forms
+buttonOk = "OK"
+buttonDelete = "削除"
+buttonSave = "保存"
+buttonFinish = "完了"
+buttonCancel = "キャンセル"
+buttonNext = "次へ >"
+buttonBack = "< 戻る"
+buttonBrowse = "参照"
+loading = "読み込み中"
+
+; Homepage
+homepageOfficialWebsite = "公式サイト"
+homepageServiceStarted = "ポート %s で開始"
+homepageServiceStopped = "停止中"
+homepageAboutHtml = "<div><strong>Bearsampp</strong> は、Web 開発に役立つバイナリ、ツール、アプリケーションを含むポータブルな WAMP ソフトウェアスタックです。<br/>貢献したい方、問題や質問がある方は、<a target='_blank' href='%s'>ドキュメント</a> を読むか、<a target='_blank' href='%s'>FAQ セクション</a> をご覧ください。<br/>新しいリリースの通知を受け取るには、Github 上の <a target='_blank' href='%s'>リポジトリ</a> にスターを付けてください。</div>"
+homepageLicenseText = "Bearsampp はフリーソフトウェアです。自由ソフトウェア財団によって公開された GNU General Public License (バージョン 3 以降) の条項に基づいて再配布および/または変更することができます。"
+homepageQuestionsTitle = "質問がありますか？"
+homepageQuestionsText = "問題を見つけた場合や、Bearsampp を改善するアイデアがある場合は、GitHub で issue を作成してください！"
+homepagePostIssue = "Issue を投稿"
+homepagePhpinfoText = "phpinfo() を表示"
+homepageMailpitText = "受信メールを表示"
+homepageApcText = "APC マネージャー"
+homepageBackText = "ホームページに戻る"
+homepageXlightText = "GUI を表示"

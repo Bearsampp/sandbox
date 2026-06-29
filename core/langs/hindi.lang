@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+;
+; General
+allRunningHint = "सभी सेवाएं चल रही हैं"
+someRunningHint = "%n में से %t सेवाएं चल रही हैं"
+noneRunningHint = "%t में से कोई भी सेवा नहीं चल रही है"
+locale = "hi-IN"
+
+; Single
+about = "के बारे में"
+administration = "प्रशासन"
+aliases = "उपनाम"
+apps = "अनुप्रयोग"
+bins = "बाइनरी"
+changelog = "परिवर्तन लॉग"
+console = "कंसोल"
+debug = "डिबग"
+disabled = "अक्षम"
+discord = "Discord"
+donate = "दान करें"
+donateVia = "%s के माध्यम से दान करें"
+download = "डाउनलोड"
+downloadMore = "और डाउनलोड करें"
+enabled = "सक्षम"
+error = "त्रुटि"
+executable = "निष्पादन योग्य"
+extensions = "एक्सटेंशन"
+facebook = "Facebook"
+gitConsole = "Git कंसोल"
+gitGui = "Git Gui"
+github = "Github"
+documentation = "प्रलेखन"
+hostseditor = "होस्ट एडिटर"
+lang = "भाषा"
+license = "लाइसेंस"
+logs = "लॉग्स"
+logsVerbose = "वर्बोस लॉग्स"
+modules = "मॉड्यूल"
+name = "नाम"
+paypal = "Paypal"
+pwgen = "पासवर्ड मैनेजर"
+pythonConsole = "Python कंसोल"
+quit = "बाहर निकलें"
+readChangelog = "%sनवीनतम परिवर्तन लॉग%s पढ़ें।"
+reload = "रीलोड"
+repos = "रिपॉजिटरीज"
+restart = "रीस्टार्ट"
+service = "सेवा"
+settings = "सेटिंग्स"
+ssl = "SSL"
+startup = "स्टार्टअप"
+status = "स्थिति"
+statusPage = "स्थिति पृष्ठ"
+target = "लक्ष्य"
+tools = "उपकरण"
+verboseDebug = "डिबग"
+verboseReport = "रिपोर्ट"
+verboseSimple = "सरल"
+verboseTrace = "ट्रेस"
+version = "संस्करण"
+versions = "संस्करण"
+virtualHosts = "वर्चुअल होस्ट"
+website = "वेबसाइट"
+
+; Menu
+menuAbout = "के बारे में"
+menuAccessLogs = "एक्सेस लॉग्स"
+menuAddAlias = "उपनाम जोड़ें"
+menuAddVhost = "वर्चुअल होस्ट जोड़ें"
+menuChangePort = "पोर्ट बदलें"
+menuChangeRootPwd = "रूट पासवर्ड बदलें"
+menuCheckPort = "पोर्ट %s जांचें"
+menuCheckUpdate = "अपडेट की जांच करें"
+menuClearFolders = "अस्थायी फोल्डर साफ करें"
+menuEditAlias = "%s संपादित करें"
+menuEditConf = "%s संपादित करें"
+menuEditVhost = "%s संपादित करें"
+menuEnable = "सक्षम / अक्षम करें"
+menuErrorLogs = "त्रुटि लॉग्स"
+menuGenRootCa = "रूट CA प्रमाणपत्र उत्पन्न करें"
+menuGenSslCertificate = "SSL प्रमाणपत्र उत्पन्न करें"
+menuInstallService = "सेवा स्थापित करें"
+menuLaunchStartup = "Windows स्टार्टअप पर लॉन्च करें"
+menuLocalhost = "Localhost"
+menuLogs = "लॉग्स"
+menuPutOffline = "ऑफ़लाइन करें"
+menuPutOnline = "ऑनलाइन करें"
+menuRebuildIni = "bearsampp.ini को फिर से बनाएं"
+menuRefreshRepos = "रिपॉजिटरीज रिफ्रेश करें"
+menuRemoveService = "सेवा हटाएं"
+menuRestartService = "सेवा रीस्टार्ट करें"
+menuRestartServices = "सभी सेवाएं रीस्टार्ट करें"
+menuRewriteLogs = "लॉग्स फिर से लिखें"
+menuScanReposStartup = "स्टार्टअप पर रिपॉजिटरीज स्कैन करें"
+menuSessionLogs = "सत्र लॉग्स"
+menuStartService = "सेवा शुरू करें"
+menuStartServices = "सभी सेवाएं शुरू करें"
+menuStatsLogs = "सांख्यिकी लॉग्स"
+menuStopService = "सेवा रोकें"
+menuStopServices = "सभी सेवाएं रोकें"
+menuTransferLogs = "लॉग्स ट्रांसफर करें"
+menuUpdateEnvPath = "Env. PATH अपडेट करें"
+menuWwwDirectory = "www डायरेक्टरी"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "%s कॉन्फ़िगरेशन फ़ाइल %s में नहीं मिली"
+errorExeNotFound = "%s निष्पादन योग्य फ़ाइल %s में नहीं मिली"
+errorFileNotFound = "%s %s में नहीं मिली"
+errorInvalidParameter = "अमान्य पैरामीटर '%s' : %s"
+errorAdminRequiredTitle = "प्रशासक अधिकार आवश्यक हैं"
+errorAdminRequiredText = "%s को Windows सेवाओं को स्थापित और प्रबंधित करने के लिए प्रशासक विशेषाधिकारों की आवश्यकता है।@nl@@nl@कृपया bearsampp.exe पर राइट-क्लिक करें और एप्लिकेशन शुरू करने के लिए 'Run as administrator' चुनें।"
+
+; Action Switch version
+switchVersionTitle = "%s संस्करण %s पर स्विच करें"
+switchVersionReloadConfig = "कॉन्फ़िगरेशन रीलोड करें"
+switchVersionReloadBins = "बाइनरी रीलोड करें"
+switchVersionRegistry = "%s रजिस्ट्री कुंजी रीसेट करें"
+switchVersionResetServices = "सभी सेवाएं रीसेट करें"
+switchVersionSameError = "आप पहले से ही %s %s पर हैं।"
+switchVersionOk = "%s संस्करण सफलतापूर्वक %s पर स्विच हो गया"
+switchVersionOkRestart = "%s संस्करण सफलतापूर्वक %s पर स्विच हो गया"
+apacheIncpt = "Apache %s PHP %s के साथ संगत नहीं लग रहा है।"
+phpIncpt = "PHP %s Apache %s के साथ संगत नहीं लग रहा है।"
+bearsamppConfNotFoundError = "%s के लिए Bearsampp कॉन्फ़िगरेशन फ़ाइलें नहीं मिलीं।"
+bearsamppConfMalformedError = "%s के लिए Bearsampp कॉन्फ़िगरेशन फ़ाइल खराब है।"
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "PHP सेटिंग स्विच करें"
+switchPhpSettingNotFound = "PHP सेटिंग %s, PHP %s कॉन्फ़िगरेशन फ़ाइल में नहीं मिली।"
+
+; Action Check port
+checkPortTitle = "पोर्ट %s जांचें"
+portUsedBy = "पोर्ट %s का उपयोग %s द्वारा किया जा रहा है।"
+portNotUsed = "पोर्ट %s का उपयोग नहीं किया जा रहा है।"
+portNotUsedBy = "पोर्ट %s का उपयोग किसी अन्य एप्लिकेशन द्वारा किया जा रहा है।"
+portUsedByAnotherDbms = "पोर्ट %s का उपयोग किसी अन्य DBMS द्वारा किया जा रहा है।"
+portChanged = "पोर्ट %s सफलतापूर्वक %s में बदल दिया गया"
+
+; Action Install service
+installServiceTitle = "%s सेवा स्थापित करें"
+serviceAlreadyInstalled = "%s सेवा पहले से स्थापित है।"
+serviceInstalled = "%s सेवा सफलतापूर्वक स्थापित हो गई।@nl@नाम: %s@nl@पोर्ट: %s"
+serviceInstallError = "%s सेवा की स्थापना के दौरान त्रुटि।"
+
+; Action Remove service
+removeServiceTitle = "%s सेवा हटाएं"
+serviceNotExist = "%s सेवा मौजूद नहीं है।"
+serviceRemoved = "%s सेवा सफलतापूर्वक हटा दी गई।"
+serviceRemoveError = "%s सेवा की अनइंस्टॉल के दौरान त्रुटि।"
+
+; Action Start service
+startServiceTitle = "%s सेवा शुरू करें"
+startServiceError = "%s सेवा शुरू करते समय त्रुटि।"
+
+; Action Stop service
+stopServiceTitle = "%s सेवा रोकें"
+stopServiceError = "%s सेवा रोकते समय त्रुटि।"
+
+; Action Restart service
+restartServiceTitle = "%s सेवा रीस्टार्ट करें"
+restartServiceError = "%s सेवा रीस्टार्ट करते समय त्रुटि।"
+
+; Action Delete alias
+deleteAliasTitle = "उपनाम हटाएं"
+deleteAlias = "क्या आप वास्तव में उपनाम '%s' हटाना चाहते हैं ?"
+aliasRemoved = "उपनाम '%s' सफलतापूर्वक हटा दिया गया।"
+aliasRemoveError = "उपनाम कॉन्फ़िगरेशन फ़ाइल को यहाँ हटाने में असमर्थ:@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "उपनाम जोड़ें"
+aliasNameLabel = "नाम"
+aliasDestLabel = "गंतव्य"
+aliasExpLabel = "उपनाम http://localhost%s/%s/ पर होगा@nl@और %s की ओर इशारा करेगा"
+aliasDestPath = "अपने उपनाम के लिए गंतव्य फोल्डर चुनें :"
+aliasNotValidAlpha = "उपनाम '%s' एक वैध अल्फ़ान्यूमेरिक स्ट्रिंग नहीं है।"
+aliasAlreadyExists = "उपनाम '%s' पहले से मौजूद है।"
+aliasCreated = "उपनाम '%s' सफलतापूर्वक बना लिया गया।@nl@@nl@URL: http://localhost%s/%s/@nl@पथ: %s"
+aliasCreatedError = "उपनाम कॉन्फ़िगरेशन फ़ाइल बनाने में असमर्थ।"
+editAliasTitle = "उपनाम %s संपादित करें"
+
+; Action Delete vhost
+deleteVhostTitle = "वर्चुअल होस्ट हटाएं"
+deleteVhost = "क्या आप वास्तव में वर्चुअल होस्ट '%s' हटाना चाहते हैं ?"
+vhostRemoved = "वर्चुअल होस्ट '%s' सफलतापूर्वक हटा दिया गया।"
+vhostRemoveError = "वर्चुअल होस्ट कॉन्फ़िगरेशन फ़ाइल को यहाँ हटाने में असमर्थ:@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "वर्चुअल होस्ट जोड़ें"
+vhostServerNameLabel = "सर्वर का नाम"
+vhostDocumentRootLabel = "डॉक्यूमेंट रूट"
+vhostExpLabel = "वर्चुअल होस्ट http://%s/ पर होगा@nl@और %s की ओर इशारा करेगा"
+vhostDocRootPath = "अपने वर्चुअल होस्ट के लिए डॉक्यूमेंट रूट चुनें :"
+vhostNotValidDomain = "सर्वर का नाम '%s' एक वैध डोमेन नाम नहीं है।"
+vhostAlreadyExists = "वर्चुअल होस्ट '%s' पहले से मौजूद है।"
+vhostCreated = "वर्चुअल होस्ट '%s' सफलतापूर्वक बना लिया गया।@nl@डोमेन नाम को अपनी होस्ट फ़ाइल में जोड़ना न भूलें (HostsEditor टूल के माध्यम से)।@nl@@nl@URL: http://%s/@nl@पथ: %s"
+vhostCreatedError = "वर्चुअल होस्ट कॉन्फ़िगरेशन फ़ाइल बनाने में असमर्थ।"
+editVhostTitle = "वर्चुअल होस्ट %s संपादित करें"
+
+; Action Change port
+changePortTitle = "%s पोर्ट बदलें"
+changePortCurrentLabel = "पोर्ट वास्तव में %s द्वारा उपयोग किया जा रहा है : %s"
+changePortNewLabel = "नया पोर्ट"
+changePortSameError = "यह वही पोर्ट है जो वास्तव में उपयोग किया जा रहा है।"
+
+; Action Change database root password
+changeDbRootPwdTitle = "%s रूट पासवर्ड बदलें"
+changeDbRootPwdCurrentpwdLabel = "वर्तमान पासवर्ड"
+changeDbRootPwdNewpwd1Label = "नया पासवर्ड"
+changeDbRootPwdNewpwd2Label = "नया पासवर्ड पुष्टि करें"
+changeDbRootPwdNotsameError = "आपके द्वारा दर्ज किए गए पासवर्ड एक समान नहीं हैं"
+changeDbRootPwdIncorrectError = "%s त्रुटि: %s"
+changeDbRootPwdText = "रूट पासवर्ड सफलतापूर्वक बदल दिया गया!"
+
+; Action Start All Services
+loadingStartServices = "सभी सेवाएं शुरू हो रही हैं"
+loadingStartService = "%s शुरू हो रहा है..."
+loadingStopServices = "सभी सेवाएं रोकी जा रही हैं"
+loadingStopService = "%s रुक रहा है..."
+loadingRestartServices = "सभी सेवाएं रीस्टार्ट हो रही हैं"
+loadingComplete = "पूर्ण"
+
+; Action Startup
+startupStartingText = "%s शुरू हो रहा है। कृपया प्रतीक्षा करें"
+startupRotationLogsText = "लॉग आर्काइविंग"
+startupKillOldProcsText = "पुरानी प्रक्रियाएं रोकें"
+startupRefreshHostnameText = "होस्टनाम रिफ्रेश करें"
+startupCheckBrowserText = "ब्राउज़र जांचें"
+startupSysInfos = "सिस्टम जानकारी प्राप्त करें"
+startupCleanTmpText = "अस्थायी फ़ाइलें हटाई जा रही हैं"
+startupCleanOldBehaviorsText = "अप्रचलित सुविधाएं हटाएं"
+startupRefreshAliasText = "उपनाम रिफ्रेश करें"
+startupRefreshVhostsText = "वर्चुअल होस्ट रिफ्रेश करें"
+startupCheckPathText = "वर्तमान पथ जांचें"
+startupScanFoldersText = "फोल्डर स्कैन करें"
+startupChangePathText = "%s के साथ पथ बदलें"
+startupRegistryText = "%s रजिस्ट्री कुंजी जांचें"
+startupRegistryErrorText = "%s रजिस्ट्री कुंजी सेट करने में त्रुटि :"
+startupUpdateConfigText = "कॉन्फ़िगरेशन अपडेट करें"
+startupCheckServiceText = "%s सेवा जांचना"
+startupVerifyServiceText = "%s सेवा सत्यापित करना"
+startupInstallServiceText = "%s सेवा स्थापित करना"
+startupStartServiceText = "%s सेवा शुरू करना"
+startupPrepareRestartText = "%s रीस्टार्ट की तैयारी"
+startupRestartingText = "%s रीस्टार्ट हो रहा है। कृपया प्रतीक्षा करें"
+startupErrorTitle = "स्टार्टअप त्रुटि"
+startupServiceError = "%s सेवा स्थापित नहीं की जा सकती :"
+startupServiceCreateError = "- सेवा नहीं बनाई जा सकती : %s"
+startupServiceStartError = "- सेवा शुरू नहीं की जा सकती : %s"
+startupServiceSyntaxError = "- कॉन्फ़िगरेशन त्रुटियां मिलीं : %s"
+startupServicePortError = "- पोर्ट %s का उपयोग किसी अन्य एप्लिकेशन द्वारा किया जा रहा है : %s."
+startupRefreshGitReposText = "Git रिपॉजिटरीज रिफ्रेश करें"
+startupGenSslCrtText = "%s SSL प्रमाणपत्र उत्पन्न करें"
+
+; Action Quit
+exitLeavingText = "%s से बाहर निकल रहे हैं"
+exitRemoveServiceText = "%s सेवा हटाएं"
+exitStopOtherProcessText = "तीसरे पक्ष की प्रक्रियाएं रोकें"
+
+; Action Change browser
+changeBrowserTitle = "ब्राउज़र बदलें"
+changeBrowserExpLabel = "एक ब्राउज़र चुनें :"
+changeBrowserOtherLabel = "अन्य :"
+changeBrowserOk = "ब्राउज़र सफलतापूर्वक इसमें बदल दिया गया:@nl@%s"
+
+; Action About
+aboutTitle = "के बारे में"
+aboutText = "%s@nl@कॉपीराइट(C) 2014-%s %s@nl@@nl@Bearsampp एक मुफ्त सॉफ्टवेयर है; आप इसे पुनर्वितरित कर सकते हैं और/या संशोधित कर सकते हैं@nl@GNU LESSER GENERAL PUBLIC LICENSE की शर्तों के तहत।"
+
+; Action Debug Apache
+debugApacheVersionNumber = "संस्करण संख्या"
+debugApacheCompileSettings = "संकलन सेटिंग्स"
+debugApacheCompiledModules = "संकलित मॉड्यूल"
+debugApacheConfigDirectives = "कॉन्फ़िगरेशन निर्देश"
+debugApacheVhostsSettings = "वर्चुअल होस्ट सेटिंग्स"
+debugApacheLoadedModules = "लोड किए गए मॉड्यूल"
+debugApacheSyntaxCheck = "कॉन्फ़िगरेशन सिंटैक्स जांच"
+
+; Action Debug MySQL
+debugMysqlVersion = "संस्करण"
+debugMysqlVariables = "वेरिएबल्स"
+debugMysqlSyntaxCheck = "कॉन्फ़िगरेशन सिंटैक्स जांच"
+
+; Action Debug MariaDB
+debugMariadbVersion = "संस्करण"
+debugMariadbVariables = "वेरिएबल्स"
+debugMariadbSyntaxCheck = "कॉन्फ़िगरेशन सिंटैक्स जांच"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "संस्करण"
+
+; Action others
+registrySetErrorText = "रजिस्ट्री मान गलत है : %s"
+
+; Action check version
+checkVersionTitle = "संस्करण जांचें"
+checkVersionAvailableText = "नया संस्करण उपलब्ध है!"
+checkVersionChangelogText = "अपडेट करने से पहले कृपया परिवर्तन लॉग पढ़ें : "
+checkVersionLatestText = "आपके पास Bearsampp का नवीनतम संस्करण है"
+
+; Action gen SSL certificate
+genSslTitle = "SSL प्रमाणपत्र उत्पन्न करें"
+genSslPath = "गंतव्य फोल्डर चुनें :"
+genSslCreated = "SSL प्रमाणपत्र '%s' सफलतापूर्वक बन गया।"
+genSslCreatedError = "SSL प्रमाणपत्र बनाने में असमर्थ।"
+
+; Action del SSL certificate
+delSslTitle = "SSL प्रमाणपत्र हटाएं"
+delSslDeleted = "SSL प्रमाणपत्र '%s' सफलतापूर्वक हटा दिया गया।"
+delSslDeletedError = "SSL प्रमाणपत्र हटाने में असमर्थ।"
+
+; Action Restart
+restartTitle = "रीस्टार्ट"
+restartText = "नई सेटिंग्स लागू करने के लिए कृपया %s को रीस्टार्ट करें"
+
+; Action enable
+enableTitle = "सक्षम / अक्षम करें %s"
+enableBundleNotExist = "%s को सक्षम नहीं किया जा सकता क्योंकि बंडल %s, %s में मौजूद नहीं है"
+
+; Windows forms
+buttonOk = "ठीक है"
+buttonDelete = "हटाएं"
+buttonSave = "सहेजें"
+buttonFinish = "समाप्त"
+buttonCancel = "रद्द करें"
+buttonNext = "अगला >"
+buttonBack = "< पिछला"
+buttonBrowse = "ब्राउज़ करें"
+loading = "लोड हो रहा है"
+
+; Homepage
+homepageOfficialWebsite = "आधिकारिक वेबसाइट"
+homepageServiceStarted = "पोर्ट %s पर शुरू हुआ"
+homepageServiceStopped = "बंद"
+homepageAboutHtml = "<div><strong>Bearsampp</strong> एक पोर्टेबल WAMP सॉफ्टवेयर स्टैक है जिसमें आपके वेब विकास के लिए उपयोगी बाइनरी, उपकरण और अनुप्रयोग शामिल हैं।<br/>उन लोगों के लिए जो योगदान देना चाहते हैं, कोई समस्या या प्रश्न हैं, <a target='_blank' href='%s'>प्रलेखन</a> पढ़ें या हमारे <a target='_blank' href='%s'>FAQ अनुभाग</a> पर जाएं।<br/>नए रिलीज की सूचना पाने के लिए आप <a target='_blank' href='%s'>Github पर रिपॉजिटरी</a> को स्टार कर सकते हैं।</div>"
+homepageLicenseText = "Bearsampp एक मुफ्त सॉफ्टवेयर है; आप इसे फ्री सॉफ्टवेयर फाउंडेशन द्वारा प्रकाशित GNU जनरल पब्लिक लाइसेंस की शर्तों के तहत, या तो लाइसेंस के संस्करण 3, या (आपके विकल्प पर) किसी भी बाद के संस्करण के तहत पुनर्वितरित कर सकते हैं या संशोधित कर सकते हैं।"
+homepageQuestionsTitle = "प्रश्न ?"
+homepageQuestionsText = "यदि आपको कुछ समस्याएं मिली हैं या यदि Bearsampp को विकसित करने के लिए आपके पास कुछ विचार हैं, तो बस GitHub पर एक समस्या पोस्ट करें!"
+homepagePostIssue = "समस्या पोस्ट करें"
+homepagePhpinfoText = "phpinfo() देखें"
+homepageMailpitText = "प्राप्त ईमेल देखें"
+homepageApcText = "APC मैनेजर"
+homepageBackText = "होमपेज पर वापस जाएं"
+homepageXlightText = "GUI देखें"

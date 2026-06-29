@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+;
+; General
+allRunningHint = "Tüm servisler çalışıyor"
+someRunningHint = "%n / %t servis çalışıyor"
+noneRunningHint = "%t servisten hiçbiri çalışmıyor"
+locale = "tr-TR"
+
+; Single
+about = "Hakkında"
+administration = "Yönetim"
+aliases = "Takma Adlar"
+apps = "Uygulamalar"
+bins = "İkililer"
+changelog = "Değişiklik Günlüğü"
+console = "Konsol"
+debug = "Hata Ayıklama"
+disabled = "Devre Dışı"
+discord = "Discord"
+donate = "Bağış Yap"
+donateVia = "%s ile bağış yap"
+download = "İndir"
+downloadMore = "Daha fazla indir"
+enabled = "Etkin"
+error = "Hata"
+executable = "Çalıştırılabilir"
+extensions = "Eklentiler"
+facebook = "Facebook"
+gitConsole = "Git konsolu"
+gitGui = "Git Gui"
+github = "Github"
+documentation = "Dokümantasyon"
+hostseditor = "Hosts Düzenleyici"
+lang = "Dil"
+license = "Lisans"
+logs = "Günlükler"
+logsVerbose = "Ayrıntılı günlükler"
+modules = "Modüller"
+name = "Ad"
+paypal = "Paypal"
+pwgen = "Şifre Yöneticisi"
+pythonConsole = "Python konsolu"
+quit = "Çıkış"
+readChangelog = "%sen son değişiklik günlüğünü%s okuyun."
+reload = "Yeniden yükle"
+repos = "Depolar"
+restart = "Yeniden başlat"
+service = "Servis"
+settings = "Ayarlar"
+ssl = "SSL"
+startup = "Başlangıç"
+status = "Durum"
+statusPage = "Durum sayfası"
+target = "Hedef"
+tools = "Araçlar"
+verboseDebug = "Hata Ayıklama"
+verboseReport = "Rapor"
+verboseSimple = "Basit"
+verboseTrace = "İzleme"
+version = "Sürüm"
+versions = "Sürümler"
+virtualHosts = "Sanal Ana Bilgisayarlar"
+website = "Web sitesi"
+
+; Menu
+menuAbout = "Hakkında"
+menuAccessLogs = "Erişim günlükleri"
+menuAddAlias = "Takma ad ekle"
+menuAddVhost = "Sanal ana bilgisayar ekle"
+menuChangePort = "Portu değiştir"
+menuChangeRootPwd = "Root şifresini değiştir"
+menuCheckPort = "%s portunu kontrol et"
+menuCheckUpdate = "Güncelleme kontrolü"
+menuClearFolders = "Geçici klasörleri temizle"
+menuEditAlias = "%s düzenle"
+menuEditConf = "%s düzenle"
+menuEditVhost = "%s düzenle"
+menuEnable = "Etkinleştir / Devre Dışı Bırak"
+menuErrorLogs = "Hata günlükleri"
+menuGenRootCa = "RootCA sertifikası oluştur"
+menuGenSslCertificate = "SSL sertifikaları oluştur"
+menuInstallService = "Servisi kur"
+menuLaunchStartup = "Windows başlangıcında çalıştır"
+menuLocalhost = "Localhost"
+menuLogs = "Günlükler"
+menuPutOffline = "Çevrimdışı yap"
+menuPutOnline = "Çevrimiçi yap"
+menuRebuildIni = "bearsampp.ini dosyasını yeniden oluştur"
+menuRefreshRepos = "Depoları yenile"
+menuRemoveService = "Servisi kaldır"
+menuRestartService = "Servisi yeniden başlat"
+menuRestartServices = "Tüm servisleri yeniden başlat"
+menuRewriteLogs = "Günlükleri yeniden yaz"
+menuScanReposStartup = "Başlangıçta depoları tara"
+menuSessionLogs = "Oturum günlükleri"
+menuStartService = "Servisi başlat"
+menuStartServices = "Tüm servisleri başlat"
+menuStatsLogs = "İstatistik günlükleri"
+menuStopService = "Servisi durdur"
+menuStopServices = "Tüm servisleri durdur"
+menuTransferLogs = "Günlükleri aktar"
+menuUpdateEnvPath = "Ortam PATH yolunu güncelle"
+menuWwwDirectory = "www dizini"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "%s yapılandırma dosyası %s içinde bulunamadı"
+errorExeNotFound = "%s çalıştırılabilir dosyası %s içinde bulunamadı"
+errorFileNotFound = "%s, %s içinde bulunamadı"
+errorInvalidParameter = "Geçersiz parametre '%s' : %s"
+errorAdminRequiredTitle = "Yönetici Hakları Gereklidir"
+errorAdminRequiredText = "%s, Windows servislerini kurmak ve yönetmek için yönetici ayrıcalıkları gerektirir.@nl@@nl@Lütfen bearsampp.exe dosyasına sağ tıklayın ve uygulamayı başlatmak için 'Yönetici olarak çalıştır' seçeneğini seçin."
+
+; Action Switch version
+switchVersionTitle = "%s sürümünü %s ile değiştir"
+switchVersionReloadConfig = "Yapılandırmayı yeniden yükle"
+switchVersionReloadBins = "İkilileri yeniden yükle"
+switchVersionRegistry = "%s kayıt defteri anahtarını sıfırla"
+switchVersionResetServices = "Tüm servisleri sıfırla"
+switchVersionSameError = "Zaten %s %s sürümündesiniz."
+switchVersionOk = "%s sürümü başarıyla %s ile değiştirildi"
+switchVersionOkRestart = "%s sürümü başarıyla %s ile değiştirildi"
+apacheIncpt = "Apache %s, PHP %s ile uyumlu görünmüyor."
+phpIncpt = "PHP %s, Apache %s ile uyumlu görünmüyor."
+bearsamppConfNotFoundError = "%s için Bearsampp yapılandırma dosyaları bulunamadı."
+bearsamppConfMalformedError = "%s için Bearsampp yapılandırma dosyası hatalı."
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "PHP ayarını değiştir"
+switchPhpSettingNotFound = "PHP ayarı %s, PHP %s yapılandırma dosyasında bulunamadı."
+
+; Action Check port
+checkPortTitle = "%s portunu kontrol et %s"
+portUsedBy = "Port %s, %s tarafından kullanılıyor."
+portNotUsed = "Port %s kullanılmıyor."
+portNotUsedBy = "Port %s başka bir uygulama tarafından kullanılıyor."
+portUsedByAnotherDbms = "Port %s başka bir DBMS tarafından kullanılıyor."
+portChanged = "Port %s başarıyla %s ile değiştirildi"
+
+; Action Install service
+installServiceTitle = "%s servisini kur"
+serviceAlreadyInstalled = "%s servisi zaten kurulu."
+serviceInstalled = "%s servisi başarıyla kuruldu.@nl@Ad: %s@nl@Port: %s"
+serviceInstallError = "%s servisi kurulumu sırasında hata."
+
+; Action Remove service
+removeServiceTitle = "%s servisini kaldır"
+serviceNotExist = "%s servisi mevcut değil."
+serviceRemoved = "%s servisi başarıyla kaldırıldı."
+serviceRemoveError = "%s servisi kaldırılması sırasında hata."
+
+; Action Start service
+startServiceTitle = "%s servisini başlat"
+startServiceError = "%s servisi başlatılırken hata."
+
+; Action Stop service
+stopServiceTitle = "%s servisini durdur"
+stopServiceError = "%s servisi durdurulurken hata."
+
+; Action Restart service
+restartServiceTitle = "%s servisini yeniden başlat"
+restartServiceError = "%s servisi yeniden başlatılırken hata."
+
+; Action Delete alias
+deleteAliasTitle = "Takma adı sil"
+deleteAlias = "'%s' takma adını gerçekten silmek istiyor musunuz?"
+aliasRemoved = "'%s' takma adı başarıyla silindi."
+aliasRemoveError = "Takma ad yapılandırma dosyası silinemedi:@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "Takma ad ekle"
+aliasNameLabel = "Ad"
+aliasDestLabel = "Hedef"
+aliasExpLabel = "Takma ad http://localhost%s/%s/ adresinde olacak@nl@ve %s konumuna işaret edecek"
+aliasDestPath = "Takma adınız için hedef klasörü seçin :"
+aliasNotValidAlpha = "Takma ad '%s' geçerli bir alfanümerik dize değil."
+aliasAlreadyExists = "'%s' takma adı zaten mevcut."
+aliasCreated = "'%s' takma adı başarıyla oluşturuldu.@nl@@nl@URL: http://localhost%s/%s/@nl@Yol: %s"
+aliasCreatedError = "Takma ad yapılandırma dosyası oluşturulamadı."
+editAliasTitle = "%s takma adını düzenle"
+
+; Action Delete vhost
+deleteVhostTitle = "Sanal ana bilgisayarı sil"
+deleteVhost = "'%s' sanal ana bilgisayarını gerçekten silmek istiyor musunuz?"
+vhostRemoved = "'%s' sanal ana bilgisayarı başarıyla silindi."
+vhostRemoveError = "Sanal ana bilgisayar yapılandırma dosyası silinemedi:@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "Sanal ana bilgisayar ekle"
+vhostServerNameLabel = "Sunucu adı"
+vhostDocumentRootLabel = "Belge kökü"
+vhostExpLabel = "Sanal ana bilgisayar http://%s/ adresinde olacak@nl@ve %s konumuna işaret edecek"
+vhostDocRootPath = "Sanal ana bilgisayarınız için belge kökünü seçin :"
+vhostNotValidDomain = "'%s' sunucu adı geçerli bir alan adı değil."
+vhostAlreadyExists = "'%s' sanal ana bilgisayarı zaten mevcut."
+vhostCreated = "'%s' sanal ana bilgisayarı başarıyla oluşturuldu.@nl@Alan adını hosts dosyanıza eklemeyi unutmayın (HostsEditor aracı ile).@nl@@nl@URL: http://%s/@nl@Yol: %s"
+vhostCreatedError = "Sanal ana bilgisayar yapılandırma dosyası oluşturulamadı."
+editVhostTitle = "%s sanal ana bilgisayarını düzenle"
+
+; Action Change port
+changePortTitle = "%s portunu değiştir"
+changePortCurrentLabel = "Port %s tarafından kullanılıyor : %s"
+changePortNewLabel = "Yeni port"
+changePortSameError = "Bu, şu anda kullanılanla aynı port."
+
+; Action Change database root password
+changeDbRootPwdTitle = "%s root şifresini değiştir"
+changeDbRootPwdCurrentpwdLabel = "Mevcut şifre"
+changeDbRootPwdNewpwd1Label = "Yeni şifre"
+changeDbRootPwdNewpwd2Label = "Yeni şifreyi onayla"
+changeDbRootPwdNotsameError = "Girdiğiniz şifreler aynı değil"
+changeDbRootPwdIncorrectError = "%s hata: %s"
+changeDbRootPwdText = "Root şifresi başarıyla değiştirildi!"
+
+; Action Start All Services
+loadingStartServices = "Tüm servisler başlatılıyor"
+loadingStartService = "%s başlatılıyor..."
+loadingStopServices = "Tüm servisler durduruluyor"
+loadingStopService = "%s durduruluyor..."
+loadingRestartServices = "Tüm servisler yeniden başlatılıyor"
+loadingComplete = "Tamamlandı"
+
+; Action Startup
+startupStartingText = "%s başlatılıyor. Lütfen bekleyin"
+startupRotationLogsText = "Günlük arşivleme"
+startupKillOldProcsText = "Eski süreçleri durdur"
+startupRefreshHostnameText = "Ana bilgisayar adını yenile"
+startupCheckBrowserText = "Tarayıcıyı kontrol et"
+startupSysInfos = "Sistem bilgilerini al"
+startupCleanTmpText = "Geçici dosyaları sil"
+startupCleanOldBehaviorsText = "Eski özellikleri kaldır"
+startupRefreshAliasText = "Takma adları yenile"
+startupRefreshVhostsText = "Sanal ana bilgisayarları yenile"
+startupCheckPathText = "Mevcut yolu kontrol et"
+startupScanFoldersText = "Klasörleri tara"
+startupChangePathText = "Yolu %s ile değiştir"
+startupRegistryText = "%s kayıt defteri anahtarını kontrol et"
+startupRegistryErrorText = "%s kayıt defteri anahtarı ayarlanırken hata :"
+startupUpdateConfigText = "Yapılandırmayı güncelle"
+startupCheckServiceText = "%s servisini kontrol et"
+startupVerifyServiceText = "%s servisini doğrula"
+startupInstallServiceText = "%s servisini kur"
+startupStartServiceText = "%s servisini başlat"
+startupPrepareRestartText = "%s yeniden başlatma hazırlığı"
+startupRestartingText = "%s yeniden başlatılıyor. Lütfen bekleyin"
+startupErrorTitle = "Başlangıç hatası"
+startupServiceError = "%s servisi kurulamıyor :"
+startupServiceCreateError = "- Servis oluşturulamıyor : %s"
+startupServiceStartError = "- Servis başlatılamıyor : %s"
+startupServiceSyntaxError = "- Yapılandırma hataları algılandı : %s"
+startupServicePortError = "- Port %s başka bir uygulama tarafından kullanılıyor : %s."
+startupRefreshGitReposText = "Git depolarını yenile"
+startupGenSslCrtText = "%s SSL sertifikası oluştur"
+
+; Action Quit
+exitLeavingText = "%s bırakılıyor"
+exitRemoveServiceText = "%s servisini kaldır"
+exitStopOtherProcessText = "Üçüncü taraf süreçleri durdur"
+
+; Action Change browser
+changeBrowserTitle = "Tarayıcıyı değiştir"
+changeBrowserExpLabel = "Bir tarayıcı seçin :"
+changeBrowserOtherLabel = "Diğer :"
+changeBrowserOk = "Tarayıcı başarıyla şununla değiştirildi:@nl@%s"
+
+; Action About
+aboutTitle = "Hakkında"
+aboutText = "%s@nl@Telif Hakkı(C) 2014-%s %s@nl@@nl@Bearsampp ücretsiz bir yazılımdır; GNU LESSER GENERAL PUBLIC LICENSE koşulları altında dağıtabilir ve/veya değiştirebilirsiniz."
+
+; Action Debug Apache
+debugApacheVersionNumber = "Sürüm numarası"
+debugApacheCompileSettings = "Derleme ayarları"
+debugApacheCompiledModules = "Derlenmiş modüller"
+debugApacheConfigDirectives = "Yapılandırma yönergeleri"
+debugApacheVhostsSettings = "Sanal ana bilgisayar ayarları"
+debugApacheLoadedModules = "Yüklenmiş modüller"
+debugApacheSyntaxCheck = "Yapılandırma sözdizimi kontrolü"
+
+; Action Debug MySQL
+debugMysqlVersion = "Sürüm"
+debugMysqlVariables = "Değişkenler"
+debugMysqlSyntaxCheck = "Yapılandırma sözdizimi kontrolü"
+
+; Action Debug MariaDB
+debugMariadbVersion = "Sürüm"
+debugMariadbVariables = "Değişkenler"
+debugMariadbSyntaxCheck = "Yapılandırma sözdizimi kontrolü"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "Sürüm"
+
+; Action others
+registrySetErrorText = "Kayıt defteri değeri hatalı : %s"
+
+; Action check version
+checkVersionTitle = "Sürümü kontrol et"
+checkVersionAvailableText = "Yeni sürüm mevcut!"
+checkVersionChangelogText = "Güncellemeden önce lütfen değişiklik günlüğünü okuyun : "
+checkVersionLatestText = "Bearsampp'in en son sürümüne sahipsiniz"
+
+; Action gen SSL certificate
+genSslTitle = "SSL sertifikaları oluştur"
+genSslPath = "Hedef klasörü seçin :"
+genSslCreated = "'%s' SSL sertifikası başarıyla oluşturuldu."
+genSslCreatedError = "SSL sertifikası oluşturulamadı."
+
+; Action del SSL certificate
+delSslTitle = "SSL sertifikasını sil"
+delSslDeleted = "'%s' SSL sertifikası başarıyla silindi."
+delSslDeletedError = "SSL sertifikası silinemedi."
+
+; Action Restart
+restartTitle = "Yeniden başlat"
+restartText = "Yeni ayarları uygulamak için lütfen %s uygulamasını yeniden başlatın"
+
+; Action enable
+enableTitle = "%s etkinleştir / devre dışı bırak"
+enableBundleNotExist = "Paket %s, %s içinde bulunamadığı için %s etkinleştirilemiyor"
+
+; Windows forms
+buttonOk = "Tamam"
+buttonDelete = "Sil"
+buttonSave = "Kaydet"
+buttonFinish = "Bitir"
+buttonCancel = "İptal"
+buttonNext = "İleri >"
+buttonBack = "< Geri"
+buttonBrowse = "Gözat"
+loading = "Yükleniyor"
+
+; Homepage
+homepageOfficialWebsite = "Resmi Web Sitesi"
+homepageServiceStarted = "%s portunda başlatıldı"
+homepageServiceStopped = "durduruldu"
+homepageAboutHtml = "<div><strong>Bearsampp</strong>, web geliştirmeniz için yararlı ikililer, araçlar ve uygulamalar içeren taşınabilir bir WAMP yazılım yığınıdır.<br/>Katkıda bulunmak isteyenler, sorunları veya soruları olanlar için <a target='_blank' href='%s'>Dokümantasyonu</a> okuyun veya <a target='_blank' href='%s'>SSS bölümümüzü</a> ziyaret edin.<br/>Yeni sürümlerden haberdar olmak için <a target='_blank' href='%s'>Github'daki depoyu</a> yıldızlayabilirsiniz.</div>"
+homepageLicenseText = "Bearsampp ücretsiz bir yazılımdır; Özgür Yazılım Vakfı tarafından yayınlanan GNU Genel Kamu Lisansı'nın 3. sürümü veya (tercihinize bağlı olarak) daha sonraki sürümlerinin koşulları altında dağıtabilir ve/veya değiştirebilirsiniz."
+homepageQuestionsTitle = "Sorular ?"
+homepageQuestionsText = "Bazı sorunlar bulduysanız veya Bearsampp'i geliştirmek için bazı fikirleriniz varsa, sadece GitHub'da bir sorun gönderin!"
+homepagePostIssue = "Sorun gönder"
+homepagePhpinfoText = "phpinfo() dosyasını görüntüle"
+homepageMailpitText = "Alınan e-postaları görüntüle"
+homepageApcText = "APC Yöneticisi"
+homepageBackText = "Ana sayfaya dön"
+homepageXlightText = "GUI'yi görüntüle"

@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+
+; General
+allRunningHint = "所有服务均在运行"
+someRunningHint = "正在运行 %n/%t 个服务"
+noneRunningHint = "没有服务在运行 (共 %t 个)"
+locale = "zh-CN"
+
+; Single
+about = "关于"
+administration = "管理"
+aliases = "别名"
+apps = "应用程序"
+bins = "二进制文件"
+changelog = "更新日志"
+console = "控制台"
+debug = "调试"
+disabled = "已禁用"
+discord = "Discord"
+donate = "捐赠"
+donateVia = "通过 %s 捐赠"
+download = "下载"
+downloadMore = "下载更多"
+enabled = "已启用"
+error = "错误"
+executable = "可执行文件"
+extensions = "扩展"
+facebook = "Facebook"
+gitConsole = "Git 控制台"
+gitGui = "Git 图形界面"
+github = "Github"
+documentation = "文档"
+hostseditor = "Hosts 编辑器"
+lang = "语言"
+license = "许可证"
+logs = "日志"
+logsVerbose = "详细日志"
+modules = "模块"
+name = "名称"
+paypal = "Paypal"
+pwgen = "密码管理器"
+pythonConsole = "Python 控制台"
+quit = "退出"
+readChangelog = "阅读 %s最新更新日志%s。"
+reload = "重新加载"
+repos = "存储库"
+restart = "重启"
+service = "服务"
+settings = "设置"
+ssl = "SSL"
+startup = "启动"
+status = "状态"
+statusPage = "状态页面"
+target = "目标"
+tools = "工具"
+verboseDebug = "调试"
+verboseReport = "报告"
+verboseSimple = "简单"
+verboseTrace = "跟踪"
+version = "版本"
+versions = "版本"
+virtualHosts = "虚拟主机"
+website = "网站"
+
+; Menu
+menuAbout = "关于"
+menuAccessLogs = "访问日志"
+menuAddAlias = "添加别名"
+menuAddVhost = "添加虚拟主机"
+menuChangePort = "更改端口"
+menuChangeRootPwd = "更改 root 密码"
+menuCheckPort = "检查端口 %s"
+menuCheckUpdate = "检查更新"
+menuClearFolders = "清除临时文件夹"
+menuEditAlias = "编辑 %s"
+menuEditConf = "编辑 %s"
+menuEditVhost = "编辑 %s"
+menuEnable = "启用 / 禁用"
+menuErrorLogs = "错误日志"
+menuGenRootCa = "生成 rootCA 证书"
+menuGenSslCertificate = "生成 SSL 证书"
+menuInstallService = "安装服务"
+menuLaunchStartup = "随 Windows 启动"
+menuLocalhost = "Localhost"
+menuLogs = "日志"
+menuPutOffline = "离线"
+menuPutOnline = "上线"
+menuRebuildIni = "重建 bearsampp.ini"
+menuRefreshRepos = "刷新存储库"
+menuRemoveService = "移除服务"
+menuRestartService = "重启服务"
+menuRestartServices = "重启所有服务"
+menuRewriteLogs = "重写日志"
+menuScanReposStartup = "启动时扫描存储库"
+menuSessionLogs = "会话日志"
+menuStartService = "启动服务"
+menuStartServices = "启动所有服务"
+menuStatsLogs = "统计日志"
+menuStopService = "停止服务"
+menuStopServices = "停止所有服务"
+menuTransferLogs = "传输日志"
+menuUpdateEnvPath = "更新环境变量 PATH"
+menuWwwDirectory = "www 目录"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "%s 配置文件在 %s 中未找到"
+errorExeNotFound = "%s 可执行文件在 %s 中未找到"
+errorFileNotFound = "%s 在 %s 中未找到"
+errorInvalidParameter = "无效的参数 '%s' : %s"
+errorAdminRequiredTitle = "需要管理员权限"
+errorAdminRequiredText = "%s 需要管理员权限来安装和管理 Windows 服务。@nl@@nl@请右键点击 bearsampp.exe 并选择 '以管理员身份运行' 来启动应用程序。"
+
+; Action Switch version
+switchVersionTitle = "切换到 %s 版本 %s"
+switchVersionReloadConfig = "重新加载配置"
+switchVersionReloadBins = "重新加载二进制文件"
+switchVersionRegistry = "重置 %s 注册表项"
+switchVersionResetServices = "重置所有服务"
+switchVersionSameError = "您已经在 %s %s 上了。"
+switchVersionOk = "%s 版本已成功切换到 %s"
+switchVersionOkRestart = "%s 版本已成功切换到 %s"
+apacheIncpt = "Apache %s 似乎与 PHP %s 不兼容。"
+phpIncpt = "PHP %s 似乎与 Apache %s 不兼容。"
+bearsamppConfNotFoundError = "未找到 %s 的 Bearsampp 配置文件。"
+bearsamppConfMalformedError = "%s 的 Bearsampp 配置文件格式错误。"
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "切换 PHP 设置"
+switchPhpSettingNotFound = "PHP 设置 %s 在 PHP %s 配置文件中未找到。"
+
+; Action Check port
+checkPortTitle = "检查 %s 端口 %s"
+portUsedBy = "端口 %s 被 %s 使用。"
+portNotUsed = "端口 %s 未被使用。"
+portNotUsedBy = "端口 %s 被另一个应用程序使用。"
+portUsedByAnotherDbms = "端口 %s 被另一个 DBMS 使用。"
+portChanged = "%s 端口成功更改为 %s"
+
+; Action Install service
+installServiceTitle = "安装 %s 服务"
+serviceAlreadyInstalled = "%s 服务已安装。"
+serviceInstalled = "%s 服务安装成功。@nl@名称: %s@nl@端口: %s"
+serviceInstallError = "安装 %s 服务时出错。"
+
+; Action Remove service
+removeServiceTitle = "移除 %s 服务"
+serviceNotExist = "%s 服务不存在。"
+serviceRemoved = "%s 服务成功移除。"
+serviceRemoveError = "卸载 %s 服务时出错。"
+
+; Action Start service
+startServiceTitle = "启动 %s 服务"
+startServiceError = "启动 %s 服务时出错。"
+
+; Action Stop service
+stopServiceTitle = "停止 %s 服务"
+stopServiceError = "停止 %s 服务时出错。"
+
+; Action Restart service
+restartServiceTitle = "重启 %s 服务"
+restartServiceError = "重启 %s 服务时出错。"
+
+; Action Delete alias
+deleteAliasTitle = "删除别名"
+deleteAlias = "您确定要删除别名 '%s' 吗?"
+aliasRemoved = "别名 '%s' 成功删除。"
+aliasRemoveError = "无法删除以下路径的别名配置文件:@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "添加别名"
+aliasNameLabel = "名称"
+aliasDestLabel = "目标"
+aliasExpLabel = "别名将位于 http://localhost%s/%s/@nl@并指向 %s"
+aliasDestPath = "为您的别名选择目标文件夹 :"
+aliasNotValidAlpha = "别名名称 '%s' 不是有效的字母数字字符串。"
+aliasAlreadyExists = "别名 '%s' 已存在。"
+aliasCreated = "别名 '%s' 创建成功。@nl@@nl@Url: http://localhost%s/%s/@nl@路径: %s"
+aliasCreatedError = "无法创建别名配置文件。"
+editAliasTitle = "编辑别名 %s"
+
+; Action Delete vhost
+deleteVhostTitle = "删除虚拟主机"
+deleteVhost = "您确定要删除虚拟主机 '%s' 吗?"
+vhostRemoved = "虚拟主机 '%s' 成功删除。"
+vhostRemoveError = "无法删除以下路径的虚拟主机配置文件:@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "添加虚拟主机"
+vhostServerNameLabel = "服务器名称"
+vhostDocumentRootLabel = "文档根目录"
+vhostExpLabel = "虚拟主机将位于 http://%s/@nl@并指向 %s"
+vhostDocRootPath = "选择虚拟主机的文档根目录 :"
+vhostNotValidDomain = "服务器名称 '%s' 不是有效的域名。"
+vhostAlreadyExists = "虚拟主机 '%s' 已存在。"
+vhostCreated = "虚拟主机 '%s' 创建成功。@nl@别忘了将域名添加到您的 hosts 文件中 (通过 HostsEditor 工具)。@nl@@nl@Url: http://%s/@nl@路径: %s"
+vhostCreatedError = "无法创建虚拟主机配置文件。"
+editVhostTitle = "编辑虚拟主机 %s"
+
+; Action Change port
+changePortTitle = "更改 %s 端口"
+changePortCurrentLabel = "端口当前被 %s 使用 : %s"
+changePortNewLabel = "新端口"
+changePortSameError = "这是当前正在使用的端口。"
+
+; Action Change database root password
+changeDbRootPwdTitle = "更改 %s root 密码"
+changeDbRootPwdCurrentpwdLabel = "当前密码"
+changeDbRootPwdNewpwd1Label = "新密码"
+changeDbRootPwdNewpwd2Label = "确认新密码"
+changeDbRootPwdNotsameError = "您输入的密码不一致"
+changeDbRootPwdIncorrectError = "%s 错误: %s"
+changeDbRootPwdText = "Root 密码修改成功!"
+
+; Action Start All Services
+loadingStartServices = "正在启动所有服务"
+loadingStartService = "正在启动 %s..."
+loadingStopServices = "正在停止所有服务"
+loadingStopService = "正在停止 %s..."
+loadingRestartServices = "正在重启所有服务"
+loadingComplete = "完成"
+
+; Action Startup
+startupStartingText = "正在启动 %s。请稍候"
+startupRotationLogsText = "日志归档"
+startupKillOldProcsText = "停止旧进程"
+startupRefreshHostnameText = "刷新主机名"
+startupCheckBrowserText = "检查浏览器"
+startupSysInfos = "获取系统信息"
+startupCleanTmpText = "正在删除临时文件"
+startupCleanOldBehaviorsText = "移除弃用功能"
+startupRefreshAliasText = "刷新别名"
+startupRefreshVhostsText = "刷新虚拟主机"
+startupCheckPathText = "检查当前路径"
+startupScanFoldersText = "扫描文件夹"
+startupChangePathText = "使用 %s 更改路径"
+startupRegistryText = "检查 %s 注册表项"
+startupRegistryErrorText = "设置 %s 注册表项出错 :"
+startupUpdateConfigText = "更新配置"
+startupCheckServiceText = "正在检查 %s 服务"
+startupVerifyServiceText = "正在验证 %s 服务"
+startupInstallServiceText = "安装 %s 服务"
+startupStartServiceText = "启动 %s 服务"
+startupPrepareRestartText = "准备重启 %s"
+startupRestartingText = "正在重启 %s。请稍候"
+startupErrorTitle = "启动错误"
+startupServiceError = "%s 服务无法安装 :"
+startupServiceCreateError = "- 无法创建服务 : %s"
+startupServiceStartError = "- 无法启动服务 : %s"
+startupServiceSyntaxError = "- 检测到配置错误 : %s"
+startupServicePortError = "- 端口 %s 被另一个应用程序使用 : %s."
+startupRefreshGitReposText = "刷新 Git 存储库"
+startupGenSslCrtText = "生成 %s SSL 证书"
+
+; Action Quit
+exitLeavingText = "离开 %s"
+exitRemoveServiceText = "移除 %s 服务"
+exitStopOtherProcessText = "停止第三方进程"
+
+; Action Change browser
+changeBrowserTitle = "更改浏览器"
+changeBrowserExpLabel = "选择一个浏览器 :"
+changeBrowserOtherLabel = "其他 :"
+changeBrowserOk = "浏览器成功更改为:@nl@%s"
+
+; Action About
+aboutTitle = "关于"
+aboutText = "%s@nl@Copyright(C) 2014-%s %s@nl@@nl@Bearsampp 是自由软件；您可以在 GNU 较宽松通用公共许可证的条款下重新分发和/或修改它。"
+
+; Action Debug Apache
+debugApacheVersionNumber = "版本号"
+debugApacheCompileSettings = "编译设置"
+debugApacheCompiledModules = "已编译模块"
+debugApacheConfigDirectives = "配置指令"
+debugApacheVhostsSettings = "虚拟主机设置"
+debugApacheLoadedModules = "已加载模块"
+debugApacheSyntaxCheck = "配置语法检查"
+
+; Action Debug MySQL
+debugMysqlVersion = "版本"
+debugMysqlVariables = "变量"
+debugMysqlSyntaxCheck = "配置语法检查"
+
+; Action Debug MariaDB
+debugMariadbVersion = "版本"
+debugMariadbVariables = "变量"
+debugMariadbSyntaxCheck = "配置语法检查"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "版本"
+
+; Action others
+registrySetErrorText = "注册表值不正确 : %s"
+
+; Action check version
+checkVersionTitle = "检查版本"
+checkVersionAvailableText = "有新版本可用!"
+checkVersionChangelogText = "更新前请阅读更新日志 : "
+checkVersionLatestText = "您已拥有最新版本的 Bearsampp"
+
+; Action gen SSL certificate
+genSslTitle = "生成 SSL 证书"
+genSslPath = "选择目标文件夹 :"
+genSslCreated = "SSL 证书 '%s' 创建成功。"
+genSslCreatedError = "无法创建 SSL 证书。"
+
+; Action del SSL certificate
+delSslTitle = "删除 SSL 证书"
+delSslDeleted = "SSL 证书 '%s' 成功删除。"
+delSslDeletedError = "无法删除 SSL 证书。"
+
+; Action Restart
+restartTitle = "重启"
+restartText = "请重启 %s 以应用新设置"
+
+; Action enable
+enableTitle = "启用 / 禁用 %s"
+enableBundleNotExist = "%s 无法启用，因为包 %s 在 %s 中不存在"
+
+; Windows forms
+buttonOk = "确定"
+buttonDelete = "删除"
+buttonSave = "保存"
+buttonFinish = "完成"
+buttonCancel = "取消"
+buttonNext = "下一步 >"
+buttonBack = "< 上一步"
+buttonBrowse = "浏览"
+loading = "正在加载"
+
+; Homepage
+homepageOfficialWebsite = "官方网站"
+homepageServiceStarted = "已在端口 %s 上启动"
+homepageServiceStopped = "已停止"
+homepageAboutHtml = "<div><strong>Bearsampp</strong> 是一个便携式 WAMP 软件栈，包含用于 Web 开发的有用二进制文件、工具和应用程序。<br/>如果您想做出贡献、有疑问或问题，请阅读 <a target='_blank' href='%s'>文档</a> 或访问我们的 <a target='_blank' href='%s'>常见问题解答部分</a>。<br/>要获得新版本的通知，您可以为 <a target='_blank' href='%s'>Github 上的存储库</a> 加星。</div>"
+homepageLicenseText = "Bearsampp 是自由软件；您可以在自由软件基金会发布的 GNU 通用公共许可证的条款下重新分发和/或修改它，无论是版本 3，还是（根据您的选择）任何更高版本。"
+homepageQuestionsTitle = "有问题 ?"
+homepageQuestionsText = "如果您发现了某些问题或者您有改进 Bearsampp 的想法，只需在 GitHub 上发布一个 issue!"
+homepagePostIssue = "发布 issue"
+homepagePhpinfoText = "查看 phpinfo()"
+homepageMailpitText = "查看收到的邮件"
+homepageApcText = "APC 管理器"
+homepageBackText = "返回主页"
+homepageXlightText = "查看图形界面"

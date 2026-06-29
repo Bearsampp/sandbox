@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+;
+; General
+allRunningHint = "جميع الخدمات قيد التشغيل"
+someRunningHint = "%n من %t خدمات قيد التشغيل"
+noneRunningHint = "لا شيء من %t خدمات قيد التشغيل"
+locale = "ar-AR"
+
+; Single
+about = "حول"
+administration = "إدارة"
+aliases = "أسماء مستعارة"
+apps = "تطبيقات"
+bins = "ملفات ثنائية"
+changelog = "سجل التغييرات"
+console = "وحدة التحكم"
+debug = "تصحيح الأخطاء"
+disabled = "معطل"
+discord = "Discord"
+donate = "تبرع"
+donateVia = "تبرع عبر %s"
+download = "تحميل"
+downloadMore = "تحميل المزيد"
+enabled = "ممكن"
+error = "خطأ"
+executable = "ملف قابل للتنفيذ"
+extensions = "إضافات"
+facebook = "Facebook"
+gitConsole = "وحدة تحكم Git"
+gitGui = "Git Gui"
+github = "Github"
+documentation = "توثيق"
+hostseditor = "محرر المضيفين"
+lang = "اللغة"
+license = "رخصة"
+logs = "سجلات"
+logsVerbose = "سجلات مفصلة"
+modules = "وحدات"
+name = "اسم"
+paypal = "Paypal"
+pwgen = "مدير كلمات المرور"
+pythonConsole = "وحدة تحكم Python"
+quit = "خروج"
+readChangelog = "اقرأ %sأحدث سجل تغييرات%s."
+reload = "إعادة تحميل"
+repos = "مستودعات"
+restart = "إعادة تشغيل"
+service = "خدمة"
+settings = "إعدادات"
+ssl = "SSL"
+startup = "بدء التشغيل"
+status = "حالة"
+statusPage = "صفحة الحالة"
+target = "هدف"
+tools = "أدوات"
+verboseDebug = "تصحيح الأخطاء"
+verboseReport = "تقرير"
+verboseSimple = "بسيط"
+verboseTrace = "تتبع"
+version = "إصدار"
+versions = "إصدارات"
+virtualHosts = "مضيفين افتراضيين"
+website = "موقع إلكتروني"
+
+; Menu
+menuAbout = "حول"
+menuAccessLogs = "سجلات الوصول"
+menuAddAlias = "إضافة اسم مستعار"
+menuAddVhost = "إضافة مضيف افتراضي"
+menuChangePort = "تغيير المنفذ"
+menuChangeRootPwd = "تغيير كلمة مرور الجذر"
+menuCheckPort = "فحص المنفذ %s"
+menuCheckUpdate = "التحقق من وجود تحديث"
+menuClearFolders = "مسح المجلدات المؤقتة"
+menuEditAlias = "تحرير %s"
+menuEditConf = "تحرير %s"
+menuEditVhost = "تحرير %s"
+menuEnable = "تمكين / تعطيل"
+menuErrorLogs = "سجلات الأخطاء"
+menuGenRootCa = "إنشاء شهادة جذر"
+menuGenSslCertificate = "إنشاء شهادات SSL"
+menuInstallService = "تثبيت الخدمة"
+menuLaunchStartup = "التشغيل عند بدء تشغيل Windows"
+menuLocalhost = "Localhost"
+menuLogs = "سجلات"
+menuPutOffline = "جعله غير متصل"
+menuPutOnline = "جعله متصلاً"
+menuRebuildIni = "إعادة بناء bearsampp.ini"
+menuRefreshRepos = "تحديث المستودعات"
+menuRemoveService = "إزالة الخدمة"
+menuRestartService = "إعادة تشغيل الخدمة"
+menuRestartServices = "إعادة تشغيل جميع الخدمات"
+menuRewriteLogs = "إعادة كتابة السجلات"
+menuScanReposStartup = "مسح المستودعات عند بدء التشغيل"
+menuSessionLogs = "سجلات الجلسة"
+menuStartService = "بدء الخدمة"
+menuStartServices = "بدء جميع الخدمات"
+menuStatsLogs = "سجلات الإحصائيات"
+menuStopService = "إيقاف الخدمة"
+menuStopServices = "إيقاف جميع الخدمات"
+menuTransferLogs = "نقل السجلات"
+menuUpdateEnvPath = "تحديث مسار البيئة (PATH)"
+menuWwwDirectory = "مجلد www"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "%s ملف الإعداد غير موجود في %s"
+errorExeNotFound = "%s ملف التنفيذ غير موجود في %s"
+errorFileNotFound = "%s غير موجود في %s"
+errorInvalidParameter = "معامل غير صالح '%s' : %s"
+errorAdminRequiredTitle = "مطلوب صلاحيات مسؤول"
+errorAdminRequiredText = "%s يتطلب امتيازات المسؤول لتثبيت وإدارة خدمات Windows.@nl@@nl@يرجى النقر بزر الماوس الأيمن على bearsampp.exe وتحديد 'تشغيل كمسؤول' لبدء التطبيق."
+
+; Action Switch version
+switchVersionTitle = "التبديل إلى %s إصدار %s"
+switchVersionReloadConfig = "إعادة تحميل الإعدادات"
+switchVersionReloadBins = "إعادة تحميل الملفات الثنائية"
+switchVersionRegistry = "إعادة تعيين مفتاح تسجيل %s"
+switchVersionResetServices = "إعادة تعيين جميع الخدمات"
+switchVersionSameError = "أنت بالفعل على %s %s."
+switchVersionOk = "تم تبديل إصدار %s بنجاح إلى %s"
+switchVersionOkRestart = "تم تبديل إصدار %s بنجاح إلى %s"
+apacheIncpt = "Apache %s لا يبدو متوافقاً مع PHP %s."
+phpIncpt = "PHP %s لا يبدو متوافقاً مع Apache %s."
+bearsamppConfNotFoundError = "ملفات إعداد Bearsampp غير موجودة لـ %s."
+bearsamppConfMalformedError = "ملف إعداد Bearsampp غير سليم لـ %s."
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "تبديل إعداد PHP"
+switchPhpSettingNotFound = "إعداد PHP %s غير موجود في ملف إعداد PHP %s."
+
+; Action Check port
+checkPortTitle = "فحص منفذ %s %s"
+portUsedBy = "المنفذ %s مستخدم بواسطة %s."
+portNotUsed = "المنفذ %s غير مستخدم."
+portNotUsedBy = "المنفذ %s مستخدم بواسطة تطبيق آخر."
+portUsedByAnotherDbms = "المنفذ %s مستخدم بواسطة نظام إدارة قواعد بيانات آخر."
+portChanged = "تم تغيير منفذ %s بنجاح إلى %s"
+
+; Action Install service
+installServiceTitle = "تثبيت خدمة %s"
+serviceAlreadyInstalled = "خدمة %s مثبتة بالفعل."
+serviceInstalled = "تم تثبيت خدمة %s بنجاح.@nl@الاسم: %s@nl@المنفذ: %s"
+serviceInstallError = "خطأ أثناء تثبيت خدمة %s."
+
+; Action Remove service
+removeServiceTitle = "إزالة خدمة %s"
+serviceNotExist = "خدمة %s غير موجودة."
+serviceRemoved = "تمت إزالة خدمة %s بنجاح."
+serviceRemoveError = "خطأ أثناء إلغاء تثبيت خدمة %s."
+
+; Action Start service
+startServiceTitle = "بدء خدمة %s"
+startServiceError = "خطأ أثناء بدء خدمة %s."
+
+; Action Stop service
+stopServiceTitle = "إيقاف خدمة %s"
+stopServiceError = "خطأ أثناء إيقاف خدمة %s."
+
+; Action Restart service
+restartServiceTitle = "إعادة تشغيل خدمة %s"
+restartServiceError = "خطأ أثناء إعادة تشغيل خدمة %s."
+
+; Action Delete alias
+deleteAliasTitle = "حذف الاسم المستعار"
+deleteAlias = "هل تريد حقاً حذف الاسم المستعار '%s' ؟"
+aliasRemoved = "تم حذف الاسم المستعار '%s' بنجاح."
+aliasRemoveError = "غير قادر على حذف ملف إعداد الاسم المستعار في:@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "إضافة اسم مستعار"
+aliasNameLabel = "اسم"
+aliasDestLabel = "الوجهة"
+aliasExpLabel = "سيكون الاسم المستعار في http://localhost%s/%s/@nl@وسيؤدي إلى %s"
+aliasDestPath = "اختر مجلد الوجهة لاسمك المستعار :"
+aliasNotValidAlpha = "اسم الاسم المستعار '%s' ليس سلسلة أبجدية رقمية صالحة."
+aliasAlreadyExists = "الاسم المستعار '%s' موجود بالفعل."
+aliasCreated = "تم إنشاء الاسم المستعار '%s' بنجاح.@nl@@nl@الرابط: http://localhost%s/%s/@nl@المسار: %s"
+aliasCreatedError = "غير قادر على إنشاء ملف إعداد الاسم المستعار."
+editAliasTitle = "تحرير الاسم المستعار %s"
+
+; Action Delete vhost
+deleteVhostTitle = "حذف المضيف الافتراضي"
+deleteVhost = "هل تريد حقاً حذف المضيف الافتراضي '%s' ؟"
+vhostRemoved = "تم حذف المضيف الافتراضي '%s' بنجاح."
+vhostRemoveError = "غير قادر على حذف ملف إعداد المضيف الافتراضي في:@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "إضافة مضيف افتراضي"
+vhostServerNameLabel = "اسم الخادم"
+vhostDocumentRootLabel = "جذر المستند"
+vhostExpLabel = "سيكون المضيف الافتراضي في http://%s/@nl@وسيؤدي إلى %s"
+vhostDocRootPath = "اختر جذر المستند للمضيف الافتراضي الخاص بك :"
+vhostNotValidDomain = "اسم الخادم '%s' ليس اسم نطاق صالحاً."
+vhostAlreadyExists = "المضيف الافتراضي '%s' موجود بالفعل."
+vhostCreated = "تم إنشاء المضيف الافتراضي '%s' بنجاح.@nl@لا تنس إضافة اسم النطاق إلى ملف المضيفين الخاص بك (عبر أداة HostsEditor).@nl@@nl@الرابط: http://%s/@nl@المسار: %s"
+vhostCreatedError = "غير قادر على إنشاء ملف إعداد المضيف الافتراضي."
+editVhostTitle = "تحرير المضيف الافتراضي %s"
+
+; Action Change port
+changePortTitle = "تغيير منفذ %s"
+changePortCurrentLabel = "المنفذ المستخدم حالياً بواسطة %s : %s"
+changePortNewLabel = "منفذ جديد"
+changePortSameError = "هذا هو نفس المنفذ المستخدم حالياً."
+
+; Action Change database root password
+changeDbRootPwdTitle = "تغيير كلمة مرور الجذر لـ %s"
+changeDbRootPwdCurrentpwdLabel = "كلمة المرور الحالية"
+changeDbRootPwdNewpwd1Label = "كلمة مرور جديدة"
+changeDbRootPwdNewpwd2Label = "تأكيد كلمة المرور الجديدة"
+changeDbRootPwdNotsameError = "كلمات المرور التي أدخلتها غير متطابقة"
+changeDbRootPwdIncorrectError = "%s خطأ: %s"
+changeDbRootPwdText = "تم تغيير كلمة مرور الجذر بنجاح!"
+
+; Action Start All Services
+loadingStartServices = "بدء تشغيل جميع الخدمات"
+loadingStartService = "بدء %s..."
+loadingStopServices = "إيقاف جميع الخدمات"
+loadingStopService = "إيقاف %s..."
+loadingRestartServices = "إعادة تشغيل جميع الخدمات"
+loadingComplete = "مكتمل"
+
+; Action Startup
+startupStartingText = "بدء %s. يرجى الانتظار"
+startupRotationLogsText = "أرشفة السجلات"
+startupKillOldProcsText = "إيقاف العمليات القديمة"
+startupRefreshHostnameText = "تحديث اسم المضيف"
+startupCheckBrowserText = "فحص المتصفح"
+startupSysInfos = "الحصول على معلومات النظام"
+startupCleanTmpText = "حذف الملفات المؤقتة"
+startupCleanOldBehaviorsText = "إزالة الميزات المهملة"
+startupRefreshAliasText = "تحديث الأسماء المستعارة"
+startupRefreshVhostsText = "تحديث المضيفين الافتراضيين"
+startupCheckPathText = "فحص المسار الحالي"
+startupScanFoldersText = "مسح المجلدات"
+startupChangePathText = "تغيير المسار مع %s"
+startupRegistryText = "فحص مفتاح تسجيل %s"
+startupRegistryErrorText = "خطأ في إعداد مفتاح تسجيل %s :"
+startupUpdateConfigText = "تحديث الإعدادات"
+startupCheckServiceText = "فحص خدمة %s"
+startupVerifyServiceText = "التحقق من خدمة %s"
+startupInstallServiceText = "تثبيت خدمة %s"
+startupStartServiceText = "بدء خدمة %s"
+startupPrepareRestartText = "التحضير لإعادة تشغيل %s"
+startupRestartingText = "إعادة تشغيل %s. يرجى الانتظار"
+startupErrorTitle = "خطأ في بدء التشغيل"
+startupServiceError = "خدمة %s لا يمكن تثبيتها :"
+startupServiceCreateError = "- لا يمكن إنشاء الخدمة : %s"
+startupServiceStartError = "- لا يمكن بدء الخدمة : %s"
+startupServiceSyntaxError = "- تم اكتشاف أخطاء في الإعداد : %s"
+startupServicePortError = "- المنفذ %s مستخدم بواسطة تطبيق آخر : %s."
+startupRefreshGitReposText = "تحديث مستودعات Git"
+startupGenSslCrtText = "إنشاء شهادة SSL لـ %s"
+
+; Action Quit
+exitLeavingText = "مغادرة %s"
+exitRemoveServiceText = "إزالة خدمة %s"
+exitStopOtherProcessText = "إيقاف عمليات الأطراف الثالثة"
+
+; Action Change browser
+changeBrowserTitle = "تغيير المتصفح"
+changeBrowserExpLabel = "اختر متصفحاً :"
+changeBrowserOtherLabel = "أخرى :"
+changeBrowserOk = "تم تغيير المتصفح بنجاح إلى:@nl@%s"
+
+; Action About
+aboutTitle = "حول"
+aboutText = "%s@nl@حقوق النشر(C) 2014-%s %s@nl@@nl@Bearsampp هو برنامج حر؛ يمكنك إعادة توزيعه و/أو تعديله@nl@بموجب شروط رخصة جنو العمومية الصغرى."
+
+; Action Debug Apache
+debugApacheVersionNumber = "رقم الإصدار"
+debugApacheCompileSettings = "إعدادات التجميع"
+debugApacheCompiledModules = "الوحدات المجمعة"
+debugApacheConfigDirectives = "توجيهات الإعداد"
+debugApacheVhostsSettings = "إعدادات المضيفين الافتراضيين"
+debugApacheLoadedModules = "الوحدات المحملة"
+debugApacheSyntaxCheck = "فحص بناء جملة الإعداد"
+
+; Action Debug MySQL
+debugMysqlVersion = "إصدار"
+debugMysqlVariables = "متغيرات"
+debugMysqlSyntaxCheck = "فحص بناء جملة الإعداد"
+
+; Action Debug MariaDB
+debugMariadbVersion = "إصدار"
+debugMariadbVariables = "متغيرات"
+debugMariadbSyntaxCheck = "فحص بناء جملة الإعداد"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "إصدار"
+
+; Action others
+registrySetErrorText = "قيمة التسجيل غير صحيحة : %s"
+
+; Action check version
+checkVersionTitle = "التحقق من الإصدار"
+checkVersionAvailableText = "إصدار جديد متاح!"
+checkVersionChangelogText = "قبل التحديث يرجى قراءة سجل التغييرات : "
+checkVersionLatestText = "لديك أحدث إصدار من Bearsampp"
+
+; Action gen SSL certificate
+genSslTitle = "إنشاء شهادات SSL"
+genSslPath = "اختر مجلد الوجهة :"
+genSslCreated = "تم إنشاء شهادة SSL '%s' بنجاح."
+genSslCreatedError = "غير قادر على إنشاء شهادة SSL."
+
+; Action del SSL certificate
+delSslTitle = "حذف شهادة SSL"
+delSslDeleted = "تم حذف شهادة SSL '%s' بنجاح."
+delSslDeletedError = "غير قادر على حذف شهادة SSL."
+
+; Action Restart
+restartTitle = "إعادة تشغيل"
+restartText = "يرجى إعادة تشغيل %s لتطبيق الإعدادات الجديدة"
+
+; Action enable
+enableTitle = "تمكين / تعطيل %s"
+enableBundleNotExist = "%s لا يمكن تمكينه لأن الحزمة %s غير موجودة في %s"
+
+; Windows forms
+buttonOk = "موافق"
+buttonDelete = "حذف"
+buttonSave = "حفظ"
+buttonFinish = "إنهاء"
+buttonCancel = "إلغاء"
+buttonNext = "التالي >"
+buttonBack = "< السابق"
+buttonBrowse = "تصفح"
+loading = "جارٍ التحميل"
+
+; Homepage
+homepageOfficialWebsite = "الموقع الرسمي"
+homepageServiceStarted = "بدأت على المنفذ %s"
+homepageServiceStopped = "متوقفة"
+homepageAboutHtml = "<div><strong>Bearsampp</strong> هو حزمة برمجية WAMP محمولة تتضمن ملفات ثنائية وأدوات وتطبيقات مفيدة لتطوير الويب الخاص بك.<br/>لأولئك الذين يرغبون في المساهمة، لديهم مشكلة أو أسئلة، اقرأ <a target='_blank' href='%s'>التوثيق</a> أو قم بزيارة <a target='_blank' href='%s'>قسم الأسئلة الشائعة</a>.<br/>ليتم إخطارك بالإصدارات الجديدة يمكنك تمييز <a target='_blank' href='%s'>المستودع على Github</a>.</div>"
+homepageLicenseText = "Bearsampp هو برنامج حر؛ يمكنك إعادة توزيعه و/أو تعديله بموجب شروط رخصة جنو العمومية كما نشرتها مؤسسة البرمجيات الحرة، إما الإصدار 3 من الرخصة، أو (حسب اختيارك) أي إصدار لاحق."
+homepageQuestionsTitle = "أسئلة ؟"
+homepageQuestionsText = "إذا وجدت بعض المشكلات أو إذا كانت لديك بعض الأفكار لتطوير Bearsampp، فقط انشر مشكلة على GitHub!"
+homepagePostIssue = "نشر مشكلة"
+homepagePhpinfoText = "عرض phpinfo()"
+homepageMailpitText = "عرض رسائل البريد الإلكتروني المستلمة"
+homepageApcText = "مدير APC"
+homepageBackText = "العودة للصفحة الرئيسية"
+homepageXlightText = "عرض الواجهة الرسومية"

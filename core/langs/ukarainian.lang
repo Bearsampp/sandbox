@@ -1,0 +1,371 @@
+; Author: /Bearsampp
+;
+
+; General
+allRunningHint = "Усі служби запущено"
+someRunningHint = "Запущено %n із %t служб"
+noneRunningHint = "Не запущено жодної з %t служб"
+locale = "uk-UA"
+
+; Single
+about = "Про програму"
+administration = "Адміністрування"
+aliases = "Аліаси"
+apps = "Застосунки"
+bins = "Бінарні файли"
+changelog = "Журнал змін"
+console = "Консоль"
+debug = "Налагодження"
+disabled = "Вимкнено"
+discord = "Discord"
+donate = "Підтримати"
+donateVia = "Підтримати через %s"
+download = "Завантажити"
+downloadMore = "Завантажити більше"
+enabled = "Увімкнено"
+error = "Помилка"
+executable = "Виконуваний файл"
+extensions = "Розширення"
+facebook = "Facebook"
+gitConsole = "Консоль Git"
+gitGui = "Git Gui"
+github = "Github"
+documentation = "Документація"
+hostseditor = "HostsEditor"
+lang = "Мова"
+license = "Ліцензія"
+logs = "Журнали"
+logsVerbose = "Детальні журнали"
+modules = "Модулі"
+name = "Назва"
+paypal = "Paypal"
+pwgen = "Менеджер паролів"
+pythonConsole = "Консоль Python"
+quit = "Вихід"
+readChangelog = "Прочитати %sостанній журнал змін%s."
+reload = "Перезавантажити"
+repos = "Репозиторії"
+restart = "Перезапустити"
+service = "Служба"
+settings = "Налаштування"
+ssl = "SSL"
+startup = "Автозапуск"
+status = "Статус"
+statusPage = "Сторінка статусу"
+target = "Ціль"
+tools = "Інструменти"
+verboseDebug = "Налагодження"
+verboseReport = "Звіт"
+verboseSimple = "Простий"
+verboseTrace = "Трасування"
+version = "Версія"
+versions = "Версії"
+virtualHosts = "Віртуальні хости"
+website = "Вебсайт"
+
+; Menu
+menuAbout = "Про програму"
+menuAccessLogs = "Журнали доступу"
+menuAddAlias = "Додати аліас"
+menuAddVhost = "Додати віртуальний хост"
+menuChangePort = "Змінити порт"
+menuChangeRootPwd = "Змінити пароль root"
+menuCheckPort = "Перевірити порт %s"
+menuCheckUpdate = "Перевірити оновлення"
+menuClearFolders = "Очистити тимчасові папки"
+menuEditAlias = "Редагувати %s"
+menuEditConf = "Редагувати %s"
+menuEditVhost = "Редагувати %s"
+menuEnable = "Увімкнути / Вимкнути"
+menuErrorLogs = "Журнали помилок"
+menuGenRootCa = "Згенерувати сертифікат rootCA"
+menuGenSslCertificate = "Згенерувати SSL-сертифікати"
+menuInstallService = "Встановити службу"
+menuLaunchStartup = "Запускати разом із Windows"
+menuLocalhost = "Localhost"
+menuLogs = "Журнали"
+menuPutOffline = "Перейти офлайн"
+menuPutOnline = "Перейти онлайн"
+menuRebuildIni = "Перебудувати bearsampp.ini"
+menuRefreshRepos = "Оновити репозиторії"
+menuRemoveService = "Видалити службу"
+menuRestartService = "Перезапустити службу"
+menuRestartServices = "Перезапустити всі служби"
+menuRewriteLogs = "Перезаписати журнали"
+menuScanReposStartup = "Сканувати репозиторії під час запуску"
+menuSessionLogs = "Журнали сесії"
+menuStartService = "Запустити службу"
+menuStartServices = "Запустити всі служби"
+menuStatsLogs = "Журнали статистики"
+menuStopService = "Зупинити службу"
+menuStopServices = "Зупинити всі служби"
+menuTransferLogs = "Передати журнали"
+menuUpdateEnvPath = "Оновити env. PATH"
+menuWwwDirectory = "каталог www"
+
+; Bins
+apache = "Apache"
+mailpit = "Mailpit"
+mariadb = "MariaDB"
+memcached = "Memcached"
+mysql = "MySQL"
+nodejs = "Node.js"
+pear = "PEAR"
+php = "PHP"
+postgresql = "PostgreSQL"
+xlight = "Xlight"
+
+; Apps
+phpmyadmin = "phpMyAdmin"
+phppgadmin = "phpPgAdmin"
+
+; Tools
+bruno = "Bruno"
+composer = "Composer"
+powershell = "PowerShell"
+ghostscript = "Ghostscript"
+git = "Git"
+ngrok = "ngrok"
+perl = "Perl"
+python = "Python"
+ruby = "Ruby"
+
+; Errors
+errorConfNotFound = "Файл конфігурації %s не знайдено в %s"
+errorExeNotFound = "Виконуваний файл %s не знайдено в %s"
+errorFileNotFound = "%s не знайдено в %s"
+errorInvalidParameter = "Некоректний параметр '%s' : %s"
+errorAdminRequiredTitle = "Потрібні права адміністратора"
+errorAdminRequiredText = "%s потребує прав адміністратора для встановлення й керування службами Windows.@nl@@nl@Будь ласка, натисніть правою кнопкою на bearsampp.exe і виберіть 'Запустити від імені адміністратора', щоб запустити застосунок."
+
+; Action Switch version
+switchVersionTitle = "Перемкнути на %s версії %s"
+switchVersionReloadConfig = "Перезавантажити конфігурацію"
+switchVersionReloadBins = "Перезавантажити бінарні файли"
+switchVersionRegistry = "Скинути ключ реєстру %s"
+switchVersionResetServices = "Скинути всі служби"
+switchVersionSameError = "Ви вже використовуєте %s %s."
+switchVersionOk = "Версію %s успішно перемкнено на %s"
+switchVersionOkRestart = "Версію %s успішно перемкнено на %s"
+apacheIncpt = "Схоже, Apache %s несумісний із PHP %s."
+phpIncpt = "Схоже, PHP %s несумісний з Apache %s."
+bearsamppConfNotFoundError = "Файли конфігурації Bearsampp для %s не знайдено."
+bearsamppConfMalformedError = "Пошкоджений файл конфігурації Bearsampp для %s."
+
+; Action Switch PHP setting
+switchPhpSettingTitle = "Перемкнути налаштування PHP"
+switchPhpSettingNotFound = "Налаштування PHP %s не знайдено у файлі конфігурації PHP %s."
+
+; Action Check port
+checkPortTitle = "Перевірити порт %s %s"
+portUsedBy = "Порт %s використовується %s."
+portNotUsed = "Порт %s не використовується."
+portNotUsedBy = "Порт %s використовується іншою програмою."
+portUsedByAnotherDbms = "Порт %s використовується іншою СУБД."
+portChanged = "Порт %s успішно змінено на %s"
+
+; Action Install service
+installServiceTitle = "Встановити службу %s"
+serviceAlreadyInstalled = "Службу %s вже встановлено."
+serviceInstalled = "Службу %s успішно встановлено.@nl@Назва: %s@nl@Порт: %s"
+serviceInstallError = "Помилка під час встановлення служби %s."
+
+; Action Remove service
+removeServiceTitle = "Видалити службу %s"
+serviceNotExist = "Служба %s не існує."
+serviceRemoved = "Службу %s успішно видалено."
+serviceRemoveError = "Помилка під час видалення служби %s."
+
+; Action Start service
+startServiceTitle = "Запустити службу %s"
+startServiceError = "Помилка під час запуску служби %s."
+
+; Action Stop service
+stopServiceTitle = "Зупинити службу %s"
+stopServiceError = "Помилка під час зупинки служби %s."
+
+; Action Restart service
+restartServiceTitle = "Перезапустити службу %s"
+restartServiceError = "Помилка під час перезапуску служби %s."
+
+; Action Delete alias
+deleteAliasTitle = "Видалити аліас"
+deleteAlias = "Ви дійсно хочете видалити аліас '%s' ?"
+aliasRemoved = "Аліас '%s' успішно видалено."
+aliasRemoveError = "Не вдалося видалити файл конфігурації аліаса в:@nl@%s"
+
+; Action Add/Edit alias
+addAliasTitle = "Додати аліас"
+aliasNameLabel = "Назва"
+aliasDestLabel = "Призначення"
+aliasExpLabel = "Аліас буде за адресою http://localhost%s/%s/@nl@і вказуватиме на %s"
+aliasDestPath = "Виберіть папку призначення для вашого аліаса :"
+aliasNotValidAlpha = "Назва аліаса '%s' не є коректним алфавітно-цифровим рядком."
+aliasAlreadyExists = "Аліас '%s' уже існує."
+aliasCreated = "Аліас '%s' успішно створено.@nl@@nl@Url: http://localhost%s/%s/@nl@Path: %s"
+aliasCreatedError = "Не вдалося створити файл конфігурації аліаса."
+editAliasTitle = "Редагувати аліас %s"
+
+; Action Delete vhost
+deleteVhostTitle = "Видалити віртуальний хост"
+deleteVhost = "Ви дійсно хочете видалити віртуальний хост '%s' ?"
+vhostRemoved = "Віртуальний хост '%s' успішно видалено."
+vhostRemoveError = "Не вдалося видалити файл конфігурації віртуального хоста в:@nl@%s"
+
+; Action Add/Edit vhost
+addVhostTitle = "Додати віртуальний хост"
+vhostServerNameLabel = "Ім'я сервера"
+vhostDocumentRootLabel = "Кореневий каталог документів"
+vhostExpLabel = "Віртуальний хост буде за адресою http://%s/@nl@і вказуватиме на %s"
+vhostDocRootPath = "Виберіть кореневий каталог документів для вашого віртуального хоста :"
+vhostNotValidDomain = "Ім'я сервера '%s' не є коректним доменним ім'ям."
+vhostAlreadyExists = "Віртуальний хост '%s' уже існує."
+vhostCreated = "Віртуальний хост '%s' успішно створено.@nl@Не забудьте додати доменне ім'я до файлу hosts (через інструмент HostsEditor).@nl@@nl@Url: http://%s/@nl@Path: %s"
+vhostCreatedError = "Не вдалося створити файл конфігурації віртуального хоста."
+editVhostTitle = "Редагувати віртуальний хост %s"
+
+; Action Change port
+changePortTitle = "Змінити порт %s"
+changePortCurrentLabel = "Порт, який зараз використовує %s : %s"
+changePortNewLabel = "Новий порт"
+changePortSameError = "Це той самий порт, що використовується зараз."
+
+; Action Change database root password
+changeDbRootPwdTitle = "Змінити root-пароль %s"
+changeDbRootPwdCurrentpwdLabel = "Поточний пароль"
+changeDbRootPwdNewpwd1Label = "Новий пароль"
+changeDbRootPwdNewpwd2Label = "Підтвердьте новий пароль"
+changeDbRootPwdNotsameError = "Введені вами паролі не збігаються"
+changeDbRootPwdIncorrectError = "Помилка %s: %s"
+changeDbRootPwdText = "Пароль root успішно змінено!"
+
+; Action Start All Services
+loadingStartServices = "Запуск усіх служб"
+loadingStartService = "Запуск %s..."
+loadingStopServices = "Зупинка всіх служб"
+loadingStopService = "Зупинка %s..."
+loadingRestartServices = "Перезапуск усіх служб"
+loadingComplete = "Завершено"
+
+; Action Startup
+startupStartingText = "Запуск %s. Будь ласка, зачекайте"
+startupRotationLogsText = "Архівація журналів"
+startupKillOldProcsText = "Зупинка старих екземплярів"
+startupRefreshHostnameText = "Оновлення імені хоста"
+startupCheckBrowserText = "Перевірка браузера"
+startupSysInfos = "Отримання системної інформації"
+startupCleanTmpText = "Видалення тимчасових файлів"
+startupCleanOldBehaviorsText = "Видалення застарілих можливостей"
+startupRefreshAliasText = "Оновлення аліасів"
+startupRefreshVhostsText = "Оновлення віртуальних хостів"
+startupCheckPathText = "Перевірка поточного шляху"
+startupScanFoldersText = "Сканування папок"
+startupChangePathText = "Змінити шлях за допомогою %s"
+startupRegistryText = "Перевірка ключа реєстру %s"
+startupRegistryErrorText = "Помилка встановлення ключа реєстру %s :"
+startupUpdateConfigText = "Оновлення конфігурації"
+startupCheckServiceText = "Перевірка служби %s"
+startupVerifyServiceText = "Верифікація служби %s"
+startupInstallServiceText = "Встановити службу %s"
+startupStartServiceText = "Запустити службу %s"
+startupPrepareRestartText = "Підготовка перезапуску %s"
+startupRestartingText = "Перезапуск %s. Будь ласка, зачекайте"
+startupErrorTitle = "Помилка запуску"
+startupServiceError = "Службу %s неможливо встановити :"
+startupServiceCreateError = "- Неможливо створити службу : %s"
+startupServiceStartError = "- Неможливо запустити службу : %s"
+startupServiceSyntaxError = "- Виявлено помилки конфігурації : %s"
+startupServicePortError = "- Порт %s використовується іншою програмою : %s."
+startupRefreshGitReposText = "Оновлення Git-репозиторіїв"
+startupGenSslCrtText = "Генерація SSL-сертифіката %s"
+
+; Action Quit
+exitLeavingText = "Вихід із %s"
+exitRemoveServiceText = "Видалити службу %s"
+exitStopOtherProcessText = "Зупинити сторонні процеси"
+
+; Action Change browser
+changeBrowserTitle = "Змінити браузер"
+changeBrowserExpLabel = "Виберіть браузер :"
+changeBrowserOtherLabel = "Інший :"
+changeBrowserOk = "Браузер успішно змінено на:@nl@%s"
+
+; Action About
+aboutTitle = "Про програму"
+aboutText = "%s@nl@Copyright(C) 2014-%s %s@nl@@nl@Bearsampp — це вільне програмне забезпечення; ви можете поширювати його та/або змінювати@nl@відповідно до умов GNU LESSER GENERAL PUBLIC LICENSE."
+
+; Action Debug Apache
+debugApacheVersionNumber = "Номер версії"
+debugApacheCompileSettings = "Параметри компіляції"
+debugApacheCompiledModules = "Скомпільовані модулі"
+debugApacheConfigDirectives = "Директиви конфігурації"
+debugApacheVhostsSettings = "Налаштування віртуальних хостів"
+debugApacheLoadedModules = "Завантажені модулі"
+debugApacheSyntaxCheck = "Перевірка синтаксису конфігурації"
+
+; Action Debug MySQL
+debugMysqlVersion = "Версія"
+debugMysqlVariables = "Змінні"
+debugMysqlSyntaxCheck = "Перевірка синтаксису конфігурації"
+
+; Action Debug MariaDB
+debugMariadbVersion = "Версія"
+debugMariadbVariables = "Змінні"
+debugMariadbSyntaxCheck = "Перевірка синтаксису конфігурації"
+
+; Action Debug PostgreSQL
+debugPostgresqlVersion = "Версія"
+
+; Action others
+registrySetErrorText = "Некоректне значення реєстру : %s"
+
+; Action check version
+checkVersionTitle = "Перевірка версії"
+checkVersionAvailableText = "Доступна нова версія!"
+checkVersionChangelogText = "Перед оновленням, будь ласка, прочитайте журнал змін : "
+checkVersionLatestText = "У вас найновіша версія Bearsampp"
+
+; Action gen SSL certificate
+genSslTitle = "Генерація SSL-сертифікатів"
+genSslPath = "Виберіть цільову папку :"
+genSslCreated = "SSL-сертифікат '%s' успішно створено."
+genSslCreatedError = "Не вдалося створити SSL-сертифікат."
+
+; Action del SSL certificate
+delSslTitle = "Видалити SSL-сертифікат"
+delSslDeleted = "SSL-сертифікат '%s' успішно видалено."
+delSslDeletedError = "Не вдалося видалити SSL-сертифікат."
+
+; Action Restart
+restartTitle = "Перезапуск"
+restartText = "Будь ласка, перезапустіть %s, щоб застосувати нові налаштування"
+
+; Action enable
+enableTitle = "Увімкнути / Вимкнути %s"
+enableBundleNotExist = "%s неможливо увімкнути, оскільки пакет %s не існує в %s"
+
+; Windows forms
+buttonOk = "OK"
+buttonDelete = "Видалити"
+buttonSave = "Зберегти"
+buttonFinish = "Завершити"
+buttonCancel = "Скасувати"
+buttonNext = "Далі >"
+buttonBack = "< Назад"
+buttonBrowse = "Огляд"
+loading = "Завантаження"
+
+; Homepage
+homepageOfficialWebsite = "Офіційний вебсайт"
+homepageServiceStarted = "запущено на порту %s"
+homepageServiceStopped = "зупинено"
+homepageAboutHtml = "<div><strong>Bearsampp</strong> — це портативний програмний стек WAMP, що включає корисні бінарні файли, інструменти та застосунки для веброзробки.<br/>Якщо ви хочете зробити внесок, маєте проблему чи запитання, перегляньте <a target='_blank' href='%s'>Документацію</a> або відвідайте наш <a target='_blank' href='%s'>розділ FAQ</a>.<br/>Щоб отримувати сповіщення про нові релізи, ви можете поставити зірку <a target='_blank' href='%s'>репозиторію на Github</a>.</div>"
+homepageLicenseText = "Bearsampp — це вільне програмне забезпечення; ви можете поширювати його та/або змінювати відповідно до умов GNU General Public License, опублікованої Free Software Foundation; або версії 3 Ліцензії, або (на ваш вибір) будь-якої пізнішої версії."
+homepageQuestionsTitle = "Питання ?"
+homepageQuestionsText = "Якщо ви знайшли проблеми або маєте ідеї щодо розвитку Bearsampp, просто створіть issue на GitHub!"
+homepagePostIssue = "Створити issue"
+homepagePhpinfoText = "Переглянути phpinfo()"
+homepageMailpitText = "Переглянути отримані листи"
+homepageApcText = "Менеджер APC"
+homepageBackText = "Назад на головну"
+homepageXlightText = "Переглянути GUI"
