@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="250" src="https://bearsampp.com/images/logo/Bearsampp%20with%20text-stroked.png"></a></p>  
+<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="250" src="https://raw.githubusercontent.com/Bearsampp/sandbox/main/core/resources/homepage/img/header-logo.png"></a></p>
 
 <p align="center">  
   <a href="https://github.com/Bearsampp/Bearsampp/releases/latest"><img src="https://img.shields.io/github/release/bearsampp/bearsampp.svg?style=flat-square" alt="GitHub release"></a>  
@@ -10,11 +10,13 @@
 
 ## About
 
-**Bearsampp** is a fully portable WAMP software stack involving useful binaries, tools and applications for your development projects.
+**Bearsampp Sandbox** is the dedicated development and testing environment for the [Bearsampp](https://github.com/Bearsampp/Bearsampp) project. This repository allows us to build, refine, and test features or bug fixes in a safe environment before they are synchronized to the main production repository via the `/core` directory.
+
+Bearsampp itself is a fully portable WAMP style software stack involving useful binaries, tools and applications for your development projects.
 
 ![menu-right](https://github.com/user-attachments/assets/f58b3104-7732-402e-8599-0be47aab47c0)
 ![menu-left](https://github.com/user-attachments/assets/e235fdf4-dab2-4771-80dc-fb70519728b1)
-![menu-tools](https://github.com/user-attachments/assets/0cb47e0f-5b78-463b-99e5-15760f03bf31)
+![menu-tools](https://github.com/user-attachments/assets/717af5c0-9365-4386-b0ef-ff1fe05a21b2)
 
 
 
@@ -62,6 +64,8 @@ For those who wish to contribute, have an issue or questions, read the [Document
 
 ## Contributing
 
+This is a **Sandbox** repository. Contributions here are intended for testing and development. Once verified, changes to the `/core` directory and the `bearsampp.exe` binary are automatically synced to the [main Bearsampp repository](https://github.com/Bearsampp/Bearsampp).
+
 Want to contribute? Awesome! The most basic way to show your support is to star the project, or to raise issues. If  
 you want to open a pull request, please read the [contributing guidelines](.github/CONTRIBUTING.md).
 
@@ -77,7 +81,7 @@ We would like to thank the following for supporting our project:
 
 
 | <a href="https://github.n6rej.io">N6REJ<br><img src="https://avatars.githubusercontent.com/u/1850089?v=4" height="100px"/></a> | <a href="https://codium.ai">Qodo ai<br><img src="https://www.qodo.ai/wp-content/uploads/2025/03/qodo-logo.svg" height="100px" /></a> | <a href="https://simplifyyourweb.com/" >Olivier Buisard<br><img src="https://user-images.githubusercontent.com/1850089/191779113-6218a5df-d06d-41b5-92f9-86a9563b4d09.png" height="100px" /> </a>|
-|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 
 
 ## Statistics
