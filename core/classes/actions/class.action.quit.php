@@ -88,6 +88,41 @@ class ActionQuit
     }
 
     /**
+     * Get the bin object for a service by service name.
+     *
+     * @param   string  $sName  The service name constant
+     * @return  object|null  The bin object or null if not found
+     */
+    private function getBinForService($sName)
+    {
+        global $bearsamppBins;
+
+        if ($sName == BinApache::SERVICE_NAME) {
+            return $bearsamppBins->getApache();
+        }
+        elseif ($sName == BinMysql::SERVICE_NAME) {
+            return $bearsamppBins->getMysql();
+        }
+        elseif ($sName == BinMariadb::SERVICE_NAME) {
+            return $bearsamppBins->getMariadb();
+        }
+        elseif ($sName == BinMailpit::SERVICE_NAME) {
+            return $bearsamppBins->getMailpit();
+        }
+        elseif ($sName == BinMemcached::SERVICE_NAME) {
+            return $bearsamppBins->getMemcached();
+        }
+        elseif ($sName == BinPostgresql::SERVICE_NAME) {
+            return $bearsamppBins->getPostgresql();
+        }
+        elseif ($sName == BinXlight::SERVICE_NAME) {
+            return $bearsamppBins->getXlight();
+        }
+
+        return null;
+    }
+
+    /**
      * Get the display name for a service.
      *
      * @param   string  $sName    The service name constant
@@ -171,6 +206,11 @@ class ActionQuit
 
             if ($result) {
                 Log::info('Successfully stopped and removed service: ' . $displayName);
+                // Clean up service pid files after successful deletion
+                $bin = $this->getBinForService($sName);
+                if ($bin) {
+                    $this->cleanupServicePidFile($sName, $bin);
+                }
             } else {
                 Log::warning('Failed to stop/remove service: ' . $displayName . ' (may not be installed)');
             }
@@ -184,7 +224,12 @@ class ActionQuit
 
                 $this->splash->incrProgressBar();
                 $this->splash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::EXIT_REMOVE_SERVICE_TEXT), $displayName));
-                $service->delete();
+                $result = $service->delete();
+                // Clean up service pid files after deletion
+                $bin = $this->getBinForService($sName);
+                if ($bin) {
+                    $this->cleanupServicePidFile($sName, $bin);
+                }
             }
         }
 
@@ -714,6 +759,64 @@ class ActionQuit
 
         } catch (\Exception $e) {
             Log::warning('Quick cleanup verification failed: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Clean up service-specific pid files after service deletion.
+     * Prevents "Unclean shutdown" warnings on next startup.
+     *
+     * @param   string  $serviceName  The service name constant
+     * @param   object  $bin          The bin object for the service
+     * @return  void
+     */
+    private function cleanupServicePidFile($serviceName, $bin)
+    {
+        try {
+            // Apache pid file
+            if ($serviceName == BinApache::SERVICE_NAME) {
+                $pidFile = $bin->symlinkPath . '/logs/httpd.pid';
+                if (file_exists($pidFile)) {
+                    @chmod($pidFile, 0600);
+                    if (@unlink($pidFile)) {
+                        Log::trace('Successfully removed Apache pid file: ' . $pidFile);
+                    } else {
+                        Log::warning('Failed to remove Apache pid file: ' . $pidFile);
+                    }
+                }
+            }
+            // MySQL pid file
+            elseif ($serviceName == BinMysql::SERVICE_NAME) {
+                $dataDir = $bin->getDataPath();
+                if (!empty($dataDir)) {
+                    $pidFile = $dataDir . '/hostname.pid';
+                    if (file_exists($pidFile)) {
+                        @chmod($pidFile, 0600);
+                        if (@unlink($pidFile)) {
+                            Log::trace('Successfully removed MySQL pid file: ' . $pidFile);
+                        } else {
+                            Log::warning('Failed to remove MySQL pid file: ' . $pidFile);
+                        }
+                    }
+                }
+            }
+            // MariaDB pid file
+            elseif ($serviceName == BinMariadb::SERVICE_NAME) {
+                $dataDir = $bin->getDataPath();
+                if (!empty($dataDir)) {
+                    $pidFile = $dataDir . '/hostname.pid';
+                    if (file_exists($pidFile)) {
+                        @chmod($pidFile, 0600);
+                        if (@unlink($pidFile)) {
+                            Log::trace('Successfully removed MariaDB pid file: ' . $pidFile);
+                        } else {
+                            Log::warning('Failed to remove MariaDB pid file: ' . $pidFile);
+                        }
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning('Error cleaning up pid file for ' . $serviceName . ': ' . $e->getMessage());
         }
     }
 }
