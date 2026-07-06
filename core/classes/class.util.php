@@ -126,6 +126,8 @@ class Util
                 } elseif (is_dir($file)) {
                     self::deleteFolder($file);
                 } else {
+                    // Make file writable before attempting deletion (handles read-only files on Windows)
+                    @chmod($normalizedFile, 0600);
                     if (!@unlink($normalizedFile)) {
                         Log::error("deleteFolder(): Failed to unlink file: " . $normalizedFile);
                     }
