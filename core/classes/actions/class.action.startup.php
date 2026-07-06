@@ -898,18 +898,8 @@ class ActionStartup
         Log::info('Checking SSL certificates during startup...');
         $this->splash->incrProgressBar();
 
-        // Ensure rootCA exists first (required for all certificate creation)
-        Log::trace('Checking if rootCA exists...');
-        if (!file_exists(Path::getTmpPath() . '/custom-ssl/rootCA-key.pem')) {
-            Log::info('rootCA not found. Creating rootCA for mkcert...');
-            if (!$bearsamppOpenSsl->makeRootCa()) {
-                Log::error('FAILED to create rootCA');
-            } else {
-                Log::info('Successfully created rootCA');
-            }
-        }
-
         // Always ensure localhost exists and is valid
+        // (createCrt will automatically ensure rootCA exists via ensureRootCaExists)
         $localhostExpired = $bearsamppOpenSsl->isExpired('localhost');
         Log::trace('Localhost SSL expired status: ' . ($localhostExpired ? 'YES' : 'NO'));
 
