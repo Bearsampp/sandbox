@@ -1038,6 +1038,9 @@ class ActionStartup
             Symlinks::setSkipSymlinkCreation(false);
             Log::trace('Re-enabling symlink creation after service checking');
             $bearsamppBins->reload();
+
+            // Clean up any leftover pid file from previous unclean shutdown
+            $this->cleanupApachePidFile($bearsamppBins);
         }
 
         // Step 2: Start all services in parallel with progress updates
@@ -1438,5 +1441,31 @@ class ActionStartup
     {
         global $bearsamppRoot;
         Log::debug( $log, Path::getStartupLogFilePath() );
+    }
+
+    /**
+     * Removes any leftover Apache pid file from a previous unclean shutdown.
+     * Called after symlinks are created but before Apache service starts.
+     *
+     * @param object $bearsamppBins The bins object
+     */
+    private function cleanupApachePidFile($bearsamppBins)
+    {
+        try {
+            $apache = $bearsamppBins->getApache();
+            if ($apache && !empty($apache->currentPath)) {
+                $pidFile = $apache->currentPath . '/logs/httpd.pid';
+                if (file_exists($pidFile)) {
+                    @chmod($pidFile, 0600);
+                    if (@unlink($pidFile)) {
+                        Log::trace('Cleaned up leftover Apache pid file: ' . $pidFile);
+                    } else {
+                        Log::warning('Failed to remove Apache pid file: ' . $pidFile);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning('Error cleaning up Apache pid file: ' . $e->getMessage());
+        }
     }
 }
