@@ -775,7 +775,8 @@ class ActionQuit
         try {
             // Apache pid file
             if ($serviceName == BinApache::SERVICE_NAME) {
-                $pidFile = $bin->symlinkPath . '/logs/httpd.pid';
+                // Use currentPath (real path) instead of symlinkPath since symlink is removed later
+                $pidFile = $bin->currentPath . '/logs/httpd.pid';
                 if (file_exists($pidFile)) {
                     @chmod($pidFile, 0600);
                     if (@unlink($pidFile)) {
