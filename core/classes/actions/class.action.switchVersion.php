@@ -290,7 +290,7 @@ class ActionSwitchVersion
 
         $this->bearsamppSplash->setTextLoading(sprintf(
             $bearsamppLang->getValue(Lang::SWITCH_VERSION_REGISTRY),
-            $regEntry
+            $newRegValue
         ));
 
         $this->bearsamppSplash->incrProgressBar(2);
