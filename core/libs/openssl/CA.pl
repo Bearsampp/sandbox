@@ -209,7 +209,7 @@ sub parse_extra
     while (@_) {
         my $arg = shift(@_);
         if ( $arg !~ m{^-extra-(\w+)$} ) {
-            push @args, split_val($arg);
+            push @args, $arg;
             next;
         }
         $arg = $1;
