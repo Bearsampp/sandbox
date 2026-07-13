@@ -40,6 +40,34 @@ class ActionReload
         // Start loading process
         Util::startLoading();
 
+        // Scan and update paths in bin configuration files (handles version changes)
+        $pathsToScan = array();
+
+        // MySQL
+        $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
+        foreach ($folderList as $folder) {
+            $pathsToScan[] = array(
+                'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
+                'includes'  => array('my.ini'),
+                'recursive' => false
+            );
+        }
+
+        // MariaDB
+        $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
+        foreach ($folderList as $folder) {
+            $pathsToScan[] = array(
+                'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
+                'includes'  => array('my.ini'),
+                'recursive' => false
+            );
+        }
+
+        // Update paths in scanned files
+        if (!empty($pathsToScan)) {
+            Path::changePath(Util::getFilesToScan($pathsToScan));
+        }
+
         // Reload bins and apps to recreate symlinks if needed
         $bearsamppBins->reload();
         $bearsamppApps->reload();
