@@ -40,7 +40,31 @@ class ActionReload
         // Start loading process
         Util::startLoading();
 
-        // Scan and update paths in bin configuration files (handles version changes)
+        // Capture which database services are currently running so we can restart them once
+        // the reload has finished. A running database server keeps executing the binary it was
+        // launched with, so it keeps reporting the old version to clients such as phpMyAdmin
+        // until it is restarted from the updated 'current' symlink. Only the database services
+        // are handled here: the rest of the reload already refreshes the other modules, and
+        // restarting every service needlessly disrupts them (and makes the tray flash a window
+        // per service).
+        $dbServiceNames = array(
+            BinMysql::SERVICE_NAME,
+            BinMariadb::SERVICE_NAME,
+            BinPostgresql::SERVICE_NAME,
+        );
+
+        $runningServices = array();
+        $services = $bearsamppBins->getServices();
+        foreach ($dbServiceNames as $serviceName) {
+            if (isset($services[$serviceName]) && $services[$serviceName] != null && $services[$serviceName]->isRunning()) {
+                $runningServices[] = $serviceName;
+                Log::info('Stopping ' . $serviceName . ' before reload');
+                $services[$serviceName]->stop();
+            }
+        }
+
+        // Scan and update paths in bin configuration files (replaces path placeholders
+        // such as ~BEARSAMPP_LIN_PATH~ for the newly selected version, like switchVersion does)
         $pathsToScan = array();
 
         // MySQL
@@ -72,6 +96,10 @@ class ActionReload
         $bearsamppBins->reload();
         $bearsamppApps->reload();
 
+        // Refresh application configs (ports/credentials) against the reloaded bins
+        $bearsamppApps->getPhpmyadmin()->update();
+        $bearsamppApps->getPhppgadmin()->update();
+
         // Refresh hostname in the configuration
         $bearsamppConfig->replace(Config::CFG_HOSTNAME, gethostname());
 
@@ -98,6 +126,20 @@ class ActionReload
 
         // Rebuild _commons.js content
         $bearsamppHomepage->refreshCommonsJsContent();
+
+        // Restart the services that were running before the reload. Because the bins have
+        // been reloaded and the 'current' symlink now points to the selected version, the
+        // service starts from the new binary and reports the new version to clients such
+        // as phpMyAdmin. Fresh service references are taken from the reloaded bins.
+        if (!empty($runningServices)) {
+            $services = $bearsamppBins->getServices();
+            foreach ($runningServices as $serviceName) {
+                if (isset($services[$serviceName]) && $services[$serviceName] != null) {
+                    Log::info('Restarting ' . $serviceName . ' after reload');
+                    $services[$serviceName]->start();
+                }
+            }
+        }
 
         // Stop loading process
         Util::stopLoading();
