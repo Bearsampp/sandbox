@@ -315,6 +315,13 @@ async function installModule(moduleName, version) {
             console.log('showApplyButton:', messageData.showApplyButton);
             console.log('moduleName:', messageData.moduleName);
 
+            // Reload was launched automatically to apply the new version - show a brief
+            // progress dialog while it runs, then refresh the page.
+            if (messageData.reload_triggered) {
+                showReloadingDialog(downloadmodule.innerText, version);
+                return; // Exit early to prevent immediate reload
+            }
+
             // Check if we should show the apply config button
             if (messageData.showApplyButton && messageData.moduleName) {
                 // Don't reload immediately for apps/tools - let user apply config first
@@ -334,6 +341,48 @@ async function installModule(moduleName, version) {
             }, 100); // Delay of 100 milliseconds
         }
     }
+}
+
+/**
+ * Shows a progress dialog while the reload action applies the newly installed version,
+ * then refreshes the page. The reload runs as a background process on the server
+ * (restarting services as needed), so we wait briefly before refreshing.
+ *
+ * @param {string} moduleName - The module name (e.g., 'MySQL')
+ * @param {string} version - The version that was installed
+ */
+function showReloadingDialog(moduleName, version) {
+    console.log('showReloadingDialog called with:', {moduleName, version});
+
+    const modalHTML = `
+        <div class="modal fade show" id="reloadingModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title w-100 text-center">Applying ${moduleName} ${version}</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="spinner-border text-primary mb-3" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mb-0">Applying version changes and restarting services...</p>
+                        <small class="text-muted">This page will refresh automatically.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    `;
+
+    const modalContainer = document.createElement('div');
+    modalContainer.innerHTML = modalHTML;
+    document.body.appendChild(modalContainer);
+
+    // Give the background reload time to update the config and restart services
+    // before refreshing the QuickPick UI.
+    setTimeout(() => {
+        location.reload();
+    }, 8000);
 }
 
 /**
