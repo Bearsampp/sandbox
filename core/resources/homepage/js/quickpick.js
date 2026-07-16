@@ -673,46 +673,100 @@ function showInfoDialog(message) {
 
     const successText = typeof message === 'string' ? message : JSON.stringify(message);
 
-    // Create Bootstrap modal structure with dark theme
-    const modalHTML = `
-        <div class="modal fade show" id="infoModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-secondary position-relative">
-                        <h5 class="modal-title w-100 text-center">Module Installation Complete</h5>
-                        <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="infoModalBody">
-                        <p class="mb-3">${successText}</p>
-                        <p class="mb-1">&#10003; Files extracted</p>
-                        <p class="mb-3">&#10003; Configuration updated</p>
-                        <div class="alert alert-warning d-flex align-items-start gap-2 mb-0" role="alert">
-                            <span>&#9888;</span>
-                            <span>IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.</span>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-secondary justify-content-center">
-                        <button type="button" class="btn btn-primary" id="okBtn">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-backdrop fade show"></div>
-    `;
-
-    // Insert modal into DOM
+    // Build modal via DOM APIs so dynamic content is never parsed as HTML
     const modalContainer = document.createElement('div');
-    modalContainer.innerHTML = modalHTML;
-    document.body.appendChild(modalContainer);
 
-    // Get button references
-    const okButton = document.getElementById('okBtn');
-    const closeX = modalContainer.querySelector('.btn-close');
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+
+    const modal = document.createElement('div');
+    modal.className = 'modal fade show';
+    modal.id = 'infoModal';
+    modal.setAttribute('tabindex', '-1');
+    modal.style.display = 'block';
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('data-bs-theme', 'dark');
+
+    const modalDialog = document.createElement('div');
+    modalDialog.className = 'modal-dialog modal-dialog-centered';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content bg-dark text-light';
+
+    // Header
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header border-secondary position-relative';
+
+    const title = document.createElement('h5');
+    title.className = 'modal-title w-100 text-center';
+    title.textContent = 'Module Installation Complete';
+
+    const closeX = document.createElement('button');
+    closeX.type = 'button';
+    closeX.className = 'btn-close btn-close-white position-absolute end-0 me-3';
+    closeX.setAttribute('aria-label', 'Close');
+
+    modalHeader.appendChild(title);
+    modalHeader.appendChild(closeX);
+
+    // Body
+    const modalBody = document.createElement('div');
+    modalBody.className = 'modal-body';
+
+    const successP = document.createElement('p');
+    successP.className = 'mb-3';
+    successP.textContent = successText;
+
+    const extractedP = document.createElement('p');
+    extractedP.className = 'mb-1';
+    extractedP.textContent = '\u2713 Files extracted';
+
+    const configP = document.createElement('p');
+    configP.className = 'mb-3';
+    configP.textContent = '\u2713 Configuration updated';
+
+    const warning = document.createElement('div');
+    warning.className = 'alert alert-warning d-flex align-items-start gap-2 mb-0';
+    warning.setAttribute('role', 'alert');
+
+    const warnIcon = document.createElement('span');
+    warnIcon.textContent = '\u26a0';
+
+    const warnText = document.createElement('span');
+    warnText.textContent = "IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.";
+
+    warning.appendChild(warnIcon);
+    warning.appendChild(warnText);
+
+    modalBody.appendChild(successP);
+    modalBody.appendChild(extractedP);
+    modalBody.appendChild(configP);
+    modalBody.appendChild(warning);
+
+    // Footer
+    const modalFooter = document.createElement('div');
+    modalFooter.className = 'modal-footer border-secondary justify-content-center';
+
+    const okButton = document.createElement('button');
+    okButton.type = 'button';
+    okButton.className = 'btn btn-primary';
+    okButton.textContent = 'OK';
+
+    modalFooter.appendChild(okButton);
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(modalFooter);
+    modalDialog.appendChild(modalContent);
+    modal.appendChild(modalDialog);
+    modalContainer.appendChild(modal);
+    modalContainer.appendChild(backdrop);
+    document.body.appendChild(modalContainer);
 
     // Close handler
     const closeModal = () => {
         modalContainer.remove();
-        // Reload after closing
         setTimeout(() => {
             location.reload();
         }, 100);
