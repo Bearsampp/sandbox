@@ -669,10 +669,8 @@ function showApplyConfigDialog(message, moduleName, version) {
  * Shows an info dialog for Enhanced Mode or binary installations
  *
  * @param {string} message - The message to display
- * @param {string} moduleName - The module name being applied (optional)
- * @param {string} version - The module version being applied (optional)
  */
-function showInfoDialog(message, moduleName, version) {
+function showInfoDialog(message) {
     console.log('showInfoDialog called with:', message);
 
     // Create Bootstrap modal structure with dark theme
@@ -681,7 +679,7 @@ function showInfoDialog(message, moduleName, version) {
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-header border-secondary">
-                        <h5 class="modal-title w-100 text-center">${moduleName && version ? `Applying ${moduleName} ${version}` : 'Module Installation Complete'}</h5>
+                        <h5 class="modal-title w-100 text-center">Module Installation Complete</h5>
                         <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="infoModalBody">
