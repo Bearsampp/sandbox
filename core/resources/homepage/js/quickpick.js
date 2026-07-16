@@ -737,8 +737,9 @@ function showInfoDialog(message) {
     modalContainer.appendChild(backdrop);
     document.body.appendChild(modalContainer);
 
-    // Set message content - convert newlines to <br> using DOM methods
+    // Set message content using safe DOM APIs (no HTML parsing)
     if (typeof message === 'string') {
+        // Plain text message - split lines and render safely
         const lines = message.split('\n');
         lines.forEach((line, index) => {
             if (index > 0) {
@@ -746,9 +747,41 @@ function showInfoDialog(message) {
             }
             modalBody.appendChild(document.createTextNode(line));
         });
+    } else if (typeof message === 'object' && message !== null) {
+        // Structured message with optional warnings and steps
+        if (message.warning_text) {
+            const warningDiv = document.createElement('div');
+            warningDiv.className = `alert alert-warning mb-3`;
+            if (message.warning_level) {
+                warningDiv.classList.add(`alert-${message.warning_level}`);
+            }
+            warningDiv.appendChild(document.createTextNode(message.warning_text));
+            modalBody.appendChild(warningDiv);
+        }
+
+        if (message.message) {
+            const msgElement = document.createElement('p');
+            msgElement.appendChild(document.createTextNode(message.message));
+            modalBody.appendChild(msgElement);
+        }
+
+        if (Array.isArray(message.steps) && message.steps.length > 0) {
+            const stepsList = document.createElement('ol');
+            message.steps.forEach(step => {
+                const stepItem = document.createElement('li');
+                stepItem.appendChild(document.createTextNode(step));
+                stepsList.appendChild(stepItem);
+            });
+            modalBody.appendChild(stepsList);
+        }
+
+        // Fallback: show details if no recognized fields
+        if (!message.warning_text && !message.message && !message.steps) {
+            modalBody.appendChild(document.createTextNode(JSON.stringify(message, null, 2)));
+        }
     } else {
-        // For non-string messages, convert to JSON string and display as text
-        modalBody.textContent = JSON.stringify(message);
+        // Other types - convert to JSON string and display as text
+        modalBody.appendChild(document.createTextNode(JSON.stringify(message)));
     }
 
     // Close handler
