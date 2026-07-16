@@ -329,7 +329,7 @@ async function installModule(moduleName, version) {
                 return; // Exit early to prevent reload
             } else {
                 // Show enhanced mode or binary message in same styled modal
-                showInfoDialog(messageData.message || messageData);
+                showInfoDialog(messageData.message || messageData, downloadmodule.innerText, version);
                 return; // Exit early to prevent reload
             }
         }
@@ -669,130 +669,59 @@ function showApplyConfigDialog(message, moduleName, version) {
  * Shows an info dialog for Enhanced Mode or binary installations
  *
  * @param {string} message - The message to display
+ * @param {string} moduleName - The module name being applied (optional)
+ * @param {string} version - The module version being applied (optional)
  */
-function showInfoDialog(message) {
+function showInfoDialog(message, moduleName, version) {
     console.log('showInfoDialog called with:', message);
 
     // Create Bootstrap modal structure with dark theme
+    const modalHTML = `
+        <div class="modal fade show" id="infoModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title w-100 text-center">${moduleName && version ? `Applying ${moduleName} ${version}` : 'Module Installation Complete'}</h5>
+                        <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="infoModalBody">
+                    </div>
+                    <div class="modal-footer border-secondary justify-content-center">
+                        <button type="button" class="btn btn-primary" id="okBtn">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    `;
+
+    // Insert modal into DOM
     const modalContainer = document.createElement('div');
-
-    const modal = document.createElement('div');
-    modal.className = 'modal fade show';
-    modal.id = 'infoModal';
-    modal.setAttribute('tabindex', '-1');
-    modal.style.display = 'block';
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('data-bs-theme', 'dark');
-
-    const modalDialog = document.createElement('div');
-    modalDialog.className = 'modal-dialog modal-dialog-centered';
-
-    const modalContent = document.createElement('div');
-    modalContent.className = 'modal-content bg-dark text-light';
-
-    const modalHeader = document.createElement('div');
-    modalHeader.className = 'modal-header border-secondary';
-
-    const title = document.createElement('h5');
-    title.className = 'modal-title w-100 text-center';
-    title.textContent = 'Module Installation Complete';
-
-    const closeBtn = document.createElement('button');
-    closeBtn.type = 'button';
-    closeBtn.className = 'btn-close btn-close-white position-absolute end-0 me-3';
-    closeBtn.setAttribute('data-bs-dismiss', 'modal');
-    closeBtn.setAttribute('aria-label', 'Close');
-
-    modalHeader.appendChild(title);
-    modalHeader.appendChild(closeBtn);
-
-    const modalBody = document.createElement('div');
-    modalBody.id = 'infoModalBody';
-    modalBody.className = 'modal-body';
-    modalBody.style.whiteSpace = 'pre-wrap';
-
-    const modalFooter = document.createElement('div');
-    modalFooter.className = 'modal-footer border-secondary justify-content-center';
-
-    const okButton = document.createElement('button');
-    okButton.id = 'okBtn';
-    okButton.type = 'button';
-    okButton.className = 'btn btn-primary';
-    okButton.textContent = 'OK';
-
-    modalFooter.appendChild(okButton);
-
-    modalContent.appendChild(modalHeader);
-    modalContent.appendChild(modalBody);
-    modalContent.appendChild(modalFooter);
-
-    modalDialog.appendChild(modalContent);
-    modal.appendChild(modalDialog);
-
-    const backdrop = document.createElement('div');
-    backdrop.className = 'modal-backdrop fade show';
-
-    modalContainer.appendChild(modal);
-    modalContainer.appendChild(backdrop);
+    modalContainer.innerHTML = modalHTML;
     document.body.appendChild(modalContainer);
 
-    // Set message content using safe DOM APIs (no HTML parsing)
-    if (typeof message === 'string') {
-        // Plain text message - split lines and render safely
-        const lines = message.split('\n');
-        lines.forEach((line, index) => {
-            if (index > 0) {
-                modalBody.appendChild(document.createElement('br'));
-            }
-            modalBody.appendChild(document.createTextNode(line));
-        });
-    } else if (typeof message === 'object' && message !== null) {
-        // Structured message with optional warnings and steps
-        if (message.warning_text) {
-            const warningDiv = document.createElement('div');
-            warningDiv.className = `alert alert-warning mb-3`;
-            if (message.warning_level) {
-                warningDiv.classList.add(`alert-${message.warning_level}`);
-            }
-            warningDiv.appendChild(document.createTextNode(message.warning_text));
-            modalBody.appendChild(warningDiv);
-        }
+    // Set message content (use innerHTML to support FontAwesome icons)
+    const modalBody = document.getElementById('infoModalBody');
+    // Convert newlines to <br> for HTML display, but preserve white-space for formatting
+    modalBody.style.whiteSpace = 'pre-wrap';
+    const htmlMessage = typeof message === 'string' ? message.replace(/\n/g, '<br>') : JSON.stringify(message);
+    modalBody.innerHTML = htmlMessage;
 
-        if (message.message) {
-            const msgElement = document.createElement('p');
-            msgElement.appendChild(document.createTextNode(message.message));
-            modalBody.appendChild(msgElement);
-        }
-
-        if (Array.isArray(message.steps) && message.steps.length > 0) {
-            const stepsList = document.createElement('ol');
-            message.steps.forEach(step => {
-                const stepItem = document.createElement('li');
-                stepItem.appendChild(document.createTextNode(step));
-                stepsList.appendChild(stepItem);
-            });
-            modalBody.appendChild(stepsList);
-        }
-
-        // Fallback: show details if no recognized fields
-        if (!message.warning_text && !message.message && !message.steps) {
-            modalBody.appendChild(document.createTextNode(JSON.stringify(message, null, 2)));
-        }
-    } else {
-        // Other types - convert to JSON string and display as text
-        modalBody.appendChild(document.createTextNode(JSON.stringify(message)));
-    }
+    // Get button references
+    const okButton = document.getElementById('okBtn');
+    const closeX = modalContainer.querySelector('.btn-close');
 
     // Close handler
     const closeModal = () => {
         modalContainer.remove();
         // Reload after closing
-        setTimeout(() => location.reload(), 100);
+        setTimeout(() => {
+            location.reload();
+        }, 100);
     };
 
     okButton.onclick = closeModal;
-    closeBtn.onclick = closeModal;
+    closeX.onclick = closeModal;
 }
 
 /**
