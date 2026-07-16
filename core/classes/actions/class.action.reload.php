@@ -54,95 +54,102 @@ class ActionReload
         );
 
         $runningServices = array();
+        $stoppedServices = array();
         $services = $bearsamppBins->getServices();
         foreach ($dbServiceNames as $serviceName) {
             if (isset($services[$serviceName]) && $services[$serviceName] != null && $services[$serviceName]->isRunning()) {
                 $runningServices[] = $serviceName;
                 Log::info('Stopping ' . $serviceName . ' before reload');
-                $services[$serviceName]->stop();
-            }
-        }
-
-        // Scan and update paths in bin configuration files (replaces path placeholders
-        // such as ~BEARSAMPP_LIN_PATH~ for the newly selected version, like switchVersion does)
-        $pathsToScan = array();
-
-        // MySQL
-        $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
-        foreach ($folderList as $folder) {
-            $pathsToScan[] = array(
-                'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-        }
-
-        // MariaDB
-        $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
-        foreach ($folderList as $folder) {
-            $pathsToScan[] = array(
-                'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
-                'includes'  => array('my.ini'),
-                'recursive' => false
-            );
-        }
-
-        // Update paths in scanned files
-        if (!empty($pathsToScan)) {
-            Path::changePath(Util::getFilesToScan($pathsToScan));
-        }
-
-        // Reload bins and apps to recreate symlinks if needed
-        $bearsamppBins->reload();
-        $bearsamppApps->reload();
-
-        // Refresh application configs (ports/credentials) against the reloaded bins
-        $bearsamppApps->getPhpmyadmin()->update();
-        $bearsamppApps->getPhppgadmin()->update();
-
-        // Refresh hostname in the configuration
-        $bearsamppConfig->replace(Config::CFG_HOSTNAME, gethostname());
-
-        // Refresh launch startup setting in the configuration
-        $bearsamppConfig->replace(Config::CFG_LAUNCH_STARTUP, Util::isLaunchStartup() ? Config::ENABLED : Config::DISABLED);
-
-        // Check and update the browser setting in the configuration
-        $currentBrowser = $bearsamppConfig->getBrowser();
-        if (empty($currentBrowser) || !file_exists($currentBrowser)) {
-            $bearsamppConfig->replace(Config::CFG_BROWSER, Win32Native::getDefaultBrowser());
-        }
-
-        // Process and update the bearsampp.ini file
-        file_put_contents(Path::getIniFilePath(), Util::utf8ToCp1252(TplApp::process()));
-
-        // Process and update the PowerShell configuration
-        TplPowerShell::process();
-
-        // Refresh PEAR version cache file
-        $bearsamppBins->getPhp()->getPearVersion();
-
-        // Rebuild alias homepage content
-        $bearsamppHomepage->refreshAliasContent();
-
-        // Rebuild _commons.js content
-        $bearsamppHomepage->refreshCommonsJsContent();
-
-        // Restart the services that were running before the reload. Because the bins have
-        // been reloaded and the 'current' symlink now points to the selected version, the
-        // service starts from the new binary and reports the new version to clients such
-        // as phpMyAdmin. Fresh service references are taken from the reloaded bins.
-        if (!empty($runningServices)) {
-            $services = $bearsamppBins->getServices();
-            foreach ($runningServices as $serviceName) {
-                if (isset($services[$serviceName]) && $services[$serviceName] != null) {
-                    Log::info('Restarting ' . $serviceName . ' after reload');
-                    $services[$serviceName]->start();
+                if ($services[$serviceName]->stop()) {
+                    $stoppedServices[] = $serviceName;
+                } else {
+                    Log::error('Failed to stop ' . $serviceName . ' before reload');
                 }
             }
         }
 
-        // Stop loading process
-        Util::stopLoading();
+        try {
+            // Scan and update paths in bin configuration files (replaces path placeholders
+            // such as ~BEARSAMPP_LIN_PATH~ for the newly selected version, like switchVersion does)
+            $pathsToScan = array();
+
+            // MySQL
+            $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
+            foreach ($folderList as $folder) {
+                $pathsToScan[] = array(
+                    'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
+                    'includes'  => array('my.ini'),
+                    'recursive' => false
+                );
+            }
+
+            // MariaDB
+            $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
+            foreach ($folderList as $folder) {
+                $pathsToScan[] = array(
+                    'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
+                    'includes'  => array('my.ini'),
+                    'recursive' => false
+                );
+            }
+
+            // Update paths in scanned files
+            if (!empty($pathsToScan)) {
+                Path::changePath(Util::getFilesToScan($pathsToScan));
+            }
+
+            // Reload bins and apps to recreate symlinks if needed
+            $bearsamppBins->reload();
+            $bearsamppApps->reload();
+
+            // Refresh application configs (ports/credentials) against the reloaded bins
+            $bearsamppApps->getPhpmyadmin()->update();
+            $bearsamppApps->getPhppgadmin()->update();
+
+            // Refresh hostname in the configuration
+            $bearsamppConfig->replace(Config::CFG_HOSTNAME, gethostname());
+
+            // Refresh launch startup setting in the configuration
+            $bearsamppConfig->replace(Config::CFG_LAUNCH_STARTUP, Util::isLaunchStartup() ? Config::ENABLED : Config::DISABLED);
+
+            // Check and update the browser setting in the configuration
+            $currentBrowser = $bearsamppConfig->getBrowser();
+            if (empty($currentBrowser) || !file_exists($currentBrowser)) {
+                $bearsamppConfig->replace(Config::CFG_BROWSER, Win32Native::getDefaultBrowser());
+            }
+
+            // Process and update the bearsampp.ini file
+            file_put_contents(Path::getIniFilePath(), Util::utf8ToCp1252(TplApp::process()));
+
+            // Process and update the PowerShell configuration
+            TplPowerShell::process();
+
+            // Refresh PEAR version cache file
+            $bearsamppBins->getPhp()->getPearVersion();
+
+            // Rebuild alias homepage content
+            $bearsamppHomepage->refreshAliasContent();
+
+            // Rebuild _commons.js content
+            $bearsamppHomepage->refreshCommonsJsContent();
+        } finally {
+            // Restart the services that were successfully stopped. Because the bins have
+            // been reloaded and the 'current' symlink now points to the selected version, the
+            // service starts from the new binary and reports the new version to clients such
+            // as phpMyAdmin. Fresh service references are taken from the reloaded bins.
+            if (!empty($stoppedServices)) {
+                $services = $bearsamppBins->getServices();
+                foreach ($stoppedServices as $serviceName) {
+                    if (isset($services[$serviceName]) && $services[$serviceName] != null) {
+                        Log::info('Restarting ' . $serviceName . ' after reload');
+                        $services[$serviceName]->start();
+                    }
+                }
+            }
+
+            // Stop loading process
+            Util::stopLoading();
+        }
     }
 }
 
