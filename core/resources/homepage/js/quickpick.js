@@ -346,7 +346,7 @@ async function installModule(moduleName, version) {
 /**
  * Shows a progress dialog while the reload action applies the newly installed version,
  * then refreshes the page. The reload runs as a background process on the server
- * (restarting services as needed), so we wait briefly before refreshing.
+ * (restarting services as needed). Polls for completion status instead of using a fixed timeout.
  *
  * @param {string} moduleName - The module name (e.g., 'MySQL')
  * @param {string} version - The version that was installed
@@ -382,6 +382,7 @@ function showReloadingDialog(moduleName, version) {
 
     const modalBody = document.createElement('div');
     modalBody.className = 'modal-body text-center';
+    modalBody.id = 'reloadingModalBody';
 
     const spinner = document.createElement('div');
     spinner.className = 'spinner-border text-primary mb-3';
@@ -394,10 +395,12 @@ function showReloadingDialog(moduleName, version) {
 
     const message = document.createElement('p');
     message.className = 'mb-0';
+    message.id = 'reloadingMessage';
     message.textContent = 'Applying version changes and restarting services...';
 
     const small = document.createElement('small');
     small.className = 'text-muted';
+    small.id = 'reloadingStatus';
     small.textContent = 'This page will refresh automatically.';
 
     modalBody.appendChild(spinner);
@@ -417,11 +420,102 @@ function showReloadingDialog(moduleName, version) {
     modalContainer.appendChild(backdrop);
     document.body.appendChild(modalContainer);
 
-    // Give the background reload time to update the config and restart services
-    // before refreshing the QuickPick UI.
-    setTimeout(() => {
-        location.reload();
-    }, 8000);
+    pollReloadCompletion(modalContainer);
+}
+
+/**
+ * Polls the server for reload completion status.
+ * Checks the reload status endpoint and refreshes when complete or on timeout.
+ *
+ * @param {Element} modalContainer - The modal container element to remove after reload
+ */
+async function pollReloadCompletion(modalContainer) {
+    const maxWaitTime = 60000; // Maximum 60 seconds wait
+    const pollInterval = 1000; // Poll every 1 second
+    const startTime = Date.now();
+    let pollCount = 0;
+
+    const updateStatus = (message) => {
+        const statusElement = document.getElementById('reloadingStatus');
+        if (statusElement) {
+            statusElement.textContent = message;
+        }
+    };
+
+    const pollStatus = async () => {
+        try {
+            const url = AJAX_URL;
+            const senddata = new URLSearchParams();
+            senddata.append('proc', 'reloadstatus');
+
+            // Add CSRF token
+            if (typeof addCsrfToken === 'function') {
+                addCsrfToken(senddata);
+            }
+
+            const response = await fetch(url, {
+                method: 'POST',
+                body: senddata,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            pollCount++;
+
+            if (data.completed && data.status && data.status.success) {
+                console.log('Reload completed successfully after', pollCount, 'polls');
+                updateStatus('Reload complete. Refreshing page...');
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+                return;
+            } else if (data.completed && data.status && !data.status.success) {
+                console.error('Reload completed with failures:', data.status);
+                updateStatus('Reload completed with errors. Refreshing...');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+                return;
+            }
+
+            const elapsed = Date.now() - startTime;
+            if (elapsed >= maxWaitTime) {
+                console.warn('Reload status check timeout after', maxWaitTime, 'ms');
+                updateStatus('Timeout waiting for reload. Refreshing...');
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+                return;
+            }
+
+            updateStatus(`Waiting for reload completion... (${Math.round(elapsed / 1000)}s)`);
+            setTimeout(pollStatus, pollInterval);
+
+        } catch (error) {
+            console.error('Error polling reload status:', error);
+            const elapsed = Date.now() - startTime;
+
+            if (elapsed >= maxWaitTime) {
+                console.warn('Giving up after max wait time');
+                updateStatus('Reload timeout. Refreshing...');
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+                return;
+            }
+
+            updateStatus(`Connection issue. Retrying... (${pollCount} attempts)`);
+            setTimeout(pollStatus, pollInterval * 2);
+        }
+    };
+
+    pollStatus();
 }
 
 /**
