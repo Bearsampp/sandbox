@@ -167,7 +167,11 @@ class ActionReload
                 'failedServices' => $failedServices,
                 'success' => empty($failedServices)
             );
-            file_put_contents($reloadStatusFile, json_encode($reloadStatus, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+            // Atomic write: write to temp file, then rename to final path to prevent partial reads
+            $reloadStatusTmpFile = $reloadStatusFile . '.tmp';
+            file_put_contents($reloadStatusTmpFile, json_encode($reloadStatus, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
+            rename($reloadStatusTmpFile, $reloadStatusFile);
 
             // Stop loading process
             Util::stopLoading();

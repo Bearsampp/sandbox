@@ -35,6 +35,13 @@ try {
             );
 
             Log::debug('Reload status retrieved: ' . json_encode($status));
+        } elseif (json_last_error() !== JSON_ERROR_NONE) {
+            // Invalid JSON detected (likely from concurrent partial write)
+            Log::warning('Reload status file has invalid JSON: ' . json_last_error_msg());
+            $response = array(
+                'completed' => false,
+                'message' => 'Status file being updated'
+            );
         } else {
             $response = array(
                 'completed' => false,
