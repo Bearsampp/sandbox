@@ -420,7 +420,7 @@ function showReloadingDialog(moduleName, version) {
     modalContainer.appendChild(backdrop);
     document.body.appendChild(modalContainer);
 
-    pollReloadCompletion(modalContainer);
+    pollReloadCompletion(modalContainer, moduleName, version);
 }
 
 /**
@@ -429,7 +429,7 @@ function showReloadingDialog(moduleName, version) {
  *
  * @param {Element} modalContainer - The modal container element to remove after reload
  */
-async function pollReloadCompletion(modalContainer) {
+async function pollReloadCompletion(modalContainer, moduleName, version) {
     const maxWaitTime = 60000; // Maximum 60 seconds wait
     const pollInterval = 1000; // Poll every 1 second
     const startTime = Date.now();
@@ -470,10 +470,8 @@ async function pollReloadCompletion(modalContainer) {
 
             if (data.completed && data.status && data.status.success) {
                 console.log('Reload completed successfully after', pollCount, 'polls');
-                updateStatus('Reload complete. Refreshing page...');
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
+                modalContainer.remove();
+                showInfoDialog(`Module ${moduleName} version ${version} installed successfully!`);
                 return;
             } else if (data.completed && data.status && !data.status.success) {
                 console.error('Reload completed with failures:', data.status);
@@ -673,16 +671,25 @@ function showApplyConfigDialog(message, moduleName, version) {
 function showInfoDialog(message) {
     console.log('showInfoDialog called with:', message);
 
+    const successText = typeof message === 'string' ? message : JSON.stringify(message);
+
     // Create Bootstrap modal structure with dark theme
     const modalHTML = `
         <div class="modal fade show" id="infoModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-secondary">
+                    <div class="modal-header border-secondary position-relative">
                         <h5 class="modal-title w-100 text-center">Module Installation Complete</h5>
                         <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="infoModalBody">
+                        <p class="mb-3">${successText}</p>
+                        <p class="mb-1">&#10003; Files extracted</p>
+                        <p class="mb-3">&#10003; Configuration updated</p>
+                        <div class="alert alert-warning d-flex align-items-start gap-2 mb-0" role="alert">
+                            <span>&#9888;</span>
+                            <span>IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.</span>
+                        </div>
                     </div>
                     <div class="modal-footer border-secondary justify-content-center">
                         <button type="button" class="btn btn-primary" id="okBtn">OK</button>
@@ -697,13 +704,6 @@ function showInfoDialog(message) {
     const modalContainer = document.createElement('div');
     modalContainer.innerHTML = modalHTML;
     document.body.appendChild(modalContainer);
-
-    // Set message content (use innerHTML to support FontAwesome icons)
-    const modalBody = document.getElementById('infoModalBody');
-    // Convert newlines to <br> for HTML display, but preserve white-space for formatting
-    modalBody.style.whiteSpace = 'pre-wrap';
-    const htmlMessage = typeof message === 'string' ? message.replace(/\n/g, '<br>') : JSON.stringify(message);
-    modalBody.innerHTML = htmlMessage;
 
     // Get button references
     const okButton = document.getElementById('okBtn');
