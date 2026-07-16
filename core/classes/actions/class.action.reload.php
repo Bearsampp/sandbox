@@ -137,15 +137,29 @@ class ActionReload
             // been reloaded and the 'current' symlink now points to the selected version, the
             // service starts from the new binary and reports the new version to clients such
             // as phpMyAdmin. Fresh service references are taken from the reloaded bins.
+            $failedServices = array();
             if (!empty($stoppedServices)) {
                 $services = $bearsamppBins->getServices();
                 foreach ($stoppedServices as $serviceName) {
                     if (isset($services[$serviceName]) && $services[$serviceName] != null) {
                         Log::info('Restarting ' . $serviceName . ' after reload');
-                        $services[$serviceName]->start();
+                        if (!$services[$serviceName]->start()) {
+                            Log::error('Failed to restart ' . $serviceName . ' after reload');
+                            $failedServices[] = $serviceName;
+                        }
                     }
                 }
             }
+
+            // Write reload status file for UI to poll and display results
+            $reloadStatusFile = Path::getLogsPath() . '/reload-status.json';
+            $reloadStatus = array(
+                'timestamp' => time(),
+                'stoppedServices' => $stoppedServices,
+                'failedServices' => $failedServices,
+                'success' => empty($failedServices)
+            );
+            file_put_contents($reloadStatusFile, json_encode($reloadStatus, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
             // Stop loading process
             Util::stopLoading();
