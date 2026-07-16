@@ -354,28 +354,67 @@ async function installModule(moduleName, version) {
 function showReloadingDialog(moduleName, version) {
     console.log('showReloadingDialog called with:', {moduleName, version});
 
-    const modalHTML = `
-        <div class="modal fade show" id="reloadingModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-secondary">
-                        <h5 class="modal-title w-100 text-center">Applying ${moduleName} ${version}</h5>
-                    </div>
-                    <div class="modal-body text-center">
-                        <div class="spinner-border text-primary mb-3" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p class="mb-0">Applying version changes and restarting services...</p>
-                        <small class="text-muted">This page will refresh automatically.</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-backdrop fade show"></div>
-    `;
-
     const modalContainer = document.createElement('div');
-    modalContainer.innerHTML = modalHTML;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal fade show';
+    modal.id = 'reloadingModal';
+    modal.setAttribute('tabindex', '-1');
+    modal.style.display = 'block';
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('data-bs-theme', 'dark');
+
+    const modalDialog = document.createElement('div');
+    modalDialog.className = 'modal-dialog modal-dialog-centered';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content bg-dark text-light';
+
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header border-secondary';
+
+    const title = document.createElement('h5');
+    title.className = 'modal-title w-100 text-center';
+    title.textContent = `Applying ${moduleName} ${version}`;
+
+    modalHeader.appendChild(title);
+
+    const modalBody = document.createElement('div');
+    modalBody.className = 'modal-body text-center';
+
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner-border text-primary mb-3';
+    spinner.setAttribute('role', 'status');
+
+    const spinnerHidden = document.createElement('span');
+    spinnerHidden.className = 'visually-hidden';
+    spinnerHidden.textContent = 'Loading...';
+    spinner.appendChild(spinnerHidden);
+
+    const message = document.createElement('p');
+    message.className = 'mb-0';
+    message.textContent = 'Applying version changes and restarting services...';
+
+    const small = document.createElement('small');
+    small.className = 'text-muted';
+    small.textContent = 'This page will refresh automatically.';
+
+    modalBody.appendChild(spinner);
+    modalBody.appendChild(message);
+    modalBody.appendChild(small);
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+
+    modalDialog.appendChild(modalContent);
+    modal.appendChild(modalDialog);
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+
+    modalContainer.appendChild(modal);
+    modalContainer.appendChild(backdrop);
     document.body.appendChild(modalContainer);
 
     // Give the background reload time to update the config and restart services
@@ -396,36 +435,75 @@ function showApplyConfigDialog(message, moduleName, version) {
     console.log('showApplyConfigDialog called with:', {message, moduleName, version});
 
     // Create Bootstrap modal structure with dark theme
-    const modalHTML = `
-        <div class="modal fade show" id="applyConfigModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-secondary">
-                        <h5 class="modal-title w-100 text-center">Module Installation Complete</h5>
-                        <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="white-space: pre-wrap;">
-${message}
-                    </div>
-                    <div class="modal-footer border-secondary justify-content-center">
-                        <button type="button" class="btn btn-secondary" id="closeModalBtn">Close</button>
-                        <button type="button" class="btn btn-success" id="applyConfigBtn">Apply Config</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-backdrop fade show"></div>
-    `;
-
-    // Insert modal into DOM
     const modalContainer = document.createElement('div');
-    modalContainer.innerHTML = modalHTML;
-    document.body.appendChild(modalContainer);
 
-    // Get button references
-    const applyButton = document.getElementById('applyConfigBtn');
-    const closeButton = document.getElementById('closeModalBtn');
-    const closeX = modalContainer.querySelector('.btn-close');
+    const modal = document.createElement('div');
+    modal.className = 'modal fade show';
+    modal.id = 'applyConfigModal';
+    modal.setAttribute('tabindex', '-1');
+    modal.style.display = 'block';
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('data-bs-theme', 'dark');
+
+    const modalDialog = document.createElement('div');
+    modalDialog.className = 'modal-dialog modal-dialog-centered';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content bg-dark text-light';
+
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header border-secondary';
+
+    const title = document.createElement('h5');
+    title.className = 'modal-title w-100 text-center';
+    title.textContent = 'Module Installation Complete';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'btn-close btn-close-white position-absolute end-0 me-3';
+    closeBtn.setAttribute('data-bs-dismiss', 'modal');
+    closeBtn.setAttribute('aria-label', 'Close');
+
+    modalHeader.appendChild(title);
+    modalHeader.appendChild(closeBtn);
+
+    const modalBody = document.createElement('div');
+    modalBody.className = 'modal-body';
+    modalBody.style.whiteSpace = 'pre-wrap';
+    modalBody.textContent = message;
+
+    const modalFooter = document.createElement('div');
+    modalFooter.className = 'modal-footer border-secondary justify-content-center';
+
+    const closeButton = document.createElement('button');
+    closeButton.id = 'closeModalBtn';
+    closeButton.type = 'button';
+    closeButton.className = 'btn btn-secondary';
+    closeButton.textContent = 'Close';
+
+    const applyButton = document.createElement('button');
+    applyButton.id = 'applyConfigBtn';
+    applyButton.type = 'button';
+    applyButton.className = 'btn btn-success';
+    applyButton.textContent = 'Apply Config';
+
+    modalFooter.appendChild(closeButton);
+    modalFooter.appendChild(applyButton);
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(modalFooter);
+
+    modalDialog.appendChild(modalContent);
+    modal.appendChild(modalDialog);
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+
+    modalContainer.appendChild(modal);
+    modalContainer.appendChild(backdrop);
+    document.body.appendChild(modalContainer);
 
     // Apply Config button handler
     applyButton.onclick = async () => {
@@ -435,11 +513,34 @@ ${message}
         try {
             const result = await applyModuleConfig(moduleName, version);
 
-            // Update modal to show success - keep same styling as initial message
-            const modalBody = modalContainer.querySelector('.modal-body');
+            // Update modal to show success - clear and rebuild with new content
+            modalBody.innerHTML = '';
             modalBody.style.whiteSpace = 'pre-wrap';
-            const htmlMessage = `Configuration updated successfully!<br><br>✓ Set ${moduleName}Version = "${version}"<br><br><span class='text-warning'><i class='fas fa-exclamation-triangle'></i> IMPORTANT: Right-click the Bearsampp tray icon and select 'Reload' to activate the new version.</span>`;
-            modalBody.innerHTML = htmlMessage;
+
+            const successMsg = document.createElement('div');
+            successMsg.textContent = 'Configuration updated successfully!';
+            modalBody.appendChild(successMsg);
+
+            const br1 = document.createElement('br');
+            const br2 = document.createElement('br');
+            const br3 = document.createElement('br');
+
+            const configMsg = document.createElement('div');
+            configMsg.textContent = `✓ Set ${moduleName}Version = "${version}"`;
+
+            const warning = document.createElement('div');
+            warning.className = 'text-warning mt-3';
+            const warningIcon = document.createElement('i');
+            warningIcon.className = 'fas fa-exclamation-triangle';
+            const warningText = document.createTextNode(' IMPORTANT: Right-click the Bearsampp tray icon and select \'Reload\' to activate the new version.');
+            warning.appendChild(warningIcon);
+            warning.appendChild(warningText);
+
+            modalBody.appendChild(br1);
+            modalBody.appendChild(br2);
+            modalBody.appendChild(configMsg);
+            modalBody.appendChild(br3);
+            modalBody.appendChild(warning);
 
             // Change button to just "Close"
             applyButton.style.display = 'none';
@@ -451,10 +552,11 @@ ${message}
             applyButton.disabled = false;
             applyButton.textContent = 'Apply Config';
 
-            // Show error in modal - keep same styling as initial message
-            const modalBody = modalContainer.querySelector('.modal-body');
-            const currentText = modalBody.textContent;
-            modalBody.textContent = currentText + `\n\n❌ Error: ${error.message}`;
+            // Show error in modal
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'mt-2';
+            errorMsg.textContent = `❌ Error: ${error.message}`;
+            modalBody.appendChild(errorMsg);
         }
     };
 
@@ -466,7 +568,7 @@ ${message}
     };
 
     closeButton.onclick = closeModal;
-    closeX.onclick = closeModal;
+    closeBtn.onclick = closeModal;
 }
 
 /**
@@ -478,40 +580,82 @@ function showInfoDialog(message) {
     console.log('showInfoDialog called with:', message);
 
     // Create Bootstrap modal structure with dark theme
-    const modalHTML = `
-        <div class="modal fade show" id="infoModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog" data-bs-theme="dark">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-secondary">
-                        <h5 class="modal-title w-100 text-center">Module Installation Complete</h5>
-                        <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="infoModalBody">
-                    </div>
-                    <div class="modal-footer border-secondary justify-content-center">
-                        <button type="button" class="btn btn-primary" id="okBtn">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-backdrop fade show"></div>
-    `;
-
-    // Insert modal into DOM
     const modalContainer = document.createElement('div');
-    modalContainer.innerHTML = modalHTML;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal fade show';
+    modal.id = 'infoModal';
+    modal.setAttribute('tabindex', '-1');
+    modal.style.display = 'block';
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('data-bs-theme', 'dark');
+
+    const modalDialog = document.createElement('div');
+    modalDialog.className = 'modal-dialog modal-dialog-centered';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content bg-dark text-light';
+
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header border-secondary';
+
+    const title = document.createElement('h5');
+    title.className = 'modal-title w-100 text-center';
+    title.textContent = 'Module Installation Complete';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'btn-close btn-close-white position-absolute end-0 me-3';
+    closeBtn.setAttribute('data-bs-dismiss', 'modal');
+    closeBtn.setAttribute('aria-label', 'Close');
+
+    modalHeader.appendChild(title);
+    modalHeader.appendChild(closeBtn);
+
+    const modalBody = document.createElement('div');
+    modalBody.id = 'infoModalBody';
+    modalBody.className = 'modal-body';
+    modalBody.style.whiteSpace = 'pre-wrap';
+
+    const modalFooter = document.createElement('div');
+    modalFooter.className = 'modal-footer border-secondary justify-content-center';
+
+    const okButton = document.createElement('button');
+    okButton.id = 'okBtn';
+    okButton.type = 'button';
+    okButton.className = 'btn btn-primary';
+    okButton.textContent = 'OK';
+
+    modalFooter.appendChild(okButton);
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(modalFooter);
+
+    modalDialog.appendChild(modalContent);
+    modal.appendChild(modalDialog);
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop fade show';
+
+    modalContainer.appendChild(modal);
+    modalContainer.appendChild(backdrop);
     document.body.appendChild(modalContainer);
 
-    // Set message content (use innerHTML to support FontAwesome icons)
-    const modalBody = document.getElementById('infoModalBody');
-    // Convert newlines to <br> for HTML display, but preserve white-space for formatting
-    modalBody.style.whiteSpace = 'pre-wrap';
-    const htmlMessage = typeof message === 'string' ? message.replace(/\n/g, '<br>') : JSON.stringify(message);
-    modalBody.innerHTML = htmlMessage;
-
-    // Get button references
-    const okButton = document.getElementById('okBtn');
-    const closeX = modalContainer.querySelector('.btn-close');
+    // Set message content - convert newlines to <br> using DOM methods
+    if (typeof message === 'string') {
+        const lines = message.split('\n');
+        lines.forEach((line, index) => {
+            if (index > 0) {
+                modalBody.appendChild(document.createElement('br'));
+            }
+            modalBody.appendChild(document.createTextNode(line));
+        });
+    } else {
+        // For non-string messages, convert to JSON string and display as text
+        modalBody.textContent = JSON.stringify(message);
+    }
 
     // Close handler
     const closeModal = () => {
@@ -521,7 +665,7 @@ function showInfoDialog(message) {
     };
 
     okButton.onclick = closeModal;
-    closeX.onclick = closeModal;
+    closeBtn.onclick = closeModal;
 }
 
 /**
