@@ -75,6 +75,10 @@ class ActionReload
 
             // MySQL
             $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
+            if ($folderList === false) {
+                Log::error('Failed to scan MySQL module folder list for path updates');
+                $folderList = array();
+            }
             foreach ($folderList as $folder) {
                 $pathsToScan[] = array(
                     'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
@@ -85,6 +89,10 @@ class ActionReload
 
             // MariaDB
             $folderList = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
+            if ($folderList === false) {
+                Log::error('Failed to scan MariaDB module folder list for path updates');
+                $folderList = array();
+            }
             foreach ($folderList as $folder) {
                 $pathsToScan[] = array(
                     'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
