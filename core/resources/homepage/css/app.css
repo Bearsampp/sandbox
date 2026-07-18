@@ -511,7 +511,7 @@ nav.navbar .svg-inline--fa.fa-discord {
 
 /* Social icons wrapper */
 .social-icons-wrapper {
-    padding-top: 0;
+    padding-top: 1.5rem;
 }
 
 .svg-inline--fa.fa-cloud-arrow-down {

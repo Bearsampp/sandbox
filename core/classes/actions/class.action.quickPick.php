@@ -129,8 +129,6 @@ class QuickPick
      * @param   string  $imagesPath  The path to the images directory.
      *
      * @return string The HTML content of the QuickPick interface.
-     *
-     * @throws Exception
      */
     public function loadQuickpick(string $imagesPath): string
     {
@@ -142,6 +140,10 @@ class QuickPick
             return $this->getErrorModal($validation['error']);
         }
 
+        // Refresh the local JSON cache from the official releases page.
+        // checkQuickpickJson handles its own errors internally — if no local
+        // file exists it fetches one; if it exists it checks the timestamp
+        // against the remote and updates only when the remote is newer.
         $this->checkQuickpickJson();
 
         $modules  = $this->getModules();
@@ -153,64 +155,88 @@ class QuickPick
     /**
      * Checks if the local `quickpick-releases.json` file is up-to-date with the remote version.
      *
-     * Compares the creation time of the local JSON file with the remote file's last modified time.
+     * Compares the modification time of the local JSON file with the remote file's Last-Modified time.
      * If the remote file is newer or the local file does not exist, it fetches the latest JSON data by calling
      * the `rebuildQuickpickJson` method.
      *
      * @return array|false Returns the JSON data if the remote file is newer or the local file does not exist,
      *                     otherwise returns false.
-     * @throws Exception
      */
     public function checkQuickpickJson()
     {
-        global $bearsamppConfig;
+        $localFileExists = file_exists($this->jsonFilePath);
 
-        // Determine local file creation time or rebuild if missing
-        $localFileCreationTime = $this->getLocalFileCreationTime();
+        // If local file does not exist, fetch it from the official releases page
+        if (!$localFileExists) {
+            Log::debug('Local quickpick JSON not found, fetching from official releases page');
+            try {
+                return $this->rebuildQuickpickJson();
+            } catch (Exception $e) {
+                Log::error('Failed to fetch quickpick JSON: ' . $e->getMessage());
+                return false;
+            }
+        }
+
+        // Local file exists — check timestamp against the remote version
+        $localFileModTime = filemtime($this->jsonFilePath);
 
         // Attempt to retrieve remote file headers
-        $headers = get_headers(QUICKPICK_JSON_URL, 1);
+        $headers = @get_headers(QUICKPICK_JSON_URL, 1);
         if (!$this->isValidHeaderResponse($headers)) {
-            // If headers or Date are invalid, assume no update needed
+            // Cannot reach remote — use existing local file as-is
+            Log::debug('Cannot retrieve remote headers, using existing local quickpick JSON');
             return false;
         }
 
         // Optionally log headers for verbose output
         $this->logHeaders($headers);
 
-        // Compare the creation times (remote vs. local)
-        $remoteFileCreationTime = strtotime(isset($headers['Date']) ? $headers['Date'] : '');
-		if ($remoteFileCreationTime > $localFileCreationTime) { return $this->rebuildQuickpickJson(); }
+        // Compare modification times using Last-Modified header (falls back to Date)
+        $remoteTimeHeader = isset($headers['Last-Modified']) ? $headers['Last-Modified']
+            : (isset($headers['Date']) ? $headers['Date'] : '');
+        $remoteFileModTime = strtotime($remoteTimeHeader);
 
-        // Return false if local file is already up-to-date
+        if ($remoteFileModTime !== false && $remoteFileModTime > $localFileModTime) {
+            Log::debug('Remote quickpick JSON is newer, rebuilding local cache');
+            try {
+                return $this->rebuildQuickpickJson();
+            } catch (Exception $e) {
+                Log::error('Failed to update quickpick JSON: ' . $e->getMessage());
+                // Fall through — existing local file is still valid
+                return false;
+            }
+        }
+
+        // Local file is already up-to-date
         return false;
     }
 
     /**
-     * Returns the local file's creation time, or triggers and returns 0 if file does not exist.
+     * Returns the local file's modification time, or 0 if the file does not exist.
      *
-     * @return int Local file's creation time or 0 if the file doesn't exist.
+     * @return int Local file's modification time or 0 if the file doesn't exist.
      */
-    private function getLocalFileCreationTime()
+    private function getLocalFileModTime(): int
     {
         if (!file_exists($this->jsonFilePath)) {
-            // If local file is missing, rebuild it immediately
-            $this->rebuildQuickpickJson();
             return 0;
         }
-        return filectime($this->jsonFilePath);
+        return (int) filemtime($this->jsonFilePath);
     }
 
     /**
-     * Determines whether the header response is valid and includes a 'Date' key.
+     * Determines whether the header response is valid and includes a usable timestamp.
      *
      * @param mixed $headers Headers retrieved from get_headers().
-     * @return bool True if headers are valid and contain 'Date', false otherwise.
+     * @return bool True if headers are valid and contain 'Last-Modified' or 'Date', false otherwise.
      */
     private function isValidHeaderResponse($headers): bool
     {
-        // If headers retrieval failed or Date is not set, return false
-        if ($headers === false || !isset($headers['Date'])) {
+        if ($headers === false) {
+            return false;
+        }
+        // Need at least one timestamp header for comparison
+        if (!isset($headers['Last-Modified']) && !isset($headers['Date'])) {
             return false;
         }
         return true;
@@ -265,7 +291,7 @@ class QuickPick
         Log::debug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
         // Fetch the JSON content from the URL
-        $jsonContent = file_get_contents( QUICKPICK_JSON_URL );
+        $jsonContent = @file_get_contents( QUICKPICK_JSON_URL );
 
         if ( $jsonContent === false ) {
             // Handle error if the file could not be fetched
