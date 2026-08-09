@@ -713,6 +713,14 @@ class QuickPick
 
             $moduleType = $this->modules[$moduleKey]['type'];
 
+            // Reject malformed version strings before they reach the config
+            // file (they later drive generated shell commands). This guards
+            // against a compromised or tampered releases feed.
+            if (preg_match('/^[0-9][0-9a-zA-Z.\-+]*$/', $version) !== 1) {
+                Log::error("Invalid version format for module: $module");
+                return false;
+            }
+
             // Map module names to their config section names
             // For all types, use the lowercase name for the config key
             $configSection = strtolower($moduleKey);
