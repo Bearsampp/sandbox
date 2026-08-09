@@ -57,6 +57,9 @@ class Csrf
      */
     public static function init()
     {
+        // Harden session settings before the session is started
+        self::configureSession();
+
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -72,6 +75,34 @@ class Csrf
     }
 
     /**
+     * Hardens the session configuration before a session is started.
+     * These settings are also present in the bundled php.ini, but are applied
+     * here as defense in depth in case that file is customized.
+     *
+     * @return void
+     */
+    private static function configureSession()
+    {
+        // Only relevant before the session has been started
+        if (session_status() !== PHP_SESSION_NONE || session_id() !== '') {
+            return;
+        }
+
+        $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+
+        session_set_cookie_params([
+            'lifetime' => 0,
+            'path' => '/',
+            'secure' => $secure,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
+
+        ini_set('session.use_only_cookies', '1');
+        ini_set('session.use_strict_mode', '1');
+    }
+
+    /**
      * Generates a new CSRF token and stores it in the session.
      *
      * @return string The generated CSRF token
@@ -81,14 +112,9 @@ class Csrf
     {
         self::init();
 
-        try {
-            // Generate cryptographically secure random token
-            $token = bin2hex(random_bytes(32));
-        } catch (Exception $e) {
-            Log::error('Failed to generate CSRF token: ' . $e->getMessage());
-            // Fallback to less secure but functional method
-            $token = hash('sha256', uniqid('bearsampp_csrf_', true) . microtime(true));
-        }
+        // Fail closed: never fall back to weak randomness. random_bytes()
+        // throws if no secure source of entropy is available.
+        $token = bin2hex(random_bytes(32));
 
         // Store token with timestamp
         $_SESSION[self::SESSION_KEY][$token] = time();
@@ -177,22 +203,27 @@ class Csrf
     }
 
     /**
-     * Validates a CSRF token from the request (POST or GET).
-     * Checks $_POST['csrf_token'] first, then $_GET['csrf_token'], then headers.
+     * Validates a CSRF token from the request (POST body or header).
+     * Checks $_POST['csrf_token'] first, then the X-CSRF-Token header.
+     * Also verifies the request is same-origin.
      *
      * @param bool $removeAfterValidation Whether to remove the token after successful validation
      * @return bool True if token is valid, false otherwise
      */
     public static function validateRequest($removeAfterValidation = false)
     {
-        // Check POST first (most common for AJAX)
-        if (isset($_POST['csrf_token'])) {
-            return self::validateToken($_POST['csrf_token'], $removeAfterValidation);
+        // Reject cross-origin requests before checking the token.
+        // Combined with SameSite=Strict cookies this blocks classic CSRF and
+        // DNS-rebinding attacks.
+        if (!self::validateOrigin()) {
+            return false;
         }
 
-        // Check GET as fallback
-        if (isset($_GET['csrf_token'])) {
-            return self::validateToken($_GET['csrf_token'], $removeAfterValidation);
+        // Accept the token from the POST body or a dedicated header only.
+        // Tokens in the query string leak via Referer headers, logs and
+        // browser history.
+        if (isset($_POST['csrf_token'])) {
+            return self::validateToken($_POST['csrf_token'], $removeAfterValidation);
         }
 
         // Check custom header (for AJAX requests)
@@ -206,6 +237,56 @@ class Csrf
         }
 
         Log::warning('CSRF validation failed: No token in request');
+        return false;
+    }
+
+    /**
+     * Validates that the request originates from the same host that serves the
+     * homepage. Uses the Origin header when present and falls back to the
+     * Referer header. Browsers always send Origin on cross-origin POST
+     * requests, so a missing Origin/Referer on a state-changing request is
+     * treated as invalid.
+     *
+     * @return bool True if the request is same-origin, false otherwise
+     */
+    private static function validateOrigin()
+    {
+        $host = isset($_SERVER['HTTP_HOST']) ? (string)$_SERVER['HTTP_HOST'] : '';
+        if ($host === '') {
+            Log::warning('CSRF validation failed: HTTP_HOST not available');
+            return false;
+        }
+        $host = strtolower(preg_replace('/:\d+$/', '', $host));
+
+        $origin = isset($_SERVER['HTTP_ORIGIN']) ? (string)$_SERVER['HTTP_ORIGIN'] : '';
+        if ($origin !== '') {
+            $originHost = strtolower((string)parse_url($origin, PHP_URL_HOST));
+            if ($originHost === '') {
+                Log::warning('CSRF validation failed: Unparseable Origin header');
+                return false;
+            }
+            if ($originHost !== $host) {
+                Log::warning('CSRF validation failed: Origin host "' . $originHost . '" does not match "' . $host . '"');
+                return false;
+            }
+            return true;
+        }
+
+        $referer = isset($_SERVER['HTTP_REFERER']) ? (string)$_SERVER['HTTP_REFERER'] : '';
+        if ($referer !== '') {
+            $refererHost = strtolower((string)parse_url($referer, PHP_URL_HOST));
+            if ($refererHost === '') {
+                Log::warning('CSRF validation failed: Unparseable Referer header');
+                return false;
+            }
+            if ($refererHost !== $host) {
+                Log::warning('CSRF validation failed: Referer host "' . $refererHost . '" does not match "' . $host . '"');
+                return false;
+            }
+            return true;
+        }
+
+        Log::warning('CSRF validation failed: Missing Origin and Referer headers');
         return false;
     }
 
