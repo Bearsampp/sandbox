@@ -168,8 +168,8 @@ class QuickPick
         // Determine local file creation time or rebuild if missing
         $localFileCreationTime = $this->getLocalFileCreationTime();
 
-        // Attempt to retrieve remote file headers
-        $headers = get_headers(QUICKPICK_JSON_URL, 1);
+        // Attempt to retrieve remote file headers (verified TLS context)
+        $headers = get_headers(QUICKPICK_JSON_URL, 1, HttpClient::getSslStreamContext());
         if (!$this->isValidHeaderResponse($headers)) {
             // If headers or Date are invalid, assume no update needed
             return false;
@@ -264,8 +264,8 @@ class QuickPick
     {
         Log::debug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
-        // Fetch the JSON content from the URL
-        $jsonContent = file_get_contents( QUICKPICK_JSON_URL );
+        // Fetch the JSON content from the URL (verified TLS context)
+        $jsonContent = file_get_contents( QUICKPICK_JSON_URL, false, HttpClient::getSslStreamContext() );
 
         if ( $jsonContent === false ) {
             // Handle error if the file could not be fetched
@@ -395,10 +395,10 @@ class QuickPick
         $url = QUICKPICK_API_URL . QUICKPICK_API_KEY . '&download_id=' . $DownloadId;
         Log::debug( 'API URL: ' . $url );
 
-        // Attempt to fetch the API response
+        // Attempt to fetch the API response (verified TLS context)
         // Note: If this fails, PHP will generate a warning which will be logged by the error handler
         // This is expected behavior when the API server is unavailable
-        $response = file_get_contents( $url );
+        $response = file_get_contents( $url, false, HttpClient::getSslStreamContext() );
 
         // Check if the response is false
         if ( $response === false ) {
