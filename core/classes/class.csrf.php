@@ -241,53 +241,216 @@ class Csrf
     }
 
     /**
-     * Validates that the request originates from the same host that serves the
-     * homepage. Uses the Origin header when present and falls back to the
-     * Referer header. Browsers always send Origin on cross-origin POST
-     * requests, so a missing Origin/Referer on a state-changing request is
-     * treated as invalid.
+     * Validates that the request is addressed to an intended/trusted host and
+     * originates from that same origin.
+     *
+     * The request host (HTTP_HOST) must be part of a fixed allowlist of hosts
+     * the local server is meant to serve (localhost, 127.0.0.1, ::1, the
+     * machine hostname and any configured virtual hosts). Comparing the Origin
+     * header against an attacker-influenced HTTP_HOST alone would not stop
+     * DNS-rebinding attacks, where a malicious domain is pointed at 127.0.0.1
+     * and both the Host and Origin headers are controlled by the attacker.
+     *
+     * Uses the Origin header when present and falls back to the Referer header.
+     * Browsers always send Origin on cross-origin POST requests, so a missing
+     * Origin/Referer on a state-changing request is treated as invalid.
      *
      * @return bool True if the request is same-origin, false otherwise
      */
     private static function validateOrigin()
     {
-        $host = isset($_SERVER['HTTP_HOST']) ? (string)$_SERVER['HTTP_HOST'] : '';
-        if ($host === '') {
+        $httpHost = isset($_SERVER['HTTP_HOST']) ? (string)$_SERVER['HTTP_HOST'] : '';
+        if ($httpHost === '') {
             Log::warning('CSRF validation failed: HTTP_HOST not available');
             return false;
         }
-        $host = strtolower(preg_replace('/:\d+$/', '', $host));
+
+        $allowedHosts = self::getAllowedHosts();
+
+        // The request must be addressed to an intended host. This is the key
+        // defense against DNS rebinding: an attacker's domain, even resolved
+        // to 127.0.0.1, will not be in the allowlist.
+        $requestHost = self::normalizeHost($httpHost);
+        if (!in_array($requestHost, $allowedHosts, true)) {
+            Log::warning('CSRF validation failed: Request host "' . $requestHost . '" is not an allowed host');
+            return false;
+        }
+
+        $scheme = (!empty($_SERVER['HTTPS']) && strtolower((string)$_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 
         $origin = isset($_SERVER['HTTP_ORIGIN']) ? (string)$_SERVER['HTTP_ORIGIN'] : '';
         if ($origin !== '') {
-            $originHost = strtolower((string)parse_url($origin, PHP_URL_HOST));
-            if ($originHost === '') {
-                Log::warning('CSRF validation failed: Unparseable Origin header');
-                return false;
-            }
-            if ($originHost !== $host) {
-                Log::warning('CSRF validation failed: Origin host "' . $originHost . '" does not match "' . $host . '"');
-                return false;
-            }
-            return true;
+            return self::isAllowedOrigin($origin, $httpHost, $scheme, $allowedHosts);
         }
 
         $referer = isset($_SERVER['HTTP_REFERER']) ? (string)$_SERVER['HTTP_REFERER'] : '';
         if ($referer !== '') {
-            $refererHost = strtolower((string)parse_url($referer, PHP_URL_HOST));
-            if ($refererHost === '') {
-                Log::warning('CSRF validation failed: Unparseable Referer header');
-                return false;
-            }
-            if ($refererHost !== $host) {
-                Log::warning('CSRF validation failed: Referer host "' . $refererHost . '" does not match "' . $host . '"');
-                return false;
-            }
-            return true;
+            return self::isAllowedOrigin($referer, $httpHost, $scheme, $allowedHosts);
         }
 
         Log::warning('CSRF validation failed: Missing Origin and Referer headers');
         return false;
+    }
+
+    /**
+     * Builds the allowlist of hosts the local server is intended to serve.
+     * Keeps DNS-rebinding protection effective while still allowing access
+     * through the machine hostname and any user-configured virtual hosts.
+     *
+     * @return array List of allowed, normalized host names.
+     */
+    private static function getAllowedHosts()
+    {
+        $allowed = array('localhost', '127.0.0.1', '[::1]', '::1');
+
+        $hostname = function_exists('gethostname') ? @gethostname() : false;
+        if ($hostname !== false && $hostname !== '') {
+            $allowed[] = self::normalizeHost($hostname);
+        }
+
+        global $bearsamppConfig;
+        if (is_object($bearsamppConfig) && method_exists($bearsamppConfig, 'getHostname')) {
+            $cfgHostname = $bearsamppConfig->getHostname();
+            if (is_string($cfgHostname) && $cfgHostname !== '') {
+                $allowed[] = self::normalizeHost($cfgHostname);
+            }
+        }
+
+        global $bearsamppBins;
+        if (is_object($bearsamppBins) && method_exists($bearsamppBins, 'getApache')) {
+            try {
+                $apache = $bearsamppBins->getApache();
+                if (is_object($apache) && method_exists($apache, 'getVhosts')) {
+                    foreach ($apache->getVhosts() as $vhost) {
+                        if (is_string($vhost) && $vhost !== '') {
+                            $allowed[] = self::normalizeHost($vhost);
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Host discovery must never break CSRF validation
+                Log::warning('CSRF validation failed: Unable to read virtual hosts: ' . $e->getMessage());
+            }
+        }
+
+        return array_values(array_unique($allowed));
+    }
+
+    /**
+     * Normalizes a host header/name to a comparable form: lowercased, with any
+     * explicit port removed and IPv6 addresses bracketed ([::1]).
+     *
+     * @param string $host The raw host.
+     * @return string The normalized host.
+     */
+    private static function normalizeHost($host)
+    {
+        $host = strtolower(trim((string)$host));
+
+        // Strip a trailing port (both host:port and [ipv6]:port forms)
+        if (preg_match('/^\[.*\]:\d+$/', $host)) {
+            $host = substr($host, 0, strrpos($host, ':'));
+        } elseif (preg_match('/^[^:]+:\d+$/', $host)) {
+            $host = substr($host, 0, strrpos($host, ':'));
+        }
+
+        // Bracket IPv6 loopback so ::1 and [::1] compare equal
+        if ($host === '::1') {
+            $host = '[::1]';
+        }
+
+        return $host;
+    }
+
+    /**
+     * Checks that an Origin/Referer URL belongs to an allowed host and matches
+     * the scheme, host and effective port the request was addressed to.
+     *
+     * @param string $url The Origin or Referer header value.
+     * @param string $httpHost The raw HTTP_HOST header (may include a port).
+     * @param string $scheme The request scheme ('http' or 'https').
+     * @param array $allowedHosts The allowlist of permitted hosts.
+     * @return bool True if the origin is allowed, false otherwise.
+     */
+    private static function isAllowedOrigin($url, $httpHost, $scheme, array $allowedHosts)
+    {
+        $parts = parse_url($url);
+        if ($parts === false || empty($parts['host'])) {
+            Log::warning('CSRF validation failed: Unparseable Origin/Referer header');
+            return false;
+        }
+
+        // Reject URLs carrying credentials (userinfo). Real browser Origins
+        // never contain them, so this is purely defense in depth.
+        if (isset($parts['user']) || isset($parts['pass'])) {
+            Log::warning('CSRF validation failed: Origin/Referer header must not contain credentials');
+            return false;
+        }
+
+        $originScheme = isset($parts['scheme']) ? strtolower($parts['scheme']) : '';
+        if (!in_array($originScheme, array('http', 'https'), true)) {
+            Log::warning('CSRF validation failed: Unsupported Origin/Referer scheme "' . $originScheme . '"');
+            return false;
+        }
+
+        $originHost = self::normalizeHost($parts['host']);
+        if (!in_array($originHost, $allowedHosts, true)) {
+            Log::warning('CSRF validation failed: Origin/Referer host "' . $originHost . '" is not an allowed host');
+            return false;
+        }
+
+        // The scheme of the origin must match the scheme the request was made over
+        if ($originScheme !== $scheme) {
+            Log::warning('CSRF validation failed: Origin/Referer scheme "' . $originScheme . '" does not match request scheme "' . $scheme . '"');
+            return false;
+        }
+
+        // The origin host must match the host the request was addressed to
+        $requestHost = self::normalizeHost($httpHost);
+        if ($originHost !== $requestHost) {
+            Log::warning('CSRF validation failed: Origin/Referer host "' . $originHost . '" does not match request host "' . $requestHost . '"');
+            return false;
+        }
+
+        // The effective port of the origin must match the request port
+        if (self::getOriginPort($parts, $originScheme) !== self::getRequestPort($httpHost, $scheme)) {
+            Log::warning('CSRF validation failed: Origin/Referer port mismatch');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Resolves the effective port of an Origin/Referer URL, falling back to the
+     * default port of the scheme when none is explicitly present.
+     *
+     * @param array $parts The parsed URL components.
+     * @param string $scheme The origin scheme ('http' or 'https').
+     * @return int The effective port.
+     */
+    private static function getOriginPort(array $parts, $scheme)
+    {
+        if (isset($parts['port']) && is_numeric($parts['port'])) {
+            return (int)$parts['port'];
+        }
+        return $scheme === 'https' ? 443 : 80;
+    }
+
+    /**
+     * Resolves the effective port of the request from the HTTP_HOST header,
+     * falling back to the default port of the scheme when none is present.
+     *
+     * @param string $httpHost The raw HTTP_HOST header (may include a port).
+     * @param string $scheme The request scheme ('http' or 'https').
+     * @return int The effective port.
+     */
+    private static function getRequestPort($httpHost, $scheme)
+    {
+        if (preg_match('/:(\d+)$/', $httpHost, $matches)) {
+            return (int)$matches[1];
+        }
+        return $scheme === 'https' ? 443 : 80;
     }
 
     /**
