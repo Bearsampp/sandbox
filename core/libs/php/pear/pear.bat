@@ -25,6 +25,8 @@ REM Check PEAR global ENV, set them if they do not exist
 IF "%PHP_PEAR_INSTALL_DIR%"=="" SET "PHP_PEAR_INSTALL_DIR=%~dp0pear"
 IF "%PHP_PEAR_BIN_DIR%"=="" SET "PHP_PEAR_BIN_DIR=%~dp0"
 IF "%PHP_PEAR_PHP_BIN%"=="" SET "PHP_PEAR_PHP_BIN=%~dp0..\php.exe"
+IF "%PHP_PEAR_SYSCONF_DIR%"=="" SET "PHP_PEAR_SYSCONF_DIR=%~dp0"
+IF "%PHP_PEAR_SYSCONF_DIR:~-1%"=="\" SET "PHP_PEAR_SYSCONF_DIR=%PHP_PEAR_SYSCONF_DIR:~0,-1%"
 
 GOTO :INSTALLED
 
@@ -106,6 +108,6 @@ ECHO The current value is:
 ECHO %PHP_PEAR_PHP_BIN%
 GOTO END
 :RUN
-"%PHP_PEAR_PHP_BIN%" -C -d date.timezone=UTC -d output_buffering=1 -d safe_mode=0 -d open_basedir="" -d auto_prepend_file="" -d auto_append_file="" -d variables_order=EGPCS -d register_argc_argv="On" -d "include_path='%PHP_PEAR_INSTALL_DIR%'" -f "%PHP_PEAR_INSTALL_DIR%\pearcmd.php" -- %1 %2 %3 %4 %5 %6 %7 %8 %9
+"%PHP_PEAR_PHP_BIN%" -C -d date.timezone=UTC -d output_buffering=1 -d safe_mode=0 -d open_basedir="" -d auto_prepend_file="" -d auto_append_file="" -d variables_order=EGPCS -d register_argc_argv="On" -d "include_path='%PHP_PEAR_INSTALL_DIR%'" -f "%PHP_PEAR_INSTALL_DIR%\pearcmd.php" -- %*
 :END
 @ECHO ON

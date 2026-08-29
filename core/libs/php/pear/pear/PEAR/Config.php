@@ -53,6 +53,10 @@ if (PEAR_RUNTYPE == 'pear') {
 
 if (getenv('PHP_PEAR_SYSCONF_DIR')) {
     define('PEAR_CONFIG_SYSCONFDIR', getenv('PHP_PEAR_SYSCONF_DIR'));
+} elseif (file_exists(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'pearsys.ini')) {
+    // portable fallback: keep configuration next to the bundled trees instead of
+    // writing into %SystemRoot% when no sysconf dir is provided by the launcher
+    define('PEAR_CONFIG_SYSCONFDIR', dirname(__DIR__, 2));
 } elseif (getenv('SystemRoot')) {
     define('PEAR_CONFIG_SYSCONFDIR', getenv('SystemRoot'));
 } else {
