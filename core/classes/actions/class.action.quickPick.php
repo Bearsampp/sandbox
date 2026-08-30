@@ -345,7 +345,12 @@ class QuickPick
     {
         $this->getVersions();
         Log::debug( 'getModuleUrl called for module: ' . $module . ' version: ' . $version );
-        $url = trim( $this->versions['module-' . strtolower( $module )][$version]['url'] );
+        $moduleKey = 'module-' . strtolower( $module );
+        if ( !isset( $this->versions[$moduleKey][$version]['url'] ) ) {
+            Log::error( 'Version not found: ' . $version );
+            return ['error' => 'Version not found'];
+        }
+        $url = trim( $this->versions[$moduleKey][$version]['url'] );
         if ( $url <> '' ) {
             Log::debug( 'Found URL for version: ' . $version . ' URL: ' . $url );
 

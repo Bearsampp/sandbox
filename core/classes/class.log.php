@@ -193,9 +193,10 @@ class Log
         }
 
         if ($writeLog) {
+            // Sanitize line breaks to prevent log forging (injecting fake log lines).
             self::$logBuffer[] = [
                 'file' => $file,
-                'data' => $data,
+                'data' => str_replace(["\r", "\n"], ' ', (string)$data),
                 'type' => $type,
                 'time' => time(),
             ];
