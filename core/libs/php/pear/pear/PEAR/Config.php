@@ -79,11 +79,17 @@ if (getenv('PHP_PEAR_HTTP_PROXY')) {
     define('PEAR_CONFIG_DEFAULT_HTTP_PROXY', '');
 }
 
+// The bundled PEAR base lives next to this file, so the directory defaults can
+// be derived from the runtime location instead of the machine where this bundle
+// was assembled (the build machine's compile-time paths are meaningless here).
+$bearsamppPearBase = dirname(__DIR__, 2);
+
 // Default for php_dir
 if (getenv('PHP_PEAR_INSTALL_DIR')) {
     define('PEAR_CONFIG_DEFAULT_PHP_DIR', getenv('PHP_PEAR_INSTALL_DIR'));
 } else {
-    define('PEAR_CONFIG_DEFAULT_PHP_DIR', $PEAR_INSTALL_DIR);
+    define('PEAR_CONFIG_DEFAULT_PHP_DIR',
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'pear');
 }
 
 // Default for metadata_dir
@@ -114,14 +120,14 @@ if (getenv('PHP_PEAR_DOC_DIR')) {
     define('PEAR_CONFIG_DEFAULT_DOC_DIR', getenv('PHP_PEAR_DOC_DIR'));
 } else {
     define('PEAR_CONFIG_DEFAULT_DOC_DIR',
-           $PEAR_INSTALL_DIR.DIRECTORY_SEPARATOR.'docs');
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'docs');
 }
 
 // Default for bin_dir
 if (getenv('PHP_PEAR_BIN_DIR')) {
     define('PEAR_CONFIG_DEFAULT_BIN_DIR', getenv('PHP_PEAR_BIN_DIR'));
 } else {
-    define('PEAR_CONFIG_DEFAULT_BIN_DIR', PHP_BINDIR);
+    define('PEAR_CONFIG_DEFAULT_BIN_DIR', $bearsamppPearBase);
 }
 
 // Default for data_dir
@@ -129,7 +135,7 @@ if (getenv('PHP_PEAR_DATA_DIR')) {
     define('PEAR_CONFIG_DEFAULT_DATA_DIR', getenv('PHP_PEAR_DATA_DIR'));
 } else {
     define('PEAR_CONFIG_DEFAULT_DATA_DIR',
-           $PEAR_INSTALL_DIR.DIRECTORY_SEPARATOR.'data');
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'data');
 }
 
 // Default for cfg_dir
@@ -137,7 +143,7 @@ if (getenv('PHP_PEAR_CFG_DIR')) {
     define('PEAR_CONFIG_DEFAULT_CFG_DIR', getenv('PHP_PEAR_CFG_DIR'));
 } else {
     define('PEAR_CONFIG_DEFAULT_CFG_DIR',
-           $PEAR_INSTALL_DIR.DIRECTORY_SEPARATOR.'cfg');
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'cfg');
 }
 
 // Default for www_dir
@@ -145,19 +151,16 @@ if (getenv('PHP_PEAR_WWW_DIR')) {
     define('PEAR_CONFIG_DEFAULT_WWW_DIR', getenv('PHP_PEAR_WWW_DIR'));
 } else {
     define('PEAR_CONFIG_DEFAULT_WWW_DIR',
-           $PEAR_INSTALL_DIR.DIRECTORY_SEPARATOR.'www');
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'www');
 }
 
 // Default for man_dir
 if (getenv('PHP_PEAR_MAN_DIR')) {
     define('PEAR_CONFIG_DEFAULT_MAN_DIR', getenv('PHP_PEAR_MAN_DIR'));
 } else {
-    if (defined('PHP_MANDIR')) { // Added in PHP5.3.7
-        define('PEAR_CONFIG_DEFAULT_MAN_DIR', PHP_MANDIR);
-    } else {
-        define('PEAR_CONFIG_DEFAULT_MAN_DIR', PHP_PREFIX . DIRECTORY_SEPARATOR .
-           'local' . DIRECTORY_SEPARATOR .'man');
-    }
+    define('PEAR_CONFIG_DEFAULT_MAN_DIR',
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'docs'.
+           DIRECTORY_SEPARATOR.'man');
 }
 
 // Default for test_dir
@@ -165,7 +168,7 @@ if (getenv('PHP_PEAR_TEST_DIR')) {
     define('PEAR_CONFIG_DEFAULT_TEST_DIR', getenv('PHP_PEAR_TEST_DIR'));
 } else {
     define('PEAR_CONFIG_DEFAULT_TEST_DIR',
-           $PEAR_INSTALL_DIR.DIRECTORY_SEPARATOR.'tests');
+           $bearsamppPearBase.DIRECTORY_SEPARATOR.'tests');
 }
 
 // Default for temp_dir
@@ -199,8 +202,9 @@ if (getenv('PHP_PEAR_DOWNLOAD_DIR')) {
 if (getenv('PHP_PEAR_PHP_BIN')) {
     define('PEAR_CONFIG_DEFAULT_PHP_BIN', getenv('PHP_PEAR_PHP_BIN'));
 } else {
-    define('PEAR_CONFIG_DEFAULT_PHP_BIN', PEAR_CONFIG_DEFAULT_BIN_DIR.
-           DIRECTORY_SEPARATOR.'php'.(OS_WINDOWS ? '.exe' : ''));
+    define('PEAR_CONFIG_DEFAULT_PHP_BIN',
+           dirname(__DIR__, 3).DIRECTORY_SEPARATOR.'php'.
+           (OS_WINDOWS ? '.exe' : ''));
 }
 
 // Default for verbose

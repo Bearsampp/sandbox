@@ -32,21 +32,22 @@ $pearDir = Path::getPearPath() . '/pear';
 ini_set('include_path', $pearDir . PATH_SEPARATOR . get_include_path());
 
 /**
- * Rewrites the absolute paths stored in the PEAR registry so that package
- * management operations work from any installation location.
+ * Makes the PEAR registry portable.
  *
- * The committed .registry/*.reg files are produced on the machine that assembles
- * the bundle and embed absolute paths. PEAR directly consumes "installed_as"
- * when listing and deleting installed package files and the "dirtree" folder
- * keys for directory cleanup on uninstall, so every embedded absolute Windows
- * path is rebased to the runtime location (derived relative to the Bearsampp
- * root) before the registry is read. The rewrite is idempotent: entries already
- * pointing at the current location are left untouched.
+ * The committed .registry/*.reg files store every path relative to the
+ * Bearsampp root (e.g. core\libs\php\pear\pear\PEAR.php), so the bundle is
+ * relocatable. PEAR itself needs absolute paths because it consumes
+ * "installed_as" when listing and deleting installed package files and the
+ * "dirtree" keys when cleaning directories up on uninstall, so on every
+ * invocation each root-relative entry is resolved against the runtime root
+ * before the registry is read. The rewrite is idempotent; absolute entries
+ * left over from an older bundle are re-based as well.
  */
 function bearsamppRelocatePearRegistry($pearDir)
 {
     $runtimeRoot    = str_replace('\\', '/', rtrim(dirname($pearDir), '/\\'));
     $runtimeRootWin = str_replace('/', '\\', $runtimeRoot);
+    $appRootWin     = str_replace('/', '\\', dirname($pearDir, 5));
     $registryDir    = $pearDir . '/.registry';
 
     if (!is_dir($registryDir)) {
@@ -60,8 +61,8 @@ function bearsamppRelocatePearRegistry($pearDir)
         }
 
         $relocated = preg_replace_callback(
-            '/(s:)\d+(:")([A-Za-z]:\\\\[^"]*)(")/',
-            function ($match) use ($runtimeRoot, $runtimeRootWin) {
+            '/(s:)\d+(:")([A-Za-z]:\\\\[^"]*|core\\\\libs\\\\php\\\\pear(?:\\\\[^"]*)?)(")/',
+            function ($match) use ($runtimeRoot, $runtimeRootWin, $appRootWin) {
                 $path = $match[3];
 
                 if (stripos($path, $runtimeRootWin) === 0 ||
@@ -69,13 +70,19 @@ function bearsamppRelocatePearRegistry($pearDir)
                     return $match[0]; // already points at the runtime location
                 }
 
-                // the pear base directory itself (dirtree entry for the base)
+                // root-relative value committed for portability:
+                //   core\libs\php\pear[anything] -> <approot>\core\libs\php\pear[anything]
+                if (preg_match('#^core\\\\libs\\\\php\\\\pear(?:\\\\[^"]*)?$#i', $path)) {
+                    $path = $appRootWin . '\\' . $path;
+                    return $match[1] . strlen($path) . $match[2] . $path . $match[4];
+                }
+
+                // legacy absolute path from a previously assembled bundle
                 if (preg_match('#^[A-Za-z]:\\\\[^\r\n"]*?\\\\pear$#i', $path)) {
                     return $match[1] . strlen($runtimeRootWin) . $match[2] .
                         $runtimeRootWin . $match[4];
                 }
 
-                // base\<pear|tests|docs|data|cfg|scripts|doc> directory/file tree
                 if (preg_match(
                     '#^[A-Za-z]:\\\\[^\r\n"]*?\\\\pear\\\\(pear|tests|docs|data|cfg|scripts|doc)(.*)$#i',
                     $path,
@@ -85,7 +92,6 @@ function bearsamppRelocatePearRegistry($pearDir)
                     return $match[1] . strlen($path) . $match[2] . $path . $match[4];
                 }
 
-                // file directly inside the pear base dir (e.g. pear.bat)
                 if (preg_match(
                     '#^[A-Za-z]:\\\\[^\r\n"]*?\\\\pear\\\\([^"\\\\]+)$#i',
                     $path,
