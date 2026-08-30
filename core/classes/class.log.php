@@ -37,6 +37,9 @@ class Log
     /** @var int Maximum size (bytes) of a single async queue content entry. */
     const MAX_QUEUE_CONTENT_LENGTH = 1048576; // 1 MB
 
+    /** @var int Maximum number of queue files read and processed in a single pass. */
+    const MAX_QUEUE_BATCH = 200;
+
     /** @var int Maximum number of sanitized target files processed in one pass. */
     const MAX_QUEUE_TARGETS = 50;
 
@@ -79,7 +82,7 @@ class Log
     {
         if (!self::$shutdownRegistered) {
             register_shutdown_function([__CLASS__, 'flush']);
-            register_shutdown_function([__CLASS__, 'processAsyncQueue']);
+            register_shutdown_function([__CLASS__, 'flushAsyncQueue']);
             self::$shutdownRegistered = true;
 
             // Initialize async queue directory
@@ -392,7 +395,20 @@ class Log
      */
     public static function flushAsyncQueue()
     {
-        return self::processAsyncQueue();
+        $totalProcessed = 0;
+
+        // processAsyncQueue() processes one bounded batch; loop until nothing is left so the
+        // manual flush and the shutdown path drain the queue completely.
+        $iterationCap = 1000;
+        for ($i = 0; $i < $iterationCap; $i++) {
+            $processed = self::processAsyncQueue();
+            if ($processed <= 0) {
+                break;
+            }
+            $totalProcessed += $processed;
+        }
+
+        return $totalProcessed;
     }
 
     /**
@@ -411,15 +427,19 @@ class Log
 
         try {
             $queueFiles = glob(self::$asyncQueueDir . '/*.queue');
-
-            if (empty($queueFiles)) {
+            if (!is_array($queueFiles) || empty($queueFiles)) {
                 return 0;
             }
+
+            // Bound the work performed in one pass: read at most MAX_QUEUE_BATCH files so
+            // a flood of queue entries cannot exhaust memory. Anything beyond the batch,
+            // or deferred by the target cap below, is left on disk for a later pass.
+            $batchFiles = array_slice($queueFiles, 0, self::MAX_QUEUE_BATCH);
 
             // Group entries by target file
             $entriesByFile = [];
 
-            foreach ($queueFiles as $queueFile) {
+            foreach ($batchFiles as $queueFile) {
                 try {
                     // Read and deserialize queue entry
                     $serialized = @file_get_contents($queueFile);
@@ -442,6 +462,14 @@ class Log
                         // Invalid/unsafe target - discard the rogue entry
                         @unlink($queueFile);
                         continue;
+                    }
+
+                    // Cap the distinct target files processed in this pass. Once reached, stop
+                    // accumulating and leave this entry (and those after it) untouched so they
+                    // are preserved for a later pass rather than being dropped.
+                    if (!isset($entriesByFile[$targetFile]) &&
+                        count($entriesByFile) >= self::MAX_QUEUE_TARGETS) {
+                        break;
                     }
 
                     // Cap the content size to prevent log bloat / disk exhaustion from rogue entries.
