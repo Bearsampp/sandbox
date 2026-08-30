@@ -107,7 +107,9 @@ class HttpClient
             return $result;
         }
 
-        Log::trace('getCurlHttpHeaders:' . $response);
+        // Cap the logged response to a small prefix so headers/body never saturate
+        // the log and any transient sensitive data in the body is not written verbatim.
+        Log::trace('getCurlHttpHeaders: ' . substr($response, 0, 512));
         $responseHeaders = explode("\r\n\r\n", $response, 2);
         if (!isset($responseHeaders[0]) || empty($responseHeaders[0])) {
             return $result;
@@ -307,12 +309,12 @@ class HttpClient
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
-            Log::error('CURL Error (' . curl_errno($ch) . '): ' . curl_error($ch) . ' (URL: ' . $url . ')');
+            Log::error('CURL Error (' . curl_errno($ch) . '): ' . curl_error($ch) . ' (URL: ' . self::redactUrl($url) . ')');
         }
 
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($httpCode >= 400) {
-            Log::error('HTTP Error ' . $httpCode . ' for URL: ' . $url);
+            Log::error('HTTP Error ' . $httpCode . ' for URL: ' . self::redactUrl($url));
         }
 
         // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
@@ -384,6 +386,41 @@ class HttpClient
     public static function getCacertPath()
     {
         return Path::getPhpPath() . '/extras/ssl/cacert.pem';
+    }
+
+    /**
+     * Redacts sensitive query-string parameters from a URL before it is logged.
+     *
+     * URLs passed to this class can carry credentials such as an API key or a
+     * license/download ID (e.g. `?api_key=...&download_id=...`). Writing those
+     * verbatim into log files would leak them, so any matching parameter's value
+     * is masked.
+     *
+     * @param   string  $url  The URL to redact.
+     * @return  string        The URL with sensitive parameter values replaced by '******'.
+     */
+    public static function redactUrl($url)
+    {
+        $url = (string)$url;
+        if ($url === '' || strpos($url, '?') === false) {
+            return $url;
+        }
+
+        $sensitiveParams = ['api_key', 'download_id', 'token', 'access_token', 'auth', 'password', 'passwd', 'key', 'secret'];
+
+        [$base, $query] = explode('?', $url, 2);
+        parse_str($query, $params);
+
+        foreach ($params as $name => &$value) {
+            foreach ($sensitiveParams as $sensitive) {
+                if (stripos($name, $sensitive) !== false) {
+                    $value = '******';
+                    break;
+                }
+            }
+        }
+
+        return $base . '?' . http_build_query($params);
     }
 
     /**

@@ -399,7 +399,6 @@ class QuickPick
         }
 
         $DownloadId = $bearsamppConfig->getDownloadId();
-        Log::debug( 'DownloadId is: ' . $DownloadId );
 
         // Ensure the license key is not empty
         if ( empty( $DownloadId ) ) {
@@ -409,7 +408,8 @@ class QuickPick
         }
 
         $url = QUICKPICK_API_URL . QUICKPICK_API_KEY . '&download_id=' . $DownloadId;
-        Log::debug( 'API URL: ' . $url );
+        // Never log the raw URL: it embeds both the API key and the per-user download ID.
+        Log::debug( 'Validating download ID via QuickPick API.' );
 
         // Attempt to fetch the API response (verified TLS context)
         // Note: If this fails, PHP will generate a warning which will be logged by the error handler
