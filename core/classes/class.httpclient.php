@@ -495,21 +495,34 @@ class HttpClient
     /**
      * Checks the current state of the internet connection.
      *
-     * This method attempts to reach a well-known website (e.g., www.google.com) to determine the state of the internet connection.
-     * It returns `true` if the connection is successful, otherwise it returns `false`.
+     * Opens a verified TLS connection to the project's own website over port 443.
+     * This keeps the probe encrypted (no plaintext traffic to a third party) and
+     * independent of external hosts such as Google.
      *
      * @return bool True if the internet connection is active, false otherwise.
      */
     public static function checkInternetState()
     {
-        $connected = @fsockopen('www.google.com', 80);
+        $host = str_replace(['https://', 'http://'], '', APP_WEBSITE);
+        $host = rtrim(parse_url($host, PHP_URL_HOST) ?: $host, '/');
+
+        // Verified TLS context: we only need to establish a clean TLS handshake, not
+        // fetch any content, so a successful connection is enough to confirm internet.
+        $connected = @stream_socket_client(
+            'tls://' . $host . ':443',
+            $errno,
+            $errstr,
+            5,
+            STREAM_CLIENT_CONNECT,
+            self::getSslStreamContext()
+        );
+
         if ($connected) {
             fclose($connected);
-
-            return true; // Internet connection is active
-        } else {
-            return false; // Internet connection is not active
+            return true;
         }
+
+        return false;
     }
 }
 
