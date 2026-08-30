@@ -185,6 +185,16 @@ class Core
         if ($progressCallback) {
             call_user_func($progressCallback, 'Analyzing archive...');
         }
+
+        // Defensive path-traversal scan: list the archive contents and reject any entry
+        // containing a parent-directory reference or an absolute path, so extraction can
+        // never escape the intended destination directory.
+        $listingOutput = CommandRunner::exec($sevenZipPath, ['l', '-slt', $filePath]);
+        if (is_string($listingOutput) && preg_match('/^(?:[A-Za-z]:)?[\\/\\\\]|\.\./', $listingOutput, $evil)) {
+            Log::error('Archive contains a path-traversal entry ("' . $evil[0] . '"): ' . $filePath);
+            return false;
+        }
+
         $testOutput = CommandRunner::exec($sevenZipPath, ['t', $filePath, '-y', '-bsp1']);
         preg_match('/Files: (\d+)/', $testOutput !== false ? $testOutput : '', $matches);
         $numFiles = isset($matches[1]) ? (int) $matches[1] : 0;
