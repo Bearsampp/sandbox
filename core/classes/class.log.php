@@ -34,6 +34,12 @@ class Log
     const DEBUG   = 'DEBUG';
     const TRACE   = 'TRACE';
 
+    /** @var int Maximum size (bytes) of a single async queue content entry. */
+    const MAX_QUEUE_CONTENT_LENGTH = 1048576; // 1 MB
+
+    /** @var int Maximum number of sanitized target files processed in one pass. */
+    const MAX_QUEUE_TARGETS = 50;
+
     /** @var array Log buffer for batching log writes */
     private static $logBuffer = [];
 
@@ -315,6 +321,11 @@ class Log
             return false;
         }
 
+        // Defense-in-depth: reject oversized content at the source.
+        if (strlen((string)$content) > self::MAX_QUEUE_CONTENT_LENGTH) {
+            return false;
+        }
+
         try {
             // Create a unique queue file for this write
             $queueFile = self::$asyncQueueDir . '/' . uniqid('log_', true) . '.queue';
@@ -335,6 +346,40 @@ class Log
             // Silently fail - this is async so we don't want to interrupt main process
             return false;
         }
+    }
+
+    /**
+     * Validates and normalizes a queue-entry target path.
+     *
+     * Queue files live in a shared tmp directory, so a local attacker could plant a
+     * rogue entry whose 'file' value points anywhere on disk. To prevent arbitrary
+     * file appends, we only accept paths that resolve inside the Bearsampp logs
+     * directory and contain no path-traversal ('..') segments.
+     *
+     * @param   string      $file  Raw target path from a queue entry.
+     * @return  string|null        Normalized safe path, or null if rejected.
+     */
+    private static function sanitizeQueueTarget($file)
+    {
+        $file = (string)$file;
+        if ($file === '' ) {
+            return null;
+        }
+
+        $normalized = str_replace('\\', '/', $file);
+        if (strpos($normalized, '..') !== false) {
+            return null;
+        }
+
+        $logsPath = Path::getLogsPath();
+        $logsPathNormalized = str_replace('\\', '/', rtrim($logsPath, '/\\')) . '/';
+
+        // Only allow appends into the application logs directory.
+        if (strpos($normalized, $logsPathNormalized) !== 0) {
+            return null;
+        }
+
+        return $file;
     }
 
     /**
@@ -389,13 +434,28 @@ class Log
                         continue;
                     }
 
-                    // Group by target file
-                    $targetFile = $entry['file'];
+                    // Validate the destination is inside the logs directory and not a path traversal.
+                    // Queue files live in a shared tmp dir, so a local attacker could plant a rogue
+                    // entry and redirect appends to arbitrary files if we trusted $entry['file'] blindly.
+                    $targetFile = self::sanitizeQueueTarget($entry['file']);
+                    if ($targetFile === null) {
+                        // Invalid/unsafe target - discard the rogue entry
+                        @unlink($queueFile);
+                        continue;
+                    }
+
+                    // Cap the content size to prevent log bloat / disk exhaustion from rogue entries.
+                    $content = (string)$entry['content'];
+                    if (strlen($content) > self::MAX_QUEUE_CONTENT_LENGTH) {
+                        @unlink($queueFile);
+                        continue;
+                    }
+
                     if (!isset($entriesByFile[$targetFile])) {
                         $entriesByFile[$targetFile] = [];
                     }
 
-                    $entriesByFile[$targetFile][] = $entry['content'];
+                    $entriesByFile[$targetFile][] = $content;
                     $processed++;
 
                     // Remove the processed queue file
