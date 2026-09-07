@@ -1588,6 +1588,30 @@ class Util
     }
 
     /**
+     * Resolves the GitHub token to use for authenticated requests.
+     *
+     * The bundled token (decrypted from github.dat) takes precedence so a stale
+     * or revoked GITHUB_TOKEN/GH_PAT on the host cannot break automated checks.
+     *
+     * @return string The resolved GitHub token, or '' when none is available.
+     */
+    public static function getGithubToken()
+    {
+        $token = self::decryptFile();
+        if (empty($token)) {
+            Log::trace('[VCHK-3] getGithubToken() bundled token unavailable - falling back to GITHUB_TOKEN env');
+            $token = getenv('GITHUB_TOKEN');
+        } else {
+            Log::trace('[VCHK-3] getGithubToken() bundled token decrypted successfully');
+        }
+        if (empty($token)) {
+            $token = getenv('GH_PAT');
+        }
+
+        return (string)$token;
+    }
+
+    /**
      * Sets up cURL headers for GitHub API requests.
      *
      * Authenticates with the bundled GitHub Personal Access Token when it can be
@@ -1610,16 +1634,7 @@ class Util
         // Authenticate with the bundled token to raise the rate limit. The bundled
         // token is preferred over environment tokens so a stale/expired GITHUB_TOKEN
         // or GH_PAT on a user's machine cannot break the version check.
-        $token = self::decryptFile();
-        if (empty($token)) {
-            Log::trace('[VCHK-3] setupCurlHeaderWithToken() bundled token not decrypted - falling back to env vars');
-            $token = getenv('GITHUB_TOKEN');
-        } else {
-            Log::trace('[VCHK-3] setupCurlHeaderWithToken() bundled token decrypted successfully');
-        }
-        if (empty($token)) {
-            $token = getenv('GH_PAT');
-        }
+        $token = self::getGithubToken();
         if (!empty($token)) {
             $headers[] = 'Authorization: token ' . $token;
             Log::trace('[VCHK-3] setupCurlHeaderWithToken() token IS in use - Authorization header attached (value never logged)');
