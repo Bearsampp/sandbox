@@ -957,7 +957,7 @@ class Util
     {
         $size = 0;
 
-        $data = get_headers($url, true, HttpClient::getSslStreamContext());
+        $data = get_headers($url, true, HttpClient::getSslStreamContext(true, $url));
         if (isset($data['Content-Length'])) {
             $size = intval($data['Content-Length']);
         }
@@ -1055,7 +1055,7 @@ class Util
     {
         $result = array();
 
-        $fp = @fopen($url, 'r', false, HttpClient::getSslStreamContext($verify));
+        $fp = @fopen($url, 'r', false, HttpClient::getSslStreamContext($verify, $url));
         if ($fp) {
             $meta   = stream_get_meta_data($fp);
             $result = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : $result;
@@ -1521,16 +1521,87 @@ class Util
     }
 
     /**
-     * Sets up cURL headers with token for API requests.
+     * Decrypts the GitHub Personal Access Token bundled with the application.
+     *
+     * The token is stored encrypted in github.dat (base64 + AES-256-CBC) using a
+     * key derived from string.dat (uudecoded). Authenticating against the GitHub
+     * API with this token raises the rate limit from 60 to 5000 requests/hour,
+     * which keeps the manual "check for update" reliable on shared/residential IPs.
+     *
+     * @return string|false The decrypted token, or false when the token
+     *                      files/cipher are unavailable or cannot be decoded.
+     */
+    public static function decryptFile()
+    {
+        $stringFile     = Path::getResourcesPath() . '/string.dat';
+        $encryptedFile  = Path::getResourcesPath() . '/github.dat';
+        $method         = 'AES-256-CBC';
+
+        $stringPhrase = @file_get_contents($stringFile);
+        if ($stringPhrase === false) {
+            Log::debug('Failed to read the key file at path: ' . $stringFile);
+            return false;
+        }
+
+        $stringKey = convert_uudecode($stringPhrase);
+
+        $encryptedData = @file_get_contents($encryptedFile);
+        if ($encryptedData === false) {
+            Log::debug('Failed to read the encrypted token file at path: ' . $encryptedFile);
+            return false;
+        }
+
+        $data = base64_decode($encryptedData);
+        if ($data === false) {
+            Log::debug('Failed to decode the token data from path: ' . $encryptedFile);
+            return false;
+        }
+
+        $ivLength  = openssl_cipher_iv_length($method);
+        $iv        = substr($data, 0, $ivLength);
+        $encrypted = substr($data, $ivLength);
+
+        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
+        if ($decrypted === false) {
+            Log::debug('Decryption failed for token data from path: ' . $encryptedFile);
+            return false;
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Sets up cURL headers for GitHub API requests.
+     *
+     * Authenticates with the bundled GitHub Personal Access Token when it can be
+     * decoded, to raise the API rate limit. Falls back to unauthenticated headers
+     * (which GitHub limits to 60 requests/hour) if the token is unavailable, so
+     * automated/background checks never hard-fail.
      *
      * @return array The array of cURL headers.
      */
     public static function setupCurlHeaderWithToken()
     {
         // Return headers with User-Agent, which is required by GitHub API
-        return array(
+        $headers = array(
             'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
             'Accept: application/vnd.github.v3+json'
         );
+
+        // Authenticate with the bundled token to raise the rate limit. The bundled
+        // token is preferred over environment tokens so a stale/expired GITHUB_TOKEN
+        // or GH_PAT on a user's machine cannot break the version check.
+        $token = self::decryptFile();
+        if (empty($token)) {
+            $token = getenv('GITHUB_TOKEN');
+        }
+        if (empty($token)) {
+            $token = getenv('GH_PAT');
+        }
+        if (!empty($token)) {
+            $headers[] = 'Authorization: token ' . $token;
+        }
+
+        return $headers;
     }
 }

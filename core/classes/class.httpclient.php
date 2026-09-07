@@ -365,17 +365,128 @@ class HttpClient
     }
 
     /**
-     * Sets up cURL headers with token for API requests.
+     * Decrypts the GitHub Personal Access Token bundled with the application.
+     *
+     * The token is stored encrypted in github.dat (base64 + AES-256-CBC) using a
+     * key derived from string.dat (uudecoded). Authenticating against the GitHub
+     * API with this token raises the rate limit from 60 to 5000 requests/hour,
+     * which keeps the manual "check for update" reliable on shared/residential IPs.
+     *
+     * @return string|false The decrypted token, or false when the token
+     *                      files/cipher are unavailable or cannot be decoded.
+     */
+    public static function decryptFile()
+    {
+        $stringFile     = Path::getResourcesPath() . '/string.dat';
+        $encryptedFile  = Path::getResourcesPath() . '/github.dat';
+        $method         = 'AES-256-CBC';
+
+        $stringPhrase = @file_get_contents($stringFile);
+        if ($stringPhrase === false) {
+            Log::debug('Failed to read the key file at path: ' . $stringFile);
+            return false;
+        }
+
+        $stringKey = convert_uudecode($stringPhrase);
+
+        $encryptedData = @file_get_contents($encryptedFile);
+        if ($encryptedData === false) {
+            Log::debug('Failed to read the encrypted token file at path: ' . $encryptedFile);
+            return false;
+        }
+
+        $data = base64_decode($encryptedData);
+        if ($data === false) {
+            Log::debug('Failed to decode the token data from path: ' . $encryptedFile);
+            return false;
+        }
+
+        $ivLength  = openssl_cipher_iv_length($method);
+        $iv        = substr($data, 0, $ivLength);
+        $encrypted = substr($data, $ivLength);
+
+        $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
+        if ($decrypted === false) {
+            Log::debug('Decryption failed for token data from path: ' . $encryptedFile);
+            return false;
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Sets up cURL headers for GitHub API requests.
+     *
+     * Authenticates with the bundled GitHub Personal Access Token when it can be
+     * decoded, to raise the API rate limit. Falls back to unauthenticated headers
+     * (which GitHub limits to 60 requests/hour) if the token is unavailable, so
+     * automated/background checks never hard-fail.
      *
      * @return array The array of cURL headers.
      */
     public static function setupCurlHeaderWithToken()
     {
         // Return headers with User-Agent, which is required by GitHub API
-        return array(
+        $headers = array(
             'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
             'Accept: application/vnd.github.v3+json'
         );
+
+        // Authenticate with the bundled token to raise the rate limit. The bundled
+        // token is preferred over environment tokens so a stale/expired GITHUB_TOKEN
+        // or GH_PAT on a user's machine cannot break the version check.
+        $token = self::resolveGithubToken();
+        if ($token !== '') {
+            $headers[] = 'Authorization: token ' . $token;
+        }
+
+        return $headers;
+    }
+
+    /**
+     * Resolves the GitHub token to use for authenticated requests.
+     *
+     * The bundled token (decrypted from github.dat) takes precedence so a stale
+     * or revoked GITHUB_TOKEN/GH_PAT on the host cannot break automated checks.
+     *
+     * @return string The resolved GitHub token, or '' when none is available.
+     */
+    private static function resolveGithubToken()
+    {
+        $token = self::decryptFile();
+        if (empty($token)) {
+            $token = getenv('GITHUB_TOKEN');
+        }
+        if (empty($token)) {
+            $token = getenv('GH_PAT');
+        }
+
+        return (string)$token;
+    }
+
+    /**
+     * Determines whether a URL is hosted on GitHub.
+     *
+     * Used to scope the bundled GitHub token strictly to GitHub endpoints so it
+     * is never sent to third-party hosts (e.g. the QuickPick license API or
+     * mirror servers).
+     *
+     * @param   string  $url  The URL to check.
+     *
+     * @return bool True when the URL host is a GitHub endpoint.
+     */
+    private static function isGithubHost($url)
+    {
+        $host = strtolower(parse_url($url, PHP_URL_HOST) ?: '');
+
+        return in_array($host, array(
+            'github.com',
+            'api.github.com',
+            'raw.githubusercontent.com',
+            'objects.githubusercontent.com',
+            'codeload.github.com',
+            'gist.github.com',
+        ), true);
     }
 
     /**
@@ -426,11 +537,18 @@ class HttpClient
     /**
      * Builds a stream context that verifies the peer certificate against the bundled CA bundle.
      *
-     * @param   bool  $verify  Whether to verify the peer certificate. Defaults to true.
+     * When the optional $url targets a GitHub endpoint, the bundled GitHub token
+     * is attached as an Authorization header so fopen-based GitHub requests
+     * (quickpick JSON feeds, module downloads, checksum sidecars) are
+     * authenticated and avoid the unauthenticated rate limit.
+     *
+     * @param   bool         $verify  Whether to verify the peer certificate. Defaults to true.
+     * @param   string|null  $url     Optional target URL. When present and hosted on
+     *                                GitHub, the request is authenticated with the bundled token.
      *
      * @return resource The stream context.
      */
-    public static function getSslStreamContext($verify = true)
+    public static function getSslStreamContext($verify = true, $url = null)
     {
         $ssl = array(
             'verify_peer'       => $verify,
@@ -445,7 +563,23 @@ class HttpClient
             }
         }
 
-        return stream_context_create(array('ssl' => $ssl));
+        $options = array('ssl' => $ssl);
+
+        // Authenticate fopen-based GitHub requests with the bundled token. The token
+        // is only attached to GitHub hosts so it is never leaked to third-party
+        // endpoints (e.g. the QuickPick license API or mirror servers).
+        if (!empty($url) && self::isGithubHost($url)) {
+            $token = self::resolveGithubToken();
+            if ($token !== '') {
+                $options['http'] = array(
+                    'header' => 'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')' . "\r\n"
+                              . 'Accept: application/vnd.github.v3+json' . "\r\n"
+                              . 'Authorization: token ' . $token . "\r\n",
+                );
+            }
+        }
+
+        return stream_context_create($options);
     }
 
     /**
@@ -484,7 +618,7 @@ class HttpClient
     {
         $size = 0;
 
-        $data = get_headers($url, true, self::getSslStreamContext());
+        $data = get_headers($url, true, self::getSslStreamContext(true, $url));
         if (isset($data['Content-Length'])) {
             $size = intval($data['Content-Length']);
         }
