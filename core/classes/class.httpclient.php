@@ -299,6 +299,7 @@ class HttpClient
     public static function getApiJson($url, $verify = true)
     {
         $header = self::setupCurlHeaderWithToken();
+        Log::trace('[VCHK-3] getApiJson() sending GET request to: ' . self::redactUrl($url));
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
@@ -310,11 +311,13 @@ class HttpClient
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
             Log::error('CURL Error (' . curl_errno($ch) . '): ' . curl_error($ch) . ' (URL: ' . self::redactUrl($url) . ')');
+            Log::trace('[VCHK-3] getApiJson() CURL error (' . curl_errno($ch) . '): ' . curl_error($ch));
         }
 
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($httpCode >= 400) {
             Log::error('HTTP Error ' . $httpCode . ' for URL: ' . self::redactUrl($url));
+            Log::trace('[VCHK-3] getApiJson() HTTP error: ' . $httpCode);
         }
 
         // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
@@ -323,45 +326,9 @@ class HttpClient
             curl_close($ch);
         }
 
+        Log::trace('[VCHK-3] getApiJson() response length: ' . strlen((string)$data));
+
         return $data === false ? '' : trim($data);
-    }
-
-    /**
-     * Fetches the latest version information from a given url.
-     *
-     * @param   string  $url  The URL to fetch version information from.
-     *
-     * @return array|null Returns an array with 'version' and 'url' if successful, null otherwise.
-     */
-    public static function getLatestVersion($url)
-    {
-        $result = self::getApiJson($url);
-        if (empty($result)) {
-            Log::error('Cannot retrieve latest github info: empty result or error for URL: ' . $url);
-
-            return null;
-        }
-
-        $resultArray = json_decode($result, true);
-        if ($resultArray === null) {
-            Log::error('Failed to decode JSON response from: ' . $url . '. Response snippet: ' . substr($result, 0, 100));
-            return null;
-        }
-
-        if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
-            $tagName     = $resultArray['tag_name'];
-            $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            $name        = $resultArray['name'];
-            Log::debug('Latest version tag name: ' . $tagName);
-            Log::debug('Download URL: ' . $downloadUrl);
-            Log::debug('Name: ' . $name);
-
-            return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];
-        } else {
-            Log::error('Tag name, download URL, or name not found in the response: ' . $result);
-
-            return null;
-        }
     }
 
     /**
@@ -377,6 +344,8 @@ class HttpClient
      */
     public static function decryptFile()
     {
+        Log::trace('[VCHK-3] decryptFile() START');
+
         $stringFile     = Path::getResourcesPath() . '/string.dat';
         $encryptedFile  = Path::getResourcesPath() . '/github.dat';
         $method         = 'AES-256-CBC';
@@ -384,6 +353,7 @@ class HttpClient
         $stringPhrase = @file_get_contents($stringFile);
         if ($stringPhrase === false) {
             Log::debug('Failed to read the key file at path: ' . $stringFile);
+            Log::trace('[VCHK-3] decryptFile() FAILED - key file unreadable: ' . $stringFile);
             return false;
         }
 
@@ -392,12 +362,14 @@ class HttpClient
         $encryptedData = @file_get_contents($encryptedFile);
         if ($encryptedData === false) {
             Log::debug('Failed to read the encrypted token file at path: ' . $encryptedFile);
+            Log::trace('[VCHK-3] decryptFile() FAILED - token file unreadable: ' . $encryptedFile);
             return false;
         }
 
         $data = base64_decode($encryptedData);
         if ($data === false) {
             Log::debug('Failed to decode the token data from path: ' . $encryptedFile);
+            Log::trace('[VCHK-3] decryptFile() FAILED - base64 decode error');
             return false;
         }
 
@@ -408,8 +380,11 @@ class HttpClient
         $decrypted = openssl_decrypt($encrypted, $method, $stringKey, 0, $iv);
         if ($decrypted === false) {
             Log::debug('Decryption failed for token data from path: ' . $encryptedFile);
+            Log::trace('[VCHK-3] decryptFile() FAILED - AES-256-CBC decryption failed');
             return false;
         }
+
+        Log::trace('[VCHK-3] decryptFile() SUCCESS - GitHub token decrypted');
 
         return $decrypted;
     }
@@ -426,6 +401,8 @@ class HttpClient
      */
     public static function setupCurlHeaderWithToken()
     {
+        Log::trace('[VCHK-3] setupCurlHeaderWithToken() START - building GitHub API headers');
+
         // Return headers with User-Agent, which is required by GitHub API
         $headers = array(
             'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
@@ -438,6 +415,9 @@ class HttpClient
         $token = self::resolveGithubToken();
         if ($token !== '') {
             $headers[] = 'Authorization: token ' . $token;
+            Log::trace('[VCHK-3] setupCurlHeaderWithToken() token IS in use - Authorization header attached (value never logged)');
+        } else {
+            Log::trace('[VCHK-3] setupCurlHeaderWithToken() NO token available - requests will be unauthenticated');
         }
 
         return $headers;
@@ -455,7 +435,10 @@ class HttpClient
     {
         $token = self::decryptFile();
         if (empty($token)) {
+            Log::trace('[VCHK-3] resolveGithubToken() bundled token unavailable - falling back to GITHUB_TOKEN env');
             $token = getenv('GITHUB_TOKEN');
+        } else {
+            Log::trace('[VCHK-3] resolveGithubToken() bundled token decrypted successfully');
         }
         if (empty($token)) {
             $token = getenv('GH_PAT');
