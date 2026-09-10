@@ -648,6 +648,16 @@ class HttpClient
         $success = (curl_exec($ch) !== false);
         $error   = curl_error($ch);
 
+        // CURLINFO_RESPONSE_CODE is the authoritative status: it works even when
+        // the raw header lines cannot be parsed (e.g. HTTP/2 ":status" pseudo
+        // headers, interim 1xx blocks, or a proxy omitting a status line), which
+        // the header callback above may silently miss. The callback capture is
+        // only kept as a fallback for the rare case cURL reports no code.
+        $curlStatus = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        if ($curlStatus > 0) {
+            $status = $curlStatus;
+        }
+
         // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
         // The resource is automatically closed when it goes out of scope
         if (PHP_VERSION_ID < 80500) {
