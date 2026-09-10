@@ -350,6 +350,23 @@ class Core
      */
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false)
     {
+        // GitHub-hosted module archives are downloaded through the GitHub proxy so
+        // the client never holds or transmits a GitHub token. The body is streamed
+        // in 8KB chunks to avoid loading the whole archive into memory.
+        if (HttpClient::isGithubHost($moduleUrl)) {
+            Log::trace('getFileFromUrl() downloading via GitHub proxy: ' . $moduleUrl);
+            $downloaded = HttpClient::proxyDownload($moduleUrl, $filePath, $progressBar);
+            if (!$downloaded) {
+                Log::error('Error fetching content from URL: ' . $moduleUrl);
+
+                return ['error' => 'Error fetching module'];
+            }
+
+            return ['success' => true];
+        }
+
+        Log::trace('getFileFromUrl() downloading directly (non-GitHub): ' . $moduleUrl);
+
         // Open the URL for reading. The verified SSL context makes sure the module is
         // fetched over a properly authenticated HTTPS connection.
         $inputStream = @fopen( $moduleUrl, 'rb', false, HttpClient::getSslStreamContext(true, $moduleUrl) );

@@ -671,6 +671,7 @@ class Log
             Path::getStartupLogFilePath(),
             Path::getBatchLogFilePath(),
             Path::getWinbinderLogFilePath(),
+            Path::getHomepageLogFilePath(),
         ];
 
         $separator = '========================================================================================' . PHP_EOL;

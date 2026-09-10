@@ -175,8 +175,17 @@ class QuickPick
         // Determine local file creation time or rebuild if missing
         $localFileCreationTime = $this->getLocalFileCreationTime();
 
-        // Attempt to retrieve remote file headers (verified TLS context)
-        $headers = get_headers(QUICKPICK_JSON_URL, 1, HttpClient::getSslStreamContext(true, QUICKPICK_JSON_URL));
+        // Attempt to retrieve remote file headers. GitHub-hosted content is reached
+        // through the GitHub proxy (verified TLS context); otherwise fetch directly.
+        $headers = false;
+        if (HttpClient::isGithubHost(QUICKPICK_JSON_URL)) {
+            $result = HttpClient::proxyFetch(QUICKPICK_JSON_URL, 'HEAD', true);
+            if ($result !== false && isset($result['headers']['Date'])) {
+                $headers = array('Date' => $result['headers']['Date']);
+            }
+        } else {
+            $headers = get_headers(QUICKPICK_JSON_URL, 1, HttpClient::getSslStreamContext(true, QUICKPICK_JSON_URL));
+        }
         if (!$this->isValidHeaderResponse($headers)) {
             // If headers or Date are invalid, assume no update needed
             return false;
@@ -711,7 +720,16 @@ class QuickPick
     private static function fetchChecksumFromSidecar(string $moduleUrl): ?string
     {
         $sidecarUrl = $moduleUrl . '.sha256';
-        $content = @file_get_contents($sidecarUrl, false, HttpClient::getSslStreamContext(true, $sidecarUrl));
+
+        // GitHub-hosted sidecars are fetched through the GitHub proxy; everything
+        // else uses the verified TLS stream context.
+        if (HttpClient::isGithubHost($sidecarUrl)) {
+            Log::trace('verifyModuleChecksum() fetching sidecar via GitHub proxy: ' . $sidecarUrl);
+            $result  = HttpClient::proxyFetch($sidecarUrl, 'GET', true);
+            $content = ($result === false) ? false : $result['body'];
+        } else {
+            $content = @file_get_contents($sidecarUrl, false, HttpClient::getSslStreamContext(true, $sidecarUrl));
+        }
 
         if ($content === false) {
             Log::error('Checksum verify: sidecar fetch failed for: ' . $sidecarUrl);
