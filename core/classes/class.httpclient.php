@@ -108,7 +108,6 @@ class HttpClient
 
         $response = @curl_exec($ch);
         if (empty($response)) {
-            curl_close($ch);
             return $result;
         }
 
@@ -117,11 +116,8 @@ class HttpClient
         Log::trace('getCurlHttpHeaders: ' . substr($response, 0, 512));
         $responseHeaders = explode("\r\n\r\n", $response, 2);
         if (!isset($responseHeaders[0]) || empty($responseHeaders[0])) {
-            curl_close($ch);
             return $result;
         }
-
-        curl_close($ch);
 
         return explode("\n", $responseHeaders[0]);
     }
@@ -325,8 +321,6 @@ class HttpClient
             Log::error('CURL Error: ' . curl_error($ch));
         }
 
-        curl_close($ch);
-
         return trim((string)$data);
     }
 
@@ -529,15 +523,11 @@ class HttpClient
             Log::error('Proxy request failed: ' . curl_error($ch));
             Log::trace('[PROXY] proxyFetch() FAILED - target: ' . self::safeUrlForLog($url) . ' - ' . curl_error($ch));
 
-            curl_close($ch);
-
             return false;
         }
 
         $status     = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $headerSize = (int)curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-
-        curl_close($ch);
 
         $response = (string)$response;
 
@@ -696,8 +686,6 @@ class HttpClient
         if ($curlStatus > 0) {
             $status = $curlStatus;
         }
-
-        curl_close($ch);
 
         fclose($outputStream);
 
