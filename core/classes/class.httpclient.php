@@ -294,7 +294,11 @@ class HttpClient
     }
 
     /**
-     * Sends a GET request to the specified URL and returns the response.
+     * Sends a GET request to the specified URL and returns the trimmed response body.
+     *
+     * This is the generic non-proxied GET method. For GitHub-hosted URLs, prefer
+     * {@see proxyFetch()} which routes through the proxy and never exposes a token
+     * to the client.
      *
      * The peer certificate is verified against the bundled CA bundle unless $verify is
      * false (used only for local/self-signed endpoints).
@@ -302,8 +306,30 @@ class HttpClient
      * @param   string  $url     The URL to send the GET request to.
      * @param   bool    $verify  Whether to verify the peer certificate. Defaults to true.
      *
-     * @return string The trimmed response data from the URL.
+     * @return string The trimmed response body, or empty string on failure.
      */
+    public static function fetchGet($url, $verify = true)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
+            'Accept: application/json, text/plain, */*',
+        ));
+        self::applyCurlSslOptions($ch, $verify);
+        $data = curl_exec($ch);
+        if (curl_errno($ch)) {
+            Log::error('CURL Error: ' . curl_error($ch));
+        }
+
+        curl_close($ch);
+
+        return trim((string)$data);
+    }
+
     /**
      * Determines whether a URL is hosted on GitHub.
      *
@@ -683,26 +709,6 @@ class HttpClient
         }
 
         return $success && $status >= 200 && $status < 300;
-    }
-
-    /**
-     * Retrieves the file size of a remote file.
-     *
-     * @param   string  $url            The URL of the remote file.
-     * @param   bool    $humanFileSize  Whether to return the size in a human-readable format.
-     *
-     * @return mixed The file size, either in bytes or as a formatted string.
-     */
-    public static function getRemoteFilesize($url, $humanFileSize = true)
-    {
-        $size = 0;
-
-        $data = get_headers($url, true, self::getSslStreamContext(true, $url));
-        if (isset($data['Content-Length'])) {
-            $size = intval($data['Content-Length']);
-        }
-
-        return $humanFileSize ? Util::humanFileSize($size) : $size;
     }
 
     /**

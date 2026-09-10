@@ -12,6 +12,7 @@
 const APP_AUTHOR_NAME = 'N6REJ';
 const APP_TITLE = 'Bearsampp';
 const APP_WEBSITE = 'https://bearsampp.com';
+const APP_LOCALHOST = '127.0.0.1';
 const APP_LICENSE = 'GPL3 License';
 const APP_GITHUB_USER = 'Bearsampp';
 const APP_GITHUB_REPO = 'Bearsampp';
