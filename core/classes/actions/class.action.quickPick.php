@@ -179,23 +179,37 @@ class QuickPick
         // through the GitHub proxy (verified TLS context); otherwise fetch directly.
         $headers = false;
         if (HttpClient::isGithubHost(QUICKPICK_JSON_URL)) {
+            // Rebuild a get_headers($url, 1)-compatible structure from the proxy
+            // response (status line at index 0 plus every forwarded header) so the
+            // downstream validation/comparison behaves identically to the direct
+            // fetch path. In particular Last-Modified and ETag are preserved when
+            // the proxy forwards them - dropping them here could cause false
+            // "no update needed" decisions on update checks.
             $result = HttpClient::proxyFetch(QUICKPICK_JSON_URL, 'HEAD', true);
-            if ($result !== false && isset($result['headers']['Date'])) {
-                $headers = array('Date' => $result['headers']['Date']);
+            if ($result !== false && $result['status'] > 0) {
+                $headers = array('HTTP/1.1 ' . $result['status']);
+                foreach ($result['headers'] as $name => $value) {
+                    $headers[$name] = $value;
+                }
             }
         } else {
             $headers = get_headers(QUICKPICK_JSON_URL, 1, HttpClient::getSslStreamContext(true, QUICKPICK_JSON_URL));
         }
         if (!$this->isValidHeaderResponse($headers)) {
-            // If headers or Date are invalid, assume no update needed
+            // If headers or Date/Last-Modified are invalid, assume no update needed
             return false;
         }
 
         // Optionally log headers for verbose output
         $this->logHeaders($headers);
 
-        // Compare the creation times (remote vs. local)
-        $remoteFileCreationTime = strtotime(isset($headers['Date']) ? $headers['Date'] : '');
+        // Compare the creation times (remote vs. local). Last-Modified reflects the
+        // actual file modification time; Date is only a fallback for servers (or
+        // proxies) that do not forward Last-Modified.
+        $remoteModTime = isset($headers['Last-Modified'])
+            ? $headers['Last-Modified']
+            : (isset($headers['Date']) ? $headers['Date'] : '');
+        $remoteFileCreationTime = strtotime($remoteModTime);
 		if ($remoteFileCreationTime > $localFileCreationTime) { return $this->rebuildQuickpickJson(); }
 
         // Return false if local file is already up-to-date
@@ -218,15 +232,21 @@ class QuickPick
     }
 
     /**
-     * Determines whether the header response is valid and includes a 'Date' key.
+     * Determines whether the header response is valid and includes a 'Date' or
+     * 'Last-Modified' key.
      *
-     * @param mixed $headers Headers retrieved from get_headers().
-     * @return bool True if headers are valid and contain 'Date', false otherwise.
+     * Both direct (get_headers) and GitHub-proxy HEAD responses are accepted, so
+     * update checks keep working even if the proxy forwards Last-Modified but not
+     * Date (or vice versa).
+     *
+     * @param mixed $headers Headers retrieved from get_headers() or the GitHub proxy.
+     * @return bool True if headers are valid and contain 'Date' or 'Last-Modified',
+     *              false otherwise.
      */
     private function isValidHeaderResponse($headers): bool
     {
-        // If headers retrieval failed or Date is not set, return false
-        if ($headers === false || !isset($headers['Date'])) {
+        // If headers retrieval failed or neither Date nor Last-Modified is set, return false
+        if ($headers === false || (!isset($headers['Date']) && !isset($headers['Last-Modified']))) {
             return false;
         }
         return true;
