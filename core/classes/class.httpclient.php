@@ -500,7 +500,8 @@ class HttpClient
             return false;
         }
 
-        $status = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $status     = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $headerSize = (int)curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 
         // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
         // The resource is automatically closed when it goes out of scope
@@ -509,26 +510,50 @@ class HttpClient
         }
 
         $response = (string)$response;
-        $separatorPos = strpos($response, "\r\n\r\n");
-        if ($separatorPos === false) {
-            Log::trace('[PROXY] proxyFetch() END - status ' . $status . ', body length: ' . strlen($response));
-
-            return array('status' => $status, 'headers' => array(), 'body' => $response);
-        }
-
-        $headerBlock = substr($response, 0, $separatorPos);
-        $body        = substr($response, $separatorPos + 4);
 
         $headers = array();
-        foreach (explode("\r\n", $headerBlock) as $line) {
-            if (strpos($line, ':') === false) {
-                continue;
+        $body    = '';
+
+        if ($headerSize > 0 && strlen($response) >= $headerSize) {
+            // CURLINFO_HEADER_SIZE includes every received header block, so the
+            // body is exactly the bytes after it - even when the response contains
+            // interim header sections (e.g. "100 Continue" or redirects) that make
+            // a naive "first \r\n\r\n" split corrupt.
+            $headerData = substr($response, 0, $headerSize);
+            $body       = substr($response, $headerSize);
+
+            // Keep only the LAST header block (the final status line and headers).
+            $blocks = preg_split('/\r?\n\r?\n/', trim($headerData));
+            $headerBlock = end($blocks);
+
+            foreach (explode("\r\n", $headerBlock) as $line) {
+                if (strpos($line, ':') === false) {
+                    continue;
+                }
+                list($name, $value) = explode(':', $line, 2);
+                $name  = trim($name);
+                $value = trim($value);
+                if ($name !== '' && !isset($headers[$name])) {
+                    $headers[$name] = $value;
+                }
             }
-            list($name, $value) = explode(':', $line, 2);
-            $name  = trim($name);
-            $value = trim($value);
-            if ($name !== '' && !isset($headers[$name])) {
-                $headers[$name] = $value;
+        } else {
+            // Defensive fallback: no usable header size reported. Keep the whole
+            // body, but still surface any headers found after the first separator.
+            $separatorPos = strpos($response, "\r\n\r\n");
+            $body = ($separatorPos === false) ? $response : substr($response, $separatorPos + 4);
+            if ($separatorPos !== false) {
+                foreach (explode("\r\n", substr($response, 0, $separatorPos)) as $line) {
+                    if (strpos($line, ':') === false) {
+                        continue;
+                    }
+                    list($name, $value) = explode(':', $line, 2);
+                    $name  = trim($name);
+                    $value = trim($value);
+                    if ($name !== '' && !isset($headers[$name])) {
+                        $headers[$name] = $value;
+                    }
+                }
             }
         }
 
