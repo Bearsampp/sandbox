@@ -367,6 +367,29 @@ class HttpClient
     }
 
     /**
+     * Returns a log-safe representation of a URL, keeping only scheme + host + path.
+     *
+     * Query strings, fragments, and any embedded credentials are stripped so
+     * sensitive tokens never appear in log files.
+     *
+     * @param   string  $url  The URL to sanitise.
+     * @return  string        The safe representation (e.g. "https://github.com/foo/bar").
+     */
+    private static function safeUrlForLog($url)
+    {
+        $url = (string)$url;
+        $scheme = parse_url($url, PHP_URL_SCHEME) ?: 'https';
+        $host   = parse_url($url, PHP_URL_HOST)   ?: '';
+        $path   = parse_url($url, PHP_URL_PATH)   ?: '';
+
+        if ($host === '') {
+            return '(invalid-url)';
+        }
+
+        return $scheme . '://' . $host . $path;
+    }
+
+    /**
      * Builds a stream context that verifies the peer certificate against the bundled CA bundle.
      *
      * GitHub-hosted content is fetched through the GitHub proxy (APP_GITHUB_PROXY_URL)
@@ -438,8 +461,13 @@ class HttpClient
      */
     public static function proxyFetch($url, $method = 'GET', $verify = true)
     {
+        if (!self::isGithubHost($url)) {
+            Log::error('[PROXY] proxyFetch() blocked non-GitHub URL: ' . self::safeUrlForLog($url));
+            return false;
+        }
+
         $method = strtoupper($method);
-        Log::trace('[PROXY] proxyFetch() ' . $method . ' -> ' . APP_GITHUB_PROXY_URL . ' target: ' . $url);
+        Log::trace('[PROXY] proxyFetch() ' . $method . ' target: ' . self::safeUrlForLog($url));
 
         $payload = array(
             'url'    => (string)$url,
@@ -463,7 +491,7 @@ class HttpClient
         $response = curl_exec($ch);
         if ($response === false) {
             Log::error('Proxy request failed: ' . curl_error($ch));
-            Log::trace('[PROXY] proxyFetch() FAILED - target: ' . $url . ' - ' . curl_error($ch));
+            Log::trace('[PROXY] proxyFetch() FAILED - target: ' . self::safeUrlForLog($url) . ' - ' . curl_error($ch));
 
             if (PHP_VERSION_ID < 80500) {
                 curl_close($ch);
@@ -525,7 +553,12 @@ class HttpClient
      */
     public static function proxyDownload($url, $filePath, $progressBar = false)
     {
-        Log::trace('[PROXY] proxyDownload() START -> ' . APP_GITHUB_PROXY_URL . ' target: ' . $url . ' -> ' . $filePath);
+        if (!self::isGithubHost($url)) {
+            Log::error('[PROXY] proxyDownload() blocked non-GitHub URL: ' . self::safeUrlForLog($url));
+            return false;
+        }
+
+        Log::trace('[PROXY] proxyDownload() START target: ' . self::safeUrlForLog($url) . ' -> ' . $filePath);
 
         $outputStream = @fopen($filePath, 'wb');
         if ($outputStream === false) {
@@ -600,9 +633,9 @@ class HttpClient
 
         if (!$success) {
             Log::error('Proxy download failed: ' . $error);
-            Log::trace('[PROXY] proxyDownload() FAILED - status ' . $status . ', target: ' . $url . ' - ' . $error);
+            Log::trace('[PROXY] proxyDownload() FAILED - status ' . $status . ', target: ' . self::safeUrlForLog($url) . ' - ' . $error);
         } else {
-            Log::trace('[PROXY] proxyDownload() END - status ' . $status . ', chunks ' . $chunksRead . ', target: ' . $url);
+            Log::trace('[PROXY] proxyDownload() END - status ' . $status . ', chunks ' . $chunksRead . ', target: ' . self::safeUrlForLog($url));
         }
 
         return $success && $status >= 200 && $status < 300;
