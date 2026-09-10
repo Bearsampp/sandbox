@@ -681,7 +681,7 @@ class Log
             }
             $logContent = @file_get_contents($log);
             if ($logContent !== false && !str_ends_with($logContent, $separator)) {
-                file_put_contents($log, $separator, FILE_APPEND);
+                @file_put_contents($log, $separator, FILE_APPEND);
             }
         }
     }
