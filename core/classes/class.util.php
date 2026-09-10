@@ -1202,11 +1202,7 @@ class Util
             Log::trace('[VCHK-3] getApiJson() CURL error: ' . curl_error($ch));
         }
 
-        // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
-        // The resource is automatically closed when it goes out of scope
-        if (PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
+        curl_close($ch);
 
         Log::trace('[VCHK-3] getApiJson() response length: ' . strlen((string)$data));
 

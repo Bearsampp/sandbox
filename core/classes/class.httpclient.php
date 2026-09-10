@@ -104,6 +104,7 @@ class HttpClient
 
         $response = @curl_exec($ch);
         if (empty($response)) {
+            curl_close($ch);
             return $result;
         }
 
@@ -112,8 +113,11 @@ class HttpClient
         Log::trace('getCurlHttpHeaders: ' . substr($response, 0, 512));
         $responseHeaders = explode("\r\n\r\n", $response, 2);
         if (!isset($responseHeaders[0]) || empty($responseHeaders[0])) {
+            curl_close($ch);
             return $result;
         }
+
+        curl_close($ch);
 
         return explode("\n", $responseHeaders[0]);
     }
@@ -493,9 +497,7 @@ class HttpClient
             Log::error('Proxy request failed: ' . curl_error($ch));
             Log::trace('[PROXY] proxyFetch() FAILED - target: ' . self::safeUrlForLog($url) . ' - ' . curl_error($ch));
 
-            if (PHP_VERSION_ID < 80500) {
-                curl_close($ch);
-            }
+            curl_close($ch);
 
             return false;
         }
@@ -503,11 +505,7 @@ class HttpClient
         $status     = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $headerSize = (int)curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 
-        // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
-        // The resource is automatically closed when it goes out of scope
-        if (PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
+        curl_close($ch);
 
         $response = (string)$response;
 
@@ -573,10 +571,12 @@ class HttpClient
      * @param   string  $url          The target GitHub URL to download.
      * @param   string  $filePath     Local path to write the body to.
      * @param   bool    $progressBar  Whether to emit progress lines. Defaults to false.
+     * @param   bool    $verify       Whether to verify the peer certificate. Defaults to true.
+     *                                Pass false only for local/self-signed endpoints.
      *
      * @return bool True when the download completed with a 2xx status, false otherwise.
      */
-    public static function proxyDownload($url, $filePath, $progressBar = false)
+    public static function proxyDownload($url, $filePath, $progressBar = false, $verify = true)
     {
         if (!self::isGithubHost($url)) {
             Log::error('[PROXY] proxyDownload() blocked non-GitHub URL: ' . self::safeUrlForLog($url));
@@ -609,7 +609,7 @@ class HttpClient
             'X-Bearsampp-Key: ' . APP_GITHUB_PROXY_KEY,
             'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
         ));
-        self::applyCurlSslOptions($ch, true);
+        self::applyCurlSslOptions($ch, $verify);
 
         // Capture the status line from the response headers without writing them to the file.
         curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($ch, $line) use (&$status) {
@@ -658,11 +658,7 @@ class HttpClient
             $status = $curlStatus;
         }
 
-        // curl_close() is deprecated in PHP 8.5+ as it has no effect since PHP 8.0
-        // The resource is automatically closed when it goes out of scope
-        if (PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
+        curl_close($ch);
 
         fclose($outputStream);
 
