@@ -462,6 +462,8 @@ class HttpClient
      *
      * @return array|false An array with 'status', 'headers' (associative) and 'body',
      *                     or false when the proxy request itself failed.
+     *                     Header name keys are normalized to lowercase; the first
+     *                     occurrence of a duplicate header name wins.
      */
     public static function proxyFetch($url, $method = 'GET', $verify = true)
     {
@@ -529,7 +531,10 @@ class HttpClient
                     continue;
                 }
                 list($name, $value) = explode(':', $line, 2);
-                $name  = trim($name);
+                // HTTP header names are case-insensitive, so normalize to a
+                // consistent lowercase key. The first occurrence of a duplicate
+                // name still wins (matching the previous behaviour).
+                $name  = strtolower(trim($name));
                 $value = trim($value);
                 if ($name !== '' && !isset($headers[$name])) {
                     $headers[$name] = $value;
@@ -546,7 +551,7 @@ class HttpClient
                         continue;
                     }
                     list($name, $value) = explode(':', $line, 2);
-                    $name  = trim($name);
+                    $name  = strtolower(trim($name));
                     $value = trim($value);
                     if ($name !== '' && !isset($headers[$name])) {
                         $headers[$name] = $value;
