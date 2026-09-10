@@ -895,9 +895,9 @@ class Util
             $tagName     = $resultArray['tag_name'];
             $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
             $name        = $resultArray['name'];
-            Log::debug('Latest version tag name: ' . $tagName);
-            Log::debug('Download URL: ' . $downloadUrl);
-            Log::debug('Name: ' . $name);
+            Log::trace('Latest version tag name: ' . $tagName);
+            Log::trace('Download URL: ' . $downloadUrl);
+            Log::trace('Name: ' . $name);
             Log::trace('[VCHK-3] getLatestVersion() SUCCESS - version found: ' . $tagName);
 
             return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];

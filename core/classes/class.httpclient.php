@@ -50,10 +50,7 @@ class HttpClient
             }
             $result = $rebuildResult;
 
-            Log::debug('getHttpHeaders:');
-            foreach ($result as $header) {
-                Log::debug('-> ' . $header);
-            }
+            Log::trace('getHttpHeaders: ' . count($result) . ' header(s)');
         }
 
         return $result;
@@ -280,10 +277,7 @@ class HttpClient
             }
             $result = $rebuildResult;
 
-            Log::debug('getHeaders:');
-            foreach ($result as $header) {
-                Log::debug('-> ' . $header);
-            }
+            Log::trace('getHeaders: ' . count($result) . ' header(s)');
         }
 
         return $result;
