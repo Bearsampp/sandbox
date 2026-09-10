@@ -1191,6 +1191,10 @@ class Util
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
+            'Accept: application/json, text/plain, */*',
+        ));
         HttpClient::applyCurlSslOptions($ch, $verify);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
