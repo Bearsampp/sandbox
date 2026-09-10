@@ -18,6 +18,10 @@
  */
 class HttpClient
 {
+    const PROXY_CONNECT_TIMEOUT = 30;
+    const PROXY_LOW_SPEED_LIMIT = 1024;
+    const PROXY_LOW_SPEED_TIME = 30;
+
     /**
      * Retrieves HTTP headers from a given URL using either cURL or fopen, depending on availability.
      *
@@ -615,6 +619,10 @@ class HttpClient
             'User-Agent: ' . APP_GITHUB_USERAGENT . ' (https://github.com/' . APP_GITHUB_USER . '/' . APP_GITHUB_REPO . ')',
         ));
         self::applyCurlSslOptions($ch, $verify);
+
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::PROXY_CONNECT_TIMEOUT);
+        curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, self::PROXY_LOW_SPEED_LIMIT);
+        curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, self::PROXY_LOW_SPEED_TIME);
 
         // Capture the status line from the response headers without writing them to the file.
         curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($ch, $line) use (&$status) {
