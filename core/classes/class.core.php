@@ -352,66 +352,6 @@ class Core
      */
     public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false, $verify = true)
     {
-        // GitHub-hosted module archives are downloaded through the GitHub proxy so
-        // the client never holds or transmits a GitHub token. The body is streamed
-        // in 8KB chunks to avoid loading the whole archive into memory.
-        if (HttpClient::isGithubHost($moduleUrl)) {
-            Log::trace('getFileFromUrl() downloading via GitHub proxy: ' . $moduleUrl);
-            $downloaded = HttpClient::proxyDownload($moduleUrl, $filePath, $progressBar, $verify);
-            if (!$downloaded) {
-                Log::error('Error fetching content from URL: ' . $moduleUrl);
-
-                return ['error' => 'Error fetching module'];
-            }
-
-            return ['success' => true];
-        }
-
-        Log::trace('getFileFromUrl() downloading directly (non-GitHub): ' . $moduleUrl);
-
-        // Open the URL for reading. The verified SSL context makes sure the module is
-        // fetched over a properly authenticated HTTPS connection.
-        $inputStream = @fopen( $moduleUrl, 'rb', false, HttpClient::getSslStreamContext(true, $moduleUrl) );
-        if ( $inputStream === false ) {
-            Log::error( 'Error fetching content from URL: ' . $moduleUrl );
-
-            return ['error' => 'Error fetching module'];
-        }
-
-        // Open the file for writing
-        $outputStream = @fopen( $filePath, 'wb' );
-        if ( $outputStream === false ) {
-            Log::error( 'Error opening file for writing: ' . $filePath );
-            fclose( $inputStream );
-
-            return ['error' => 'Error saving module'];
-        }
-
-        // Read and write in chunks to avoid memory overload
-        $bufferSize = 8096; // 8KB
-        $chunksRead = 0;
-
-        while ( !feof( $inputStream ) ) {
-            $buffer = fread( $inputStream, $bufferSize );
-            fwrite( $outputStream, $buffer );
-            $chunksRead++;
-
-            // Send progress update
-            if ( $progressBar ) {
-                $progress = $chunksRead;
-                echo json_encode( ['progress' => $progress] ) . PHP_EOL;
-
-                // Check if output buffering is active before calling ob_flush()
-                if ( ob_get_length() !== false ) {
-                    ob_flush();
-                }
-                flush();
-            }
-        }
-
-        fclose( $inputStream );
-        fclose( $outputStream );
-
-        return ['success' => true];
+        return HttpClient::downloadFile($moduleUrl, $filePath, $progressBar, $verify);
     }
 }

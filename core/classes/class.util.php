@@ -882,7 +882,7 @@ class Util
     {
         Log::trace('[VCHK-3] getLatestVersion() START - fetching latest version from: ' . $url);
 
-        $result = self::getApiJson($url);
+        $result = HttpClient::getApiJson($url);
         if (empty($result)) {
             Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
             Log::trace('[VCHK-3] getLatestVersion() EXIT - empty response received');
@@ -947,42 +947,6 @@ class Util
         $processor = $bearsamppRegistry->getProcessorRegKey();
 
         return UtilString::contains($processor, 'x86');
-    }
-
-    /**
-     * Sends a GET request to the specified URL and returns the response.
-     *
-     * GitHub-hosted URLs are fetched through the GitHub proxy so no token is ever
-     * sent by the client. Non-GitHub URLs are fetched directly over verified TLS.
-     *
-     * @param   string  $url     The URL to send the GET request to.
-     * @param   bool    $verify  Whether to verify the peer certificate. Defaults to true.
-     *
-     * @return string The trimmed response data from the URL.
-     */
-    public static function getApiJson($url, $verify = true)
-    {
-        Log::trace('[VCHK-3] getApiJson() sending GET request to: ' . $url);
-
-        if (HttpClient::isGithubHost($url)) {
-            $result = HttpClient::proxyFetch($url, 'GET', $verify);
-            if ($result === false || (int)$result['status'] !== 200) {
-                Log::error('GitHub request via proxy failed for: ' . $url);
-                Log::trace('[VCHK-3] getApiJson() EXIT - proxy request failed');
-
-                return '';
-            }
-
-            Log::trace('[VCHK-3] getApiJson() response length: ' . strlen((string)$result['body']));
-
-            return trim($result['body']);
-        }
-
-        $data = HttpClient::fetchGet($url, $verify);
-
-        Log::trace('[VCHK-3] getApiJson() response length: ' . strlen($data));
-
-        return $data;
     }
 
     /**

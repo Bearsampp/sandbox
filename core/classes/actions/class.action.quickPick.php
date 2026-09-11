@@ -330,7 +330,7 @@ class QuickPick
         Log::debug( 'Fetching JSON file: ' . $this->jsonFilePath );
 
         // Fetch the JSON content from the URL via cURL (verified TLS + bundled GitHub token)
-        $jsonContent = Util::getApiJson( QUICKPICK_JSON_URL );
+        $jsonContent = HttpClient::getApiJson( QUICKPICK_JSON_URL );
 
         if ( $jsonContent === '' ) {
             // Handle error if the file could not be fetched
