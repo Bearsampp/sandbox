@@ -333,25 +333,4 @@ class Core
 
         return false;
     }
-
-    /**
-     * Fetches a file from a given URL and saves it to a specified file path.
-     *
-     * This method attempts to retrieve the content from the provided URL and save it to the specified file path.
-     * If any error occurs during fetching or saving, it logs the error and returns an error message.
-     * If the operation is successful, it returns the file path.
-     * The method also logs the file size if the input stream is a valid resource.
-     *
-     * @param   string  $moduleUrl    The URL from which to fetch the file content.
-     * @param   string  $filePath     The path where the file content should be saved.
-     * @param   bool    $progressBar  Optional. Whether to display a progress bar during the download process. Default is false.
-     * @param   bool    $verify       Whether to verify the peer certificate. Defaults to true.
-     *                                Pass false only for local/self-signed endpoints.
-     *
-     * @return array Returns the file path if successful, or an array with an error message if an error occurs.
-     */
-    public function getFileFromUrl(string $moduleUrl, string $filePath, $progressBar = false, $verify = true)
-    {
-        return HttpClient::downloadFile($moduleUrl, $filePath, $progressBar, $verify);
-    }
 }

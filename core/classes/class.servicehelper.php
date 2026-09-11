@@ -143,17 +143,6 @@ class ServiceHelper
     }
 
     /**
-     * Restart a service
-     *
-     * @param object $service The service instance
-     * @return bool True if service restarted successfully, false otherwise
-     */
-    public static function restartService($service)
-    {
-        return $service->restart();
-    }
-
-    /**
      * Get all service names
      *
      * @return array Array of service name constants
