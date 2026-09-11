@@ -120,6 +120,7 @@ class Lang
     const MENU_TRANSFER_LOGS = 'menuTransferLogs';
     const MENU_UPDATE_ENV_PATH = 'menuUpdateEnvPath';
     const MENU_VIEW_CACHE_STATS = 'menuViewCacheStats';
+    const MENU_CACHE_STATS_TITLE = 'menuCacheStatsTitle';
     const MENU_WWW_DIRECTORY = 'menuWwwDirectory';
 
     // Bins
@@ -502,6 +503,7 @@ class Lang
             self::MENU_TRANSFER_LOGS,
             self::MENU_UPDATE_ENV_PATH,
             self::MENU_VIEW_CACHE_STATS,
+            self::MENU_CACHE_STATS_TITLE,
             self::MENU_WWW_DIRECTORY,
 
             // Bins

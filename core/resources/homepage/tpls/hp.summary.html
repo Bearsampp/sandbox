@@ -40,7 +40,7 @@
 	</div>
 </div>
 <div class = "row">
-	<div class = "col-md-4">
+	<div class = "col-md-3">
 		<div class = "card">
 			<div class = "card-heading">
 				<h3 class = "card-title bg-dark text-light p-1">
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 	</div>
-	<div class = "col-md-4">
+	<div class = "col-md-3">
 		<div class = "card">
 			<div class = "card-heading">
 				<h3 class = "card-title bg-dark text-light p-1">
@@ -183,7 +183,7 @@
 			</div>
 		</div>
 	</div>
-	<div class = "col-md-4">
+	<div class = "col-md-3">
 		<div class = "card">
 			<div class = "card-heading">
 				<h3 class = "card-title bg-dark text-light p-1">
@@ -218,4 +218,156 @@
 			</div>
 		</div>
 	</div>
+	<div class = "col-md-3">
+		<div class = "card">
+			<div class = "card-heading">
+				<h3 class = "card-title bg-dark text-light p-1">
+					<i class = "fa-solid fa-database"></i> <?php echo $bearsamppLang->getValue(Lang::MENU_CACHE_STATS_TITLE); ?>
+				</h3>
+			</div>
+			<div class = "card-body card-summary">
+				<?php
+				$cacheStats = Root::getCacheStats();
+
+				$cacheNewestText = 'never';
+				if ($cacheStats['enabled'] && $cacheStats['newestEntry'] !== null) {
+					$cacheAgeSeconds = time() - (int) $cacheStats['newestEntry'];
+					if ($cacheAgeSeconds < 60) {
+						$cacheNewestText = 'just now';
+					} elseif ($cacheAgeSeconds < 3600) {
+						$cacheNewestText = floor($cacheAgeSeconds / 60) . ' minute(s) ago';
+					} elseif ($cacheAgeSeconds < 86400) {
+						$cacheNewestText = floor($cacheAgeSeconds / 3600) . ' hour(s) ago';
+					} else {
+						$cacheNewestText = floor($cacheAgeSeconds / 86400) . ' day(s) ago';
+					}
+				}
+
+				$cacheAgeText = 'never';
+				if ($cacheStats['enabled'] && $cacheStats['oldestEntry'] !== null) {
+					$cacheAgeSeconds = time() - (int) $cacheStats['oldestEntry'];
+					if ($cacheAgeSeconds < 60) {
+						$cacheAgeText = 'just now';
+					} elseif ($cacheAgeSeconds < 3600) {
+						$cacheAgeText = floor($cacheAgeSeconds / 60) . ' minute(s) ago';
+					} elseif ($cacheAgeSeconds < 86400) {
+						$cacheAgeText = floor($cacheAgeSeconds / 3600) . ' hour(s) ago';
+					} else {
+						$cacheAgeText = floor($cacheAgeSeconds / 86400) . ' day(s) ago';
+					}
+				}
+				?>
+				<div class = "list-group">
+					<span class = "list-group-item d-flex justify-content-between align-items-center">
+						<span>
+							<?php if ($cacheStats['enabled']) : ?>
+								<span class = "badge text-bg-success">Enabled</span>
+							<?php else : ?>
+								<span class = "badge text-bg-danger">Disabled</span>
+							<?php endif; ?>
+						</span>
+						<span class = "text-muted" id = "cacheAgeText"><i class = "fa-solid fa-clock"></i> Last cleared: <?php echo $cacheAgeText; ?></span>
+						<button id = "clearCacheBtn" class = "btn btn-outline-danger btn-sm" onclick = "clearCache()">
+							<i class = "fa-solid fa-trash-can"></i> Clear cache
+						</button>
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end" id = "statFilesCount"><?php echo $cacheStats['filesCount']; ?></span>
+						Cache files
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end" id = "statTotalSize"><?php echo Util::humanFileSize((int) $cacheStats['totalSize']); ?></span>
+						Total size
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end" id = "statLargestEntry"><?php echo Util::humanFileSize((int) $cacheStats['largestEntry']); ?></span>
+						Largest entry
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end" id = "statLastUpdate"><?php echo $cacheNewestText; ?></span>
+						Last update
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end"><?php echo $cacheStats['cacheHits']; ?></span>
+						Cache hits
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end"><?php echo $cacheStats['cacheMisses']; ?></span>
+						Cache misses
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end"><?php echo $cacheStats['cachewrites']; ?></span>
+						Cache writes
+					</span>
+					<span class = "list-group-item">
+						<span class = "float-end"><?php echo $cacheStats['hitRate']; ?>%</span>
+						Hit rate
+					</span>
+				</div>
+				<div id = "cacheAlert" class = "d-none"></div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<script>
+function clearCache() {
+    var btn = document.getElementById('clearCacheBtn');
+    var alert = document.getElementById('cacheAlert');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Clearing...';
+    alert.className = 'd-none';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', AJAX_URL, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        try {
+            var data = JSON.parse(xhr.responseText);
+            if (data.success) {
+                alert.className = 'alert alert-success';
+                alert.innerHTML = '<i class="fa-solid fa-check-circle"></i> Cache cleared — ' + data.deleted + ' file(s) deleted.';
+                document.getElementById('statFilesCount').textContent = data.filesCount;
+                document.getElementById('statTotalSize').textContent = formatBytes(data.totalSize);
+                document.getElementById('statLargestEntry').textContent = formatBytes(data.largestEntry);
+                document.getElementById('statLastUpdate').textContent = data.newestEntry ? formatAge(data.newestEntry) : 'never';
+                document.getElementById('cacheAgeText').textContent = 'Last cleared: ' + (data.oldestEntry ? formatAge(data.oldestEntry) : 'just now');
+            } else {
+                alert.className = 'alert alert-danger';
+                alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Error: ' + (data.error || 'Unknown error');
+            }
+        } catch (e) {
+            alert.className = 'alert alert-danger';
+            alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Unexpected server response.';
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Clear cache';
+    };
+    xhr.onerror = function() {
+        alert.className = 'alert alert-danger';
+        alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Network error.';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Clear cache';
+    };
+    xhr.send('proc=clearcache&csrf_token=' + encodeURIComponent(getCsrfToken()));
+}
+
+function formatAge(ts) {
+    if (!ts) return 'never';
+    var s = Math.floor(Date.now() / 1000) - ts;
+    if (s < 60) return 'just now';
+    if (s < 3600) return Math.floor(s / 60) + ' minute(s) ago';
+    if (s < 86400) return Math.floor(s / 3600) + ' hour(s) ago';
+    return Math.floor(s / 86400) + ' day(s) ago';
+}
+
+function formatBytes(bytes) {
+    bytes = parseInt(bytes, 10);
+    if (bytes === 0) return '0 B';
+    var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(1024));
+    i = Math.min(i, units.length - 1);
+    return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + units[i];
+}
+</script>

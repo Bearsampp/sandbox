@@ -102,6 +102,7 @@ menuStopServices = "Stoppa alla tjänster"
 menuTransferLogs = "Överföringsloggar"
 menuUpdateEnvPath = "#Update env. PATH"
 menuViewCacheStats = "Visa cache-statistik"
+menuCacheStatsTitle = "Cache-statistik"
 menuWwwDirectory = "www filkatalog"
 
 ; Bins
