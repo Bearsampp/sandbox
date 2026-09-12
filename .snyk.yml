@@ -3,5 +3,11 @@ exclude:
   code:
     - "/core/libs**"
     - "/core/tmp**"
-    - "/Core/libs**"
-    - "/Core/tmp**"
+    - "/core/resources/homepage/libs**"
+    - "/apps**"
+    - "/bin**"
+    - "/tools**"
+    - "/www**"
+    - "/logs**"
+    - "/alias**"
+
