@@ -229,31 +229,31 @@
 				<?php
 				$cacheStats = Root::getCacheStats();
 
-				$cacheNewestText = 'never';
+				$cacheNewestText = $bearsamppLang->getValue(Lang::CACHE_NEVER);
 				if ($cacheStats['enabled'] && $cacheStats['newestEntry'] !== null) {
 					$cacheAgeSeconds = time() - (int) $cacheStats['newestEntry'];
 					if ($cacheAgeSeconds < 60) {
-						$cacheNewestText = 'just now';
+						$cacheNewestText = $bearsamppLang->getValue(Lang::CACHE_JUST_NOW);
 					} elseif ($cacheAgeSeconds < 3600) {
-						$cacheNewestText = floor($cacheAgeSeconds / 60) . ' minute(s) ago';
+						$cacheNewestText = sprintf($bearsamppLang->getValue(Lang::CACHE_MINUTES_AGO), floor($cacheAgeSeconds / 60));
 					} elseif ($cacheAgeSeconds < 86400) {
-						$cacheNewestText = floor($cacheAgeSeconds / 3600) . ' hour(s) ago';
+						$cacheNewestText = sprintf($bearsamppLang->getValue(Lang::CACHE_HOURS_AGO), floor($cacheAgeSeconds / 3600));
 					} else {
-						$cacheNewestText = floor($cacheAgeSeconds / 86400) . ' day(s) ago';
+						$cacheNewestText = sprintf($bearsamppLang->getValue(Lang::CACHE_DAYS_AGO), floor($cacheAgeSeconds / 86400));
 					}
 				}
 
-				$cacheAgeText = 'never';
+				$cacheAgeText = $bearsamppLang->getValue(Lang::CACHE_NEVER);
 				if ($cacheStats['enabled'] && $cacheStats['oldestEntry'] !== null) {
 					$cacheAgeSeconds = time() - (int) $cacheStats['oldestEntry'];
 					if ($cacheAgeSeconds < 60) {
-						$cacheAgeText = 'just now';
+						$cacheAgeText = $bearsamppLang->getValue(Lang::CACHE_JUST_NOW);
 					} elseif ($cacheAgeSeconds < 3600) {
-						$cacheAgeText = floor($cacheAgeSeconds / 60) . ' minute(s) ago';
+						$cacheAgeText = sprintf($bearsamppLang->getValue(Lang::CACHE_MINUTES_AGO), floor($cacheAgeSeconds / 60));
 					} elseif ($cacheAgeSeconds < 86400) {
-						$cacheAgeText = floor($cacheAgeSeconds / 3600) . ' hour(s) ago';
+						$cacheAgeText = sprintf($bearsamppLang->getValue(Lang::CACHE_HOURS_AGO), floor($cacheAgeSeconds / 3600));
 					} else {
-						$cacheAgeText = floor($cacheAgeSeconds / 86400) . ' day(s) ago';
+						$cacheAgeText = sprintf($bearsamppLang->getValue(Lang::CACHE_DAYS_AGO), floor($cacheAgeSeconds / 86400));
 					}
 				}
 				?>
@@ -261,47 +261,49 @@
 					<span class = "list-group-item d-flex justify-content-between align-items-center">
 						<span>
 							<?php if ($cacheStats['enabled']) : ?>
-								<span class = "badge text-bg-success">Enabled</span>
+								<span class = "badge text-bg-success"><?php echo $bearsamppLang->getValue(Lang::ENABLED); ?></span>
 							<?php else : ?>
-								<span class = "badge text-bg-danger">Disabled</span>
+								<span class = "badge text-bg-danger"><?php echo $bearsamppLang->getValue(Lang::DISABLED); ?></span>
 							<?php endif; ?>
 						</span>
-						<span class = "text-muted" id = "cacheAgeText"><i class = "fa-solid fa-clock"></i> Last cleared: <?php echo $cacheAgeText; ?></span>
+						<span class = "text-muted" id = "cacheAgeText"><i class = "fa-solid fa-clock"></i> <?php echo $bearsamppLang->getValue(Lang::CACHE_OLDEST_ENTRY); ?>: <?php echo $cacheAgeText; ?></span>
+						<?php if ($cacheStats['enabled']) : ?>
 						<button id = "clearCacheBtn" class = "btn btn-outline-danger btn-sm" onclick = "clearCache()">
-							<i class = "fa-solid fa-trash-can"></i> Clear cache
+							<i class = "fa-solid fa-trash-can"></i> <?php echo $bearsamppLang->getValue(Lang::CACHE_CLEAR); ?>
 						</button>
+						<?php endif; ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end" id = "statFilesCount"><?php echo $cacheStats['filesCount']; ?></span>
-						Cache files
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_FILES); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end" id = "statTotalSize"><?php echo Util::humanFileSize((int) $cacheStats['totalSize']); ?></span>
-						Total size
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_TOTAL_SIZE); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end" id = "statLargestEntry"><?php echo Util::humanFileSize((int) $cacheStats['largestEntry']); ?></span>
-						Largest entry
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_LARGEST_ENTRY); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end" id = "statLastUpdate"><?php echo $cacheNewestText; ?></span>
-						Last update
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_LAST_UPDATE); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end"><?php echo $cacheStats['cacheHits']; ?></span>
-						Cache hits
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_HITS); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end"><?php echo $cacheStats['cacheMisses']; ?></span>
-						Cache misses
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_MISSES); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end"><?php echo $cacheStats['cachewrites']; ?></span>
-						Cache writes
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_WRITES); ?>
 					</span>
 					<span class = "list-group-item">
 						<span class = "float-end"><?php echo $cacheStats['hitRate']; ?>%</span>
-						Hit rate
+						<?php echo $bearsamppLang->getValue(Lang::CACHE_HIT_RATE); ?>
 					</span>
 				</div>
 				<div id = "cacheAlert" class = "d-none"></div>
@@ -311,11 +313,26 @@
 </div>
 
 <script>
+var cacheL10n = <?php echo json_encode(array(
+	'never' => $bearsamppLang->getValue(Lang::CACHE_NEVER),
+	'justNow' => $bearsamppLang->getValue(Lang::CACHE_JUST_NOW),
+	'minutesAgo' => $bearsamppLang->getValue(Lang::CACHE_MINUTES_AGO),
+	'hoursAgo' => $bearsamppLang->getValue(Lang::CACHE_HOURS_AGO),
+	'daysAgo' => $bearsamppLang->getValue(Lang::CACHE_DAYS_AGO),
+	'oldestEntry' => $bearsamppLang->getValue(Lang::CACHE_OLDEST_ENTRY),
+	'clearing' => $bearsamppLang->getValue(Lang::CACHE_CLEARING),
+	'cleared' => $bearsamppLang->getValue(Lang::CACHE_CLEARED),
+	'clear' => $bearsamppLang->getValue(Lang::CACHE_CLEAR),
+	'errorPrefix' => $bearsamppLang->getValue(Lang::CACHE_ERROR_PREFIX),
+	'unknownError' => $bearsamppLang->getValue(Lang::CACHE_UNKNOWN_ERROR),
+	'unexpectedResponse' => $bearsamppLang->getValue(Lang::CACHE_UNEXPECTED_ERROR),
+	'networkError' => $bearsamppLang->getValue(Lang::CACHE_NETWORK_ERROR),
+)); ?>;
 function clearCache() {
     var btn = document.getElementById('clearCacheBtn');
     var alert = document.getElementById('cacheAlert');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Clearing...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + cacheL10n.clearing;
     alert.className = 'd-none';
 
     var xhr = new XMLHttpRequest();
@@ -327,39 +344,43 @@ function clearCache() {
             var data = JSON.parse(xhr.responseText);
             if (data.success) {
                 alert.className = 'alert alert-success';
-                alert.innerHTML = '<i class="fa-solid fa-check-circle"></i> Cache cleared — ' + data.deleted + ' file(s) deleted.';
+                alert.innerHTML = '<i class="fa-solid fa-check-circle"></i> ' + formatText(cacheL10n.cleared, data.deleted);
                 document.getElementById('statFilesCount').textContent = data.filesCount;
                 document.getElementById('statTotalSize').textContent = formatBytes(data.totalSize);
                 document.getElementById('statLargestEntry').textContent = formatBytes(data.largestEntry);
-                document.getElementById('statLastUpdate').textContent = data.newestEntry ? formatAge(data.newestEntry) : 'never';
-                document.getElementById('cacheAgeText').textContent = 'Last cleared: ' + (data.oldestEntry ? formatAge(data.oldestEntry) : 'just now');
+                document.getElementById('statLastUpdate').textContent = data.newestEntry ? formatAge(data.newestEntry) : cacheL10n.never;
+                document.getElementById('cacheAgeText').textContent = cacheL10n.oldestEntry + ': ' + (data.oldestEntry ? formatAge(data.oldestEntry) : cacheL10n.justNow);
             } else {
                 alert.className = 'alert alert-danger';
-                alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Error: ' + (data.error || 'Unknown error');
+                alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> ' + cacheL10n.errorPrefix + (data.error || cacheL10n.unknownError);
             }
         } catch (e) {
             alert.className = 'alert alert-danger';
-            alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Unexpected server response.';
+            alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> ' + cacheL10n.unexpectedResponse;
         }
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Clear cache';
+        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> ' + cacheL10n.clear;
     };
     xhr.onerror = function() {
         alert.className = 'alert alert-danger';
-        alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Network error.';
+        alert.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> ' + cacheL10n.networkError;
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Clear cache';
+        btn.innerHTML = '<i class="fa-solid fa-trash-can"></i> ' + cacheL10n.clear;
     };
     xhr.send('proc=clearcache&csrf_token=' + encodeURIComponent(getCsrfToken()));
 }
 
 function formatAge(ts) {
-    if (!ts) return 'never';
+    if (!ts) return cacheL10n.never;
     var s = Math.floor(Date.now() / 1000) - ts;
-    if (s < 60) return 'just now';
-    if (s < 3600) return Math.floor(s / 60) + ' minute(s) ago';
-    if (s < 86400) return Math.floor(s / 3600) + ' hour(s) ago';
-    return Math.floor(s / 86400) + ' day(s) ago';
+    if (s < 60) return cacheL10n.justNow;
+    if (s < 3600) return formatText(cacheL10n.minutesAgo, Math.floor(s / 60));
+    if (s < 86400) return formatText(cacheL10n.hoursAgo, Math.floor(s / 3600));
+    return formatText(cacheL10n.daysAgo, Math.floor(s / 86400));
+}
+
+function formatText(tpl, n) {
+    return tpl.replace(/%d/g, n);
 }
 
 function formatBytes(bytes) {
