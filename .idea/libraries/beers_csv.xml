@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="beers.csv">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tools/python/python3.13.2/python/Lib/site-packages/prince/datasets/beers.csv.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/apps/phpmyadmin/current/libraries/classes" isTestSource="false" packagePrefix="PhpMyAdmin" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/phpmyadmin/phpmyadmin5.1.1/libraries/classes" isTestSource="false" packagePrefix="PhpMyAdmin" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/phpmyadmin/phpmyadmin5.2.1/libraries/classes" isTestSource="false" packagePrefix="PhpMyAdmin" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/phpmyadmin/phpmyadmin5.2.2/libraries/classes" isTestSource="false" packagePrefix="PhpMyAdmin" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/phpmyadmin/phpmyadmin5.2.3/libraries/classes" isTestSource="false" packagePrefix="PhpMyAdmin" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/administrator/components/com_convertforms" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/administrator/components/com_osmap/library" isTestSource="false" packagePrefix="Alledia" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/administrator/components/com_osmap/library" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries/allediaframework" isTestSource="false" packagePrefix="Alledia" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries/eshiol/phpxmlrpc/src" isTestSource="false" packagePrefix="PhpXmlRpc" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries/kunena/External" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries/kunena/External/Nbbc/src" isTestSource="false" packagePrefix="Nbbc" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/libraries/remotemonkey" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf/dompdf/dompdf/lib" isTestSource="false" packagePrefix="Dompdf" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf/dompdf/dompdf/src" isTestSource="false" packagePrefix="Dompdf" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf/masterminds/html5/src" isTestSource="false" packagePrefix="Masterminds" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf/phenx/php-font-lib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/convertformstools/pdf/dompdf/phenx/php-svg-lib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/system/nrframework" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/klas/plugins/system/osmylicensesmanager/library" isTestSource="false" packagePrefix="Alledia" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/administrator/components/com_convertforms" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/libraries/Rocloud/src" isTestSource="false" packagePrefix="Rocloud" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf/dompdf/dompdf/lib" isTestSource="false" packagePrefix="Dompdf" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf/dompdf/dompdf/src" isTestSource="false" packagePrefix="Dompdf" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf/masterminds/html5/src" isTestSource="false" packagePrefix="Masterminds" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf/phenx/php-font-lib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/convertformstools/pdf/dompdf/phenx/php-svg-lib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/csviaddon" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/new/plugins/j2store/payment_stripe/library/lib" isTestSource="false" packagePrefix="Stripe" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/administrator/components/com_hikashop/inc" isTestSource="false" packagePrefix="DVDoug" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/analytics" isTestSource="false" packagePrefix="Piwik" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/analytics/core" isTestSource="false" packagePrefix="Piwik" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/libraries" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/libraries/Rocloud/src" isTestSource="false" packagePrefix="Rocloud" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/plugins/csviaddon" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/plugins/hikashoppayment/payplug2/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/www/old/plugins/hikashoppayment/stripeconnect/lib/lib" isTestSource="false" packagePrefix="Stripe" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

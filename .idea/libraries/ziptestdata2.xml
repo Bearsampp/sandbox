@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ziptestdata2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tools/perl/perl5.40.0/c/lib/python3.9/test/test_importlib/zipdata02/ziptestdata.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

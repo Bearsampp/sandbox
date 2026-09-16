@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="share">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/mariadb/mariadb10.11.11/share/Mongo3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/mariadb/mariadb10.11.11/share/Mongo2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/mariadb/mariadb10.11.11/share/JdbcInterface.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/mariadb/mariadb10.11.11/share/JavaWrappers.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
