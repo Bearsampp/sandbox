@@ -16,33 +16,39 @@
  */
 class ActionRebuildini
 {
-    /**
-     * Constructor for the ActionRebuildini class.
-     *
-     * Upon instantiation, it deletes the existing bearsampp.ini file and creates a new one with
-     * the specified configuration content.
-     *
-     * @param array $args Arguments that might be used for further extension of constructor functionality.
-     * @throws Exception If the bearsampp.ini file cannot be written.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppRoot, $bearsamppCore;
+	/**
+	 * Constructor for the ActionRebuildini class.
+	 *
+	 * Upon instantiation, it deletes the existing bearsampp.ini file and creates a new one with
+	 * the specified configuration content.
+	 *
+	 * @param   array  $args  Arguments that might be used for further extension of constructor functionality.
+	 *
+	 * @throws Exception If the bearsampp.ini file cannot be written.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppRoot, $bearsamppCore;
 
-        // Step 0: Delete the existing bearsampp.ini file
-        $iniFilePath = Path::getIniFilePath();
+		// Step 0: Delete the existing bearsampp.ini file
+		$iniFilePath = Path::getIniFilePath();
 
-        if (is_link($iniFilePath)) {
-            @unlink($iniFilePath);
-        } elseif (file_exists($iniFilePath)) {
-            @unlink($iniFilePath);
-        } else {
-            Log::trace('bearsampp.ini already deleted or missing: ' . $iniFilePath);
-        }
+		if (is_link($iniFilePath))
+		{
+			@unlink($iniFilePath);
+		}
+		elseif (file_exists($iniFilePath))
+		{
+			@unlink($iniFilePath);
+		}
+		else
+		{
+			Log::trace('bearsampp.ini already deleted or missing: ' . $iniFilePath);
+		}
 
-        // Process and update the bearsampp.ini file
-        // Step 1: Prepare the configuration content
-        $configContent = <<<EOD
+		// Process and update the bearsampp.ini file
+		// Step 1: Prepare the configuration content
+		$configContent = <<<EOD
 [Config]
 ImageList=sprites.dat
 ServiceCheckInterval=1
@@ -76,13 +82,14 @@ Action: run; FileName: "%AeTrayMenuPath%core/libs/php/php-win.exe"; Parameters: 
 Action: run; FileName: "%AeTrayMenuPath%core/libs/php/php-win.exe"; Parameters: "root.php exec"; WorkingDir: "%AeTrayMenuPath%core"
 EOD;
 
-        // Step 2: Write to the file
-        if (file_put_contents($iniFilePath, $configContent) === false) {
-            throw new Exception("Failed to write to bearsampp.ini file.");
-        }
+		// Step 2: Write to the file
+		if (file_put_contents($iniFilePath, $configContent) === false)
+		{
+			throw new Exception("Failed to write to bearsampp.ini file.");
+		}
 
-        Log::trace('Calling triggerReload...');
-        $reloadAction = TplAppReload::triggerReload($args);
-        Log::trace('Reload action: ' . $reloadAction);
-    }
+		Log::trace('Calling triggerReload...');
+		$reloadAction = TplAppReload::triggerReload($args);
+		Log::trace('Reload action: ' . $reloadAction);
+	}
 }

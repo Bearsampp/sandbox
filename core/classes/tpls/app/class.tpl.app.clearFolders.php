@@ -14,25 +14,25 @@
  */
 class TplAppClearFolders
 {
-    /**
-     * Generates an action string to clear folders.
-     *
-     * This method constructs and returns an action string that triggers the `CLEAR_FOLDERS` action.
-     * The action string includes the caption and glyph for the menu item, which are retrieved from the language settings.
-     *
-     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-     *
-     * @return string The generated action string for clearing folders.
-     */
-    public static function process()
-    {
-        global $bearsamppLang;
+	/**
+	 * Generates an action string to clear folders.
+	 *
+	 * This method constructs and returns an action string that triggers the `CLEAR_FOLDERS` action.
+	 * The action string includes the caption and glyph for the menu item, which are retrieved from the language settings.
+	 *
+	 * @return string The generated action string for clearing folders.
+	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+	 *
+	 */
+	public static function process()
+	{
+		global $bearsamppLang;
 
-        return TplApp::getActionRun(
-            Action::CLEAR_FOLDERS,
-            null,
-            array($bearsamppLang->getValue(Lang::MENU_CLEAR_FOLDERS), TplAestan::GLYPH_TRASHCAN)
-        );
-    }
+		return TplApp::getActionRun(
+			Action::CLEAR_FOLDERS,
+			null,
+			array($bearsamppLang->getValue(Lang::MENU_CLEAR_FOLDERS), TplAestan::GLYPH_TRASHCAN)
+		);
+	}
 }
 

@@ -16,26 +16,26 @@
  */
 class TplAppRebuildIni
 {
-    /**
-     * Processes the action to rebuild the INI configuration.
-     *
-     * This method generates the action string to run the REBUILD_INI command.
-     * It uses the global `$bearsamppLang` object to retrieve the localized string
-     * for the menu item and the glyph icon for the trashcan.
-     *
-     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-     *
-     * @return string The generated action string to rebuild the INI configuration.
-     */
-    public static function process()
-    {
-        global $bearsamppLang;
+	/**
+	 * Processes the action to rebuild the INI configuration.
+	 *
+	 * This method generates the action string to run the REBUILD_INI command.
+	 * It uses the global `$bearsamppLang` object to retrieve the localized string
+	 * for the menu item and the glyph icon for the trashcan.
+	 *
+	 * @return string The generated action string to rebuild the INI configuration.
+	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+	 *
+	 */
+	public static function process()
+	{
+		global $bearsamppLang;
 
-        return TplApp::getActionRun(
-            Action::REBUILD_INI,
-            null,
-            array($bearsamppLang->getValue(Lang::MENU_REBUILD_INI), TplAestan::GLYPH_REBUILD_INI)
-        );
-    }
+		return TplApp::getActionRun(
+			Action::REBUILD_INI,
+			null,
+			array($bearsamppLang->getValue(Lang::MENU_REBUILD_INI), TplAestan::GLYPH_REBUILD_INI)
+		);
+	}
 }
 

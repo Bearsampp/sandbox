@@ -20,176 +20,203 @@
  */
 class Autoloader
 {
-    /**
-     * Cache for resolved class paths
-     * @var array
-     */
-    private static $classMap = [];
+	/**
+	 * Cache for resolved class paths
+	 *
+	 * @var array
+	 */
+	private static $classMap = [];
 
-    /**
-     * Cache for failed class lookups to avoid repeated file_exists() calls
-     * @var array
-     */
-    private static $failedLookups = [];
+	/**
+	 * Cache for failed class lookups to avoid repeated file_exists() calls
+	 *
+	 * @var array
+	 */
+	private static $failedLookups = [];
 
-    /**
-     * Statistics for monitoring cache effectiveness
-     * @var array
-     */
-    private static $stats = [
-        'hits' => 0,
-        'misses' => 0,
-        'failed_hits' => 0
-    ];
+	/**
+	 * Statistics for monitoring cache effectiveness
+	 *
+	 * @var array
+	 */
+	private static $stats = [
+		'hits'        => 0,
+		'misses'      => 0,
+		'failed_hits' => 0
+	];
 
-    /**
-     * Autoloader constructor.
-     *
-     * Initializes the Autoloader object.
-     */
-    public function __construct()
-    {
-    }
+	/**
+	 * Autoloader constructor.
+	 *
+	 * Initializes the Autoloader object.
+	 */
+	public function __construct()
+	{
+	}
 
-    /**
-     * Loads the specified class file based on the class name.
-     * Implements caching to improve performance on repeated class loads.
-     *
-     * @param string $class The name of the class to load.
-     * @return bool True if the class file was successfully loaded, false otherwise.
-     */
-    public function load($class)
-    {
-        global $bearsamppRoot;
+	/**
+	 * Gets the current cache statistics.
+	 * Useful for monitoring and debugging cache effectiveness.
+	 *
+	 * @return array Array containing hits, misses, and failed_hits counts
+	 */
+	public static function getStats()
+	{
+		return self::$stats;
+	}
 
-        $originalClass = $class;
-        $class = strtolower($class);
+	/**
+	 * Clears the autoloader cache.
+	 * Useful for testing or when class files are modified during runtime.
+	 *
+	 * @return void
+	 */
+	public static function clearCache()
+	{
+		self::$classMap      = [];
+		self::$failedLookups = [];
+		self::$stats         = [
+			'hits'        => 0,
+			'misses'      => 0,
+			'failed_hits' => 0
+		];
+	}
 
-        // Check if we've already successfully loaded this class
-        if (isset(self::$classMap[$class])) {
-            self::$stats['hits']++;
-            require_once self::$classMap[$class];
-            return true;
-        }
+	/**
+	 * Gets the size of the class map cache.
+	 *
+	 * @return int Number of cached class paths
+	 */
+	public static function getCacheSize()
+	{
+		return count(self::$classMap);
+	}
 
-        // Check if we've already determined this class doesn't exist
-        if (isset(self::$failedLookups[$class])) {
-            self::$stats['failed_hits']++;
-            return false;
-        }
+	/**
+	 * Loads the specified class file based on the class name.
+	 * Implements caching to improve performance on repeated class loads.
+	 *
+	 * @param   string  $class  The name of the class to load.
+	 *
+	 * @return bool True if the class file was successfully loaded, false otherwise.
+	 */
+	public function load($class)
+	{
+		global $bearsamppRoot;
 
-        self::$stats['misses']++;
+		$originalClass = $class;
+		$class         = strtolower($class);
 
-        $rootPath = Path::getCorePath();
-        $file = $this->resolveClassPath($class, $rootPath);
+		// Check if we've already successfully loaded this class
+		if (isset(self::$classMap[$class]))
+		{
+			self::$stats['hits']++;
+			require_once self::$classMap[$class];
 
-        if (!file_exists($file)) {
-            // Cache the failed lookup
-            self::$failedLookups[$class] = true;
-            return false;
-        }
+			return true;
+		}
 
-        // Cache the successful path resolution
-        self::$classMap[$class] = $file;
-        require_once $file;
-        return true;
-    }
+		// Check if we've already determined this class doesn't exist
+		if (isset(self::$failedLookups[$class]))
+		{
+			self::$stats['failed_hits']++;
 
-    /**
-     * Resolves the file path for a given class name based on naming conventions.
-     * Extracted into separate method for better maintainability and testability.
-     *
-     * @param string $class The lowercase class name
-     * @param string $rootPath The root path to the classes directory
-     * @return string The resolved file path
-     */
-    private function resolveClassPath($class, $rootPath)
-    {
-        $file = $rootPath . '/classes/class.' . $class . '.php';
+			return false;
+		}
 
-        if (in_array($class, ['utilstring', 'utilinput'], true)) {
-            $class = substr_replace($class, '.', 4, 0);
-            $file = $rootPath . '/classes/class.' . $class . '.php';
-        } elseif ($class === 'path') {
-            $file = $rootPath . '/classes/class.path.php';
-        } elseif (UtilString::startWith($class, 'bin')) {
-            $class = $class != 'bins' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootPath . '/classes/bins/class.' . $class . '.php';
-        } elseif (UtilString::startWith($class, 'tool')) {
-            $class = $class != 'tools' ? substr_replace($class, '.', 4, 0) : $class;
-            $file = $rootPath . '/classes/tools/class.' . $class . '.php';
-        } elseif (UtilString::startWith($class, 'app')) {
-            $class = $class != 'apps' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootPath . '/classes/apps/class.' . $class . '.php';
-        } elseif (UtilString::startWith($class, 'action')) {
-            $class = $class != 'action' ? substr_replace($class, '.', 6, 0) : $class;
-            $file = $rootPath . '/classes/actions/class.' . $class . '.php';
-        } elseif (UtilString::startWith($class, 'tplapp') && $class != 'tplapp') {
-            $class = substr_replace(substr_replace($class, '.', 3, 0), '.', 7, 0);
-            $file = $rootPath . '/classes/tpls/app/class.' . $class . '.php';
-        } elseif (UtilString::startWith($class, 'tpl')) {
-            $class = $class != 'tpls' ? substr_replace($class, '.', 3, 0) : $class;
-            $file = $rootPath . '/classes/tpls/class.' . $class . '.php';
-        }
+		self::$stats['misses']++;
 
-        return $file;
-    }
+		$rootPath = Path::getCorePath();
+		$file     = $this->resolveClassPath($class, $rootPath);
 
-    /**
-     * Gets the current cache statistics.
-     * Useful for monitoring and debugging cache effectiveness.
-     *
-     * @return array Array containing hits, misses, and failed_hits counts
-     */
-    public static function getStats()
-    {
-        return self::$stats;
-    }
+		if (!file_exists($file))
+		{
+			// Cache the failed lookup
+			self::$failedLookups[$class] = true;
 
-    /**
-     * Clears the autoloader cache.
-     * Useful for testing or when class files are modified during runtime.
-     *
-     * @return void
-     */
-    public static function clearCache()
-    {
-        self::$classMap = [];
-        self::$failedLookups = [];
-        self::$stats = [
-            'hits' => 0,
-            'misses' => 0,
-            'failed_hits' => 0
-        ];
-    }
+			return false;
+		}
 
-    /**
-     * Gets the size of the class map cache.
-     *
-     * @return int Number of cached class paths
-     */
-    public static function getCacheSize()
-    {
-        return count(self::$classMap);
-    }
+		// Cache the successful path resolution
+		self::$classMap[$class] = $file;
+		require_once $file;
 
-    /**
-     * Registers the autoloader with the SPL autoload stack.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function register()
-    {
-        return spl_autoload_register(array($this, 'load'));
-    }
+		return true;
+	}
 
-    /**
-     * Unregisters the autoloader from the SPL autoload stack.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function unregister()
-    {
-        return spl_autoload_unregister(array($this, 'load'));
-    }
+	/**
+	 * Resolves the file path for a given class name based on naming conventions.
+	 * Extracted into separate method for better maintainability and testability.
+	 *
+	 * @param   string  $class     The lowercase class name
+	 * @param   string  $rootPath  The root path to the classes directory
+	 *
+	 * @return string The resolved file path
+	 */
+	private function resolveClassPath($class, $rootPath)
+	{
+		$file = $rootPath . '/classes/class.' . $class . '.php';
+
+		if (in_array($class, ['utilstring', 'utilinput'], true))
+		{
+			$class = substr_replace($class, '.', 4, 0);
+			$file  = $rootPath . '/classes/class.' . $class . '.php';
+		}
+		elseif ($class === 'path')
+		{
+			$file = $rootPath . '/classes/class.path.php';
+		}
+		elseif (UtilString::startWith($class, 'bin'))
+		{
+			$class = $class != 'bins' ? substr_replace($class, '.', 3, 0) : $class;
+			$file  = $rootPath . '/classes/bins/class.' . $class . '.php';
+		}
+		elseif (UtilString::startWith($class, 'tool'))
+		{
+			$class = $class != 'tools' ? substr_replace($class, '.', 4, 0) : $class;
+			$file  = $rootPath . '/classes/tools/class.' . $class . '.php';
+		}
+		elseif (UtilString::startWith($class, 'app'))
+		{
+			$class = $class != 'apps' ? substr_replace($class, '.', 3, 0) : $class;
+			$file  = $rootPath . '/classes/apps/class.' . $class . '.php';
+		}
+		elseif (UtilString::startWith($class, 'action'))
+		{
+			$class = $class != 'action' ? substr_replace($class, '.', 6, 0) : $class;
+			$file  = $rootPath . '/classes/actions/class.' . $class . '.php';
+		}
+		elseif (UtilString::startWith($class, 'tplapp') && $class != 'tplapp')
+		{
+			$class = substr_replace(substr_replace($class, '.', 3, 0), '.', 7, 0);
+			$file  = $rootPath . '/classes/tpls/app/class.' . $class . '.php';
+		}
+		elseif (UtilString::startWith($class, 'tpl'))
+		{
+			$class = $class != 'tpls' ? substr_replace($class, '.', 3, 0) : $class;
+			$file  = $rootPath . '/classes/tpls/class.' . $class . '.php';
+		}
+
+		return $file;
+	}
+
+	/**
+	 * Registers the autoloader with the SPL autoload stack.
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public function register()
+	{
+		return spl_autoload_register(array($this, 'load'));
+	}
+
+	/**
+	 * Unregisters the autoloader from the SPL autoload stack.
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public function unregister()
+	{
+		return spl_autoload_unregister(array($this, 'load'));
+	}
 }

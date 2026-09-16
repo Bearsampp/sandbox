@@ -13,206 +13,238 @@
  */
 class ActionAddVhost extends ActionDialogBase
 {
-    private $wbLabelServerName;
-    private $wbInputServerName;
-    private $wbLabelDocRoot;
-    private $wbInputDocRoot;
-    private $wbBtnDocRoot;
-    private $wbLabelExp;
+	private $wbLabelServerName;
+	private $wbInputServerName;
+	private $wbLabelDocRoot;
+	private $wbInputDocRoot;
+	private $wbBtnDocRoot;
+	private $wbLabelExp;
 
-    protected function getWindowTitle()
-    {
-        global $bearsamppLang;
-        return $bearsamppLang->getValue(Lang::ADD_VHOST_TITLE);
-    }
+	protected function getWindowTitle()
+	{
+		global $bearsamppLang;
 
-    protected function getDialogTitle()
-    {
-        global $bearsamppLang;
-        return $bearsamppLang->getValue(Lang::ADD_VHOST_TITLE);
-    }
+		return $bearsamppLang->getValue(Lang::ADD_VHOST_TITLE);
+	}
 
-    protected function getDeleteDialogTitle()
-    {
-        // Not used in add mode
-        return '';
-    }
+	protected function getDeleteDialogTitle()
+	{
+		// Not used in add mode
+		return '';
+	}
 
-    protected function createFormFields($bearsamppWinbinder)
-    {
-        global $bearsamppRoot, $bearsamppLang;
+	protected function createFormFields($bearsamppWinbinder)
+	{
+		global $bearsamppRoot, $bearsamppLang;
 
-        $initServerName = 'test.local';
-        $initDocumentRoot = Path::formatWindowsPath(Path::getWwwPath()) . '\\' . $initServerName;
+		$initServerName   = 'test.local';
+		$initDocumentRoot = Path::formatWindowsPath(Path::getWwwPath()) . '\\' . $initServerName;
 
-        $this->wbLabelServerName = $bearsamppWinbinder->createLabel(
-            $this->wbWindow,
-            $bearsamppLang->getValue(Lang::VHOST_SERVER_NAME_LABEL) . ' :',
-            15, 15, 85, null, WBC_RIGHT
-        );
-        $this->wbInputServerName = $bearsamppWinbinder->createInputText(
-            $this->wbWindow,
-            $initServerName,
-            105, 13, 150, null
-        );
+		$this->wbLabelServerName = $bearsamppWinbinder->createLabel(
+			$this->wbWindow,
+			$bearsamppLang->getValue(Lang::VHOST_SERVER_NAME_LABEL) . ' :',
+			15,
+			15,
+			85,
+			null,
+			WBC_RIGHT
+		);
+		$this->wbInputServerName = $bearsamppWinbinder->createInputText(
+			$this->wbWindow,
+			$initServerName,
+			105,
+			13,
+			150,
+			null
+		);
 
-        $this->wbLabelDocRoot = $bearsamppWinbinder->createLabel(
-            $this->wbWindow,
-            $bearsamppLang->getValue(Lang::VHOST_DOCUMENT_ROOT_LABEL) . ' :',
-            15, 45, 85, null, WBC_RIGHT
-        );
-        $this->wbInputDocRoot = $bearsamppWinbinder->createInputText(
-            $this->wbWindow,
-            $initDocumentRoot,
-            105, 43, 190, null, null, WBC_READONLY
-        );
-        $this->wbBtnDocRoot = $bearsamppWinbinder->createButton(
-            $this->wbWindow,
-            $bearsamppLang->getValue(Lang::BUTTON_BROWSE),
-            300, 43, 110
-        );
+		$this->wbLabelDocRoot = $bearsamppWinbinder->createLabel(
+			$this->wbWindow,
+			$bearsamppLang->getValue(Lang::VHOST_DOCUMENT_ROOT_LABEL) . ' :',
+			15,
+			45,
+			85,
+			null,
+			WBC_RIGHT
+		);
+		$this->wbInputDocRoot = $bearsamppWinbinder->createInputText(
+			$this->wbWindow,
+			$initDocumentRoot,
+			105,
+			43,
+			190,
+			null,
+			null,
+			WBC_READONLY
+		);
+		$this->wbBtnDocRoot   = $bearsamppWinbinder->createButton(
+			$this->wbWindow,
+			$bearsamppLang->getValue(Lang::BUTTON_BROWSE),
+			300,
+			43,
+			110
+		);
 
-        $this->wbLabelExp = $bearsamppWinbinder->createLabel(
-            $this->wbWindow,
-            sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $initServerName, $initDocumentRoot),
-            15, 80, 470, 50
-        );
-    }
+		$this->wbLabelExp = $bearsamppWinbinder->createLabel(
+			$this->wbWindow,
+			sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $initServerName, $initDocumentRoot),
+			15,
+			80,
+			470,
+			50
+		);
+	}
 
-    protected function getFormValues($bearsamppWinbinder)
-    {
-        return [
-            'serverName' => $bearsamppWinbinder->getText($this->wbInputServerName[WinBinder::CTRL_OBJ]),
-            'documentRoot' => $bearsamppWinbinder->getText($this->wbInputDocRoot[WinBinder::CTRL_OBJ])
-        ];
-    }
+	protected function getFormValues($bearsamppWinbinder)
+	{
+		return [
+			'serverName'   => $bearsamppWinbinder->getText($this->wbInputServerName[WinBinder::CTRL_OBJ]),
+			'documentRoot' => $bearsamppWinbinder->getText($this->wbInputDocRoot[WinBinder::CTRL_OBJ])
+		];
+	}
 
-    protected function validateInput($values)
-    {
-        global $bearsamppLang;
+	protected function validateInput($values)
+	{
+		global $bearsamppLang;
 
-        if (!Util::isValidDomainName($values['serverName'])) {
-            return [
-                'valid' => false,
-                'error' => sprintf($bearsamppLang->getValue(Lang::VHOST_NOT_VALID_DOMAIN), $values['serverName'])
-            ];
-        }
+		if (!Util::isValidDomainName($values['serverName']))
+		{
+			return [
+				'valid' => false,
+				'error' => sprintf($bearsamppLang->getValue(Lang::VHOST_NOT_VALID_DOMAIN), $values['serverName'])
+			];
+		}
 
-        return ['valid' => true];
-    }
+		return ['valid' => true];
+	}
 
-    protected function itemExists($values)
-    {
-        global $bearsamppRoot, $bearsamppLang, $bearsamppWinbinder;
+	protected function itemExists($values)
+	{
+		global $bearsamppRoot, $bearsamppLang, $bearsamppWinbinder;
 
-        if (is_file(Path::getVhostsPath() . '/' . $values['serverName'] . '.conf')) {
-            $bearsamppWinbinder->messageBoxError(
-                sprintf($bearsamppLang->getValue(Lang::VHOST_ALREADY_EXISTS), $values['serverName']),
-                $this->getDialogTitle()
-            );
-            return true;
-        }
+		if (is_file(Path::getVhostsPath() . '/' . $values['serverName'] . '.conf'))
+		{
+			$bearsamppWinbinder->messageBoxError(
+				sprintf($bearsamppLang->getValue(Lang::VHOST_ALREADY_EXISTS), $values['serverName']),
+				$this->getDialogTitle()
+			);
 
-        return false;
-    }
+			return true;
+		}
 
-    protected function saveItem($values)
-    {
-        global $bearsamppRoot, $bearsamppBins, $bearsamppOpenSsl;
+		return false;
+	}
 
-        // Create SSL certificate
-        if (!$bearsamppOpenSsl->createCrt($values['serverName'])) {
-            return false;
-        }
+	protected function getDialogTitle()
+	{
+		global $bearsamppLang;
 
-        // Create vhost configuration file
-        return file_put_contents(
-            Path::getVhostsPath() . '/' . $values['serverName'] . '.conf',
-            $bearsamppBins->getApache()->getVhostContent($values['serverName'], $values['documentRoot'])
-        ) !== false;
-    }
+		return $bearsamppLang->getValue(Lang::ADD_VHOST_TITLE);
+	}
 
-    protected function deleteItem()
-    {
-        // Not used in add mode
-        return false;
-    }
+	protected function saveItem($values)
+	{
+		global $bearsamppRoot, $bearsamppBins, $bearsamppOpenSsl;
 
-    protected function getSaveSuccessMessage($values)
-    {
-        global $bearsamppLang;
-        return sprintf(
-            $bearsamppLang->getValue(Lang::VHOST_CREATED),
-            $values['serverName'],
-            $values['serverName'],
-            $values['documentRoot']
-        );
-    }
+		// Create SSL certificate
+		if (!$bearsamppOpenSsl->createCrt($values['serverName']))
+		{
+			return false;
+		}
 
-    protected function getSaveErrorMessage()
-    {
-        global $bearsamppLang;
-        return $bearsamppLang->getValue(Lang::VHOST_CREATED_ERROR);
-    }
+		// Create vhost configuration file
+		return file_put_contents(
+				Path::getVhostsPath() . '/' . $values['serverName'] . '.conf',
+				$bearsamppBins->getApache()->getVhostContent($values['serverName'], $values['documentRoot'])
+			) !== false;
+	}
 
-    protected function getDeleteConfirmMessage()
-    {
-        // Not used in add mode
-        return '';
-    }
+	protected function deleteItem()
+	{
+		// Not used in add mode
+		return false;
+	}
 
-    protected function getDeleteSuccessMessage()
-    {
-        // Not used in add mode
-        return '';
-    }
+	protected function getSaveSuccessMessage($values)
+	{
+		global $bearsamppLang;
 
-    protected function getDeleteErrorMessage()
-    {
-        // Not used in add mode
-        return '';
-    }
+		return sprintf(
+			$bearsamppLang->getValue(Lang::VHOST_CREATED),
+			$values['serverName'],
+			$values['serverName'],
+			$values['documentRoot']
+		);
+	}
 
-    protected function restartService()
-    {
-        global $bearsamppBins;
-        $bearsamppBins->getApache()->getService()->restart();
-    }
+	protected function getSaveErrorMessage()
+	{
+		global $bearsamppLang;
 
-    protected function handleCustomEvent($window, $id, $ctrl, $param1, $param2)
-    {
-        global $bearsamppLang, $bearsamppWinbinder;
+		return $bearsamppLang->getValue(Lang::VHOST_CREATED_ERROR);
+	}
 
-        $serverName = $bearsamppWinbinder->getText($this->wbInputServerName[WinBinder::CTRL_OBJ]);
-        $documentRoot = $bearsamppWinbinder->getText($this->wbInputDocRoot[WinBinder::CTRL_OBJ]);
+	protected function getDeleteConfirmMessage()
+	{
+		// Not used in add mode
+		return '';
+	}
 
-        // Handle server name input change
-        if ($id == $this->wbInputServerName[WinBinder::CTRL_ID]) {
-            $bearsamppWinbinder->setText(
-                $this->wbLabelExp[WinBinder::CTRL_OBJ],
-                sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $serverName, $documentRoot)
-            );
-            $bearsamppWinbinder->setEnabled(
-                $this->wbBtnSave[WinBinder::CTRL_OBJ],
-                !empty($serverName)
-            );
-        }
+	protected function getDeleteSuccessMessage()
+	{
+		// Not used in add mode
+		return '';
+	}
 
-        // Handle browse button
-        if ($id == $this->wbBtnDocRoot[WinBinder::CTRL_ID]) {
-            $documentRoot = $bearsamppWinbinder->sysDlgPath(
-                $window,
-                $bearsamppLang->getValue(Lang::VHOST_DOC_ROOT_PATH),
-                $documentRoot
-            );
-            if ($documentRoot && is_dir($documentRoot)) {
-                $bearsamppWinbinder->setText($this->wbInputDocRoot[WinBinder::CTRL_OBJ], $documentRoot . '\\');
-                $bearsamppWinbinder->setText(
-                    $this->wbLabelExp[WinBinder::CTRL_OBJ],
-                    sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $serverName, $documentRoot . '\\')
-                );
-            }
-        }
-    }
+	protected function getDeleteErrorMessage()
+	{
+		// Not used in add mode
+		return '';
+	}
+
+	protected function restartService()
+	{
+		global $bearsamppBins;
+		$bearsamppBins->getApache()->getService()->restart();
+	}
+
+	protected function handleCustomEvent($window, $id, $ctrl, $param1, $param2)
+	{
+		global $bearsamppLang, $bearsamppWinbinder;
+
+		$serverName   = $bearsamppWinbinder->getText($this->wbInputServerName[WinBinder::CTRL_OBJ]);
+		$documentRoot = $bearsamppWinbinder->getText($this->wbInputDocRoot[WinBinder::CTRL_OBJ]);
+
+		// Handle server name input change
+		if ($id == $this->wbInputServerName[WinBinder::CTRL_ID])
+		{
+			$bearsamppWinbinder->setText(
+				$this->wbLabelExp[WinBinder::CTRL_OBJ],
+				sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $serverName, $documentRoot)
+			);
+			$bearsamppWinbinder->setEnabled(
+				$this->wbBtnSave[WinBinder::CTRL_OBJ],
+				!empty($serverName)
+			);
+		}
+
+		// Handle browse button
+		if ($id == $this->wbBtnDocRoot[WinBinder::CTRL_ID])
+		{
+			$documentRoot = $bearsamppWinbinder->sysDlgPath(
+				$window,
+				$bearsamppLang->getValue(Lang::VHOST_DOC_ROOT_PATH),
+				$documentRoot
+			);
+			if ($documentRoot && is_dir($documentRoot))
+			{
+				$bearsamppWinbinder->setText($this->wbInputDocRoot[WinBinder::CTRL_OBJ], $documentRoot . '\\');
+				$bearsamppWinbinder->setText(
+					$this->wbLabelExp[WinBinder::CTRL_OBJ],
+					sprintf($bearsamppLang->getValue(Lang::VHOST_EXP_LABEL), $serverName, $documentRoot . '\\')
+				);
+			}
+		}
+	}
 }
 

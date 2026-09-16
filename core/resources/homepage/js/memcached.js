@@ -9,6 +9,6 @@
 // Memcached status fetcher
 // Maps 'versions' data key to 'version-list' selector
 createStatusFetcher('memcached', [
-  'checkport',
-  { data: 'versions', selector: 'version-list' }
+	'checkport',
+	{data: 'versions', selector: 'version-list'}
 ]);

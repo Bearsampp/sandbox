@@ -16,99 +16,104 @@
  */
 class Homepage
 {
-    const PAGE_INDEX = 'index';
-    const PAGE_PHPINFO = 'phpinfo';
-    const PAGE_CACHE_STATS = 'cachestats';
+	const PAGE_INDEX = 'index';
+	const PAGE_PHPINFO = 'phpinfo';
+	const PAGE_CACHE_STATS = 'cachestats';
 
-    private $page;
+	private $page;
 
-    /**
-     * @var array List of valid pages for the homepage.
-     */
-    private $pageList = array(
-        self::PAGE_INDEX,
-        self::PAGE_PHPINFO,
-        self::PAGE_CACHE_STATS,
-    );
+	/**
+	 * @var array List of valid pages for the homepage.
+	 */
+	private $pageList = array(
+		self::PAGE_INDEX,
+		self::PAGE_PHPINFO,
+		self::PAGE_CACHE_STATS,
+	);
 
-    /**
-     * Homepage constructor.
-     * Initializes the homepage class and sets the current page based on the query parameter.
-     */
-    public function __construct()
-    {
-        Log::initClass($this);
+	/**
+	 * Homepage constructor.
+	 * Initializes the homepage class and sets the current page based on the query parameter.
+	 */
+	public function __construct()
+	{
+		Log::initClass($this);
 
-        $page = UtilInput::cleanGetVar('p');
-        $this->page = !empty($page) && in_array($page, $this->pageList) ? $page : self::PAGE_INDEX;
+		$page       = UtilInput::cleanGetVar('p');
+		$this->page = !empty($page) && in_array($page, $this->pageList) ? $page : self::PAGE_INDEX;
 
-        // Ensure JS files are always up to date with the current URL/protocol
-        $this->refreshCommonsJsContent();
-    }
+		// Ensure JS files are always up to date with the current URL/protocol
+		$this->refreshCommonsJsContent();
+	}
 
-    /**
-     * Gets the current page.
-     *
-     * @return string The current page.
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
+	/**
+	 * Refreshes the commons JavaScript content by updating the _commons.js and quickpick.js files.
+	 */
+	public function refreshCommonsJsContent()
+	{
+		// Redundant with global AJAX_URL in homepage.php
+	}
 
-    /**
-     * Constructs the page query string based on the provided query.
-     *
-     * @param string $query The query string to construct.
-     * @return string The constructed page query string.
-     */
-    public function getPageQuery($query)
-    {
-        if (empty($query)) {
-            return '';
-        }
+	/**
+	 * Gets the current page.
+	 *
+	 * @return string The current page.
+	 */
+	public function getPage()
+	{
+		return $this->page;
+	}
 
-        if (in_array($query, $this->pageList)) {
-            return $query !== self::PAGE_INDEX ? '?p=' . $query : 'index.php';
-        }
+	/**
+	 * Constructs the full URL for the given page query.
+	 *
+	 * @param   string  $query  The query string to construct the URL for.
+	 *
+	 * @return string The constructed page URL.
+	 */
+	public function getPageUrl($query)
+	{
+		global $bearsamppRoot;
 
-        return '';
-    }
+		return Path::getLocalUrl($this->getPageQuery($query));
+	}
 
-    /**
-     * Constructs the full URL for the given page query.
-     *
-     * @param string $query The query string to construct the URL for.
-     * @return string The constructed page URL.
-     */
-    public function getPageUrl($query)
-    {
-        global $bearsamppRoot;
-        return Path::getLocalUrl($this->getPageQuery($query));
-    }
+	/**
+	 * Constructs the page query string based on the provided query.
+	 *
+	 * @param   string  $query  The query string to construct.
+	 *
+	 * @return string The constructed page query string.
+	 */
+	public function getPageQuery($query)
+	{
+		if (empty($query))
+		{
+			return '';
+		}
 
-    /**
-     * Refreshes the alias content by updating the alias configuration file.
-     *
-     * @return bool True if the alias content was successfully refreshed, false otherwise.
-     */
-    public function refreshAliasContent()
-    {
-        global $bearsamppBins;
+		if (in_array($query, $this->pageList))
+		{
+			return $query !== self::PAGE_INDEX ? '?p=' . $query : 'index.php';
+		}
 
-        $result = $bearsamppBins->getApache()->getAliasContent(
-            Path::getWebResourcesPath(),
-            Path::getHomepagePath()
-        );
+		return '';
+	}
 
-        return file_put_contents(Path::getHomepagePath() . '/alias.conf', $result) !== false;
-    }
+	/**
+	 * Refreshes the alias content by updating the alias configuration file.
+	 *
+	 * @return bool True if the alias content was successfully refreshed, false otherwise.
+	 */
+	public function refreshAliasContent()
+	{
+		global $bearsamppBins;
 
-    /**
-     * Refreshes the commons JavaScript content by updating the _commons.js and quickpick.js files.
-     */
-    public function refreshCommonsJsContent()
-    {
-        // Redundant with global AJAX_URL in homepage.php
-    }
+		$result = $bearsamppBins->getApache()->getAliasContent(
+			Path::getWebResourcesPath(),
+			Path::getHomepagePath()
+		);
+
+		return file_put_contents(Path::getHomepagePath() . '/alias.conf', $result) !== false;
+	}
 }

@@ -13,19 +13,20 @@
  */
 class ActionRestart
 {
-    /**
-     * ActionRestart constructor.
-     * Displays a message box with restart information.
-     *
-     * @param array $args Command line arguments passed to the action.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppLang, $bearsamppWinbinder;
+	/**
+	 * ActionRestart constructor.
+	 * Displays a message box with restart information.
+	 *
+	 * @param   array  $args  Command line arguments passed to the action.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppLang, $bearsamppWinbinder;
 
-        $bearsamppWinbinder->messageBoxInfo(
-            sprintf($bearsamppLang->getValue(Lang::RESTART_TEXT), APP_TITLE),
-            $bearsamppLang->getValue(Lang::RESTART_TITLE));
-    }
+		$bearsamppWinbinder->messageBoxInfo(
+			sprintf($bearsamppLang->getValue(Lang::RESTART_TEXT), APP_TITLE),
+			$bearsamppLang->getValue(Lang::RESTART_TITLE)
+		);
+	}
 }
 

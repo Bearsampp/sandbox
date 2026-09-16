@@ -16,81 +16,87 @@
  */
 class TplAppServices
 {
-    // Constants for action identifiers
-    const ACTION_START = 'startServices';
-    const ACTION_STOP = 'stopServices';
-    const ACTION_RESTART = 'restartServices';
+	// Constants for action identifiers
+	const ACTION_START = 'startServices';
+	const ACTION_STOP = 'stopServices';
+	const ACTION_RESTART = 'restartServices';
 
-    /**
-     * Generates the main services menu with options to start, stop, and restart all services.
-     *
-     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-     *
-     * @return array An array containing the generated menu items and actions for services.
-     */
-    public static function process()
-    {
-        global $bearsamppLang;
+	/**
+	 * Generates the main services menu with options to start, stop, and restart all services.
+	 *
+	 * @return array An array containing the generated menu items and actions for services.
+	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+	 *
+	 */
+	public static function process()
+	{
+		global $bearsamppLang;
 
-        $tplStart = TplApp::getActionMulti(
-            self::ACTION_START, null,
-            array($bearsamppLang->getValue(Lang::MENU_START_SERVICES), TplAestan::GLYPH_SERVICES_START),
-            false, get_called_class()
-        );
+		$tplStart = TplApp::getActionMulti(
+			self::ACTION_START,
+			null,
+			array($bearsamppLang->getValue(Lang::MENU_START_SERVICES), TplAestan::GLYPH_SERVICES_START),
+			false,
+			get_called_class()
+		);
 
-        $tplStop = TplApp::getActionMulti(
-            self::ACTION_STOP, null,
-            array($bearsamppLang->getValue(Lang::MENU_STOP_SERVICES), TplAestan::GLYPH_SERVICES_STOP),
-            false, get_called_class()
-        );
+		$tplStop = TplApp::getActionMulti(
+			self::ACTION_STOP,
+			null,
+			array($bearsamppLang->getValue(Lang::MENU_STOP_SERVICES), TplAestan::GLYPH_SERVICES_STOP),
+			false,
+			get_called_class()
+		);
 
-        $tplRestart = TplApp::getActionMulti(
-            self::ACTION_RESTART, null,
-            array($bearsamppLang->getValue(Lang::MENU_RESTART_SERVICES), TplAestan::GLYPH_SERVICES_RESTART),
-            false, get_called_class()
-        );
+		$tplRestart = TplApp::getActionMulti(
+			self::ACTION_RESTART,
+			null,
+			array($bearsamppLang->getValue(Lang::MENU_RESTART_SERVICES), TplAestan::GLYPH_SERVICES_RESTART),
+			false,
+			get_called_class()
+		);
 
-        // Items
-        $items = $tplStart[TplApp::SECTION_CALL] . PHP_EOL .
-            $tplStop[TplApp::SECTION_CALL] . PHP_EOL .
-            $tplRestart[TplApp::SECTION_CALL] . PHP_EOL;
+		// Items
+		$items = $tplStart[TplApp::SECTION_CALL] . PHP_EOL .
+			$tplStop[TplApp::SECTION_CALL] . PHP_EOL .
+			$tplRestart[TplApp::SECTION_CALL] . PHP_EOL;
 
-        // Actions
-        $actions = PHP_EOL . $tplStart[TplApp::SECTION_CONTENT] .
-            PHP_EOL . $tplStop[TplApp::SECTION_CONTENT] .
-            PHP_EOL . $tplRestart[TplApp::SECTION_CONTENT];
+		// Actions
+		$actions = PHP_EOL . $tplStart[TplApp::SECTION_CONTENT] .
+			PHP_EOL . $tplStop[TplApp::SECTION_CONTENT] .
+			PHP_EOL . $tplRestart[TplApp::SECTION_CONTENT];
 
-        return array($items, $actions);
-    }
+		return array($items, $actions);
+	}
 
-    /**
-     * Generates the actions to start all services using a single splash screen.
-     *
-     * @return string The generated action to start all services.
-     */
-    public static function getActionStartServices()
-    {
-        return TplApp::getActionRun(Action::START_ALL_SERVICES, array());
-    }
+	/**
+	 * Generates the actions to start all services using a single splash screen.
+	 *
+	 * @return string The generated action to start all services.
+	 */
+	public static function getActionStartServices()
+	{
+		return TplApp::getActionRun(Action::START_ALL_SERVICES, array());
+	}
 
-    /**
-     * Generates the actions to stop all services using a single splash screen.
-     *
-     * @return string The generated action to stop all services.
-     */
-    public static function getActionStopServices()
-    {
-        return TplApp::getActionRun(Action::STOP_ALL_SERVICES, array());
-    }
+	/**
+	 * Generates the actions to stop all services using a single splash screen.
+	 *
+	 * @return string The generated action to stop all services.
+	 */
+	public static function getActionStopServices()
+	{
+		return TplApp::getActionRun(Action::STOP_ALL_SERVICES, array());
+	}
 
-    /**
-     * Generates the actions to restart all services using a single splash screen.
-     *
-     * @return string The generated action to restart all services.
-     */
-    public static function getActionRestartServices()
-    {
-        return TplApp::getActionRun(Action::RESTART_ALL_SERVICES, array());
-    }
+	/**
+	 * Generates the actions to restart all services using a single splash screen.
+	 *
+	 * @return string The generated action to restart all services.
+	 */
+	public static function getActionRestartServices()
+	{
+		return TplApp::getActionRun(Action::RESTART_ALL_SERVICES, array());
+	}
 }
 

@@ -14,36 +14,38 @@
  */
 class ActionRefreshRepos
 {
-    /**
-     * Constant representing the 'git' command.
-     */
-    const GIT = 'git';
+	/**
+	 * Constant representing the 'git' command.
+	 */
+	const GIT = 'git';
 
-    /**
-     * ActionRefreshRepos constructor.
-     *
-     * This constructor initializes the action to refresh repositories based on the provided arguments.
-     *
-     * @param array $args An array of arguments where the first argument can be 'git' to trigger the git repository refresh.
-     */
-    public function __construct($args)
-    {
-        // Global variable for accessing bearsamppTools
-        global $bearsamppTools;
+	/**
+	 * ActionRefreshRepos constructor.
+	 *
+	 * This constructor initializes the action to refresh repositories based on the provided arguments.
+	 *
+	 * @param   array  $args  An array of arguments where the first argument can be 'git' to trigger the git repository refresh.
+	 */
+	public function __construct($args)
+	{
+		// Global variable for accessing bearsamppTools
+		global $bearsamppTools;
 
-        // Start the loading process
-        Util::startLoading();
+		// Start the loading process
+		Util::startLoading();
 
-        // Check if the first argument is set and not empty
-        if (isset($args[0]) && !empty($args[0])) {
-            // If the first argument is 'git', trigger the git repository refresh
-            if ($args[0] == self::GIT) {
-                $bearsamppTools->getGit()->findRepos(false);
-            }
-        }
+		// Check if the first argument is set and not empty
+		if (isset($args[0]) && !empty($args[0]))
+		{
+			// If the first argument is 'git', trigger the git repository refresh
+			if ($args[0] == self::GIT)
+			{
+				$bearsamppTools->getGit()->findRepos(false);
+			}
+		}
 
-        // Stop the loading process
-        Util::stopLoading();
-    }
+		// Stop the loading process
+		Util::stopLoading();
+	}
 }
 

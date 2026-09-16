@@ -15,104 +15,107 @@
  */
 class Splash
 {
-    /* Set progress bar "loading" modal size. */
-    const WINDOW_WIDTH = 460;
-    const WINDOW_HEIGHT = 90;
+	/* Set progress bar "loading" modal size. */
+	const WINDOW_WIDTH = 460;
+	const WINDOW_HEIGHT = 90;
 
-    private $wbWindow;
-    private $wbImage;
-    private $wbTextLoading;
-    private $wbProgressBar;
+	private $wbWindow;
+	private $wbImage;
+	private $wbTextLoading;
+	private $wbProgressBar;
 
-    private $currentImg;
+	private $currentImg;
 
-    /**
-     * Splash constructor.
-     *
-     * Initializes the Splash class and sets the current image to null.
-     */
-    public function __construct()
-    {
-        Log::initClass($this);
-        $this->currentImg = null;
-    }
+	/**
+	 * Splash constructor.
+	 *
+	 * Initializes the Splash class and sets the current image to null.
+	 */
+	public function __construct()
+	{
+		Log::initClass($this);
+		$this->currentImg = null;
+	}
 
-    /**
-     * Initializes the splash screen.
-     *
-     * @param string $title The title of the splash screen window.
-     * @param int $gauge The maximum value for the progress bar.
-     * @param string $text The initial loading text to display.
-     */
-    public function init($title, $gauge, $text)
-    {
-        global $bearsamppCore, $bearsamppWinbinder;
+	/**
+	 * Initializes the splash screen.
+	 *
+	 * @param   string  $title  The title of the splash screen window.
+	 * @param   int     $gauge  The maximum value for the progress bar.
+	 * @param   string  $text   The initial loading text to display.
+	 */
+	public function init($title, $gauge, $text)
+	{
+		global $bearsamppCore, $bearsamppWinbinder;
 
-        $bearsamppWinbinder->reset();
+		$bearsamppWinbinder->reset();
 
-        $screenArea = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
-        $screenWidth = intval($screenArea[2]);
-        $screenHeight = intval($screenArea[3]);
-        $xPos = $screenWidth - self::WINDOW_WIDTH;
-        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
+		$screenArea   = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
+		$screenWidth  = intval($screenArea[2]);
+		$screenHeight = intval($screenArea[3]);
+		$xPos         = $screenWidth - self::WINDOW_WIDTH;
+		$yPos         = $screenHeight - self::WINDOW_HEIGHT - 5;
 
-        $this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, null);
-        
-        // Check if window was created successfully
-        if ($this->wbWindow === false || $this->wbWindow === null) {
-            Log::error('Failed to create splash window');
-            return;
-        }
-        
-        // CRITICAL: wb_set_visible() must be called AFTER window creation in PHP 8.4
-        // The WS_VISIBLE flag during creation doesn't work
-        wb_set_visible($this->wbWindow, true);
+		$this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, $title, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP | WBC_READONLY, null);
 
-        $this->wbImage = $bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp');
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, $gauge + 1, 42, 24, 390, 15);
+		// Check if window was created successfully
+		if ($this->wbWindow === false || $this->wbWindow === null)
+		{
+			Log::error('Failed to create splash window');
 
-        $this->setTextLoading($text);
-        $this->incrProgressBar();
-    }
+			return;
+		}
 
-    /**
-     * Sets the loading text on the splash screen.
-     *
-     * @param string $caption The loading text to display.
-     */
-    public function setTextLoading($caption)
-    {
-        global $bearsamppWinbinder;
+		// CRITICAL: wb_set_visible() must be called AFTER window creation in PHP 8.4
+		// The WS_VISIBLE flag during creation doesn't work
+		wb_set_visible($this->wbWindow, true);
 
-        $bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);
-        $this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);
-    }
+		$this->wbImage       = $bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp');
+		$this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, $gauge + 1, 42, 24, 390, 15);
 
-    /**
-     * Increments the progress bar by a specified number of steps.
-     *
-     * @param int $nb The number of steps to increment the progress bar by. Default is 1.
-     */
-    public function incrProgressBar($nb = 1)
-    {
-        global $bearsamppCore, $bearsamppWinbinder;
+		$this->setTextLoading($text);
+		$this->incrProgressBar();
+	}
 
-        for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp', 4, 4, 32, 32);
-            $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
-        }
+	/**
+	 * Sets the loading text on the splash screen.
+	 *
+	 * @param   string  $caption  The loading text to display.
+	 */
+	public function setTextLoading($caption)
+	{
+		global $bearsamppWinbinder;
 
-        $bearsamppWinbinder->wait();
-        $bearsamppWinbinder->wait($this->wbWindow);
-    }
+		$bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 42, self::WINDOW_HEIGHT);
+		$this->wbTextLoading = $bearsamppWinbinder->drawText($this->wbWindow, $caption, 42, 0, self::WINDOW_WIDTH - 44, 25);
+	}
 
-    /**
-     * Retrieves the window object of the splash screen.
-     *
-     * @return mixed The window object of the splash screen.
-     */
-    public function getWbWindow()
-    {
-        return $this->wbWindow;
-    }
+	/**
+	 * Increments the progress bar by a specified number of steps.
+	 *
+	 * @param   int  $nb  The number of steps to increment the progress bar by. Default is 1.
+	 */
+	public function incrProgressBar($nb = 1)
+	{
+		global $bearsamppCore, $bearsamppWinbinder;
+
+		for ($i = 0; $i < $nb; $i++)
+		{
+			$bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp', 4, 4, 32, 32);
+			$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+		}
+
+		$bearsamppWinbinder->wait();
+		$bearsamppWinbinder->wait($this->wbWindow);
+	}
+
+	/**
+	 * Retrieves the window object of the splash screen.
+	 *
+	 * @return mixed The window object of the splash screen.
+	 */
+	public function getWbWindow()
+	{
+		return $this->wbWindow;
+	}
 }

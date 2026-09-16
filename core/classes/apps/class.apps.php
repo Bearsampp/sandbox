@@ -15,95 +15,101 @@
  */
 class Apps
 {
-    /**
-     * The type of the module.
-     */
-    const TYPE = 'apps';
+	/**
+	 * The type of the module.
+	 */
+	const TYPE = 'apps';
 
-    /**
-     * @var AppPhpmyadmin|null Instance of the PhpMyAdmin module.
-     */
-    private $phpmyadmin;
+	/**
+	 * @var AppPhpmyadmin|null Instance of the PhpMyAdmin module.
+	 */
+	private $phpmyadmin;
 
-    /**
-     * @var AppPhppgadmin|null Instance of the PhpPgAdmin module.
-     */
-    private $phppgadmin;
+	/**
+	 * @var AppPhppgadmin|null Instance of the PhpPgAdmin module.
+	 */
+	private $phppgadmin;
 
-    /**
-     * Constructor for the Apps class.
-     */
-    public function __construct()
-    {
-    }
+	/**
+	 * Constructor for the Apps class.
+	 */
+	public function __construct()
+	{
+	}
 
-    /**
-     * Reloads the configuration for all application modules.
-     *
-     * This method logs the reload process and iterates through all the apps to reload their configurations.
-     */
-    public function reload()
-    {
-        Log::info('Reload apps');
-        foreach ($this->getAll() as $app) {
-            $app->reload();
-        }
-    }
+	/**
+	 * Reloads the configuration for all application modules.
+	 *
+	 * This method logs the reload process and iterates through all the apps to reload their configurations.
+	 */
+	public function reload()
+	{
+		Log::info('Reload apps');
+		foreach ($this->getAll() as $app)
+		{
+			$app->reload();
+		}
+	}
 
-    /**
-     * Updates the configuration for all application modules.
-     *
-     * This method logs the update process and iterates through all the tools to update their configurations.
-     */
-    public function update()
-    {
-        Log::info('Update apps config');
-        foreach ($this->getAll() as $tool) {
-            $tool->update();
-        }
-    }
+	/**
+	 * Retrieves all application modules.
+	 *
+	 * @return array An array containing instances of all application modules.
+	 */
+	public function getAll()
+	{
+		return array(
+			$this->getPhpmyadmin(),
+			$this->getPhppgadmin()
+		);
+	}
 
-    /**
-     * Retrieves all application modules.
-     *
-     * @return array An array containing instances of all application modules.
-     */
-    public function getAll()
-    {
-        return array(
-            $this->getPhpmyadmin(),
-            $this->getPhppgadmin()
-        );
-    }
+	/**
+	 * Retrieves the PhpMyAdmin module instance.
+	 *
+	 * If the instance is not already created, it initializes a new AppPhpmyadmin object.
+	 *
+	 * @return AppPhpmyadmin The instance of the PhpMyAdmin module.
+	 */
+	public function getPhpmyadmin()
+	{
+		if ($this->phpmyadmin == null)
+		{
+			$this->phpmyadmin = new AppPhpmyadmin('phpmyadmin', self::TYPE);
+		}
 
-    /**
-     * Retrieves the PhpMyAdmin module instance.
-     *
-     * If the instance is not already created, it initializes a new AppPhpmyadmin object.
-     *
-     * @return AppPhpmyadmin The instance of the PhpMyAdmin module.
-     */
-    public function getPhpmyadmin()
-    {
-        if ($this->phpmyadmin == null) {
-            $this->phpmyadmin = new AppPhpmyadmin('phpmyadmin', self::TYPE);
-        }
-        return $this->phpmyadmin;
-    }
+		return $this->phpmyadmin;
+	}
 
-    /**
-     * Retrieves the PhpPgAdmin module instance.
-     *
-     * If the instance is not already created, it initializes a new AppPhppgadmin object.
-     *
-     * @return AppPhppgadmin The instance of the PhpPgAdmin module.
-     */
-    public function getPhppgadmin()
-    {
-        if ($this->phppgadmin == null) {
-            $this->phppgadmin = new AppPhppgadmin('phppgadmin', self::TYPE);
-        }
-        return $this->phppgadmin;
-    }
+	/**
+	 * Retrieves the PhpPgAdmin module instance.
+	 *
+	 * If the instance is not already created, it initializes a new AppPhppgadmin object.
+	 *
+	 * @return AppPhppgadmin The instance of the PhpPgAdmin module.
+	 */
+	public function getPhppgadmin()
+	{
+		if ($this->phppgadmin == null)
+		{
+			$this->phppgadmin = new AppPhppgadmin('phppgadmin', self::TYPE);
+		}
+
+		return $this->phppgadmin;
+	}
+
+	/**
+	 * Updates the configuration for all application modules.
+	 *
+	 * This method logs the update process and iterates through all the tools to update their configurations.
+	 */
+	public function update()
+	{
+		Log::info('Update apps config');
+		foreach ($this->getAll() as $tool)
+		{
+			$tool->update();
+		}
+	}
 }
 

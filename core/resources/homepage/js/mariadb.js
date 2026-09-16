@@ -9,6 +9,6 @@
 // MariaDB status fetcher
 // Maps 'versions' data key to 'version-list' selector
 createStatusFetcher('mariadb', [
-  'checkport',
-  { data: 'versions', selector: 'version-list' }
+	'checkport',
+	{data: 'versions', selector: 'version-list'}
 ]);

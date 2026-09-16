@@ -17,47 +17,61 @@
  */
 class ActionClearFolders
 {
-    /**
-     * Constructor for the ActionClearFolders class.
-     *
-     * Upon instantiation, it clears specified temporary folders in both the root and core temporary paths.
-     * It excludes certain files and folders from being deleted to prevent essential data loss.
-     *
-     * @param array $args Arguments that might be used for further extension of constructor functionality.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppRoot, $bearsamppCore;
+	/**
+	 * Constructor for the ActionClearFolders class.
+	 *
+	 * Upon instantiation, it clears specified temporary folders in both the root and core temporary paths.
+	 * It excludes certain files and folders from being deleted to prevent essential data loss.
+	 *
+	 * @param   array  $args  Arguments that might be used for further extension of constructor functionality.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppRoot, $bearsamppCore;
 
-        /**
-         * Clears specific temporary folders in the root temporary path.
-         *
-         * Util::clearFolder is used to clear the contents of the root temporary path, excluding
-         * certain essential items such as 'cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache',
-         * 'pip', 'opcache' and '.gitignore'. This ensures that important data and configurations are not lost.
-         *
-         * @param string Path::getTmpPath() The root temporary path to be cleared.
-         * @param array $exclusions List of folders and files to be excluded from deletion.
-         */
-        Util::clearFolder(Path::getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'opcache', '.gitignore'));
+		/**
+		 * Clears specific temporary folders in the root temporary path.
+		 *
+		 * Util::clearFolder is used to clear the contents of the root temporary path, excluding
+		 * certain essential items such as 'cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache',
+		 * 'pip', 'opcache' and '.gitignore'. This ensures that important data and configurations are not lost.
+		 *
+		 * @param   string Path::getTmpPath() The root temporary path to be cleared.
+		 * @param   array  $exclusions  List of folders and files to be excluded from deletion.
+		 */
+		Util::clearFolder(Path::getTmpPath(), array('cachegrind', 'composer', 'openssl', 'mailpit', 'xlight', 'npm-cache', 'pip', 'opcache', '.gitignore'));
 
-        // Clear logs
-        Util::clearFolder(Path::getLogsPath(), array('mariadb.log', 'mailpit.err.log', 'mailpit.out.log', 'memcached.err.log', 'memcached.out.log', 'mysql.log', 'postgresql.log', 'xlight.error.log', 'xlight.log', '.gitignore') );
+		// Clear logs
+		Util::clearFolder(
+			Path::getLogsPath(),
+			array(
+				'mariadb.log',
+				'mailpit.err.log',
+				'mailpit.out.log',
+				'memcached.err.log',
+				'memcached.out.log',
+				'mysql.log',
+				'postgresql.log',
+				'xlight.error.log',
+				'xlight.log',
+				'.gitignore'
+			)
+		);
 
-        /**
-         * Clears the core temporary path.
-         *
-         * Util::clearFolder is used to clear the contents of the core temporary path, excluding
-         * the '.gitignore' file. This ensures that the core temporary path is cleaned without
-         * removing the '.gitignore' file which might be necessary for version control.
-         *
-         * @param string Path::getTmpPath() The core temporary path to be cleared.
-         * @param array $exclusions List of folders and files to be excluded from deletion.
-         */
-        Util::clearFolder(Path::getTmpPath(), array('.gitignore'));
+		/**
+		 * Clears the core temporary path.
+		 *
+		 * Util::clearFolder is used to clear the contents of the core temporary path, excluding
+		 * the '.gitignore' file. This ensures that the core temporary path is cleaned without
+		 * removing the '.gitignore' file which might be necessary for version control.
+		 *
+		 * @param   string Path::getTmpPath() The core temporary path to be cleared.
+		 * @param   array  $exclusions  List of folders and files to be excluded from deletion.
+		 */
+		Util::clearFolder(Path::getTmpPath(), array('.gitignore'));
 
-        // Clear configuration caches (disk .cache files + in-memory module/config caches)
-        Root::clearCaches();
-    }
+		// Clear configuration caches (disk .cache files + in-memory module/config caches)
+		Root::clearCaches();
+	}
 }
 

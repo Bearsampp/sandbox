@@ -16,268 +16,302 @@
  */
 class CacheManager
 {
-    private static $cacheDir;
-    private static $enabled = true;
-    private static $stats = [
-        'hits' => 0,
-        'misses' => 0,
-        'writes' => 0
-    ];
+	const CACHE_VERSION = '1.0';
+	private static $cacheDir;
+	private static $enabled = true;
+	private static $stats = [
+		'hits'   => 0,
+		'misses' => 0,
+		'writes' => 0
+	];
 
-    const CACHE_VERSION = '1.0';
+	/**
+	 * Initialize cache system
+	 * Must be called after Root path is available
+	 *
+	 * @param   string  $cacheDir  Path to cache directory
+	 *
+	 * @return void
+	 */
+	public static function init(string $cacheDir): void
+	{
+		self::$cacheDir = $cacheDir;
 
-    /**
-     * Initialize cache system
-     * Must be called after Root path is available
-     *
-     * @param string $cacheDir Path to cache directory
-     * @return void
-     */
-    public static function init(string $cacheDir): void
-    {
-        self::$cacheDir = $cacheDir;
+		// Create cache directory if needed
+		if (!is_dir(self::$cacheDir))
+		{
+			@mkdir(self::$cacheDir, 0755, true);
+		}
 
-        // Create cache directory if needed
-        if (!is_dir(self::$cacheDir)) {
-            @mkdir(self::$cacheDir, 0755, true);
-        }
+		// Check if cache directory is writable
+		if (!is_writable(self::$cacheDir))
+		{
+			Log::warning('Cache directory not writable, caching disabled: ' . self::$cacheDir);
+			self::$enabled = false;
+		}
+	}
 
-        // Check if cache directory is writable
-        if (!is_writable(self::$cacheDir)) {
-            Log::warning('Cache directory not writable, caching disabled: ' . self::$cacheDir);
-            self::$enabled = false;
-        }
-    }
+	/**
+	 * Load data from cache or parse and save
+	 * Safe pattern: tries cache first, falls back to parser
+	 *
+	 * @param   string       $sourcePath  Path to config file
+	 * @param   callable     $parser      Function that parses the file
+	 * @param   string|null  $cacheKey    Optional custom cache key (defaults to file hash)
+	 *
+	 * @return mixed Parsed configuration data
+	 */
+	public static function load(
+		string $sourcePath,
+		callable $parser,
+		?string $cacheKey = null
+	) {
+		if (!self::$enabled || !self::$cacheDir)
+		{
+			return call_user_func($parser, $sourcePath);
+		}
 
-    /**
-     * Load data from cache or parse and save
-     * Safe pattern: tries cache first, falls back to parser
-     *
-     * @param string $sourcePath Path to config file
-     * @param callable $parser Function that parses the file
-     * @param string|null $cacheKey Optional custom cache key (defaults to file hash)
-     * @return mixed Parsed configuration data
-     */
-    public static function load(
-        string $sourcePath,
-        callable $parser,
-        ?string $cacheKey = null
-    ) {
-        if (!self::$enabled || !self::$cacheDir) {
-            return call_user_func($parser, $sourcePath);
-        }
+		if ($cacheKey === null)
+		{
+			$cacheKey = md5($sourcePath);
+		}
 
-        if ($cacheKey === null) {
-            $cacheKey = md5($sourcePath);
-        }
+		$cacheFile = self::getCacheFile($cacheKey);
 
-        $cacheFile = self::getCacheFile($cacheKey);
+		// Try cache first (warm start optimization)
+		if (self::isCacheValid($sourcePath, $cacheFile))
+		{
+			$cached = @json_decode(file_get_contents($cacheFile), true);
+			if (is_array($cached))
+			{
+				self::$stats['hits']++;
 
-        // Try cache first (warm start optimization)
-        if (self::isCacheValid($sourcePath, $cacheFile)) {
-            $cached = @json_decode(file_get_contents($cacheFile), true);
-            if (is_array($cached)) {
-                self::$stats['hits']++;
-                return $cached;
-            }
-        }
+				return $cached;
+			}
+		}
 
-        // Cache miss or invalid - parse and save
-        self::$stats['misses']++;
-        $data = call_user_func($parser, $sourcePath);
+		// Cache miss or invalid - parse and save
+		self::$stats['misses']++;
+		$data = call_user_func($parser, $sourcePath);
 
-        if (is_array($data)) {
-            self::writeCache($cacheFile, $data);
-        }
+		if (is_array($data))
+		{
+			self::writeCache($cacheFile, $data);
+		}
 
-        return $data;
-    }
+		return $data;
+	}
 
-    /**
-     * Check if cache exists and is still valid
-     *
-     * @param string $sourcePath Path to source file
-     * @param string $cacheFile Path to cache file
-     * @return bool True if cache is valid
-     */
-    private static function isCacheValid(
-        string $sourcePath,
-        string $cacheFile
-    ): bool {
-        if (!file_exists($cacheFile) || !file_exists($sourcePath)) {
-            return false;
-        }
+	/**
+	 * Get cache file path for a given key
+	 *
+	 * @param   string  $cacheKey  Cache key
+	 *
+	 * @return string Full path to cache file
+	 */
+	private static function getCacheFile(string $cacheKey): string
+	{
+		return self::$cacheDir . '/' . $cacheKey . '.cache';
+	}
 
-        // Cache valid only if newer than source
-        return filemtime($cacheFile) > filemtime($sourcePath);
-    }
+	/**
+	 * Check if cache exists and is still valid
+	 *
+	 * @param   string  $sourcePath  Path to source file
+	 * @param   string  $cacheFile   Path to cache file
+	 *
+	 * @return bool True if cache is valid
+	 */
+	private static function isCacheValid(
+		string $sourcePath,
+		string $cacheFile
+	): bool {
+		if (!file_exists($cacheFile) || !file_exists($sourcePath))
+		{
+			return false;
+		}
 
-    /**
-     * Write data to cache file
-     * Uses JSON format for portability and debuggability
-     *
-     * @param string $cacheFile Path to cache file
-     * @param array $data Data to cache
-     * @return bool Success status
-     */
-    private static function writeCache(string $cacheFile, array $data): bool
-    {
-        if (!self::$enabled) {
-            return false;
-        }
+		// Cache valid only if newer than source
+		return filemtime($cacheFile) > filemtime($sourcePath);
+	}
 
-        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        $written = @file_put_contents($cacheFile, $json);
+	/**
+	 * Write data to cache file
+	 * Uses JSON format for portability and debuggability
+	 *
+	 * @param   string  $cacheFile  Path to cache file
+	 * @param   array   $data       Data to cache
+	 *
+	 * @return bool Success status
+	 */
+	private static function writeCache(string $cacheFile, array $data): bool
+	{
+		if (!self::$enabled)
+		{
+			return false;
+		}
 
-        if ($written !== false) {
-            self::$stats['writes']++;
-            return true;
-        }
+		$json    = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		$written = @file_put_contents($cacheFile, $json);
 
-        Log::warning('Failed to write cache: ' . $cacheFile);
-        return false;
-    }
+		if ($written !== false)
+		{
+			self::$stats['writes']++;
 
-    /**
-     * Get cache file path for a given key
-     *
-     * @param string $cacheKey Cache key
-     * @return string Full path to cache file
-     */
-    private static function getCacheFile(string $cacheKey): string
-    {
-        return self::$cacheDir . '/' . $cacheKey . '.cache';
-    }
+			return true;
+		}
 
-    /**
-     * Invalidate cache for a specific source file
-     * Called when configuration is modified
-     *
-     * @param string $sourcePath Path to source file
-     * @return bool Success status
-     */
-    public static function invalidate(string $sourcePath): void
-    {
-        if (!self::$enabled || !self::$cacheDir) {
-            return;
-        }
+		Log::warning('Failed to write cache: ' . $cacheFile);
 
-        $cacheKey = md5($sourcePath);
-        $cacheFile = self::getCacheFile($cacheKey);
+		return false;
+	}
 
-        if (file_exists($cacheFile)) {
-            @unlink($cacheFile);
-        }
-    }
+	/**
+	 * Invalidate cache for a specific source file
+	 * Called when configuration is modified
+	 *
+	 * @param   string  $sourcePath  Path to source file
+	 *
+	 * @return bool Success status
+	 */
+	public static function invalidate(string $sourcePath): void
+	{
+		if (!self::$enabled || !self::$cacheDir)
+		{
+			return;
+		}
 
-    /**
-     * Clear all cache files and in-memory caches
-     * Called on version update or manual reset
-     *
-     * @return int Number of files deleted
-     */
-    public static function clearAll(): int
-    {
-        if (!self::$enabled || !self::$cacheDir) {
-            return 0;
-        }
+		$cacheKey  = md5($sourcePath);
+		$cacheFile = self::getCacheFile($cacheKey);
 
-        // Clear in-memory caches of related classes
-        if (class_exists('Module')) {
-            Module::clearMemoryCache();
-        }
+		if (file_exists($cacheFile))
+		{
+			@unlink($cacheFile);
+		}
+	}
 
-        // Clear general cache if it exists
-        if (class_exists('Cache')) {
-            $cache = new Cache();
-            $cache->clear();
-        }
+	/**
+	 * Clear all cache files and in-memory caches
+	 * Called on version update or manual reset
+	 *
+	 * @return int Number of files deleted
+	 */
+	public static function clearAll(): int
+	{
+		if (!self::$enabled || !self::$cacheDir)
+		{
+			return 0;
+		}
 
-        $files = @glob(self::$cacheDir . '/*.cache');
-        $deleted = 0;
+		// Clear in-memory caches of related classes
+		if (class_exists('Module'))
+		{
+			Module::clearMemoryCache();
+		}
 
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                if (@unlink($file)) {
-                    $deleted++;
-                }
-            }
-        }
+		// Clear general cache if it exists
+		if (class_exists('Cache'))
+		{
+			$cache = new Cache();
+			$cache->clear();
+		}
 
-        return $deleted;
-    }
+		$files   = @glob(self::$cacheDir . '/*.cache');
+		$deleted = 0;
 
-    /**
-     * Get cache statistics
-     * Useful for monitoring and debugging
-     *
-     * @return array Statistics array
-     */
-    public static function getStats(): array
-    {
-        $files = @glob(self::$cacheDir . '/*.cache');
-        $totalSize = 0;
-        $oldestEntry = null;
-        $newestEntry = null;
-        $largestEntry = 0;
+		if (is_array($files))
+		{
+			foreach ($files as $file)
+			{
+				if (@unlink($file))
+				{
+					$deleted++;
+				}
+			}
+		}
 
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                $fileSize = @filesize($file);
-                if ($fileSize !== false) {
-                    $totalSize += $fileSize;
-                    if ($fileSize > $largestEntry) {
-                        $largestEntry = $fileSize;
-                    }
-                }
-                $fileMtime = @filemtime($file);
-                if ($fileMtime !== false) {
-                    if ($oldestEntry === null || $fileMtime < $oldestEntry) {
-                        $oldestEntry = $fileMtime;
-                    }
-                    if ($newestEntry === null || $fileMtime > $newestEntry) {
-                        $newestEntry = $fileMtime;
-                    }
-                }
-            }
-        }
+		return $deleted;
+	}
 
-        return [
-            'enabled' => self::$enabled,
-            'cacheDir' => self::$cacheDir,
-            'filesCount' => count($files ?? []),
-            'totalSize' => $totalSize,
-            'oldestEntry' => $oldestEntry,
-            'newestEntry' => $newestEntry,
-            'largestEntry' => $largestEntry,
-            'cacheHits' => self::$stats['hits'],
-            'cacheMisses' => self::$stats['misses'],
-            'cachewrites' => self::$stats['writes'],
-            'hitRate' => (self::$stats['hits'] + self::$stats['misses']) > 0
-                ? round((self::$stats['hits'] / (self::$stats['hits'] + self::$stats['misses'])) * 100, 2)
-                : 0
-        ];
-    }
+	/**
+	 * Get cache statistics
+	 * Useful for monitoring and debugging
+	 *
+	 * @return array Statistics array
+	 */
+	public static function getStats(): array
+	{
+		$files        = @glob(self::$cacheDir . '/*.cache');
+		$totalSize    = 0;
+		$oldestEntry  = null;
+		$newestEntry  = null;
+		$largestEntry = 0;
 
-    /**
-     * Enable or disable caching
-     * Useful for testing or troubleshooting
-     *
-     * @param bool $enable Enable caching
-     * @return void
-     */
-    public static function setEnabled(bool $enable): void
-    {
-        self::$enabled = $enable;
-    }
+		if (is_array($files))
+		{
+			foreach ($files as $file)
+			{
+				$fileSize = @filesize($file);
+				if ($fileSize !== false)
+				{
+					$totalSize += $fileSize;
+					if ($fileSize > $largestEntry)
+					{
+						$largestEntry = $fileSize;
+					}
+				}
+				$fileMtime = @filemtime($file);
+				if ($fileMtime !== false)
+				{
+					if ($oldestEntry === null || $fileMtime < $oldestEntry)
+					{
+						$oldestEntry = $fileMtime;
+					}
+					if ($newestEntry === null || $fileMtime > $newestEntry)
+					{
+						$newestEntry = $fileMtime;
+					}
+				}
+			}
+		}
 
-    /**
-     * Check if caching is enabled
-     *
-     * @return bool True if caching is enabled
-     */
-    public static function isEnabled(): bool
-    {
-        return self::$enabled;
-    }
+		return [
+			'enabled'      => self::$enabled,
+			'cacheDir'     => self::$cacheDir,
+			'filesCount'   => count($files ?? []),
+			'totalSize'    => $totalSize,
+			'oldestEntry'  => $oldestEntry,
+			'newestEntry'  => $newestEntry,
+			'largestEntry' => $largestEntry,
+			'cacheHits'    => self::$stats['hits'],
+			'cacheMisses'  => self::$stats['misses'],
+			'cachewrites'  => self::$stats['writes'],
+			'hitRate'      => (self::$stats['hits'] + self::$stats['misses']) > 0
+				? round((self::$stats['hits'] / (self::$stats['hits'] + self::$stats['misses'])) * 100, 2)
+				: 0
+		];
+	}
+
+	/**
+	 * Check if caching is enabled
+	 *
+	 * @return bool True if caching is enabled
+	 */
+	public static function isEnabled(): bool
+	{
+		return self::$enabled;
+	}
+
+	/**
+	 * Enable or disable caching
+	 * Useful for testing or troubleshooting
+	 *
+	 * @param   bool  $enable  Enable caching
+	 *
+	 * @return void
+	 */
+	public static function setEnabled(bool $enable): void
+	{
+		self::$enabled = $enable;
+	}
 }

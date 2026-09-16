@@ -14,379 +14,446 @@
  */
 class ActionSwitchVersion
 {
-    private $bearsamppSplash;
-    private $version;
-    private $bin;
-    private $currentVersion;
-    private $service;
-    private $changePort;
-    private $boxTitle;
-    private $pathsToScan = [];
+	const GAUGE_SERVICES = 1;
+	const GAUGE_OTHERS = 7;
+	const CONFIG_SECTION_APACHE = 'apache';
+	const CONFIG_SECTION_PHP = 'php';
+	const CONFIG_SECTION_MYSQL = 'mysql';
+	const CONFIG_SECTION_MARIADB = 'mariadb';
+	const CONFIG_SECTION_POSTGRESQL = 'postgresql';
+	const CONFIG_SECTION_NODEJS = 'nodejs';
+	const CONFIG_SECTION_MEMCACHED = 'memcached';
+	const CONFIG_SECTION_MAILPIT = 'mailpit';
 
-    const GAUGE_SERVICES = 1;
-    const GAUGE_OTHERS = 7;
+	// Configuration sections
+	const CONFIG_SECTION_XLIGHT = 'xlight';
+	const CONFIG_KEY_VERSION = 'version';
+	private $bearsamppSplash;
+	private $version;
+	private $bin;
+	private $currentVersion;
+	private $service;
+	private $changePort;
+	private $boxTitle;
 
-    // Configuration sections
-    const CONFIG_SECTION_APACHE = 'apache';
-    const CONFIG_SECTION_PHP = 'php';
-    const CONFIG_SECTION_MYSQL = 'mysql';
-    const CONFIG_SECTION_MARIADB = 'mariadb';
-    const CONFIG_SECTION_POSTGRESQL = 'postgresql';
-    const CONFIG_SECTION_NODEJS = 'nodejs';
-    const CONFIG_SECTION_MEMCACHED = 'memcached';
-    const CONFIG_SECTION_MAILPIT = 'mailpit';
-    const CONFIG_SECTION_XLIGHT = 'xlight';
+	// Configuration keys
+	private $pathsToScan = [];
 
-    // Configuration keys
-    const CONFIG_KEY_VERSION = 'version';
+	/**
+	 * ActionSwitchVersion constructor.
+	 * Initializes the class with the provided arguments and sets up the splash screen.
+	 *
+	 * @param   array  $args  Command line arguments for switching versions.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
 
-    /**
-     * ActionSwitchVersion constructor.
-     * Initializes the class with the provided arguments and sets up the splash screen.
-     *
-     * @param   array  $args  Command line arguments for switching versions.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
+		if (isset($args[0]) && !empty($args[0]) && isset($args[1]) && !empty($args[1]))
+		{
+			$this->pathsToScan = array();
+			$this->version     = $args[1];
 
-        if (isset($args[0]) && !empty($args[0]) && isset($args[1]) && !empty($args[1])) {
-            $this->pathsToScan = array();
-            $this->version     = $args[1];
+			if ($args[0] == $bearsamppBins->getApache()->getName())
+			{
+				$this->bin            = $bearsamppBins->getApache();
+				$this->currentVersion = $bearsamppBins->getApache()->getVersion();
+				$this->service        = $bearsamppBins->getApache()->getService();
+				$this->changePort     = true;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getApache()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getApache()) . '/' . $folder,
+						'includes'  => array('.ini', '.conf'),
+						'recursive' => true
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getPhp()->getName())
+			{
+				$this->bin            = $bearsamppBins->getPhp();
+				$this->currentVersion = $bearsamppBins->getPhp()->getVersion();
+				$this->service        = $bearsamppBins->getApache()->getService();
+				$this->changePort     = false;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getPhp()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getPhp()) . '/' . $folder,
+						'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
+						'recursive' => true
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getMysql()->getName())
+			{
+				$this->bin            = $bearsamppBins->getMysql();
+				$this->currentVersion = $bearsamppBins->getMysql()->getVersion();
+				$this->service        = $bearsamppBins->getMysql()->getService();
+				$this->changePort     = true;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
+						'includes'  => array('my.ini'),
+						'recursive' => false
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getMariadb()->getName())
+			{
+				$this->bin            = $bearsamppBins->getMariadb();
+				$this->currentVersion = $bearsamppBins->getMariadb()->getVersion();
+				$this->service        = $bearsamppBins->getMariadb()->getService();
+				$this->changePort     = true;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
+						'includes'  => array('my.ini'),
+						'recursive' => false
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getPostgresql()->getName())
+			{
+				$this->bin            = $bearsamppBins->getPostgresql();
+				$this->currentVersion = $bearsamppBins->getPostgresql()->getVersion();
+				$this->service        = $bearsamppBins->getPostgresql()->getService();
+				$this->changePort     = true;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getPostgresql()) . '/' . $folder,
+						'includes'  => array('.conf', '.bat'),
+						'recursive' => true
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getNodejs()->getName())
+			{
+				$this->bin            = $bearsamppBins->getNodejs();
+				$this->currentVersion = $bearsamppBins->getNodejs()->getVersion();
+				$this->service        = null;
+				$this->changePort     = false;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getNodejs()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/etc',
+						'includes'  => array('npmrc'),
+						'recursive' => true
+					);
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/node_modules/npm',
+						'includes'  => array('npmrc'),
+						'recursive' => false
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getMemcached()->getName())
+			{
+				$this->bin            = $bearsamppBins->getMemcached();
+				$this->currentVersion = $bearsamppBins->getMemcached()->getVersion();
+				$this->service        = $bearsamppBins->getMemcached()->getService();
+				$this->changePort     = true;
+			}
+			elseif ($args[0] == $bearsamppBins->getMailpit()->getName())
+			{
+				$this->bin            = $bearsamppBins->getMailpit();
+				$this->currentVersion = $bearsamppBins->getMailpit()->getVersion();
+				$this->service        = $bearsamppBins->getMailpit()->getService();
+				$this->changePort     = false;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMailpit()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getMailpit()) . '/' . $folder,
+						'includes'  => array('.conf'),
+						'recursive' => true
+					);
+				}
+			}
+			elseif ($args[0] == $bearsamppBins->getXlight()->getName())
+			{
+				$this->bin            = $bearsamppBins->getXlight();
+				$this->currentVersion = $bearsamppBins->getXlight()->getVersion();
+				$this->service        = $bearsamppBins->getXlight()->getService();
+				$this->changePort     = true;
+				$folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getXlight()));
+				foreach ($folderList as $folder)
+				{
+					$this->pathsToScan[] = array(
+						'path'      => Path::getModuleRootPath($bearsamppBins->getXlight()) . '/' . $folder,
+						'includes'  => array('.conf, ftpd.hosts, ftpd.option, ftpd.password, ftpd.rules, ftpd.users, .ini'),
+						'recursive' => true
+					);
+				}
+			}
 
-            if ($args[0] == $bearsamppBins->getApache()->getName()) {
-                $this->bin            = $bearsamppBins->getApache();
-                $this->currentVersion = $bearsamppBins->getApache()->getVersion();
-                $this->service        = $bearsamppBins->getApache()->getService();
-                $this->changePort     = true;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getApache()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getApache()) . '/' . $folder,
-                        'includes'  => array('.ini', '.conf'),
-                        'recursive' => true
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getPhp()->getName()) {
-                $this->bin            = $bearsamppBins->getPhp();
-                $this->currentVersion = $bearsamppBins->getPhp()->getVersion();
-                $this->service        = $bearsamppBins->getApache()->getService();
-                $this->changePort     = false;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getPhp()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getPhp()) . '/' . $folder,
-                        'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
-                        'recursive' => true
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getMysql()->getName()) {
-                $this->bin            = $bearsamppBins->getMysql();
-                $this->currentVersion = $bearsamppBins->getMysql()->getVersion();
-                $this->service        = $bearsamppBins->getMysql()->getService();
-                $this->changePort     = true;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
-                        'includes'  => array('my.ini'),
-                        'recursive' => false
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getMariadb()->getName()) {
-                $this->bin            = $bearsamppBins->getMariadb();
-                $this->currentVersion = $bearsamppBins->getMariadb()->getVersion();
-                $this->service        = $bearsamppBins->getMariadb()->getService();
-                $this->changePort     = true;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
-                        'includes'  => array('my.ini'),
-                        'recursive' => false
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getPostgresql()->getName()) {
-                $this->bin            = $bearsamppBins->getPostgresql();
-                $this->currentVersion = $bearsamppBins->getPostgresql()->getVersion();
-                $this->service        = $bearsamppBins->getPostgresql()->getService();
-                $this->changePort     = true;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getPostgresql()) . '/' . $folder,
-                        'includes'  => array( '.conf', '.bat'),
-                        'recursive' => true
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getNodejs()->getName()) {
-                $this->bin            = $bearsamppBins->getNodejs();
-                $this->currentVersion = $bearsamppBins->getNodejs()->getVersion();
-                $this->service        = null;
-                $this->changePort     = false;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getNodejs()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/etc',
-                        'includes'  => array('npmrc'),
-                        'recursive' => true
-                    );
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/node_modules/npm',
-                        'includes'  => array('npmrc'),
-                        'recursive' => false
-                    );
-                }
-            }  elseif ($args[0] == $bearsamppBins->getMemcached()->getName()) {
-                $this->bin            = $bearsamppBins->getMemcached();
-                $this->currentVersion = $bearsamppBins->getMemcached()->getVersion();
-                $this->service        = $bearsamppBins->getMemcached()->getService();
-                $this->changePort     = true;
-            } elseif ($args[0] == $bearsamppBins->getMailpit()->getName()) {
-                $this->bin            = $bearsamppBins->getMailpit();
-                $this->currentVersion = $bearsamppBins->getMailpit()->getVersion();
-                $this->service        = $bearsamppBins->getMailpit()->getService();
-                $this->changePort     = false;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getMailpit()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getMailpit()) . '/' . $folder,
-                        'includes'  => array('.conf'),
-                        'recursive' => true
-                    );
-                }
-            } elseif ($args[0] == $bearsamppBins->getXlight()->getName()) {
-                $this->bin            = $bearsamppBins->getXlight();
-                $this->currentVersion = $bearsamppBins->getXlight()->getVersion();
-                $this->service        = $bearsamppBins->getXlight()->getService();
-                $this->changePort     = true;
-                $folderList           = Util::getFolderList(Path::getModuleRootPath($bearsamppBins->getXlight()));
-                foreach ($folderList as $folder) {
-                    $this->pathsToScan[] = array(
-                        'path'      => Path::getModuleRootPath($bearsamppBins->getXlight()) . '/' . $folder,
-                        'includes'  => array('.conf, ftpd.hosts, ftpd.option, ftpd.password, ftpd.rules, ftpd.users, .ini'),
-                        'recursive' => true
-                    );
-                }
-            }
+			$this->boxTitle = sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_TITLE), $this->bin->getName(), $this->version);
 
-            $this->boxTitle = sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_TITLE), $this->bin->getName(), $this->version);
+			// Start splash screen
+			$this->bearsamppSplash = new Splash();
+			$this->bearsamppSplash->init(
+				$this->boxTitle,
+				self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + self::GAUGE_OTHERS,
+				$this->boxTitle
+			);
 
-            // Start splash screen
-            $this->bearsamppSplash = new Splash();
-            $this->bearsamppSplash->init(
-                $this->boxTitle,
-                self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + self::GAUGE_OTHERS,
-                $this->boxTitle
-            );
+			$bearsamppWinbinder->setHandler($this->bearsamppSplash->getWbWindow(), $this, 'processWindow', 1000);
+			$bearsamppWinbinder->mainLoop();
+			$bearsamppWinbinder->reset();
+		}
+	}
 
-            $bearsamppWinbinder->setHandler($this->bearsamppSplash->getWbWindow(), $this, 'processWindow', 1000);
-            $bearsamppWinbinder->mainLoop();
-            $bearsamppWinbinder->reset();
-        }
-    }
+	/**
+	 * Processes the window events for the splash screen.
+	 *
+	 * @param   mixed  $window  The window handle.
+	 * @param   int    $id      The event ID.
+	 * @param   mixed  $ctrl    The control handle.
+	 * @param   mixed  $param1  The first parameter.
+	 * @param   mixed  $param2  The second parameter.
+	 */
+	public function processWindow($window, $id, $ctrl, $param1, $param2)
+	{
+		global $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
 
-    /**
-     * Processes the window events for the splash screen.
-     *
-     * @param   mixed  $window  The window handle.
-     * @param   int    $id      The event ID.
-     * @param   mixed  $ctrl    The control handle.
-     * @param   mixed  $param1  The first parameter.
-     * @param   mixed  $param2  The second parameter.
-     */
-    public function processWindow($window, $id, $ctrl, $param1, $param2)
-    {
-        global $bearsamppCore, $bearsamppLang, $bearsamppBins, $bearsamppWinbinder;
+		if ($this->version == $this->currentVersion)
+		{
+			$bearsamppWinbinder->messageBoxWarning(sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_SAME_ERROR), $this->bin->getName(), $this->version), $this->boxTitle);
+			$bearsamppWinbinder->destroyWindow($window);
+		}
 
-        if ($this->version == $this->currentVersion) {
-            $bearsamppWinbinder->messageBoxWarning(sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_SAME_ERROR), $this->bin->getName(), $this->version), $this->boxTitle);
-            $bearsamppWinbinder->destroyWindow($window);
-        }
+		// scan folder
+		$this->bearsamppSplash->incrProgressBar();
+		if (!empty($this->pathsToScan))
+		{
+			Path::changePath(Util::getFilesToScan($this->pathsToScan));
+		}
 
-        // scan folder
-        $this->bearsamppSplash->incrProgressBar();
-        if (!empty($this->pathsToScan)) {
-            Path::changePath(Util::getFilesToScan($this->pathsToScan));
-        }
+		// switch
+		$this->bearsamppSplash->incrProgressBar();
+		if ($this->bin->switchVersion($this->version, true) === false)
+		{
+			$this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + self::GAUGE_OTHERS);
+			$bearsamppWinbinder->destroyWindow($window);
+		}
 
-        // switch
-        $this->bearsamppSplash->incrProgressBar();
-        if ($this->bin->switchVersion($this->version, true) === false) {
-            $this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + self::GAUGE_OTHERS);
-            $bearsamppWinbinder->destroyWindow($window);
-        }
+		// stop service
+		if ($this->service != null)
+		{
+			$binName = $this->bin->getName() == $bearsamppLang->getValue(Lang::PHP) ? $bearsamppLang->getValue(Lang::APACHE) : $this->bin->getName();
+			$this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STOP_SERVICE_TITLE), $binName));
+			$this->bearsamppSplash->incrProgressBar();
+			$this->service->stop();
+			// Wait for SCM to stop the service
+			usleep(2000000); // 2 seconds
+		}
+		else
+		{
+			$this->bearsamppSplash->incrProgressBar();
+		}
 
-        // stop service
-        if ($this->service != null) {
-            $binName = $this->bin->getName() == $bearsamppLang->getValue(Lang::PHP) ? $bearsamppLang->getValue(Lang::APACHE) : $this->bin->getName();
-            $this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::STOP_SERVICE_TITLE), $binName));
-            $this->bearsamppSplash->incrProgressBar();
-            $this->service->stop();
-            // Wait for SCM to stop the service
-            usleep(2000000); // 2 seconds
-        } else {
-            $this->bearsamppSplash->incrProgressBar();
-        }
+		// reload config
+		$this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RELOAD_CONFIG));
+		$this->bearsamppSplash->incrProgressBar();
+		Root::loadConfig();
 
-        // reload config
-        $this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RELOAD_CONFIG));
-        $this->bearsamppSplash->incrProgressBar();
-        Root::loadConfig();
+		// reload bins
+		$this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RELOAD_BINS));
+		$this->bearsamppSplash->incrProgressBar();
+		$bearsamppBins->reload();
 
-        // reload bins
-        $this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RELOAD_BINS));
-        $this->bearsamppSplash->incrProgressBar();
-        $bearsamppBins->reload();
+		// After reloading bins, get a fresh service reference from the reloaded bin.
+		// This ensures we're using the updated service instance with new configuration.
+		if ($this->service != null)
+		{
+			// PHP is a special case: it runs under Apache's service, not its own.
+			if ($this->bin->getName() == $bearsamppBins->getPhp()->getName())
+			{
+				$this->service = $bearsamppBins->getApache()->getService();
+				Log::trace("Refreshed service reference from reloaded Apache bin (for PHP)");
+			}
+			else
+			{
+				$freshBin = $bearsamppBins->getBinByName($this->bin->getName());
+				if ($freshBin !== null)
+				{
+					$this->service = $freshBin->getService();
+					Log::trace("Refreshed service reference from reloaded " . $this->bin->getName() . " bin");
+				}
+			}
+		}
 
-        // After reloading bins, get a fresh service reference from the reloaded bin.
-        // This ensures we're using the updated service instance with new configuration.
-        if ($this->service != null) {
-            // PHP is a special case: it runs under Apache's service, not its own.
-            if ($this->bin->getName() == $bearsamppBins->getPhp()->getName()) {
-                $this->service = $bearsamppBins->getApache()->getService();
-                Log::trace("Refreshed service reference from reloaded Apache bin (for PHP)");
-            } else {
-                $freshBin = $bearsamppBins->getBinByName($this->bin->getName());
-                if ($freshBin !== null) {
-                    $this->service = $freshBin->getService();
-                    Log::trace("Refreshed service reference from reloaded " . $this->bin->getName() . " bin");
-                }
-            }
-        }
+		// change port
+		if ($this->changePort)
+		{
+			$this->bin->reload();
+			$this->bin->changePort($this->bin->getPort());
+		}
 
-        // change port
-        if ($this->changePort) {
-            $this->bin->reload();
-            $this->bin->changePort($this->bin->getPort());
-        }
+		// start service
+		if ($this->service != null)
+		{
+			$binName = $this->bin->getName() == $bearsamppLang->getValue(Lang::PHP) ? $bearsamppLang->getValue(Lang::APACHE) : $this->bin->getName();
+			$this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::START_SERVICE_TITLE), $binName));
+			$this->bearsamppSplash->incrProgressBar();
+			$this->service->start();
+		}
+		else
+		{
+			$this->bearsamppSplash->incrProgressBar();
+		}
 
-        // start service
-        if ($this->service != null) {
-            $binName = $this->bin->getName() == $bearsamppLang->getValue(Lang::PHP) ? $bearsamppLang->getValue(Lang::APACHE) : $this->bin->getName();
-            $this->bearsamppSplash->setTextLoading(sprintf($bearsamppLang->getValue(Lang::START_SERVICE_TITLE), $binName));
-            $this->bearsamppSplash->incrProgressBar();
-            $this->service->start();
-        } else {
-            $this->bearsamppSplash->incrProgressBar();
-        }
+		$this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + 1);
 
-        $this->bearsamppSplash->incrProgressBar(self::GAUGE_SERVICES * count($bearsamppBins->getServices()) + 1);
+		// Update configuration file with the new version
+		Log::trace('Updating ini & menu...');
+		$this->updateConfigVersion();
 
-        // Update configuration file with the new version
-        Log::trace('Updating ini & menu...');
-        $this->updateConfigVersion();
+		// Store current registry value for comparison
+		global $bearsamppRegistry;
+		$currentRegValue = $bearsamppRegistry->getAppBinsRegKey(false);
+		$regEntry        = Registry::APP_BINS_REG_ENTRY;
 
-        // Store current registry value for comparison
-        global $bearsamppRegistry;
-        $currentRegValue = $bearsamppRegistry->getAppBinsRegKey(false);
-        $regEntry = Registry::APP_BINS_REG_ENTRY;
+		Log::trace(
+			sprintf(
+				'Starting registry adjustment for key: %s | Current value: %s',
+				$regEntry,
+				$currentRegValue
+			)
+		);
 
-        Log::trace(sprintf(
-            'Starting registry adjustment for key: %s | Current value: %s',
-            $regEntry,
-            $currentRegValue
-        ));
+		// Perform the registry update
+		$newRegValue = $bearsamppRegistry->setAppBinsRegKey($currentRegValue);
 
-        // Perform the registry update
-        $newRegValue = $bearsamppRegistry->setAppBinsRegKey($currentRegValue);
+		$this->bearsamppSplash->setTextLoading(
+			sprintf(
+				$bearsamppLang->getValue(Lang::SWITCH_VERSION_REGISTRY),
+				$regEntry
+			)
+		);
 
-        $this->bearsamppSplash->setTextLoading(sprintf(
-            $bearsamppLang->getValue(Lang::SWITCH_VERSION_REGISTRY),
-            $regEntry
-        ));
+		$this->bearsamppSplash->incrProgressBar(2);
+		Log::trace(
+			sprintf(
+				'Registry update completed | Key: %s | New value: %s | Previous value: %s',
+				$regEntry,
+				$newRegValue,
+				$currentRegValue
+			)
+		);
 
-        $this->bearsamppSplash->incrProgressBar(2);
-        Log::trace(sprintf(
-            'Registry update completed | Key: %s | New value: %s | Previous value: %s',
-            $regEntry,
-            $newRegValue,
-            $currentRegValue
-        ));
+		$this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RESET_SERVICES));
 
-        $this->bearsamppSplash->setTextLoading($bearsamppLang->getValue(Lang::SWITCH_VERSION_RESET_SERVICES));
+		// For version switches, services are properly restarted above
+		// No additional service reset/delete is needed
+		// The service is now running with the new version
+		Log::trace('Version switch complete - service restarted with new version');
+		$this->bearsamppSplash->incrProgressBar();
 
-        // For version switches, services are properly restarted above
-        // No additional service reset/delete is needed
-        // The service is now running with the new version
-        Log::trace('Version switch complete - service restarted with new version');
-        $this->bearsamppSplash->incrProgressBar();
+		// Compensate progress bar for all services (none are being reset)
+		$remainingServicesCount = count($bearsamppBins->getServices());
+		if ($remainingServicesCount > 0)
+		{
+			$this->bearsamppSplash->incrProgressBar($remainingServicesCount);
+		}
 
-        // Compensate progress bar for all services (none are being reset)
-        $remainingServicesCount = count($bearsamppBins->getServices());
-        if ($remainingServicesCount > 0) {
-            $this->bearsamppSplash->incrProgressBar($remainingServicesCount);
-        }
+		Log::trace('Version switch process completed successfully');
 
-        Log::trace('Version switch process completed successfully');
+		Log::trace('Creating modal...');
+		$bearsamppWinbinder->messageBoxInfo(
+			sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
+			$this->boxTitle
+		);
 
-        Log::trace('Creating modal...');
-        $bearsamppWinbinder->messageBoxInfo(
-            sprintf($bearsamppLang->getValue(Lang::SWITCH_VERSION_OK), $this->bin->getName(), $this->version),
-            $this->boxTitle
-        );
+		Log::trace('Destroying splash window...');
+		$bearsamppWinbinder->destroyWindow($window);
+	}
 
-        Log::trace('Destroying splash window...');
-        $bearsamppWinbinder->destroyWindow($window);
-    }
+	/**
+	 * Updates the configuration file with the new version of the binary
+	 * This ensures version persistence across restarts
+	 */
+	private function updateConfigVersion(): void
+	{
+		$bearsamppConfig = new Config();
+		$configSection   = '';
+		$version         = $this->version; // Ensure version is available in scope
 
-    /**
-     * Updates the configuration file with the new version of the binary
-     * This ensures version persistence across restarts
-     */
-    private function updateConfigVersion(): void
-    {
-        $bearsamppConfig = new Config();
-        $configSection = '';
-        $version = $this->version; // Ensure version is available in scope
+		// Determine the correct configuration section based on binary type
+		if ($this->bin->getName() == $GLOBALS['bearsamppBins']->getApache()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_APACHE;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPhp()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_PHP;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMysql()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_MYSQL;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMariadb()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_MARIADB;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPostgresql()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_POSTGRESQL;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getNodejs()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_NODEJS;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMemcached()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_MEMCACHED;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMailpit()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_MAILPIT;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
+		elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getXlight()->getName())
+		{
+			$configSection = self::CONFIG_SECTION_XLIGHT;
+			Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
+		}
 
-        // Determine the correct configuration section based on binary type
-        if ($this->bin->getName() == $GLOBALS['bearsamppBins']->getApache()->getName()) {
-            $configSection = self::CONFIG_SECTION_APACHE;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPhp()->getName()) {
-            $configSection = self::CONFIG_SECTION_PHP;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMysql()->getName()) {
-            $configSection = self::CONFIG_SECTION_MYSQL;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMariadb()->getName()) {
-            $configSection = self::CONFIG_SECTION_MARIADB;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getPostgresql()->getName()) {
-            $configSection = self::CONFIG_SECTION_POSTGRESQL;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getNodejs()->getName()) {
-            $configSection = self::CONFIG_SECTION_NODEJS;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMemcached()->getName()) {
-            $configSection = self::CONFIG_SECTION_MEMCACHED;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getMailpit()->getName()) {
-            $configSection = self::CONFIG_SECTION_MAILPIT;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        } elseif ($this->bin->getName() == $GLOBALS['bearsamppBins']->getXlight()->getName()) {
-            $configSection = self::CONFIG_SECTION_XLIGHT;
-            Log::trace(sprintf('Switch %s version to %s', $configSection, $version));
-        }
+		// Update the configuration if a valid section was found
+		if (!empty($configSection))
+		{
+			Log::trace('Updating .ini file...');
+			$bearsamppConfig->replace($configSection, self::CONFIG_KEY_VERSION, $version);
 
-        // Update the configuration if a valid section was found
-        if (!empty($configSection)) {
-            Log::trace('Updating .ini file...');
-            $bearsamppConfig->replace($configSection, self::CONFIG_KEY_VERSION, $version);
-
-            // Update tray menu display if TrayMenu class is available
-            Log::trace('Updating TrayMenu...');
-            if (class_exists('TrayMenu')) {
-                $trayMenu = TrayMenu::getInstance();
-                if (method_exists($trayMenu, 'updateSectionVersion')) {
-                    $trayMenu->updateSectionVersion(
-                        strtoupper($configSection),
-                        $version
-                    );
-                }
-            }
-        }
-        Log::trace('Returning to parent call');
-    }
+			// Update tray menu display if TrayMenu class is available
+			Log::trace('Updating TrayMenu...');
+			if (class_exists('TrayMenu'))
+			{
+				$trayMenu = TrayMenu::getInstance();
+				if (method_exists($trayMenu, 'updateSectionVersion'))
+				{
+					$trayMenu->updateSectionVersion(
+						strtoupper($configSection),
+						$version
+					);
+				}
+			}
+		}
+		Log::trace('Returning to parent call');
+	}
 }

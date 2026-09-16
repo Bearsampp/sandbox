@@ -142,7 +142,7 @@ class Win32Service
             Log::trace('Fetching service list from Windows (COM/WMI)');
             $startTime = microtime(true);
             $services = Win32Native::listServices(self::getVbsKeys());
-            
+
             self::$serviceListCache = [];
             if (is_array($services)) {
                 foreach ($services as $service) {
@@ -154,7 +154,7 @@ class Win32Service
             $duration = round(microtime(true) - $startTime, 3);
             Log::trace('Service list fetched in ' . $duration . 's');
         }
-        
+
         return self::$serviceListCache;
     }
 
@@ -198,7 +198,7 @@ class Win32Service
                             $this->latestError = dechex($resultInt);
                         }
                     }
-                } catch (\Win32ServiceException $e) {
+                } catch (Win32ServiceException $e) {
                     // Reset the timeout
                     set_time_limit($originalTimeout);
 
@@ -214,14 +214,14 @@ class Win32Service
                         Log::trace("Unhandled Win32ServiceException: " . $e->getMessage());
                         $result = false;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     // Reset the timeout
                     set_time_limit($originalTimeout);
 
                     // Catch any other exceptions to prevent application freeze
                     Log::trace("Exception caught in callWin32Service: " . $e->getMessage());
                     $result = false;
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     // Reset the timeout
                     set_time_limit($originalTimeout);
 
@@ -241,7 +241,7 @@ class Win32Service
                             $this->latestError = dechex($resultInt);
                         }
                     }
-                } catch (\Win32ServiceException $e) {
+                } catch (Win32ServiceException $e) {
                     Log::trace("Win32ServiceException caught: " . $e->getMessage());
 
                     // Handle "service does not exist" exception
@@ -254,11 +254,11 @@ class Win32Service
                         Log::trace("Unhandled Win32ServiceException: " . $e->getMessage());
                         $result = false;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     // Catch any other exceptions to prevent application freeze
                     Log::trace("Exception caught in callWin32Service: " . $e->getMessage());
                     $result = false;
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     // Catch any other throwable (PHP 7+) to prevent application freeze
                     Log::trace("Throwable caught in callWin32Service: " . $e->getMessage());
                     $result = false;
@@ -347,11 +347,11 @@ class Win32Service
                     usleep(self::SLEEP_TIME);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::trace("Exception in status method: " . $e->getMessage());
             // If an exception occurs, assume service does not exist
             $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::trace("Throwable in status method: " . $e->getMessage());
             // If a throwable occurs, assume service does not exist
             $this->latestStatus = self::WIN32_ERROR_SERVICE_DOES_NOT_EXIST;
@@ -853,10 +853,10 @@ class Win32Service
 
             Log::trace("VBS info retrieval completed in " . round(microtime(true) - $startTime, 2) . " seconds");
             return $result;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::trace("Exception in infos() method: " . $e->getMessage() . ", returning false");
             return false;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::trace("Throwable in infos() method: " . $e->getMessage() . ", returning false");
             return false;
         }
@@ -892,11 +892,11 @@ class Win32Service
             $this->writeLog('isInstalled ' . $this->getName() . ': ' . ($isInstalled ? 'YES' : 'NO') . ' (status: ' . $status . ')');
 
             return $isInstalled;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::trace("Exception in isInstalled() method: " . $e->getMessage() . ", assuming service is not installed");
             $this->writeLog('isInstalled ' . $this->getName() . ': NO (exception: ' . $e->getMessage() . ')');
             return false;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::trace("Throwable in isInstalled() method: " . $e->getMessage() . ", assuming service is not installed");
             $this->writeLog('isInstalled ' . $this->getName() . ': NO (throwable: ' . $e->getMessage() . ')');
             return false;

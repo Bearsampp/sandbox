@@ -15,49 +15,50 @@
  */
 class ActionDebugMysql extends ActionDebugBase
 {
-    /**
-     * Get the service name for language strings
-     *
-     * @return string The language constant name for MySQL
-     */
-    protected function getServiceLangConstant()
-    {
-        return 'MYSQL';
-    }
+	/**
+	 * Get the service name for language strings
+	 *
+	 * @return string The language constant name for MySQL
+	 */
+	protected function getServiceLangConstant()
+	{
+		return 'MYSQL';
+	}
 
-    /**
-     * Get the MySQL binary instance
-     *
-     * @param object $bearsamppBins The bins object containing all service binaries
-     * @return BinMysql The MySQL binary instance
-     */
-    protected function getBinInstance($bearsamppBins)
-    {
-        return $bearsamppBins->getMysql();
-    }
+	/**
+	 * Get the MySQL binary instance
+	 *
+	 * @param   object  $bearsamppBins  The bins object containing all service binaries
+	 *
+	 * @return BinMysql The MySQL binary instance
+	 */
+	protected function getBinInstance($bearsamppBins)
+	{
+		return $bearsamppBins->getMysql();
+	}
 
-    /**
-     * Get the command-to-caption mapping for MySQL
-     *
-     * @return array Command mapping configuration
-     */
-    protected function getCommandMapping()
-    {
-        return [
-            BinMysql::CMD_VERSION => [
-                'lang' => Lang::DEBUG_MYSQL_VERSION,
-                'editor' => false
-            ],
-            BinMysql::CMD_VARIABLES => [
-                'lang' => Lang::DEBUG_MYSQL_VARIABLES,
-                'editor' => true
-            ],
-            BinMysql::CMD_SYNTAX_CHECK => [
-                'lang' => Lang::DEBUG_MYSQL_SYNTAX_CHECK,
-                'editor' => false,
-                'syntaxCheck' => true
-            ]
-        ];
-    }
+	/**
+	 * Get the command-to-caption mapping for MySQL
+	 *
+	 * @return array Command mapping configuration
+	 */
+	protected function getCommandMapping()
+	{
+		return [
+			BinMysql::CMD_VERSION      => [
+				'lang'   => Lang::DEBUG_MYSQL_VERSION,
+				'editor' => false
+			],
+			BinMysql::CMD_VARIABLES    => [
+				'lang'   => Lang::DEBUG_MYSQL_VARIABLES,
+				'editor' => true
+			],
+			BinMysql::CMD_SYNTAX_CHECK => [
+				'lang'        => Lang::DEBUG_MYSQL_SYNTAX_CHECK,
+				'editor'      => false,
+				'syntaxCheck' => true
+			]
+		];
+	}
 }
 

@@ -16,413 +16,446 @@
  */
 abstract class ActionDialogBase
 {
-    protected $wbWindow;
-    protected $wbProgressBar;
-    protected $wbBtnSave;
-    protected $wbBtnCancel;
-    protected $wbBtnDelete;
+	const GAUGE_SAVE = 2;
+	const GAUGE_DELETE = 2;
+	protected $wbWindow;
+	protected $wbProgressBar;
+	protected $wbBtnSave;
+	protected $wbBtnCancel; // Initial value for edit operations
+	protected $wbBtnDelete;
+protected $initValue;
 
-    protected $initValue; // Initial value for edit operations
+	/**
+	 * Constructor for dialog actions
+	 *
+	 * @param   array  $args  Command line arguments
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppWinbinder;
 
-    const GAUGE_SAVE = 2;
-    const GAUGE_DELETE = 2;
+		// Initialize dialog (child class can load data, etc.)
+		if (!$this->initializeDialog($args))
+		{
+			return;
+		}
 
-    /**
-     * Get the dialog window title
-     *
-     * @return string The window title
-     */
-    abstract protected function getWindowTitle();
+		$bearsamppWinbinder->reset();
+		$this->wbWindow = $bearsamppWinbinder->createAppWindow(
+			$this->getWindowTitle(),
+			490,
+			200,
+			WBC_NOTIFY,
+			WBC_KEYDOWN | WBC_KEYUP
+		);
 
-    /**
-     * Get the gauge value for save operation (can be overridden)
-     *
-     * @return int The gauge value
-     */
-    protected function getGaugeSave()
-    {
-        return self::GAUGE_SAVE;
-    }
+		// Create form fields (implemented by child class)
+		$this->createFormFields($bearsamppWinbinder);
 
-    /**
-     * Get the gauge value for delete operation (can be overridden)
-     *
-     * @return int The gauge value
-     */
-    protected function getGaugeDelete()
-    {
-        return self::GAUGE_DELETE;
-    }
+		// Create progress bar and buttons
+		$this->createButtons($bearsamppWinbinder);
 
-    /**
-     * Create form fields specific to the dialog
-     * This method should create all input fields, labels, and buttons
-     *
-     * @param object $bearsamppWinbinder The WinBinder instance
-     * @return void
-     */
-    abstract protected function createFormFields($bearsamppWinbinder);
+		// Set up event handler
+		$bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processWindow');
+		$bearsamppWinbinder->mainLoop();
+		$bearsamppWinbinder->reset();
+	}
 
-    /**
-     * Get the current form values
-     *
-     * @param object $bearsamppWinbinder The WinBinder instance
-     * @return array Associative array of form values
-     */
-    abstract protected function getFormValues($bearsamppWinbinder);
+	/**
+	 * Initialize the dialog window
+	 *
+	 * @param   array  $args  Command line arguments
+	 *
+	 * @return bool True if initialization successful, false otherwise
+	 */
+	protected function initializeDialog($args)
+	{
+		// To be implemented by child classes if needed
+		return true;
+	}
 
-    /**
-     * Validate the form input
-     *
-     * @param array $values The form values
-     * @return array ['valid' => bool, 'error' => string|null]
-     */
-    abstract protected function validateInput($values);
+	/**
+	 * Get the dialog window title
+	 *
+	 * @return string The window title
+	 */
+	abstract protected function getWindowTitle();
 
-    /**
-     * Check if the item already exists (for add/edit operations)
-     *
-     * @param array $values The form values
-     * @return bool True if exists, false otherwise
-     */
-    abstract protected function itemExists($values);
+	/**
+	 * Create form fields specific to the dialog
+	 * This method should create all input fields, labels, and buttons
+	 *
+	 * @param   object  $bearsamppWinbinder  The WinBinder instance
+	 *
+	 * @return void
+	 */
+	abstract protected function createFormFields($bearsamppWinbinder);
 
-    /**
-     * Save the item (create or update)
-     *
-     * @param array $values The form values
-     * @return bool True on success, false on failure
-     */
-    abstract protected function saveItem($values);
+	/**
+	 * Create standard buttons (Save, Delete, Cancel)
+	 *
+	 * @param   object  $bearsamppWinbinder  The WinBinder instance
+	 *
+	 * @return void
+	 */
+	protected function createButtons($bearsamppWinbinder)
+	{
+		global $bearsamppLang;
 
-    /**
-     * Delete the item
-     *
-     * @return bool True on success, false on failure
-     */
-    abstract protected function deleteItem();
+		$this->wbProgressBar = $bearsamppWinbinder->createProgressBar(
+			$this->wbWindow,
+			$this->getGaugeSave() + 1,
+			15,
+			137,
+			$this->isEditMode() ? 190 : 275
+		);
 
-    /**
-     * Get success message after save
-     *
-     * @param array $values The form values
-     * @return string The success message
-     */
-    abstract protected function getSaveSuccessMessage($values);
+		if ($this->isEditMode())
+		{
+			// Edit mode: Save, Delete, Cancel
+			$this->wbBtnSave   = $bearsamppWinbinder->createButton(
+				$this->wbWindow,
+				$bearsamppLang->getValue(Lang::BUTTON_SAVE),
+				215,
+				132
+			);
+			$this->wbBtnDelete = $bearsamppWinbinder->createButton(
+				$this->wbWindow,
+				$bearsamppLang->getValue(Lang::BUTTON_DELETE),
+				300,
+				132
+			);
+			$this->wbBtnCancel = $bearsamppWinbinder->createButton(
+				$this->wbWindow,
+				$bearsamppLang->getValue(Lang::BUTTON_CANCEL),
+				385,
+				132
+			);
+		}
+		else
+		{
+			// Add mode: Save, Cancel
+			$this->wbBtnSave   = $bearsamppWinbinder->createButton(
+				$this->wbWindow,
+				$bearsamppLang->getValue(Lang::BUTTON_SAVE),
+				300,
+				132
+			);
+			$this->wbBtnCancel = $bearsamppWinbinder->createButton(
+				$this->wbWindow,
+				$bearsamppLang->getValue(Lang::BUTTON_CANCEL),
+				387,
+				132
+			);
+		}
+	}
 
-    /**
-     * Get error message after save failure
-     *
-     * @return string The error message
-     */
-    abstract protected function getSaveErrorMessage();
+	/**
+	 * Get the gauge value for save operation (can be overridden)
+	 *
+	 * @return int The gauge value
+	 */
+	protected function getGaugeSave()
+	{
+		return self::GAUGE_SAVE;
+	}
 
-    /**
-     * Get delete confirmation message
-     *
-     * @return string The confirmation message
-     */
-    abstract protected function getDeleteConfirmMessage();
+	/**
+	 * Check if this is an edit operation (has delete button)
+	 *
+	 * @return bool True if edit operation, false if add operation
+	 */
+	protected function isEditMode()
+	{
+		return isset($this->initValue) && !empty($this->initValue);
+	}
 
-    /**
-     * Get success message after delete
-     *
-     * @return string The success message
-     */
-    abstract protected function getDeleteSuccessMessage();
+	/**
+	 * Process window events
+	 *
+	 * @param   resource  $window  The window resource
+	 * @param   int       $id      The control ID
+	 * @param   resource  $ctrl    The control resource
+	 * @param   mixed     $param1  Additional parameter 1
+	 * @param   mixed     $param2  Additional parameter 2
+	 *
+	 * @return void
+	 */
+	public function processWindow($window, $id, $ctrl, $param1, $param2)
+	{
+		global $bearsamppWinbinder;
 
-    /**
-     * Get error message after delete failure
-     *
-     * @return string The error message
-     */
-    abstract protected function getDeleteErrorMessage();
+		// Handle save button
+		if ($id == $this->wbBtnSave[WinBinder::CTRL_ID])
+		{
+			$this->handleSave($window);
 
-    /**
-     * Get the dialog title for messages
-     *
-     * @return string The dialog title
-     */
-    abstract protected function getDialogTitle();
+			return;
+		}
 
-    /**
-     * Get the delete dialog title
-     *
-     * @return string The delete dialog title
-     */
-    abstract protected function getDeleteDialogTitle();
+		// Handle delete button (if in edit mode)
+		if ($this->isEditMode() && $id == $this->wbBtnDelete[WinBinder::CTRL_ID])
+		{
+			$this->handleDelete($window);
 
-    /**
-     * Check if this is an edit operation (has delete button)
-     *
-     * @return bool True if edit operation, false if add operation
-     */
-    protected function isEditMode()
-    {
-        return isset($this->initValue) && !empty($this->initValue);
-    }
+			return;
+		}
 
-    /**
-     * Restart the service after save/delete
-     *
-     * @return void
-     */
-    abstract protected function restartService();
+		// Handle cancel button or window close
+		if ($id == IDCLOSE || $id == $this->wbBtnCancel[WinBinder::CTRL_ID])
+		{
+			$bearsamppWinbinder->destroyWindow($window);
 
-    /**
-     * Initialize the dialog window
-     *
-     * @param array $args Command line arguments
-     * @return bool True if initialization successful, false otherwise
-     */
-    protected function initializeDialog($args)
-    {
-        // To be implemented by child classes if needed
-        return true;
-    }
+			return;
+		}
 
-    /**
-     * Constructor for dialog actions
-     *
-     * @param array $args Command line arguments
-     */
-    public function __construct($args)
-    {
-        global $bearsamppWinbinder;
+		// Handle custom events (implemented by child class)
+		$this->handleCustomEvent($window, $id, $ctrl, $param1, $param2);
+	}
 
-        // Initialize dialog (child class can load data, etc.)
-        if (!$this->initializeDialog($args)) {
-            return;
-        }
+	/**
+	 * Handle save operation
+	 *
+	 * @param   resource  $window  The window resource
+	 *
+	 * @return void
+	 */
+	protected function handleSave($window)
+	{
+		global $bearsamppWinbinder;
 
-        $bearsamppWinbinder->reset();
-        $this->wbWindow = $bearsamppWinbinder->createAppWindow(
-            $this->getWindowTitle(),
-            490,
-            200,
-            WBC_NOTIFY,
-            WBC_KEYDOWN | WBC_KEYUP
-        );
+		$bearsamppWinbinder->setProgressBarMax($this->wbProgressBar, $this->getGaugeSave() + 1);
+		$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-        // Create form fields (implemented by child class)
-        $this->createFormFields($bearsamppWinbinder);
+		// Get form values
+		$values = $this->getFormValues($bearsamppWinbinder);
 
-        // Create progress bar and buttons
-        $this->createButtons($bearsamppWinbinder);
+		// Validate input
+		$validation = $this->validateInput($values);
+		if (!$validation['valid'])
+		{
+			$bearsamppWinbinder->messageBoxError(
+				$validation['error'],
+				$this->getDialogTitle()
+			);
+			$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
 
-        // Set up event handler
-        $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processWindow');
-        $bearsamppWinbinder->mainLoop();
-        $bearsamppWinbinder->reset();
-    }
+			return;
+		}
 
-    /**
-     * Create standard buttons (Save, Delete, Cancel)
-     *
-     * @param object $bearsamppWinbinder The WinBinder instance
-     * @return void
-     */
-    protected function createButtons($bearsamppWinbinder)
-    {
-        global $bearsamppLang;
+		// Check if item already exists (for add or rename operations)
+		if ($this->itemExists($values))
+		{
+			$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
 
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar(
-            $this->wbWindow,
-            $this->getGaugeSave() + 1,
-            15,
-            137,
-            $this->isEditMode() ? 190 : 275
-        );
+			return;
+		}
 
-        if ($this->isEditMode()) {
-            // Edit mode: Save, Delete, Cancel
-            $this->wbBtnSave = $bearsamppWinbinder->createButton(
-                $this->wbWindow,
-                $bearsamppLang->getValue(Lang::BUTTON_SAVE),
-                215,
-                132
-            );
-            $this->wbBtnDelete = $bearsamppWinbinder->createButton(
-                $this->wbWindow,
-                $bearsamppLang->getValue(Lang::BUTTON_DELETE),
-                300,
-                132
-            );
-            $this->wbBtnCancel = $bearsamppWinbinder->createButton(
-                $this->wbWindow,
-                $bearsamppLang->getValue(Lang::BUTTON_CANCEL),
-                385,
-                132
-            );
-        } else {
-            // Add mode: Save, Cancel
-            $this->wbBtnSave = $bearsamppWinbinder->createButton(
-                $this->wbWindow,
-                $bearsamppLang->getValue(Lang::BUTTON_SAVE),
-                300,
-                132
-            );
-            $this->wbBtnCancel = $bearsamppWinbinder->createButton(
-                $this->wbWindow,
-                $bearsamppLang->getValue(Lang::BUTTON_CANCEL),
-                387,
-                132
-            );
-        }
-    }
+		// Save the item
+		if ($this->saveItem($values))
+		{
+			$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-    /**
-     * Process window events
-     *
-     * @param resource $window The window resource
-     * @param int $id The control ID
-     * @param resource $ctrl The control resource
-     * @param mixed $param1 Additional parameter 1
-     * @param mixed $param2 Additional parameter 2
-     * @return void
-     */
-    public function processWindow($window, $id, $ctrl, $param1, $param2)
-    {
-        global $bearsamppWinbinder;
+			// Restart service
+			$this->restartService();
+			$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-        // Handle save button
-        if ($id == $this->wbBtnSave[WinBinder::CTRL_ID]) {
-            $this->handleSave($window);
-            return;
-        }
+			// Show success message
+			$bearsamppWinbinder->messageBoxInfo(
+				$this->getSaveSuccessMessage($values),
+				$this->getDialogTitle()
+			);
+			$bearsamppWinbinder->destroyWindow($window);
+		}
+		else
+		{
+			$bearsamppWinbinder->messageBoxError(
+				$this->getSaveErrorMessage(),
+				$this->getDialogTitle()
+			);
+			$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
+		}
+	}
 
-        // Handle delete button (if in edit mode)
-        if ($this->isEditMode() && $id == $this->wbBtnDelete[WinBinder::CTRL_ID]) {
-            $this->handleDelete($window);
-            return;
-        }
+	/**
+	 * Get the current form values
+	 *
+	 * @param   object  $bearsamppWinbinder  The WinBinder instance
+	 *
+	 * @return array Associative array of form values
+	 */
+	abstract protected function getFormValues($bearsamppWinbinder);
 
-        // Handle cancel button or window close
-        if ($id == IDCLOSE || $id == $this->wbBtnCancel[WinBinder::CTRL_ID]) {
-            $bearsamppWinbinder->destroyWindow($window);
-            return;
-        }
+	/**
+	 * Validate the form input
+	 *
+	 * @param   array  $values  The form values
+	 *
+	 * @return array ['valid' => bool, 'error' => string|null]
+	 */
+	abstract protected function validateInput($values);
 
-        // Handle custom events (implemented by child class)
-        $this->handleCustomEvent($window, $id, $ctrl, $param1, $param2);
-    }
+	/**
+	 * Get the dialog title for messages
+	 *
+	 * @return string The dialog title
+	 */
+	abstract protected function getDialogTitle();
 
-    /**
-     * Handle custom events (can be overridden by child classes)
-     *
-     * @param resource $window The window resource
-     * @param int $id The control ID
-     * @param resource $ctrl The control resource
-     * @param mixed $param1 Additional parameter 1
-     * @param mixed $param2 Additional parameter 2
-     * @return void
-     */
-    protected function handleCustomEvent($window, $id, $ctrl, $param1, $param2)
-    {
-        // Default: do nothing
-        // Child classes can override to handle specific events
-    }
+	/**
+	 * Check if the item already exists (for add/edit operations)
+	 *
+	 * @param   array  $values  The form values
+	 *
+	 * @return bool True if exists, false otherwise
+	 */
+	abstract protected function itemExists($values);
 
-    /**
-     * Handle save operation
-     *
-     * @param resource $window The window resource
-     * @return void
-     */
-    protected function handleSave($window)
-    {
-        global $bearsamppWinbinder;
+	/**
+	 * Save the item (create or update)
+	 *
+	 * @param   array  $values  The form values
+	 *
+	 * @return bool True on success, false on failure
+	 */
+	abstract protected function saveItem($values);
 
-        $bearsamppWinbinder->setProgressBarMax($this->wbProgressBar, $this->getGaugeSave() + 1);
-        $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+	/**
+	 * Restart the service after save/delete
+	 *
+	 * @return void
+	 */
+	abstract protected function restartService();
 
-        // Get form values
-        $values = $this->getFormValues($bearsamppWinbinder);
+	/**
+	 * Get success message after save
+	 *
+	 * @param   array  $values  The form values
+	 *
+	 * @return string The success message
+	 */
+	abstract protected function getSaveSuccessMessage($values);
 
-        // Validate input
-        $validation = $this->validateInput($values);
-        if (!$validation['valid']) {
-            $bearsamppWinbinder->messageBoxError(
-                $validation['error'],
-                $this->getDialogTitle()
-            );
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-            return;
-        }
+	/**
+	 * Get error message after save failure
+	 *
+	 * @return string The error message
+	 */
+	abstract protected function getSaveErrorMessage();
 
-        // Check if item already exists (for add or rename operations)
-        if ($this->itemExists($values)) {
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-            return;
-        }
+	/**
+	 * Handle delete operation
+	 *
+	 * @param   resource  $window  The window resource
+	 *
+	 * @return void
+	 */
+	protected function handleDelete($window)
+	{
+		global $bearsamppWinbinder;
 
-        // Save the item
-        if ($this->saveItem($values)) {
-            $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+		$bearsamppWinbinder->setProgressBarMax($this->wbProgressBar, $this->getGaugeDelete() + 1);
 
-            // Restart service
-            $this->restartService();
-            $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+		// Confirm deletion
+		$confirm = $bearsamppWinbinder->messageBoxYesNo(
+			$this->getDeleteConfirmMessage(),
+			$this->getDeleteDialogTitle()
+		);
 
-            // Show success message
-            $bearsamppWinbinder->messageBoxInfo(
-                $this->getSaveSuccessMessage($values),
-                $this->getDialogTitle()
-            );
-            $bearsamppWinbinder->destroyWindow($window);
-        } else {
-            $bearsamppWinbinder->messageBoxError(
-                $this->getSaveErrorMessage(),
-                $this->getDialogTitle()
-            );
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-        }
-    }
+		$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-    /**
-     * Handle delete operation
-     *
-     * @param resource $window The window resource
-     * @return void
-     */
-    protected function handleDelete($window)
-    {
-        global $bearsamppWinbinder;
+		if ($confirm)
+		{
+			if ($this->deleteItem())
+			{
+				$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-        $bearsamppWinbinder->setProgressBarMax($this->wbProgressBar, $this->getGaugeDelete() + 1);
+				// Restart service
+				$this->restartService();
+				$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
 
-        // Confirm deletion
-        $confirm = $bearsamppWinbinder->messageBoxYesNo(
-            $this->getDeleteConfirmMessage(),
-            $this->getDeleteDialogTitle()
-        );
+				// Show success message
+				$bearsamppWinbinder->messageBoxInfo(
+					$this->getDeleteSuccessMessage(),
+					$this->getDeleteDialogTitle()
+				);
+				$bearsamppWinbinder->destroyWindow($window);
+			}
+			else
+			{
+				$bearsamppWinbinder->messageBoxError(
+					$this->getDeleteErrorMessage(),
+					$this->getDeleteDialogTitle()
+				);
+				$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
+			}
+		}
+		else
+		{
+			$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
+		}
+	}
 
-        $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+	/**
+	 * Get the gauge value for delete operation (can be overridden)
+	 *
+	 * @return int The gauge value
+	 */
+	protected function getGaugeDelete()
+	{
+		return self::GAUGE_DELETE;
+	}
 
-        if ($confirm) {
-            if ($this->deleteItem()) {
-                $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+	/**
+	 * Get delete confirmation message
+	 *
+	 * @return string The confirmation message
+	 */
+	abstract protected function getDeleteConfirmMessage();
 
-                // Restart service
-                $this->restartService();
-                $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+	/**
+	 * Get the delete dialog title
+	 *
+	 * @return string The delete dialog title
+	 */
+	abstract protected function getDeleteDialogTitle();
 
-                // Show success message
-                $bearsamppWinbinder->messageBoxInfo(
-                    $this->getDeleteSuccessMessage(),
-                    $this->getDeleteDialogTitle()
-                );
-                $bearsamppWinbinder->destroyWindow($window);
-            } else {
-                $bearsamppWinbinder->messageBoxError(
-                    $this->getDeleteErrorMessage(),
-                    $this->getDeleteDialogTitle()
-                );
-                $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-            }
-        } else {
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
-        }
-    }
+	/**
+	 * Delete the item
+	 *
+	 * @return bool True on success, false on failure
+	 */
+	abstract protected function deleteItem();
+
+	/**
+	 * Get success message after delete
+	 *
+	 * @return string The success message
+	 */
+	abstract protected function getDeleteSuccessMessage();
+
+	/**
+	 * Get error message after delete failure
+	 *
+	 * @return string The error message
+	 */
+	abstract protected function getDeleteErrorMessage();
+
+	/**
+	 * Handle custom events (can be overridden by child classes)
+	 *
+	 * @param   resource  $window  The window resource
+	 * @param   int       $id      The control ID
+	 * @param   resource  $ctrl    The control resource
+	 * @param   mixed     $param1  Additional parameter 1
+	 * @param   mixed     $param2  Additional parameter 2
+	 *
+	 * @return void
+	 */
+	protected function handleCustomEvent($window, $id, $ctrl, $param1, $param2)
+	{
+		// Default: do nothing
+		// Child classes can override to handle specific events
+	}
 }
 

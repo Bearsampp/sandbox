@@ -5,75 +5,81 @@
  */
 class TplAppReload
 {
-    /**
-     * @var string Action identifier for reload operations
-     */
-    const ACTION = 'reload';
+	/**
+	 * @var string Action identifier for reload operations
+	 */
+	const ACTION = 'reload';
 
-    /**
-     * Generates multi-action menu item for reload functionality
-     *
-     * @global Lang $bearsamppLang Bearsampp language configuration instance
-     * @return array Array structure for TplApp::getActionMulti containing:
-     *               - Action identifier
-     *               - Action parameters
-     *               - Menu item configuration (label + glyph)
-     *               - Disabled state
-     *               - Calling class name
-     */
-    public static function process(): array
-    {
-        global $bearsamppLang;
-        return TplApp::getActionMulti(
-            self::ACTION,
-            null,
-            [$bearsamppLang->getValue(Lang::RELOAD), TplAestan::GLYPH_RELOAD],
-            false,
-            get_called_class()
-        );
-    }
+	/**
+	 * Generates multi-action menu item for reload functionality
+	 *
+	 * @return array Array structure for TplApp::getActionMulti containing:
+	 *               - Action identifier
+	 *               - Action parameters
+	 *               - Menu item configuration (label + glyph)
+	 *               - Disabled state
+	 *               - Calling class name
+	 * @global Lang $bearsamppLang Bearsampp language configuration instance
+	 */
+	public static function process(): array
+	{
+		global $bearsamppLang;
 
-    /**
-     * Builds sequence of actions for configuration reload
-     *
-     * @return string Concatenated action sequence containing:
-     *               1. PHP process execution command
-     *               2. Service reset command
-     *               3. Configuration reload command
-     */
-    public static function getActionReload(): string
-    {
-        return implode("\n", [
-            TplApp::getActionRun(Action::RELOAD),
-            'Action: resetservices',
-            'Action: readconfig'
-        ]);
-    }
+		return TplApp::getActionMulti(
+			self::ACTION,
+			null,
+			[$bearsamppLang->getValue(Lang::RELOAD), TplAestan::GLYPH_RELOAD],
+			false,
+			get_called_class()
+		);
+	}
 
-    /**
-     * Executes reload sequence and returns action string
-     *
-     * @param mixed|null $args Arguments to pass to reload action
-     * @return string Generated INI action sequence
-     * @throws Exception If reload operation fails
-     *
-     * @log TRACE: Logs method entry and generated action content
-     * @log ERROR: Captures and logs any exceptions during reload
-     */
-    public static function triggerReload($args = null): string
-    {
-        Log::trace('ENTERING triggerReload..');
+	/**
+	 * Executes reload sequence and returns action string
+	 *
+	 * @param   mixed|null  $args  Arguments to pass to reload action
+	 *
+	 * @return string Generated INI action sequence
+	 * @throws Exception If reload operation fails
+	 *
+	 * @log TRACE: Logs method entry and generated action content
+	 * @log ERROR: Captures and logs any exceptions during reload
+	 */
+	public static function triggerReload($args = null): string
+	{
+		Log::trace('ENTERING triggerReload..');
 
-        try {
-            new ActionReload($args);
-            $actionContent = self::getActionReload();
-            Log::trace('Generated reload actions: ' . $actionContent);
-            return $actionContent;
+		try
+		{
+			new ActionReload($args);
+			$actionContent = self::getActionReload();
+			Log::trace('Generated reload actions: ' . $actionContent);
 
-        } catch (Exception $e) {
-            Log::error('Reload failed: ' . $e->getMessage());
-            return '';
-        }
-    }
+			return $actionContent;
+		}
+		catch (Exception $e)
+		{
+			Log::error('Reload failed: ' . $e->getMessage());
+
+			return '';
+		}
+	}
+
+	/**
+	 * Builds sequence of actions for configuration reload
+	 *
+	 * @return string Concatenated action sequence containing:
+	 *               1. PHP process execution command
+	 *               2. Service reset command
+	 *               3. Configuration reload command
+	 */
+	public static function getActionReload(): string
+	{
+		return implode("\n", [
+			TplApp::getActionRun(Action::RELOAD),
+			'Action: resetservices',
+			'Action: readconfig'
+		]);
+	}
 }
 

@@ -15,35 +15,40 @@
  */
 class ActionCheckPort
 {
-    /**
-     * Constructor for ActionCheckPort.
-     *
-     * @param   array  $args          An array of arguments where:
-     *                                - $args[0] is the name of the service (e.g., Apache, MySQL).
-     *                                - $args[1] is the port number to check.
-     *                                - $args[2] (optional) indicates if SSL should be used.
-     *
-     * @global object  $bearsamppBins Global object containing instances of various services.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppBins;
+	/**
+	 * Constructor for ActionCheckPort.
+	 *
+	 * @param   array  $args          An array of arguments where:
+	 *                                - $args[0] is the name of the service (e.g., Apache, MySQL).
+	 *                                - $args[1] is the port number to check.
+	 *                                - $args[2] (optional) indicates if SSL should be used.
+	 *
+	 * @global object  $bearsamppBins Global object containing instances of various services.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppBins;
 
-        // Check if the required arguments are provided and not empty
-        if ( isset( $args[0] ) && !empty( $args[0] ) && isset( $args[1] ) && !empty( $args[1] ) ) {
-            // Determine if SSL is to be used
-            $ssl = isset( $args[2] ) && !empty( $args[2] );
+		// Check if the required arguments are provided and not empty
+		if (isset($args[0]) && !empty($args[0]) && isset($args[1]) && !empty($args[1]))
+		{
+			// Determine if SSL is to be used
+			$ssl = isset($args[2]) && !empty($args[2]);
 
-            $bin = $bearsamppBins->getBinByName($args[0]);
-            if ($bin !== null) {
-                // Apache accepts an extra $ssl parameter; all other bins do not
-                if ($args[0] == $bearsamppBins->getApache()->getName()) {
-                    $bin->checkPort($args[1], $ssl, true);
-                } else {
-                    $bin->checkPort($args[1], true);
-                }
-            }
-        }
-    }
+			$bin = $bearsamppBins->getBinByName($args[0]);
+			if ($bin !== null)
+			{
+				// Apache accepts an extra $ssl parameter; all other bins do not
+				if ($args[0] == $bearsamppBins->getApache()->getName())
+				{
+					$bin->checkPort($args[1], $ssl, true);
+				}
+				else
+				{
+					$bin->checkPort($args[1], true);
+				}
+			}
+		}
+	}
 }
 

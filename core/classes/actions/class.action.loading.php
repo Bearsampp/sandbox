@@ -15,271 +15,296 @@
  */
 class ActionLoading
 {
-    /** @var int The width of the progress bar window. */
-    const WINDOW_WIDTH = 360;
+	/** @var int The width of the progress bar window. */
+	const WINDOW_WIDTH = 360;
 
-    /** @var int The height of the progress bar window. */
-    const WINDOW_HEIGHT = 90;
+	/** @var int The height of the progress bar window. */
+	const WINDOW_HEIGHT = 90;
 
-    /** @var int The maximum value of the progress bar. */
-    const GAUGE = 20;
+	/** @var int The maximum value of the progress bar. */
+	const GAUGE = 20;
 
-    /** @var mixed The window object created by WinBinder. */
-    private $wbWindow;
+	/** @var mixed The window object created by WinBinder. */
+	private $wbWindow;
 
-    /** @var mixed The label control for displaying status text. */
-    private $wbLabel;
+	/** @var mixed The label control for displaying status text. */
+	private $wbLabel;
 
-    /** @var mixed The progress bar object created by WinBinder. */
-    private $wbProgressBar;
+	/** @var mixed The progress bar object created by WinBinder. */
+	private $wbProgressBar;
 
-    /**
-     * ActionLoading constructor.
-     *
-     * Initializes the loading action, creates the progress bar window, and starts the main loop.
-     *
-     * @param array $args The arguments passed to the constructor.
-     */
-    public function __construct($args)
-    {
-        global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
+	/**
+	 * ActionLoading constructor.
+	 *
+	 * Initializes the loading action, creates the progress bar window, and starts the main loop.
+	 *
+	 * @param   array  $args  The arguments passed to the constructor.
+	 */
+	public function __construct($args)
+	{
+		global $bearsamppCore, $bearsamppLang, $bearsamppWinbinder;
 
-        $currentPid = Win32Ps::getCurrentPid();
-        Log::trace('ActionLoading constructor started - PID: ' . $currentPid);
+		$currentPid = Win32Ps::getCurrentPid();
+		Log::trace('ActionLoading constructor started - PID: ' . $currentPid);
 
-        $bearsamppWinbinder->reset();
-        Log::trace('WinBinder reset complete');
+		$bearsamppWinbinder->reset();
+		Log::trace('WinBinder reset complete');
 
-        $bearsamppCore->addLoadingPid($currentPid);
-        Log::trace('Loading PID added to tracking file: ' . $currentPid);
+		$bearsamppCore->addLoadingPid($currentPid);
+		Log::trace('Loading PID added to tracking file: ' . $currentPid);
 
-        // Check for already running loading processes
-        $pidFile = $bearsamppCore->getLoadingPid();
-        if (file_exists($pidFile)) {
-            $pids = file($pidFile);
-            foreach ($pids as $pid) {
-                $pid = trim($pid);
-                if (!empty($pid) && $pid != $currentPid) {
-                    Log::trace('ActionLoading: Found another loading process (PID ' . $pid . '), killing it');
-                    Win32Ps::kill($pid);
-                }
-            }
-        }
+		// Check for already running loading processes
+		$pidFile = $bearsamppCore->getLoadingPid();
+		if (file_exists($pidFile))
+		{
+			$pids = file($pidFile);
+			foreach ($pids as $pid)
+			{
+				$pid = trim($pid);
+				if (!empty($pid) && $pid != $currentPid)
+				{
+					Log::trace('ActionLoading: Found another loading process (PID ' . $pid . '), killing it');
+					Win32Ps::kill($pid);
+				}
+			}
+		}
 
-        // Screen information
-        Log::trace('Getting screen information');
-        $screenArea = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
-        $screenWidth = intval($screenArea[2]);
-        $screenHeight = intval($screenArea[3]);
-        $xPos = $screenWidth - self::WINDOW_WIDTH;
-        $yPos = $screenHeight - self::WINDOW_HEIGHT - 5;
-        Log::trace('Screen dimensions: ' . $screenWidth . 'x' . $screenHeight . ', Window position: (' . $xPos . ',' . $yPos . ')');
+		// Screen information
+		Log::trace('Getting screen information');
+		$screenArea   = explode(' ', $bearsamppWinbinder->getSystemInfo(WinBinder::SYSINFO_WORKAREA));
+		$screenWidth  = intval($screenArea[2]);
+		$screenHeight = intval($screenArea[3]);
+		$xPos         = $screenWidth - self::WINDOW_WIDTH;
+		$yPos         = $screenHeight - self::WINDOW_HEIGHT - 5;
+		Log::trace('Screen dimensions: ' . $screenWidth . 'x' . $screenHeight . ', Window position: (' . $xPos . ',' . $yPos . ')');
 
-        // Create the window and progress bar
-        Log::trace('Creating loading window...');
-        $this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, null, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, null);
+		// Create the window and progress bar
+		Log::trace('Creating loading window...');
+		$this->wbWindow = $bearsamppWinbinder->createWindow(null, ToolDialog, null, $xPos, $yPos, self::WINDOW_WIDTH, self::WINDOW_HEIGHT, WBC_TOP, null);
 
-        // Check if window was created successfully
-        if ($this->wbWindow === false || $this->wbWindow === null) {
-            Log::error('CRITICAL: Failed to create loading window - window handle is: ' . var_export($this->wbWindow, true));
-            Log::error('WinBinder extension loaded: ' . (extension_loaded('winbinder') ? 'YES' : 'NO'));
-            Log::error('wb_create_window function exists: ' . (function_exists('wb_create_window') ? 'YES' : 'NO'));
-            return;
-        }
+		// Check if window was created successfully
+		if ($this->wbWindow === false || $this->wbWindow === null)
+		{
+			Log::error('CRITICAL: Failed to create loading window - window handle is: ' . var_export($this->wbWindow, true));
+			Log::error('WinBinder extension loaded: ' . (extension_loaded('winbinder') ? 'YES' : 'NO'));
+			Log::error('wb_create_window function exists: ' . (function_exists('wb_create_window') ? 'YES' : 'NO'));
 
-        Log::trace('Loading window created successfully - handle: ' . $this->wbWindow);
+			return;
+		}
 
-        // CRITICAL: wb_set_visible() must be called AFTER window creation in PHP 8.4
-        // The WS_VISIBLE flag during creation doesn't work
-        Log::trace('Making window visible with wb_set_visible()');
-        wb_set_visible($this->wbWindow, true);
-        Log::trace('Window set to visible');
+		Log::trace('Loading window created successfully - handle: ' . $this->wbWindow);
 
-        Log::trace('Drawing image...');
-        $bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp');
-        Log::trace('Image drawn');
+		// CRITICAL: wb_set_visible() must be called AFTER window creation in PHP 8.4
+		// The WS_VISIBLE flag during creation doesn't work
+		Log::trace('Making window visible with wb_set_visible()');
+		wb_set_visible($this->wbWindow, true);
+		Log::trace('Window set to visible');
 
-        Log::trace('Creating progress bar...');
-        $this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, self::GAUGE + 1, 42, 24, self::WINDOW_WIDTH - 62, 15);
-        Log::trace('Progress bar created: ' . var_export($this->wbProgressBar, true));
+		Log::trace('Drawing image...');
+		$bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp');
+		Log::trace('Image drawn');
 
-        Log::trace('Drawing initial text...');
-        $this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, '', 42, 0, self::WINDOW_WIDTH - 64, 25);
-        Log::trace('Label created: ' . var_export($this->wbLabel, true));
+		Log::trace('Creating progress bar...');
+		$this->wbProgressBar = $bearsamppWinbinder->createProgressBar($this->wbWindow, self::GAUGE + 1, 42, 24, self::WINDOW_WIDTH - 62, 15);
+		Log::trace('Progress bar created: ' . var_export($this->wbProgressBar, true));
 
-        // Set the handler and start the main loop
-        Log::trace('Setting window handler...');
-        $bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processLoading', 10);
-        Log::trace('Handler set, starting main loop...');
-        $bearsamppWinbinder->mainLoop();
-        Log::trace('Main loop exited');
-    }
+		Log::trace('Drawing initial text...');
+		$this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, '', 42, 0, self::WINDOW_WIDTH - 64, 25);
+		Log::trace('Label created: ' . var_export($this->wbLabel, true));
 
-    /**
-     * Increments the progress bar by a specified number of steps.
-     *
-     * @param int $nb The number of steps to increment the progress bar by. Default is 1.
-     */
-    public function incrProgressBar($nb = 1)
-    {
-        global $bearsamppCore, $bearsamppWinbinder;
+		// Set the handler and start the main loop
+		Log::trace('Setting window handler...');
+		$bearsamppWinbinder->setHandler($this->wbWindow, $this, 'processLoading', 10);
+		Log::trace('Handler set, starting main loop...');
+		$bearsamppWinbinder->mainLoop();
+		Log::trace('Main loop exited');
+	}
 
-        for ($i = 0; $i < $nb; $i++) {
-            $bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
-            $bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp', 4, 2, 32, 32);
-        }
+	/**
+	 * Processes the loading action, including handling window events and updating the progress bar.
+	 *
+	 * @param   mixed  $window  The window object.
+	 * @param   int    $id      The ID of the event.
+	 * @param   mixed  $ctrl    The control object.
+	 * @param   mixed  $param1  The first parameter of the event.
+	 * @param   mixed  $param2  The second parameter of the event.
+	 */
+	public function processLoading($window, $id, $ctrl, $param1, $param2)
+	{
+		global $bearsamppRoot, $bearsamppWinbinder;
 
-        $bearsamppWinbinder->wait();
-        $bearsamppWinbinder->wait($this->wbWindow);
-    }
+		switch ($id)
+		{
+			case IDCLOSE:
+				Win32Ps::kill(Win32Ps::getCurrentPid());
+				break;
+		}
 
-    /**
-     * Processes the loading action, including handling window events and updating the progress bar.
-     *
-     * @param mixed $window The window object.
-     * @param int $id The ID of the event.
-     * @param mixed $ctrl The control object.
-     * @param mixed $param1 The first parameter of the event.
-     * @param mixed $param2 The second parameter of the event.
-     */
-    public function processLoading($window, $id, $ctrl, $param1, $param2)
-    {
-        global $bearsamppRoot, $bearsamppWinbinder;
+		// Set a maximum number of iterations to prevent infinite loops
+		$maxIterations = 10;
+		$iterations    = 0;
 
-        switch ($id) {
-            case IDCLOSE:
-                Win32Ps::kill(Win32Ps::getCurrentPid());
-                break;
-        }
+		// Set a timeout for the entire loading process
+		$startTime      = microtime(true); // Use microtime for more precise timing
+		$maxLoadingTime = 15; // 15 seconds maximum
 
-        // Set a maximum number of iterations to prevent infinite loops
-        $maxIterations = 10;
-        $iterations = 0;
+		while ($iterations < $maxIterations && (microtime(true) - $startTime) < $maxLoadingTime)
+		{
+			$bearsamppRoot->removeErrorHandling();
+			$bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
 
-        // Set a timeout for the entire loading process
-        $startTime = microtime(true); // Use microtime for more precise timing
-        $maxLoadingTime = 15; // 15 seconds maximum
+			usleep(100000);
 
-        while ($iterations < $maxIterations && (microtime(true) - $startTime) < $maxLoadingTime) {
-            $bearsamppRoot->removeErrorHandling();
-            $bearsamppWinbinder->resetProgressBar($this->wbProgressBar);
+			for ($i = 0; $i < self::GAUGE && (microtime(true) - $startTime) < $maxLoadingTime; $i++)
+			{
+				$this->incrProgressBar();
 
-            usleep(100000);
+				// Check for status file updates to show current service being processed
+				$this->updateLabelFromStatusFile();
 
-            for ($i = 0; $i < self::GAUGE && (microtime(true) - $startTime) < $maxLoadingTime; $i++) {
-                $this->incrProgressBar();
+				usleep(100000);
+			}
 
-                // Check for status file updates to show current service being processed
-                $this->updateLabelFromStatusFile();
+			// Check if all services have started successfully
+			$allServicesStarted = $this->checkAllServicesStarted();
+			if ($allServicesStarted)
+			{
+				Log::trace('All services started successfully');
+				break;
+			}
 
-                usleep(100000);
-            }
+			$iterations++;
+			Log::trace('Loading iteration ' . $iterations . ' completed, checking services again');
+		}
 
-            // Check if all services have started successfully
-            $allServicesStarted = $this->checkAllServicesStarted();
-            if ($allServicesStarted) {
-                Log::trace('All services started successfully');
-                break;
-            }
+		if ($iterations >= $maxIterations)
+		{
+			Log::trace('Maximum iterations reached (' . $maxIterations . '), some services may not have started properly');
+		}
 
-            $iterations++;
-            Log::trace('Loading iteration ' . $iterations . ' completed, checking services again');
-        }
+		if ((microtime(true) - $startTime) >= $maxLoadingTime)
+		{
+			Log::trace('Loading timeout reached (' . $maxLoadingTime . ' seconds), some services may not have started properly');
+		}
 
-        if ($iterations >= $maxIterations) {
-            Log::trace('Maximum iterations reached (' . $maxIterations . '), some services may not have started properly');
-        }
+		// Close the loading window
+		Log::trace('Closing loading window');
+		Win32Ps::kill(Win32Ps::getCurrentPid());
+	}
 
-        if ((microtime(true) - $startTime) >= $maxLoadingTime) {
-            Log::trace('Loading timeout reached (' . $maxLoadingTime . ' seconds), some services may not have started properly');
-        }
+	/**
+	 * Increments the progress bar by a specified number of steps.
+	 *
+	 * @param   int  $nb  The number of steps to increment the progress bar by. Default is 1.
+	 */
+	public function incrProgressBar($nb = 1)
+	{
+		global $bearsamppCore, $bearsamppWinbinder;
 
-        // Close the loading window
-        Log::trace('Closing loading window');
-        Win32Ps::kill(Win32Ps::getCurrentPid());
-    }
+		for ($i = 0; $i < $nb; $i++)
+		{
+			$bearsamppWinbinder->incrProgressBar($this->wbProgressBar);
+			$bearsamppWinbinder->drawImage($this->wbWindow, Path::getImagesPath() . '/bearsampp.bmp', 4, 2, 32, 32);
+		}
 
-    /**
-     * Updates the loading text on the window
-     *
-     * @param string $text The text to display
-     */
-    private function updateLoadingText($text)
-    {
-        global $bearsamppWinbinder;
+		$bearsamppWinbinder->wait();
+		$bearsamppWinbinder->wait($this->wbWindow);
+	}
 
-        if ($this->wbLabel) {
-            wb_set_text($this->wbLabel, $text);
-            wb_refresh($this->wbWindow);
-        }
-    }
+	/**
+	 * Updates the label text from status file if it exists
+	 * This allows external processes to update the loading screen text dynamically
+	 */
+	private function updateLabelFromStatusFile()
+	{
+		global $bearsamppCore, $bearsamppWinbinder;
 
-    /**
-     * Updates the label text from status file if it exists
-     * This allows external processes to update the loading screen text dynamically
-     */
-    private function updateLabelFromStatusFile()
-    {
-        global $bearsamppCore, $bearsamppWinbinder;
+		$statusFile = Path::getTmpPath() . '/loading_status.txt';
 
-        $statusFile = Path::getTmpPath() . '/loading_status.txt';
+		if (file_exists($statusFile))
+		{
+			$content = @file_get_contents($statusFile);
+			if ($content !== false && !empty($content))
+			{
+				$status = @json_decode($content, true);
+				if ($status && isset($status['text']) && !empty($status['text']))
+				{
+					// Clear the text area and redraw with new text
+					$bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 52, 25);
+					$this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, $status['text'], 42, 0, self::WINDOW_WIDTH - 64, 25);
+				}
+			}
+		}
+		else
+		{
+			// If no status file exists, show a default message
+			$currentText = $this->wbLabel;
+			if (empty($currentText))
+			{
+				$bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 52, 25);
+				$this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, 'Processing...', 42, 0, self::WINDOW_WIDTH - 64, 25);
+			}
+		}
+	}
 
-        if (file_exists($statusFile)) {
-            $content = @file_get_contents($statusFile);
-            if ($content !== false && !empty($content)) {
-                $status = @json_decode($content, true);
-                if ($status && isset($status['text']) && !empty($status['text'])) {
-                    // Clear the text area and redraw with new text
-                    $bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 52, 25);
-                    $this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, $status['text'], 42, 0, self::WINDOW_WIDTH - 64, 25);
-                }
-            }
-        } else {
-            // If no status file exists, show a default message
-            $currentText = $this->wbLabel;
-            if (empty($currentText)) {
-                $bearsamppWinbinder->drawRect($this->wbWindow, 42, 0, self::WINDOW_WIDTH - 52, 25);
-                $this->wbLabel = $bearsamppWinbinder->drawText($this->wbWindow, 'Processing...', 42, 0, self::WINDOW_WIDTH - 64, 25);
-            }
-        }
-    }
+	/**
+	 * Checks if all services have started successfully.
+	 * Uses Win32Native::getServiceState() (WMI) directly instead of spawning a
+	 * background PHP process and polling a temp file.
+	 *
+	 * @return bool True if all enabled services are running, false otherwise
+	 */
+	private function checkAllServicesStarted()
+	{
+		global $bearsamppBins;
 
-    /**
-     * Checks if all services have started successfully.
-     * Uses Win32Native::getServiceState() (WMI) directly instead of spawning a
-     * background PHP process and polling a temp file.
-     *
-     * @return bool True if all enabled services are running, false otherwise
-     */
-    private function checkAllServicesStarted()
-    {
-        global $bearsamppBins;
+		Log::trace('Checking if all services have started successfully');
 
-        Log::trace('Checking if all services have started successfully');
+		// getServices() already filters to enabled-only services
+		$allStarted = true;
+		foreach ($bearsamppBins->getServices() as $sName => $service)
+		{
+			$serviceName = $service->getName();
+			$this->updateLoadingText('Checking ' . $serviceName . '...');
 
-        // getServices() already filters to enabled-only services
-        $allStarted = true;
-        foreach ($bearsamppBins->getServices() as $sName => $service) {
-            $serviceName = $service->getName();
-            $this->updateLoadingText('Checking ' . $serviceName . '...');
+			try
+			{
+				$state          = Win32Native::getServiceState($serviceName);
+				$serviceRunning = ($state === 'Running');
+				Log::trace('Service ' . $sName . ' status check: ' . ($serviceRunning ? 'running' : 'not running') . ' (state: ' . var_export($state, true) . ')');
+			}
+			catch (Throwable $e)
+			{
+				Log::trace('Exception during service status check for ' . $sName . ': ' . $e->getMessage());
+				$serviceRunning = false;
+			}
 
-            try {
-                $state = Win32Native::getServiceState($serviceName);
-                $serviceRunning = ($state === 'Running');
-                Log::trace('Service ' . $sName . ' status check: ' . ($serviceRunning ? 'running' : 'not running') . ' (state: ' . var_export($state, true) . ')');
-            } catch (\Throwable $e) {
-                Log::trace('Exception during service status check for ' . $sName . ': ' . $e->getMessage());
-                $serviceRunning = false;
-            }
+			if (!$serviceRunning)
+			{
+				Log::trace('Service ' . $sName . ' is not running');
+				$allStarted = false;
+				break;
+			}
+		}
 
-            if (!$serviceRunning) {
-                Log::trace('Service ' . $sName . ' is not running');
-                $allStarted = false;
-                break;
-            }
-        }
+		Log::trace('All services started check result: ' . ($allStarted ? 'true' : 'false'));
 
-        Log::trace('All services started check result: ' . ($allStarted ? 'true' : 'false'));
-        return $allStarted;
-    }
+		return $allStarted;
+	}
+
+	/**
+	 * Updates the loading text on the window
+	 *
+	 * @param   string  $text  The text to display
+	 */
+	private function updateLoadingText($text)
+	{
+		global $bearsamppWinbinder;
+
+		if ($this->wbLabel)
+		{
+			wb_set_text($this->wbLabel, $text);
+			wb_refresh($this->wbWindow);
+		}
+	}
 }
