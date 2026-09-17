@@ -23,19 +23,19 @@ class ActionChangePort
     /** @var resource The main application window. */
     private $wbWindow;
 
-    /** @var resource The label displaying the current port information. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label displaying the current port information. */
     private $wbLabelCurrent;
 
-    /** @var resource The label for the new port input field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label of the new port input field. */
     private $wbLabelPort;
-    /** @var resource The numeric input field for the new port number. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the numeric input field of the new port number. */
     private $wbInputPort;
 
-    /** @var resource The progress bar control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     private $wbProgressBar;
-    /** @var resource The finish button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the finish button control. */
     private $wbBtnFinish;
-    /** @var resource The cancel button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the cancel button control. */
     private $wbBtnCancel;
 
     /**

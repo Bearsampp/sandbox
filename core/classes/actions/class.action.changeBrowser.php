@@ -18,17 +18,17 @@ class ActionChangeBrowser
 {
     /** @var resource The main application window. */
     private $wbWindow;
-    /** @var resource The explanation label control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the explanation label control. */
     private $wbLabelExp;
     /** @var array Array of radio button controls for browser selection. */
     private $wbRadioButton;
     /** @var array The "Other" radio button control for custom browser selection. */
     private $wbRadioButtonOther;
-    /** @var resource The text input for the custom browser executable path. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the text input of the custom browser executable path. */
     private $wbInputBrowse;
     /** @var array The browse button control for selecting a custom browser. */
     private $wbBtnBrowse;
-    /** @var resource The progress bar control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     private $wbProgressBar;
     /** @var array The save button control. */
     private $wbBtnSave;

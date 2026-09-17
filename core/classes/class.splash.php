@@ -25,7 +25,7 @@ class Splash
     private $wbImage;
     /** @var mixed The handle of the loading text control. */
     private $wbTextLoading;
-    /** @var mixed The reference for the progress bar control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     private $wbProgressBar;
 
     /** @var mixed The current splash screen image, set to null when none is shown. */

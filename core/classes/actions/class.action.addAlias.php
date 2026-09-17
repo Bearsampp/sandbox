@@ -13,17 +13,17 @@
  */
 class ActionAddAlias extends ActionDialogBase
 {
-    /** @var object The label control for the alias name field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the alias name field. */
     private $wbLabelName;
-    /** @var object The text input control for the alias name. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the text input control of the alias name. */
     private $wbInputName;
-    /** @var object The label control for the alias destination field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the alias destination field. */
     private $wbLabelDest;
-    /** @var object The read-only text input for the alias destination path. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the read-only text input of the alias destination path. */
     private $wbInputDest;
-    /** @var object The browse button for selecting the destination directory. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the browse button selecting the destination directory. */
     private $wbBtnDest;
-    /** @var object The label displaying the generated Apache alias directive. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label displaying the generated Apache alias directive. */
     private $wbLabelExp;
 
     /**

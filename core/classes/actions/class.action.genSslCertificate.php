@@ -18,17 +18,17 @@ class ActionGenSslCertificate
 {
     /** @var resource The main application window. */
     private $wbWindow;
-    /** @var resource The label control for the server name field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the server name field. */
     private $wbLabelName;
-    /** @var object The text input control for the server name. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the text input control of the server name. */
     private $wbInputName;
-    /** @var resource The label control for the target directory field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the target directory field. */
     private $wbLabelDest;
-    /** @var object The read-only text input for the target directory path. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the read-only text input of the target directory path. */
     private $wbInputDest;
     /** @var array The browse button control for selecting the target directory. */
     private $wbBtnDest;
-    /** @var resource The progress bar control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     private $wbProgressBar;
     /** @var array The save button control. */
     private $wbBtnSave;

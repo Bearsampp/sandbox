@@ -18,7 +18,7 @@ class ActionAbout
     const GAUGE_SAVE = 2;
     /** @var resource The main application window. */
     private $wbWindow;
-    /** @var resource The about dialog image control. */
+    /** @var resource The about dialog image handle drawn on the window. */
     private $wbImage;
     /** @var array The homepage hyperlink control. */
     private $wbLinkHomepage;

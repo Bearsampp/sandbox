@@ -18,13 +18,13 @@ abstract class ActionDialogBase
 {
     /** @var resource The main dialog window. */
     protected $wbWindow;
-    /** @var resource The progress bar control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     protected $wbProgressBar;
-    /** @var resource The save button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the save button control. */
     protected $wbBtnSave;
-    /** @var resource The cancel button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the cancel button control. */
     protected $wbBtnCancel;
-    /** @var resource The delete button control (edit mode only). */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the delete button control (edit mode only). */
     protected $wbBtnDelete;
 
     /** @var string Initial value for edit operations. */

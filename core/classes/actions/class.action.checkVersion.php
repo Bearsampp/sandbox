@@ -24,7 +24,7 @@ class ActionCheckVersion
 
     /** @var resource The main application window. */
     private $wbWindow;
-    /** @var resource The about dialog image control. */
+    /** @var resource The version info dialog image handle drawn on the window. */
     private $wbImage;
     /** @var array The changelog hyperlink control. */
     private $wbLinkChangelog;

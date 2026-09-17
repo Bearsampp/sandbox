@@ -13,17 +13,17 @@
  */
 class ActionAddVhost extends ActionDialogBase
 {
-    /** @var object The label control for the server name field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the server name field. */
     private $wbLabelServerName;
-    /** @var object The text input control for the server name. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the text input control of the server name. */
     private $wbInputServerName;
-    /** @var object The label control for the document root field. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label control of the document root field. */
     private $wbLabelDocRoot;
-    /** @var object The read-only text input for the document root path. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the read-only text input of the document root path. */
     private $wbInputDocRoot;
-    /** @var object The browse button for selecting the document root directory. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the browse button selecting the document root directory. */
     private $wbBtnDocRoot;
-    /** @var object The label displaying the generated vhost directive preview. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the label displaying the generated vhost directive preview. */
     private $wbLabelExp;
 
     /**
