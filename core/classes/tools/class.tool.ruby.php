@@ -17,125 +17,118 @@
  */
 class ToolRuby extends Module
 {
-	/**
-	 * Configuration key for the Ruby version in the root configuration.
-	 */
-	const ROOT_CFG_VERSION = 'rubyVersion';
+    /**
+     * Configuration key for the Ruby version in the root configuration.
+     */
+    const ROOT_CFG_VERSION = 'rubyVersion';
 
-	/**
-	 * Configuration key for the Ruby executable in the local configuration.
-	 */
-	const LOCAL_CFG_EXE = 'rubyExe';
+    /**
+     * Configuration key for the Ruby executable in the local configuration.
+     */
+    const LOCAL_CFG_EXE = 'rubyExe';
 
-	/**
-	 * Configuration key for the Ruby console executable in the local configuration.
-	 */
-	const LOCAL_CFG_CONSOLE_EXE = 'rubyConsoleExe';
+    /**
+     * Configuration key for the Ruby console executable in the local configuration.
+     */
+    const LOCAL_CFG_CONSOLE_EXE = 'rubyConsoleExe';
 
-	/**
-	 * @var string Path to the Ruby executable.
-	 */
-	private $exe;
+    /**
+     * @var string Path to the Ruby executable.
+     */
+    private $exe;
 
-	/**
-	 * @var string Path to the Ruby console executable.
-	 */
-	private $consoleExe;
+    /**
+     * @var string Path to the Ruby console executable.
+     */
+    private $consoleExe;
 
-	/**
-	 * Constructor for the ToolRuby class.
-	 *
-	 * @param   string  $id    The ID of the module.
-	 * @param   string  $type  The type of the module.
-	 */
-	public function __construct($id, $type)
-	{
-		Log::initClass($this);
-		$this->reload($id, $type);
-	}
+    /**
+     * Constructor for the ToolRuby class.
+     *
+     * @param   string  $id    The ID of the module.
+     * @param   string  $type  The type of the module.
+     */
+    public function __construct($id, $type)
+    {
+        Log::initClass($this);
+        $this->reload($id, $type);
+    }
 
-	/**
-	 * Reloads the Ruby tool configuration based on the provided ID and type.
-	 *
-	 * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-	 * @param   string|null  $type  The type of the module. If null, the current type is used.
-	 */
-	public function reload($id = null, $type = null)
-	{
-		global $bearsamppConfig, $bearsamppLang;
-		Log::reloadClass($this);
+    /**
+     * Reloads the Ruby tool configuration based on the provided ID and type.
+     *
+     * @param   string|null  $id    The ID of the module. If null, the current ID is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     */
+    public function reload($id = null, $type = null)
+    {
+        global $bearsamppConfig, $bearsamppLang;
+        Log::reloadClass($this);
 
-		$this->name    = $bearsamppLang->getValue(Lang::RUBY);
-		$this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
-		parent::reload($id, $type);
+        $this->name    = $bearsamppLang->getValue(Lang::RUBY);
+        $this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
+        parent::reload($id, $type);
 
-		if ($this->bearsamppConfRaw !== false)
-		{
-			$this->exe        = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
-			$this->consoleExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONSOLE_EXE];
-		}
+        if ($this->bearsamppConfRaw !== false) {
+            $this->exe        = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
+            $this->consoleExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONSOLE_EXE];
+        }
 
-		if (!$this->enable)
-		{
-			Log::info($this->name . ' is not enabled!');
+        if (!$this->enable) {
+            Log::info($this->name . ' is not enabled!');
 
-			return;
-		}
-		if (!is_dir($this->currentPath))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->currentPath));
-		}
-		if (!is_dir($this->symlinkPath))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->symlinkPath));
+            return;
+        }
+        if (!is_dir($this->currentPath)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->currentPath));
+        }
+        if (!is_dir($this->symlinkPath)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->symlinkPath));
 
-			return;
-		}
-		if (!is_file($this->bearsamppConf))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
-		}
-		if (!is_file($this->exe))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
-		}
-		if (!is_file($this->consoleExe))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->consoleExe));
-		}
-	}
+            return;
+        }
+        if (!is_file($this->bearsamppConf)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
+        }
+        if (!is_file($this->exe)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
+        }
+        if (!is_file($this->consoleExe)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->consoleExe));
+        }
+    }
 
-	/**
-	 * Sets the version of the Ruby tool and reloads the configuration.
-	 *
-	 * @param   string  $version  The version to set.
-	 */
-	public function setVersion($version)
-	{
-		global $bearsamppConfig;
-		$this->version = $version;
-		$bearsamppConfig->replace(self::ROOT_CFG_VERSION, $version);
-		$this->reload();
-	}
+    /**
+     * Sets the version of the Ruby tool and reloads the configuration.
+     *
+     * @param   string  $version  The version to set.
+     */
+    public function setVersion($version)
+    {
+        global $bearsamppConfig;
+        $this->version = $version;
+        $bearsamppConfig->replace(self::ROOT_CFG_VERSION, $version);
+        $this->reload();
+    }
 
-	/**
-	 * Gets the path to the Ruby executable.
-	 *
-	 * @return string The path to the Ruby executable.
-	 */
-	public function getExe()
-	{
-		return $this->exe;
-	}
+    /**
+     * Gets the path to the Ruby executable.
+     *
+     * @return string The path to the Ruby executable.
+     */
+    public function getExe()
+    {
+        return $this->exe;
+    }
 
-	/**
-	 * Gets the path to the Ruby console executable.
-	 *
-	 * @return string The path to the Ruby console executable.
-	 */
-	public function getConsoleExe()
-	{
-		return $this->consoleExe;
-	}
+    /**
+     * Gets the path to the Ruby console executable.
+     *
+     * @return string The path to the Ruby console executable.
+     */
+    public function getConsoleExe()
+    {
+        return $this->consoleExe;
+    }
 }
 

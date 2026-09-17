@@ -17,8 +17,8 @@ global $bearsamppBins, $bearsamppLang;
 
 // Initialize result array
 $result = array(
-	'checkport' => '',
-	'versions'  => '',
+    'checkport' => '',
+    'versions'  => '',
 );
 
 // Check SMTP port
@@ -34,20 +34,14 @@ $textDisabled       = $bearsamppLang->getValue(Lang::DISABLED);
  * If the port is closed, indicate that the service is stopped.
  * If the service is disabled, indicate that it is disabled.
  */
-if ($bearsamppBins->getMailpit()->isEnable())
-{
-	if ($bearsamppBins->getMailpit()->checkPort($smtpPort))
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $smtpPort) . '</span>';
-	}
-	else
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
-	}
-}
-else
-{
-	$result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
+if ($bearsamppBins->getMailpit()->isEnable()) {
+    if ($bearsamppBins->getMailpit()->checkPort($smtpPort)) {
+        $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $smtpPort) . '</span>';
+    } else {
+        $result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
+    }
+} else {
+    $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
 /**
@@ -55,16 +49,12 @@ else
  * Highlight the current version with a primary badge.
  * Other versions are displayed with a secondary badge.
  */
-foreach ($bearsamppBins->getMailpit()->getVersionList() as $version)
-{
-	if ($version != $bearsamppBins->getMailpit()->getVersion())
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
-	}
-	else
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMailpit()->getVersion() . '</span>';
-	}
+foreach ($bearsamppBins->getMailpit()->getVersionList() as $version) {
+    if ($version != $bearsamppBins->getMailpit()->getVersion()) {
+        $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMailpit()->getVersion() . '</span>';
+    }
 }
 
 // Output the result as a JSON-encoded array

@@ -29,589 +29,532 @@
  */
 class Batch
 {
-	const END_PROCESS_STR = 'FINISHED!';
-	const CATCH_OUTPUT_FALSE = 'bearsamppCatchOutputFalse';
-
-	/**
-	 * Constructor for the Batch class.
-	 */
-	public function __construct()
-	{
-	}
-
-	/**
-	 * Gets the process using a specific port.
-	 *
-	 * @param   int  $port  The port number to check.
-	 *
-	 * @return string|int|null The executable name and PID if found, the PID if executable not found, or null if no process is using the port.
-	 */
-	public static function getProcessUsingPort($port)
-	{
-		// Sanitize port to prevent command injection
-		$sanitizedPort = UtilInput::sanitizePort($port);
-		if ($sanitizedPort === false)
-		{
-			self::writeLog('Invalid port provided to getProcessUsingPort: ' . var_export($port, true));
-
-			return null;
-		}
-
-		$result = self::exec('getProcessUsingPort', 'NETSTAT -aon', 4);
-		if ($result !== false)
-		{
-			foreach ($result as $row)
-			{
-				if (!UtilString::startWith($row, 'TCP'))
-				{
-					continue;
-				}
-				$rowExp = explode(' ', preg_replace('/\s+/', ' ', $row));
-				if (count($rowExp) == 5 && UtilString::endWith($rowExp[1], ':' . $sanitizedPort) && $rowExp[3] == 'LISTENING')
-				{
-					$pid = intval($rowExp[4]);
-					$exe = self::findExeByPid($pid);
-					if ($exe !== false)
-					{
-						return $exe . ' (' . $pid . ')';
-					}
-
-					return $pid;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Writes a log entry to the batch log file.
-	 *
-	 * @param   string  $log  The log message to write.
-	 */
-	private static function writeLog($log)
-	{
-		global $bearsamppRoot;
-		Log::debug($log, Path::getBatchLogFilePath());
-	}
-
-	/**
-	 * Executes a batch script.
-	 *
-	 * @param   string    $basename     The base name for the script and result files.
-	 * @param   string    $content      The content of the batch script.
-	 * @param   int|bool  $timeout      The timeout for the script execution in seconds, or true for default timeout, or false for no timeout.
-	 * @param   bool      $catchOutput  Whether to capture the output of the script.
-	 * @param   bool      $standalone   Whether the script is standalone.
-	 * @param   bool      $silent       Whether to execute the script silently.
-	 * @param   bool      $rebuild      Whether to rebuild the result array.
-	 *
-	 * @return array|false The result of the execution, or false on failure.
-	 */
-	public static function exec($basename, $content, $timeout = true, $catchOutput = true, $standalone = false, $silent = true, $rebuild = true)
-	{
-		global $bearsamppConfig, $bearsamppWinbinder;
-		$result = false;
-
-		$resultFile = self::getTmpFile('.tmp', $basename);
-		$scriptPath = self::getTmpFile('.bat', $basename);
-		$checkFile  = self::getTmpFile('.tmp', $basename);
-
-		// Redirect output
-		if ($catchOutput)
-		{
-			$content = '(' . PHP_EOL . $content . PHP_EOL . ') > "' . $resultFile . '"' . (!UtilString::endWith($content, '2') ? ' 2>&1' : '');
-		}
-
-		// Header
-		$header = '@ECHO OFF' . PHP_EOL . PHP_EOL;
-
-		// Footer
-		$footer = PHP_EOL . (!$standalone ? PHP_EOL . 'ECHO ' . self::END_PROCESS_STR . ' > "' . $checkFile . '"' : '');
-
-		// Process
-		file_put_contents($scriptPath, $header . $content . $footer);
-
-		if (is_object($bearsamppWinbinder))
-		{
-			$bearsamppWinbinder->exec($scriptPath, null, $silent);
-		}
-		else
-		{
-			// Fallback to standard PHP execution if WinBinder is not available (e.g. on web interface)
-			$cmd = 'cmd /c "' . $scriptPath . '"';
-			if ($silent)
-			{
-				// Use shell_exec with output redirection to NUL for silent background execution on Windows
-				@shell_exec('start /B "" ' . $cmd . ' > NUL 2>&1');
-			}
-			else
-			{
-				@shell_exec($cmd);
-			}
-		}
-
-		if (!$standalone)
-		{
-			$timeout   = is_numeric($timeout) ? $timeout : ($timeout === true ? $bearsamppConfig->getScriptsTimeout() : false);
-			$maxtime   = time() + $timeout;
-			$noTimeout = $timeout === false;
-			while ($result === false || empty($result))
-			{
-				$finished = false;
-				if (file_exists($checkFile))
-				{
-					$check = file($checkFile);
-					if (!empty($check) && trim($check[0]) == self::END_PROCESS_STR)
-					{
-						$finished = true;
-						if ($catchOutput && file_exists($resultFile))
-						{
-							$result = file($resultFile);
-						}
-						else
-						{
-							$result = self::CATCH_OUTPUT_FALSE;
-						}
-					}
-				}
-
-				// The script completed once the FINISHED! marker appears, even if it
-				// produced no output. Without this, empty output (e.g. mysqld
-				// --initialize-insecure) makes us spin until the timeout elapses.
-				if ($finished)
-				{
-					break;
-				}
-
-				if ($maxtime < time() && !$noTimeout)
-				{
-					break;
-				}
-			}
-		}
-
-		self::writeLog('Exec:');
-		self::writeLog('-> basename: ' . $basename);
-		self::writeLog('-> content: ' . str_replace(PHP_EOL, ' \\\\ ', $content));
-		self::writeLog('-> checkFile: ' . $checkFile);
-		self::writeLog('-> resultFile: ' . $resultFile);
-		self::writeLog('-> scriptPath: ' . $scriptPath);
-
-		if ($result !== false && !empty($result) && is_array($result))
-		{
-			if ($rebuild)
-			{
-				$rebuildResult = array();
-				foreach ($result as $row)
-				{
-					$row = trim($row);
-					if (!empty($row))
-					{
-						$rebuildResult[] = $row;
-					}
-				}
-				$result = $rebuildResult;
-			}
-			self::writeLog('-> result: ' . substr(implode(' \\\\ ', $result), 0, 2048));
-		}
-		else
-		{
-			self::writeLog('-> result: N/A');
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Gets a temporary file path with a specified extension and optional custom name.
-	 *
-	 * @param   string       $ext         The file extension.
-	 * @param   string|null  $customName  An optional custom name for the file.
-	 *
-	 * @return string The temporary file path.
-	 */
-	private static function getTmpFile($ext, $customName = null)
-	{
-		global $bearsamppCore;
-
-		return Path::formatWindowsPath(Path::getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . UtilString::random() . $ext);
-	}
-
-	/**
-	 * Finds the executable name by its process ID (PID).
-	 *
-	 * @param   int  $pid  The process ID to search for.
-	 *
-	 * @return string|false The executable name if found, false otherwise.
-	 */
-	public static function findExeByPid($pid)
-	{
-		// Sanitize PID to prevent command injection
-		$sanitizedPid = UtilInput::sanitizePID($pid);
-		if ($sanitizedPid === false)
-		{
-			self::writeLog('Invalid PID provided to findExeByPid: ' . var_export($pid, true));
-
-			return false;
-		}
-
-		$result = self::exec('findExeByPid', 'TASKLIST /FO CSV /NH /FI "PID eq ' . $sanitizedPid . '"', 5);
-		if ($result !== false)
-		{
-			$expResult = explode('","', $result[0]);
-			if (is_array($expResult) && count($expResult) > 2 && isset($expResult[0]) && !empty($expResult[0]))
-			{
-				return substr($expResult[0], 1);
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Restarts the application.
-	 */
-	public static function restartApp()
-	{
-		self::exitApp(true);
-	}
-
-	/**
-	 * Exits the application, optionally restarting it.
-	 *
-	 * @param   bool  $restart  Whether to restart the application after exiting.
-	 */
-	public static function exitApp($restart = false)
-	{
-		global $bearsamppRoot, $bearsamppCore;
-
-		$content = 'PING 1.1.1.1 -n 1 -w 2000 > nul' . PHP_EOL;
-		$content .= '"' . Path::getExeFilePath() . '" -quit -id={bearsampp}' . PHP_EOL;
-		if ($restart)
-		{
-			$basename = 'restartApp';
-			Log::info('Restart App');
-			$content .= '"' . Path::getPhpExe() . '" "' . Core::isRoot_FILE . '" "' . Action::RESTART . '"' . PHP_EOL;
-		}
-		else
-		{
-			$basename = 'exitApp';
-			Log::info('Exit App');
-		}
-
-		Win32Ps::killBins();
-		self::execStandalone($basename, $content);
-	}
-
-	/**
-	 * Executes a standalone batch script.
-	 *
-	 * @param   string  $basename  The base name for the script and result files.
-	 * @param   string  $content   The content of the batch script.
-	 * @param   bool    $silent    Whether to execute the script silently.
-	 *
-	 * @return array|false The result of the execution, or false on failure.
-	 */
-	public static function execStandalone($basename, $content, $silent = true)
-	{
-		return self::exec($basename, $content, false, false, true, $silent);
-	}
-
-	/**
-	 * Gets the version of PEAR installed.
-	 *
-	 * @return string|null The PEAR version if found, null otherwise.
-	 */
-	public static function getPearVersion()
-	{
-		global $bearsamppBins;
-
-		$result = self::exec('getPearVersion', 'CMD /C "' . $bearsamppBins->getPhp()->getPearExe() . '" -V', 5);
-		if (is_array($result))
-		{
-			foreach ($result as $row)
-			{
-				if (UtilString::startWith($row, 'PEAR Version:'))
-				{
-					$expResult = explode(' ', $row);
-					if (count($expResult) == 3)
-					{
-						return trim($expResult[2]);
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Refreshes the environment variables.
-	 */
-	public static function refreshEnvVars()
-	{
-		global $bearsamppRoot, $bearsamppCore;
-		self::execStandalone('refreshEnvVars', '"' . Path::getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . Path::formatWindowsPath(Path::getRootPath()) . '"');
-	}
-
-	/**
-	 * Initializes MySQL using a specified path.
-	 *
-	 * @param   string  $path  The path to the MySQL initialization script.
-	 */
-	public static function initializeMysql($path)
-	{
-		if (!file_exists($path . '/init.bat'))
-		{
-			Log::warning($path . '/init.bat does not exist');
-
-			return;
-		}
-		self::exec('initializeMysql', 'CMD /C "' . $path . '/init.bat"', 60);
-	}
-
-	/**
-	 * Installs the PostgreSQL service.
-	 *
-	 * @return bool True if the service was installed successfully, false otherwise.
-	 */
-	public static function installPostgresqlService()
-	{
-		global $bearsamppBins;
-
-		$cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" register -N "' . BinPostgresql::SERVICE_NAME . '"';
-		$cmd .= ' -U "LocalSystem" -D "' . Path::formatWindowsPath(Path::getModuleSymlinkPath($bearsamppBins->getPostgresql())) . '\\data"';
-		$cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
-		self::exec('installPostgresqlService', $cmd, true, false);
-
-		if (!$bearsamppBins->getPostgresql()->getService()->isInstalled())
-		{
-			return false;
-		}
-
-		self::setServiceDisplayName(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
-		self::setServiceDescription(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
-		self::setServiceStartType(BinPostgresql::SERVICE_NAME, "demand");
-
-		return true;
-	}
-
-	/**
-	 * Sets the display name of a service.
-	 *
-	 * @param   string  $serviceName  The name of the service.
-	 * @param   string  $displayName  The display name to set.
-	 */
-	public static function setServiceDisplayName($serviceName, $displayName)
-	{
-		// Sanitize service name to prevent command injection
-		$sanitizedName = UtilInput::sanitizeServiceName($serviceName);
-		if ($sanitizedName === false)
-		{
-			self::writeLog('Invalid service name provided to setServiceDisplayName: ' . $serviceName);
-
-			return;
-		}
-
-		// Remove quotes and dangerous characters from display name
-		$sanitizedDisplayName = str_replace('"', '', $displayName);
-		$sanitizedDisplayName = preg_replace('/[<>|&^]/', '', $sanitizedDisplayName);
-
-		$cmd = 'sc config ' . $sanitizedName . ' DisplayName= "' . $sanitizedDisplayName . '"';
-		self::exec('setServiceDisplayName', $cmd, true, false);
-	}
-
-	/**
-	 * Sets the description of a service.
-	 *
-	 * @param   string  $serviceName  The name of the service.
-	 * @param   string  $desc         The description to set.
-	 */
-	public static function setServiceDescription($serviceName, $desc)
-	{
-		// Sanitize service name to prevent command injection
-		$sanitizedName = UtilInput::sanitizeServiceName($serviceName);
-		if ($sanitizedName === false)
-		{
-			self::writeLog('Invalid service name provided to setServiceDescription: ' . $serviceName);
-
-			return;
-		}
-
-		// Remove quotes and dangerous characters from description
-		$sanitizedDesc = str_replace('"', '', $desc);
-		$sanitizedDesc = preg_replace('/[<>|&^]/', '', $sanitizedDesc);
-
-		$cmd = 'sc description ' . $sanitizedName . ' "' . $sanitizedDesc . '"';
-		self::exec('setServiceDescription', $cmd, true, false);
-	}
-
-	/**
-	 * Sets the start type of a service.
-	 *
-	 * @param   string  $serviceName  The name of the service.
-	 * @param   string  $startType    The start type to set (e.g., "auto", "demand").
-	 */
-	public static function setServiceStartType($serviceName, $startType)
-	{
-		// Sanitize service name to prevent command injection
-		$sanitizedName = UtilInput::sanitizeServiceName($serviceName);
-		if ($sanitizedName === false)
-		{
-			self::writeLog('Invalid service name provided to setServiceStartType: ' . $serviceName);
-
-			return;
-		}
-
-		// Validate start type (only allow known values)
-		$allowedStartTypes = ['auto', 'demand', 'disabled', 'delayed-auto'];
-		if (!in_array(strtolower($startType), $allowedStartTypes, true))
-		{
-			self::writeLog('Invalid start type provided: ' . $startType);
-
-			return;
-		}
-
-		$cmd = 'sc config ' . $sanitizedName . ' start= ' . strtolower($startType);
-		self::exec('setServiceStartType', $cmd, true, false);
-	}
-
-	/**
-	 * Uninstalls the PostgreSQL service.
-	 *
-	 * @return bool True if the service was uninstalled successfully, false otherwise.
-	 */
-	public static function uninstallPostgresqlService()
-	{
-		global $bearsamppBins;
-
-		$cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" unregister -N "' . BinPostgresql::SERVICE_NAME . '"';
-		$cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
-		self::exec('uninstallPostgresqlService', $cmd, true, false);
-
-		return !$bearsamppBins->getPostgresql()->getService()->isInstalled();
-	}
-
-	/**
-	 * Initializes PostgreSQL using a specified path.
-	 *
-	 * @param   string  $path  The path to the PostgreSQL initialization script.
-	 */
-	public static function initializePostgresql($path)
-	{
-		if (!file_exists($path . '/init.bat'))
-		{
-			Log::warning($path . '/init.bat does not exist');
-
-			return;
-		}
-		self::exec('initializePostgresql', 'CMD /C "' . $path . '/init.bat"', 15);
-	}
-
-	/**
-	 * Initializes MariaDB using a specified path.
-	 *
-	 * @param   string  $path  The path to the MariaDB initialization script.
-	 */
-	public static function initializeMariadb($path)
-	{
-		if (!file_exists($path . '/init.bat'))
-		{
-			Log::warning($path . '/init.bat does not exist');
-
-			return;
-		}
-		self::exec('initializeMariadb', 'CMD /C "' . $path . '/init.bat"', 60);
-	}
-
-	/**
-	 * Creates a symbolic link.
-	 *
-	 * @param   string  $src   The source path.
-	 * @param   string  $dest  The destination path.
-	 */
-	public static function createSymlink($src, $dest)
-	{
-		global $bearsamppCore;
-		$src  = Path::formatWindowsPath($src);
-		$dest = Path::formatWindowsPath($dest);
-		self::exec('createSymlink', '"' . Path::getLnExe() . '" --absolute --symbolic --traditional --1023safe "' . $src . '" ' . '"' . $dest . '"', true, false);
-	}
-
-	/**
-	 * Removes a symbolic link.
-	 *
-	 * @param   string  $link  The path to the symbolic link.
-	 *
-	 * @return bool True if the symlink was removed successfully, false otherwise.
-	 */
-	public static function removeSymlink($link)
-	{
-		if (!file_exists($link))
-		{
-			self::writeLog('-> removeSymlink: Link does not exist: ' . $link);
-
-			return true; // If the link doesn't exist, nothing to do
-		}
-
-		// Check if it's a directory symlink
-		$isDirectory   = is_dir($link);
-		$formattedLink = Path::formatWindowsPath($link);
-
-		try
-		{
-			// Use different commands based on whether it's a directory or file symlink
-			if ($isDirectory)
-			{
-				// For directory symlinks
-				self::exec('removeSymlink', 'rmdir /Q "' . $formattedLink . '"', true, false);
-			}
-			else
-			{
-				// For file symlinks
-				self::exec('removeSymlink', 'del /F /Q "' . $formattedLink . '"', true, false);
-			}
-
-			// Check if removal was successful
-			if (file_exists($link))
-			{
-				self::writeLog('-> removeSymlink: Failed to remove symlink: ' . $link);
-
-				return false;
-			}
-
-			self::writeLog('-> removeSymlink: Successfully removed symlink: ' . $link);
-
-			return true;
-		}
-		catch (Exception $e)
-		{
-			self::writeLog('-> removeSymlink: Exception: ' . $e->getMessage());
-
-			return false;
-		}
-	}
-
-	/**
-	 * Gets the operating system information.
-	 *
-	 * @return string The operating system information.
-	 */
-	public static function getOsInfo()
-	{
-		$result = self::exec('getOsInfo', 'ver', 5);
-		if (is_array($result))
-		{
-			foreach ($result as $row)
-			{
-				if (UtilString::startWith($row, 'Microsoft'))
-				{
-					return trim($row);
-				}
-			}
-		}
-
-		return '';
-	}
+    const END_PROCESS_STR = 'FINISHED!';
+    const CATCH_OUTPUT_FALSE = 'bearsamppCatchOutputFalse';
+
+    /**
+     * Constructor for the Batch class.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Gets the process using a specific port.
+     *
+     * @param   int  $port  The port number to check.
+     *
+     * @return string|int|null The executable name and PID if found, the PID if executable not found, or null if no process is using the port.
+     */
+    public static function getProcessUsingPort($port)
+    {
+        // Sanitize port to prevent command injection
+        $sanitizedPort = UtilInput::sanitizePort($port);
+        if ($sanitizedPort === false) {
+            self::writeLog('Invalid port provided to getProcessUsingPort: ' . var_export($port, true));
+
+            return null;
+        }
+
+        $result = self::exec('getProcessUsingPort', 'NETSTAT -aon', 4);
+        if ($result !== false) {
+            foreach ($result as $row) {
+                if (!UtilString::startWith($row, 'TCP')) {
+                    continue;
+                }
+                $rowExp = explode(' ', preg_replace('/\s+/', ' ', $row));
+                if (count($rowExp) == 5 && UtilString::endWith($rowExp[1], ':' . $sanitizedPort) && $rowExp[3] == 'LISTENING') {
+                    $pid = intval($rowExp[4]);
+                    $exe = self::findExeByPid($pid);
+                    if ($exe !== false) {
+                        return $exe . ' (' . $pid . ')';
+                    }
+
+                    return $pid;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Writes a log entry to the batch log file.
+     *
+     * @param   string  $log  The log message to write.
+     */
+    private static function writeLog($log)
+    {
+        global $bearsamppRoot;
+        Log::debug($log, Path::getBatchLogFilePath());
+    }
+
+    /**
+     * Executes a batch script.
+     *
+     * @param   string    $basename     The base name for the script and result files.
+     * @param   string    $content      The content of the batch script.
+     * @param   int|bool  $timeout      The timeout for the script execution in seconds, or true for default timeout, or false for no timeout.
+     * @param   bool      $catchOutput  Whether to capture the output of the script.
+     * @param   bool      $standalone   Whether the script is standalone.
+     * @param   bool      $silent       Whether to execute the script silently.
+     * @param   bool      $rebuild      Whether to rebuild the result array.
+     *
+     * @return array|false The result of the execution, or false on failure.
+     */
+    public static function exec($basename, $content, $timeout = true, $catchOutput = true, $standalone = false, $silent = true, $rebuild = true)
+    {
+        global $bearsamppConfig, $bearsamppWinbinder;
+        $result = false;
+
+        $resultFile = self::getTmpFile('.tmp', $basename);
+        $scriptPath = self::getTmpFile('.bat', $basename);
+        $checkFile  = self::getTmpFile('.tmp', $basename);
+
+        // Redirect output
+        if ($catchOutput) {
+            $content = '(' . PHP_EOL . $content . PHP_EOL . ') > "' . $resultFile . '"' . (!UtilString::endWith($content, '2') ? ' 2>&1' : '');
+        }
+
+        // Header
+        $header = '@ECHO OFF' . PHP_EOL . PHP_EOL;
+
+        // Footer
+        $footer = PHP_EOL . (!$standalone ? PHP_EOL . 'ECHO ' . self::END_PROCESS_STR . ' > "' . $checkFile . '"' : '');
+
+        // Process
+        file_put_contents($scriptPath, $header . $content . $footer);
+
+        if (is_object($bearsamppWinbinder)) {
+            $bearsamppWinbinder->exec($scriptPath, null, $silent);
+        } else {
+            // Fallback to standard PHP execution if WinBinder is not available (e.g. on web interface)
+            $cmd = 'cmd /c "' . $scriptPath . '"';
+            if ($silent) {
+                // Use shell_exec with output redirection to NUL for silent background execution on Windows
+                @shell_exec('start /B "" ' . $cmd . ' > NUL 2>&1');
+            } else {
+                @shell_exec($cmd);
+            }
+        }
+
+        if (!$standalone) {
+            $timeout   = is_numeric($timeout) ? $timeout : ($timeout === true ? $bearsamppConfig->getScriptsTimeout() : false);
+            $maxtime   = time() + $timeout;
+            $noTimeout = $timeout === false;
+            while ($result === false || empty($result)) {
+                $finished = false;
+                if (file_exists($checkFile)) {
+                    $check = file($checkFile);
+                    if (!empty($check) && trim($check[0]) == self::END_PROCESS_STR) {
+                        $finished = true;
+                        if ($catchOutput && file_exists($resultFile)) {
+                            $result = file($resultFile);
+                        } else {
+                            $result = self::CATCH_OUTPUT_FALSE;
+                        }
+                    }
+                }
+
+                // The script completed once the FINISHED! marker appears, even if it
+                // produced no output. Without this, empty output (e.g. mysqld
+                // --initialize-insecure) makes us spin until the timeout elapses.
+                if ($finished) {
+                    break;
+                }
+
+                if ($maxtime < time() && !$noTimeout) {
+                    break;
+                }
+            }
+        }
+
+        self::writeLog('Exec:');
+        self::writeLog('-> basename: ' . $basename);
+        self::writeLog('-> content: ' . str_replace(PHP_EOL, ' \\\\ ', $content));
+        self::writeLog('-> checkFile: ' . $checkFile);
+        self::writeLog('-> resultFile: ' . $resultFile);
+        self::writeLog('-> scriptPath: ' . $scriptPath);
+
+        if ($result !== false && !empty($result) && is_array($result)) {
+            if ($rebuild) {
+                $rebuildResult = array();
+                foreach ($result as $row) {
+                    $row = trim($row);
+                    if (!empty($row)) {
+                        $rebuildResult[] = $row;
+                    }
+                }
+                $result = $rebuildResult;
+            }
+            self::writeLog('-> result: ' . substr(implode(' \\\\ ', $result), 0, 2048));
+        } else {
+            self::writeLog('-> result: N/A');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Gets a temporary file path with a specified extension and optional custom name.
+     *
+     * @param   string       $ext         The file extension.
+     * @param   string|null  $customName  An optional custom name for the file.
+     *
+     * @return string The temporary file path.
+     */
+    private static function getTmpFile($ext, $customName = null)
+    {
+        global $bearsamppCore;
+
+        return Path::formatWindowsPath(Path::getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . UtilString::random() . $ext);
+    }
+
+    /**
+     * Finds the executable name by its process ID (PID).
+     *
+     * @param   int  $pid  The process ID to search for.
+     *
+     * @return string|false The executable name if found, false otherwise.
+     */
+    public static function findExeByPid($pid)
+    {
+        // Sanitize PID to prevent command injection
+        $sanitizedPid = UtilInput::sanitizePID($pid);
+        if ($sanitizedPid === false) {
+            self::writeLog('Invalid PID provided to findExeByPid: ' . var_export($pid, true));
+
+            return false;
+        }
+
+        $result = self::exec('findExeByPid', 'TASKLIST /FO CSV /NH /FI "PID eq ' . $sanitizedPid . '"', 5);
+        if ($result !== false) {
+            $expResult = explode('","', $result[0]);
+            if (is_array($expResult) && count($expResult) > 2 && isset($expResult[0]) && !empty($expResult[0])) {
+                return substr($expResult[0], 1);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Restarts the application.
+     */
+    public static function restartApp()
+    {
+        self::exitApp(true);
+    }
+
+    /**
+     * Exits the application, optionally restarting it.
+     *
+     * @param   bool  $restart  Whether to restart the application after exiting.
+     */
+    public static function exitApp($restart = false)
+    {
+        global $bearsamppRoot, $bearsamppCore;
+
+        $content = 'PING 1.1.1.1 -n 1 -w 2000 > nul' . PHP_EOL;
+        $content .= '"' . Path::getExeFilePath() . '" -quit -id={bearsampp}' . PHP_EOL;
+        if ($restart) {
+            $basename = 'restartApp';
+            Log::info('Restart App');
+            $content .= '"' . Path::getPhpExe() . '" "' . Core::isRoot_FILE . '" "' . Action::RESTART . '"' . PHP_EOL;
+        } else {
+            $basename = 'exitApp';
+            Log::info('Exit App');
+        }
+
+        Win32Ps::killBins();
+        self::execStandalone($basename, $content);
+    }
+
+    /**
+     * Executes a standalone batch script.
+     *
+     * @param   string  $basename  The base name for the script and result files.
+     * @param   string  $content   The content of the batch script.
+     * @param   bool    $silent    Whether to execute the script silently.
+     *
+     * @return array|false The result of the execution, or false on failure.
+     */
+    public static function execStandalone($basename, $content, $silent = true)
+    {
+        return self::exec($basename, $content, false, false, true, $silent);
+    }
+
+    /**
+     * Gets the version of PEAR installed.
+     *
+     * @return string|null The PEAR version if found, null otherwise.
+     */
+    public static function getPearVersion()
+    {
+        global $bearsamppBins;
+
+        $result = self::exec('getPearVersion', 'CMD /C "' . $bearsamppBins->getPhp()->getPearExe() . '" -V', 5);
+        if (is_array($result)) {
+            foreach ($result as $row) {
+                if (UtilString::startWith($row, 'PEAR Version:')) {
+                    $expResult = explode(' ', $row);
+                    if (count($expResult) == 3) {
+                        return trim($expResult[2]);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Refreshes the environment variables.
+     */
+    public static function refreshEnvVars()
+    {
+        global $bearsamppRoot, $bearsamppCore;
+        self::execStandalone('refreshEnvVars', '"' . Path::getSetEnvExe() . '" -a ' . Registry::APP_PATH_REG_ENTRY . ' "' . Path::formatWindowsPath(Path::getRootPath()) . '"');
+    }
+
+    /**
+     * Initializes MySQL using a specified path.
+     *
+     * @param   string  $path  The path to the MySQL initialization script.
+     */
+    public static function initializeMysql($path)
+    {
+        if (!file_exists($path . '/init.bat')) {
+            Log::warning($path . '/init.bat does not exist');
+
+            return;
+        }
+        self::exec('initializeMysql', 'CMD /C "' . $path . '/init.bat"', 60);
+    }
+
+    /**
+     * Installs the PostgreSQL service.
+     *
+     * @return bool True if the service was installed successfully, false otherwise.
+     */
+    public static function installPostgresqlService()
+    {
+        global $bearsamppBins;
+
+        $cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" register -N "' . BinPostgresql::SERVICE_NAME . '"';
+        $cmd .= ' -U "LocalSystem" -D "' . Path::formatWindowsPath(Path::getModuleSymlinkPath($bearsamppBins->getPostgresql())) . '\\data"';
+        $cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
+        self::exec('installPostgresqlService', $cmd, true, false);
+
+        if (!$bearsamppBins->getPostgresql()->getService()->isInstalled()) {
+            return false;
+        }
+
+        self::setServiceDisplayName(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
+        self::setServiceDescription(BinPostgresql::SERVICE_NAME, $bearsamppBins->getPostgresql()->getService()->getDisplayName());
+        self::setServiceStartType(BinPostgresql::SERVICE_NAME, "demand");
+
+        return true;
+    }
+
+    /**
+     * Sets the display name of a service.
+     *
+     * @param   string  $serviceName  The name of the service.
+     * @param   string  $displayName  The display name to set.
+     */
+    public static function setServiceDisplayName($serviceName, $displayName)
+    {
+        // Sanitize service name to prevent command injection
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
+        if ($sanitizedName === false) {
+            self::writeLog('Invalid service name provided to setServiceDisplayName: ' . $serviceName);
+
+            return;
+        }
+
+        // Remove quotes and dangerous characters from display name
+        $sanitizedDisplayName = str_replace('"', '', $displayName);
+        $sanitizedDisplayName = preg_replace('/[<>|&^]/', '', $sanitizedDisplayName);
+
+        $cmd = 'sc config ' . $sanitizedName . ' DisplayName= "' . $sanitizedDisplayName . '"';
+        self::exec('setServiceDisplayName', $cmd, true, false);
+    }
+
+    /**
+     * Sets the description of a service.
+     *
+     * @param   string  $serviceName  The name of the service.
+     * @param   string  $desc         The description to set.
+     */
+    public static function setServiceDescription($serviceName, $desc)
+    {
+        // Sanitize service name to prevent command injection
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
+        if ($sanitizedName === false) {
+            self::writeLog('Invalid service name provided to setServiceDescription: ' . $serviceName);
+
+            return;
+        }
+
+        // Remove quotes and dangerous characters from description
+        $sanitizedDesc = str_replace('"', '', $desc);
+        $sanitizedDesc = preg_replace('/[<>|&^]/', '', $sanitizedDesc);
+
+        $cmd = 'sc description ' . $sanitizedName . ' "' . $sanitizedDesc . '"';
+        self::exec('setServiceDescription', $cmd, true, false);
+    }
+
+    /**
+     * Sets the start type of a service.
+     *
+     * @param   string  $serviceName  The name of the service.
+     * @param   string  $startType    The start type to set (e.g., "auto", "demand").
+     */
+    public static function setServiceStartType($serviceName, $startType)
+    {
+        // Sanitize service name to prevent command injection
+        $sanitizedName = UtilInput::sanitizeServiceName($serviceName);
+        if ($sanitizedName === false) {
+            self::writeLog('Invalid service name provided to setServiceStartType: ' . $serviceName);
+
+            return;
+        }
+
+        // Validate start type (only allow known values)
+        $allowedStartTypes = ['auto', 'demand', 'disabled', 'delayed-auto'];
+        if (!in_array(strtolower($startType), $allowedStartTypes, true)) {
+            self::writeLog('Invalid start type provided: ' . $startType);
+
+            return;
+        }
+
+        $cmd = 'sc config ' . $sanitizedName . ' start= ' . strtolower($startType);
+        self::exec('setServiceStartType', $cmd, true, false);
+    }
+
+    /**
+     * Uninstalls the PostgreSQL service.
+     *
+     * @return bool True if the service was uninstalled successfully, false otherwise.
+     */
+    public static function uninstallPostgresqlService()
+    {
+        global $bearsamppBins;
+
+        $cmd = '"' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getCtlExe()) . '" unregister -N "' . BinPostgresql::SERVICE_NAME . '"';
+        $cmd .= ' -l "' . Path::formatWindowsPath($bearsamppBins->getPostgresql()->getErrorLog()) . '" -w';
+        self::exec('uninstallPostgresqlService', $cmd, true, false);
+
+        return !$bearsamppBins->getPostgresql()->getService()->isInstalled();
+    }
+
+    /**
+     * Initializes PostgreSQL using a specified path.
+     *
+     * @param   string  $path  The path to the PostgreSQL initialization script.
+     */
+    public static function initializePostgresql($path)
+    {
+        if (!file_exists($path . '/init.bat')) {
+            Log::warning($path . '/init.bat does not exist');
+
+            return;
+        }
+        self::exec('initializePostgresql', 'CMD /C "' . $path . '/init.bat"', 15);
+    }
+
+    /**
+     * Initializes MariaDB using a specified path.
+     *
+     * @param   string  $path  The path to the MariaDB initialization script.
+     */
+    public static function initializeMariadb($path)
+    {
+        if (!file_exists($path . '/init.bat')) {
+            Log::warning($path . '/init.bat does not exist');
+
+            return;
+        }
+        self::exec('initializeMariadb', 'CMD /C "' . $path . '/init.bat"', 60);
+    }
+
+    /**
+     * Creates a symbolic link.
+     *
+     * @param   string  $src   The source path.
+     * @param   string  $dest  The destination path.
+     */
+    public static function createSymlink($src, $dest)
+    {
+        global $bearsamppCore;
+        $src  = Path::formatWindowsPath($src);
+        $dest = Path::formatWindowsPath($dest);
+        self::exec('createSymlink', '"' . Path::getLnExe() . '" --absolute --symbolic --traditional --1023safe "' . $src . '" ' . '"' . $dest . '"', true, false);
+    }
+
+    /**
+     * Removes a symbolic link.
+     *
+     * @param   string  $link  The path to the symbolic link.
+     *
+     * @return bool True if the symlink was removed successfully, false otherwise.
+     */
+    public static function removeSymlink($link)
+    {
+        if (!file_exists($link)) {
+            self::writeLog('-> removeSymlink: Link does not exist: ' . $link);
+
+            return true; // If the link doesn't exist, nothing to do
+        }
+
+        // Check if it's a directory symlink
+        $isDirectory   = is_dir($link);
+        $formattedLink = Path::formatWindowsPath($link);
+
+        try {
+            // Use different commands based on whether it's a directory or file symlink
+            if ($isDirectory) {
+                // For directory symlinks
+                self::exec('removeSymlink', 'rmdir /Q "' . $formattedLink . '"', true, false);
+            } else {
+                // For file symlinks
+                self::exec('removeSymlink', 'del /F /Q "' . $formattedLink . '"', true, false);
+            }
+
+            // Check if removal was successful
+            if (file_exists($link)) {
+                self::writeLog('-> removeSymlink: Failed to remove symlink: ' . $link);
+
+                return false;
+            }
+
+            self::writeLog('-> removeSymlink: Successfully removed symlink: ' . $link);
+
+            return true;
+        } catch (Exception $e) {
+            self::writeLog('-> removeSymlink: Exception: ' . $e->getMessage());
+
+            return false;
+        }
+    }
+
+    /**
+     * Gets the operating system information.
+     *
+     * @return string The operating system information.
+     */
+    public static function getOsInfo()
+    {
+        $result = self::exec('getOsInfo', 'ver', 5);
+        if (is_array($result)) {
+            foreach ($result as $row) {
+                if (UtilString::startWith($row, 'Microsoft')) {
+                    return trim($row);
+                }
+            }
+        }
+
+        return '';
+    }
 }

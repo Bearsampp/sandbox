@@ -20,8 +20,8 @@ global $bearsamppBins, $bearsamppLang;
 
 // Initialize the result array with keys 'checkport' and 'versions'.
 $result = array(
-	'checkport' => '',
-	'versions'  => '',
+    'checkport' => '',
+    'versions'  => '',
 );
 
 // Retrieve the Memcached port number.
@@ -37,36 +37,26 @@ $textDisabled       = $bearsamppLang->getValue(Lang::DISABLED);
  * If the service is enabled, check if the port is open and update the status.
  * If the service is disabled, set the status to disabled.
  */
-if ($bearsamppBins->getMemcached()->isEnable())
-{
-	if ($bearsamppBins->getMemcached()->checkPort($port))
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
-	}
-	else
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
-	}
-}
-else
-{
-	$result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
+if ($bearsamppBins->getMemcached()->isEnable()) {
+    if ($bearsamppBins->getMemcached()->checkPort($port)) {
+        $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
+    } else {
+        $result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
+    }
+} else {
+    $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
 /**
  * Retrieve the list of Memcached versions and update the 'versions' status.
  * Highlight the current version with a primary badge and other versions with a secondary badge.
  */
-foreach ($bearsamppBins->getMemcached()->getVersionList() as $version)
-{
-	if ($version != $bearsamppBins->getMemcached()->getVersion())
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
-	}
-	else
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMemcached()->getVersion() . '</span>';
-	}
+foreach ($bearsamppBins->getMemcached()->getVersionList() as $version) {
+    if ($version != $bearsamppBins->getMemcached()->getVersion()) {
+        $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMemcached()->getVersion() . '</span>';
+    }
 }
 
 // Encode the result array in JSON format and output it.

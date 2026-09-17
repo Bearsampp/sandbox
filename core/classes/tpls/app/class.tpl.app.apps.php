@@ -15,51 +15,51 @@
  */
 class TplAppApps
 {
-	/**
-	 * Constant representing the menu identifier for apps.
-	 */
-	const MENU = 'apps';
+    /**
+     * Constant representing the menu identifier for apps.
+     */
+    const MENU = 'apps';
 
-	/**
-	 * Processes and generates the "Apps" menu.
-	 *
-	 * This method generates the "Apps" menu by calling the `getMenu` method from the `TplApp` class.
-	 *
-	 * @return array An array containing the call string and the menu content.
-	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-	 *
-	 */
-	public static function process()
-	{
-		global $bearsamppLang;
+    /**
+     * Processes and generates the "Apps" menu.
+     *
+     * This method generates the "Apps" menu by calling the `getMenu` method from the `TplApp` class.
+     *
+     * @return array An array containing the call string and the menu content.
+     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+     *
+     */
+    public static function process()
+    {
+        global $bearsamppLang;
 
-		return TplApp::getMenu($bearsamppLang->getValue(Lang::APPS), self::MENU, get_called_class());
-	}
+        return TplApp::getMenu($bearsamppLang->getValue(Lang::APPS), self::MENU, get_called_class());
+    }
 
-	/**
-	 * Generates the content of the "Apps" menu.
-	 *
-	 * This method generates the content of the "Apps" menu by adding links to various applications
-	 * such as phpMyAdmin and phpPgAdmin.
-	 *
-	 * @return string The generated menu content as a concatenated string.
-	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-	 *
-	 */
-	public static function getMenuApps()
-	{
-		global $bearsamppLang;
+    /**
+     * Generates the content of the "Apps" menu.
+     *
+     * This method generates the content of the "Apps" menu by adding links to various applications
+     * such as phpMyAdmin and phpPgAdmin.
+     *
+     * @return string The generated menu content as a concatenated string.
+     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+     *
+     */
+    public static function getMenuApps()
+    {
+        global $bearsamppLang;
 
-		return TplAestan::getItemLink(
-				$bearsamppLang->getValue(Lang::PHPMYADMIN),
-				'phpmyadmin/',
-				true
-			) . PHP_EOL .
-			TplAestan::getItemLink(
-				$bearsamppLang->getValue(Lang::PHPPGADMIN),
-				'phppgadmin/',
-				true
-			);
-	}
+        return TplAestan::getItemLink(
+                $bearsamppLang->getValue(Lang::PHPMYADMIN),
+                'phpmyadmin/',
+                true
+            ) . PHP_EOL .
+            TplAestan::getItemLink(
+                $bearsamppLang->getValue(Lang::PHPPGADMIN),
+                'phppgadmin/',
+                true
+            );
+    }
 }
 

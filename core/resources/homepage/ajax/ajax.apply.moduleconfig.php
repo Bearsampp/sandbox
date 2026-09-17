@@ -26,57 +26,45 @@ header('Content-Type: application/json');
 $response = array();
 
 // Check if this is a POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-	$moduleName = isset($_POST['moduleName']) ? $_POST['moduleName'] : null;
-	$version    = isset($_POST['version']) ? $_POST['version'] : null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $moduleName = isset($_POST['moduleName']) ? $_POST['moduleName'] : null;
+    $version    = isset($_POST['version']) ? $_POST['version'] : null;
 
-	if ($moduleName && $version)
-	{
-		// Validate both inputs before they reach the config file. Config::replace()
-		// embeds these values directly into bearsampp.conf, which later drives
-		// generated shell commands, so anything other than a plain module
-		// identifier / version string must be rejected (config poisoning).
-		$moduleName = strtolower($moduleName);
-		if (preg_match('/^[a-z0-9_-]+$/', $moduleName) !== 1 ||
-			preg_match('/^[0-9][0-9a-zA-Z.\-+]*$/', $version) !== 1)
-		{
-			$response = ['error' => 'Invalid module name or version format.'];
-		}
-		else
-		{
-			try
-			{
-				global $bearsamppConfig;
+    if ($moduleName && $version) {
+        // Validate both inputs before they reach the config file. Config::replace()
+        // embeds these values directly into bearsampp.conf, which later drives
+        // generated shell commands, so anything other than a plain module
+        // identifier / version string must be rejected (config poisoning).
+        $moduleName = strtolower($moduleName);
+        if (preg_match('/^[a-z0-9_-]+$/', $moduleName) !== 1 ||
+            preg_match('/^[0-9][0-9a-zA-Z.\-+]*$/', $version) !== 1) {
+            $response = ['error' => 'Invalid module name or version format.'];
+        } else {
+            try {
+                global $bearsamppConfig;
 
-				Log::debug("Applying config for module: $moduleName, version: $version");
+                Log::debug("Applying config for module: $moduleName, version: $version");
 
-				// Update the configuration file
-				$configKey = $moduleName . 'Version';
-				$bearsamppConfig->replace($configKey, $version);
+                // Update the configuration file
+                $configKey = $moduleName . 'Version';
+                $bearsamppConfig->replace($configKey, $version);
 
-				Log::info("Successfully updated $moduleName version to $version in bearsampp.conf");
+                Log::info("Successfully updated $moduleName version to $version in bearsampp.conf");
 
-				$response = [
-					'success' => true,
-					'message' => "Configuration updated successfully!\n\n✓ Set $moduleName" . "Version = \"$version\"\n\nNow right-click the Bearsampp tray icon and select 'Reload' to activate the new version."
-				];
-			}
-			catch (Exception $e)
-			{
-				$response = ['error' => 'Failed to update configuration: ' . $e->getMessage()];
-				error_log('Exception in apply module config: ' . $e->getMessage());
-			}
-		}
-	}
-	else
-	{
-		$response = ['error' => 'Invalid module name or version.'];
-	}
-}
-else
-{
-	$response = ['error' => 'Invalid request method.'];
+                $response = [
+                    'success' => true,
+                    'message' => "Configuration updated successfully!\n\n✓ Set $moduleName" . "Version = \"$version\"\n\nNow right-click the Bearsampp tray icon and select 'Reload' to activate the new version."
+                ];
+            } catch (Exception $e) {
+                $response = ['error' => 'Failed to update configuration: ' . $e->getMessage()];
+                error_log('Exception in apply module config: ' . $e->getMessage());
+            }
+        }
+    } else {
+        $response = ['error' => 'Invalid module name or version.'];
+    }
+} else {
+    $response = ['error' => 'Invalid request method.'];
 }
 
 // Send the JSON response

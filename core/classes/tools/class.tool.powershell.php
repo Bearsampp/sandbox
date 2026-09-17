@@ -15,349 +15,335 @@
  */
 class ToolPowerShell extends Module
 {
-	const ROOT_CFG_VERSION = 'powershellVersion';
+    const ROOT_CFG_VERSION = 'powershellVersion';
 
-	const LOCAL_CFG_EXE = 'powershellExe';
-	const LOCAL_CFG_CONF = 'powershellConf';
-	const LOCAL_CFG_LAUNCH_EXE = 'powershellLaunchExe';
-	const LOCAL_CFG_ROWS = 'powershellRows';
-	const LOCAL_CFG_COLS = 'powershellCols';
+    const LOCAL_CFG_EXE = 'powershellExe';
+    const LOCAL_CFG_CONF = 'powershellConf';
+    const LOCAL_CFG_LAUNCH_EXE = 'powershellLaunchExe';
+    const LOCAL_CFG_ROWS = 'powershellRows';
+    const LOCAL_CFG_COLS = 'powershellCols';
 
-	private $exe;
-	private $launchExe;
-	private $conf;
-	private $rows;
-	private $cols;
+    private $exe;
+    private $launchExe;
+    private $conf;
+    private $rows;
+    private $cols;
 
-	/**
-	 * Constructor for the ToolPowerShell class.
-	 *
-	 * @param   string  $id    The ID of the module.
-	 * @param   string  $type  The type of the module.
-	 */
-	public function __construct($id, $type)
-	{
-		Log::initClass($this);
-		$this->reload($id, $type);
-	}
+    /**
+     * Constructor for the ToolPowerShell class.
+     *
+     * @param   string  $id    The ID of the module.
+     * @param   string  $type  The type of the module.
+     */
+    public function __construct($id, $type)
+    {
+        Log::initClass($this);
+        $this->reload($id, $type);
+    }
 
-	/**
-	 * Reloads the configuration for the PowerShell tool.
-	 *
-	 * @param   string|null  $id    The ID of the module. If null, the current ID is used.
-	 * @param   string|null  $type  The type of the module. If null, the current type is used.
-	 */
-	public function reload($id = null, $type = null)
-	{
-		global $bearsamppConfig, $bearsamppLang;
-		Log::reloadClass($this);
+    /**
+     * Reloads the configuration for the PowerShell tool.
+     *
+     * @param   string|null  $id    The ID of the module. If null, the current ID is used.
+     * @param   string|null  $type  The type of the module. If null, the current type is used.
+     */
+    public function reload($id = null, $type = null)
+    {
+        global $bearsamppConfig, $bearsamppLang;
+        Log::reloadClass($this);
 
-		$this->name    = $bearsamppLang->getValue(Lang::POWERSHELL);
-		$this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
-		parent::reload($id, $type);
+        $this->name    = $bearsamppLang->getValue(Lang::POWERSHELL);
+        $this->version = $bearsamppConfig->getRaw(self::ROOT_CFG_VERSION);
+        parent::reload($id, $type);
 
-		if ($this->bearsamppConfRaw !== false)
-		{
-			$this->exe       = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
-			$this->launchExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_LAUNCH_EXE];
-			$this->conf      = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONF];
-			$this->rows      = intval($this->bearsamppConfRaw[self::LOCAL_CFG_ROWS]);
-			$this->cols      = intval($this->bearsamppConfRaw[self::LOCAL_CFG_COLS]);
-		}
+        if ($this->bearsamppConfRaw !== false) {
+            $this->exe       = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_EXE];
+            $this->launchExe = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_LAUNCH_EXE];
+            $this->conf      = $this->symlinkPath . '/' . $this->bearsamppConfRaw[self::LOCAL_CFG_CONF];
+            $this->rows      = intval($this->bearsamppConfRaw[self::LOCAL_CFG_ROWS]);
+            $this->cols      = intval($this->bearsamppConfRaw[self::LOCAL_CFG_COLS]);
+        }
 
-		if (!$this->enable)
-		{
-			Log::info($this->name . ' is not enabled!');
+        if (!$this->enable) {
+            Log::info($this->name . ' is not enabled!');
 
-			return;
-		}
-		if (!is_dir($this->currentPath))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->currentPath));
-		}
-		if (!is_dir($this->symlinkPath))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->symlinkPath));
+            return;
+        }
+        if (!is_dir($this->currentPath)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->currentPath));
+        }
+        if (!is_dir($this->symlinkPath)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_FILE_NOT_FOUND), $this->name . ' ' . $this->version, $this->symlinkPath));
 
-			return;
-		}
-		if (!is_file($this->bearsamppConf))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
-		}
-		if (!is_file($this->exe))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
-		}
-		if (!is_file($this->launchExe))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->launchExe));
-		}
-		if (!is_file($this->conf))
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->conf));
-		}
-		if (!is_numeric($this->rows) || $this->rows <= 0)
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_ROWS, $this->rows));
-		}
-		if (!is_numeric($this->cols) || $this->cols <= 0)
-		{
-			Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_COLS, $this->cols));
-		}
-	}
+            return;
+        }
+        if (!is_file($this->bearsamppConf)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->bearsamppConf));
+        }
+        if (!is_file($this->exe)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->exe));
+        }
+        if (!is_file($this->launchExe)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_EXE_NOT_FOUND), $this->name . ' ' . $this->version, $this->launchExe));
+        }
+        if (!is_file($this->conf)) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_CONF_NOT_FOUND), $this->name . ' ' . $this->version, $this->conf));
+        }
+        if (!is_numeric($this->rows) || $this->rows <= 0) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_ROWS, $this->rows));
+        }
+        if (!is_numeric($this->cols) || $this->cols <= 0) {
+            Log::error(sprintf($bearsamppLang->getValue(Lang::ERROR_INVALID_PARAMETER), self::LOCAL_CFG_COLS, $this->cols));
+        }
+    }
 
-	/**
-	 * Sets the version of the PowerShell tool.
-	 *
-	 * @param   string  $version  The version to set.
-	 */
-	public function setVersion($version)
-	{
-		global $bearsamppConfig;
-		$this->version = $version;
-		$bearsamppConfig->replace(self::ROOT_CFG_VERSION, $version);
-		$this->reload();
-	}
+    /**
+     * Sets the version of the PowerShell tool.
+     *
+     * @param   string  $version  The version to set.
+     */
+    public function setVersion($version)
+    {
+        global $bearsamppConfig;
+        $this->version = $version;
+        $bearsamppConfig->replace(self::ROOT_CFG_VERSION, $version);
+        $this->reload();
+    }
 
-	/**
-	 * Gets the executable path for PowerShell.
-	 *
-	 * @return string The executable path.
-	 */
-	public function getExe()
-	{
-		return $this->exe;
-	}
+    /**
+     * Gets the executable path for PowerShell.
+     *
+     * @return string The executable path.
+     */
+    public function getExe()
+    {
+        return $this->exe;
+    }
 
-	/**
-	 * Gets the configuration file path for PowerShell.
-	 *
-	 * @return string The configuration file path.
-	 */
-	public function getConf()
-	{
-		return $this->conf;
-	}
+    /**
+     * Gets the configuration file path for PowerShell.
+     *
+     * @return string The configuration file path.
+     */
+    public function getConf()
+    {
+        return $this->conf;
+    }
 
-	/**
-	 * Gets the number of rows for the PowerShell window.
-	 *
-	 * @return int The number of rows.
-	 */
-	public function getRows()
-	{
-		return $this->rows;
-	}
+    /**
+     * Gets the number of rows for the PowerShell window.
+     *
+     * @return int The number of rows.
+     */
+    public function getRows()
+    {
+        return $this->rows;
+    }
 
-	/**
-	 * Gets the number of columns for the PowerShell window.
-	 *
-	 * @return int The number of columns.
-	 */
-	public function getCols()
-	{
-		return $this->cols;
-	}
+    /**
+     * Gets the number of columns for the PowerShell window.
+     *
+     * @return int The number of columns.
+     */
+    public function getCols()
+    {
+        return $this->cols;
+    }
 
-	/**
-	 * Gets the shell command to launch PowerShell.
-	 *
-	 * @param   string|null  $args  Additional arguments for the shell command.
-	 *
-	 * @return string The shell command.
-	 */
-	public function getShell($args = null)
-	{
-		if (empty($args))
-		{
-			return 'cmd /c &quot;' . Path::formatWindowsPath($this->launchExe) . '&quot;';
-		}
-		else
-		{
-			return 'cmd /c &quot;&quot;' . Path::formatWindowsPath($this->getLaunchExe()) . '&quot; &amp; ' . Path::formatWindowsPath($args) . '&quot;';
-		}
-	}
+    /**
+     * Gets the shell command to launch PowerShell.
+     *
+     * @param   string|null  $args  Additional arguments for the shell command.
+     *
+     * @return string The shell command.
+     */
+    public function getShell($args = null)
+    {
+        if (empty($args)) {
+            return 'cmd /c &quot;' . Path::formatWindowsPath($this->launchExe) . '&quot;';
+        } else {
+            return 'cmd /c &quot;&quot;' . Path::formatWindowsPath($this->getLaunchExe()) . '&quot; &amp; ' . Path::formatWindowsPath($args) . '&quot;';
+        }
+    }
 
-	/**
-	 * Gets the launch executable path for PowerShell.
-	 *
-	 * @return string The launch executable path.
-	 */
-	public function getLaunchExe()
-	{
-		return $this->launchExe;
-	}
+    /**
+     * Gets the launch executable path for PowerShell.
+     *
+     * @return string The launch executable path.
+     */
+    public function getLaunchExe()
+    {
+        return $this->launchExe;
+    }
 
-	/**
-	 * Gets the default tab title for PowerShell.
-	 *
-	 * @return string The default tab title.
-	 */
-	public function getTabTitleDefault()
-	{
-		return 'Bearsampp PowerShell Console';
-	}
+    /**
+     * Gets the default tab title for PowerShell.
+     *
+     * @return string The default tab title.
+     */
+    public function getTabTitleDefault()
+    {
+        return 'Bearsampp PowerShell Console';
+    }
 
-	/**
-	 * Gets the tab title for PowerShell.
-	 *
-	 * @return string The tab title for PowerShell.
-	 */
-	public function getTabTitlePowershell()
-	{
-		return 'PowerShell';
-	}
+    /**
+     * Gets the tab title for PowerShell.
+     *
+     * @return string The tab title for PowerShell.
+     */
+    public function getTabTitlePowershell()
+    {
+        return 'PowerShell';
+    }
 
-	/**
-	 * Gets the tab title for PEAR.
-	 *
-	 * @return string The tab title for PEAR.
-	 */
-	public function getTabTitlePear()
-	{
-		global $bearsamppLang, $bearsamppBins;
+    /**
+     * Gets the tab title for PEAR.
+     *
+     * @return string The tab title for PEAR.
+     */
+    public function getTabTitlePear()
+    {
+        global $bearsamppLang, $bearsamppBins;
 
-		return $bearsamppLang->getValue(Lang::PEAR) . ' ' . $bearsamppBins->getPhp()->getPearVersion(true);
-	}
+        return $bearsamppLang->getValue(Lang::PEAR) . ' ' . $bearsamppBins->getPhp()->getPearVersion(true);
+    }
 
-	/**
-	 * Gets the tab title for MySQL.
-	 *
-	 * @return string The tab title for MySQL.
-	 */
-	public function getTabTitleMysql()
-	{
-		global $bearsamppLang, $bearsamppBins;
+    /**
+     * Gets the tab title for MySQL.
+     *
+     * @return string The tab title for MySQL.
+     */
+    public function getTabTitleMysql()
+    {
+        global $bearsamppLang, $bearsamppBins;
 
-		return $bearsamppLang->getValue(Lang::MYSQL) . ' ' . $bearsamppBins->getMysql()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::MYSQL) . ' ' . $bearsamppBins->getMysql()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for MariaDB.
-	 *
-	 * @return string The tab title for MariaDB.
-	 */
-	public function getTabTitleMariadb()
-	{
-		global $bearsamppLang, $bearsamppBins;
+    /**
+     * Gets the tab title for MariaDB.
+     *
+     * @return string The tab title for MariaDB.
+     */
+    public function getTabTitleMariadb()
+    {
+        global $bearsamppLang, $bearsamppBins;
 
-		return $bearsamppLang->getValue(Lang::MARIADB) . ' ' . $bearsamppBins->getMariadb()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::MARIADB) . ' ' . $bearsamppBins->getMariadb()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for PostgreSQL.
-	 *
-	 * @return string The tab title for PostgreSQL.
-	 */
-	public function getTabTitlePostgresql()
-	{
-		global $bearsamppLang, $bearsamppBins;
+    /**
+     * Gets the tab title for PostgreSQL.
+     *
+     * @return string The tab title for PostgreSQL.
+     */
+    public function getTabTitlePostgresql()
+    {
+        global $bearsamppLang, $bearsamppBins;
 
-		return $bearsamppLang->getValue(Lang::POSTGRESQL) . ' ' . $bearsamppBins->getPostgresql()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::POSTGRESQL) . ' ' . $bearsamppBins->getPostgresql()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Git.
-	 *
-	 * @param   string|null  $repoPath  The repository path.
-	 *
-	 * @return string The tab title for Git.
-	 */
-	public function getTabTitleGit($repoPath = null)
-	{
-		global $bearsamppLang, $bearsamppTools;
-		$result = $bearsamppLang->getValue(Lang::GIT) . ' ' . $bearsamppTools->getGit()->getVersion();
-		if ($repoPath != null)
-		{
-			$result .= ' - ' . basename($repoPath);
-		}
+    /**
+     * Gets the tab title for Git.
+     *
+     * @param   string|null  $repoPath  The repository path.
+     *
+     * @return string The tab title for Git.
+     */
+    public function getTabTitleGit($repoPath = null)
+    {
+        global $bearsamppLang, $bearsamppTools;
+        $result = $bearsamppLang->getValue(Lang::GIT) . ' ' . $bearsamppTools->getGit()->getVersion();
+        if ($repoPath != null) {
+            $result .= ' - ' . basename($repoPath);
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Gets the tab title for Node.js.
-	 *
-	 * @return string The tab title for Node.js.
-	 */
-	public function getTabTitleNodejs()
-	{
-		global $bearsamppLang, $bearsamppBins;
+    /**
+     * Gets the tab title for Node.js.
+     *
+     * @return string The tab title for Node.js.
+     */
+    public function getTabTitleNodejs()
+    {
+        global $bearsamppLang, $bearsamppBins;
 
-		return $bearsamppLang->getValue(Lang::NODEJS) . ' ' . $bearsamppBins->getNodejs()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::NODEJS) . ' ' . $bearsamppBins->getNodejs()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Composer.
-	 *
-	 * @return string The tab title for Composer.
-	 */
-	public function getTabTitleComposer()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Composer.
+     *
+     * @return string The tab title for Composer.
+     */
+    public function getTabTitleComposer()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::COMPOSER) . ' ' . $bearsamppTools->getComposer()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::COMPOSER) . ' ' . $bearsamppTools->getComposer()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Python.
-	 *
-	 * @return string The tab title for Python.
-	 */
-	public function getTabTitlePython()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Python.
+     *
+     * @return string The tab title for Python.
+     */
+    public function getTabTitlePython()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::PYTHON) . ' ' . $bearsamppTools->getPython()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::PYTHON) . ' ' . $bearsamppTools->getPython()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Ruby.
-	 *
-	 * @return string The tab title for Ruby.
-	 */
-	public function getTabTitleRuby()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Ruby.
+     *
+     * @return string The tab title for Ruby.
+     */
+    public function getTabTitleRuby()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::RUBY) . ' ' . $bearsamppTools->getRuby()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::RUBY) . ' ' . $bearsamppTools->getRuby()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Perl.
-	 *
-	 * @return string The tab title for Perl.
-	 */
-	public function getTabTitlePerl()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Perl.
+     *
+     * @return string The tab title for Perl.
+     */
+    public function getTabTitlePerl()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::PERL) . ' ' . $bearsamppTools->getPerl()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::PERL) . ' ' . $bearsamppTools->getPerl()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Ghostscript.
-	 *
-	 * @return string The tab title for Ghostscript.
-	 */
-	public function getTabTitleGhostscript()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Ghostscript.
+     *
+     * @return string The tab title for Ghostscript.
+     */
+    public function getTabTitleGhostscript()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::GHOSTSCRIPT) . ' ' . $bearsamppTools->getGhostscript()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::GHOSTSCRIPT) . ' ' . $bearsamppTools->getGhostscript()->getVersion();
+    }
 
-	/**
-	 * Gets the tab title for Ngrok.
-	 *
-	 * @return string The tab title for Ngrok.
-	 */
-	public function getTabTitleNgrok()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Gets the tab title for Ngrok.
+     *
+     * @return string The tab title for Ngrok.
+     */
+    public function getTabTitleNgrok()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		return $bearsamppLang->getValue(Lang::NGROK) . ' ' . $bearsamppTools->getNgrok()->getVersion();
-	}
+        return $bearsamppLang->getValue(Lang::NGROK) . ' ' . $bearsamppTools->getNgrok()->getVersion();
+    }
 }
 

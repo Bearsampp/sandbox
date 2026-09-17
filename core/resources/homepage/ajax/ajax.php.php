@@ -32,38 +32,31 @@ global $bearsamppBins, $bearsamppLang;
  * @global object $bearsamppBins Provides access to system binaries and their configurations.
  */
 $result = array(
-	'status'      => '',
-	'versions'    => '',
-	'extscount'   => '',
-	'pearversion' => '',
-	'extslist'    => '',
+    'status'      => '',
+    'versions'    => '',
+    'extscount'   => '',
+    'pearversion' => '',
+    'extslist'    => '',
 );
 
 /**
  * Checks if PHP is enabled and sets the status in the result array.
  */
-if ($bearsamppBins->getPhp()->isEnable())
-{
-	$result['status'] = '<span class="float-end badge text-bg-success">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
-}
-else
-{
-	$result['status'] = '<span class="float-end badge text-bg-danger">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
+if ($bearsamppBins->getPhp()->isEnable()) {
+    $result['status'] = '<span class="float-end badge text-bg-success">' . $bearsamppLang->getValue(Lang::ENABLED) . '</span>';
+} else {
+    $result['status'] = '<span class="float-end badge text-bg-danger">' . $bearsamppLang->getValue(Lang::DISABLED) . '</span>';
 }
 
 /**
  * Retrieves the list of PHP versions and sets it in the result array.
  */
-foreach ($bearsamppBins->getPhp()->getVersionList() as $version)
-{
-	if ($version != $bearsamppBins->getPhp()->getVersion())
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
-	}
-	else
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getPhp()->getVersion() . '</span>';
-	}
+foreach ($bearsamppBins->getPhp()->getVersionList() as $version) {
+    if ($version != $bearsamppBins->getPhp()->getVersion()) {
+        $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getPhp()->getVersion() . '</span>';
+    }
 }
 
 /**
@@ -81,18 +74,14 @@ $result['pearversion'] .= '<span class="m-1 float-end badge text-bg-primary">' .
 /**
  * Retrieves the list of PHP extensions from the configuration and sets it in the result array.
  */
-foreach ($bearsamppBins->getPhp()->getExtensionsFromConf() as $extName => $extStatus)
-{
-	if ($extStatus == ActionSwitchPhpExtension::SWITCH_ON)
-	{
-		$result['extslist'] .= '<span class="p-1 col-xs-12 col-md-2"><i class="fa-regular fa-circle-check"></i> <strong>' . $extName . ' <sup>' . phpversion(
-				substr($extName, 4)
-			) . '</sup></strong></span>';
-	}
-	else
-	{
-		$result['extslist'] .= '<span class="p-1 col-xs-12 col-md-2"><i class="fa-regular fa-circle"></i> ' . $extName . '</span>';
-	}
+foreach ($bearsamppBins->getPhp()->getExtensionsFromConf() as $extName => $extStatus) {
+    if ($extStatus == ActionSwitchPhpExtension::SWITCH_ON) {
+        $result['extslist'] .= '<span class="p-1 col-xs-12 col-md-2"><i class="fa-regular fa-circle-check"></i> <strong>' . $extName . ' <sup>' . phpversion(
+                substr($extName, 4)
+            ) . '</sup></strong></span>';
+    } else {
+        $result['extslist'] .= '<span class="p-1 col-xs-12 col-md-2"><i class="fa-regular fa-circle"></i> ' . $extName . '</span>';
+    }
 }
 
 /**

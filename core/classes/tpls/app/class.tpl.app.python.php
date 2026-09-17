@@ -17,52 +17,52 @@
  */
 class TplAppPython
 {
-	// Constant for the Python menu identifier
-	const MENU = 'python';
+    // Constant for the Python menu identifier
+    const MENU = 'python';
 
-	/**
-	 * Generates the main Python menu with options to access Python tools.
-	 *
-	 * @return string The generated menu items and actions for Python.
-	 * @global object $bearsamppLang Provides language support for retrieving language-specific values.
-	 *
-	 */
-	public static function process()
-	{
-		global $bearsamppLang;
+    /**
+     * Generates the main Python menu with options to access Python tools.
+     *
+     * @return string The generated menu items and actions for Python.
+     * @global object $bearsamppLang Provides language support for retrieving language-specific values.
+     *
+     */
+    public static function process()
+    {
+        global $bearsamppLang;
 
-		return TplApp::getMenu($bearsamppLang->getValue(Lang::PYTHON), self::MENU, get_called_class());
-	}
+        return TplApp::getMenu($bearsamppLang->getValue(Lang::PYTHON), self::MENU, get_called_class());
+    }
 
-	/**
-	 * Generates the Python menu with options for accessing the Python console, IDLE, and other tools.
-	 *
-	 * @return string The generated menu items and actions for Python tools.
-	 * @global object $bearsamppTools Provides access to various tools and their configurations.
-	 *
-	 * @global object $bearsamppLang  Provides language support for retrieving language-specific values.
-	 */
-	public static function getMenuPython()
-	{
-		global $bearsamppLang, $bearsamppTools;
+    /**
+     * Generates the Python menu with options for accessing the Python console, IDLE, and other tools.
+     *
+     * @return string The generated menu items and actions for Python tools.
+     * @global object $bearsamppTools Provides access to various tools and their configurations.
+     *
+     * @global object $bearsamppLang  Provides language support for retrieving language-specific values.
+     */
+    public static function getMenuPython()
+    {
+        global $bearsamppLang, $bearsamppTools;
 
-		// Generate menu item for Python console
-		$resultItems = TplAestan::getItemPowerShell(
-				$bearsamppLang->getValue(Lang::PYTHON_CONSOLE),
-				TplAestan::GLYPH_PYTHON,
-				null,
-				$bearsamppTools->getPowerShell()->getTabTitlePython(),
-				Path::getModuleSymlinkPath($bearsamppTools->getPython()),
-				null
-			) . PHP_EOL;
+        // Generate menu item for Python console
+        $resultItems = TplAestan::getItemPowerShell(
+                $bearsamppLang->getValue(Lang::PYTHON_CONSOLE),
+                TplAestan::GLYPH_PYTHON,
+                null,
+                $bearsamppTools->getPowerShell()->getTabTitlePython(),
+                Path::getModuleSymlinkPath($bearsamppTools->getPython()),
+                null
+            ) . PHP_EOL;
 
-		// Generate menu item for Python IDLE
-		$resultItems .= TplAestan::getItemExe(
-				$bearsamppLang->getValue(Lang::PYTHON) . ' IDLE',
-				$bearsamppTools->getPython()->getIdleExe(),
-				TplAestan::GLYPH_PYTHON
-			) . PHP_EOL;
+        // Generate menu item for Python IDLE
+        $resultItems .= TplAestan::getItemExe(
+                $bearsamppLang->getValue(Lang::PYTHON) . ' IDLE',
+                $bearsamppTools->getPython()->getIdleExe(),
+                TplAestan::GLYPH_PYTHON
+            ) . PHP_EOL;
 
-		return $resultItems;
-	}
+        return $resultItems;
+    }
 }

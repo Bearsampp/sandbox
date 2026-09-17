@@ -116,8 +116,7 @@ echo htmlspecialchars($bearsamppLang->getValue(Lang::LOCALE), ENT_QUOTES, 'UTF-8
 	/**
 	 * Loop through CSS files and include them in the page.
 	 */
-	foreach ($cssFiles as $file)
-	{
+	foreach ($cssFiles as $file) {
 		echo '<link href="' . $resourcesPath . '/' . ltrim($file, '/') . '" rel="stylesheet">' . PHP_EOL;
 	}
 	?>
@@ -186,12 +185,9 @@ echo htmlspecialchars($bearsamppLang->getValue(Lang::LOCALE), ENT_QUOTES, 'UTF-8
 					<!-- Enhanced Mode Toggle and QuickPick Container -->
 					<div class = "quickpick-controls">
 						<?php
-						try
-						{
+						try {
 							echo $quickPick->loadQuickpick($imagesPath);
-						}
-						catch (Exception $e)
-						{
+						} catch (Exception $e) {
 							// Log the error but continue with the page
 							error_log('Error loading QuickPick: ' . $e->getMessage());
 							echo '<div id="quickPickError" class="text-center">
@@ -233,35 +229,25 @@ echo htmlspecialchars($bearsamppLang->getValue(Lang::LOCALE), ENT_QUOTES, 'UTF-8
 
 <div id = "page-wrapper">
 	<?php
-	try
-	{
+	try {
 		include __DIR__ . '/tpls/hp.latestversion.html';
-	}
-	catch (Exception $e)
-	{
+	} catch (Exception $e) {
 		error_log('Error including latest version template: ' . $e->getMessage());
 		echo '<div class="alert alert-warning">Latest version information unavailable</div>';
 	}
 	
-	try
-	{
-		$page     = preg_replace('/[^a-z0-9_-]/i', '', (string) $bearsamppHomepage->getPage());
+	try {
+		$page     = preg_replace('/[^a-z0-9_-]/i', '', (string)$bearsamppHomepage->getPage());
 		$pagePath = __DIR__ . '/tpls/hp.' . $page . '.html';
-		if (!is_file($pagePath))
-		{
+		if (!is_file($pagePath)) {
 			$pagePath = __DIR__ . '/tpls/' . $page . '.html';
 		}
-		if (is_file($pagePath))
-		{
+		if (is_file($pagePath)) {
 			include $pagePath;
-		}
-		else
-		{
+		} else {
 			include __DIR__ . '/tpls/hp.index.html';
 		}
-	}
-	catch (Exception $e)
-	{
+	} catch (Exception $e) {
 		error_log('Error including page template: ' . $e->getMessage());
 		echo '<div class="alert alert-warning">Page content unavailable</div>';
 	}
@@ -269,8 +255,7 @@ echo htmlspecialchars($bearsamppLang->getValue(Lang::LOCALE), ENT_QUOTES, 'UTF-8
 </div>
 
 <?php
-foreach ($jsFiles as $file)
-{
+foreach ($jsFiles as $file) {
 	echo '<script src="' . $resourcesPath . '/' . ltrim($file, '/') . '"></script>' . PHP_EOL;
 }
 ?>

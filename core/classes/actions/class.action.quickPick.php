@@ -91,10 +91,8 @@ class QuickPick
 		
 		// Find the correct module key by searching through the modules array
 		// This handles proper capitalization for all module types
-		foreach ($this->modules as $key => $moduleInfo)
-		{
-			if (strtolower($key) === strtolower($moduleName))
-			{
+		foreach ($this->modules as $key => $moduleInfo) {
+			if (strtolower($key) === strtolower($moduleName)) {
 				return $key;
 			}
 		}
@@ -117,8 +115,7 @@ class QuickPick
 		
 		// Validate EnhancedQuickPick parameter
 		$validation = $bearsamppConfig->validateEnhancedQuickPick();
-		if (!$validation['valid'])
-		{
+		if (!$validation['valid']) {
 			return $this->getErrorModal($validation['error']);
 		}
 		
@@ -182,8 +179,7 @@ class QuickPick
 		// Attempt to retrieve remote file headers. GitHub-hosted content is reached
 		// through the GitHub proxy (verified TLS context); otherwise fetch directly.
 		$headers = false;
-		if (HttpClient::isGithubHost(QUICKPICK_JSON_URL))
-		{
+		if (HttpClient::isGithubHost(QUICKPICK_JSON_URL)) {
 			// Rebuild a get_headers($url, 1)-compatible structure from the proxy
 			// response (status line at index 0 plus every forwarded header) so the
 			// downstream validation/comparison behaves identically to the direct
@@ -191,21 +187,16 @@ class QuickPick
 			// carry headers but must not drive update decisions. Proxy header keys
 			// are lowercase, so lookups below are case-insensitive.
 			$result = HttpClient::proxyFetch(QUICKPICK_JSON_URL, 'HEAD', true);
-			if ($result !== false && $result['status'] >= 200 && $result['status'] < 300)
-			{
+			if ($result !== false && $result['status'] >= 200 && $result['status'] < 300) {
 				$headers = array('HTTP/1.1 ' . $result['status']);
-				foreach ($result['headers'] as $name => $value)
-				{
+				foreach ($result['headers'] as $name => $value) {
 					$headers[$name] = $value;
 				}
 			}
-		}
-		else
-		{
+		} else {
 			$headers = get_headers(QUICKPICK_JSON_URL, 1, HttpClient::getSslStreamContext(true, QUICKPICK_JSON_URL));
 		}
-		if (!$this->isValidHeaderResponse($headers))
-		{
+		if (!$this->isValidHeaderResponse($headers)) {
 			// If headers or Date/Last-Modified are invalid, assume no update needed
 			return false;
 		}
@@ -220,8 +211,7 @@ class QuickPick
 			?? $this->getHeaderValue($headers, 'Date')
 			?? '';
 		$remoteFileCreationTime = strtotime($remoteModTime);
-		if ($remoteFileCreationTime > $localFileCreationTime)
-		{
+		if ($remoteFileCreationTime > $localFileCreationTime) {
 			return $this->rebuildQuickpickJson();
 		}
 		
@@ -236,8 +226,7 @@ class QuickPick
 	 */
 	private function getLocalFileCreationTime()
 	{
-		if (!file_exists($this->jsonFilePath))
-		{
+		if (!file_exists($this->jsonFilePath)) {
 			// If local file is missing, rebuild it immediately
 			$this->rebuildQuickpickJson();
 			
@@ -260,8 +249,7 @@ class QuickPick
 		// Fetch the JSON content from the URL via cURL (verified TLS + bundled GitHub token)
 		$jsonContent = HttpClient::getApiJson(QUICKPICK_JSON_URL);
 		
-		if ($jsonContent === '')
-		{
+		if ($jsonContent === '') {
 			// Handle error if the file could not be fetched
 			throw new Exception('Failed to fetch JSON content from the URL.');
 		}
@@ -269,8 +257,7 @@ class QuickPick
 		// Save the JSON content to the specified path
 		$result = file_put_contents($this->jsonFilePath, $jsonContent);
 		
-		if ($result === false)
-		{
+		if ($result === false) {
 			// Handle error if the file could not be saved
 			throw new Exception('Failed to save JSON content to the specified path.');
 		}
@@ -297,8 +284,7 @@ class QuickPick
 		// If headers retrieval failed or neither Date nor Last-Modified is set, return false
 		if ($headers === false ||
 			($this->getHeaderValue($headers, 'Date') === null &&
-				$this->getHeaderValue($headers, 'Last-Modified') === null))
-		{
+				$this->getHeaderValue($headers, 'Last-Modified') === null)) {
 			return false;
 		}
 		
@@ -319,16 +305,12 @@ class QuickPick
 	 */
 	private function getHeaderValue($headers, string $name): ?string
 	{
-		if (!is_array($headers))
-		{
+		if (!is_array($headers)) {
 			return null;
 		}
-		foreach ($headers as $key => $value)
-		{
-			if (is_string($key) && strcasecmp($key, $name) === 0)
-			{
-				if (is_array($value))
-				{
+		foreach ($headers as $key => $value) {
+			if (is_string($key) && strcasecmp($key, $name) === 0) {
+				if (is_array($value)) {
 					$value = reset($value);
 				}
 				
@@ -348,8 +330,7 @@ class QuickPick
 	{
 		global $bearsamppConfig;
 		
-		if ($bearsamppConfig->getLogsVerbose() === 2)
-		{
+		if ($bearsamppConfig->getLogsVerbose() === 2) {
 			Log::debug('Headers: ' . print_r($headers, true));
 		}
 	}
@@ -380,14 +361,10 @@ class QuickPick
 		
 		$jsonData = $this->getQuickpickJson();
 		
-		foreach ($jsonData as $entry)
-		{
-			if (is_array($entry))
-			{
-				if (isset($entry['module']) && is_string($entry['module']))
-				{
-					if (isset($entry['versions']) && is_array($entry['versions']))
-					{
+		foreach ($jsonData as $entry) {
+			if (is_array($entry)) {
+				if (isset($entry['module']) && is_string($entry['module'])) {
+					if (isset($entry['versions']) && is_array($entry['versions'])) {
 						$moduleVersions = array_column($entry['versions'], null, 'version');
 						uasort($moduleVersions, function ($a, $b) {
 							return version_compare($b['version'], $a['version']);
@@ -395,15 +372,12 @@ class QuickPick
 						$versions[$entry['module']] = $moduleVersions;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				Log::error('Invalid entry format in JSON data');
 			}
 		}
 		
-		if (empty($versions))
-		{
+		if (empty($versions)) {
 			Log::error('No versions found');
 			
 			return ['error' => 'No versions found'];
@@ -424,16 +398,14 @@ class QuickPick
 	public function getQuickpickJson(): array
 	{
 		$content = @file_get_contents($this->jsonFilePath);
-		if ($content === false)
-		{
+		if ($content === false) {
 			Log::error('Error fetching content from JSON file: ' . $this->jsonFilePath);
 			
 			return ['error' => 'Error fetching JSON file'];
 		}
 		
 		$data = json_decode($content, true);
-		if (json_last_error() !== JSON_ERROR_NONE)
-		{
+		if (json_last_error() !== JSON_ERROR_NONE) {
 			Log::error('Error decoding JSON content: ' . json_last_error_msg());
 			
 			return ['error' => 'Error decoding JSON content'];
@@ -463,8 +435,7 @@ class QuickPick
 		$enhancedMode = $bearsamppConfig->getEnhancedQuickPick();
 		
 		ob_start();
-		if (HttpClient::checkInternetState())
-		{
+		if (HttpClient::checkInternetState()) {
 			// Check if the license key is valid
 			if ($this->checkDownloadId()): ?>
 				<div class = "enhanced-mode-toggle">
@@ -505,8 +476,7 @@ class QuickPick
 										<?php
 										foreach ($versions['module-' . strtolower($module)] as $version_array):
 											// Skip prerelease versions if includePr is not enabled
-											if (isset($version_array['prerelease']) && $version_array['prerelease'] === true && $includePr != 1)
-											{
+											if (isset($version_array['prerelease']) && $version_array['prerelease'] === true && $includePr != 1) {
 												continue;
 											}
 											?>
@@ -566,9 +536,7 @@ class QuickPick
 				</div>
 			<?php
 			endif;
-		}
-		else
-		{
+		} else {
 			?>
 			<div id = "InternetState" class = "text-center">
 				<img src = "<?php
@@ -603,8 +571,7 @@ class QuickPick
 		Log::debug('checkDownloadId method called.');
 		
 		// Ensure the global config is available
-		if (!isset($bearsamppConfig))
-		{
+		if (!isset($bearsamppConfig)) {
 			Log::error('Global configuration is not set.');
 			
 			return false;
@@ -613,8 +580,7 @@ class QuickPick
 		$DownloadId = $bearsamppConfig->getDownloadId();
 		
 		// Ensure the license key is not empty
-		if (empty($DownloadId))
-		{
+		if (empty($DownloadId)) {
 			Log::error('License key is empty.');
 			
 			return false;
@@ -630,8 +596,7 @@ class QuickPick
 		$response = file_get_contents($url, false, HttpClient::getSslStreamContext());
 		
 		// Check if the response is false
-		if ($response === false)
-		{
+		if ($response === false) {
 			Log::error('Failed to validate QuickPick license - API server unavailable');
 			
 			return false;
@@ -642,16 +607,14 @@ class QuickPick
 		$data = json_decode($response, true);
 		
 		// Check if the JSON decoding was successful
-		if (json_last_error() !== JSON_ERROR_NONE)
-		{
+		if (json_last_error() !== JSON_ERROR_NONE) {
 			Log::error('Error decoding JSON response: ' . json_last_error_msg());
 			
 			return false;
 		}
 		
 		// Validate the response data
-		if (isset($data['success']) && $data['success'] === true && isset($data['data']) && is_array($data['data']) && count($data['data']) > 0)
-		{
+		if (isset($data['success']) && $data['success'] === true && isset($data['data']) && is_array($data['data']) && count($data['data']) > 0) {
 			Log::debug('License key valid: ' . $DownloadId);
 			
 			return true;
@@ -675,8 +638,7 @@ class QuickPick
 		global $bearsamppConfig;
 		$includePr = $bearsamppConfig->getIncludePr();
 		
-		if ($isPrerelease && $includePr == 1)
-		{
+		if ($isPrerelease && $includePr == 1) {
 			return '<span class="text-danger">' . htmlspecialchars($version) . ' PR</span>';
 		}
 		
@@ -702,23 +664,20 @@ class QuickPick
 		// Find the module URL and module name from the data
 		$moduleUrl = $this->getModuleUrl($module, $version);
 		
-		if (is_array($moduleUrl) && isset($moduleUrl['error']))
-		{
+		if (is_array($moduleUrl) && isset($moduleUrl['error'])) {
 			Log::error('Module URL not found for module: ' . $module . ' version: ' . $version);
 			
 			return ['error' => 'Module URL not found'];
 		}
 		
-		if (empty($moduleUrl))
-		{
+		if (empty($moduleUrl)) {
 			Log::error('Module URL not found for module: ' . $module . ' version: ' . $version);
 			
 			return ['error' => 'Module URL not found'];
 		}
 		
 		$state = HttpClient::checkInternetState();
-		if ($state)
-		{
+		if ($state) {
 			$response = $this->fetchAndUnzipModule($moduleUrl, $module);
 			Log::debug('Response is: ' . print_r($response, true));
 			
@@ -729,14 +688,12 @@ class QuickPick
 			Log::debug('Enhanced mode: ' . ($enhancedMode ? 'enabled' : 'disabled'));
 			
 			// If installation was successful and enhanced mode is enabled, update config
-			if (isset($response['success']) && $enhancedMode == 1)
-			{
+			if (isset($response['success']) && $enhancedMode == 1) {
 				// Step 1: Update config FIRST (so reload can pick up the new version)
 				Log::debug('Enhanced mode enabled - Updating config for module: ' . $module . ' version: ' . $version);
 				$configUpdated = $this->updateModuleConfig($module, $version);
 				
-				if ($configUpdated)
-				{
+				if ($configUpdated) {
 					// Step 2: Launch the reload action to apply the new version automatically.
 					// QuickPick runs in the AJAX/web context, where the winbinder GUI used by
 					// the reload action is unavailable, so we spawn it as a detached process
@@ -746,8 +703,7 @@ class QuickPick
 					Log::debug('Config updated successfully, launching reload to apply changes...');
 					
 					// Send progress update to user - flush output
-					if (ob_get_level() > 0)
-					{
+					if (ob_get_level() > 0) {
 						ob_flush();
 					}
 					echo json_encode(['phase' => 'updating', 'message' => 'Applying version changes...']) . PHP_EOL;
@@ -766,17 +722,12 @@ class QuickPick
 					CommandRunner::background($reloadCmd);
 					
 					$response['reload_triggered'] = true;
-				}
-				else
-				{
+				} else {
 					Log::error('Config update failed for module: ' . $module);
 					$response['reload_triggered'] = false;
 				}
-			}
-			else
-			{
-				if (isset($response['success']) && $enhancedMode == 0)
-				{
+			} else {
+				if (isset($response['success']) && $enhancedMode == 0) {
 					Log::debug('Enhanced mode disabled - skipping config update');
 					
 					// Even if not updating config, clear cache to be safe as new files were added
@@ -786,9 +737,7 @@ class QuickPick
 			}
 			
 			return $response;
-		}
-		else
-		{
+		} else {
 			Log::error('No internet connection available.');
 			
 			return ['error' => 'No internet connection'];
@@ -811,21 +760,17 @@ class QuickPick
 		$this->getVersions();
 		Log::debug('getModuleUrl called for module: ' . $module . ' version: ' . $version);
 		$moduleKey = 'module-' . strtolower($module);
-		if (!isset($this->versions[$moduleKey][$version]['url']))
-		{
+		if (!isset($this->versions[$moduleKey][$version]['url'])) {
 			Log::error('Version not found: ' . $version);
 			
 			return ['error' => 'Version not found'];
 		}
 		$url = trim($this->versions[$moduleKey][$version]['url']);
-		if ($url <> '')
-		{
+		if ($url <> '') {
 			Log::debug('Found URL for version: ' . $version . ' URL: ' . $url);
 			
 			return $url;
-		}
-		else
-		{
+		} else {
 			Log::error('Version not found: ' . $version);
 			
 			return ['error' => 'Version not found'];
@@ -856,8 +801,7 @@ class QuickPick
 		
 		// Strictly validate the archive extension BEFORE downloading, so we never fetch
 		// or unpack anything other than an allowed 7z/zip archive regardless of the URL.
-		if (!self::isAllowedArchive($fileName))
-		{
+		if (!self::isAllowedArchive($fileName)) {
 			Log::error('Unsupported archive type rejected before download: ' . $fileName);
 			
 			return ['error' => 'Unsupported archive type'];
@@ -869,17 +813,14 @@ class QuickPick
 		// Find the correct module key by searching through the modules array
 		// This handles proper capitalization for all module types
 		$moduleKey = null;
-		foreach ($this->modules as $key => $moduleInfo)
-		{
-			if (strtolower($key) === strtolower($moduleName))
-			{
+		foreach ($this->modules as $key => $moduleInfo) {
+			if (strtolower($key) === strtolower($moduleName)) {
 				$moduleKey = $key;
 				break;
 			}
 		}
 		
-		if (!$moduleKey)
-		{
+		if (!$moduleKey) {
 			Log::error("Module not found in modules array: $moduleName");
 			
 			return ['error' => 'Module configuration not found'];
@@ -897,8 +838,7 @@ class QuickPick
 		$result = HttpClient::downloadFile($moduleUrl, $tmpFilePath, true);
 		
 		// Check if $result indicates an error (downloadFile returns ['error' => ...] on failure)
-		if (!is_array($result) || isset($result['error']))
-		{
+		if (!is_array($result) || isset($result['error'])) {
 			Log::error('Failed to retrieve file from URL: ' . $moduleUrl);
 			@unlink($tmpFilePath);
 			
@@ -908,8 +848,7 @@ class QuickPick
 		// Verify the downloaded archive against the SHA-256 sidecar published with the release.
 		// This guards against a tampered JSON, a bypassed/disabled TLS check, or a corrupted
 		// download, ensuring we never extract/modify an unverified archive.
-		if (!self::verifyModuleChecksum($moduleUrl, $tmpFilePath))
-		{
+		if (!self::verifyModuleChecksum($moduleUrl, $tmpFilePath)) {
 			Log::error('SHA-256 checksum verification failed for module: ' . $module . ' (URL: ' . $moduleUrl . ')');
 			@unlink($tmpFilePath);
 			
@@ -919,8 +858,7 @@ class QuickPick
 		// Determine the file extension and call the appropriate unzipping function.
 		// Enforce the strict whitelist on the actual downloaded file as a second layer
 		// of defense, even though it was pre-validated before download.
-		if (!self::isAllowedArchive($tmpFilePath))
-		{
+		if (!self::isAllowedArchive($tmpFilePath)) {
 			Log::error('Unsupported archive extension after download: ' . $tmpFilePath);
 			@unlink($tmpFilePath);
 			
@@ -930,11 +868,9 @@ class QuickPick
 		$fileExtension = strtolower(pathinfo($tmpFilePath, PATHINFO_EXTENSION));
 		Log::debug('File extension: ' . $fileExtension);
 		
-		if ($fileExtension === '7z' || $fileExtension === 'zip')
-		{
+		if ($fileExtension === '7z' || $fileExtension === 'zip') {
 			echo json_encode(['phase' => 'extracting']) . PHP_EOL;
-			if (ob_get_length())
-			{
+			if (ob_get_length()) {
 				ob_flush();
 			}
 			flush();
@@ -942,20 +878,16 @@ class QuickPick
 			$unzipResult = $bearsamppCore->unzipFile($tmpFilePath, $destination, function ($currentPercentage) {
 				$progressStr = is_numeric($currentPercentage) ? "$currentPercentage%" : $currentPercentage;
 				echo json_encode(['progress' => $progressStr]) . PHP_EOL;
-				if (ob_get_length())
-				{
+				if (ob_get_length()) {
 					ob_flush();
 				}
 				flush();
 			});
 			
-			if ($unzipResult === false)
-			{
+			if ($unzipResult === false) {
 				return ['error' => 'Failed to unzip file. File: ' . $tmpFilePath . ' could not be unzipped', 'Destination: ' . $destination];
 			}
-		}
-		else
-		{
+		} else {
 			Log::error('Unsupported file extension: ' . $fileExtension);
 			
 			return ['error' => 'Unsupported file extension'];
@@ -977,8 +909,7 @@ class QuickPick
 	 */
 	private static function isAllowedArchive(string $fileName): bool
 	{
-		if ($fileName === '' || $fileName === false)
-		{
+		if ($fileName === '' || $fileName === false) {
 			return false;
 		}
 		
@@ -1002,20 +933,13 @@ class QuickPick
 	public function getModuleDestinationPath(string $moduleType, string $moduleName)
 	{
 		global $bearsamppRoot;
-		if ($moduleType === 'application')
-		{
+		if ($moduleType === 'application') {
 			$destination = Path::getAppsPath() . '/' . strtolower($moduleName) . '/';
-		}
-		elseif ($moduleType === 'binary')
-		{
+		} elseif ($moduleType === 'binary') {
 			$destination = Path::getBinPath() . '/' . strtolower($moduleName) . '/';
-		}
-		elseif ($moduleType === 'tools')
-		{
+		} elseif ($moduleType === 'tools') {
 			$destination = Path::getToolsPath() . '/' . strtolower($moduleName) . '/';
-		}
-		else
-		{
+		} else {
 			$destination = '';
 		}
 		
@@ -1036,31 +960,27 @@ class QuickPick
 	 */
 	private static function verifyModuleChecksum(string $moduleUrl, string $tmpFilePath): bool
 	{
-		if (!is_file($tmpFilePath))
-		{
+		if (!is_file($tmpFilePath)) {
 			Log::error('Checksum verify: downloaded file not found: ' . $tmpFilePath);
 			
 			return false;
 		}
 		
 		$expectedHash = self::fetchChecksumFromSidecar($moduleUrl);
-		if ($expectedHash === null)
-		{
+		if ($expectedHash === null) {
 			Log::error('Checksum verify: could not retrieve SHA-256 sidecar for: ' . $moduleUrl);
 			
 			return false;
 		}
 		
 		$actualHash = @hash_file('sha256', $tmpFilePath);
-		if ($actualHash === false)
-		{
+		if ($actualHash === false) {
 			Log::error('Checksum verify: failed to hash local file: ' . $tmpFilePath);
 			
 			return false;
 		}
 		
-		if (!hash_equals($expectedHash, strtolower($actualHash)))
-		{
+		if (!hash_equals($expectedHash, strtolower($actualHash))) {
 			Log::error(
 				'Checksum verify: mismatch for ' . basename($moduleUrl) .
 				' (expected ' . $expectedHash . ', got ' . $actualHash . ')'
@@ -1091,26 +1011,21 @@ class QuickPick
 		
 		// GitHub-hosted sidecars are fetched through the GitHub proxy; everything
 		// else uses the verified TLS stream context.
-		if (HttpClient::isGithubHost($sidecarUrl))
-		{
+		if (HttpClient::isGithubHost($sidecarUrl)) {
 			Log::trace('verifyModuleChecksum() fetching sidecar via GitHub proxy: ' . $sidecarUrl);
 			$result  = HttpClient::proxyFetch($sidecarUrl, 'GET', true);
 			$content = ($result === false) ? false : $result['body'];
-		}
-		else
-		{
+		} else {
 			$content = @file_get_contents($sidecarUrl, false, HttpClient::getSslStreamContext(true, $sidecarUrl));
 		}
 		
-		if ($content === false)
-		{
+		if ($content === false) {
 			Log::error('Checksum verify: sidecar fetch failed for: ' . $sidecarUrl);
 			
 			return null;
 		}
 		
-		if (preg_match('/\b([0-9a-f]{64})\b/i', $content, $match) !== 1)
-		{
+		if (preg_match('/\b([0-9a-f]{64})\b/i', $content, $match) !== 1) {
 			Log::error('Checksum verify: unexpected sidecar content for: ' . $sidecarUrl);
 			
 			return null;
@@ -1130,8 +1045,7 @@ class QuickPick
 	 */
 	private function updateModuleConfig(string $module, string $version): bool
 	{
-		try
-		{
+		try {
 			$bearsamppConfig = new Config();
 			
 			// Remove 'module-' prefix if present and normalize the module name
@@ -1140,17 +1054,14 @@ class QuickPick
 			// Find the correct module key by searching through the modules array
 			// This handles proper capitalization for all module types
 			$moduleKey = null;
-			foreach ($this->modules as $key => $moduleInfo)
-			{
-				if (strtolower($key) === strtolower($moduleName))
-				{
+			foreach ($this->modules as $key => $moduleInfo) {
+				if (strtolower($key) === strtolower($moduleName)) {
 					$moduleKey = $key;
 					break;
 				}
 			}
 			
-			if (!$moduleKey)
-			{
+			if (!$moduleKey) {
 				Log::error("Module not found in modules array: $moduleName");
 				
 				return false;
@@ -1161,8 +1072,7 @@ class QuickPick
 			// Reject malformed version strings before they reach the config
 			// file (they later drive generated shell commands). This guards
 			// against a compromised or tampered releases feed.
-			if (preg_match('/^[0-9][0-9a-zA-Z.\-+]*$/', $version) !== 1)
-			{
+			if (preg_match('/^[0-9][0-9a-zA-Z.\-+]*$/', $version) !== 1) {
 				Log::error("Invalid version format for module: $module");
 				
 				return false;
@@ -1183,9 +1093,7 @@ class QuickPick
 			Log::info("Successfully updated $configSection version to $version in bearsampp.conf");
 			
 			return true;
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			Log::error("Failed to update module config: " . $e->getMessage());
 			
 			return false;
@@ -1206,8 +1114,7 @@ class QuickPick
 		$oldErrorReporting = error_reporting();
 		error_reporting($oldErrorReporting & ~E_WARNING);
 		
-		try
-		{
+		try {
 			// Generate the menu content
 			$menuContent = TplApp::process();
 			
@@ -1217,9 +1124,7 @@ class QuickPick
 			Log::debug('Menu regenerated successfully');
 			
 			return $menuContent;
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			// Restore error reporting
 			error_reporting($oldErrorReporting);
 			

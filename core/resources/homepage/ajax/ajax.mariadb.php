@@ -20,8 +20,8 @@ global $bearsamppBins, $bearsamppLang;
 
 // Initialize result array to store port status and versions information
 $result = array(
-	'checkport' => '',
-	'versions'  => '',
+    'checkport' => '',
+    'versions'  => '',
 );
 
 // Check port
@@ -36,36 +36,26 @@ $textDisabled       = $bearsamppLang->getValue(Lang::DISABLED);
  * If the service is enabled, check if the port is open and update the status.
  * If the service is disabled, set the status to disabled.
  */
-if ($bearsamppBins->getMariadb()->isEnable())
-{
-	if ($bearsamppBins->getMariadb()->checkPort($port))
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
-	}
-	else
-	{
-		$result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
-	}
-}
-else
-{
-	$result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
+if ($bearsamppBins->getMariadb()->isEnable()) {
+    if ($bearsamppBins->getMariadb()->checkPort($port)) {
+        $result['checkport'] .= '<span class="float-end badge text-bg-success">' . sprintf($textServiceStarted, $port) . '</span>';
+    } else {
+        $result['checkport'] .= '<span class="float-end badge text-bg-danger">' . $textServiceStopped . '</span>';
+    }
+} else {
+    $result['checkport'] = '<span class="float-end badge text-bg-secondary">' . $textDisabled . '</span>';
 }
 
 /**
  * Retrieve the list of available MariaDB versions and update the versions information.
  * Highlight the current version with a primary badge and other versions with a secondary badge.
  */
-foreach ($bearsamppBins->getMariadb()->getVersionList() as $version)
-{
-	if ($version != $bearsamppBins->getMariadb()->getVersion())
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
-	}
-	else
-	{
-		$result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMariadb()->getVersion() . '</span>';
-	}
+foreach ($bearsamppBins->getMariadb()->getVersionList() as $version) {
+    if ($version != $bearsamppBins->getMariadb()->getVersion()) {
+        $result['versions'] .= '<span class="m-1 badge text-bg-secondary">' . $version . '</span>';
+    } else {
+        $result['versions'] .= '<span class="m-1 badge text-bg-primary">' . $bearsamppBins->getMariadb()->getVersion() . '</span>';
+    }
 }
 
 // Output the result as a JSON-encoded string

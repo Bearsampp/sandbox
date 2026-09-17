@@ -29,65 +29,56 @@
  */
 $ajaxProcRaw       = isset($_POST['proc']) ? $_POST['proc'] : '';
 $ajaxReadOnlyProcs = array(
-	'summary',
-	'latestversion',
-	'apache',
-	'mailpit',
-	'memcached',
-	'mariadb',
-	'mysql',
-	'nodejs',
-	'php',
-	'postgresql',
-	'xlight',
-	'reloadstatus',
+    'summary',
+    'latestversion',
+    'apache',
+    'mailpit',
+    'memcached',
+    'mariadb',
+    'mysql',
+    'nodejs',
+    'php',
+    'postgresql',
+    'xlight',
+    'reloadstatus',
 );
 
-if (in_array($ajaxProcRaw, $ajaxReadOnlyProcs, true))
-{
-	require_once __DIR__ . '/../../classes/class.log.php';
-	Log::startSilentBuffer();
-	ob_start();
+if (in_array($ajaxProcRaw, $ajaxReadOnlyProcs, true)) {
+    require_once __DIR__ . '/../../classes/class.log.php';
+    Log::startSilentBuffer();
+    ob_start();
 
-	register_shutdown_function(function () use ($ajaxProcRaw) {
-		try
-		{
-			$output = ob_get_contents();
-			if ($output === false)
-			{
-				$output = '';
-			}
-			$fingerprint = md5($output);
+    register_shutdown_function(function () use ($ajaxProcRaw) {
+        try {
+            $output = ob_get_contents();
+            if ($output === false) {
+                $output = '';
+            }
+            $fingerprint = md5($output);
 
-			if (!class_exists('Path'))
-			{
-				// Bootstrap failed before Path was available -> keep the entries.
-				Log::commitSilentBuffer();
+            if (!class_exists('Path')) {
+                // Bootstrap failed before Path was available -> keep the entries.
+                Log::commitSilentBuffer();
 
-				return;
-			}
-			$fingerprintFile = Path::getTmpPath() . '/homepage-ajax-state-' . md5($ajaxProcRaw) . '.md5';
-			$stored          = @file_get_contents($fingerprintFile);
+                return;
+            }
+            $fingerprintFile = Path::getTmpPath() . '/homepage-ajax-state-' . md5($ajaxProcRaw) . '.md5';
+            $stored          = @file_get_contents($fingerprintFile);
 
-			if ($stored !== false && trim($stored) === $fingerprint)
-			{
-				// Homepage state unchanged -> discard this poll's log entries.
-				Log::rollbackSilentBuffer();
-			}
-			else
-			{
-				// State changed (service started/stopped, version changed, ...) ->
-				// write this poll's log entries and remember the new state.
-				@file_put_contents($fingerprintFile, $fingerprint, LOCK_EX);
-				Log::commitSilentBuffer();
-			}
-		}
-		catch (Exception $e)
-		{
-			// On any failure, commit (write) the entries rather than lose them.
-			Log::commitSilentBuffer();
-		}
-	});
+            if ($stored !== false && trim($stored) === $fingerprint) {
+                // Homepage state unchanged -> discard this poll's log entries.
+                Log::rollbackSilentBuffer();
+            } else {
+                // State changed (service started/stopped, version changed, ...) ->
+                // write this poll's log entries and remember the new state.
+                @file_put_contents($fingerprintFile, $fingerprint, LOCK_EX);
+                Log::commitSilentBuffer();
+            }
+        } catch (Exception $e) {
+            // On any failure, commit (write) the entries rather than lose them.
+            Log::commitSilentBuffer();
+        }
+    });
 }
 
 /**
@@ -103,22 +94,22 @@ include_once __DIR__ . '/../../root.php';
  * @var array $procMap A mapping of process names to their file paths.
  */
 $procMap = [
-	'summary'                 => __DIR__ . '/ajax/ajax.summary.php',
-	'latestversion'           => __DIR__ . '/ajax/ajax.latestversion.php',
-	'apache'                  => __DIR__ . '/ajax/ajax.apache.php',
-	'mailpit'                 => __DIR__ . '/ajax/ajax.mailpit.php',
-	'memcached'               => __DIR__ . '/ajax/ajax.memcached.php',
-	'mariadb'                 => __DIR__ . '/ajax/ajax.mariadb.php',
-	'mysql'                   => __DIR__ . '/ajax/ajax.mysql.php',
-	'nodejs'                  => __DIR__ . '/ajax/ajax.nodejs.php',
-	'php'                     => __DIR__ . '/ajax/ajax.php.php',
-	'postgresql'              => __DIR__ . '/ajax/ajax.postgresql.php',
-	'xlight'                  => __DIR__ . '/ajax/ajax.xlight.php',
-	'quickpick'               => __DIR__ . '/ajax/ajax.quickpick.php',
-	'toggleenhancedquickpick' => __DIR__ . '/ajax/ajax.toggle.enhancedquickpick.php',
-	'applymoduleconfig'       => __DIR__ . '/ajax/ajax.apply.moduleconfig.php',
-	'reloadstatus'            => __DIR__ . '/ajax/ajax.reload.status.php',
-	'clearcache'              => __DIR__ . '/ajax/ajax.clearcache.php'
+    'summary'                 => __DIR__ . '/ajax/ajax.summary.php',
+    'latestversion'           => __DIR__ . '/ajax/ajax.latestversion.php',
+    'apache'                  => __DIR__ . '/ajax/ajax.apache.php',
+    'mailpit'                 => __DIR__ . '/ajax/ajax.mailpit.php',
+    'memcached'               => __DIR__ . '/ajax/ajax.memcached.php',
+    'mariadb'                 => __DIR__ . '/ajax/ajax.mariadb.php',
+    'mysql'                   => __DIR__ . '/ajax/ajax.mysql.php',
+    'nodejs'                  => __DIR__ . '/ajax/ajax.nodejs.php',
+    'php'                     => __DIR__ . '/ajax/ajax.php.php',
+    'postgresql'              => __DIR__ . '/ajax/ajax.postgresql.php',
+    'xlight'                  => __DIR__ . '/ajax/ajax.xlight.php',
+    'quickpick'               => __DIR__ . '/ajax/ajax.quickpick.php',
+    'toggleenhancedquickpick' => __DIR__ . '/ajax/ajax.toggle.enhancedquickpick.php',
+    'applymoduleconfig'       => __DIR__ . '/ajax/ajax.apply.moduleconfig.php',
+    'reloadstatus'            => __DIR__ . '/ajax/ajax.reload.status.php',
+    'clearcache'              => __DIR__ . '/ajax/ajax.clearcache.php'
 ];
 
 /**
@@ -136,10 +127,10 @@ $proc = UtilInput::cleanPostVar('proc', 'text');  // Ensure 'proc' is cleaned an
  * Write operations (POST that changes state) require CSRF protection.
  */
 $csrfProtectedEndpoints = [
-	'quickpick',                    // Installs modules
-	'toggleenhancedquickpick',      // Changes configuration
-	'applymoduleconfig',            // Applies configuration changes
-	'clearcache'                    // Clears cache files
+    'quickpick',                    // Installs modules
+    'toggleenhancedquickpick',      // Changes configuration
+    'applymoduleconfig',            // Applies configuration changes
+    'clearcache'                    // Clears cache files
 ];
 
 /**
@@ -148,35 +139,32 @@ $csrfProtectedEndpoints = [
  * polling endpoints (e.g. reload status) never block on a session lock held
  * by a long-running operation such as a module install.
  */
-if (in_array($proc, $csrfProtectedEndpoints, true))
-{
-	// State-changing endpoints must be reached via POST only
-	if ($_SERVER['REQUEST_METHOD'] !== 'POST')
-	{
-		http_response_code(405);
-		header('Content-Type: application/json');
-		header('Cache-Control: no-store');
-		echo json_encode(['error' => 'Method not allowed']);
-		exit;
-	}
+if (in_array($proc, $csrfProtectedEndpoints, true)) {
+    // State-changing endpoints must be reached via POST only
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Content-Type: application/json');
+        header('Cache-Control: no-store');
+        echo json_encode(['error' => 'Method not allowed']);
+        exit;
+    }
 
-	Csrf::init();
+    Csrf::init();
 
-	if (!Csrf::validateRequest())
-	{
-		http_response_code(403);
-		header('Content-Type: application/json');
-		header('Cache-Control: no-store');
-		echo json_encode([
-			'error'   => 'CSRF validation failed',
-			'message' => 'Invalid or expired security token. Please refresh the page and try again.'
-		]);
-		exit;
-	}
+    if (!Csrf::validateRequest()) {
+        http_response_code(403);
+        header('Content-Type: application/json');
+        header('Cache-Control: no-store');
+        echo json_encode([
+            'error'   => 'CSRF validation failed',
+            'message' => 'Invalid or expired security token. Please refresh the page and try again.'
+        ]);
+        exit;
+    }
 
-	// Release the session lock so long-running handlers (module downloads /
-	// extraction) do not block other requests sharing this session.
-	session_write_close();
+    // Release the session lock so long-running handlers (module downloads /
+    // extraction) do not block other requests sharing this session.
+    session_write_close();
 }
 
 /**
@@ -184,28 +172,22 @@ if (in_array($proc, $csrfProtectedEndpoints, true))
  * If valid, include the corresponding AJAX handler file using the pre-defined path.
  * If not valid, return a JSON error message.
  */
-if (isset($procMap[$proc]) && file_exists($procMap[$proc]))
-{
-	/**
-	 * Include the corresponding AJAX handler file based on the secure mapping.
-	 */
-	include $procMap[$proc];
-}
-else
-{
-	/**
-	 * Handle the case where the 'proc' parameter is not valid.
-	 * Return a JSON encoded error message indicating the invalid parameter.
-	 * Include the requested proc value for debugging purposes.
-	 */
-	$errorMessage = 'Invalid proc parameter';
-	if (!empty($proc))
-	{
-		$errorMessage .= ': "' . htmlspecialchars($proc) . '" is not a valid procedure';
-	}
-	else
-	{
-		$errorMessage .= ': no procedure was specified';
-	}
-	echo json_encode(['error' => $errorMessage]);
+if (isset($procMap[$proc]) && file_exists($procMap[$proc])) {
+    /**
+     * Include the corresponding AJAX handler file based on the secure mapping.
+     */
+    include $procMap[$proc];
+} else {
+    /**
+     * Handle the case where the 'proc' parameter is not valid.
+     * Return a JSON encoded error message indicating the invalid parameter.
+     * Include the requested proc value for debugging purposes.
+     */
+    $errorMessage = 'Invalid proc parameter';
+    if (!empty($proc)) {
+        $errorMessage .= ': "' . htmlspecialchars($proc) . '" is not a valid procedure';
+    } else {
+        $errorMessage .= ': no procedure was specified';
+    }
+    echo json_encode(['error' => $errorMessage]);
 }
