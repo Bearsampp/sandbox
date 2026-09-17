@@ -17,30 +17,30 @@
  */
 class OpenSsl
 {
-    /** @var array WinBinder reference for the certificate name input control in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the certificate name input control in the generation dialog. */
     private $wbGenSslInputName;
-    /** @var array WinBinder reference for the destination path input control in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the destination path input control in the generation dialog. */
     private $wbGenSslInputDest;
-    /** @var array WinBinder reference for the destination path browse button in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the destination path browse button in the generation dialog. */
     private $wbGenSslBtnDest;
-    /** @var array WinBinder reference for the progress bar in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar in the generation dialog. */
     private $wbGenSslProgressBar;
-    /** @var array WinBinder reference for the save button in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the save button in the generation dialog. */
     private $wbGenSslBtnSave;
-    /** @var array WinBinder reference for the cancel button in the generation dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the cancel button in the generation dialog. */
     private $wbGenSslBtnCancel;
 
-    /** @var array WinBinder reference for the certificate name input control in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the certificate list input control in the deletion dialog. */
     private $wbDelSslListCerts;
-    /** @var array WinBinder reference for the destination path input control in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the destination path input control in the deletion dialog. */
     private $wbDelSslInputDest;
-    /** @var array WinBinder reference for the destination path browse button in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the destination path browse button in the deletion dialog. */
     private $wbDelSslBtnDest;
-    /** @var array WinBinder reference for the progress bar in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar in the deletion dialog. */
     private $wbDelSslProgressBar;
-    /** @var array WinBinder reference for the delete button in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the delete button in the deletion dialog. */
     private $wbDelSslBtnDelete;
-    /** @var array WinBinder reference for the cancel button in the deletion dialog. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the cancel button in the deletion dialog. */
     private $wbDelSslBtnCancel;
     /** @var string The name assigned to the Bearsampp Root CA. */
     private $rootCaName = 'BearsamppRootCA';

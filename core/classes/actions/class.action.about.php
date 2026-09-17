@@ -20,13 +20,13 @@ class ActionAbout
     private $wbWindow;
     /** @var resource The about dialog image handle drawn on the window. */
     private $wbImage;
-    /** @var array The homepage hyperlink control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the homepage hyperlink control. */
     private $wbLinkHomepage;
-    /** @var array The donate hyperlink control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the donate hyperlink control. */
     private $wbLinkDonate;
-    /** @var array The GitHub hyperlink control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the GitHub hyperlink control. */
     private $wbLinkGithub;
-    /** @var array The OK button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the OK button control. */
     private $wbBtnOk;
 
     /**

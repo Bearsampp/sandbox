@@ -26,13 +26,13 @@ class ActionGenSslCertificate
     private $wbLabelDest;
     /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the read-only text input of the target directory path. */
     private $wbInputDest;
-    /** @var array The browse button control for selecting the target directory. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the browse button control selecting the target directory. */
     private $wbBtnDest;
     /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the progress bar control. */
     private $wbProgressBar;
-    /** @var array The save button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the save button control. */
     private $wbBtnSave;
-    /** @var array The cancel button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the cancel button control. */
     private $wbBtnCancel;
 
     /** @var int Progress bar gauge value for the save operation. */

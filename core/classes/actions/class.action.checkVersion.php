@@ -26,11 +26,11 @@ class ActionCheckVersion
     private $wbWindow;
     /** @var resource The version info dialog image handle drawn on the window. */
     private $wbImage;
-    /** @var array The changelog hyperlink control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the changelog hyperlink control. */
     private $wbLinkChangelog;
-    /** @var array The download hyperlink control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the download hyperlink control. */
     private $wbLinkFull;
-    /** @var array The OK button control. */
+    /** @var array{0: int, 1: mixed} WinBinder control wrapper (control ID at WinBinder::CTRL_ID, handle at WinBinder::CTRL_OBJ) for the OK button control. */
     private $wbBtnOk;
 
     /** @var string The current installed application version. */
