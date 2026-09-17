@@ -16,15 +16,23 @@
  */
 abstract class ActionDialogBase
 {
+    /** @var resource The main dialog window. */
     protected $wbWindow;
+    /** @var resource The progress bar control. */
     protected $wbProgressBar;
+    /** @var resource The save button control. */
     protected $wbBtnSave;
+    /** @var resource The cancel button control. */
     protected $wbBtnCancel;
+    /** @var resource The delete button control (edit mode only). */
     protected $wbBtnDelete;
 
+    /** @var string Initial value for edit operations. */
     protected $initValue; // Initial value for edit operations
 
+    /** @var int Progress bar gauge value for the save operation. */
     const GAUGE_SAVE = 2;
+    /** @var int Progress bar gauge value for the delete operation. */
     const GAUGE_DELETE = 2;
 
     /**

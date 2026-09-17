@@ -16,16 +16,26 @@
  */
 class ActionChangeBrowser
 {
+    /** @var resource The main application window. */
     private $wbWindow;
+    /** @var resource The explanation label control. */
     private $wbLabelExp;
+    /** @var array Array of radio button controls for browser selection. */
     private $wbRadioButton;
+    /** @var array The "Other" radio button control for custom browser selection. */
     private $wbRadioButtonOther;
+    /** @var resource The text input for the custom browser executable path. */
     private $wbInputBrowse;
+    /** @var array The browse button control for selecting a custom browser. */
     private $wbBtnBrowse;
+    /** @var resource The progress bar control. */
     private $wbProgressBar;
+    /** @var array The save button control. */
     private $wbBtnSave;
+    /** @var array The cancel button control. */
     private $wbBtnCancel;
 
+    /** @var int Progress bar gauge value for the save operation. */
     const GAUGE_SAVE = 2;
 
     /**

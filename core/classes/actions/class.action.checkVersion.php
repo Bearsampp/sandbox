@@ -19,17 +19,27 @@
  */
 class ActionCheckVersion
 {
+    /** @var string Argument value indicating a manual menu check that should display an OK message. */
     const DISPLAY_OK = 'displayOk';
 
+    /** @var resource The main application window. */
     private $wbWindow;
+    /** @var resource The about dialog image control. */
     private $wbImage;
+    /** @var array The changelog hyperlink control. */
     private $wbLinkChangelog;
+    /** @var array The download hyperlink control. */
     private $wbLinkFull;
+    /** @var array The OK button control. */
     private $wbBtnOk;
 
+    /** @var string The current installed application version. */
     private $currentVersion;
+    /** @var string The latest version available on GitHub. */
     private $latestVersion;
+    /** @var string The URL of the latest version release on GitHub. */
     private $githubLatestVersionUrl;
+    /** @var bool Whether the loading indicator was started by this instance. */
     private $didStartLoading = false;
 
     /**

@@ -16,16 +16,26 @@
  */
 class ActionGenSslCertificate
 {
+    /** @var resource The main application window. */
     private $wbWindow;
+    /** @var resource The label control for the server name field. */
     private $wbLabelName;
+    /** @var object The text input control for the server name. */
     private $wbInputName;
+    /** @var resource The label control for the target directory field. */
     private $wbLabelDest;
+    /** @var object The read-only text input for the target directory path. */
     private $wbInputDest;
+    /** @var array The browse button control for selecting the target directory. */
     private $wbBtnDest;
+    /** @var resource The progress bar control. */
     private $wbProgressBar;
+    /** @var array The save button control. */
     private $wbBtnSave;
+    /** @var array The cancel button control. */
     private $wbBtnCancel;
 
+    /** @var int Progress bar gauge value for the save operation. */
     const GAUGE_SAVE = 2;
 
     /**

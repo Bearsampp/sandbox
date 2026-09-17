@@ -13,19 +13,29 @@
  */
 class ActionChangePort
 {
+    /** @var object The binary object for the target service. */
     private $bin;
+    /** @var int The current port number of the service. */
     private $currentPort;
+    /** @var int The count of process actions required for the progress bar. */
     private $cntProcessActions;
 
+    /** @var resource The main application window. */
     private $wbWindow;
 
+    /** @var resource The label displaying the current port information. */
     private $wbLabelCurrent;
 
+    /** @var resource The label for the new port input field. */
     private $wbLabelPort;
+    /** @var resource The numeric input field for the new port number. */
     private $wbInputPort;
 
+    /** @var resource The progress bar control. */
     private $wbProgressBar;
+    /** @var resource The finish button control. */
     private $wbBtnFinish;
+    /** @var resource The cancel button control. */
     private $wbBtnCancel;
 
     /**

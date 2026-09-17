@@ -14,12 +14,19 @@
  */
 class ActionAbout
 {
+    /** @var int Progress bar gauge value for the save operation. */
     const GAUGE_SAVE = 2;
+    /** @var resource The main application window. */
     private $wbWindow;
+    /** @var resource The about dialog image control. */
     private $wbImage;
+    /** @var array The homepage hyperlink control. */
     private $wbLinkHomepage;
+    /** @var array The donate hyperlink control. */
     private $wbLinkDonate;
+    /** @var array The GitHub hyperlink control. */
     private $wbLinkGithub;
+    /** @var array The OK button control. */
     private $wbBtnOk;
 
     /**
