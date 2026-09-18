@@ -131,7 +131,7 @@ ob_end_clean();
 $phpinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $phpinfo);
 	$phpinfo = str_replace('module_Zend Optimizer', 'module_Zend_Optimizer', $phpinfo);
 	$phpinfo = str_replace('<br />', '', $phpinfo);
-	$phpinfo = preg_replace('#<h2><a name = "module_.*">(.*)</a></h2>#i', '
+	$phpinfo = preg_replace('#<h2><a name\s*=\s*"module_.*">(.*)</a></h2>#i', '
 	<h2>
 		<div class = "alert alert-info">$1</div>
 	</h2>
