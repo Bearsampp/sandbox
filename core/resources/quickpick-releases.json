@@ -213,6 +213,11 @@
     "module": "module-composer",
     "versions": [
       {
+        "version": "2.10.3",
+        "url": "https://github.com/Bearsampp/module-composer/releases/download/2026.9.19/bearsampp-composer-2.10.3-2026.9.19.7z",
+        "prerelease": true
+      },
+      {
         "version": "2.10.2",
         "url": "https://github.com/Bearsampp/module-composer/releases/download/2026.7.10/bearsampp-composer-2.10.2-2026.7.10.7z",
         "prerelease": false
@@ -637,6 +642,11 @@
   {
     "module": "module-mariadb",
     "versions": [
+      {
+        "version": "13.0.2",
+        "url": "https://github.com/Bearsampp/module-mariadb/releases/download/2026.9.19/bearsampp-mariadb-13.0.2-2026.9.19.7z",
+        "prerelease": true
+      },
       {
         "version": "13.0.1-RC",
         "url": "https://github.com/Bearsampp/module-mariadb/releases/download/2026.8.23/bearsampp-mariadb-13.0.1-RC-2026.8.23.7z",
@@ -1183,6 +1193,11 @@
     "module": "module-mysql",
     "versions": [
       {
+        "version": "26.7.0",
+        "url": "https://github.com/Bearsampp/module-mysql/releases/download/2026.9.19/bearsampp-mysql-26.7.0-2026.9.19.7z",
+        "prerelease": true
+      },
+      {
         "version": "9.7.2",
         "url": "https://github.com/Bearsampp/module-mysql/releases/download/2026.8.27/bearsampp-mysql-9.7.2-2026.8.27.7z",
         "prerelease": false
@@ -1388,6 +1403,11 @@
     "module": "module-nodejs",
     "versions": [
       {
+        "version": "26.9.0",
+        "url": "https://github.com/Bearsampp/module-nodejs/releases/download/2026.9.19/bearsampp-nodejs-26.9.0-2026.9.19.7z",
+        "prerelease": true
+      },
+      {
         "version": "26.7.0",
         "url": "https://github.com/Bearsampp/module-nodejs/releases/download/2026.8.26/bearsampp-nodejs-26.7.0-2026.8.26.7z",
         "prerelease": false
@@ -1411,6 +1431,11 @@
         "version": "25.8.0",
         "url": "https://github.com/Bearsampp/module-nodejs/releases/download/2026.3.7/bearsampp-nodejs-25.8.0-2026.3.7.7z",
         "prerelease": false
+      },
+      {
+        "version": "24.21.0",
+        "url": "https://github.com/Bearsampp/module-nodejs/releases/download/2026.9.19/bearsampp-nodejs-24.21.0-2026.9.19.7z",
+        "prerelease": true
       },
       {
         "version": "24.14.1",
@@ -2477,6 +2502,11 @@
   {
     "module": "module-powershell",
     "versions": [
+      {
+        "version": "7.6.6",
+        "url": "https://github.com/Bearsampp/module-powershell/releases/download/2026.9.19/bearsampp-powershell-7.6.6-2026.9.19.7z",
+        "prerelease": true
+      },
       {
         "version": "7.6.5",
         "url": "https://github.com/Bearsampp/module-powershell/releases/download/2026.8.26/bearsampp-powershell-7.6.5-2026.8.26.7z",
