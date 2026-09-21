@@ -150,8 +150,9 @@ class Core
      * Unzips a file to the specified directory and provides progress updates.
      *
      * This method uses the 7-Zip command-line tool to extract the contents of a zip file.
-     * It first tests the archive to determine the number of files to be extracted, then
-     * proceeds with the extraction while providing progress updates via a callback function.
+     * It first validates the archive's entry paths (and counts its files) via a structured
+     * listing, then proceeds with the extraction while providing progress updates via a
+     * callback function.
      *
      * @param   string         $filePath          The path to the zip file.
      * @param   string         $destination       The directory to extract the files to.
@@ -179,11 +180,6 @@ class Core
         }
 
         if ($progressCallback) {
-            call_user_func($progressCallback, 'Initializing archive test...');
-        }
-
-        // Test the archive to determine the number of files
-        if ($progressCallback) {
             call_user_func($progressCallback, 'Analyzing archive...');
         }
 
@@ -191,15 +187,16 @@ class Core
         // each individual entry path and validate every one relative to the destination,
         // so extraction can never escape the intended directory. This must fail closed:
         // any listing/parse failure aborts the operation rather than proceeding unverified.
-        if (!self::isSafeDestinationFileList($sevenZipPath, $filePath)) {
+        // The scan also returns the number of archive entries, used as the extraction
+        // file count. A standalone integrity test is not needed: the archive's SHA-256
+        // was already verified against its .sha256 sidecar upstream, and `7za x`
+        // CRC-checks every file as it is extracted.
+        $numFiles = self::isSafeDestinationFileList($sevenZipPath, $filePath);
+        if ($numFiles === false) {
             Log::error('Archive path-traversal scan failed or rejected for: ' . $filePath);
 
             return false;
         }
-
-        $testOutput = CommandRunner::exec($sevenZipPath, ['t', $filePath, '-y', '-bsp1']);
-        preg_match('/Files: (\d+)/', $testOutput !== false ? $testOutput : '', $matches);
-        $numFiles = isset($matches[1]) ? (int)$matches[1] : 0;
         Log::trace('Number of files to be extracted: ' . $numFiles);
 
         if ($progressCallback) {
@@ -253,7 +250,7 @@ class Core
 
     /**
      * Parses `7z l -slt` output and verifies every listed entry path is safe to
-     * extract relative to the destination.
+     * extract relative to the destination, returning the number of valid entries.
      *
      * The listing uses a header block followed by one block per entry, each block
      * containing a `Path = <value>` line. We extract each entry path individually and
@@ -265,8 +262,8 @@ class Core
      * @param   string  $sevenZipPath  Path to the 7za executable.
      * @param   string  $filePath      Path to the archive file.
      *
-     * @return  bool                   True only if the listing succeeded and every entry
-     *                                 path is safe; false otherwise.
+     * @return  int|false              The number of listed (safe) entries on success,
+     *                                 or false if the listing failed or any entry is unsafe.
      */
     private static function isSafeDestinationFileList($sevenZipPath, $filePath)
     {
@@ -291,6 +288,7 @@ class Core
             return false;
         }
 
+        $numFiles = 0;
         foreach ($blocks as $block) {
             $block = trim($block);
             if ($block === '') {
@@ -310,9 +308,11 @@ class Core
 
                 return false;
             }
+
+            $numFiles++;
         }
 
-        return true;
+        return $numFiles;
     }
 
     /**
