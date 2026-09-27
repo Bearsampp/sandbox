@@ -16,11 +16,12 @@
  * Design constraints this class exists to respect:
  *
  *  - The homepage polls every couple of seconds, and each poll is a fresh PHP
- *    process, so nothing can be cached between requests. The whole snapshot must
- *    therefore be cheap enough to build on every request. Measured cost of the
- *    queries used here is roughly 20-25ms, which is why the SCM is queried once
- *    for all services (Win32Native::getServicesByNames) rather than once per
- *    service.
+ *    process, so nothing survives in memory between requests. A full collection
+ *    costs roughly 200ms: about 12ms for the SCM query, and most of the rest for
+ *    the single unfiltered Win32_Process walk that ProcessFootprint needs. That
+ *    is why the SCM is queried once for all services
+ *    (Win32Native::getServicesByNames) rather than once per service. The web
+ *    tier's only reuse is the short on-disk cache in captureForWeb().
  *
  *  - Win32Service::status() and Nssm::status() both retry with sleeps and a 10s
  *    cap, which would stall a poll. This class never calls them; it reads SCM
@@ -29,11 +30,198 @@
  *  - Status and health are reported as separate dimensions. Nothing here
  *    collapses them into one value, so a service that is running but
  *    unreachable stays visible as exactly that.
+ *
+ *  - The homepage is served by the user's PHP runtime, which has no COM, so
+ *    capture() cannot run there. captureForWeb() bridges that gap by delegating
+ *    to the internal engine; see its docblock for the details.
  */
 class StatusSnapshot
 {
     /** Connect timeout for the TCP liveness probe, in seconds. */
     const PROBE_TIMEOUT = 0.25;
+
+    /**
+     * Collector script executed by the internal engine, relative to the core
+     * directory. It is deliberately outside the Apache alias and the
+     * DocumentRoot so that it cannot be requested over HTTP.
+     */
+    const COLLECTOR_SCRIPT = '/status-snapshot.php';
+
+    /**
+     * Short-lived cache for the bridged snapshot, relative to the core
+     * directory. Lives in core/tmp so it is ignored by git and wiped with the
+     * other scratch data.
+     */
+    const WEBCACHE_PATH = '/tmp/stack-status-cache.json';
+
+    /** How old a cached bridged snapshot may be, in seconds. */
+    const WEBCACHE_TTL = 2;
+
+    /**
+     * Returns a snapshot from a runtime that may not have COM.
+     *
+     * Apache serves the homepage with the user's PHP (bin/php/php<version>),
+     * which loads neither com_dotnet nor the win32ps helper extension, so every
+     * WMI call in this class is unreachable from the web tier. That is also why
+     * the pre-existing homepage status code probes TCP ports instead of asking
+     * the SCM.
+     *
+     * When COM is present the snapshot is taken directly. When it is not, the
+     * collection is delegated to the internal engine (core/libs/php), which does
+     * have COM, and its JSON is decoded here. This keeps every WMI call on the
+     * engine side of the runtime split and leaves the user's runtime, and the
+     * user's terminal, untouched.
+     *
+     * Results are cached for a couple of seconds so that two browser tabs, or a
+     * page load immediately followed by its first poll, do not each pay for a
+     * full collection. The cache is safe to share because a snapshot is a
+     * read-only observation of the machine.
+     *
+     * @param   Bins  $bearsamppBins  The bins registry.
+     *
+     * @return array A snapshot array, or one carrying an 'error' key when the
+     *               collector could not be run or produced unusable output.
+     */
+    public static function captureForWeb(Bins $bearsamppBins): array
+    {
+        if (class_exists('COM')) {
+            return self::capture($bearsamppBins);
+        }
+
+        $cachePath = Path::getCorePath() . self::WEBCACHE_PATH;
+        $cached    = self::readWebCache($cachePath, self::WEBCACHE_TTL);
+
+        if ($cached !== null) {
+            return $cached;
+        }
+
+        $snapshot = self::decodeCollectorOutput(self::runCollector());
+
+        if (!isset($snapshot['error'])) {
+            self::writeWebCache($cachePath, $snapshot);
+        }
+
+        return $snapshot;
+    }
+
+    /**
+     * Runs the collector with the internal engine and returns its raw stdout.
+     *
+     * stderr is discarded so that a PHP notice or warning cannot be mistaken for
+     * payload, and so that a failure stays quiet instead of leaking paths into
+     * the HTTP response.
+     *
+     * @return string The collector's stdout, or an empty string on failure.
+     */
+    private static function runCollector(): string
+    {
+        $engine = Path::getPhpPath() . '/php.exe';
+        $script = Path::getCorePath() . self::COLLECTOR_SCRIPT;
+
+        if (!is_file($engine) || !is_file($script)) {
+            Log::error('Status snapshot collector is missing: ' . $engine . ' or ' . $script);
+
+            return '';
+        }
+
+        $command = escapeshellarg($engine) . ' ' . escapeshellarg($script) . ' 2>NUL';
+
+        try {
+            $output = shell_exec($command);
+        } catch (Throwable $e) {
+            Log::error('Status snapshot collector failed to start: ' . $e->getMessage());
+
+            return '';
+        }
+
+        return is_string($output) ? trim($output) : '';
+    }
+
+    /**
+     * Decodes collector output, normalising any failure into a snapshot-shaped
+     * array so that callers never have to special-case a missing 'entries' key.
+     *
+     * @param   string  $output  Raw collector stdout.
+     *
+     * @return array A snapshot array, carrying 'error' when decoding failed.
+     */
+    private static function decodeCollectorOutput(string $output): array
+    {
+        $decoded = $output === '' ? null : json_decode($output, true);
+
+        if (!is_array($decoded) || !isset($decoded['entries']) || !is_array($decoded['entries'])) {
+            Log::error('Status snapshot collector returned unusable output');
+
+            return [
+                'error'     => 'The status collector returned an unusable response.',
+                'status'    => ServiceStatus::STATUS_UNKNOWN,
+                'expected'  => 0,
+                'running'   => 0,
+                'entries'   => [],
+                'resources' => [
+                    'stack'        => ProcessFootprint::emptyMetrics(),
+                    'host'         => [],
+                    'cores'        => 0,
+                    'serviceCount' => 0,
+                ],
+            ];
+        }
+
+        return $decoded;
+    }
+
+    /**
+     * Reads a cached bridged snapshot, provided it is recent enough to be useful.
+     *
+     * @param   string  $path  Absolute cache file path.
+     * @param   int     $ttl   Maximum acceptable age, in seconds.
+     *
+     * @return array|null The cached snapshot, or null when absent, unreadable or
+     *                    stale.
+     */
+    private static function readWebCache(string $path, int $ttl): ?array
+    {
+        if ($ttl <= 0 || !is_file($path)) {
+            return null;
+        }
+
+        $age = time() - (int) @filemtime($path);
+
+        if ($age < 0 || $age > $ttl) {
+            return null;
+        }
+
+        $raw  = @file_get_contents($path);
+        $data = $raw === false ? null : json_decode($raw, true);
+
+        if (!is_array($data) || !isset($data['entries']) || isset($data['error'])) {
+            return null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Stores a bridged snapshot for reuse by near-simultaneous requests.
+     *
+     * A failed write is not an error worth reporting: the only consequence is
+     * that the next request collects again.
+     *
+     * @param   string  $path      Absolute cache file path.
+     * @param   array   $snapshot  The snapshot to store.
+     *
+     * @return void
+     */
+    private static function writeWebCache(string $path, array $snapshot): void
+    {
+        $dir = dirname($path);
+
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        @file_put_contents($path, json_encode($snapshot), LOCK_EX);
+    }
 
     /**
      * Captures the current state of every bin in the stack.
@@ -111,7 +299,7 @@ class StatusSnapshot
      *
      * @param   Bins  $bearsamppBins  The bins registry.
      *
-     * @return array Service name => [State, ProcessId, StartMode]. Empty when the
+     * @return array Service name => [State, ProcessId]. Empty when the
      *               query fails, in which case every service reports as unknown
      *               rather than as stopped.
      */
@@ -243,6 +431,11 @@ class StatusSnapshot
             'expected' => $expected,
             'running'  => $running,
             'entries'  => $entries,
+            // Stamped here, at collection time, rather than by the caller at
+            // response time. The web bridge caches a snapshot for a couple of
+            // seconds, and a request-time stamp would relabel that reused data as
+            // freshly observed, so the client could never tell how old it is.
+            'generatedAt' => time(),
         ];
     }
 

@@ -1,0 +1,560 @@
+<?php
+/*
+ *
+ *  * Copyright (c) 2021-2026 Bearsampp
+ *  * License: GNU General Public License version 3 or later; see LICENSE.txt
+ *  * Website: https://bearsampp.com
+ *  * Github: https://github.com/Bearsampp
+ *
+ */
+
+// Stack status page - populated from StatusSnapshot::captureForWeb(), then kept
+// live by the 'stackstatus' AJAX poll.
+//
+// captureForWeb() rather than capture() because this page is served by the user's
+// PHP, which has no COM; the WMI work happens in the internal engine and comes
+// back as JSON. It returns an error inside the array rather than throwing, so the
+// collector is the only place that has to guard against a collection failure.
+$snapshot = StatusSnapshot::captureForWeb($bearsamppBins);
+
+$snapshotError = isset($snapshot['error']) ? $snapshot['error'] : null;
+
+/**
+ * Maps a ServiceStatus lifecycle value onto a Bootstrap badge modifier.
+ *
+ * Kept as a closure so the mapping cannot leak into the rest of the homepage and
+ * so the template can be included more than once without a redeclaration.
+ */
+$statusBadgeClass = function ($status) {
+    switch ($status) {
+        case ServiceStatus::STATUS_RUNNING:
+            return 'text-bg-success';
+        case ServiceStatus::STATUS_STARTING:
+            return 'text-bg-info';
+        case ServiceStatus::STATUS_STOPPING:
+        case ServiceStatus::STATUS_PAUSED:
+        case ServiceStatus::STATUS_PARTIAL_STACK:
+            return 'text-bg-warning';
+        case ServiceStatus::STATUS_ERROR:
+            return 'text-bg-danger';
+        case ServiceStatus::STATUS_AVAILABLE:
+            return 'text-bg-primary';
+        case ServiceStatus::STATUS_NOT_INSTALLED:
+            return 'text-bg-dark';
+        default:
+            return 'text-bg-secondary';
+    }
+};
+
+/**
+ * Turns a lifecycle value into a presentable label ("not_installed" -> "Not
+* installed"). These are technical state names rather than prose, so they are
+* not run through the translation table.
+*/
+$statusLabel = function ($status) {
+return ucfirst(str_replace('_', ' ', (string) $status));
+};
+
+/**
+* Formats a byte count the same way Util::humanFileSize() does, including the
+* thousands separator, so that the server rendered cells do not change shape
+* when JavaScript takes over on the first poll.
+*/
+$formatBytes = function ($bytes) {
+$bytes = (int) $bytes;
+
+if ($bytes <= 0) {
+return '0.00B';
+}
+
+$units = array('B', 'KB', 'MB', 'GB', 'TB');
+$power = min((int) floor(log($bytes, 1024)), count($units) - 1);
+
+return number_format($bytes / (1024 ** $power), 2) . $units[$power];
+};
+
+/**
+* Formats a machine wide CPU percentage plus the equivalent core count.
+*
+* Returns null when the collector has no usable delta yet, which happens on the
+* very first poll: CPU needs two samples to produce a rate.
+*/
+$formatCpu = function ($footprint) {
+if ($footprint === null || $footprint['cpuPercent'] === null) {
+return null;
+}
+
+return number_format((float) $footprint['cpuPercent'], 2) . '%';
+};
+
+// captureForWeb() always returns these keys, including on the collector-failure
+// path, so the table can be rendered without further guarding.
+$entries  = $snapshot['entries'];
+$stack    = $snapshot['resources']['stack'];
+$host     = $snapshot['resources']['host'];
+$cores    = $snapshot['resources']['cores'];
+$hostUsed = (int) $host['totalBytes'] > 0
+? (int) $host['totalBytes'] - (int) $host['freeBytes']
+: 0;
+
+// Widest memory footprint, used to scale the per-service bars.
+$maxWorkingSet = 0;
+foreach ($entries as $entry) {
+if ($entry['footprint'] !== null) {
+$maxWorkingSet = max($maxWorkingSet, (int) $entry['footprint']['workingSetBytes']);
+}
+}
+?>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="<?php echo $bearsamppHomepage->getPageQuery(Homepage::PAGE_INDEX); ?>" class="btn btn-dark"
+           role="button"><i
+            class='fa-solid fa-circle-left'></i>  <?php echo $bearsamppLang->getValue(Lang::HOMEPAGE_BACK_TEXT); ?></a>
+        <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" id="stackAutoRefresh" checked>
+            <label class="form-check-label" for="stackAutoRefresh"><?php echo $bearsamppLang->
+                getValue(Lang::STACK_AUTO_REFRESH); ?></label>
+        </div>
+    </div>
+
+    <?php if ($snapshotError !== null) : ?>
+    <div class="alert alert-danger" role="alert">
+        <i class="fa-solid fa-exclamation-triangle"></i> <?php echo htmlspecialchars($snapshotError); ?>
+    </div>
+    <?php else : ?>
+    <div class="card">
+        <div class="card-heading">
+            <h3 class="card-title bg-dark text-light p-1">
+                <i class="fa-solid fa-gauge-high"></i> <?php echo $bearsamppLang->
+                getValue(Lang::MENU_STACK_STATUS_TITLE); ?>
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
+				<span>
+					<span class="badge" id="stackOverallBadge"><?php echo $statusLabel($snapshot['status']); ?></span>
+                    <?php echo (int) $snapshot['running']; ?> / <?php echo (int) $snapshot['expected']; ?>
+				</span>
+                <span class="text-muted" id="stackUpdatedText"><i class="fa-solid fa-clock"></i>
+                    <?php echo $bearsamppLang->getValue(Lang::STACK_UPDATED); ?>: &mdash;</span>
+            </div>
+
+            <div id="stackAlert" class="d-none"></div>
+
+            <div class="table-responsive">
+                <table class="table table-striped align-middle" id="stackTable">
+                    <thead>
+                    <tr>
+                        <th scope="col"><?php echo $bearsamppLang->getValue(Lang::STACK_SERVICE); ?></th>
+                        <th scope="col"><?php echo $bearsamppLang->getValue(Lang::STACK_STATUS); ?></th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::STACK_PROCESSES);
+                            ?>
+                        </th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::STACK_MEMORY); ?>
+                        </th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::STACK_CPU); ?></th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::STACK_THREADS); ?>
+                        </th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::STACK_HANDLES); ?>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($entries as $index => $entry) : ?>
+                    <tr>
+                        <?php
+						$footprint = $entry['footprint'];
+						$isService = (bool) $entry['isService'];
+						$hasData   = $footprint !== null;
+
+						// Width of this service's share of the widest footprint in the
+						// table.
+						$memBarWidth = ($hasData && $maxWorkingSet > 0)
+							? round(100 * (int) $footprint['workingSetBytes'] / $maxWorkingSet, 1)
+							: 0;
+
+						// Spelled as a byte escape rather than a literal character so
+						// that the file survives being reopened by a tool that guesses
+						// its encoding.
+						$cpuTitle = (!$hasData || $footprint['cpuPercent'] === null)
+							? $bearsamppLang->getValue(Lang::STACK_NO_DATA)
+							: "\xE2\x89\x88" . number_format((float) $footprint['cpuCores'], 2)
+								. ' of ' . (int) $cores . ' logical processors';
+
+						// The row's stable key goes on the header cell, and the cell is
+						// emitted whole by PHP. A row or cell whose opening tag comes
+						// from PHP leaves the table structure unparseable for HTML
+						// tooling, and the key has to survive a poll that reorders or
+						// resizes the list.
+						printf('<th scope="row" data-service="%s">', htmlspecialchars($entry['id']));
+						?>
+                            <?php echo htmlspecialchars($entry['name']); ?>
+                            <?php if (!$isService) : ?>
+                            <span class="text-muted small"> (<?php echo $bearsamppLang->
+                                getValue(Lang::STACK_NOT_A_SERVICE); ?>)</span>
+                            <?php endif; ?>
+                        </th>
+                        <td data-fp="status">
+								<span class="badge <?php echo $statusBadgeClass($entry['status']); ?>"
+                                      title="<?php echo htmlspecialchars($entry['detail']); ?>"
+                                      data-role="badge"><?php echo $statusLabel($entry['status']); ?></span>
+                        </td>
+                        <td class="text-end" data-fp="processes"><?php
+								echo $hasData ? (int) $footprint['processes'] : '&mdash;';
+							?></td>
+                        <?php
+									printf(
+										'<td class="text-end" data-fp="memory" style="--mem: %s%%;">',
+                        $memBarWidth
+                        );
+                        ?>
+                        <div class="d-flex align-items-center justify-content-end gap-2">
+									<span data-role="memtext"><?php
+										echo $hasData ? htmlspecialchars($formatBytes($footprint['workingSetBytes'])) : '&mdash;';
+									?></span>
+                            <div class="progress" style="height: 6px; width: 4rem;">
+                                <div class="progress-bar bg-info" data-role="membar" style="width: var(--mem);"></div>
+                            </div>
+                        </div>
+                        </td>
+                        <?php
+									printf(
+										'<td class="text-end" data-fp="cpu" title="%s">',
+                        htmlspecialchars($cpuTitle)
+                        );
+                        ?><span data-role="cputext"><?php
+									echo $hasData && $formatCpu($footprint) !== null
+										? htmlspecialchars($formatCpu($footprint))
+										: '&mdash;';
+								?></span></td>
+                        <td class="text-end" data-fp="threads"><?php
+								echo $hasData ? (int) $footprint['threads'] : '&mdash;';
+							?></td>
+                        <td class="text-end" data-fp="handles"><?php
+								echo $hasData ? (int) $footprint['handles'] : '&mdash;';
+							?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                    <tr class="table-light">
+                        <th scope="row"><?php echo $bearsamppLang->getValue(Lang::STACK_TOTAL); ?></th>
+                        <td></td>
+                        <td class="text-end" data-fp="totalProcesses"><?php
+								echo $stack !== null ? (int) $stack['processes'] : '&mdash;';
+							?></td>
+                        <td class="text-end" data-fp="totalMemory"><?php
+								echo $stack !== null ? htmlspecialchars($formatBytes($stack['workingSetBytes'])) : '&mdash;';
+							?></td>
+                        <td class="text-end" data-fp="totalCpu"><span data-role="totalcpu"><?php
+								echo $formatCpu($stack) !== null ? htmlspecialchars($formatCpu($stack)) : '&mdash;';
+							?></span></td>
+                        <td class="text-end" data-fp="totalThreads"><?php
+								echo $stack !== null ? (int) $stack['threads'] : '&mdash;';
+							?></td>
+                        <td class="text-end" data-fp="totalHandles"><?php
+								echo $stack !== null ? (int) $stack['handles'] : '&mdash;';
+							?></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <h5 class="mt-4"><?php echo $bearsamppLang->getValue(Lang::STACK_HOST_MEMORY); ?></h5>
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th scope="row"><?php echo $bearsamppLang->getValue(Lang::STACK_HOST_MEMORY); ?></th>
+                    <td data-fp="hostMemory"><?php
+							echo $hostUsed > 0
+                        ? htmlspecialchars($formatBytes($hostUsed) . ' / ' . $formatBytes((int) $host['totalBytes']))
+                        : '&mdash;';
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo $bearsamppLang->getValue(Lang::STACK_CORES); ?></th>
+                    <td data-fp="cores"><?php echo (int) $cores > 0 ? (int) $cores : '&mdash;'; ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+<script>
+    (function () {
+        'use strict';
+
+        // Slower than the 2s homepage poll on purpose: this endpoint queries the
+        // SCM and reads the whole process table, so it costs real work server side.
+        var REFRESH_MS = 3000;
+        var table = document.getElementById('stackTable');
+
+        if (!table) {
+            return;
+        }
+
+        var alertBox = document.getElementById('stackAlert');
+        var toggle = document.getElementById('stackAutoRefresh');
+        var timer = null;
+
+        function statusBadgeClass(status) {
+            switch (status) {
+                case 'running':
+                    return 'text-bg-success';
+                case 'starting':
+                    return 'text-bg-info';
+                case 'stopping':
+                case 'paused':
+                case 'partial_stack':
+                    return 'text-bg-warning';
+                case 'error':
+                    return 'text-bg-danger';
+                case 'available':
+                    return 'text-bg-primary';
+                case 'not_installed':
+                    return 'text-bg-dark';
+                default:
+                    return 'text-bg-secondary';
+            }
+        }
+
+        function statusLabel(status) {
+            return status.replace(/_/g, ' ').replace(/^./, function (c) {
+                return c.toUpperCase();
+            });
+        }
+
+        // Mirrors Util::humanFileSize() including the thousands separator, so the
+        // numbers do not change shape when the first poll replaces them.
+        function formatBytes(bytes) {
+            bytes = parseInt(bytes, 10);
+
+            if (!isFinite(bytes) || bytes <= 0) {
+                return '0.00B';
+            }
+
+            var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+            var i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+
+            return (bytes / Math.pow(1024, i)).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + units[i];
+        }
+
+        function formatCpu(footprint) {
+            if (!footprint || footprint.cpuPercent === null || footprint.cpuPercent === undefined) {
+                return '\u2014';
+            }
+            return parseFloat(footprint.cpuPercent).toFixed(2) + '%';
+        }
+
+        /**
+         * Writes text into a cell carrying data-fp, searching inside root.
+         *
+         * root matters: the host memory rows live in their own table, outside
+         * #stackTable, so scoping every lookup to the stack table would silently
+         * skip them.
+         */
+        function setText(root, key, value) {
+            var cell = root.querySelector('[data-fp="' + key + '"]');
+
+            if (cell) {
+                cell.textContent = value;
+            }
+        }
+
+        // Rows are keyed by bin id rather than by position in the list. Position
+        // is not stable: a bin can be installed or uninstalled between polls, and
+        // the collection order is not guaranteed to be preserved, so an index would
+        // happily write one service's numbers into another service's row.
+        function rowFor(id) {
+            var headers = table.querySelectorAll('tbody th[data-service]');
+
+            for (var i = 0; i < headers.length; i++) {
+                if (headers[i].getAttribute('data-service') === id) {
+                    return headers[i].closest('tr');
+                }
+            }
+
+            return null;
+        }
+
+        function showError(message) {
+            if (!alertBox) {
+                return;
+            }
+
+            // Built as DOM nodes rather than with innerHTML: the message can
+            // originate from the collector, and a diagnostic string should never
+            // be able to inject markup into the page.
+            var icon = document.createElement('i');
+            icon.className = 'fa-solid fa-exclamation-triangle';
+
+            alertBox.className = 'alert alert-danger';
+            alertBox.textContent = '';
+            alertBox.appendChild(icon);
+            alertBox.appendChild(document.createTextNode(' ' + message));
+        }
+
+        function clearError() {
+            if (alertBox) {
+                alertBox.className = 'd-none';
+                alertBox.innerHTML = '';
+            }
+        }
+
+        function render(data) {
+            if (!data || data.error) {
+                showError(data && data.error ? data.error : 'Unknown error');
+                return;
+            }
+
+            clearError();
+
+            var maxWorkingSet = 0;
+            (data.entries || []).forEach(function (entry) {
+                if (entry.footprint) {
+                    maxWorkingSet = Math.max(maxWorkingSet, entry.footprint.workingSetBytes);
+                }
+            });
+
+            (data.entries || []).forEach(function (entry) {
+                var row = rowFor(entry.id);
+
+                if (!row) {
+                    // A bin appeared or disappeared since the page was rendered. A
+                    // reload is the honest fix: writing into whatever row happens to
+                    // sit at this position would attribute metrics to the wrong bin.
+                    showError('Bin list changed, reloading\u2026');
+                    window.location.reload();
+                    return;
+                }
+
+                var fp = entry.footprint;
+                var badge = row.querySelector('[data-role="badge"]');
+
+                if (badge) {
+                    badge.className = 'badge ' + statusBadgeClass(entry.status);
+                    badge.textContent = statusLabel(entry.status);
+                }
+
+                row.querySelector('[data-fp="processes"]').textContent = fp ? fp.processes : '\u2014';
+
+                var memText = row.querySelector('[data-role="memtext"]');
+                var memBar = row.querySelector('[data-role="membar"]');
+                var cpuText = row.querySelector('[data-role="cputext"]');
+                var cpuCell = row.querySelector('[data-fp="cpu"]');
+
+                if (fp) {
+                    memText.textContent = formatBytes(fp.workingSetBytes);
+                    memBar.style.width = (maxWorkingSet > 0
+                        ? (100 * fp.workingSetBytes / maxWorkingSet)
+                        : 0) + '%';
+                    cpuText.textContent = formatCpu(fp);
+
+                    if (fp.cpuPercent !== null && fp.cpuPercent !== undefined && data.resources) {
+                        cpuCell.title = '\u2248' + parseFloat(fp.cpuCores).toFixed(2) + ' of '
+                            + data.resources.cores + ' logical processors';
+                    } else {
+                        cpuCell.removeAttribute('title');
+                    }
+                } else {
+                    memText.textContent = '\u2014';
+                    memBar.style.width = '0%';
+                    cpuText.textContent = '\u2014';
+                    cpuCell.removeAttribute('title');
+                }
+
+                row.querySelector('[data-fp="threads"]').textContent = fp ? fp.threads : '\u2014';
+                row.querySelector('[data-fp="handles"]').textContent = fp ? fp.handles : '\u2014';
+            });
+
+            var res = data.resources || {};
+            var stack = res.stack || {};
+
+            var overall = document.getElementById('stackOverallBadge');
+            if (overall) {
+                overall.className = 'badge ' + statusBadgeClass(data.status);
+                overall.textContent = statusLabel(data.status);
+            }
+
+            setText(table, 'totalProcesses', stack.processes !== undefined ? stack.processes : '\u2014');
+            setText(table, 'totalMemory', formatBytes(stack.workingSetBytes || 0));
+
+            var totalCpu = table.querySelector('[data-role="totalcpu"]');
+            if (totalCpu) {
+                totalCpu.textContent = formatCpu(stack);
+            }
+
+            setText(table, 'totalThreads', stack.threads !== undefined ? stack.threads : '\u2014');
+            setText(table, 'totalHandles', stack.handles !== undefined ? stack.handles : '\u2014');
+
+            var host = res.host || {};
+            var used = (host.totalBytes || 0) - (host.freeBytes || 0);
+            setText(document, 'hostMemory', host.totalBytes
+                ? formatBytes(used) + ' / ' + formatBytes(host.totalBytes)
+                : '\u2014');
+            setText(document, 'cores', res.cores || '\u2014');
+
+            var updated = document.getElementById('stackUpdatedText');
+            if (updated && data.generatedAt) {
+                updated.innerHTML = '<i class="fa-solid fa-clock"></i> '
+                    + new Date(data.generatedAt * 1000).toLocaleTimeString();
+            }
+        }
+
+        async function poll() {
+            var body = new URLSearchParams();
+            body.append('proc', 'stackstatus');
+
+            try {
+                var response = await fetchWithCsrf(AJAX_URL, {
+                    method: 'POST',
+                    headers: {'X-Requested-With': 'XMLHttpRequest'},
+                    body: body
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                render(await response.json());
+            } catch (error) {
+                // Aborts and network errors are routine during navigation/reload.
+                if (error.name === 'AbortError' || (
+                    error instanceof TypeError && error.message.indexOf('NetworkError') !== -1
+                )) {
+                    return;
+                }
+                showError(error.message);
+            }
+        }
+
+        function start() {
+            stop();
+            timer = setInterval(poll, REFRESH_MS);
+        }
+
+        function stop() {
+            if (timer !== null) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        toggle.addEventListener('change', function () {
+            if (toggle.checked) {
+                poll();
+                start();
+            } else {
+                stop();
+            }
+        });
+
+        start();
+    })();
+</script>

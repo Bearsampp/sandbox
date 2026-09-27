@@ -121,6 +121,8 @@ class Lang
     const MENU_UPDATE_ENV_PATH = 'menuUpdateEnvPath';
     const MENU_VIEW_CACHE_STATS = 'menuViewCacheStats';
     const MENU_CACHE_STATS_TITLE = 'menuCacheStatsTitle';
+    const MENU_STACK_STATUS_TITLE = 'menuStackStatusTitle';
+    const MENU_STACK_STATUS_VIEW = 'menuStackStatusView';
     const MENU_WWW_DIRECTORY = 'menuWwwDirectory';
 
     // Bins
@@ -418,6 +420,22 @@ class Lang
     const CACHE_UNEXPECTED_ERROR = 'cacheUnexpectedError';
     const CACHE_NETWORK_ERROR = 'cacheNetworkError';
 
+    // Homepage stack status
+    const STACK_SERVICE = 'stackService';
+    const STACK_STATUS = 'stackStatus';
+    const STACK_PROCESSES = 'stackProcesses';
+    const STACK_MEMORY = 'stackMemory';
+    const STACK_CPU = 'stackCpu';
+    const STACK_THREADS = 'stackThreads';
+    const STACK_HANDLES = 'stackHandles';
+    const STACK_TOTAL = 'stackTotal';
+    const STACK_HOST_MEMORY = 'stackHostMemory';
+    const STACK_CORES = 'stackCores';
+    const STACK_AUTO_REFRESH = 'stackAutoRefresh';
+    const STACK_UPDATED = 'stackUpdated';
+    const STACK_NO_DATA = 'stackNoData';
+    const STACK_NOT_A_SERVICE = 'stackNotAService';
+
     /**
      * Get all the keys defined in the Lang class.
      *
@@ -527,6 +545,8 @@ class Lang
             self::MENU_UPDATE_ENV_PATH,
             self::MENU_VIEW_CACHE_STATS,
             self::MENU_CACHE_STATS_TITLE,
+        self::MENU_STACK_STATUS_TITLE,
+        self::MENU_STACK_STATUS_VIEW,
             self::MENU_WWW_DIRECTORY,
 
             // Bins
@@ -814,6 +834,22 @@ class Lang
             self::CACHE_UNKNOWN_ERROR,
             self::CACHE_UNEXPECTED_ERROR,
             self::CACHE_NETWORK_ERROR,
+
+        // Homepage stack status
+        self::STACK_SERVICE,
+        self::STACK_STATUS,
+        self::STACK_PROCESSES,
+        self::STACK_MEMORY,
+        self::STACK_CPU,
+        self::STACK_THREADS,
+        self::STACK_HANDLES,
+        self::STACK_TOTAL,
+        self::STACK_HOST_MEMORY,
+        self::STACK_CORES,
+        self::STACK_AUTO_REFRESH,
+        self::STACK_UPDATED,
+        self::STACK_NO_DATA,
+        self::STACK_NOT_A_SERVICE,
         );
     }
 }

@@ -351,9 +351,13 @@ class ProcessFootprint
     /**
      * The shape of a metrics map with no data.
      *
+     * Public because StatusSnapshot builds the same shape for its "collector
+     * failed" response, and a consumer should never have to care which of the
+     * two produced the map it was handed.
+     *
      * @return array
      */
-    private static function emptyMetrics(): array
+    public static function emptyMetrics(): array
     {
         return [
             'processes'       => 0,
@@ -407,6 +411,22 @@ class ProcessFootprint
         if (!is_array($data) || !isset($data['ts'], $data['procs']) || !is_array($data['procs'])) {
             return null;
         }
+
+        // Validate the per-process entries too, not just the envelope. The file
+        // is rewritten on every poll, so a partially written or hand-edited one
+        // is possible, and a scalar or truncated entry would otherwise reach the
+        // comparison below and raise a warning for a value we are about to
+        // discard anyway. Warnings are not free here: this class runs inside
+        // the status collector, whose stdout is the JSON payload.
+        $procs = [];
+
+        foreach ($data['procs'] as $pid => $entry) {
+            if (is_array($entry) && isset($entry['c'], $entry['t'])) {
+                $procs[(int) $pid] = $entry;
+            }
+        }
+
+        $data['procs'] = $procs;
 
         return $data;
     }
