@@ -17,6 +17,14 @@
  * or removes a bin changes the answer, but only rarely, so it is offered as an
  * explicit request and then cached.
  *
+ * Because that request is expensive, starting one is not left to the caller's
+ * judgement. Caching a result is not the same as limiting how often a new one
+ * may be produced, and a caller able to ask for a refresh can ask on every
+ * request. So a walk takes a lock, making it single-flight, and a forced refresh
+ * is refused while the measurement it would replace is still newer than
+ * MIN_FORCED_REFRESH_INTERVAL. The refusal is not an error: the cached
+ * measurement is returned instead, marked 'cached' as it already is elsewhere.
+ *
  * The measurement itself, including why it runs through PowerShell and why the
  * version symlinks are not followed, is documented in status-disk-usage.php.
  *
@@ -39,6 +47,51 @@ class DiskUsage
      * something never has to wait out a stale entry.
      */
     const CACHE_TTL = 300;
+
+    /**
+     * Shortest gap between two walks started by a forced refresh, in seconds.
+     *
+     * CACHE_TTL says how long a result may be *reused*; this says how often a
+     * walk may be *started*. Without it the two collapse into one another: a
+     * fresh cache is exactly the state in which a forced refresh is willing to
+     * walk, so a caller that asks repeatedly gets a walk per request and the
+     * cost is paid again every time, the cache never being fast enough to help.
+     * Ten seconds is below the time it takes a person to read the button again
+     * and far above nothing, so a deliberate "Measure again" still measures.
+     */
+    const MIN_FORCED_REFRESH_INTERVAL = 10;
+
+    /**
+     * Advisory lock held for the duration of a walk.
+     *
+     * The lock is what makes the cooldown a guarantee rather than a hope. Two
+     * requests arriving together both see a stale cache, so a check of the
+     * cache alone cannot tell the second one that the first is already walking:
+     * the only thing that can is the walk itself, and it takes seconds. Held
+     * across the collector run, so a loser waits for the winner's result instead
+     * of piling a second worker onto the same 230,000 files.
+     */
+    const LOCK_PATH = '/tmp/stack-disk-usage.lock';
+
+    /**
+     * How long a request waits for an in-flight walk before giving up, in seconds.
+     *
+     * Long enough to outlast a walk, which is about 7s here, so that a second
+     * request arriving during one normally ends up serving the first one's
+     * result instead of erroring or starting a duplicate. Bounded regardless,
+     * because a walk that has not returned in this long is not one this request
+     * should sit behind, and a dead worker's lock is not guaranteed to be
+     * released quickly on every failure mode.
+     */
+    const LOCK_WAIT_SECONDS = 15;
+
+    /**
+     * Gap between lock attempts while waiting, in microseconds.
+     *
+     * 100ms. Fine enough that a request joins a walk which is about to publish,
+     * coarse enough that waiting costs no measurable CPU.
+     */
+    const LOCK_POLL_MICROSECONDS = 100000;
 
     /**
      * Path to the CLI collector that performs the walk.
@@ -107,38 +160,204 @@ class DiskUsage
             ];
         }
 
-        $started  = microtime(true);
-        $measured = self::runCollector();
-        $elapsed  = (int) round((microtime(true) - $started) * 1000);
+        // From here on the answer may cost a full walk: seconds of disk I/O and
+        // a PHP worker held for the duration. The cache TTL does not bound that,
+        // because TTL decides what may be reused while a forced refresh is by
+        // definition the case where the cache is not reused. So the walk is
+        // serialised with a lock and rate limited by a cooldown.
+        //
+        // The lock is waited on rather than refused. A second request arriving
+        // mid-walk wants the same number as the first, and the first is already
+        // producing it, so making it wait and then read the result turns a
+        // duplicate request into a cache hit instead of an error. Waiting is
+        // bounded because the walker's own failure must not become this
+        // request's hang.
+        $lock = self::acquireLock(self::LOCK_WAIT_SECONDS);
 
-        if (isset($measured['error'])) {
-            // A failure is never cached: the next request should be free to
-            // succeed, for instance once whatever locked the files has exited.
+        if ($lock === null) {
+            // The walker outlived the wait, which means the walk is far slower
+            // than the wait assumed. Reporting the last known figures is more
+            // useful than an error, and is still true of them.
+            $inFlight = self::readCache($cachePath);
+
+            if ($inFlight !== null) {
+                $inFlight['cached']    = true;
+                $inFlight['elapsedMs'] = 0;
+
+                return $inFlight;
+            }
+
             return [
                 'parts'       => [],
                 'total'       => ['bytes' => 0, 'files' => 0],
-                'generatedAt' => time(),
+                'generatedAt' => 0,
                 'available'   => false,
                 'cached'      => false,
-                'elapsedMs'   => $elapsed,
-                'error'       => $measured['error'],
+                'elapsedMs'   => 0,
+                'error'       => 'A disk measurement is already running.',
             ];
         }
 
-        $parts = self::normaliseParts($measured['parts'] ?? []);
+        try {
+            // Re-read under the lock. A request that queued behind a walk would
+            // otherwise have decided above, from the pre-lock cache, that a walk
+            // was needed, and would then walk immediately after the one it was
+            // waiting for had already produced exactly the result it wants.
+            $cached = self::readCache($cachePath);
 
-        $result = [
-            'parts'       => $parts,
-            'total'       => self::normaliseTotal($measured['total'] ?? [], $parts),
-            'generatedAt' => (int) ($measured['generatedAt'] ?? time()),
-            'available'   => true,
-            'cached'      => false,
-            'elapsedMs'   => $elapsed,
-        ];
+            if ($cached !== null) {
+                if (!$force) {
+                    $cached['cached']    = true;
+                    $cached['elapsedMs'] = 0;
 
-        self::writeCache($cachePath, $result);
+                    return $cached;
+                }
 
-        return $result;
+                // Forcing means the caller wants a walk regardless of the TTL, so
+                // only the cooldown can refuse. It is measured on the cache file,
+                // which is rewritten by every walk, so it answers "how long ago
+                // was anything last measured" for both the winner of the lock and
+                // the requests that queued behind it.
+                if (self::secondsSinceLastMeasurement($cachePath) < self::MIN_FORCED_REFRESH_INTERVAL) {
+                    $cached['cached']    = true;
+                    $cached['elapsedMs'] = 0;
+
+                    return $cached;
+                }
+            }
+
+            $started  = microtime(true);
+            $measured = self::runCollector();
+            $elapsed  = (int) round((microtime(true) - $started) * 1000);
+
+            if (isset($measured['error'])) {
+                // A failure is never cached: the next request should be free to
+                // succeed, for instance once whatever locked the files has exited.
+                return [
+                    'parts'       => [],
+                    'total'       => ['bytes' => 0, 'files' => 0],
+                    'generatedAt' => time(),
+                    'available'   => false,
+                    'cached'      => false,
+                    'elapsedMs'   => $elapsed,
+                    'error'       => $measured['error'],
+                ];
+            }
+
+            $parts = self::normaliseParts($measured['parts'] ?? []);
+
+            $result = [
+                'parts'       => $parts,
+                'total'       => self::normaliseTotal($measured['total'] ?? [], $parts),
+                'generatedAt' => (int) ($measured['generatedAt'] ?? time()),
+                'available'   => true,
+                'cached'      => false,
+                'elapsedMs'   => $elapsed,
+            ];
+
+            self::writeCache($cachePath, $result);
+
+            return $result;
+        } finally {
+            self::releaseLock($lock);
+        }
+    }
+
+    /**
+     * Takes the walk lock, waiting up to $waitSeconds for a holder to finish.
+     *
+     * The lock is a file, polled with LOCK_NB rather than left to block. The
+     * difference is who decides how long to wait: a blocking LOCK_EX hands that
+     * choice to the operating system and holds a PHP worker for the whole walk,
+     * which is the cost this is meant to bound. Polling lets the request give up
+     * on its own terms, and lets it read the cache between attempts so it can
+     * answer from the walker's result the moment that is published.
+     *
+     * Returning null is an expected outcome, not an error: it means a walk is
+     * taking longer than the caller agreed to wait.
+     *
+     * @param   int  $waitSeconds  Longest time to wait for the lock.
+     *
+     * @return resource|null The open handle, to be passed to releaseLock().
+     */
+    private static function acquireLock(int $waitSeconds)
+    {
+        $path = Path::getCorePath() . self::LOCK_PATH;
+
+        if (!is_dir(dirname($path))) {
+            return null;
+        }
+
+        $handle = @fopen($path, 'c');
+
+        if ($handle === false) {
+            return null;
+        }
+
+        $deadline = microtime(true) + $waitSeconds;
+
+        while (true) {
+            if (@flock($handle, LOCK_EX | LOCK_NB)) {
+                return $handle;
+            }
+
+            if (microtime(true) >= $deadline) {
+                @fclose($handle);
+
+                return null;
+            }
+
+            // Short enough that a request joins a walk that is about to publish,
+            // long enough not to spin a worker for the wait.
+            usleep(self::LOCK_POLL_MICROSECONDS);
+        }
+    }
+
+    /**
+     * Releases a lock taken by acquireLock(), keeping a crashed walk recoverable.
+     *
+     * The contents are only a timestamp, and deliberately not the PID: nothing
+     * needs to identify the owner, because the OS releases the lock when the
+     * handle closes, including on a fatal error. The timestamp is left behind
+     * only so an operator can see when the last walk was started.
+     *
+     * @param   resource  $handle  Handle returned by acquireLock().
+     *
+     * @return void
+     */
+    private static function releaseLock($handle): void
+    {
+        if (!is_resource($handle)) {
+            return;
+        }
+
+        @ftruncate($handle, 0);
+        @fwrite($handle, (string) time());
+        @fflush($handle);
+        @flock($handle, LOCK_UN);
+        @fclose($handle);
+    }
+
+    /**
+     * Seconds since anything last wrote a measurement, or a large number if unknown.
+     *
+     * An unreadable or absent cache file reports PHP_INT_MAX so the caller treats
+     * "when was this measured" as unanswerable and walks, which is the safe
+     * direction: a missing measurement should be computed, not assumed fresh.
+     *
+     * @param   string  $path  Absolute cache file path.
+     *
+     * @return int
+     */
+    private static function secondsSinceLastMeasurement(string $path): int
+    {
+        $mtime = @filemtime($path);
+
+        if ($mtime === false) {
+            return PHP_INT_MAX;
+        }
+
+        return max(0, time() - $mtime);
     }
 
     /**

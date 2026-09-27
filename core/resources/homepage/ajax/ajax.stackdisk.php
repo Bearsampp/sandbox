@@ -15,6 +15,12 @@
  * DISK_USAGE::CACHE_TTL seconds. The page loads the drive's free space from the
  * ordinary snapshot instead, which costs nothing.
  *
+ * Because a forced refresh can start that walk on demand, this proc is listed in
+ * ajax.php's CSRF-protected endpoints and is POST-only: it is reached through
+ * fetchWithCsrf() like the state-changing actions. DiskUsage additionally
+ * serialises walks with a lock and rate limits forced ones, so even a caller
+ * holding a valid token cannot turn repeated requests into repeated full scans.
+ *
  * The response carries 'cached' and 'elapsedMs' so the page can be honest about
  * whether the numbers were just measured or reused, and 'generatedAt' so a stale
  * figure can be labelled as stale rather than presented as current.
@@ -24,12 +30,15 @@
 header('Content-Type: application/json');
 header('Cache-Control: no-store');
 
-// 'proc' itself is read from POST by ajax.php, so the flags are posted alongside
-// it rather than in the query string. GET is accepted as well because the
-// endpoint is harmless to call either way and this keeps a hand-typed URL from
-// behaving differently from the button.
-$refresh = isset($_POST['refresh']) ? $_POST['refresh'] : (isset($_GET['refresh']) ? $_GET['refresh'] : '');
-$cachedOnly = isset($_POST['cached']) ? $_POST['cached'] : (isset($_GET['cached']) ? $_GET['cached'] : '');
+// The flags arrive by POST alongside 'proc'. GET is deliberately not accepted:
+// a forced refresh is the expensive request here, since it starts a full disk
+// walk, so it has to travel the same CSRF-validated POST path as every other
+// action that costs real work. ajax.php refuses any non-POST call to this proc
+// before it gets here, and reading only POST keeps a future caller from
+// reintroducing a token-less route to a forced scan. The page already posts
+// through fetchWithCsrf(), so nothing legitimate depends on the GET form.
+$refresh    = isset($_POST['refresh']) ? $_POST['refresh'] : '';
+$cachedOnly = isset($_POST['cached']) ? $_POST['cached'] : '';
 
 // 'cached' asks for a reading without authorising the walk that produces one.
 // The page uses it on load, so that arriving at the status page never costs the

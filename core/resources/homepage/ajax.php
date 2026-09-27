@@ -173,7 +173,8 @@ $csrfProtectedEndpoints = [
     'quickpick',                    // Installs modules
     'toggleenhancedquickpick',      // Changes configuration
     'applymoduleconfig',            // Applies configuration changes
-    'clearcache'                    // Clears cache files
+    'clearcache',                   // Clears cache files
+    'stackdisk'                     // Forces a full disk walk, which costs seconds of I/O
 ];
 
 /**
