@@ -160,7 +160,12 @@ class StatusSnapshot
                 'entries'   => [],
                 'resources' => [
                     'stack'        => ProcessFootprint::emptyMetrics(),
-                    'host'         => [],
+                    // Shaped like a real reading rather than left empty. The
+                    // collector-failure path has no figures to report, and a bare
+                    // [] here would leave every consumer that reads totalBytes
+                    // indexing a key that was never there. Zeros read as "no
+                    // measurement", which is what this actually is.
+                    'host'         => ['totalBytes' => 0, 'freeBytes' => 0],
                     'disk'         => [],
                     'cores'        => 0,
                     'serviceCount' => 0,

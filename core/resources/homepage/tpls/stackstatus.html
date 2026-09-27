@@ -113,16 +113,19 @@ return null;
 return number_format((float) $footprint['cpuPercent'], 2) . '%';
 };
 
-// captureForWeb() always returns these keys, including on the collector-failure
-// path, so the table can be rendered without further guarding.
+// captureForWeb() supplies these keys on the success path, but the
+// collector-failure path has no measurements to put in them and reports zeros
+// instead. Every read below therefore carries its own default rather than
+// relying on the key being present: a missing figure has to render as "no
+// reading", not as a PHP warning above the table.
 $entries  = $snapshot['entries'];
 $stack    = $snapshot['resources']['stack'];
-$host     = $snapshot['resources']['host'];
-$cores    = $snapshot['resources']['cores'];
+$host     = $snapshot['resources']['host'] ?? array();
+$cores    = (int) ($snapshot['resources']['cores'] ?? 0);
 $disk     = $snapshot['resources']['disk'] ?? array();
-$hostUsed = (int) $host['totalBytes'] > 0
-    ? (int) $host['totalBytes'] - (int) $host['freeBytes']
-    : 0;
+$hostTotal = (int) ($host['totalBytes'] ?? 0);
+$hostFree  = (int) ($host['freeBytes'] ?? 0);
+$hostUsed  = $hostTotal > 0 ? $hostTotal - $hostFree : 0;
 $diskTotal = (int) ($disk['totalBytes'] ?? 0);
 $diskFree  = (int) ($disk['freeBytes'] ?? 0);
 $diskUsed  = (int) ($disk['usedBytes'] ?? 0);
@@ -297,8 +300,8 @@ $maxWorkingSet = max($maxWorkingSet, (int) $entry['footprint']['workingSetBytes'
                 <tr>
                     <th scope="row"><?php echo $bearsamppLang->getValue(Lang::STACK_HOST_MEMORY); ?></th>
                     <td data-fp="hostMemory"><?php
-							echo $hostUsed > 0
-                        ? htmlspecialchars($formatBytes($hostUsed) . ' / ' . $formatBytes((int) $host['totalBytes']))
+                        echo $hostUsed > 0
+                        ? htmlspecialchars($formatBytes($hostUsed) . ' / ' . $formatBytes($hostTotal))
                         : '&mdash;';
                         ?>
                     </td>
