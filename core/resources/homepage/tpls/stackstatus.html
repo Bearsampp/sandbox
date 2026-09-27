@@ -119,9 +119,14 @@ $entries  = $snapshot['entries'];
 $stack    = $snapshot['resources']['stack'];
 $host     = $snapshot['resources']['host'];
 $cores    = $snapshot['resources']['cores'];
+$disk     = $snapshot['resources']['disk'] ?? array();
 $hostUsed = (int) $host['totalBytes'] > 0
-? (int) $host['totalBytes'] - (int) $host['freeBytes']
-: 0;
+    ? (int) $host['totalBytes'] - (int) $host['freeBytes']
+    : 0;
+$diskTotal = (int) ($disk['totalBytes'] ?? 0);
+$diskFree  = (int) ($disk['freeBytes'] ?? 0);
+$diskUsed  = (int) ($disk['usedBytes'] ?? 0);
+$diskFreePercent = $diskTotal > 0 ? round(100 * $diskFree / $diskTotal, 1) : 0;
 
 // Widest memory footprint, used to scale the per-service bars.
 $maxWorkingSet = 0;
@@ -304,6 +309,59 @@ $maxWorkingSet = max($maxWorkingSet, (int) $entry['footprint']['workingSetBytes'
                 </tr>
                 </tbody>
             </table>
+
+            <h5 class="mt-4"><?php echo $bearsamppLang->getValue(Lang::DISK_HEADING); ?></h5>
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th scope="row"><?php echo $bearsamppLang->getValue(Lang::DISK_DRIVE_FREE); ?></th>
+                    <td id="diskDriveFreeText"><?php
+                            echo $diskTotal > 0
+                                ? htmlspecialchars($formatBytes($diskFree) . ' / ' . $formatBytes($diskTotal)
+                                    . ' (' . $diskFreePercent . '%)')
+                                : '&mdash;';
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo $bearsamppLang->getValue(Lang::DISK_BIN_TOTAL); ?></th>
+                    <td id="diskBinTotalText">&mdash;</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="diskMeasureBtn">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span id="diskMeasureLabel"><?php echo $bearsamppLang->getValue(Lang::DISK_CALCULATE); ?></span>
+                </button>
+                <span class="text-muted small" id="diskMeasuredText"></span>
+            </div>
+            <p class="text-muted small mb-2">
+                <i class="fa-solid fa-circle-info"></i>
+                <?php echo $bearsamppLang->getValue(Lang::DISK_DISCLAIMER); ?>
+            </p>
+            <div class="table-responsive d-none" id="diskBreakdownWrap">
+                <table class="table table-striped align-middle" id="diskTable">
+                    <thead>
+                    <tr>
+                        <th scope="col"><?php echo $bearsamppLang->getValue(Lang::DISK_PART); ?></th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::DISK_SIZE); ?>
+                        </th>
+                        <th scope="col" class="text-end"><?php echo $bearsamppLang->getValue(Lang::DISK_FILES); ?>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="diskTableBody"></tbody>
+                    <tfoot id="diskTotalRow" class="d-none">
+                    <tr>
+                        <th scope="row"><?php echo $bearsamppLang->getValue(Lang::DISK_BIN_TOTAL); ?></th>
+                        <td class="text-end" data-role="totalBytes">&mdash;</td>
+                        <td class="text-end" data-role="totalFiles">&mdash;</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
     <?php endif; ?>
@@ -568,6 +626,20 @@ $maxWorkingSet = max($maxWorkingSet, (int) $entry['footprint']['workingSetBytes'
                 : '\u2014');
             setText(document, 'cores', res.cores || '\u2014');
 
+            // Free space is the one disk figure that rides along with the ordinary
+            // poll, because it costs about a tenth of a millisecond. The size of the
+            // install itself cannot: measuring it stats roughly 230,000 files and
+            // takes seconds, so it is only fetched when the user asks for it.
+            var disk = res.disk || {};
+            if (disk.totalBytes) {
+                var freeCell = document.getElementById('diskDriveFreeText');
+                if (freeCell) {
+                    freeCell.textContent = formatBytes(disk.freeBytes || 0) + ' / '
+                        + formatBytes(disk.totalBytes) + ' ('
+                        + (100 * (disk.freeBytes || 0) / disk.totalBytes).toFixed(1) + '%)';
+                }
+            }
+
             var updated = document.getElementById('stackUpdatedText');
             if (updated && data.generatedAt) {
                 updated.innerHTML = '<i class="fa-solid fa-clock"></i> '
@@ -600,6 +672,238 @@ $maxWorkingSet = max($maxWorkingSet, (int) $entry['footprint']['workingSetBytes'
                 }
                 showError(error.message);
             }
+        }
+
+        // ---- On-demand install size ----
+        //
+        // Kept out of the poll above on purpose. Measuring the install stats every
+        // file in it, about 230,000 of them, which costs roughly 7s against the
+        // ~270ms of a full status snapshot. Folding that into a 5s poll would make
+        // the page spend nearly all of its time walking the disk, and the answer
+        // would barely change between polls anyway. So the drive's free space, which
+        // is free, rides along with the poll, and the breakdown is fetched only when
+        // asked for and then served from the server-side cache.
+        var measureBtn = document.getElementById('diskMeasureBtn');
+        var measureLabel = document.getElementById('diskMeasureLabel');
+        var measuredText = document.getElementById('diskMeasuredText');
+        var binTotalText = document.getElementById('diskBinTotalText');
+        var breakdownWrap = document.getElementById('diskBreakdownWrap');
+        var tableBody = document.getElementById('diskTableBody');
+        var totalRow = document.getElementById('diskTotalRow');
+        var measuring = false;
+
+        var LABELS = {
+            calculate: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_CALCULATE)); ?>,
+            recalculate: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_RECALCULATE)); ?>,
+            calculating: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_CALCULATING)); ?>,
+            never: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_NEVER_CALCULATED)); ?>,
+            took: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_CALCULATED_IN)); ?>,
+            rootFiles: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_ROOT_FILES)); ?>,
+            binTotal: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_BIN_TOTAL)); ?>,
+            files: <?php echo json_encode($bearsamppLang->getValue(Lang::DISK_FILES)); ?>
+        };
+
+        function groupCount(n) {
+            return Number(n || 0).toLocaleString();
+        }
+
+        // Appends one part row, plus a muted indented row per child. Children are
+        // what make the figure actionable: "bin 10 GB" is only interesting because
+        // of which bin and which version.
+        function appendPartRow(label, part, isChild) {
+            var row = document.createElement('tr');
+            var head = document.createElement('th');
+            head.setAttribute('scope', 'row');
+            head.textContent = label;
+            if (isChild) {
+                head.className = 'ps-4 text-muted small';
+            }
+            row.appendChild(head);
+
+            var size = document.createElement('td');
+            size.className = 'text-end';
+            size.textContent = formatBytes(part.bytes);
+            row.appendChild(size);
+
+            var files = document.createElement('td');
+            files.className = 'text-end';
+            files.textContent = groupCount(part.files);
+            row.appendChild(files);
+
+            tableBody.appendChild(row);
+        }
+
+        function renderDisk(data) {
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            // The page asked for a reading without authorising a measurement and
+            // there was no cached one, so there is genuinely nothing to show yet.
+            // The table stays hidden and the summary keeps saying so.
+            if (data.available === false) {
+                return;
+            }
+
+            var parts = data.parts || [];
+            tableBody.textContent = '';
+
+            parts.forEach(function (part) {
+                // The collector flags the group of files sitting directly in the
+                // install root rather than giving it a name to be recognised by, so
+                // that this label follows the user's language instead of matching a
+                // literal string from the collector.
+                var name = part.isRootFiles ? LABELS.rootFiles : part.name;
+                appendPartRow(name, part, false);
+                (part.children || []).forEach(function (child) {
+                    appendPartRow(child.name, child, true);
+                });
+            });
+
+            var total = data.total || {};
+            var totalBytes = total.bytes || 0;
+
+            if (totalRow) {
+                totalRow.querySelector('[data-role="totalBytes"]').textContent = formatBytes(totalBytes);
+                totalRow.querySelector('[data-role="totalFiles"]').textContent = groupCount(total.files);
+                totalRow.classList.remove('d-none');
+            }
+
+            if (binTotalText) {
+                binTotalText.textContent = formatBytes(totalBytes) + ' / '
+                    + groupCount(total.files) + ' ' + LABELS.files;
+            }
+
+            if (breakdownWrap) {
+                breakdownWrap.classList.remove('d-none');
+            }
+
+            if (measuredText) {
+                var when = data.generatedAt
+                    ? new Date(data.generatedAt * 1000).toLocaleTimeString()
+                    : '';
+                var took = data.elapsedMs ? ' (' + data.elapsedMs + ' ms)' : '';
+                measuredText.textContent = (when ? LABELS.took + ' ' + when : '') + took;
+            }
+
+            if (measureLabel) {
+                measureLabel.textContent = LABELS.recalculate;
+            }
+        }
+
+        // Posts a homepage AJAX proc.
+        //
+        // fetchWithCsrf() arrives in csrf.js, which is a separate external script
+        // included after this one, so it does not exist yet while this block is
+        // being parsed. Anything that calls out immediately therefore has to cope
+        // with its absence; the existing 5s poll is unaffected only because
+        // setInterval delays it past the point where csrf.js has run.
+        async function postProc(proc, fields) {
+            var body = new URLSearchParams();
+            body.append('proc', proc);
+            Object.keys(fields || {}).forEach(function (key) {
+                body.append(key, fields[key]);
+            });
+
+            var options = {
+                method: 'POST',
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                body: body
+            };
+
+            if (typeof fetchWithCsrf === 'function') {
+                return fetchWithCsrf(AJAX_URL, options);
+            }
+
+            // Fallback so a load-order surprise cannot break the button. The token
+            // is read from the same meta tag csrf.js would have used.
+            var meta = document.querySelector('meta[name="csrf-token"]');
+            if (meta) {
+                body.append('csrf_token', meta.getAttribute('content'));
+            }
+
+            return fetch(AJAX_URL, options);
+        }
+
+        // Runs a callback once the deferred scripts have executed.
+        function whenScriptsReady(fn) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fn);
+            } else {
+                fn();
+            }
+        }
+
+        async function measureDisk(force, cachedOnly) {
+            if (measuring) {
+                return;
+            }
+
+            measuring = true;
+            if (measureBtn) {
+                measureBtn.disabled = true;
+            }
+            if (measureLabel && !cachedOnly) {
+                measureLabel.textContent = LABELS.calculating;
+            }
+
+            var fields = {};
+            if (force) {
+                fields.refresh = '1';
+            }
+            if (cachedOnly) {
+                fields.cached = '1';
+            }
+
+            try {
+                var response = await postProc('stackdisk', fields);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                renderDisk(await response.json());
+            } catch (error) {
+                if (measuredText) {
+                    measuredText.textContent = error.message;
+                }
+                if (measureLabel) {
+                    measureLabel.textContent = LABELS.calculate;
+                }
+            } finally {
+                measuring = false;
+                if (measureBtn) {
+                    measureBtn.disabled = false;
+                }
+            }
+        }
+
+        if (measureBtn) {
+            // The first press reads the cache when there is one, so a page reload
+            // shows the previous measurement instantly. Later presses force a fresh
+            // walk, because "Measure again" that returned the cached answer would be
+            // indistinguishable from a button that does nothing.
+            var pressedOnce = false;
+            measureBtn.addEventListener('click', function () {
+                measureDisk(pressedOnce, false);
+                pressedOnce = true;
+            });
+
+            if (binTotalText) {
+                binTotalText.textContent = LABELS.never;
+            }
+
+            // Populate from any existing cache so the figure is already there on
+            // arrival, but never measure on load: a first visit to this page would
+            // otherwise block for the length of a full disk walk, which is the one
+            // thing this design exists to avoid.
+            //
+            // Deferred to DOMContentLoaded because this block is an inline script
+            // that runs while the document is still being parsed, at which point
+            // csrf.js has not executed yet.
+            whenScriptsReady(function () {
+                measureDisk(false, true);
+            });
         }
 
         // Polling runs only when the tab is both enabled and visible. A hidden tab

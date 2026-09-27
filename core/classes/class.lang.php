@@ -435,6 +435,20 @@ class Lang
     const STACK_UPDATED = 'stackUpdated';
     const STACK_NO_DATA = 'stackNoData';
     const STACK_NOT_A_SERVICE = 'stackNotAService';
+    const DISK_HEADING = 'diskHeading';
+    const DISK_DRIVE_FREE = 'diskDriveFree';
+    const DISK_DRIVE_TOTAL = 'diskDriveTotal';
+    const DISK_BIN_TOTAL = 'diskBinTotal';
+    const DISK_PART = 'diskPart';
+    const DISK_SIZE = 'diskSize';
+    const DISK_FILES = 'diskFiles';
+    const DISK_CALCULATE = 'diskCalculate';
+    const DISK_RECALCULATE = 'diskRecalculate';
+    const DISK_CALCULATING = 'diskCalculating';
+    const DISK_NEVER_CALCULATED = 'diskNeverCalculated';
+    const DISK_CALCULATED_IN = 'diskCalculatedIn';
+    const DISK_ROOT_FILES = 'diskRootFiles';
+    const DISK_DISCLAIMER = 'diskDisclaimer';
 
     /**
      * Get all the keys defined in the Lang class.
@@ -850,6 +864,20 @@ class Lang
         self::STACK_UPDATED,
         self::STACK_NO_DATA,
         self::STACK_NOT_A_SERVICE,
+    self::DISK_HEADING,
+    self::DISK_DRIVE_FREE,
+    self::DISK_DRIVE_TOTAL,
+    self::DISK_BIN_TOTAL,
+    self::DISK_PART,
+    self::DISK_SIZE,
+    self::DISK_FILES,
+    self::DISK_CALCULATE,
+    self::DISK_RECALCULATE,
+    self::DISK_CALCULATING,
+    self::DISK_NEVER_CALCULATED,
+    self::DISK_CALCULATED_IN,
+    self::DISK_ROOT_FILES,
+    self::DISK_DISCLAIMER,
         );
     }
 }

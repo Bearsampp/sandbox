@@ -70,6 +70,7 @@ $ajaxReadOnlyProcs = array(
  */
 $ajaxAlwaysSilentProcs = array(
     'stackstatus',
+    'stackdisk',
 );
 
 $ajaxIsFingerprintPoll = in_array($ajaxProcRaw, $ajaxReadOnlyProcs, true);
@@ -150,6 +151,7 @@ $procMap = [
     'applymoduleconfig'       => __DIR__ . '/ajax/ajax.apply.moduleconfig.php',
     'reloadstatus'            => __DIR__ . '/ajax/ajax.reload.status.php',
     'stackstatus'             => __DIR__ . '/ajax/ajax.stackstatus.php',
+    'stackdisk'               => __DIR__ . '/ajax/ajax.stackdisk.php',
     'clearcache'              => __DIR__ . '/ajax/ajax.clearcache.php'
 ];
 

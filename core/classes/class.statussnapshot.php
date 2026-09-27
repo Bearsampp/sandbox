@@ -161,6 +161,7 @@ class StatusSnapshot
                 'resources' => [
                     'stack'        => ProcessFootprint::emptyMetrics(),
                     'host'         => [],
+                    'disk'         => [],
                     'cores'        => 0,
                     'serviceCount' => 0,
                 ],
@@ -282,6 +283,7 @@ class StatusSnapshot
         $snapshot['resources'] = [
             'stack'   => $footprint['total'],
             'host'    => $footprint['host'],
+            'disk'    => $footprint['disk'] ?? [],
             'cores'   => $footprint['cores'],
             'serviceCount' => count($footprint['services']),
         ];

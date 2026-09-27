@@ -92,6 +92,7 @@ class ProcessFootprint
      *     @type array $services serviceName => metric map.
      *     @type array $total    Metric map summed across the stack.
      *     @type array $host     Physical memory totals for the machine.
+     *     @type array $disk     Capacity of the volume holding the install.
      *     @type int   $cores    Logical processor count, 0 when unknown.
      * }
      */
@@ -103,6 +104,7 @@ class ProcessFootprint
         $result['services'] = [];
         $result['total']    = self::emptyMetrics();
         $result['host']     = $host;
+        $result['disk']     = self::collectDiskSpace();
         $result['cores']    = $cores;
 
         $attributable = [];
@@ -485,13 +487,46 @@ class ProcessFootprint
     }
 
     /**
+     * Reads the capacity of the volume that holds the Bearsampp install.
+     *
+     * Reported next to the footprint figures because a working-set total is hard
+     * to act on without knowing how much room the disk has. These two calls need
+     * no COM and measure well under a millisecond, which is why this figure can
+     * live in the always-on telemetry path while the on-disk size of the install
+     * itself, which takes seconds to walk, has to be asked for explicitly.
+     *
+     * @return array
+     */
+    private static function collectDiskSpace(): array
+    {
+        $empty = ['totalBytes' => 0, 'freeBytes' => 0, 'usedBytes' => 0];
+        $root  = Path::getRootPath();
+        $total = @disk_total_space($root);
+        $free  = @disk_free_space($root);
+
+        if ($total === false || $free === false) {
+            Log::debug('ProcessFootprint: could not read disk space for ' . $root);
+
+            return $empty;
+        }
+
+        $total = (int) $total;
+        $free  = (int) $free;
+
+        return [
+            'totalBytes' => $total,
+            'freeBytes'  => $free,
+            'usedBytes'  => $total - $free,
+        ];
+    }
+
+    /**
      * Counts logical processors, which is what CPU percentages are scaled by.
      *
      * @return int Processor count, or 0 when it cannot be determined.
      */
     private static function countCores(): int
-    {
-        try {
+    {        try {
             $wmi  = new COM('winmgmts://./root/cimv2');
             $rows = $wmi->ExecQuery('SELECT NumberOfLogicalProcessors FROM Win32_ComputerSystem');
 
