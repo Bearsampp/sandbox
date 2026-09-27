@@ -50,6 +50,11 @@
 				</h3>
 			</div>
 			<div class = "card-body card-summary">
+				<div class = "mb-3">
+					<a class = "btn btn-sm btn-outline-secondary w-100" href = "
+						<?php echo $bearsamppHomepage->getPageQuery(Homepage::PAGE_STACK_STATUS); ?>" role = "button">
+						<i class = 'fa-solid fa-gauge-high'></i> <?php echo $bearsamppLang->getValue(Lang::MENU_STACK_STATUS_VIEW); ?></a>
+				</div>
 				<div class = "list-group">
 					<span class = "list-group-item summary-binapache"> <span class = "bin-status"></span> <span class = "status-content"><?php echo $getLoader; ?></span> <a
 						href = "#apache"> <?php echo $bearsamppLang->getValue(Lang::APACHE); ?> </a> </span>
@@ -78,11 +83,6 @@
 					<span class = "list-group-item summary-binxlight"> <span class = "bin-status"></span> <span class = "status-content"><?php echo $getLoader; ?></span> <a
 						href = "#xlight"> <?php echo $bearsamppLang->getValue(Lang::XLIGHT); ?> </a>
 					</span>
-				</div>
-				<div class = "mt-3">
-					<a class = "btn btn-sm btn-outline-secondary w-100" href = "
-						<?php echo $bearsamppHomepage->getPageQuery(Homepage::PAGE_STACK_STATUS); ?>" role = "button">
-						<i class = 'fa-solid fa-gauge-high'></i> <?php echo $bearsamppLang->getValue(Lang::MENU_STACK_STATUS_VIEW); ?></a>
 				</div>
 			</div>
 		</div>
