@@ -21,6 +21,14 @@
          so that the sum of the parts is exactly the reported total. A total
          that does not equal the sum of its parts is a figure nobody can verify
          at a glance.
+      3. Five named entries are left out wherever they appear: the .git, .idea
+         and .github directories, and the .gitignore and .htaccess files. The
+         question being answered is how much room the install needs, and version
+         control metadata and editor state answer a different one: .git alone is
+         354 MB of pack files that a user cannot remove to free space. The list is
+         a closed denylist on purpose. Only these names were asked for, so other
+         dot entries stay in the figure: a file like .packlist or .gitattributes
+         is as much a part of the install as any other.
 
     That synthetic part is flagged with isRootFiles rather than being recognised
     by its name, so that the page can label it in the user's language without
@@ -57,6 +65,16 @@ if (-not (Test-Path -LiteralPath $Root)) {
 $prefix = $Root.TrimEnd('\') + '\'
 $parts  = @{}
 
+# Matches only a full path segment that is one of the excluded names, so a leading
+# entry and a nested one both count while a longer name that merely starts with the
+# same text does not. Compiled once because it runs per file.
+$excludedNames = @('.gitignore', '.htaccess', '.github', '.idea', '.git')
+$excludedAlternation = ($excludedNames | ForEach-Object { [regex]::Escape($_) }) -join '|'
+$excludedSegment = [regex]::new(
+    '(^|\\)(' + $excludedAlternation + ')(\\|$)',
+    [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+)
+
 # Get-ChildItem is the slowest part of this script by a wide margin, about 7s for
 # a 230k file install on an SSD, and that floor is the traversal itself rather
 # than the accounting below. Rewriting the accumulation in plain hashtables
@@ -75,6 +93,20 @@ Get-ChildItem -LiteralPath $Root -Recurse -File -Force | ForEach-Object {
     }
 
     $relative = $full.Substring($prefix.Length)
+
+    # A path is skipped when any of its segments is exactly one of the names above.
+    # The trailing boundary is what keeps .gitattributes and .git-tmp in the figure
+    # while .git drops out, since both begin with the same four characters as .git.
+    # Segment boundaries are matched inline rather than by splitting the path, which
+    # would allocate an array per file across 230k files for no gain. This is a
+    # filter on the results rather than a prune of the walk, deliberately: skipping
+    # .git removes 354 MB from the figure but only 136 files, well under 1% of the
+    # traversal, so pruning would add a hand-rolled recursion and re-open the
+    # junction handling that item 1 above depends on.
+    if ($excludedSegment.IsMatch($relative)) {
+        return
+    }
+
     $separator = $relative.IndexOf('\')
 
     if ($separator -lt 0) {
