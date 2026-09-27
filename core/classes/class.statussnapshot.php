@@ -44,11 +44,70 @@ class StatusSnapshot
      */
     public static function capture(Bins $bearsamppBins): array
     {
-        return self::build($bearsamppBins, self::collectScmState($bearsamppBins));
+        $snapshot = self::build($bearsamppBins, self::collectScmState($bearsamppBins));
+
+        return self::attachFootprint($snapshot);
+    }
+
+    /**
+     * Adds per-service resource usage to an already built snapshot.
+     *
+     * Kept apart from build() so that the status and health logic stays testable
+     * against a hand-written SCM map, with no live process table involved.
+     *
+     * @param   array  $snapshot  A snapshot from build().
+     *
+     * @return array The snapshot, with per-entry 'footprint' and a top level
+     *               'resources' block.
+     */
+    private static function attachFootprint(array $snapshot): array
+    {
+        $roots = [];
+
+        foreach ($snapshot['entries'] as $index => $entry) {
+            $serviceName = $entry['serviceName'] ?? null;
+            $pid         = (int) ($entry['pid'] ?? 0);
+
+            if ($serviceName !== null && $pid > 0) {
+                $names = ServiceHelper::getProcessNamesForService($serviceName);
+
+                if (!empty($names)) {
+                    $roots[$serviceName] = ['pid' => $pid, 'names' => $names];
+                }
+            }
+
+            // Present but empty for everything else, so consumers never have to
+            // test for the key's existence.
+            $snapshot['entries'][$index]['footprint'] = null;
+        }
+
+        $footprint = ProcessFootprint::capture($roots);
+
+        foreach ($snapshot['entries'] as $index => $entry) {
+            $serviceName = $entry['serviceName'] ?? null;
+
+            if ($serviceName !== null && isset($footprint['services'][$serviceName])) {
+                $snapshot['entries'][$index]['footprint'] = $footprint['services'][$serviceName];
+            }
+        }
+
+        $snapshot['resources'] = [
+            'stack'   => $footprint['total'],
+            'host'    => $footprint['host'],
+            'cores'   => $footprint['cores'],
+            'serviceCount' => count($footprint['services']),
+        ];
+
+        return $snapshot;
     }
 
     /**
      * Queries the SCM once for the state and PID of every enabled service.
+     *
+     * StartMode is deliberately not requested. It is the one Win32_Service
+     * property that is expensive here, costing about 166ms on its own against
+     * roughly 12ms for State and ProcessId together, and nothing in this class
+     * reads it.
      *
      * @param   Bins  $bearsamppBins  The bins registry.
      *
@@ -64,7 +123,7 @@ class StatusSnapshot
             return [];
         }
 
-        return Win32Native::getServicesByNames($names, ['Name', 'State', 'ProcessId', 'StartMode']);
+        return Win32Native::getServicesByNames($names, ['Name', 'State', 'ProcessId']);
     }
 
     /**
