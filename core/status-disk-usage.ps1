@@ -21,14 +21,14 @@
          so that the sum of the parts is exactly the reported total. A total
          that does not equal the sum of its parts is a figure nobody can verify
          at a glance.
-      3. Five named entries are left out wherever they appear: the .git, .idea
-         and .github directories, and the .gitignore and .htaccess files. The
-         question being answered is how much room the install needs, and version
-         control metadata and editor state answer a different one: .git alone is
-         354 MB of pack files that a user cannot remove to free space. The list is
-         a closed denylist on purpose. Only these names were asked for, so other
-         dot entries stay in the figure: a file like .packlist or .gitattributes
-         is as much a part of the install as any other.
+      3. Six named entries are left out wherever they appear: the .git, .idea,
+         .github and .junie directories, and the .gitignore and .htaccess files.
+         The question being answered is how much room the install needs, and
+         version control metadata, editor state and assistant scratch space answer
+         a different one: .git alone is 354 MB of pack files that a user cannot
+         remove to free space. The list is a closed denylist on purpose. Only these
+         names are asked for, so other dot entries stay in the figure: a file like
+         .packlist or .gitattributes is as much a part of the install as any other.
 
     That synthetic part is flagged with isRootFiles rather than being recognised
     by its name, so that the page can label it in the user's language without
@@ -68,7 +68,7 @@ $parts  = @{}
 # Matches only a full path segment that is one of the excluded names, so a leading
 # entry and a nested one both count while a longer name that merely starts with the
 # same text does not. Compiled once because it runs per file.
-$excludedNames = @('.gitignore', '.htaccess', '.github', '.idea', '.git')
+$excludedNames = @('.gitignore', '.htaccess', '.github', '.junie', '.idea', '.git')
 $excludedAlternation = ($excludedNames | ForEach-Object { [regex]::Escape($_) }) -join '|'
 $excludedSegment = [regex]::new(
     '(^|\\)(' + $excludedAlternation + ')(\\|$)',
