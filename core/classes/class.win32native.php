@@ -1013,6 +1013,87 @@ class Win32Native
     }
 
     /**
+     * Fetches several named Windows services in a single WMI round trip.
+     *
+     * getServiceInfo() issues one query per service, which is fine for a
+     * start/stop code path but wasteful for status polling: the stack has up to
+     * seven services, so a per-request poll would pay the query cost seven times
+     * over. This method resolves the whole set at once, keyed by service name.
+     *
+     * Names are sanitized with UtilInput::sanitizeServiceName() before being
+     * interpolated into the WQL string.
+     *
+     * @param   array  $names       Service names to look up.
+     * @param   array  $properties  Optional array of properties to retrieve.
+     *
+     * @return array Associative array of service name => property map. Services
+     *               that do not exist are absent from the result.
+     */
+    public static function getServicesByNames(array $names, array $properties = [])
+    {
+        if (empty($names)) {
+            return [];
+        }
+
+        $safeNames = [];
+        foreach ($names as $name) {
+            $safeName = UtilInput::sanitizeServiceName($name);
+            if ($safeName !== false) {
+                $safeNames[] = $safeName;
+            }
+        }
+
+        if (empty($safeNames)) {
+            return [];
+        }
+
+        Log::debug('getServicesByNames: Fetching ' . count($safeNames) . ' services (COM/WMI)');
+
+        $startTime = microtime(true);
+
+        try {
+            $wmi = self::getWmiCimv2();
+
+            if (empty($properties)) {
+                $properties = ['Name', 'State', 'ProcessId', 'StartMode'];
+            }
+
+            $selectClause = implode(', ', $properties);
+            $inClause     = implode(',', array_map(static fn($n) => "'" . $n . "'", $safeNames));
+            $query        = "SELECT {$selectClause} FROM Win32_Service WHERE Name IN ({$inClause})";
+
+            $result = [];
+            foreach ($wmi->ExecQuery($query) as $service) {
+                $entry = [];
+                foreach ($properties as $prop) {
+                    try {
+                        $entry[$prop] = $service->$prop ?? '';
+                    } catch (Exception $e) {
+                        $entry[$prop] = '';
+                    }
+                }
+
+                // Key on the service name so callers can look up without
+                // depending on the order WMI happens to return rows in.
+                $name = $entry['Name'] ?? '';
+                if ($name !== '') {
+                    $result[$name] = $entry;
+                }
+            }
+
+            $duration = round((microtime(true) - $startTime) * 1000, 2);
+            Log::debug('getServicesByNames: Found ' . count($result) . ' of ' . count($safeNames) . ' services in ' . $duration . 'ms (COM/WMI)');
+
+            return $result;
+        } catch (Exception $e) {
+            self::resetConnections();
+            Log::error('getServicesByNames: COM exception: ' . $e->getMessage());
+
+            return [];
+        }
+    }
+
+    /**
      * Lists all Windows services using COM/WMI.
      * Additional helper method.
      *
