@@ -301,11 +301,15 @@ class StatusSnapshot
      *
      * @param   Bins  $bearsamppBins  The bins registry.
      *
-     * @return array Service name => [State, ProcessId]. Empty when the
-     *               query fails, in which case every service reports as unknown
-     *               rather than as stopped.
+     * @return array|null Service name => [State, ProcessId], or null when the
+     *                    query failed. The failure is passed through rather than
+     *                    flattened into an empty map, because build() reports a
+     *                    service that is missing from a successful query as not
+     *                    installed, and that reading would be wrong for a query
+     *                    that never ran. Null is not turned into an empty array
+     *                    here, so no intermediate step can lose the distinction.
      */
-    private static function collectScmState(Bins $bearsamppBins): array
+    private static function collectScmState(Bins $bearsamppBins): ?array
     {
         $names = array_keys($bearsamppBins->getServices());
 
@@ -322,8 +326,9 @@ class StatusSnapshot
      * Split out from capture() so the assembly logic stays testable without a
      * live SCM.
      *
-     * @param   Bins  $bearsamppBins  The bins registry.
-     * @param   array $scm            Service name => SCM property map.
+     * @param   Bins       $bearsamppBins  The bins registry.
+     * @param   array|null $scm            Service name => SCM property map, or
+     *                                     null when the query failed.
      *
      * @return array {
      *     @type string $status     Aggregate STATUS_* constant.
@@ -332,7 +337,7 @@ class StatusSnapshot
      *     @type array  $entries    Per-bin entries, ordered as Bins::getAll().
      * }
      */
-    public static function build(Bins $bearsamppBins, array $scm): array
+    public static function build(Bins $bearsamppBins, ?array $scm): array
     {
         $serviceBins = self::mapServiceBins($bearsamppBins);
         $entries     = [];
@@ -399,6 +404,22 @@ class StatusSnapshot
             $scmEntry = $serviceName !== null ? ($scm[$serviceName] ?? null) : null;
 
             if ($scmEntry === null) {
+                if ($scm === null) {
+                    // The query failed, so this service being absent from the map
+                    // says nothing about whether it is registered. Reporting it as
+                    // not installed would blame the user for a dropped SCM
+                    // connection and ask them to install a service they already
+                    // have. ERROR rather than UNKNOWN because the severity of
+                    // ERROR outranks every other status, so a genuine outage
+                    // elsewhere in the stack cannot be masked by this one.
+                    $entry['status'] = ServiceStatus::STATUS_ERROR;
+                    $entry['detail'] = 'Service state unavailable';
+                    $entries[]       = $entry;
+                    $statuses[]      = $entry['status'];
+
+                    continue;
+                }
+
                 // The files are on disk but the SCM has no such service, so the
                 // Windows service was never registered. Distinct from a failed
                 // query: the first needs a service install, the second needs

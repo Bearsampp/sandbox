@@ -1039,10 +1039,15 @@ class Win32Native
      * @param   array  $names       Service names to look up.
      * @param   array  $properties  Optional array of properties to retrieve.
      *
-     * @return array Associative array of service name => property map. Services
-     *               that do not exist are absent from the result.
+     * @return array|null Associative array of service name => property map, or
+     *                    null when the query itself could not be answered.
+     *                    Services that do not exist are absent from a successful
+     *                    result, so a caller that only sees the map cannot tell
+     *                    "not registered" from "could not ask". Returning null
+     *                    keeps the two apart: an empty array is a real answer,
+     *                    an empty answer to a failed query is not.
      */
-    public static function getServicesByNames(array $names, array $properties = [])
+    public static function getServicesByNames(array $names, array $properties = []): ?array
     {
         if (empty($names)) {
             return [];
@@ -1105,7 +1110,12 @@ class Win32Native
             self::resetConnections();
             Log::error('getServicesByNames: COM exception: ' . $e->getMessage());
 
-            return [];
+            // Null rather than an empty map: an empty map is what a successful
+            // query returns when it matches nothing, and callers read that as an
+            // authoritative "these services are not registered". A dropped SCM
+            // connection is a fact about this machine right now, not about the
+            // services, so it must not be reported as their absence.
+            return null;
         }
     }
 
