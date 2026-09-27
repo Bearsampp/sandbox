@@ -125,9 +125,11 @@ class DiskUsage
             ];
         }
 
+        $parts = self::normaliseParts($measured['parts'] ?? []);
+
         $result = [
-            'parts'       => self::normaliseParts($measured['parts'] ?? []),
-            'total'       => self::normaliseTotal($measured['total'] ?? []),
+            'parts'       => $parts,
+            'total'       => self::normaliseTotal($measured['total'] ?? [], $parts),
             'generatedAt' => (int) ($measured['generatedAt'] ?? time()),
             'available'   => true,
             'cached'      => false,
@@ -301,21 +303,47 @@ class DiskUsage
     }
 
     /**
-     * Coerces the collector's totals into integers.
+     * Derives the headline total from the parts that will be displayed.
      *
-     * The total is recomputed from the parts rather than taken from the script,
-     * because that identity is the useful property: if the rows ever disagree
-     * with the headline figure, the rows are the ones that can be checked.
+     * The total is recomputed here rather than taken from the collector, because
+     * that identity is the useful property: the rows a user can see have to add up
+     * to the figure printed above them, even if the collector ever reports
+     * something else. The collector's own figure is still compared against the
+     * derived one and any disagreement is logged, so a future bug in the walk is
+     * visible rather than quietly masked.
      *
-     * @param   array  $total  Raw total from the collector.
+     * @param   array  $total  Raw total from the collector, for comparison only.
+     * @param   array  $parts  Normalised parts, already cleaned and ordered.
      *
      * @return array
      */
-    private static function normaliseTotal(array $total): array
+    private static function normaliseTotal(array $total, array $parts): array
     {
+        $bytes = 0;
+        $files = 0;
+
+        foreach ($parts as $part) {
+            $bytes += $part['bytes'];
+            $files += $part['files'];
+        }
+
+        $reportedBytes = max(0, (int) ($total['bytes'] ?? 0));
+        $reportedFiles = max(0, (int) ($total['files'] ?? 0));
+
+        if ($parts && ($reportedBytes !== $bytes || $reportedFiles !== $files)) {
+            Log::debug(sprintf(
+                'Disk usage: collector total (bytes=%d, files=%d) disagrees with the sum of the '
+                . 'reported parts (bytes=%d, files=%d). Showing the derived figure.',
+                $reportedBytes,
+                $reportedFiles,
+                $bytes,
+                $files
+            ));
+        }
+
         return [
-            'bytes' => max(0, (int) ($total['bytes'] ?? 0)),
-            'files' => max(0, (int) ($total['files'] ?? 0)),
+            'bytes' => $bytes,
+            'files' => $files,
         ];
     }
 }
