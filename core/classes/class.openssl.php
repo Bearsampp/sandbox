@@ -852,7 +852,7 @@ class OpenSsl
 
         // Whitelist the name and reject "." / ".." so the deletion cannot climb
         // out of the certificate directory.
-        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $name) || $name === '.' || $name === '..' || strpos($name, '..') !== false) {
+        if (!$this->validateCertificateName($name)) {
             Log::error('Invalid certificate name for removal: ' . $name);
 
             return false;
