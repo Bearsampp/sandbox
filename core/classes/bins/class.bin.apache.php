@@ -810,9 +810,14 @@ class BinApache extends Module
     {
         $dest = Path::formatUnixPath($dest);
 
+        // "Indexes" is deliberately omitted: it enables directory listing, which
+        // would expose the whole homepage source tree (including the ajax/*.php
+        // handlers) to anyone who reaches this alias. Nothing in the dashboard
+        // relies on autoindex. "FollowSymLinks" is kept because the bin/ tree is
+        // reached through symlinks.
         return 'Alias /' . $name . ' "' . $dest . '"' . PHP_EOL . PHP_EOL .
             '<Directory "' . $dest . '">' . PHP_EOL .
-            '    Options Indexes FollowSymLinks MultiViews' . PHP_EOL .
+            '    Options FollowSymLinks MultiViews' . PHP_EOL .
             '    AllowOverride all' . PHP_EOL .
             $this->getRequiredContent() . PHP_EOL .
             '</Directory>' . PHP_EOL;
