@@ -803,21 +803,21 @@ class BinApache extends Module
      *
      * @param   string  $name  The name of the alias.
      * @param   string  $dest  The destination path of the alias.
+     * @param   bool    $allowIndexes  True to enable directory listing (user aliases); false for the
+     *                                 homepage alias, where listing would expose its source tree.
      *
      * @return string The alias content.
      */
-    public function getAliasContent($name, $dest)
+    public function getAliasContent($name, $dest, $allowIndexes = true)
     {
         $dest = Path::formatUnixPath($dest);
 
-        // "Indexes" is deliberately omitted: it enables directory listing, which
-        // would expose the whole homepage source tree (including the ajax/*.php
-        // handlers) to anyone who reaches this alias. Nothing in the dashboard
-        // relies on autoindex. "FollowSymLinks" is kept because the bin/ tree is
-        // reached through symlinks.
+        // "FollowSymLinks" is kept because the bin/ tree is reached through symlinks.
+        $options = ($allowIndexes ? 'Indexes ' : '') . 'FollowSymLinks MultiViews';
+
         return 'Alias /' . $name . ' "' . $dest . '"' . PHP_EOL . PHP_EOL .
             '<Directory "' . $dest . '">' . PHP_EOL .
-            '    Options FollowSymLinks MultiViews' . PHP_EOL .
+            '    Options ' . $options . PHP_EOL .
             '    AllowOverride all' . PHP_EOL .
             $this->getRequiredContent() . PHP_EOL .
             '</Directory>' . PHP_EOL;

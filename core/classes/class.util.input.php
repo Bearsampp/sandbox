@@ -278,6 +278,28 @@ class UtilInput
     }
 
     /**
+     * Prepares a value written between double quotes in a batch file (paths,
+     * display names). Inside quotes cmd treats & | < > ^ as literals, so they
+     * are kept and the filesystem identity of the path is preserved. Only
+     * control characters and quotes (invalid in Windows paths) are stripped,
+     * and "%" is doubled.
+     *
+     * @param   string|null  $value  The value to escape.
+     *
+     * @return string Escaped value, empty string for null/non-string input.
+     */
+    public static function sanitizeQuotedBatchValue($value)
+    {
+        if (!is_string($value)) {
+            return '';
+        }
+
+        $sanitized = preg_replace('/[\x00-\x1F\x7F"]/', '', $value);
+
+        return str_replace('%', '%%', $sanitized);
+    }
+
+    /**
      * Sanitizes output for display to prevent XSS attacks.
      * Escapes HTML special characters.
      *

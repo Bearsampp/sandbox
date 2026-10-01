@@ -200,13 +200,13 @@ class Nssm
         // Quotes are preserved for AppParameters, which legitimately carries
         // --defaults-file="..." style arguments built by the bin classes.
         $name         = UtilInput::sanitizeBatchValue($this->getName());
-        $binPath      = UtilInput::sanitizeBatchValue($this->getBinPath());
+        $binPath      = UtilInput::sanitizeQuotedBatchValue($this->getBinPath());
         $params       = UtilInput::sanitizeBatchValue($this->getParams(), true);
-        $displayName  = UtilInput::sanitizeBatchValue($this->getDisplayName());
-        $stdout       = UtilInput::sanitizeBatchValue($this->getStdout());
-        $stderr       = UtilInput::sanitizeBatchValue($this->getStderr());
+        $displayName  = UtilInput::sanitizeQuotedBatchValue($this->getDisplayName());
+        $stdout       = UtilInput::sanitizeQuotedBatchValue($this->getStdout());
+        $stderr       = UtilInput::sanitizeQuotedBatchValue($this->getStderr());
         $envExtra     = UtilInput::sanitizeBatchValue($this->getEnvironmentExtra());
-        $start        = UtilInput::sanitizeBatchValue($this->getStart() != null ? $this->getStart() : self::SERVICE_DEMAND_START);
+        $start        = UtilInput::sanitizeQuotedBatchValue($this->getStart() != null ? $this->getStart() : self::SERVICE_DEMAND_START);
 
         if ($name === '' || $binPath === '') {
             $this->writeLogError('Refusing to create service: name or binary path is empty after sanitization');
