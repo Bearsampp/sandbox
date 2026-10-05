@@ -199,15 +199,37 @@ class Util
     /**
      * Validates a port number.
      *
-     * @param   int  $port  The port number to validate.
+     * A padded setting such as '080' is a valid port and is accepted, because
+     * module configuration already tolerates it: the Apache bin validates its
+     * own configured port with is_numeric() > 0, which accepts leading zeros,
+     * so a stricter check here used to reject that port and abort the update.
+     * FILTER_VALIDATE_INT cannot be used for this because it reads a leading
+     * zero as an octal literal and rejects '080' outright.
+     *
+     * The value is therefore validated as decimal digits and normalized to an
+     * integer before the range check, so the padding is discarded rather than
+     * carried into any comparison. Callers that persist the port should cast
+     * with intval(), which is base 10 and keeps '080' -> 80.
+     *
+     * The (string) cast is required before ctype_digit(): given an int, PHP
+     * reads the value as a character code instead, so ctype_digit(80) would
+     * test 'P' and wrongly report false (and is deprecated since PHP 8.1).
+     *
+     * @param   mixed  $port  The port number to validate.
      *
      * @return bool Returns true if the port number is valid and within the range of 1 to 65535, otherwise false.
      */
     public static function isValidPort($port)
     {
-        return filter_var($port, FILTER_VALIDATE_INT, array(
-            'options' => array('min_range' => 1, 'max_range' => 65535)
-        )) !== false;
+        $portStr = trim((string) $port);
+
+        if (!ctype_digit($portStr)) {
+            return false;
+        }
+
+        $port = (int) $portStr;
+
+        return $port >= 1 && $port <= 65535;
     }
 
     /**
@@ -649,7 +671,8 @@ class Util
      * @param   bool         $useCache      Whether to use cached results (default: true).
      * @param   bool         $forceRefresh  Force refresh the cache even if valid (default: false).
      *
-     * @return array Returns an array of files found during the scan.
+     * @return array|false Returns an array of files found during the scan, or false if path discovery failed. A failed
+     *                      discovery returns false and is never cached, so an incomplete list cannot be reused later.
      */
     public static function getFilesToScan($path = null, $useCache = true, $forceRefresh = false)
     {
@@ -671,9 +694,22 @@ class Util
         Log::debug('File scan cache MISS (performing full scan)');
 
         // Perform the actual scan
-        $startTime   = self::getMicrotime();
-        $result      = array();
-        $pathsToScan = !empty($path) ? $path : self::getPathsToScan();
+        $startTime = self::getMicrotime();
+        $result    = array();
+
+        if (!empty($path)) {
+            $pathsToScan = $path;
+        } else {
+            $pathsToScan = self::getPathsToScan();
+            if ($pathsToScan === false) {
+                // Return before the cache is written: an incomplete list must not
+                // be reused, otherwise a transient scan failure poisons every
+                // later call that would have succeeded.
+                Log::error('getFilesToScan(): Path discovery failed, scan aborted and result not cached');
+
+                return false;
+            }
+        }
 
         foreach ($pathsToScan as $pathToScan) {
             $pathStartTime = self::getMicrotime();
@@ -718,12 +754,13 @@ class Util
      * important files within the BEARSAMPP environment, possibly for purposes like configuration
      * management, backup, or security auditing.
      *
-     * @return array An array of associative arrays, each containing 'path', 'includes', and 'recursive' keys.
+     * @return array|false Returns an array of associative arrays, each containing 'path', 'includes', and 'recursive' keys, or false if any module folder could not be scanned.
      */
     private static function getPathsToScan()
     {
         global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
-        $paths = array();
+        $paths      = array();
+        $scanFailed = false;
 
         // Alias
         $paths[] = array(
@@ -754,8 +791,8 @@ class Util
         );
 
         // Apache
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getApache()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getApache()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getApache()) . '/' . $folder,
                 'includes'  => array('.ini', '.conf'),
@@ -764,8 +801,8 @@ class Util
         }
 
         // PHP
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPhp()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getPhp()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getPhp()) . '/' . $folder,
                 'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
@@ -774,8 +811,8 @@ class Util
         }
 
         // MySQL
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getMysql()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
                 'includes'  => array('my.ini'),
@@ -784,8 +821,8 @@ class Util
         }
 
         // MariaDB
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getMariadb()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
                 'includes'  => array('my.ini'),
@@ -803,8 +840,8 @@ class Util
         }
 
         // PostgreSQL
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getPostgresql()) . '/' . $folder,
                 'includes'  => array('.conf', '.bat', '.ber'),
@@ -813,8 +850,8 @@ class Util
         }
 
         // Node.js
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getNodejs()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppBins->getNodejs()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/etc',
                 'includes'  => array('npmrc'),
@@ -828,8 +865,8 @@ class Util
         }
 
         // Composer
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getComposer()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppTools->getComposer()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getComposer()) . '/' . $folder,
                 'includes'  => array('giscus.json'),
@@ -838,8 +875,8 @@ class Util
         }
 
         // PowerShell
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPowerShell()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppTools->getPowerShell()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getPowerShell()) . '/' . $folder,
                 'includes'  => array('console.xml', '.ini', '.btm'),
@@ -848,8 +885,8 @@ class Util
         }
 
         // Python
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPython()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppTools->getPython()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getPython()) . '/' . $folder . '/bin',
                 'includes'  => array('.bat'),
@@ -863,8 +900,8 @@ class Util
         }
 
         // Ruby
-        $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getRuby()));
-        foreach (($folderList ?: array()) as $folder) {
+        $folderList = self::folderList(Path::getModuleRootPath($bearsamppTools->getRuby()), $scanFailed);
+        foreach ($folderList as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getRuby()) . '/' . $folder . '/bin',
                 'includes'  => array('!.dll', '!.exe'),
@@ -872,7 +909,39 @@ class Util
             );
         }
 
+        if ($scanFailed) {
+            Log::error('getPathsToScan(): One or more module folders could not be scanned, path discovery is incomplete');
+
+            return false;
+        }
+
         return $paths;
+    }
+
+    /**
+     * Returns the folder list of a module or tool root directory, recording a
+     * failed scan instead of passing it off as a module with no versions.
+     *
+     * A module root that cannot be opened is not the same as one that holds no
+     * version folders: treating it as empty would silently drop every file of
+     * that module from the scan. getFolderList() logs the offending path, so
+     * this only has to flag the failure for the caller.
+     *
+     * @param   string  $path        The module/tool root path to scan.
+     * @param   bool    $scanFailed  Set to true by reference when the directory cannot be read.
+     *
+     * @return array Returns the folder names, or an empty array when the scan failed.
+     */
+    private static function folderList($path, &$scanFailed)
+    {
+        $folderList = self::getFolderList($path);
+        if ($folderList === false) {
+            $scanFailed = true;
+
+            return array();
+        }
+
+        return $folderList;
     }
 
     /**
@@ -1021,6 +1090,10 @@ class Util
     /**
      * Gets the list of folders in the specified path.
      *
+     * A directory that cannot be opened is reported as false so callers can tell
+     * "no folders" apart from "scan failed"; treating it as an empty list would
+     * let a caller silently build a scan from missing paths.
+     *
      * @param   string  $path  The directory path to scan for folders.
      *
      * @return array|false Returns a sorted array of folder names, or false if the directory cannot be opened.
@@ -1031,6 +1104,8 @@ class Util
 
         $handle = @opendir($path);
         if (!$handle) {
+            Log::error('getFolderList(): Failed to open directory: ' . $path);
+
             return false;
         }
 

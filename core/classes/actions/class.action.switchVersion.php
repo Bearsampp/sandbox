@@ -257,7 +257,10 @@ class ActionSwitchVersion
         // scan folder
         $this->bearsamppSplash->incrProgressBar();
         if (!empty($this->pathsToScan)) {
-            Path::changePath(Util::getFilesToScan($this->pathsToScan));
+            $filesToScan = Util::getFilesToScan($this->pathsToScan);
+            if (!empty($filesToScan)) {
+                Path::changePath($filesToScan);
+            }
         }
 
         // switch
