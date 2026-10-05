@@ -76,18 +76,21 @@ class Util
                 continue;
             }
             if (is_dir($path . '/' . $file)) {
-                $r = self::clearFolder($path . '/' . $file);
-                if (!$r) {
+                $r = self::clearFolder($path . '/' . $file, $exclude);
+                if ($r === null || !$r['return']) {
                     $result['return'] = false;
+                    closedir($handle);
 
                     return $result;
                 }
+                $result['nb_files'] += $r['nb_files'];
             } else {
                 $r = @unlink($path . '/' . $file);
                 if ($r) {
                     $result['nb_files']++;
                 } else {
                     $result['return'] = false;
+                    closedir($handle);
 
                     return $result;
                 }
@@ -202,7 +205,9 @@ class Util
      */
     public static function isValidPort($port)
     {
-        return is_numeric($port) && ($port > 0 && $port <= 65535);
+        return filter_var($port, FILTER_VALIDATE_INT, array(
+            'options' => array('min_range' => 1, 'max_range' => 65535)
+        )) !== false;
     }
 
     /**
@@ -292,6 +297,10 @@ class Util
     /**
      * Performs replacements in a file based on a list of regular expression patterns.
      *
+     * Patterns are matched against each line content with its line ending removed, so
+     * end-anchored patterns (eg. '/^foo$/') match on both CRLF and LF files.
+     * The original line ending of each line is preserved on write.
+     *
      * @param   string  $path         The path to the file where replacements are to be made.
      * @param   array   $replaceList  An associative array where keys are regex patterns and values are replacement strings.
      *
@@ -299,39 +308,62 @@ class Util
      */
     public static function replaceInFile($path, $replaceList)
     {
-        if (file_exists($path)) {
-            $lines = file($path);
-            $fp    = fopen($path, 'w');
-            foreach ($lines as $nb => $line) {
-                $replaceDone = false;
-                foreach ($replaceList as $regex => $replace) {
-                    if (preg_match($regex, $line, $matches)) {
-                        $currentReplace = $replace;
-                        $countParams    = preg_match_all('/{{(\d+)}}/', $currentReplace, $paramsMatches);
-                        if ($countParams > 0 && $countParams <= count($matches)) {
-                            foreach ($paramsMatches[1] as $paramsMatch) {
-                                $currentReplace = str_replace('{{' . $paramsMatch . '}}', $matches[$paramsMatch], $currentReplace);
-                            }
+        if (!file_exists($path)) {
+            return;
+        }
+
+        $lines = file($path);
+        if ($lines === false) {
+            Log::error('replaceInFile(): Failed to read file: ' . $path);
+
+            return;
+        }
+
+        $fp = fopen($path, 'w');
+        if ($fp === false) {
+            Log::error('replaceInFile(): Failed to open file for writing: ' . $path);
+
+            return;
+        }
+
+        foreach ($lines as $nb => $line) {
+            // Preserve original line ending if present in $line
+            if (preg_match("/\r\n$/", $line)) {
+                $ending = "\r\n";
+            } elseif (preg_match("/\n$/", $line)) {
+                $ending = "\n";
+            } else {
+                $ending = '';
+            }
+            $content = rtrim($line, "\r\n");
+
+            $replaceDone = false;
+            foreach ($replaceList as $regex => $replace) {
+                if (preg_match($regex, $content, $matches)) {
+                    $currentReplace = $replace;
+                    $countParams    = preg_match_all('/{{(\d+)}}/', $currentReplace, $paramsMatches);
+                    if ($countParams > 0 && $countParams <= count($matches)) {
+                        foreach ($paramsMatches[1] as $paramsMatch) {
+                            $currentReplace = str_replace('{{' . $paramsMatch . '}}', $matches[$paramsMatch], $currentReplace);
                         }
-                        Log::trace('Replace in file ' . $path . ' :');
-                        Log::trace('## line_num: ' . trim($nb));
-                        Log::trace('## old: ' . trim($line));
-                        Log::trace('## new: ' . trim($currentReplace));
-
-                        // Preserve original line ending if present in $line
-                        $ending = (preg_match("/\r\n$/", $line)) ? "\r\n" : (preg_match("/\n$/", $line) ? "\n" : "");
-                        fwrite($fp, rtrim($currentReplace) . $ending);
-
-                        $replaceDone = true;
-                        break;
                     }
-                }
-                if (!$replaceDone) {
-                    fwrite($fp, $line);
+                    Log::trace('Replace in file ' . $path . ' :');
+                    Log::trace('## line_num: ' . trim($nb));
+                    Log::trace('## old: ' . trim($line));
+                    Log::trace('## new: ' . trim($currentReplace));
+
+                    fwrite($fp, rtrim($currentReplace, "\r\n") . $ending);
+
+                    $replaceDone = true;
+                    break;
                 }
             }
-            fclose($fp);
+            if (!$replaceDone) {
+                fwrite($fp, $line);
+            }
         }
+
+        fclose($fp);
     }
 
     /**
@@ -340,7 +372,7 @@ class Util
      *
      * @param   string  $path  The directory path to scan for version directories.
      *
-     * @return array|false Returns a sorted array of version suffixes, or false if the directory cannot be opened.
+     * @return array Returns a sorted array of version suffixes, or an empty array if the directory cannot be opened.
      */
     public static function getVersionList($path)
     {
@@ -348,7 +380,9 @@ class Util
 
         $handle = @opendir($path);
         if (!$handle) {
-            return false;
+            Log::debug('getVersionList(): Failed to open directory: ' . $path);
+
+            return $result;
         }
 
         $prefix = basename($path);
@@ -356,7 +390,7 @@ class Util
         while (false !== ($file = readdir($handle))) {
             $filePath = $path . '/' . $file;
             if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                if (strpos($file, $prefix) === 0) {
+                if (strpos($file, $prefix) === 0 && strlen($file) > strlen($prefix)) {
                     $version = substr($file, strlen($prefix));
                 } else {
                     $version = $file;
@@ -452,6 +486,10 @@ class Util
         $depth  = substr_count(str_replace($initPath, '', $startPath), '/');
         $result = array();
 
+        if (is_file($startPath . '/' . $checkFile)) {
+            $result[] = Path::formatUnixPath($startPath);
+        }
+
         $handle = @opendir($startPath);
         if (!$handle) {
             return $result;
@@ -466,8 +504,6 @@ class Util
                 foreach ($tmpResults as $tmpResult) {
                     $result[] = $tmpResult;
                 }
-            } elseif (is_file($startPath . '/' . $checkFile) && !in_array($startPath, $result)) {
-                $result[] = Path::formatUnixPath($startPath);
             }
         }
 
@@ -719,7 +755,7 @@ class Util
 
         // Apache
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getApache()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getApache()) . '/' . $folder,
                 'includes'  => array('.ini', '.conf'),
@@ -729,7 +765,7 @@ class Util
 
         // PHP
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPhp()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getPhp()) . '/' . $folder,
                 'includes'  => array('.php', '.bat', '.ini', '.reg', '.inc'),
@@ -739,7 +775,7 @@ class Util
 
         // MySQL
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMysql()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getMysql()) . '/' . $folder,
                 'includes'  => array('my.ini'),
@@ -749,7 +785,7 @@ class Util
 
         // MariaDB
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getMariadb()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getMariadb()) . '/' . $folder,
                 'includes'  => array('my.ini'),
@@ -768,7 +804,7 @@ class Util
 
         // PostgreSQL
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getPostgresql()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getPostgresql()) . '/' . $folder,
                 'includes'  => array('.conf', '.bat', '.ber'),
@@ -778,7 +814,7 @@ class Util
 
         // Node.js
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppBins->getNodejs()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppBins->getNodejs()) . '/' . $folder . '/etc',
                 'includes'  => array('npmrc'),
@@ -793,7 +829,7 @@ class Util
 
         // Composer
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getComposer()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getComposer()) . '/' . $folder,
                 'includes'  => array('giscus.json'),
@@ -803,7 +839,7 @@ class Util
 
         // PowerShell
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPowerShell()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getPowerShell()) . '/' . $folder,
                 'includes'  => array('console.xml', '.ini', '.btm'),
@@ -813,7 +849,7 @@ class Util
 
         // Python
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getPython()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getPython()) . '/' . $folder . '/bin',
                 'includes'  => array('.bat'),
@@ -828,7 +864,7 @@ class Util
 
         // Ruby
         $folderList = self::getFolderList(Path::getModuleRootPath($bearsamppTools->getRuby()));
-        foreach ($folderList as $folder) {
+        foreach (($folderList ?: array()) as $folder) {
             $paths[] = array(
                 'path'      => Path::getModuleRootPath($bearsamppTools->getRuby()) . '/' . $folder . '/bin',
                 'includes'  => array('!.dll', '!.exe'),
@@ -901,29 +937,36 @@ class Util
 
         $result = HttpClient::getApiJson($url);
         if (empty($result)) {
-            Log::error('Cannot retrieve latest github info for: ' . $result . ' RESULT');
+            Log::error('Cannot retrieve latest github info for: ' . $url);
             Log::trace('[VCHK-3] getLatestVersion() EXIT - empty response received');
 
             return null;
         }
 
         $resultArray = json_decode($result, true);
-        if (isset($resultArray['tag_name']) && isset($resultArray['assets'][0]['browser_download_url'])) {
-            $tagName     = $resultArray['tag_name'];
-            $downloadUrl = $resultArray['assets'][0]['browser_download_url'];
-            $name        = $resultArray['name'];
+        if (!is_array($resultArray)) {
+            Log::error('Cannot decode JSON response from: ' . $url);
+            Log::trace('[VCHK-3] getLatestVersion() EXIT - response is not valid JSON');
+
+            return null;
+        }
+
+        $tagName     = $resultArray['tag_name'] ?? null;
+        $downloadUrl = $resultArray['assets'][0]['browser_download_url'] ?? null;
+        $name        = $resultArray['name'] ?? '';
+        if ($tagName !== null && $downloadUrl !== null) {
             Log::trace('Latest version tag name: ' . $tagName);
             Log::trace('Download URL: ' . $downloadUrl);
             Log::trace('Name: ' . $name);
             Log::trace('[VCHK-3] getLatestVersion() SUCCESS - version found: ' . $tagName);
 
             return ['version' => $tagName, 'html_url' => $downloadUrl, 'name' => $name];
-        } else {
-            Log::error('Tag name, download URL, or name not found in the response: ' . $result);
-            Log::trace('[VCHK-3] getLatestVersion() EXIT - tag_name/download_url missing in JSON response');
-
-            return null;
         }
+
+        Log::error('Tag name, download URL, or name not found in the response: ' . $result);
+        Log::trace('[VCHK-3] getLatestVersion() EXIT - tag_name/download_url missing in JSON response');
+
+        return null;
     }
 
     /**
@@ -943,9 +986,9 @@ class Util
         // Forced unit mode
         if ($unit !== '') {
             return match ($unit) {
-                'GB' => number_format($size / (1 << 30), 2) . 'GB',
-                'MB' => number_format($size / (1 << 20), 2) . 'MB',
-                'KB' => number_format($size / (1 << 10), 2) . 'KB',
+                'GB' => number_format($size / (1024 ** 3), 2) . 'GB',
+                'MB' => number_format($size / (1024 ** 2), 2) . 'MB',
+                'KB' => number_format($size / (1024 ** 1), 2) . 'KB',
                 default => number_format($size) . ' bytes',
             };
         }
@@ -961,19 +1004,6 @@ class Util
         $power = min($power, count($units) - 1);
 
         return number_format($size / (1024 ** $power), 2) . $units[$power];
-    }
-
-    /**
-     * Checks if the operating system is 32-bit.
-     *
-     * @return bool True if the OS is 32-bit, false otherwise.
-     */
-    public static function is32BitsOs()
-    {
-        global $bearsamppRegistry;
-        $processor = $bearsamppRegistry->getProcessorRegKey();
-
-        return UtilString::contains($processor, 'x86');
     }
 
     /**
@@ -1031,8 +1061,16 @@ class Util
         global $bearsamppWinbinder, $bearsamppConfig;
 
         $caption = preg_replace('/[<>:"\/\\\\|?*\x00-\x1F]|\.$/', '', trim($caption));
+        if ($caption === '') {
+            Log::error('openFileContent(): Caption is empty, using default caption');
+            $caption = 'bearsampp';
+        }
         $tmpFile = Path::getTmpPath() . '/' . $caption . '.txt';
-        file_put_contents($tmpFile, $content);
+        if (file_put_contents($tmpFile, $content) === false) {
+            Log::error('openFileContent(): Failed to write temporary file: ' . $tmpFile);
+
+            return;
+        }
 
         // Open the file with the editor configured in bearsampp.conf
         $editor = $bearsamppConfig->getNotepad();
