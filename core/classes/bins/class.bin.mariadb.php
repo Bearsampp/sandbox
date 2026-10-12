@@ -316,7 +316,7 @@ class BinMariadb extends Module
                             $version = explode('-', $row[1]);
                             $version = count($version) > 1 ? $version[0] : $row[1];
                         }
-                        if ($row[0] == 'version_comment' && UtilString::startWith(strtolower($row[1]), 'mariadb')) {
+                        if ($row[0] == 'version_comment' && UtilString::startsWith(strtolower($row[1]), 'mariadb')) {
                             $isMariadb = true;
                         }
                         if ($isMariadb && $version !== false) {

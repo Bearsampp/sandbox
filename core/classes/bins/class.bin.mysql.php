@@ -366,7 +366,7 @@ class BinMysql extends Module
 
             $version = explode('-', $row[0]);
             $version = count($version) > 1 ? $version[0] : $row[0];
-            $isMysql = UtilString::startWith(strtolower($row[1]), 'mysql');
+            $isMysql = UtilString::startsWith(strtolower($row[1]), 'mysql');
 
             if (!$isMysql) {
                 Log::debug($this->getName() . ' port used by another DBMS: ' . $port);

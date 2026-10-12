@@ -15,11 +15,11 @@
  * validation, and secure random string/token/bytes generation.
  *
  * Note: This class is required directly by the bootstrap (class.root.php) because
- * the autoloader itself depends on UtilString::startWith().
+ * the autoloader itself depends on UtilString::startsWith().
  *
  * Usage:
  * ```
- * UtilString::startWith('foobar', 'foo'); // true
+ * UtilString::startsWith('foobar', 'foo'); // true
  * UtilString::random(16);                 // cryptographically secure random string
  * ```
  */
@@ -50,13 +50,13 @@ class UtilString
      *
      * @return bool Returns true if the string starts with the search substring, otherwise false.
      */
-    public static function startWith($string, $search)
+    public static function startsWith($string, $search)
     {
         if ($string === null || $string === '') {
             return false;
         }
 
-        return (substr($string, 0, strlen($search)) === $search);
+        return str_starts_with((string) $string, (string) $search);
     }
 
     /**
@@ -67,12 +67,13 @@ class UtilString
      *
      * @return bool Returns true if the string ends with the search substring, otherwise false.
      */
-    public static function endWith($string, $search)
+    public static function endsWith($string, $search)
     {
-        $length = strlen($search);
-        $start  = $length * -1;
+        if ($string === null || $string === '') {
+            return false;
+        }
 
-        return (substr($string, $start) === $search);
+        return str_ends_with((string) $string, (string) $search);
     }
 
     /**

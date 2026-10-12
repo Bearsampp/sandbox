@@ -10,7 +10,7 @@
 
 /**
  * Utility class providing a wide range of static methods for various purposes including:
- * - Input cleaning and sanitization have been moved to UtilInput. @see UtilInput
+ * - Input cleaning and sanitization have been moved to Sanitizer. @see Sanitizer
  * - String manipulation methods have been moved to UtilString. @see UtilString
  * - File and directory management functions for deleting, clearing, or finding files and directories.
  * - System utilities for handling registry operations, managing environment variables, and executing system commands.
@@ -24,7 +24,7 @@
  *
  * Usage Example:
  * ```
- * $cleanedData = UtilInput::cleanGetVar('data', 'text');
+ * $cleanedData = Sanitizer::cleanGetVar('data', 'text');
  * $isAvailable = Util::isValidIp('192.168.1.1');
  * ```
  *
@@ -973,14 +973,14 @@ class Util
                 }
             } elseif (is_file($startPath . '/' . $file)) {
                 foreach ($includes as $include) {
-                    if (UtilString::startWith($include, '!')) {
+                    if (UtilString::startsWith($include, '!')) {
                         $include = ltrim($include, '!');
-                        if (UtilString::startWith($file, '.') && !UtilString::endWith($file, $include)) {
+                        if (UtilString::startsWith($file, '.') && !UtilString::endsWith($file, $include)) {
                             $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         } elseif ($file != $include) {
                             $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         }
-                    } elseif (UtilString::endWith($file, $include) || $file == $include || empty($include)) {
+                    } elseif (UtilString::endsWith($file, $include) || $file == $include || empty($include)) {
                         $result[] = Path::formatUnixPath($startPath . '/' . $file);
                     }
                 }

@@ -9,19 +9,20 @@
  */
 
 /**
- * Input cleaning and sanitization utilities.
+ * Input cleaning and value/output sanitization utilities.
  *
  * Provides safe access to command-line arguments, GET, and POST variables, plus
- * sanitizers for PIDs, ports, service names, file paths, and HTML output.
+ * sanitizers for PIDs, ports, service names, file paths, batch values, HTML
+ * output, and URLs.
  *
  * Usage:
  * ```
- * $action = UtilInput::cleanArgv(1);
- * $page   = UtilInput::cleanGetVar('p');
- * $pid    = UtilInput::sanitizePID($rawPid);
+ * $action = Sanitizer::cleanArgv(1);
+ * $page   = Sanitizer::cleanGetVar('p');
+ * $pid    = Sanitizer::sanitizePID($rawPid);
  * ```
  */
-class UtilInput
+class Sanitizer
 {
     /**
      * Cleans and returns a specific command line argument based on the type specified.
