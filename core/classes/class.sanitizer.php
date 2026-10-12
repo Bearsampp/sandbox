@@ -146,7 +146,7 @@ class Sanitizer
      * Sanitizes a port number by ensuring it's a valid integer in the correct range.
      * This prevents command injection through port parameters.
      *
-     * The validation rule itself lives in Util::isValidPort() so that this
+     * The validation rule itself lives in Validator::isValidPort() so that this
      * class and the bin classes cannot drift apart; this method only adds the
      * logging and returns the normalized integer. Leading zeros are accepted
      * and stripped, so '080' becomes 80.
@@ -159,8 +159,8 @@ class Sanitizer
     {
         $portStr = trim((string) $port);
 
-        if (!Util::isValidPort($port)) {
-            // The rule is applied only once, in Util::isValidPort(). Here the
+        if (!Validator::isValidPort($port)) {
+            // The rule is applied only once, in Validator::isValidPort(). Here the
             // digit test just separates the two rejection reasons in the log.
             Log::warning(
                 ctype_digit($portStr)

@@ -410,7 +410,7 @@ class Util
      */
     private static function getPathsToScan()
     {
-        global $bearsamppRoot, $bearsamppCore, $bearsamppBins, $bearsamppApps, $bearsamppTools;
+        global $bearsamppBins, $bearsamppTools;
         $paths      = array();
         $scanFailed = false;
 
