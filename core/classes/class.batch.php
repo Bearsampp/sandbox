@@ -98,11 +98,11 @@ class Batch
         $result = self::exec('getProcessUsingPort', 'NETSTAT -aon', 4);
         if ($result !== false) {
             foreach ($result as $row) {
-                if (!UtilString::startsWith($row, 'TCP')) {
+                if (!Str::startsWith($row, 'TCP')) {
                     continue;
                 }
                 $rowExp = explode(' ', preg_replace('/\s+/', ' ', $row));
-                if (count($rowExp) == 5 && UtilString::endsWith($rowExp[1], ':' . $sanitizedPort) && $rowExp[3] == 'LISTENING') {
+                if (count($rowExp) == 5 && Str::endsWith($rowExp[1], ':' . $sanitizedPort) && $rowExp[3] == 'LISTENING') {
                     $pid = intval($rowExp[4]);
                     $exe = self::findExeByPid($pid);
                     if ($exe !== false) {
@@ -161,7 +161,7 @@ class Batch
         $result = self::exec('getPearVersion', 'CMD /C "' . $bearsamppBins->getPhp()->getPearExe() . '" -V', 5);
         if (is_array($result)) {
             foreach ($result as $row) {
-                if (UtilString::startsWith($row, 'PEAR Version:')) {
+                if (Str::startsWith($row, 'PEAR Version:')) {
                     $expResult = explode(' ', $row);
                     if (count($expResult) == 3) {
                         return trim($expResult[2]);
@@ -338,7 +338,7 @@ class Batch
         $result = self::exec('getOsInfo', 'ver', 5);
         if (is_array($result)) {
             foreach ($result as $row) {
-                if (UtilString::startsWith($row, 'Microsoft')) {
+                if (Str::startsWith($row, 'Microsoft')) {
                     return trim($row);
                 }
             }
@@ -461,7 +461,7 @@ class Batch
 
         // Redirect output
         if ($catchOutput) {
-            $content = '(' . PHP_EOL . $content . PHP_EOL . ') > "' . $resultFile . '"' . (!UtilString::endsWith($content, '2') ? ' 2>&1' : '');
+            $content = '(' . PHP_EOL . $content . PHP_EOL . ') > "' . $resultFile . '"' . (!Str::endsWith($content, '2') ? ' 2>&1' : '');
         }
 
         // Header
@@ -555,6 +555,6 @@ class Batch
     {
         global $bearsamppCore;
 
-        return Path::formatWindowsPath(Path::getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . UtilString::random() . $ext);
+        return Path::formatWindowsPath(Path::getTmpPath() . '/' . (!empty($customName) ? $customName . '-' : '') . Random::random() . $ext);
     }
 }

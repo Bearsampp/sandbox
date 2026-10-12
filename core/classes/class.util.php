@@ -11,8 +11,11 @@
 /**
  * Utility class providing a wide range of static methods for various purposes including:
  * - Input cleaning and sanitization have been moved to Sanitizer. @see Sanitizer
- * - String manipulation methods have been moved to UtilString. @see UtilString
- * - File and directory management functions for deleting, clearing, or finding files and directories.
+ * - String manipulation methods have been moved to Str. @see Str
+ * - Random generation and secure tokens have been moved to Random. @see Random
+ * - Filesystem operations (clearing, deleting, finding, enumerating) have been moved to Filesystem. @see Filesystem
+ * - Input validation (IP, port, domain) has been moved to Validator. @see Validator
+ * - The loading screen has been moved to LoadingScreen. @see LoadingScreen
  * - System utilities for handling registry operations, managing environment variables, and executing system commands.
  * - Helper functions for encoding, decoding, and file operations.
  *
@@ -25,7 +28,7 @@
  * Usage Example:
  * ```
  * $cleanedData = Sanitizer::cleanGetVar('data', 'text');
- * $isAvailable = Util::isValidIp('192.168.1.1');
+ * $isAvailable = Validator::isValidIp('192.168.1.1');
  * ```
  *
  * Each method is self-contained and provides specific functionality, making this class a central point for
@@ -33,204 +36,6 @@
  */
 class Util
 {
-
-    /**
-     * Clears multiple directories by delegating each one to clearFolder.
-     *
-     * @param   array  $paths    The paths of the directories to clear.
-     * @param   array  $exclude  An array of filenames to exclude from deletion.
-     *
-     * @return array Returns an associative array keyed by path, containing the clearFolder result for each directory.
-     */
-    public static function clearFolders($paths, $exclude = array())
-    {
-        $result = array();
-        foreach ($paths as $path) {
-            $result[$path] = self::clearFolder($path, $exclude);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Recursively clears all files and directories within a specified directory, excluding specified items.
-     *
-     * @param   string  $path     The path of the directory to clear.
-     * @param   array   $exclude  An array of filenames to exclude from deletion.
-     *
-     * @return array|null Returns an array with the operation status and count of files deleted, or null if the directory cannot be opened.
-     */
-    public static function clearFolder($path, $exclude = array())
-    {
-        $result             = array();
-        $result['return']   = true;
-        $result['nb_files'] = 0;
-
-        $handle = @opendir($path);
-        if (!$handle) {
-            return null;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..' || in_array($file, $exclude)) {
-                continue;
-            }
-            if (is_dir($path . '/' . $file)) {
-                $r = self::clearFolder($path . '/' . $file, $exclude);
-                if ($r === null || !$r['return']) {
-                    $result['return'] = false;
-                    closedir($handle);
-
-                    return $result;
-                }
-                $result['nb_files'] += $r['nb_files'];
-            } else {
-                $r = @unlink($path . '/' . $file);
-                if ($r) {
-                    $result['nb_files']++;
-                } else {
-                    $result['return'] = false;
-                    closedir($handle);
-
-                    return $result;
-                }
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Recursively deletes a directory and all its contents.
-     *
-     * @param   string  $path  The path of the directory to delete.
-     *
-     * @return void
-     */
-    public static function deleteFolder($path)
-    {
-        if (is_dir($path)) {
-            $path  = rtrim($path, '/\\') . '/';
-            $files = glob($path . '*', GLOB_MARK);
-
-            if ($files === false) {
-                Log::error("deleteFolder(): Failed to glob path: " . $path);
-
-                return;
-            }
-
-            foreach ($files as $file) {
-                $normalizedFile = rtrim($file, '/\\');
-
-                if (is_link($normalizedFile)) {
-                    if (!@unlink($normalizedFile) && !@rmdir($normalizedFile)) {
-                        Log::error("deleteFolder(): Failed to unlink symlink: " . $normalizedFile);
-                    }
-                } elseif (is_dir($file)) {
-                    self::deleteFolder($file);
-                } else {
-                    if (!@unlink($normalizedFile)) {
-                        Log::error("deleteFolder(): Failed to unlink file: " . $normalizedFile);
-                    }
-                }
-            }
-
-            if (!@rmdir($path)) {
-                // Only log error if directory still exists (might have been deleted by recursion)
-                if (is_dir($path)) {
-                    Log::error("deleteFolder(): Failed to remove directory: " . $path);
-                }
-            }
-        }
-    }
-
-    /**
-     * Recursively searches for a file starting from a specified directory.
-     *
-     * @param   string  $startPath  The directory path to start the search.
-     * @param   string  $findFile   The filename to search for.
-     *
-     * @return string|false Returns the path to the file if found, or false if not found.
-     */
-    public static function findFile($startPath, $findFile)
-    {
-        $result = false;
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return false;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file)) {
-                $result = self::findFile($startPath . '/' . $file, $findFile);
-                if ($result !== false) {
-                    break;
-                }
-            } elseif ($file == $findFile) {
-                $result = Path::formatUnixPath($startPath . '/' . $file);
-                break;
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
-     * Validates an IP address.
-     *
-     * @param   string  $ip  The IP address to validate.
-     *
-     * @return bool Returns true if the IP address is valid, otherwise false.
-     */
-    public static function isValidIp($ip)
-    {
-        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
-            || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
-    }
-
-    /**
-     * Validates a port number.
-     *
-     * A padded setting such as '080' is a valid port and is accepted, because
-     * module configuration already tolerates it: the Apache bin validates its
-     * own configured port with is_numeric() > 0, which accepts leading zeros,
-     * so a stricter check here used to reject that port and abort the update.
-     * FILTER_VALIDATE_INT cannot be used for this because it reads a leading
-     * zero as an octal literal and rejects '080' outright.
-     *
-     * The value is therefore validated as decimal digits and normalized to an
-     * integer before the range check, so the padding is discarded rather than
-     * carried into any comparison. Callers that persist the port should cast
-     * with intval(), which is base 10 and keeps '080' -> 80.
-     *
-     * The (string) cast is required before ctype_digit(): given an int, PHP
-     * reads the value as a character code instead, so ctype_digit(80) would
-     * test 'P' and wrongly report false (and is deprecated since PHP 8.1).
-     *
-     * @param   mixed  $port  The port number to validate.
-     *
-     * @return bool Returns true if the port number is valid and within the range of 1 to 65535, otherwise false.
-     */
-    public static function isValidPort($port)
-    {
-        $portStr = trim((string) $port);
-
-        if (!ctype_digit($portStr)) {
-            return false;
-        }
-
-        $port = (int) $portStr;
-
-        return $port >= 1 && $port <= 65535;
-    }
 
     /**
      * Checks if the current process is running with administrator/elevated privileges.
@@ -389,45 +194,6 @@ class Util
     }
 
     /**
-     * Gets the list of version directories in the specified path.
-     * Returns version suffixes by stripping the common prefix (basename of path) if present.
-     *
-     * @param   string  $path  The directory path to scan for version directories.
-     *
-     * @return array Returns a sorted array of version suffixes, or an empty array if the directory cannot be opened.
-     */
-    public static function getVersionList($path)
-    {
-        $result = array();
-
-        $handle = @opendir($path);
-        if (!$handle) {
-            Log::debug('getVersionList(): Failed to open directory: ' . $path);
-
-            return $result;
-        }
-
-        $prefix = basename($path);
-
-        while (false !== ($file = readdir($handle))) {
-            $filePath = $path . '/' . $file;
-            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                if (strpos($file, $prefix) === 0 && strlen($file) > strlen($prefix)) {
-                    $version = substr($file, strlen($prefix));
-                } else {
-                    $version = $file;
-                }
-                $result[] = $version;
-            }
-        }
-
-        closedir($handle);
-        natcasesort($result);
-
-        return $result;
-    }
-
-    /**
      * Gets the current Unix timestamp with microseconds.
      *
      * @return float Returns the current Unix timestamp combined with microseconds.
@@ -494,47 +260,6 @@ class Util
 
 
     /**
-     * Recursively searches for repositories starting from a given path up to a specified depth.
-     *
-     * @param   string  $initPath   The initial path from where the search begins.
-     * @param   string  $startPath  The current path from where to search.
-     * @param   string  $checkFile  The file name to check for in the directory to consider it a repository.
-     * @param   int     $maxDepth   The maximum depth of directories to search into.
-     *
-     * @return array Returns an array of paths that contain the specified file.
-     */
-    public static function findRepos($initPath, $startPath, $checkFile, $maxDepth = 1)
-    {
-        $depth  = substr_count(str_replace($initPath, '', $startPath), '/');
-        $result = array();
-
-        if (is_file($startPath . '/' . $checkFile)) {
-            $result[] = Path::formatUnixPath($startPath);
-        }
-
-        $handle = @opendir($startPath);
-        if (!$handle) {
-            return $result;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-            if (is_dir($startPath . '/' . $file) && ($initPath == $startPath || $depth <= $maxDepth)) {
-                $tmpResults = self::findRepos($initPath, $startPath . '/' . $file, $checkFile, $maxDepth);
-                foreach ($tmpResults as $tmpResult) {
-                    $result[] = $tmpResult;
-                }
-            }
-        }
-
-        closedir($handle);
-
-        return $result;
-    }
-
-    /**
      * Converts an image file to a base64 encoded string.
      *
      * @param   string  $path  The path to the image file.
@@ -588,79 +313,6 @@ class Util
     public static function cp1252ToUtf8($data)
     {
         return iconv('WINDOWS-1252', 'UTF-8//IGNORE', $data);
-    }
-
-    /**
-     * Initiates a loading process using external components.
-     *
-     * @return void
-     */
-    public static function startLoading()
-    {
-        global $bearsamppCore, $bearsamppWinbinder;
-
-        Log::trace('startLoading() called');
-        Log::trace('PHP executable: ' . Path::getPhpExe());
-        Log::trace('Root file: ' . Core::isRoot_FILE);
-        Log::trace('Action: ' . Action::LOADING);
-
-        Log::trace('Executing command: ' . Path::getPhpExe() . ' ' . Core::isRoot_FILE . ' ' . Action::LOADING);
-
-        $result = $bearsamppWinbinder->exec(Path::getPhpExe(), [Core::isRoot_FILE, Action::LOADING], true, false);
-        Log::trace('exec() returned: ' . var_export($result, true));
-
-        Log::trace('startLoading() completed');
-    }
-
-    /**
-     * Stops a previously started loading process and cleans up related resources.
-     *
-     * @return void
-     */
-    public static function stopLoading()
-    {
-        global $bearsamppCore;
-        if (file_exists($bearsamppCore->getLoadingPid())) {
-            $pids = file($bearsamppCore->getLoadingPid());
-            foreach ($pids as $pid) {
-                Win32Ps::kill($pid);
-            }
-            @unlink($bearsamppCore->getLoadingPid());
-        }
-
-        // Clean up status file
-        self::clearLoadingText();
-    }
-
-    /**
-     * Updates the loading screen text (if loading screen is active)
-     * This allows dynamic updates to show which service is being processed
-     *
-     * @param   string  $text  The text to display on the loading screen
-     *
-     * @return void
-     */
-    public static function updateLoadingText($text)
-    {
-        global $bearsamppCore;
-
-        $statusFile = Path::getTmpPath() . '/loading_status.txt';
-        file_put_contents($statusFile, json_encode(['text' => $text]));
-    }
-
-    /**
-     * Clears the loading status file
-     *
-     * @return void
-     */
-    public static function clearLoadingText()
-    {
-        global $bearsamppCore;
-
-        $statusFile = Path::getTmpPath() . '/loading_status.txt';
-        if (file_exists($statusFile)) {
-            @unlink($statusFile);
-        }
     }
 
     /**
@@ -934,7 +586,7 @@ class Util
      */
     private static function folderList($path, &$scanFailed)
     {
-        $folderList = self::getFolderList($path);
+        $folderList = Filesystem::getFolderList($path);
         if ($folderList === false) {
             $scanFailed = true;
 
@@ -973,14 +625,14 @@ class Util
                 }
             } elseif (is_file($startPath . '/' . $file)) {
                 foreach ($includes as $include) {
-                    if (UtilString::startsWith($include, '!')) {
+                    if (Str::startsWith($include, '!')) {
                         $include = ltrim($include, '!');
-                        if (UtilString::startsWith($file, '.') && !UtilString::endsWith($file, $include)) {
+                        if (Str::startsWith($file, '.') && !Str::endsWith($file, $include)) {
                             $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         } elseif ($file != $include) {
                             $result[] = Path::formatUnixPath($startPath . '/' . $file);
                         }
-                    } elseif (UtilString::endsWith($file, $include) || $file == $include || empty($include)) {
+                    } elseif (Str::endsWith($file, $include) || $file == $include || empty($include)) {
                         $result[] = Path::formatUnixPath($startPath . '/' . $file);
                     }
                 }
@@ -1074,54 +726,6 @@ class Util
 
         return number_format($size / (1024 ** $power), 2) . $units[$power];
     }
-
-    /**
-     * Validates a domain name based on specific criteria.
-     *
-     * @param   string  $domainName  The domain name to validate.
-     *
-     * @return bool Returns true if the domain name is valid, false otherwise.
-     */
-    public static function isValidDomainName($domainName)
-    {
-        return filter_var($domainName, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== false;
-    }
-
-    /**
-     * Gets the list of folders in the specified path.
-     *
-     * A directory that cannot be opened is reported as false so callers can tell
-     * "no folders" apart from "scan failed"; treating it as an empty list would
-     * let a caller silently build a scan from missing paths.
-     *
-     * @param   string  $path  The directory path to scan for folders.
-     *
-     * @return array|false Returns a sorted array of folder names, or false if the directory cannot be opened.
-     */
-    public static function getFolderList($path)
-    {
-        $result = array();
-
-        $handle = @opendir($path);
-        if (!$handle) {
-            Log::error('getFolderList(): Failed to open directory: ' . $path);
-
-            return false;
-        }
-
-        while (false !== ($file = readdir($handle))) {
-            $filePath = $path . '/' . $file;
-            if ($file != '.' && $file != '..' && is_dir($filePath) && $file != 'current') {
-                $result[] = $file;
-            }
-        }
-
-        closedir($handle);
-        natcasesort($result);
-
-        return $result;
-    }
-
 
     /**
      * Opens the given content in a temporary file using the editor configured in bearsampp.conf.
