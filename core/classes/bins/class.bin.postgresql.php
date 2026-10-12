@@ -576,7 +576,7 @@ class BinPostgresql extends Module
 
         if (file_exists($path . '/data')) {
             // Even if it exists, ensure placeholders are replaced in the whole folder
-            $filesToScan = Util::getFilesToScan(array(
+            $filesToScan = FileScanner::getFilesToScan(array(
                 array(
                     'path'      => $path,
                     'includes'  => array('.conf', '.bat', '.ber'),
@@ -593,7 +593,7 @@ class BinPostgresql extends Module
         Batch::initializePostgresql($path);
 
         // Replace placeholders in the newly created data directory and the whole version folder
-        $filesToScan = Util::getFilesToScan(array(
+        $filesToScan = FileScanner::getFilesToScan(array(
             array(
                 'path'      => $path,
                 'includes'  => array('.conf', '.bat', '.ber'),

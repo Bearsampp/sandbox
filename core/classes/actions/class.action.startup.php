@@ -757,7 +757,7 @@ class ActionStartup
         }
 
         $scanStartTime = Util::getMicrotime();
-        $scanResult    = Util::getFilesToScan();
+        $scanResult    = FileScanner::getFilesToScan();
         $scanDuration  = round(Util::getMicrotime() - $scanStartTime, 3);
 
         if ($scanResult === false) {

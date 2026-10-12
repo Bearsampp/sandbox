@@ -103,7 +103,7 @@ class ActionReload
 
             // Update paths in scanned files
             if (!empty($pathsToScan)) {
-                $filesToScan = Util::getFilesToScan($pathsToScan);
+                $filesToScan = FileScanner::getFilesToScan($pathsToScan);
                 if (!empty($filesToScan)) {
                     Path::changePath($filesToScan);
                 }
