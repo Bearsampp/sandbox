@@ -21,5 +21,6 @@ jobs:
               with:
                   workflow: combine_releases.yml
                   repo: Bearsampp/Bearsampp
+                  ref: main
                   # Required when using the `repo` option. Either a PAT or a token generated from the GitHub app or CLI
                   token: "${{ secrets.GH_PAT }}"
